@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/sub.css' />">
+<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
 </head>
 <body>
 	<div id="wrap">
