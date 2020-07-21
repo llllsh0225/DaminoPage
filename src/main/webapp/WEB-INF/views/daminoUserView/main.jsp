@@ -288,10 +288,10 @@
 						<p>03138 서울특별시 종구 돈화문로 26 단성골드빌딩 KG아이티뱅크｜대표이사 : 오수현, 강수현, 정민균,
 							정민식, 김진혁</p>
 						<p>사업자 등록번호: 220-81-03371｜통신판매업신고: 강남 5064호｜개인정보 보호책임자 : 이승재</p>
-						<p>문의 : admin@dominos.co.kr</p>
-						<p>Copyright ⓒ Domino’s Pizza. All rights reserved.</p>
+						<p>문의 : admin@daminos.co.kr</p>
+						<p>Copyright ⓒ Damino’s Pizza. All rights reserved.</p>
 
-						<p class="notice">KG아이티뱅크의 사전 서면동의 없이 ㅇㅇ 사이트(PC, 모바일, 앱)의 일체의
+						<p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 사이트(PC, 모바일, 앱)의 일체의
 							정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
 					</div>
 

@@ -107,4 +107,48 @@ public class ViewTestController {
 		return mav;
 	}
 	
+	@RequestMapping("/findidpw.do")
+	public ModelAndView getFindIdPw() {
+		System.out.println("아이디/비밀번호 찾기 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/find_id_pw");
+		return mav;
+	}
+	
+	@RequestMapping("/changeinfo.do")
+	public ModelAndView getChangeInfo() {
+		System.out.println("회원 정보변경 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/change_info");
+		return mav;
+	}
+	
+	@RequestMapping("/signup1.do")
+	public ModelAndView getSignUp1() {
+		System.out.println("회원가입 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/sign_up_1");
+		return mav;
+	}
+	
+	@RequestMapping("/userinfoconfirm.do")
+	public ModelAndView getUserInfoConfirm() {
+		System.out.println("회원 본인여부 확인 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/user_info_confirm");
+		return mav;
+	}
+	
+	@RequestMapping("/withdrawal.do")
+	public ModelAndView getWithdrawal() {
+		System.out.println("회원탈퇴 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/withdrawal");
+		return mav;
+	}
 }
