@@ -25,10 +25,21 @@ public class ViewTestController {
 		return mav;
 	}
 
-	@RequestMapping("/quickOrdermain.do")
-	public String getQuickOrderMainPage() {
-		System.out.println("퀵오더메인 열기");
+	@RequestMapping("/basketdetail.do")
+	public ModelAndView getBasketDetailPage() {
+		System.out.println("장바구니 상세페이지 열기");
 		
-		return "quickOrdermain";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/basket/basket-detail");
+		return mav;
+	}
+	
+	@RequestMapping("/basketempty.do")
+	public ModelAndView getBasketEmptyPage() {
+		System.out.println("빈 장바구니 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/basket/basket-empty");
+		return mav;
 	}
 }
