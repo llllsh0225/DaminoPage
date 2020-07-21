@@ -51,4 +51,23 @@ public class ViewTestController {
 		mav.setViewName("/service/mania");
 		return mav;
 	}
+	
+	@RequestMapping("/law.do")
+	public ModelAndView getLawPage() {
+		System.out.println("이용약관 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/terms/law");
+		return mav;
+	}
+	
+	@RequestMapping("/privacy.do")
+	public ModelAndView getPrivacyPage() {
+		System.out.println("개인정보 처리방침 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/terms/privacy");
+		return mav;
+	}
+	
 }
