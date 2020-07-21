@@ -6,9 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+	
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
+	<!-- 메인페이지 슬라이드 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
+	<!-- 더보기 슬라이드로 내려오는 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	
+	
 </head>
 <body>
 	<div id="wrap">
