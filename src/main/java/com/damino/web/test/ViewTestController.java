@@ -42,4 +42,13 @@ public class ViewTestController {
 		mav.setViewName("/basket/basket-empty");
 		return mav;
 	}
+	
+	@RequestMapping("/mania.do")
+	public ModelAndView getManiaPage() {
+		System.out.println("매니아 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/service/mania");
+		return mav;
+	}
 }
