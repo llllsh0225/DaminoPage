@@ -19,89 +19,89 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
 	<style>
-#card_add .pop_wrap {
-	position: fixed;
-	top: 50%;
-	width: 490px;
-	margin-left: -245px;
-	margin-top: -35px;
-}
-
-#card_add .pop_wrap .pop_content p {
-	font-size: 18px;
-	color: #fff;
-	text-align: center
-}
-
-.pop_toast {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 100;
-}
-
-.pop_toast.open {
-	display: block
-}
-
-.pop_toast .bg {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-}
-
-.pop_toast .pop_wrap {
-	overflow: hidden;
-	position: absolute;
-	top: 100px;
-	left: 50%;
-	min-width: 400px;
-	min-height: 70px;
-	margin-left: -200px;
-	padding: 20px;
-	background:
-		url(https://cdn.dominos.co.kr/renewal2018/w/img/bg/bg_color_navy.png)
-		repeat 0 0;
-	border-radius: 12px;
-}
-
-.pop_toast .pop_wrap .btn_close3 {
-	position: absolute;
-	top: 15px;
-	right: 20px;
-}
-
-.pop_toast .pop_header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 66px;
-	padding: 0 40px;
-	background-color: #eeece9;
-	line-height: 66px;
-}
-
-.pop_toast .pop_header h2 {
-	font-size: 30px;
-	font-weight: 500;
-	color: #38474f;
-}
-
-.pop_toast .pop_content {
-	position: relative;
-	width: 100%;
-	padding: 0;
-}
-
-.pop_type2 .pop_wrap .btn_close3 {
-	position: absolute;
-	top: 15px;
-	right: 20px;
-}
+	#card_add .pop_wrap {
+		position: fixed;
+		top: 50%;
+		width: 490px;
+		margin-left: -245px;
+		margin-top: -35px;
+	}
+	
+	#card_add .pop_wrap .pop_content p {
+		font-size: 18px;
+		color: #fff;
+		text-align: center
+	}
+	
+	.pop_toast {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+	}
+	
+	.pop_toast.open {
+		display: block
+	}
+	
+	.pop_toast .bg {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.pop_toast .pop_wrap {
+		overflow: hidden;
+		position: absolute;
+		top: 100px;
+		left: 50%;
+		min-width: 400px;
+		min-height: 70px;
+		margin-left: -200px;
+		padding: 20px;
+		background:
+			url(https://cdn.dominos.co.kr/renewal2018/w/img/bg/bg_color_navy.png)
+			repeat 0 0;
+		border-radius: 12px;
+	}
+	
+	.pop_toast .pop_wrap .btn_close3 {
+		position: absolute;
+		top: 15px;
+		right: 20px;
+	}
+	
+	.pop_toast .pop_header {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 66px;
+		padding: 0 40px;
+		background-color: #eeece9;
+		line-height: 66px;
+	}
+	
+	.pop_toast .pop_header h2 {
+		font-size: 30px;
+		font-weight: 500;
+		color: #38474f;
+	}
+	
+	.pop_toast .pop_content {
+		position: relative;
+		width: 100%;
+		padding: 0;
+	}
+	
+	.pop_type2 .pop_wrap .btn_close3 {
+		position: absolute;
+		top: 15px;
+		right: 20px;
+	}
 
 /* <!-- //기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 --> */
 </style>
@@ -793,4 +793,5 @@
 	</footer>
 	<!-- //footer -->
 </div><!-- //wrap -->
+</body>
 </html>
