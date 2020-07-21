@@ -24,4 +24,11 @@ public class ViewTestController {
 		
 		return mav;
 	}
+
+	@RequestMapping("/quickOrdermain.do")
+	public String getQuickOrderMainPage() {
+		System.out.println("퀵오더메인 열기");
+		
+		return "quickOrdermain";
+	}
 }
