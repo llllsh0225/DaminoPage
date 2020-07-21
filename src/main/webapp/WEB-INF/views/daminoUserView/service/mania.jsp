@@ -130,9 +130,7 @@
 											피자 대중화를 선도하였습니다.
 										</p>
 										<div class="img_box">
-											<img
-												src="../../newcdn.dominos.co.kr/renewal2018/w/img/visual_overview.jpg"
-												alt="">
+											<img src="<c:url value='/resources/images/user/mania/visual_overview.jpg' />" alt="">
 										</div>
 										<p>
 											지금까지 많은 사랑을 받아왔고 앞으로도 더 많은 사랑을 받을 브랜드이기에 그 성원을 고객들에게 보답하고자 <br>온라인
@@ -171,17 +169,11 @@
 							<div id="tab02" class="tab-content">
 								<div class="new_mania">
 									<div class="img_box">
-										<img
-											src="../../newcdn.dominos.co.kr/renewal2018/w/img/mania/img_2-1.jpg"
-											alt=""> <img
-											src="../../newcdn.dominos.co.kr/renewal2018/w/img/mania/img_2-2.jpg"
-											alt=""> <img
-											src="../../newcdn.dominos.co.kr/renewal2018/w/img/mania/img_2-3.jpg"
-											alt=""> <img
-											src="../../newcdn.dominos.co.kr/renewal2018/w/img/mania/img_2-4.jpg"
-											alt=""> <img
-											src="../../newcdn.dominos.co.kr/renewal2018/w/img/mania/img_2-5.jpg"
-											alt="">
+										<img src="<c:url value='/resources/images/user/mania/img_2-1.jpg'/>" alt=""> 
+										<img src="<c:url value='/resources/images/user/mania/img_2-2.jpg'/>" alt=""> 
+										<img src="<c:url value='/resources/images/user/mania/img_2-3.jpg'/>" alt=""> 
+										<img src="<c:url value='/resources/images/user/mania/img_2-4.jpg'/>" alt=""> 
+										<img src="<c:url value='/resources/images/user/mania/img_2-5.jpg'/>" alt=""> 
 									</div>
 									<div class="mania_coupon_btn">
 										<a href="https://web.dominos.co.kr/mypage/myCoupon"
@@ -279,15 +271,11 @@
 				<div class="awards-area">
 					<div class="inner-box">
 						<ul>
-							<li><img
-								src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards.png"
-								alt="">
+							<li><img src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards.png" alt="">
 								<p>
 									식품안전<br>경영시스템 인증
 								</p></li>
-							<li><img
-								src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards2.png"
-								alt="">
+							<li><img src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards2.png" alt="">
 								<p>
 									지식경제부<br>우수디자인 선정
 								</p></li>
