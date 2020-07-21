@@ -64,7 +64,7 @@
 .mania .new_mania_info .domino_pizza_tit{text-align:center;padding-top:5px;}
 .mania .new_mania_info .domino_pizza_tit span{font-family: 'Bebas';display: block;position: relative;font-size: 24px;color: #e51937;line-height: 24px;letter-spacing: 0.8em; z-index: 1;}
 .mania .new_mania_info .domino_pizza_tit strong{display: block;position: relative; margin-top: 20px;padding-bottom: 15px;font-size: 30px;color: #38474f; font-weight: 600;z-index: 1;}
-.mania .new_mania_info .mania_special_txt{padding:75px 70px 0; width: 1000px;height: 549px;background: url(../../../../cdn.dominos.co.kr/renewal2018/w/img/img_special_bg.png) no-repeat 0 0;color:#ffffff;}
+.mania .new_mania_info .mania_special_txt{padding:75px 70px 0; width: 1000px;height: 549px;background: url(../../images/user/mania/img_special_bg.png) no-repeat 0 0;color:#ffffff;}
 .mania .new_mania_info .mania_special_txt h2{font-size:23px;line-height:30px;color:#fff;}
 .mania .new_mania_info .mania_special_txt p{font-size:16px;line-height:28px;padding-top:13px;padding-bottom: 40px;}
 
