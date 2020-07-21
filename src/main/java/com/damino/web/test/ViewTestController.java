@@ -70,4 +70,31 @@ public class ViewTestController {
 		return mav;
 	}
 	
+	@RequestMapping("/quickOrderDefaultSet.do")
+	public ModelAndView getQuickOrderDefault() {
+		System.out.println("퀵오더 디폴트 세팅페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/quickorder/quickOrder_defaultSetting");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/orderPage.do")
+	public ModelAndView getOrderPage() {
+		System.out.println("결제하기 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_page");
+		return mav;
+	}
+	
+	@RequestMapping("/orderorderDone.do")
+	public ModelAndView getOrderOrderDone() {
+		System.out.println("결제완료 페이지");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_orderDone");
+		return mav;
+	}
 }
