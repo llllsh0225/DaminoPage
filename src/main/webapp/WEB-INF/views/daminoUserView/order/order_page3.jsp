@@ -5,8 +5,9 @@
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
-<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
 
+<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
+	
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
@@ -87,26 +88,22 @@
 	
 	.pop_toast .pop_header h2 {
 		font-size: 30px;
-		font-weight: 500;
-		color: #38474f;
-	}
-	
-	.pop_toast .pop_content {
-		position: relative;
-		width: 100%;
-		padding: 0;
-	}
-	
-	.pop_type2 .pop_wrap .btn_close3 {
-		position: absolute;
-		top: 15px;
-		right: 20px;
-	}
+	font-weight: 500;
+	color: #38474f;
+}
 
-/* <!-- //기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 --> */
+.pop_toast .pop_content {
+	position: relative;
+	width: 100%;
+	padding: 0;
+}
+
+.pop_type2 .pop_wrap .btn_close3 {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+}
 </style>
-
-
 </head>
 <body>	
 <div id="wrap">
@@ -195,32 +192,121 @@
 			</div>
 			<!-- //main 1dep menu -->
 		</header><!-- //header -->
-	<!-- Event snippet for 1904~다미노피자_구매 conversion page -->
+	<!-- container -->
 <div id="container">
 	<section id="content">
-		<div class="sub-type order">
+		<div class="sub-type mypage">
 			<div class="inner-box">
-				<article class="pay">
-					<div class="fin-wrap">
-						<div class="title-wrap-center">
-							<h3 class="title-type5">
-							
-									배달주문이 완료되었습니다.
-								</h3>
+				<div class="page-title-wrap">
+					<h2 class="page-title">나의정보</h2>
+					<div class="depth-area">
+						<ol>
+							<li><a href="/main">홈</a></li>
+							<li><a href="/mypage/myOrderList">나의 정보</a></li>
+							<li><strong>주문내역</strong></li>
+						</ol>
+					</div>
+				</div>
+				<article class="mypage-wrap mypage-grade">
+					<div class="menu-nav-wrap">
+							<div class="menu-nav">
+								<ul>
+									<li><a href="/mypage/myLevel">매니아 등급</a></li>
+									<li class="active"><a href="/mypage/myOrderList">주문내역</a></li>
+									<li><a href="/mypage/myCoupon">쿠폰함</a></li>
+									<li><a href="/mypage/qustionList">1:1문의</a></li>
+									<li><a href="/member/userinfoConfirm">정보수정</a></li>
+								</ul>
 							</div>
-						
-						<div class="text-box">
-							<p>세종로점&nbsp;02-723-3082</p>
 						</div>
-						
-						<div class="text-box2">
-							<p>
-								주문을 취소할 경우 해당매장으로 전화하여 취소 부탁드리며,<br /> 접수완료 후에는 취소가 되지 않으니 양해부탁드립니다.
-							</p>
+					<div class="order-view">
+						<div class="order-top">
+							<span class="type">배달</span>
+							<span class="date">
+								<span class="tit">주문일시</span>
+								2020-07-17 18:10</span>
+							<span class="num">
+								<span class="tit">주문번호</span>
+								20200717863942990010</span>
+							</div>
+						<div class="order-center">
+							<div class="state">
+								<strong>
+									
+											주문취소
+											</strong>
+							</div>
+							</div>
+						<div class="menu-info-wrap">
+							<div class="menu-info">
+								<div class="info-box">
+									<div class="title-type2">주문내역</div>
+									<p>베스트 콰트로 슈퍼시드 함유 도우L x 1  /  36,900원</p>
+										
+										<p>코카콜라 1.25L x 1  /  2,000원</p>
+										
+										</div>
+							</div>
+							<div class="pay-info">
+								<dl>
+									<dt>주문금액</dt>
+									<dd><em>38,900</em>원</dd>
+								</dl>
+								<dl class="discount">
+									<dt>할인 금액</dt>
+									<dd><em>-9,230</em>원</dd>
+								</dl>
+								<ul class="apply">
+	                                    <li>MMS25-NEW 25%</li>
+	                                </ul>
+                                <dl class="total">
+									<dt>결제금액</dt>
+									<dd><em>29,670</em>원</dd>
+								</dl>
+							</div>
+						</div>
+						<div class="order-info">
+							<div class="title-type2">주문정보</div>
+							<dl>
+								<dt>결제방법</dt>
+								<dd>
+									현장카드결제&nbsp;29,670원
+									</dd>
+							</dl>
+							<dl>
+								<dt>수령인</dt>
+								<dd>주문자 이름</dd>
+							</dl>
+							<dl>
+								<dt>수령인 연락처</dt>
+								<dd>010-1234-5678</dd>
+							</dl>
+							<dl>
+								<dt>배달요청시간</dt>
+								<dd>바로 주문</dd>
+							</dl>
+							<dl>
+								<dt>배달주소</dt>
+									<dd>서울특별시 종로구 돈화문로 26 단성사 4층</dd>
+							</dl>
+							<dl>
+								<dt>매장정보</dt>
+								<dd>세종로점&nbsp;<a href="tel:02-723-3082" class="tel">02-723-3082</a></dd>
+							</dl>
+							<dl>
+								<dt>추가요청</dt>
+								<dd></dd>
+							</dl>
 						</div>
 						<div class="btn-wrap">
-							<a href="/mypage/myOrderView?order_no=20200717863942990010&pageNo=1" class="btn-type v4">주문내역 보기</a>
-							</div>
+							<div class="t-l">
+										<a href="javascript:goList();" class="btn-type v5">목록</a>
+									</div>
+									<div class="t-r">
+										<a href="javascript:profileOrder('R');" class="btn-type v3">재주문</a>
+										<a href="javascript:profileOrder('Q');" class="btn-type v4">퀵오더 등록</a>
+									</div>
+								</div>
 					</div>
 				</article>
 			</div>
@@ -280,7 +366,7 @@
                </div>
 	
 				<div class="footer-cont">
-				
+					
 					<dl class="app-box">
 						<dt>DOWNLOAD APP</dt>
 						<dd>

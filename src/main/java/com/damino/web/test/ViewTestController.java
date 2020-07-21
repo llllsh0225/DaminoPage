@@ -151,4 +151,31 @@ public class ViewTestController {
 		mav.setViewName("/userinfo/withdrawal");
 		return mav;
 	}
+	
+	@RequestMapping("/orderpage3.do")
+	public ModelAndView getOrderPageThree() {
+		System.out.println("주문완료 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_page3");
+		return mav;
+	}
+	
+	@RequestMapping("/orderstatusCook.do")
+	public ModelAndView getOrderStatusCook() {
+		System.out.println("요리중->배달중->배달완료 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_status_cook");
+		return mav;
+	}
+	
+	@RequestMapping("/orderstatusDelivery.do")
+	public ModelAndView getOrderStatusDelivery() {
+		System.out.println("배달 위치 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_status_delivery");
+		return mav;
+	}
 }

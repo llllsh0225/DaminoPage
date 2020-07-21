@@ -6,6 +6,7 @@
 <head>
 	<meta charset="utf-8">
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>	
+
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
@@ -302,13 +303,7 @@
                </div>
 	
 				<div class="footer-cont">
-					<div class="select-type language">
-						<select id="select-type">
-							<option value="/main?locale=ko">KOR</option>
-							<option value="/main?locale=en">ENG</option>
-						</select>
-					</div>
-	
+					
 					<dl class="app-box">
 						<dt>DOWNLOAD APP</dt>
 						<dd>
@@ -332,30 +327,30 @@
 		<div class="awards-area">
 			<div class="inner-box">
 				<ul>
-					<li>
-						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards.png" alt="">
-						<p>식품안전<br>경영시스템 인증</p>
-					</li>
-					<li>
-						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards2.png" alt="">
-						<p>지식경제부<br>우수디자인 선정</p>
-					</li>
-					<li>
-						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards3.png" alt="">
-						<p>고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위</p>
-					</li>
-					<li>
-						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards4.png" alt="">
-						<p>2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위</p>
-					</li>
-					<li>
-						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards5.png" alt="">
-						<p>2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상</p>
-					</li>
-					<li>
-						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards6.png" alt="">
-						<p>대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정</p>
-					</li>
+					<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+							<p>
+								식품안전<br>경영시스템 인증
+							</p></li>
+						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+							<p>
+								지식경제부<br>우수디자인 선정
+							</p></li>
+						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+							<p>
+								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
+							</p></li>
+						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+							<p>
+								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
+							</p></li>
+						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+							<p>
+								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
+							</p></li>
+						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+							<p>
+								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
+							</p></li>
 				</ul>
 			</div>
 		</div>
