@@ -6,12 +6,6 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" id="viewport"
-	content="width=1119px, user-scalable=yes">
-<meta http-equiv='cache-control' content='no-cache'>
-<meta http-equiv='expires' content='0'>
-<meta http-equiv='pragma' content='no-cache'>
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 <link rel="shortcut icon"
 	href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
