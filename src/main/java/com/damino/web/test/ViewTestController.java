@@ -334,15 +334,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/userinfoconfirm.do")
-	public ModelAndView getUserInfoConfirm() {
-		System.out.println("회원 본인여부 확인 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/userinfo/user_info_confirm");
-		return mav;
-	}
-	
 	@RequestMapping("/withdrawal.do")
 	public ModelAndView getWithdrawal() {
 		System.out.println("회원탈퇴 페이지 열기");
@@ -760,7 +751,7 @@ public class ViewTestController {
 		System.out.println("문의사항 추가 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/questionAndAnswer/qna_insert");
+		mav.setViewName("/sites/questionAndAnswer/qna_insert");
 		
 		return mav;
 	}
@@ -769,7 +760,7 @@ public class ViewTestController {
 		System.out.println("문의사항 목록 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/questionAndAnswer/qna_list");
+		mav.setViewName("/sites/questionAndAnswer/qna_list");
 		
 		return mav;
 	}
@@ -780,7 +771,7 @@ public class ViewTestController {
 		System.out.println("약관 추가 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/terms/terms_insert");
+		mav.setViewName("/sites/terms/terms_insert");
 		
 		return mav;
 	}
@@ -789,7 +780,7 @@ public class ViewTestController {
 		System.out.println("약관 목록 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/terms/terms_list");
+		mav.setViewName("/sites/terms/terms_list");
 		
 		return mav;
 	}
@@ -855,13 +846,101 @@ public class ViewTestController {
 			
 			return mav;
 		}
+	
+	//error 폴더 시작 ------
+		@RequestMapping("/error_401.smdo")
+		   public ModelAndView getManagerError401Page() {
+		      System.out.println("401 에러 페이지 열기");
+		      
+		      ModelAndView mav = new ModelAndView();
+		      mav.setViewName("/error/error_401");
+		      
+		      return mav;
+		   }
+		@RequestMapping("/error_404.smdo")
+		public ModelAndView getManagerError404Page() {
+			System.out.println("404 에러 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/error/error_404");
+			
+			return mav;
+		}
+		@RequestMapping("/error_500.smdo")
+		public ModelAndView getManagerError500Page() {
+			System.out.println("500 에러 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/error/error_500");
+			
+			return mav;
+		}
+	
+	//members 폴더 시작 -----------
+		@RequestMapping("/managerLogin.smdo")
+		public ModelAndView getManagerLoginPage() {
+			System.out.println("로그인 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/members/managerLogin");
+			
+			return mav;
+		}
+		@RequestMapping("/managerRegister.smdo")
+		public ModelAndView getManagerRegisterPage() {
+			System.out.println("회원가입 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/members/managerRegister");
+			
+			return mav;
+		}
+		@RequestMapping("/passwordChange.smdo")
+		public ModelAndView getManagerPasswordChangePage() {
+			System.out.println("비밀번호 변경 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/members/passwordChange");
+			
+			return mav;
+		}
+		
+	//order 폴더 시작 ---------
+		@RequestMapping("/orderList.smdo")
+		public ModelAndView getOrderListPage() {
+			System.out.println("주문 목록 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/order/orderList");
+			
+			return mav;
+		}
+		@RequestMapping("/orderSearch.smdo")
+		public ModelAndView getOrderSearchPage() {
+			System.out.println("주문 검색 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/order/orderSearch");
+			
+			return mav;
+		}
 	//statistics 폴더 시작 ---------
 	@RequestMapping("/statistics_list.smdo")
-	public ModelAndView getAdminStatistics_listPage() {
+	public ModelAndView getStatistics_listPage() {
 		System.out.println("매출 현황 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/statistics/statistics_list");
+		
+		return mav;
+	}
+	//store 폴더 시작 ---------
+	@RequestMapping("/storeManagerInfo.smdo")
+	public ModelAndView getStoreManagerInfoPage() {
+		System.out.println("매출 현황 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/store/storeManagerInfo");
 		
 		return mav;
 	}

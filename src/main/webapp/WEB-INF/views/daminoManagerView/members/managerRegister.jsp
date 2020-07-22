@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -99,14 +98,14 @@
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<a class="btn btn-primary btn-block" href="login.html">계정
+											<a class="btn btn-primary btn-block" href="managerLogin.smdo">계정
 												승인 신청</a>
 										</div>
 									</form>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="login.html">로그인 페이지로 돌아가기</a>
+										<a href="managerLogin.smdo">로그인 페이지로 돌아가기</a>
 									</div>
 								</div>
 							</div>

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,7 +19,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">다미노피자 테스트점</a>
+		<a class="navbar-brand" href="main.smdo">다미노피자 테스트점</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -36,7 +36,7 @@
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="store-manager-login.html">Logout</a>
+					<a class="dropdown-item" href="managerLogin.smdo">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -48,7 +48,7 @@
 					<div class="nav">
 						<
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
-						<a class="nav-link" href="index.html"> 메인 </a>
+						<a class="nav-link" href="main.smdo"> 메인 </a>
 						<div class="sb-sidenav-menu-heading">Interface</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
 							data-target="#orderPage" aria-expanded="false"
@@ -61,8 +61,8 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="order-list.html"> 주문목록 </a>
-								<a class="nav-link collapse" href="order-search.html"> 주문검색
+								<a class="nav-link collapsed" href="orderList.smdo"> 주문목록 </a>
+								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색
 								</a>
 							</nav>
 						</div>
@@ -76,7 +76,7 @@
 						<div class="collapse" id="storeInfoPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="manager-set.html">매장관리자 설정</a>
+								<a class="nav-link" href="storeManagerInfo.smdo">매장관리자 설정</a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -89,7 +89,7 @@
 						<div class="collapse" id="statisticPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="sales.html">매출통계</a>
+								<a class="nav-link" href="statistics_list.smdo">매출통계</a>
 							</nav>
 						</div>
 					</div>
