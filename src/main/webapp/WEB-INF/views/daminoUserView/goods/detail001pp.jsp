@@ -9,27 +9,17 @@
 <meta name="title" content="다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's" />
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-<!-- 리뉴얼 적용 2019.12.02 -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/user/common.css' />">
-
-<!--메인에는 sub.css 호출하지않음-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/user/sub.css' />">
-<!--//메인에는 sub.css 호출하지않음  -->
-
-<script type="text/javascript"
-	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
-<!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript"
-	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript"
-	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
-<!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript"
-	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+	
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
+	<!-- 메인페이지 슬라이드 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
+	<!-- 더보기 슬라이드로 내려오는 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	
 	
 </head>
 <body>
@@ -38,7 +28,7 @@
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="../main.html" class="btn-logo"> <i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">도미노피자</h1>
 					</a>
 

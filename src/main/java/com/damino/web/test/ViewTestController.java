@@ -407,15 +407,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/grouporderservice.do")
-	public ModelAndView getGroupOrderService() {
-		System.out.println("단체 주문 서비스 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/goods/groupOrderService");
-		return mav;
-	}
-	
 	@RequestMapping("/detail001pp.do")
 	public ModelAndView getDetail001pp() {
 		System.out.println("제품 -이베리코- 열기");
