@@ -122,15 +122,6 @@
 					<div class="util-nav">
 						<a href="../global/login.html">로그인</a>
 								<a href="../global/login7837.html?L=L">회원가입</a>
-							<!--2020-03-17 추가(s)-->
-		                <a href="javascript:void(0);" class="lang">
-		                    <div class="select-type2 language">
-		                    	<select id="select-type2">
-									<option value="/main?locale=ko">KOR</option>
-									<option value="/main?locale=en">ENG</option>
-								</select>
-		                    </div>
-		                </a>
 					</div>
 				</div>
 			</div>

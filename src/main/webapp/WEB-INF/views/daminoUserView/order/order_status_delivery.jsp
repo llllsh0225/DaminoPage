@@ -121,16 +121,6 @@
 							class="ico-cart"></i> <span class="hidden ">장바구니</span> <strong
 							class="cart_count"></strong> <!-- count -->
 						</a>
-						<!--2020-03-17 추가(s)-->
-						<a href="javascript:void(0);" class="lang">
-							<div class="select-type2 language">
-								<select id="select-type2">
-									<option value="/main?locale=ko">KOR</option>
-									<option value="/main?locale=en">ENG</option>
-								</select>
-							</div>
-						</a>
-						<!--2020-03-17 추가(e)-->
 					</div>
 				</div>
 			</div>
