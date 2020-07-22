@@ -205,14 +205,14 @@
 								<tbody>
 									<tr>
 										<td>2</td>
-										<td><a href="boardView.html">배달 언제오나요?</a></td>
+										<td><a href="boardView.admdo">배달 언제오나요?</a></td>
 										<td>사오정</td>
 										<td>2020-07-11</td>
 										<td>5</td>
 									</tr>
 									<tr>
 										<td>1</td>
-										<td><a href="#">결제수단 문의</a></td>
+										<td><a href="boardView.admdo">결제수단 문의</a></td>
 										<td>홍길동</td>
 										<td>2020-07-09</td>
 										<td>20</td>

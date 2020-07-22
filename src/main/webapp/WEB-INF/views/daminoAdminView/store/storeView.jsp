@@ -224,7 +224,7 @@
 										<td>10:00~22:00</td>
 										<td>매장주차불가</td>
 										<td>없음</td>
-										<td><a class="btn btn-primary" href="memberChange.html"
+										<td><a class="btn btn-primary" href="storeEdit.admdo"
 											role="button">수정</a>
 										</button>
 											<button class="btn btn-danger" type="submit">삭제</button></td>

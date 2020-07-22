@@ -71,14 +71,14 @@
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<a class="btn btn-primary btn-block" href="login.html">Create
+											<a class="btn btn-primary btn-block" href="login.admdo">Create
 												Account</a>
 										</div>
 									</form>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="login.html">Have an account? Go to login</a>
+										<a href="login.admdo">Have an account? Go to login</a>
 									</div>
 								</div>
 							</div>

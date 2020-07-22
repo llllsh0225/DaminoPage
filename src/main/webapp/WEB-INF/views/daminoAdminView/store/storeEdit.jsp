@@ -20,7 +20,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">Damino Administration</a>
+		<a class="navbar-brand" href="main.admdo">Damino Administration</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -37,7 +37,7 @@
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="store-manager-login.html">Logout</a>
+					<a class="dropdown-item" href="login.admdo">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -50,7 +50,7 @@
 
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
 
-						<a class="nav-link" href="index.html"> 메인 </a>
+						<a class="nav-link" href="main.admdo"> 메인 </a>
 
 						<div class="sb-sidenav-menu-heading">Interface</div>
 
@@ -229,14 +229,14 @@
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<a class="btn btn-primary btn-block" href="login.html">변경정보
+											<a class="btn btn-primary btn-block" href="login.admdo">변경정보
 												저장</a>
 										</div>
 									</form>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="control.html">돌아가기</a>
+										<a href="storeView.admdo">돌아가기</a>
 									</div>
 								</div>
 							</div>
