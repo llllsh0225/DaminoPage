@@ -277,6 +277,13 @@ public class ViewTestController {
 	// --- end page 폴더 ---
 	
 	
-	
-	
+	@RequestMapping("/main.admdo")
+	   public ModelAndView getAdminMainPage() {
+	      System.out.println("메인페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/main");
+	      
+	      return mav;
+	   }
 }
