@@ -289,6 +289,7 @@ public class ViewTestController {
 	      return mav;
 	   }
 	
+	//board 폴더 시작 --------
 	@RequestMapping("/boardView.admdo")
 	   public ModelAndView getAdminBoardPage() {
 	      System.out.println("게시글 열기");
@@ -318,31 +319,79 @@ public class ViewTestController {
 	      
 	      return mav;
 	   }
+	//error 폴더 시작 --------
+	@RequestMapping("/error_401.admdo")
+	   public ModelAndView getAdminError401Page() {
+	      System.out.println("401 에러 페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/error/error_401");
+	      
+	      return mav;
+	   }
+	@RequestMapping("/error_404.admdo")
+	public ModelAndView getAdminError404Page() {
+		System.out.println("404 에러 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/error/error_404");
+		
+		return mav;
+	}
+	@RequestMapping("/error_500.admdo")
+	public ModelAndView getAdminError500Page() {
+		System.out.println("500 에러 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/error/error_500");
+		
+		return mav;
+	}
+	//members > market 폴더 시작 ---------
+	@RequestMapping("/marketEdit.admdo")
+	   public ModelAndView getAdminMarketEditPage() {
+	      System.out.println("점포 수정 페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/members/market/marketEdit");
+	      
+	      return mav;
+	   }
+	@RequestMapping("/marketList.admdo")
+	public ModelAndView getAdminMarketListPage() {
+		System.out.println("점포 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/market/marketList");
+		
+		return mav;
+	}
 	
+	//members > member 폴더 시작 ---------
 	@RequestMapping("/login.admdo")
 	   public ModelAndView getAdminLoginPage() {
 	      System.out.println("로그인 페이지 열기");
 	      
 	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("/member/login");
+	      mav.setViewName("/members/member/login");
 	      
 	      return mav;
 	   }
-	@RequestMapping("/memberEdit.admdo")
-	public ModelAndView getAdminMemberEditPage() {
+	@RequestMapping("/membersEdit.admdo")
+	public ModelAndView getAdminmembersEditPage() {
 		System.out.println("회원 수정 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/memberEdit");
+		mav.setViewName("/members/member/membersEdit");
 		
 		return mav;
 	}
-	@RequestMapping("/memberInfo.admdo")
-	public ModelAndView getAdminMemberInfoPage() {
+	@RequestMapping("/membersInfo.admdo")
+	public ModelAndView getAdminmembersInfoPage() {
 		System.out.println("회원 정보 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/memberInfo");
+		mav.setViewName("/members/member/membersInfo");
 		
 		return mav;
 	}
@@ -351,19 +400,39 @@ public class ViewTestController {
 		System.out.println("비밀번호 변경 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/passwordChange");
+		mav.setViewName("/members/member/passwordChange");
 		
 		return mav;
 	}
 	@RequestMapping("/regForm.admdo")
 	public ModelAndView getAdminRegFormPage() {
-		System.out.println("로그인 페이지 열기");
+		System.out.println("회원 가입 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/regForm");
+		mav.setViewName("/members/member/regForm");
 		
 		return mav;
 	}
+	@RequestMapping("/smsForm.admdo")
+	public ModelAndView getAdminSmsFormPage() {
+		System.out.println("문자 발송 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/smsForm");
+		
+		return mav;
+	}
+	@RequestMapping("/emailForm.admdo")
+	public ModelAndView getAdminEmailFormPage() {
+		System.out.println("이메일 발송 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/emailForm");
+		
+		return mav;
+	}
+	
+	//noticeBoard 시작 ------
 	
 	@RequestMapping("/noticeBoardEdit.admdo")
 	public ModelAndView getAdminNoticeBoardEditPage() {
@@ -384,6 +453,8 @@ public class ViewTestController {
 		return mav;
 	}
 	
+	//sites > banner 폴더 시작 -------
+	
 	@RequestMapping("/bannerBoardEdit.admdo")
 	public ModelAndView getAdminBannerBoardEditPage() {
 		System.out.println("배너 수정 페이지 열기");
@@ -402,6 +473,73 @@ public class ViewTestController {
 		
 		return mav;
 	}
-
-
+	
+	//sites > questionAndAnswer 폴더 시작 -------
+	@RequestMapping("/qna_insert.admdo")
+	public ModelAndView getAdminQna_insertPage() {
+		System.out.println("문의사항 추가 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/questionAndAnswer/qna_insert");
+		
+		return mav;
+	}
+	@RequestMapping("/qna_list.admdo")
+	public ModelAndView getAdminQna_listPage() {
+		System.out.println("문의사항 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/questionAndAnswer/qna_list");
+		
+		return mav;
+	}
+	
+	//sites > terms 폴더 시작 -------
+	@RequestMapping("/terms_insert.admdo")
+	public ModelAndView getAdminTerms_insertPage() {
+		System.out.println("약관 추가 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/terms/terms_insert");
+		
+		return mav;
+	}
+	@RequestMapping("/terms_list.admdo")
+	public ModelAndView getAdminTerms_listPage() {
+		System.out.println("약관 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/terms/terms_list");
+		
+		return mav;
+	}
+	
+	//store 폴더 시작 -------
+	@RequestMapping("/storeEdit.admdo")
+	public ModelAndView getAdminStoreEditPage() {
+		System.out.println("매장 수정 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/store/storeEdit");
+		
+		return mav;
+	}
+	@RequestMapping("/storeRegForm.admdo")
+	public ModelAndView getAdminStoreRegFormPage() {
+		System.out.println("매장 등록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/store/storeRegForm");
+		
+		return mav;
+	}
+	@RequestMapping("/storeView.admdo")
+	public ModelAndView getAdminStoreViewPage() {
+		System.out.println("매장 조회 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/store/storeView");
+		
+		return mav;
+	}
 }
