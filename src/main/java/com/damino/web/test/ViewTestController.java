@@ -389,7 +389,7 @@ public class ViewTestController {
 		System.out.println("배너 수정 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/banner/bannerBoardEdit");
+		mav.setViewName("/sites/banner/bannerBoardEdit");
 		
 		return mav;
 	}
@@ -398,7 +398,7 @@ public class ViewTestController {
 		System.out.println("배너 목록 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/banner/bannerBoardView");
+		mav.setViewName("/sites/banner/bannerBoardView");
 		
 		return mav;
 	}
