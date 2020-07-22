@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,7 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-	
+
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -93,8 +93,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								  <a class="nav-link collapsed" href="order-count.html"> 주문조회 </a>
-								<a class="nav-link collapse" href="order-stats.html"> 매출현황
+								<a class="nav-link collapsed" href="order-count.html"> 주문조회
+								</a> <a class="nav-link collapse" href="order-stats.html"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -171,156 +171,108 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
-				<div class="container-fluid">
-					<h1>Dashboard</h1>
-					<div>
-						<hr>
+				<!-- 이곳이 Content 영역입니다. -->
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table mr-1"></i> <b>게시판 추가/수정/삭제</b> <img
+							src="././resources/assets/admin/img/refresh_icon.png" width="20"
+							onClick="window.location.reload()"
+							style="margin-left: 15px; cursor: pointer;">
+
 					</div>
-					<div class="row">
-						<!-- 월별 차트 -->
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">
-									<i class="fas fa-chart-area mr-1"></i> 월별 차트
-								</div>
-								<div class="card-body">
-									<canvas id="myAreaChart-main" width="100%" height="40"></canvas>
-								</div>
-							</div>
-						</div>
-						<!-- 달력 -->
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">
-									<i class="fas fa-chart-area mr-1"></i> 달력
-								</div>
-								<table id="calendar" align="center">
-									<thead>
-										<tr class="btn-wrap clearfix">
-											<td><label id="prev"> &#60; </label></td>
-											<td align="center" id="current-year-month" colspan="5"></td>
-											<td><label id="next"> &#62; </label></td>
-										</tr>
-										<tr>
-											<td class="sun" align="center">Sun</td>
-											<td align="center">Mon</td>
-											<td align="center">Tue</td>
-											<td align="center">Wed</td>
-											<td align="center">Thu</td>
-											<td align="center">Fri</td>
-											<td class="sat" align="center">Sat</td>
-										</tr>
-									</thead>
-									<tbody id="calendar-body" class="calendar-body"></tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<!-- 공지사항 -->
-					<div class="row">
-						<div class="col-xl-4">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">공지사항</div>
-								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-									</ul>
-									<div align="right">
-										<a href="#" class=small>공지사항로 이동</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 주문내역 -->
-						<div class="col-xl-4">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">주문내역</div>
-								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[2020-07]</b></a></span>
-											<span><a href="#" class="text-muted"> - 7월 주문내역 -</a></span>
-										</li>
-										<li class="small"><span><a href="#"><b>[2020-06]</b></a></span>
-											<span><a href="#" class="text-muted">- 6월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-05]</b></a></span>
-											<span><a href="#" class="text-muted">- 5월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-04]</b></a></span>
-											<span><a href="#" class="text-muted">- 4월 주문내역 -</a></span></li>
-									</ul>
-									<div align="right">
-										<a href="order-count.html" class=small>주문내역로 이동</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 달 주문건수 -->
-						<div class="col-xl-4">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">주문건수</div>
-								<div class="card-body">
-									<div>
-										<span><h1>91</h1></span> <span><h3 class=small>건수</h3></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="bg-"></div>
-					<div class="row">
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-primary text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="member.html">회원관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-warning text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="control.html">매장관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-success text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="get-menus.html">메뉴관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-danger text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="boardList.html">게시판관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
+
+					<div class="card-body">
+						<input type="button" class="btn btn-primary" value="추가"
+							style="float: right"> <input type="button"
+							class="btn-delete" value="수정" style="float: right"> <input
+							type="button" class="btn-delete" value="삭제" style="float: right">
+						<div class="table-responsive">
+
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<tr>
+									<th>게시판명</th>
+									<td><input type="text" size="20" /></td>
+								</tr>
+								<tr>
+									<th>게시판 그룹</th>
+									<td><select>
+											<option>공지사항</option>
+											<option>다미노뉴스</option>
+									</select></td>
+								</tr>
+								<tr>
+									<th>게시판 관리자</th>
+									<td><small>아이디를 쉼표로 분리 예)admin, admin1, admin2</small><br>
+										<input type="text" size="80" /></td>
+
+								</tr>
+								<tr>
+									<th>자동비밀글</th>
+									<td><input type="checkbox" />작성자와 운영자만 열람 가능</td>
+
+								</tr>
+								<tr>
+									<th>권한</th>
+									<td>
+										<table>
+											<tr>
+												<td align="center" width="150px">목록보기</td>
+												<td align="center" width="150px">내용보기</td>
+												<td align="center" width="150px">글쓰기</td>
+												<td align="center" width="150px">답글쓰기</td>
+											</tr>
+											<tr>
+												<td align="center"><select>
+														<option>전체</option>
+														<option>관리자</option>
+												</select></td>
+												<td align="center"><select>
+														<option>전체</option>
+														<option>관리자</option>
+												</select></td>
+												<td align="center"><select>
+														<option>전체</option>
+														<option>관리자</option>
+												</select></td>
+												<td align="center"><select>
+														<option>전체</option>
+														<option>관리자</option>
+												</select></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th>권한이 없을 경우</th>
+									<td><div style="margin: 5px">
+											경고메세지 : <input type="text" placeholder="권한이 없습니다" />
+										</div>
+										<div style="margin: 5px">
+											경고후 이동 페이지 : <input type="text" size="30" placeholder="URL" />
+										</div></td>
+								</tr>
+								<tr>
+									<th>페이지 출력 수</th>
+									<td><select>
+											<option>5</option>
+											<option>10</option>
+											<option>15</option>
+									</select></td>
+								</tr>
+							</table>
+							<br></br>
+							<p>1. 게시판명 : 어떤 게시판인지를 알수 있도록 한글로 입력합니다.</p>
+							<p>2. 게시판그룹 : 게시판이 많은경우 관리의 편리를 위해 그룹을 생성하고 게시판 그룹을 설정합니다.
+								ex) 고객센터, 커뮤니티 등.. 메뉴별로 생성</p>
+							<p>3. 게시판관리자 : 관리자에 로그인 하지않고 홈페이지에서 해당 게시판을 관리할 수 있는 아이디를
+								설정합니다.</p>
+							<p>4. 자동비밀글 : 설정시 게시물 작성시 자동으로 비밀글로 작성됩니다.</p>
+							<p>5. 권한 : 각 상활별 권한을 설정합니다. 등급은 "회원관리>회원등급" 이 표시 됩니다.</p>
+							<p>6. 경고메세지 : 쓰기 권한 읽기 권한 등.. 권한이 없을경우 표시되는 경고 메세지를 설정합니다. 경고
+								후 이동 페이지는 주로 로그인 페이지로 이동시키면 편리합니다.</p>
+							<p>7. 페이지출력수 : 리스트 하단에 게시물 페이징 부분에 몇 페이지 단위로 표현할지를 설정합니다.</p>
+							<br> <br>
 						</div>
 					</div>
 				</div>
@@ -340,22 +292,19 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript"
+	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+	<script
 		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	
 	<script type="text/javascript"
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo_month.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
+	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
 
 </body>

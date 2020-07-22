@@ -277,6 +277,7 @@ public class ViewTestController {
 	}
 	// --- end page 폴더 ---
 	
+	//-----daminoAdminView 영역 시작--------------------------
 	
 	@RequestMapping("/main.admdo")
 	   public ModelAndView getAdminMainPage() {
@@ -287,4 +288,120 @@ public class ViewTestController {
 	      
 	      return mav;
 	   }
+	
+	@RequestMapping("/boardView.admdo")
+	   public ModelAndView getAdminBoardPage() {
+	      System.out.println("게시글 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/board/boardView");
+	      
+	      return mav;
+	   }
+	
+	@RequestMapping("/boardWrite.admdo")
+	   public ModelAndView getAdminBoardWritePage() {
+	      System.out.println("게시글 쓰기 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/board/boardWrite");
+	      
+	      return mav;
+	   }
+	
+	@RequestMapping("/boardList.admdo")
+	   public ModelAndView getAdminBoardListPage() {
+	      System.out.println("게시글 목록 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/board/boardList");
+	      
+	      return mav;
+	   }
+	
+	@RequestMapping("/login.admdo")
+	   public ModelAndView getAdminLoginPage() {
+	      System.out.println("로그인 페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/member/login");
+	      
+	      return mav;
+	   }
+	@RequestMapping("/memberEdit.admdo")
+	public ModelAndView getAdminMemberEditPage() {
+		System.out.println("회원 수정 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/memberEdit");
+		
+		return mav;
+	}
+	@RequestMapping("/memberInfo.admdo")
+	public ModelAndView getAdminMemberInfoPage() {
+		System.out.println("회원 정보 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/memberInfo");
+		
+		return mav;
+	}
+	@RequestMapping("/passwordChange.admdo")
+	public ModelAndView getAdminPasswordChangePage() {
+		System.out.println("비밀번호 변경 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/passwordChange");
+		
+		return mav;
+	}
+	@RequestMapping("/regForm.admdo")
+	public ModelAndView getAdminRegFormPage() {
+		System.out.println("로그인 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/regForm");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/noticeBoardEdit.admdo")
+	public ModelAndView getAdminNoticeBoardEditPage() {
+		System.out.println("게시판 리스트 수정 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/noticeBoard/noticeBoardEdit");
+		
+		return mav;
+	}
+	@RequestMapping("/noticeBoardView.admdo")
+	public ModelAndView getAdminNoticeBoardViewPage() {
+		System.out.println("게시판 리스트 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/noticeBoard/noticeBoardView");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/bannerBoardEdit.admdo")
+	public ModelAndView getAdminBannerBoardEditPage() {
+		System.out.println("배너 수정 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/banner/bannerBoardEdit");
+		
+		return mav;
+	}
+	@RequestMapping("/bannerBoardView.admdo")
+	public ModelAndView getAdminBannerBoardViewPage() {
+		System.out.println("배너 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/banner/bannerBoardView");
+		
+		return mav;
+	}
+
+
 }

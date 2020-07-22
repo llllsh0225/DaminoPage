@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,8 +93,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								  <a class="nav-link collapsed" href="order-count.html"> 주문조회 </a>
-								<a class="nav-link collapse" href="order-stats.html"> 매출현황
+								<a class="nav-link collapsed" href="order-count.html"> 주문조회
+								</a> <a class="nav-link collapse" href="order-stats.html"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -171,156 +171,52 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
-				<div class="container-fluid">
-					<h1>Dashboard</h1>
-					<div>
-						<hr>
+				<!-- 이곳이 Content 영역입니다. -->
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table mr-1"></i> <b>게시글 상세보기</b> <img
+							src="././resources/assets/admin/img/refresh_icon.png" width="20"
+							onClick="window.location.reload()"
+							style="margin-left: 15px; cursor: pointer;"> <br>
+						<!--새로고침 버튼-->
+
 					</div>
-					<div class="row">
-						<!-- 월별 차트 -->
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">
-									<i class="fas fa-chart-area mr-1"></i> 월별 차트
-								</div>
-								<div class="card-body">
-									<canvas id="myAreaChart-main" width="100%" height="40"></canvas>
-								</div>
-							</div>
-						</div>
-						<!-- 달력 -->
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">
-									<i class="fas fa-chart-area mr-1"></i> 달력
-								</div>
-								<table id="calendar" align="center">
-									<thead>
-										<tr class="btn-wrap clearfix">
-											<td><label id="prev"> &#60; </label></td>
-											<td align="center" id="current-year-month" colspan="5"></td>
-											<td><label id="next"> &#62; </label></td>
-										</tr>
-										<tr>
-											<td class="sun" align="center">Sun</td>
-											<td align="center">Mon</td>
-											<td align="center">Tue</td>
-											<td align="center">Wed</td>
-											<td align="center">Thu</td>
-											<td align="center">Fri</td>
-											<td class="sat" align="center">Sat</td>
-										</tr>
-									</thead>
-									<tbody id="calendar-body" class="calendar-body"></tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<!-- 공지사항 -->
-					<div class="row">
-						<div class="col-xl-4">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">공지사항</div>
-								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-									</ul>
-									<div align="right">
-										<a href="#" class=small>공지사항로 이동</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 주문내역 -->
-						<div class="col-xl-4">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">주문내역</div>
-								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[2020-07]</b></a></span>
-											<span><a href="#" class="text-muted"> - 7월 주문내역 -</a></span>
-										</li>
-										<li class="small"><span><a href="#"><b>[2020-06]</b></a></span>
-											<span><a href="#" class="text-muted">- 6월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-05]</b></a></span>
-											<span><a href="#" class="text-muted">- 5월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-04]</b></a></span>
-											<span><a href="#" class="text-muted">- 4월 주문내역 -</a></span></li>
-									</ul>
-									<div align="right">
-										<a href="order-count.html" class=small>주문내역로 이동</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 달 주문건수 -->
-						<div class="col-xl-4">
-							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">주문건수</div>
-								<div class="card-body">
-									<div>
-										<span><h1>91</h1></span> <span><h3 class=small>건수</h3></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="bg-"></div>
-					<div class="row">
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-primary text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="member.html">회원관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-warning text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="control.html">매장관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-success text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="get-menus.html">메뉴관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6">
-							<div class="card bg-danger text-white mb-4">
-								<div
-									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="boardList.html">게시판관리</a>
-									<div class="small text-white">
-										<i class="fas fa-angle-right"></i>
-									</div>
-								</div>
-							</div>
+					<div class="card-body">
+						<input type="button" class="btn btn-primary" value="글수정"
+							style="float: right" /> <input type="button" class="btn-delete"
+							value="글삭제" style="float: right" /> <input type="button"
+							class="btn-delete" value="전체 목록" style="float: right"
+							onClick="location.href='boardList.html'" />
+						<div class="table-responsive">
+
+							<table class="table table-bordered" id="dataTable" width="100%"
+								cellspacing="0">
+								<tr>
+									<td colspan="2">[공지사항] 게시물 테스트 입니다</td>
+								</tr>
+								<tr>
+									<td colspan="2">작성자 : 관리자(admin@test.com) 작성일 : 2020-07-14
+										조회수 : 10</td>
+								</tr>
+								<tr>
+									<td>첨부파일 :</td>
+									<td><input type="text" size="40" /></td>
+								</tr>
+								<tr>
+									<td>내용</td>
+									<td><textarea rows="10" cols="14" style="width: 50%">게시물테스트입니다(내용)반갑습니다!</textarea></td>
+								</tr>
+								<tr>
+									<td>이전글</td>
+									<td>
+										<!-- 이전글 자리-->
+									</td>
+								</tr>
+								<tr>
+									<td>다음글</td>
+									<td><a href="#">게시물 테스트1 입니다</a></td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -340,23 +236,19 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript"
+	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+	<script
 		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	
 	<script type="text/javascript"
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo_month.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
+	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
 </body>
 </html>
