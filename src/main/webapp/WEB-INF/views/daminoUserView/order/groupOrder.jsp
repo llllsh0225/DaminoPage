@@ -66,7 +66,6 @@
 								<a href="../event/mania.html">다미노 서비스</a>
 								<ul>
 									<li><a href="../event/mania.html">매니아 혜택</a></li>
-									<li><a href="../goods/dominosMoment.html">다미노 모멘트</a></li>
 									<li><a href="../quickOrder/index.html">퀵 오더</a></li>
 									<li><a href="groupOrder.html">단체주문 서비스</a></li>
 								</ul>
@@ -118,7 +117,6 @@
 						<div class="menu-nav">
 							<ul>
 								<li><a href="../event/mania.html">매니아 혜택</a></li>
-								<li><a href="../goods/dominosMoment.html">다미노 모멘트</a></li>
 								<li><a href="../quickOrder/index.html">퀵오더</a></li>
 								<li class="active"><a href="#">단체주문 서비스</a></li>
 							</ul>
