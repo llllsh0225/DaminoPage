@@ -84,14 +84,14 @@
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<a class="btn btn-primary btn-block" href="login.html">회원정보
+											<a class="btn btn-primary btn-block" href="login.admdo">회원정보
 												수정</a>
 										</div>
 									</form>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="member.html">돌아가기</a>
+										<a href="memberInfo.admdo">돌아가기</a>
 									</div>
 								</div>
 							</div>
