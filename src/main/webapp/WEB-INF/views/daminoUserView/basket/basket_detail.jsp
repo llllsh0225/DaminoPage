@@ -6,15 +6,10 @@
 <head>
 <meta charset="utf-8">
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
-<link rel="shortcut icon"
-	href="https://cdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
+<link rel="shortcut icon" href="https://cdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
 <script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
-<script type="text/javascript" src="/resources/js/selectbox.js"></script>
-<script type="text/javascript" src="/resources/js/d2CommonUtil.js?ver=1.5"></script>
-<script type="text/javascript" src="/resources/js/Cookie.js"></script>
 <script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/basket_w.js"></script>
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
@@ -25,9 +20,15 @@
 <script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
-
 <script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
-<script type="text/javascript" src="/resources/js/gcenmaps/gcenmap.js"></script>
+
+<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+
 <style>
 #card_add .pop_wrap {
 	position: fixed;
