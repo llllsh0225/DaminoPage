@@ -585,7 +585,7 @@ public class ViewTestController {
 	      
 	      return mav;
 	   }
-	@RequestMapping("/membersEdit.admdo")
+	@RequestMapping("/memberEdit.admdo")
 	public ModelAndView getAdminmembersEditPage() {
 		System.out.println("회원 수정 페이지 열기");
 		
