@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
 
-<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
