@@ -368,6 +368,33 @@ public class ViewTestController {
 		return mav;
 	}
 	
+	@RequestMapping("/orderstatusdeliveryDone.do")
+	public ModelAndView getOrderStatusDeliveryDone() {
+		System.out.println("안전하게 전달하였습니다 페이지");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_status_deliveryDone");
+		return mav;
+	}
+	
+	@RequestMapping("/orderstatusReceive.do")
+	public ModelAndView getOrderStatusReceive() {
+		System.out.println("주문이 접수되었습니다 페이지");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_status_receive");
+		return mav;
+	}
+	
+	@RequestMapping("/groupOrder.do")
+	public ModelAndView getGroupOrder() {
+		System.out.println("단체주문 페이지");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/groupOrder");
+		return mav;
+	}
+	
 	// -- goods 폴더 --
 	@RequestMapping("/goodslist.do")
 	public ModelAndView getOrderList() {
