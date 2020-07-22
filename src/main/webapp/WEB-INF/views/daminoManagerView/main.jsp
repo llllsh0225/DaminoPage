@@ -242,14 +242,14 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-demo.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-bar-demo.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
 	
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/datatables-demo.js'/>"></script>
 
 
 </body>
