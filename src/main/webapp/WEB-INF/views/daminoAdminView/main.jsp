@@ -35,7 +35,7 @@
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="store-manager-login.html">Logout</a>
+					<a class="dropdown-item" href="login.admdo">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -48,7 +48,7 @@
 
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
 
-						<a class="nav-link" href="index.html"> 메인 </a>
+						<a class="nav-link" href="main.admdo"> 메인 </a>
 
 						<div class="sb-sidenav-menu-heading">Interface</div>
 
@@ -62,8 +62,8 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="member.html"> 회원관리 </a> <a
-									class="nav-link collapsed" href="controlMarket.html"> 점포승인
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
+									class="nav-link collapsed" href="#"> 점포승인
 								</a>
 							</nav>
 						</div>
@@ -78,8 +78,8 @@
 						<div class="collapse" id="storePage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="enroll.html"> 매장등록 </a> <a
-									class="nav-link collapsed" href="control.html"> 매장조회 </a>
+								<a class="nav-link collapsed" href="#"> 매장등록 </a> <a
+									class="nav-link collapsed" href="marketList.admdo"> 매장조회 </a>
 							</nav>
 						</div>
 
@@ -93,8 +93,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								  <a class="nav-link collapsed" href="order-count.html"> 주문조회 </a>
-								<a class="nav-link collapse" href="order-stats.html"> 매출현황
+								  <a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -109,8 +109,8 @@
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="noticeBoardView.html">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.html">
+								<a class="nav-link collapsed" href="noticeBoardView.admdo">
+									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
 							</nav>
 						</div>
@@ -126,7 +126,7 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="get-menus.html"> 메뉴조회 </a> <a
+								<a class="nav-link collapsed" href="menuList.admdo"> 메뉴조회 </a> <a
 									class="nav-link collapsed" href="#" data-toggle="collapse"
 									data-target="#insertMenuPage" aria-expanded="false"
 									aria-controls="insertMenuPage"> 메뉴등록
@@ -138,10 +138,10 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insert-menu-pizza.html">피자</a> <a
-											class="nav-link" href="insert-menu-side.html">사이드디시</a> <a
-											class="nav-link" href="insert-menu-drink.html">음료&기타</a> <a
-											class="nav-link" href="insert-menu-topping.html">토핑</a>
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> 
+										<a class="nav-link" href="insertMenu_side.admdo">사이드디시</a> 
+										<a class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> 
+										<a class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -156,9 +156,9 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="site-qna-list.html">Q&A</a> <a
-									class="nav-link" href="bannerBoardView.html">배너관리</a> <a
-									class="nav-link" href="site-term-list.html">약관관리</a>
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> 
+								<a class="nav-link" href="bannerBoardView.admdo">배너관리</a> 
+								<a class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
 						</div>
 					</div>
@@ -184,7 +184,7 @@
 									<i class="fas fa-chart-area mr-1"></i> 월별 차트
 								</div>
 								<div class="card-body">
-									<canvas id="myAreaChart-main" width="100%" height="40"></canvas>
+									<canvas id="AreaChart_month" width="100%" height="40"></canvas>
 								</div>
 							</div>
 						</div>
@@ -237,7 +237,7 @@
 													매장대처</a></span></li>
 									</ul>
 									<div align="right">
-										<a href="#" class=small>공지사항로 이동</a>
+										<a href="boardList.admdo" class=small>공지사항로 이동</a>
 									</div>
 								</div>
 							</div>
@@ -259,7 +259,7 @@
 											<span><a href="#" class="text-muted">- 4월 주문내역 -</a></span></li>
 									</ul>
 									<div align="right">
-										<a href="order-count.html" class=small>주문내역로 이동</a>
+										<a href="orderList.admdo" class=small>주문내역로 이동</a>
 									</div>
 								</div>
 							</div>
@@ -282,7 +282,7 @@
 							<div class="card bg-primary text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="member.html">회원관리</a>
+									<a class="small text-white stretched-link" href="membersInfo.admdo">회원관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -293,7 +293,7 @@
 							<div class="card bg-warning text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="control.html">매장관리</a>
+									<a class="small text-white stretched-link" href="marketList.admdo">매장관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -304,7 +304,7 @@
 							<div class="card bg-success text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="get-menus.html">메뉴관리</a>
+									<a class="small text-white stretched-link" href="menuList.admdo">메뉴관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -315,7 +315,7 @@
 							<div class="card bg-danger text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="boardList.html">게시판관리</a>
+									<a class="small text-white stretched-link" href="noticeBoardView.admdo">게시판관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -351,7 +351,10 @@
 	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo_month.js'/>"></script>
+	<!-- 차트 -->
+	<!--  월차트   -->
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-month.js'/>"></script>
+	<!-- end차트  -->
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
 	<script type="text/javascript"
