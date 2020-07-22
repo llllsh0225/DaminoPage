@@ -804,4 +804,17 @@ public class ViewTestController {
 		
 		return mav;
 	}
+	
+	//daminoManagerView 영역 시작 -------------------------
+	
+	//statistics 폴더 시작 ---------
+	@RequestMapping("/statistics_list.smdo")
+	public ModelAndView getAdminStatistics_listPage() {
+		System.out.println("매출 현황 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/statistics/statistics_list");
+		
+		return mav;
+	}
 }
