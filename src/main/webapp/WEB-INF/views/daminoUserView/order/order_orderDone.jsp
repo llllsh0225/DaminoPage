@@ -27,15 +27,15 @@
 	<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo">
+					<a href="main.do" class="btn-logo">
 						<i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
 					<div class="util-nav">
 						<!-- and AUTH.memberYn eq 'Y' -->
-								<a href="/global/logout">로그아웃</a>
-								<a href="/mypage/myLevel">나의정보</a>
+								<a href="main.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a>
 								<a href="javascript:goCart();"  class="btn-cart">
 									<i class="ico-cart"></i>
 									<span class="hidden ">장바구니</span>
@@ -49,15 +49,9 @@
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active">
-							<a href="/goods/list?dsp_ctgr=C0101"><span>메뉴</span></a>
-						</li>
-						<li>
-							<a href="/ecoupon/index"><span>e-쿠폰</span></a>
-						</li>
-						<li>
-							<a href="/branch"><span>매장검색</span></a>
-						</li>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
@@ -66,32 +60,34 @@
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="/event/mania">다미노 서비스</a>
+								<a href="mania.do">다미노 서비스</a>
 								<ul>
-									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li><a href="/quickOrder/index">퀵 오더</a></li>
-									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a>
+								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">자주하는 질문</a></li>
-									<li><a href="/bbs/qnaForm">온라인 신문고</a></li>
+									<li><a
+										href="faqMain.do">자주하는
+											질문</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/company/contents/overview">회사소개</a>
+								<a href="overview.do">회사소개</a>
 								<ul>
-									<li><a href="/company/contents/overview">한국다미노피자</a></li>
-									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="/bbs/newsList?type=N">공지사항</a>
+							<a href="noticeList.do">공지사항</a>
 							<ul>
-								<li><a href="/bbs/newsList?type=N">다미노뉴스</a></li>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
 							</ul>
 						</div>
 					</div>
@@ -123,7 +119,7 @@
 							</p>
 						</div>
 						<div class="btn-wrap">
-							<a href="/mypage/myOrderView?order_no=20200717863942990010&pageNo=1" class="btn-type v4">주문내역 보기</a>
+							<a href="myorderlist.do" class="btn-type v4">주문내역 보기</a>
 							</div>
 					</div>
 				</article>
@@ -151,28 +147,24 @@
 			<div class="pop_header">
 				<h2>장바구니</h2>
 			</div>
-			<!-- iframe src="100_cart_pop_frame.html" width="1000" height="832" frameborder="0"></iframe><!-- 2016-10-05//아이프레임대체 -->
 			<a href="javascript:;" onclick="setBasketCnt();" class="btn_ico btn_close">닫기</a>
 		</div>
 	</div>
 	<!-- //장바구니(e) -->
 
 	<footer id="footer">
-		<div class="footer-area">
-			<div class="inner-box">
-				<div class="footer-order">
-					<i class="ico-logo2"></i>
-					<span class="tel">1577-3082</span>
-				</div>
-	
-				<ul class="footer-contact">
-					<li><a href="/contents/law">이용약관</a></li>
-					<li class="on"><a href="/contents/privacy">개인정보처리방침</a></li>
-					<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a></li>
-					<li><a href="/company/jobList?type=R">인재채용</a></li>
-					<li><a href="/company/contents/chainstore1">가맹점모집</a></li>
-					<li><a href="/order/groupOrder">단체주문</a></li>
-				</ul>
+			<div class="footer-area">
+				<div class="inner-box">
+					<div class="footer-order">
+						<i class="ico-logo2"></i> <span class="tel">1577-3082</span>
+					</div>
+
+					<ul class="footer-contact">
+						<li><a href="law.do">이용약관</a></li>
+						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
+						<li><a href="groupOrder.do">단체주문</a></li>
+					</ul>
 	
 				<div class="footer-info">
                <p>03138 서울특별시 중구 돈화문로 26 단성골드빌딩 KG아이티뱅크｜대표이사 : 오수현, 강수현, 정민균, 정민식, 김진혁</p>
