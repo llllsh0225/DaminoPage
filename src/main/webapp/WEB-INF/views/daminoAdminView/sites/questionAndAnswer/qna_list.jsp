@@ -188,7 +188,7 @@
 							<div id="table-reponsive">
 								<div id="qna-insert-btn">
 									<input type="button" class="btn btn-primary" value="Q&A 등록"
-										onClick="location.href='site-qna-insert.html'" />
+										onClick="location.href='qna_insert.admdo'" />
 								</div>
 								<div id="qna-select-btn">
 									<select class="form-control-osh">
