@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>도미노피자 테스트점 관리페이지</title>
+<title>도미노피자 테스트점 관리자 설정</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
 
@@ -87,7 +87,7 @@
 						<div class="collapse" id="statisticPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="sales.html">매출통계</a>
+								<a class="nav-link" href="#">매출통계</a>
 							</nav>
 						</div>
 					</div>
@@ -100,122 +100,112 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
-				<div class="container-fluid">
-					<h1 class="mt-4">매장관리자</h1>
-					<hr>
-					<div class="row">
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header" onClick="location.href='sales.html'"
-									style="cursor: pointer">
-									<i class="fas fa-chart-area mr-1"></i> 이번달 매출액
-								</div>
-								<div class="card-body">
-									<canvas id="myAreaChart" width="100%" height="40"></canvas>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header" onClick="location.href='sales.html'"
-									style="cursor: pointer">
-									<i class="fas fa-chart-area mr-1"></i> 최근 6개월 매출액
-								</div>
-								<div class="card-body">
-									<canvas id="myAreaChart2" width="100%" height="40"></canvas>
-								</div>
-							</div>
-						</div>
+				<div class="card mb-1">
+					<div class="card-header">
+						<i class="fas fa-chart-bar mr-1"></i> <strong>매출 통계</strong>
 					</div>
-					<hr>
-					<div class="row">
-
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header" onClick="location.href='sales.html'"
-									style="cursor: pointer">
-									<i class="fas fa-chart-bar mr-1"></i> 이번달 주문건수
-								</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<div class="card-header">
 								<div class="card-body">
-									<canvas id="myBarChart" width="100%" height="40"></canvas>
+									<strong>매출 통계</strong>
+									<hr>
+									<div class="input-group">
+										<input class="text-kjh" type="date" placeholder="날짜 입력" />
+										<p style="margin-top: 10px">&nbsp; &nbsp; ~ &nbsp; &nbsp;
+										</p>
+										<input class="text-kjh" type="date" placeholder="날짜 입력" />
+									</div>
+									<div class="input-group">
+										<select class="form-control-kjh" style="margin: 5px">
+											<option>년/월/주</option>
+											<option>연간</option>
+											<option>월간</option>
+											<option>주간</option>
+										</select> <select class="form-control-kjh" style="margin: 5px">
+											<option>매출액</option>
+											<option>주문건</option>
+										</select> <input type="submit" class="btn btn-primary" value="검색" />
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-xl-6">
-							<div class="card mb-4">
-								<div class="card-header" onClick="location.href='sales.html'"
-									style="cursor: pointer">
-									<i class="fas fa-chart-bar mr-1"></i> 최근 6개월 주문건수
-								</div>
-								<div class="card-body">
-									<canvas id="myBarChart2" width="100%" height="40"></canvas>
+							<hr>
+							<div class="col-xl-12">
+								<div class="card mb-4">
+									<div class="card-header">
+										<i class="fas fa-chart-area mr-1"></i> 검색한 매출액/주문건
+									</div>
+									<div class="card-body">
+										<canvas id="myAreaChart" width="100%" height="40"></canvas>
+									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="card mb-4">
-						<div class="card-header">
-							<i class="fas fa-table mr-1"></i> 매출 통계표
-						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
-									<thead>
-										<tr>
-											<th>날짜</th>
-											<th>매출액</th>
-											<th>주문건수</th>
-											<th>카드</th>
-											<th>현금</th>
-											<th>쿠폰</th>
-										</tr>
-									</thead>
-									<tfoot>
-										<tr>
-											<th>합계</th>
-											<th></th>
-											<th></th>
-											<th></th>
-											<th></th>
-											<th></th>
-										</tr>
-									</tfoot>
-									<tbody>
-										<tr>
-											<td>2020-05</td>
-											<td>8,000,000</td>
-											<td>300</td>
-											<td>200</td>
-											<td>70</td>
-											<td>30</td>
-										</tr>
-										<tr>
-											<td>2020-04</td>
-											<td>8,000,000</td>
-											<td>300</td>
-											<td>200</td>
-											<td>70</td>
-											<td>30</td>
-										</tr>
-										<tr>
-											<td>2020-03</td>
-											<td>8,000,000</td>
-											<td>300</td>
-											<td>200</td>
-											<td>70</td>
-											<td>30</td>
-										</tr>
-										<tr>
-											<td>2020-05</td>
-											<td>8,000,000</td>
-											<td>300</td>
-											<td>200</td>
-											<td>70</td>
-											<td>30</td>
-										</tr>
-									</tbody>
-								</table>
+							<hr>
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-table mr-1"></i> 매출 통계표
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable"
+											width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>날짜</th>
+													<th>매출액</th>
+													<th>주문건수</th>
+													<th>카드</th>
+													<th>현금</th>
+													<th>쿠폰</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>합계</th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td>2020-05</td>
+													<td>8,000,000</td>
+													<td>300</td>
+													<td>200</td>
+													<td>70</td>
+													<td>30</td>
+												</tr>
+												<tr>
+													<td>2020-04</td>
+													<td>8,000,000</td>
+													<td>300</td>
+													<td>200</td>
+													<td>70</td>
+													<td>30</td>
+												</tr>
+												<tr>
+													<td>2020-03</td>
+													<td>8,000,000</td>
+													<td>300</td>
+													<td>200</td>
+													<td>70</td>
+													<td>30</td>
+												</tr>
+												<tr>
+													<td>2020-05</td>
+													<td>8,000,000</td>
+													<td>300</td>
+													<td>200</td>
+													<td>70</td>
+													<td>30</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
