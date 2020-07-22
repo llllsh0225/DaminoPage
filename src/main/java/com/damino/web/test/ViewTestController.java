@@ -178,4 +178,105 @@ public class ViewTestController {
 		mav.setViewName("/order/order_status_delivery");
 		return mav;
 	}
+	
+	// -- goods 폴더 --
+	@RequestMapping("/goodslist.do")
+	public ModelAndView getOrderList() {
+		System.out.println("제품 목록 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/goods/list");
+		return mav;
+	}
+	
+	@RequestMapping("/grouporderservice.do")
+	public ModelAndView getGroupOrderService() {
+		System.out.println("단체 주문 서비스 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/goods/groupOrderService");
+		return mav;
+	}
+	
+	@RequestMapping("/detail001pp.do")
+	public ModelAndView getDetail001pp() {
+		System.out.println("제품 -이베리코- 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/goods/detail001pp");
+		return mav;
+	}
+	// --- end goods 폴더 ---
+	
+	// --- login 폴더 ---
+	@RequestMapping("/login.do")
+	public ModelAndView getLogin() {
+		System.out.println("내 쿠폰함 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/login/login");
+		return mav;
+	}
+	// --- end login 폴더 ---
+	
+	
+	// --- mypage 폴더 ---
+	@RequestMapping("/mycoupon.do")
+	public ModelAndView getMyCoupon() {
+		System.out.println("내 쿠폰함 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/mypage/myCoupon");
+		return mav;
+	}
+	
+	@RequestMapping("/mylevel.do")
+	public ModelAndView getMyLevel() {
+		System.out.println("내 등급 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/mypage/myLevel");
+		return mav;
+	}
+	
+	@RequestMapping("/myorderlistcancle.do")
+	public ModelAndView getMyOrderListcancle() {
+		System.out.println("내 주문 취소 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/mypage/myOrderList_cancle");
+		return mav;
+	}
+	
+	@RequestMapping("/myorderlist.do")
+	public ModelAndView getMyOrderList() {
+		System.out.println("내 주문현황 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/mypage/myOrderList");
+		return mav;
+	}
+	
+	@RequestMapping("/myquestionlist.do")
+	public ModelAndView getMyQuestionList() {
+		System.out.println("내 질문내역 1:1 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/mypage/myQuestionList");
+		return mav;
+	}
+	
+	@RequestMapping("/myuserinfoconfirm.do")
+	public ModelAndView getMyUserInfoConfirm() {
+		System.out.println("내 정보수정 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/mypage/myUserInfoConfirm");
+		return mav;
+	}
+	// --- end page 폴더 ---
+	
+	
+	
+	
 }
