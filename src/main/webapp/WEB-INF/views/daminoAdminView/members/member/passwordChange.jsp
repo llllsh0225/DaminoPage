@@ -41,14 +41,14 @@
 										</div>
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="login.html">Return to login</a> <a
-												class="btn btn-primary" href="login.html">Reset Password</a>
+											<a class="small" href="login.admdo">Return to login</a> <a
+												class="btn btn-primary" href="login.admdo">Reset Password</a>
 										</div>
 									</form>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="register.html">Need an account? Sign up!</a>
+										<a href="regForm.admdo">Need an account? Sign up!</a>
 									</div>
 								</div>
 							</div>

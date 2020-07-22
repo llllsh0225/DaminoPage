@@ -3,11 +3,11 @@ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSyste
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart-main");
+var ctx = document.getElementById("AreaChart_year");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+    labels: ["2017","2018","2019","2020"],
     datasets: [{
       label: "Sessions",
       lineTension: 0.3,
@@ -20,7 +20,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "#4C514A", //선택되었으때 점 색 변
       pointHitRadius: 50,
       pointBorderWidth: 2,
-      data: [1000, 1322, 866, 1444, 1789, 1313, 601, 784, 656, 966, 945, 644, 1602],
+      data: [999.3, 1200.5,1032.4,1377],
     }],
   },
   options: {
@@ -33,14 +33,14 @@ var myLineChart = new Chart(ctx, {
           display: false
         },
         ticks: {
-          maxTicksLimit: 12
+          maxTicksLimit: 4
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
           max: 2000,
-          maxTicksLimit: 4
+          maxTicksLimit: 3
         },
         gridLines: {
           color: "rgba(0, 0, 0, .125)",
