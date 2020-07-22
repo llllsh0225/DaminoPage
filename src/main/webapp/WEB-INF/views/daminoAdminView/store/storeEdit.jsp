@@ -222,14 +222,27 @@
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputPassword">특이사항</label>
-													<input class="form-control py-4" id="inputPassword"
-														type="text" placeholder="" />
-												</div>
+													<label class="small mb-1" for="inputPassword">오픈시간</label>
+                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" />
+                                                    </div>
+                                                </div>
+												<div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputPassword">마감시간</label>
+                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" />
+                                                    </div>
+                                                </div>
 											</div>
-										</div>
-										<div class="form-group mt-4 mb-0">
-											<a class="btn btn-primary btn-block" href="login.admdo">변경정보
+											 <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputPassword">특이사항</label>
+                                                      <input class="form-control py-4" id="inputPassword" type="text" placeholder="" />
+                                                    </div>
+                                                </div>
+												<div class="col-md-6"> </div>
+											</div>
+                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" href="login.html">변경정보
 												저장</a>
 										</div>
 									</form>
