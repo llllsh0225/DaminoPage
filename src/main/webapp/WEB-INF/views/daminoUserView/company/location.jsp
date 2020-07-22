@@ -9,26 +9,16 @@
 <title>회사소개(CEO)- 다미노피자</title>
 <link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<script type="text/javascript" src="../../resources/js/jquery1.11.1.js"></script>
-
-<script type="text/javascript" src="../../../newcdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
-<script type="text/javascript" src="../../resources/js/selectbox.js"></script>
-<script type="text/javascript" src="../../resources/js/d2CommonUtil7ef2.js?ver=1.5"></script>
-<script type="text/javascript" src="../../resources/js/Cookie.js"></script>
-<script type="text/javascript"
-	src="../../resources/js/basket_w62ea.js?ver=1.2"></script>
-
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
 
-<script src="../../../newcdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
-<script src="../../../newcdn.dominos.co.kr/domino/asset/js/slick.js"></script>
-<script src="../../../newcdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
-<script src="../../../newcdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
-
-<script src="../../../newcdn.dominos.co.kr/domino/pc/js/ui.js"></script>
-<script type="text/javascript" src="../../resources/js/gcenmaps/gcenmap.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
 <style>
 #card_add .pop_wrap {
