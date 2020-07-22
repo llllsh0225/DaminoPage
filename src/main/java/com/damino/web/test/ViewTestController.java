@@ -570,7 +570,7 @@ public class ViewTestController {
 		System.out.println("회원 수정 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/member/membersEdit");
+		mav.setViewName("/members/member/memberEdit");
 		
 		return mav;
 	}
@@ -579,7 +579,7 @@ public class ViewTestController {
 		System.out.println("회원 정보 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/member/membersInfo");
+		mav.setViewName("/members/member/memberInfo");
 		
 		return mav;
 	}
