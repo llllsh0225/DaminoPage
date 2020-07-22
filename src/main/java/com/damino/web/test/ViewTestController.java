@@ -807,6 +807,16 @@ public class ViewTestController {
 	
 	//daminoManagerView 영역 시작 -------------------------
 	
+	// ---- Manager Main ----
+		@RequestMapping("/main.smdo")
+		public ModelAndView getMainManagerPage() {
+			System.out.println("메인페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main");
+			
+			return mav;
+		}
 	//statistics 폴더 시작 ---------
 	@RequestMapping("/statistics_list.smdo")
 	public ModelAndView getAdminStatistics_listPage() {
