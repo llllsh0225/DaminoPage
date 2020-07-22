@@ -19,9 +19,6 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
-	<script type="text/javascript">
-		<!-- 삭제된 스크립트(민식) -->
-	</script>
 </head>
 <body>	
 <div id="wrap">
@@ -35,8 +32,8 @@
 					
 					<div class="util-nav">
 						<!-- and AUTH.memberYn eq 'Y' -->
-								<a href="/global/logout">로그아웃</a>
-								<a href="/mypage/myLevel">나의정보</a>
+								<a href="main.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a>
 								<a href="javascript:goCart();"  class="btn-cart">
 									<i class="ico-cart"></i>
 									<span class="hidden ">장바구니</span>
@@ -50,15 +47,9 @@
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active">
-							<a href="/goods/list?dsp_ctgr=C0101"><span>메뉴</span></a>
-						</li>
-						<li>
-							<a href="/ecoupon/index"><span>e-쿠폰</span></a>
-						</li>
-						<li>
-							<a href="/branch"><span>매장검색</span></a>
-						</li>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
@@ -67,32 +58,32 @@
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="/event/mania">다미노 서비스</a>
+								<a href="mania.do">다미노 서비스</a>
 								<ul>
-									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li><a href="/quickOrder/index">퀵 오더</a></li>
-									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a>
+								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">자주하는 질문</a></li>
-									<li><a href="/bbs/qnaForm">온라인 신문고</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/company/contents/overview">회사소개</a>
+								<a href="overview.do">회사소개</a>
 								<ul>
-									<li><a href="/company/contents/overview">한국다미노피자</a></li>
-									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="/bbs/newsList?type=N">공지사항</a>
+							<a href="noticeList.do">공지사항</a>
 							<ul>
-								<li><a href="/bbs/newsList?type=N">다미노뉴스</a></li>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
 							</ul>
 						</div>
 					</div>
@@ -118,8 +109,8 @@
 						<h2 class="page-title">다미노 서비스</h2>
 						<div class="depth-area">
 							<ol>
-								<li><a href="#">홈</a></li>
-								<li><a href="#">다미노 서비스</a></li>
+								<li><a href="main.do">홈</a></li>
+								<li><a href="damino.do">다미노 서비스</a></li>
 								<li><strong>퀵오더</strong></li>
 							</ol>
 						</div>
@@ -128,9 +119,9 @@
 						<div class="menu-nav-wrap">
 							<div class="menu-nav">
 								<ul>
-									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li class="active"><a href="/quickOrder/index">퀵오더</a></li>
-									<li><a href="/goods/groupOrderService">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 						</div>
@@ -625,11 +616,10 @@
 				</div>
 	
 				<ul class="footer-contact">
-					<li><a href="/contents/law">이용약관</a></li>
-					<li class="on"><a href="/contents/privacy">개인정보처리방침</a></li>
-					<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a></li>
-					<li><a href="/company/contents/chainstore1">가맹점모집</a></li>
-					<li><a href="/order/groupOrder">단체주문</a></li>
+						<li><a href="law.do">이용약관</a></li>
+						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
+						<li><a href="groupOrder.do">단체주문</a></li>
 				</ul>
 	
 				<div class="footer-info">
