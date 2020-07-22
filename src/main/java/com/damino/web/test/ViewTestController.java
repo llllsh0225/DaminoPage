@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ViewTestController {
 	
+	// ---- user main ----
 	@RequestMapping("/main.do")
 	public ModelAndView getMainPage() {
 		System.out.println("메인페이지 열기");
@@ -16,6 +17,9 @@ public class ViewTestController {
 		
 		return mav;
 	}
+	// ---- user main end ----
+	
+	
 	@RequestMapping("/quickOrdermain.do")
 	public ModelAndView getQuickOrderPage() {
 		System.out.println("퀵오더페이지 열기");
@@ -26,12 +30,13 @@ public class ViewTestController {
 		return mav;
 	}
 
+	// ---- basket 폴더 ----
 	@RequestMapping("/basketdetail.do")
 	public ModelAndView getBasketDetailPage() {
 		System.out.println("장바구니 상세페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/basket/basket-detail");
+		mav.setViewName("/basket/basket_detail");
 		return mav;
 	}
 	
@@ -40,9 +45,192 @@ public class ViewTestController {
 		System.out.println("빈 장바구니 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/basket/basket-empty");
+		mav.setViewName("/basket/basket_empty");
 		return mav;
 	}
+	
+	// ---- basket 폴더 end ----
+	
+	// ---- board 폴더 ----
+	@RequestMapping("/faqMain.do")
+	public ModelAndView getFaqMainPage() {
+		System.out.println("FAQ 메인페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/faq_main");
+		return mav;
+	}
+	
+	@RequestMapping("/faqHomePage.do")
+	public ModelAndView getFaqHomepagePage() {
+		System.out.println("FAQ 홈페이지 관련 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/faq_homePage");
+		return mav;
+	}
+	
+	@RequestMapping("/faqHowToOrder.do")
+	public ModelAndView getFaqHowToOrderPage() {
+		System.out.println("FAQ 피자 주문하기 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/faq_howToOrder");
+		return mav;
+	}
+	
+	@RequestMapping("/faqOrderCheck.do")
+	public ModelAndView getFaqOrderCheckPage() {
+		System.out.println("FAQ 주문확인 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/faq_orderCheck");
+		return mav;
+	}
+	
+	@RequestMapping("/faqSendPresent.do")
+	public ModelAndView getFaqSendPresentPage() {
+		System.out.println("FAQ 선물하기 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/faq_sendPresent");
+		return mav;
+	}
+	
+	@RequestMapping("/faqWrapOrder.do")
+	public ModelAndView getFaqWrapOrderPage() {
+		System.out.println("FAQ 포장주문 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/faq_wrapOrder");
+		return mav;
+	}
+	
+	@RequestMapping("/noticeList.do")
+	public ModelAndView getNoticeListPage() {
+		System.out.println("공지사항 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/noticeList");
+		return mav;
+	}
+	
+	@RequestMapping("/qnaForm.do")
+	public ModelAndView getQnaFormPage() {
+		System.out.println("1:1 문의 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/qnaForm");
+		return mav;
+	}
+	// ---- board 폴더 end ----
+	
+	// ---- company 폴더 ----
+	
+	@RequestMapping("/ceo.do")
+	public ModelAndView getCeoPage() {
+		System.out.println("회사소개 CEO 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/ceo");
+		return mav;
+	}
+	
+	@RequestMapping("/international.do")
+	public ModelAndView getInternationalPage() {
+		System.out.println("회사소개 International 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/international");
+		return mav;
+	}
+	
+	@RequestMapping("/location.do")
+	public ModelAndView getLocationPage() {
+		System.out.println("회사소개 Location 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/location");
+		return mav;
+	}
+	
+	@RequestMapping("/overview.do")
+	public ModelAndView getOverviewPage() {
+		System.out.println("회사소개 Overview 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/overview");
+		return mav;
+	}
+	
+	@RequestMapping("/chainstore1.do")
+	public ModelAndView getChainstoreFirstPage() {
+		System.out.println("가맹점모집 1페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/chainstore1");
+		return mav;
+	}
+	
+	@RequestMapping("/chainstore2.do")
+	public ModelAndView getChainstoreSencondPage() {
+		System.out.println("가맹점모집 2페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/chainstore2");
+		return mav;
+	}
+	
+	@RequestMapping("/chainstore3.do")
+	public ModelAndView getChainstoreThiredPage() {
+		System.out.println("가맹점모집 3페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/chainstore3");
+		return mav;
+	}
+	
+	@RequestMapping("/chainstore4.do")
+	public ModelAndView getChainstoreFourthPage() {
+		System.out.println("가맹점모집 4페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/company/chainstore4");
+		return mav;
+	}
+	// ---- company 폴더 end ----
+	
+	// ---- ecoupon 폴더 ----
+	@RequestMapping("/ecouponInput.do")
+	public ModelAndView getEcouponInputPage() {
+		System.out.println("ecoupon 입력페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/ecoupon/ecouponInput");
+		return mav;
+	}
+	
+	@RequestMapping("/ecouponResult.do")
+	public ModelAndView getEcouponResultPage() {
+		System.out.println("ecoupon 등록결과 확인페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/ecoupon/ecouponResult");
+		return mav;
+	}
+	// ---- ecoupon 폴더 end ----
+	
+	// ---- error 폴더 ----
+	@RequestMapping("/error.do")
+	public ModelAndView getErrorPage() {
+		System.out.println("에러페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/error/error");
+		return mav;
+	}
+	// ---- error 폴더 end ----
+	
 	
 	@RequestMapping("/mania.do")
 	public ModelAndView getManiaPage() {
