@@ -6,6 +6,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ViewTestController {
+	@RequestMapping("/main.admdo")
+	public ModelAndView getAdminMainPage() {
+		System.out.println("메인페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/main");
+		
+		return mav;
+	}
+	
 	@RequestMapping("/main.do")
 	public ModelAndView getMainPage() {
 		System.out.println("메인페이지 열기");
