@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -51,14 +51,14 @@
 										</div>
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="password.html">비밀번호 찾기</a> <a
-												class="btn btn-primary" href="index.html">Login</a>
+											<a class="small" href="passwordChange.smdo">비밀번호 찾기</a> <a
+												class="btn btn-primary" href="main.smdo">Login</a>
 										</div>
 									</form>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="register.html">매장관리자 계정 등록</a>
+										<a href="managerRegister.smdo">매장관리자 계정 등록</a>
 									</div>
 								</div>
 							</div>
