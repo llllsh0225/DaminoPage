@@ -12,17 +12,17 @@
 
 <!-- 리뉴얼 적용 2019.12.02 -->
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/font.css' />">
+	href="<c:url value='/resources/css/user/font.css' />">
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/common.css' />">
+	href="<c:url value='/resources/css/user/common.css' />">
 
 <!--메인에는 sub.css 호출하지않음-->
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/sub.css' />">
+	href="<c:url value='/resources/css/user/sub.css' />">
 <!--//메인에는 sub.css 호출하지않음  -->
 
 <script type="text/javascript"
-	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>

@@ -21,7 +21,7 @@
 
 
 <script type="text/javascript"
-	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
