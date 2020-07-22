@@ -25,7 +25,7 @@
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="maind6dc.html" class="btn-logo"> <i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 
@@ -34,8 +34,8 @@
 					</div>
 
 					<div class="util-nav">
-						<a href="global/login.html">로그인</a> <a
-							href="global/login7837.html?L=L">회원가입</a>
+						<a href="login.do">로그인</a> 
+						<a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -43,10 +43,9 @@
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active"><a
-							href="goods/list985d.html?dsp_ctgr=C0101"><span>메뉴</span></a></li>
-						<li><a href="ecoupon/index.html"><span>e-쿠폰</span></a></li>
-						<li><a href="branch.html"><span>매장검색</span></a></li>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
@@ -55,34 +54,34 @@
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="event/mania.html">다미노 서비스</a>
+								<a href="mania.do">다미노 서비스</a>
 								<ul>
-									<li><a href="event/mania.html">매니아 혜택</a></li>
-									<li><a href="event/mania.html">퀵 오더</a></li>
-									<li><a href="order/groupOrder.html">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="bbs/faqList12ff.html?view_gubun=W&amp;bbs_cd=online">고객센터</a>
+								<a href="faqMain.do">고객센터</a>
 								<ul>
 									<li><a
-										href="bbs/faqList12ff.html?view_gubun=W&amp;bbs_cd=online">자주하는
+										href="faqMain.do">자주하는
 											질문</a></li>
-									<li><a href="bbs/qnaForm.html">온라인 신문고</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="company/contents/overview.html">회사소개</a>
+								<a href="overview.do">회사소개</a>
 								<ul>
-									<li><a href="company/contents/overview.html">한국다미노피자</a></li>
-									<li><a href="company/contents/chainstore1.html">가맹점 모집</a></li>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="bbs/newsList91ef.html?type=N">공지사항</a>
+							<a href="noticeList.do">공지사항</a>
 							<ul>
-								<li><a href="bbs/newsList91ef.html?type=N">다미노뉴스</a></li>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
 							</ul>
 						</div>
 					</div>
@@ -143,7 +142,7 @@
 										</div>
 									</div>
 									<div class="btn-wrap">
-										<a href="global/login.html" class="btn-type5">로그인</a>
+										<a href="login.do" class="btn-type5">로그인</a>
 									</div>
 								</div>
 							</div>
@@ -153,20 +152,20 @@
 										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card1.jpg" /></a>
 								</div>
 								<div>
-									<a href="event/mania.html"><img
+									<a href="mania.do"><img
 										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card2.gif" /></a>
 								</div>
 								<div id="getTodayPrmt">
-									<a href="event/view023e.html?seq=1161&amp;gubun=E0200"><img
+									<a href="event/view023e.do?seq=1161&amp;gubun=E0200"><img
 										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card4-1.gif" /></a>
 								</div>
 								<div>
-									<a href="event/viewHtml21cb.html?seq=1149&amp;gubun=E0200"><img
+									<a href="event/viewHtml21cb.do?seq=1149&amp;gubun=E0200"><img
 										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card3.png" /></a>
 								</div>
 
 								<div>
-									<a href="goods/dominosMoment.html"><img
+									<a href="goods/dominosMoment.do"><img
 										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card5.png" /></a>
 								</div>
 							</div>
@@ -277,11 +276,11 @@
 					</div>
 
 					<ul class="footer-contact">
-						<li><a href="contents/law.html">이용약관</a></li>
-						<li class="on"><a href="contents/privacy.html">개인정보처리방침</a></li>
+						<li><a href="law.do">이용약관</a></li>
+						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
 						<li><a
-							href="bbs/faqList12ff.html?view_gubun=W&amp;bbs_cd=online">고객센터</a></li>
-						<li><a href="order/groupOrder.html">단체주문</a></li>
+							href="faqMain.do">고객센터</a></li>
+						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
 					<div class="footer-info">
