@@ -188,7 +188,7 @@
 							<div id="table-reponsive">
 								<div id="qna-insert-btn">
 									<input type="button" class="btn btn-primary" value="약관 등록"
-										onclick="location.href='site-terms-insert.html'" />
+										onclick="location.href='terms_insert.admdo'" />
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
