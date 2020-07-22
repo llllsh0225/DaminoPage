@@ -619,8 +619,62 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	
-	//noticeBoard 시작 ------
+	//menu 폴더 시작 --------------
+	@RequestMapping("/insertMenu_drink.admdo")
+	public ModelAndView getAdminInsertMenu_drinkPage() {
+		System.out.println("메뉴추가 - 음료 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_drink");
+		
+		return mav;
+	}
+	@RequestMapping("/insertMenu_pizza.admdo")
+	public ModelAndView getAdminInsertMenu_pizzaPage() {
+		System.out.println("메뉴추가 - 피자 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_pizza");
+		
+		return mav;
+	}
+	@RequestMapping("/insertMenu_side.admdo")
+	public ModelAndView getAdminInsertMenu_sidePage() {
+		System.out.println("메뉴추가 - 사이드디쉬 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_side");
+		
+		return mav;
+	}
+	@RequestMapping("/insertMenu_topping.admdo")
+	public ModelAndView getAdminInsertMenu_toppingPage() {
+		System.out.println("메뉴추가 - 토핑 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_topping");
+		
+		return mav;
+	}
+	@RequestMapping("/menuInfo.admdo")
+	public ModelAndView getAdminMenuInfoPage() {
+		System.out.println("메뉴 정보 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuInfo");
+		
+		return mav;
+	}
+	@RequestMapping("/menuList.admdo")
+	public ModelAndView getAdminMenuListPage() {
+		System.out.println("메뉴 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuList");
+		
+		return mav;
+	}
+	//noticeBoard 폴더 시작 ------
 	
 	@RequestMapping("/noticeBoardEdit.admdo")
 	public ModelAndView getAdminNoticeBoardEditPage() {
