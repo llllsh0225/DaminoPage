@@ -18,7 +18,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">Damino Administration</a>
+		<a class="navbar-brand" href="main.admdo">Damino Administration</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -156,7 +156,7 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="site-qna-list.html">Q&A</a> <a
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
 									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
 									class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
