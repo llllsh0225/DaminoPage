@@ -6,9 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+	
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
+	<!-- 메인페이지 슬라이드 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
+	<!-- 더보기 슬라이드로 내려오는 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	
+	
 </head>
 <body>
 	<div id="wrap">
@@ -278,10 +288,10 @@
 						<p>03138 서울특별시 종구 돈화문로 26 단성골드빌딩 KG아이티뱅크｜대표이사 : 오수현, 강수현, 정민균,
 							정민식, 김진혁</p>
 						<p>사업자 등록번호: 220-81-03371｜통신판매업신고: 강남 5064호｜개인정보 보호책임자 : 이승재</p>
-						<p>문의 : admin@dominos.co.kr</p>
-						<p>Copyright ⓒ Domino’s Pizza. All rights reserved.</p>
+						<p>문의 : admin@daminos.co.kr</p>
+						<p>Copyright ⓒ Damino’s Pizza. All rights reserved.</p>
 
-						<p class="notice">KG아이티뱅크의 사전 서면동의 없이 ㅇㅇ 사이트(PC, 모바일, 앱)의 일체의
+						<p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 사이트(PC, 모바일, 앱)의 일체의
 							정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
 					</div>
 
@@ -318,39 +328,27 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img
-							src="../newcdn.dominos.co.kr/domino/pc/images/list_awards.png"
-							alt="">
+						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img
-							src="../newcdn.dominos.co.kr/domino/pc/images/list_awards2.png"
-							alt="">
+						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img
-							src="../newcdn.dominos.co.kr/domino/pc/images/list_awards3.png"
-							alt="">
+						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img
-							src="../newcdn.dominos.co.kr/domino/pc/images/list_awards4.png"
-							alt="">
+						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img
-							src="../newcdn.dominos.co.kr/domino/pc/images/list_awards5.png"
-							alt="">
+						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img
-							src="../newcdn.dominos.co.kr/domino/pc/images/list_awards6.png"
-							alt="">
+						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>
