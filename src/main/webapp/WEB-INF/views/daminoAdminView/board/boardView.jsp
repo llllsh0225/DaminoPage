@@ -175,7 +175,7 @@
 				<div class="card mb-4">
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <b>게시글 상세보기</b> <img
-							src="././resources/assets/admin/img/refresh_icon.png" width="20"
+							src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
 							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;"> <br>
 						<!--새로고침 버튼-->

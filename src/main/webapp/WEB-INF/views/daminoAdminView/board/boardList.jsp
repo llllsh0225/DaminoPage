@@ -176,7 +176,7 @@
 				<div class="card mb-4">
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <b>게시글 리스트</b> <img
-							src="././resources/assets/admin/img/refresh_icon.png" width="20"
+							src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
 							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;"> <br> <a
 							href="#">전체</a>|<a href="#">카테고리1</a>|<a href="#">다미노 뉴스</a>|<a
