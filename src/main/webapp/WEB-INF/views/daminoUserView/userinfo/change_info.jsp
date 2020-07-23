@@ -10,119 +10,19 @@
 <meta name="title" content="다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's" />
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
 
-<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
+<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<script type="text/javascript"
-	src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
-<script type="text/javascript" src="/resources/js/selectbox.js"></script>
-<!-- js 수정함. -->
-<script type="text/javascript"
-	src="/resources/js/d2CommonUtil.js?ver=1.5"></script>
-<script type="text/javascript" src="/resources/js/Cookie.js"></script>
-<script type="text/javascript"
-	src="https://cdn.dominos.co.kr/renewal2018/w/js/basket_w.js"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
 
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.dominos.co.kr/domino/asset/css/font.css">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.dominos.co.kr/domino/pc/css/common.css">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.dominos.co.kr/domino/pc/css/sub.css">
-
-<script
-	src="https://cdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
-<script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
-<script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
-<script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
-
-<script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
-<script type="text/javascript" src="/resources/js/gcenmaps/gcenmap.js"></script>
-
-<style>
-#card_add .pop_wrap {
-	position: fixed;
-	top: 50%;
-	width: 490px;
-	margin-left: -245px;
-	margin-top: -35px;
-}
-
-#card_add .pop_wrap .pop_content p {
-	font-size: 18px;
-	color: #fff;
-	text-align: center
-}
-
-.pop_toast {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 100;
-}
-
-.pop_toast.open {
-	display: block
-}
-
-.pop_toast .bg {
-	position: fixed;
-	width: 100%;
-	height: 100%;
-}
-
-.pop_toast .pop_wrap {
-	overflow: hidden;
-	position: absolute;
-	top: 100px;
-	left: 50%;
-	min-width: 400px;
-	min-height: 70px;
-	margin-left: -200px;
-	padding: 20px;
-	background:
-		url(https://cdn.dominos.co.kr/renewal2018/w/img/bg/bg_color_navy.png)
-		repeat 0 0;
-	border-radius: 12px;
-}
-
-.pop_toast .pop_wrap .btn_close3 {
-	position: absolute;
-	top: 15px;
-	right: 20px;
-}
-
-.pop_toast .pop_header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 66px;
-	padding: 0 40px;
-	background-color: #eeece9;
-	line-height: 66px;
-}
-
-.pop_toast .pop_header h2 {
-	font-size: 30px;
-	font-weight: 500;
-	color: #38474f;
-}
-
-.pop_toast .pop_content {
-	position: relative;
-	width: 100%;
-	padding: 0;
-}
-
-.pop_type2 .pop_wrap .btn_close3 {
-	position: absolute;
-	top: 15px;
-	right: 20px;
-}
-</style>
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
 </head>
 <body>
@@ -130,28 +30,27 @@
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo"> <i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 
+					<div class="location active">
+						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
+					</div>
+
 					<div class="util-nav">
-						<a href="/global/logout">로그아웃</a> <a href="/mypage/myLevel">나의정보</a>
-						<a href="javascript:goCart();" class="btn-cart"> <i
-							class="ico-cart"></i> <span class="hidden ">장바구니</span> <strong
-							class="cart_count"></strong> <!-- count -->
-						</a>
+						<a href="login.do">로그인</a> 
+						<a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
 
-			<!-- main 1dep menu -->
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active"><a href="/goods/list?dsp_ctgr=C0101"><span>메뉴</span></a>
-						</li>
-						<li><a href="/ecoupon/index"><span>e-쿠폰</span></a></li>
-						<li><a href="/branch"><span>매장검색</span></a></li>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
@@ -160,41 +59,42 @@
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="/event/mania">다미노 서비스</a>
+								<a href="mania.do">다미노 서비스</a>
 								<ul>
-									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li><a href="/quickOrder/index">퀵 오더</a></li>
-									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a>
+								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">자주하는
+									<li><a
+										href="faqMain.do">자주하는
 											질문</a></li>
-									<li><a href="/bbs/qnaForm">온라인 신문고</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/company/contents/overview">회사소개</a>
+								<a href="overview.do">회사소개</a>
 								<ul>
-									<li><a href="/company/contents/overview">한국다미노피자</a></li>
-									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="/bbs/newsList?type=N">공지사항</a>
+							<a href="noticeList.do">공지사항</a>
 							<ul>
-								<li><a href="/bbs/newsList?type=N">다미노뉴스</a></li>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- //main 1dep menu -->
 		</header>
 		<!-- //header -->
+		
 		<!-- container -->
 		<div id="container">
 			<section id="content">
@@ -204,8 +104,8 @@
 							<h2 class="page-title">나의정보</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="/main">홈</a></li>
-									<li><a href="/mypage/myOrderList">나의 정보</a></li>
+									<li><a href="main.do">홈</a></li>
+									<li><a href="myuserinfoconfirm.do">나의 정보</a></li>
 									<li><strong>정보수정</strong></li>
 								</ol>
 							</div>
@@ -214,11 +114,11 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li><a href="/mypage/myLevel">매니아 등급</a></li>
-										<li><a href="/mypage/myOrderList">주문내역</a></li>
-										<li><a href="/mypage/myCoupon">쿠폰함</a></li>
-										<li><a href="/mypage/qustionList">1:1문의</a></li>
-										<li class="active"><a href="/member/userinfoConfirm">정보수정</a></li>
+										<li><a href="mylevel.do">매니아 등급</a></li>
+										<li><a href="myorderlist.do">주문내역</a></li>
+										<li><a href="mycoupon.do">쿠폰함</a></li>
+										<li><a href="myquestionlist.do">1:1문의</a></li>
+										<li class="active"><a href="myuserinfoconfirm.do">정보수정</a></li>
 									</ul>
 								</div>
 							</div>
@@ -696,11 +596,11 @@
 					</div>
 
 					<ul class="footer-contact">
-						<li><a href="contents/law.html">이용약관</a></li>
-						<li class="on"><a href="contents/privacy.html">개인정보처리방침</a></li>
+						<li><a href="law.do">이용약관</a></li>
+						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
 						<li><a
-							href="bbs/faqList12ff.html?view_gubun=W&amp;bbs_cd=online">고객센터</a></li>
-						<li><a href="order/groupOrder.html">단체주문</a></li>
+							href="faqMain.do">고객센터</a></li>
+						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
 					<div class="footer-info">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -9,18 +9,26 @@
 
 <title>매니아 혜택- 다미노피자</title>
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/as_is.css' />">
-	
-	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/as_is.css' />">
+
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+
 </head>
 <body>
 
@@ -28,9 +36,16 @@
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
+						<h1 class="hidden">다미노피자</h1>
+					</a>
+
+					<div class="location active">
+						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
+					</div>
+
 					<div class="util-nav">
-						<a href="../global/login.html">로그인</a> <a
-							href="../global/login7837.html?L=L">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -38,11 +53,9 @@
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active"><a
-							href="../goods/list985d.html?dsp_ctgr=C0101"><span>메뉴</span></a>
-						</li>
-						<li><a href="../ecoupon/index.html"><span>e-쿠폰</span></a></li>
-						<li><a href="../branch.html"><span>매장검색</span></a></li>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
@@ -51,43 +64,38 @@
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="mania.html">다미노 서비스</a>
+								<a href="mania.do">다미노 서비스</a>
 								<ul>
-									<li><a href="mania.html">매니아 혜택</a></li>
-									<li><a href="../quickOrder/index.html">퀵 오더</a></li>
-									<li><a href="../order/groupOrder.html">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="../bbs/faqList12ff.html?view_gubun=W&amp;bbs_cd=online">고객센터</a>
+								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="../bbs/faqList12ff.html?view_gubun=W&amp;bbs_cd=online">자주하는
-											질문</a></li>
-									<li><a href="../bbs/qnaForm.html">온라인 신문고</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="../company/contents/overview.html">회사소개</a>
+								<a href="overview.do">회사소개</a>
 								<ul>
-									<li><a href="../company/contents/overview.html">한국다미노피자</a></li>
-									<li><a href="../company/contents/chainstore1.html">가맹점
-											모집</a></li>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="../bbs/newsList91ef.html?type=N">공지사항</a>
+							<a href="noticeList.do">공지사항</a>
 							<ul>
-								<li><a href="../bbs/newsList91ef.html?type=N">다미노뉴스</a></li>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- //main 1dep menu -->
 		</header>
-		<!-- //header -->
 
 
 		<div id="container">
@@ -98,8 +106,8 @@
 							<h2 class="page-title">다미노 서비스</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="#">홈</a></li>
-									<li><a href="#">다미노 서비스</a></li>
+									<li><a href="main.do">홈</a></li>
+									<li><a href="mania.do">다미노 서비스</a></li>
 									<li><strong>매니아 혜택</strong></li>
 								</ol>
 							</div>
@@ -108,9 +116,9 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li class="active"><a href="mania.html">매니아 혜택</a></li>
-										<li><a href="../quickOrder/index.html">퀵오더</a></li>
-										<li><a href="../order/groupOrder.html">단체주문 서비스</a></li>
+										<li class="active"><a href="mania.do">매니아 혜택</a></li>
+										<li><a href="quickOrder.do">퀵오더</a></li>
+										<li><a href="groupOrder.do">단체주문 서비스</a></li>
 									</ul>
 								</div>
 							</div>
@@ -130,7 +138,9 @@
 											피자 대중화를 선도하였습니다.
 										</p>
 										<div class="img_box">
-											<img src="<c:url value='/resources/images/user/mania/visual_overview.jpg' />" alt="">
+											<img
+												src="<c:url value='/resources/images/user/mania/visual_overview.jpg' />"
+												alt="">
 										</div>
 										<p>
 											지금까지 많은 사랑을 받아왔고 앞으로도 더 많은 사랑을 받을 브랜드이기에 그 성원을 고객들에게 보답하고자 <br>온라인
@@ -169,11 +179,17 @@
 							<div id="tab02" class="tab-content">
 								<div class="new_mania">
 									<div class="img_box">
-										<img src="<c:url value='/resources/images/user/mania/img_2-1.jpg'/>" alt=""> 
-										<img src="<c:url value='/resources/images/user/mania/img_2-2.jpg'/>" alt=""> 
-										<img src="<c:url value='/resources/images/user/mania/img_2-3.jpg'/>" alt=""> 
-										<img src="<c:url value='/resources/images/user/mania/img_2-4.jpg'/>" alt=""> 
-										<img src="<c:url value='/resources/images/user/mania/img_2-5.jpg'/>" alt=""> 
+										<img
+											src="<c:url value='/resources/images/user/mania/img_2-1.jpg'/>"
+											alt=""> <img
+											src="<c:url value='/resources/images/user/mania/img_2-2.jpg'/>"
+											alt=""> <img
+											src="<c:url value='/resources/images/user/mania/img_2-3.jpg'/>"
+											alt=""> <img
+											src="<c:url value='/resources/images/user/mania/img_2-4.jpg'/>"
+											alt=""> <img
+											src="<c:url value='/resources/images/user/mania/img_2-5.jpg'/>"
+											alt="">
 									</div>
 									<div class="mania_coupon_btn">
 										<a href="https://web.dominos.co.kr/mypage/myCoupon"
@@ -213,32 +229,24 @@
 						</div>
 
 						<ul class="footer-contact">
-							<li><a href="../contents/law.html">이용약관</a></li>
-							<li class="on"><a href="../contents/privacy.html">개인정보처리방침</a></li>
-							<li><a
-								href="../bbs/faqList12ff.html?view_gubun=W&amp;bbs_cd=online">고객센터</a></li>
-							<li><a href="../company/contents/chainstore1.html">가맹점모집</a></li>
-							<li><a href="../order/groupOrder.html">단체주문</a></li>
+							<li><a href="law.do">이용약관</a></li>
+							<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
+							<li><a href="faqMain.do">고객센터</a></li>
+							<li><a href="groupOrder.do">단체주문</a></li>
 						</ul>
 
 						<div class="footer-info">
-							<p>03138 서울특별시 중구 돈화문로 26 단성골드빌딩 KG아이티뱅크｜대표이사 : 오수현, 강수현,
+							<p>03138 서울특별시 종구 돈화문로 26 단성골드빌딩 KG아이티뱅크｜대표이사 : 오수현, 강수현,
 								정민균, 정민식, 김진혁</p>
 							<p>사업자 등록번호: 220-81-03371｜통신판매업신고: 강남 5064호｜개인정보 보호책임자 : 이승재</p>
 							<p>문의 : admin@daminos.co.kr</p>
 							<p>Copyright ⓒ Damino’s Pizza. All rights reserved.</p>
 
-							<p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 피자(PC, 모바일, 앱)의 일체의
-								정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
+							<p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 사이트(PC, 모바일, 앱)의
+								일체의 정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
 						</div>
 
 						<div class="footer-cont">
-							<div class="select-type language">
-								<select id="select-type">
-									<option value="/main?locale=ko">KOR</option>
-									<option value="/main?locale=en">ENG</option>
-								</select>
-							</div>
 
 							<dl class="app-box">
 								<dt>DOWNLOAD APP</dt>
@@ -271,32 +279,39 @@
 				<div class="awards-area">
 					<div class="inner-box">
 						<ul>
-							<li><img src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards.png" alt="">
+							<li><img
+								src="<c:url value='/resources/images/user/list_awards.png' />"
+								alt="">
 								<p>
 									식품안전<br>경영시스템 인증
 								</p></li>
-							<li><img src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards2.png" alt="">
+							<li><img
+								src="<c:url value='/resources/images/user/list_awards2.png' />"
+								alt="">
 								<p>
 									지식경제부<br>우수디자인 선정
 								</p></li>
 							<li><img
-								src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards3.png"
+								src="<c:url value='/resources/images/user/list_awards3.png' />"
 								alt="">
 								<p>
 									고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 								</p></li>
 							<li><img
-								src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards4.png"
+								src="<c:url value='/resources/images/user/list_awards4.png' />"
 								alt="">
 								<p>
 									2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 								</p></li>
 							<li><img
-								src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards5.png" alt="">
+								src="<c:url value='/resources/images/user/list_awards5.png' />"
+								alt="">
 								<p>
 									2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 								</p></li>
-							<li><img src="../../newcdn.dominos.co.kr/domino/pc/images/list_awards6.png" alt="">
+							<li><img
+								src="<c:url value='/resources/images/user/list_awards6.png' />"
+								alt="">
 								<p>
 									대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 								</p></li>
@@ -304,10 +319,9 @@
 					</div>
 				</div>
 			</footer>
-			<!-- //footer -->
 		</div>
 	</div>
-		<!-- //wrap -->
+	<!-- //wrap -->
 </body>
 
 </html>

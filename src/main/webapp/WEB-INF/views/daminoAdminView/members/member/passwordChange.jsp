@@ -12,9 +12,10 @@
 <meta name="author" content="" />
 <title>Damino Administration</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
+
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-	
+
 </head>
 <body class="bg-primary">
 	<div id="layoutAuthentication">
@@ -25,38 +26,29 @@
 						<div class="col-lg-5">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
 								<div class="card-header">
-									<h3 class="text-center font-weight-light my-4">Login</h3>
+									<h3 class="text-center font-weight-light my-4">Password
+										Recovery</h3>
 								</div>
 								<div class="card-body">
+									<div class="small mb-3 text-muted">Enter your email
+										address and we will send you a link to reset your password.</div>
 									<form>
 										<div class="form-group">
 											<label class="small mb-1" for="inputEmailAddress">Email</label>
 											<input class="form-control py-4" id="inputEmailAddress"
-												type="email" placeholder="Enter email address" />
-										</div>
-										<div class="form-group">
-											<label class="small mb-1" for="inputPassword">Password</label>
-											<input class="form-control py-4" id="inputPassword"
-												type="password" placeholder="Enter password" />
-										</div>
-										<div class="form-group">
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input"
-													id="rememberPasswordCheck" type="checkbox" /> <label
-													class="custom-control-label" for="rememberPasswordCheck">Remember
-													password</label>
-											</div>
+												type="email" aria-describedby="emailHelp"
+												placeholder="Enter email address" />
 										</div>
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="password.html">Forgot Password?</a> <a
-												class="btn btn-primary" href="index.html">Login</a>
+											<a class="small" href="login.admdo">Return to login</a> <a
+												class="btn btn-primary" href="login.admdo">Reset Password</a>
 										</div>
 									</form>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="register.html">Need an account? Sign up!</a>
+										<a href="regForm.admdo">Need an account? Sign up!</a>
 									</div>
 								</div>
 							</div>
@@ -83,7 +75,6 @@
 	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
 	<script
 		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
 </body>
 </html>

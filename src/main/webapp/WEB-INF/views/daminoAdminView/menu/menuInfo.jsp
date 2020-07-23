@@ -8,9 +8,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>도미노피자 테스트점 관리페이지</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
+<title>다미노피자 테스트점 관리페이지</title>
+<link href="<c:url value='/resources/css/admin/styles.css' />" rel="stylesheet" />
+<link rel="stylesheet"
+	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css' />" crossorigin="anonymous">
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
@@ -18,7 +19,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">Damino Administration</a>
+		<a class="navbar-brand" href="main.admdo">Damino Administration</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -35,7 +36,7 @@
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="store-manager-login.html">Logout</a>
+					<a class="dropdown-item" href="login.admdo">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -48,7 +49,7 @@
 
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
 
-						<a class="nav-link" href="index.html"> 메인 </a>
+						<a class="nav-link" href="main.admdo"> 메인 </a>
 
 						<div class="sb-sidenav-menu-heading">Interface</div>
 
@@ -62,8 +63,8 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="member.html"> 회원관리 </a> <a
-									class="nav-link collapsed" href="controlMarket.html"> 점포승인
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
+									class="nav-link collapsed" href="marketList.admdo"> 점포승인
 								</a>
 							</nav>
 						</div>
@@ -78,8 +79,8 @@
 						<div class="collapse" id="storePage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="enroll.html"> 매장등록 </a> <a
-									class="nav-link collapsed" href="control.html"> 매장조회 </a>
+								<a class="nav-link collapsed" href="storeRegForm.admdo"> 매장등록 </a> <a
+									class="nav-link collapsed" href="storeView.admdo"> 매장조회 </a>
 							</nav>
 						</div>
 
@@ -93,8 +94,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="order-count.html"> 주문조회
-								</a> <a class="nav-link collapse" href="order-stats.html"> 매출현황
+								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
+								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -109,8 +110,8 @@
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="noticeBoardView.html">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.html">
+								<a class="nav-link collapsed" href="noticeBoardView.admdo">
+									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
 							</nav>
 						</div>
@@ -126,7 +127,7 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="get-menus.html"> 메뉴조회 </a> <a
+								<a class="nav-link collapsed" href="menuList.admdo"> 메뉴조회 </a> <a
 									class="nav-link collapsed" href="#" data-toggle="collapse"
 									data-target="#insertMenuPage" aria-expanded="false"
 									aria-controls="insertMenuPage"> 메뉴등록
@@ -138,10 +139,10 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insert-menu-pizza.html">피자</a> <a
-											class="nav-link" href="insert-menu-side.html">사이드디시</a> <a
-											class="nav-link" href="insert-menu-drink.html">음료&기타</a> <a
-											class="nav-link" href="insert-menu-topping.html">토핑</a>
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
+											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
+											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
+											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -156,9 +157,9 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="site-qna-list.html">Q&A</a> <a
-									class="nav-link" href="bannerBoardView.html">배너관리</a> <a
-									class="nav-link" href="site-term-list.html">약관관리</a>
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
+									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
+									class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
 						</div>
 					</div>
@@ -171,62 +172,88 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
+				<!-- 메뉴관리 -> 메뉴 상세정보 조회 페이지 -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> 회원관리
+						<i class="fas fa-table mr-1"></i> <strong>메뉴 관리</strong>
 						<!--새로고침 버튼-->
-						<img src="././resources/assets/admin/img/refresh_icon.png" width="20"
-							vonClick="window.location.reload()"
+						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
+							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%"
-								cellspacing="0">
-								<thead>
-									<tr>
-										<th><label class="checkbox-inline"><label
-												class="checkbox-inline"><div
-														class="custom-control custom-checkbox">
-														<input class="custom-control-input" id="checkAll"
-															type="checkbox" /> <label class="custom-control-label"
-															for="checkAll"></label></th>
-										<th>회원번호</th>
-										<th>이름</th>
-										<th>아이디</th>
-										<th>비밀번호</th>
-										<th>등급</th>
-										<th>생년월일</th>
-										<th>휴대전화</th>
-										<th>이메일</th>
-										<th><a class="btn btn-secondary" href="email.html"
-											role="button">메일발송</a> <a class="btn btn-secondary"
-											href="text.html" role="button">SMS발송</a></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="check1"
-													type="checkbox" /> <label class="custom-control-label"
-													for="check1"></label>
-											</div></td>
-										<td>1</td>
-										<td>홍길동</td>
-										<td>abc1234</td>
-										<td>1234</td>
-										<td>REGULAR</td>
-										<td>1990.06.20</td>
-										<td>010-1111-1111</td>
-										<td>abc@naver.com</td>
-										<td><a class="btn btn-primary" href="memberChange.html"
-											role="button">수정</a>
-										</button>
-											<button class="btn btn-danger" type="submit">삭제</button></td>
-									</tr>
-								</tbody>
-							</table>
+						<h6>
+							<strong>메뉴 상세정보</strong>
+						</h6>
+						<div align="right">
+							<input type="button" class="btn btn-delete" value="목록" />
 						</div>
+						<div class="for-margin-height-div"></div>
+						<form>
+							<div id="table-reponsive">
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<tr>
+										<th>제품명</th>
+										<td>핫치킨(오리지널L)</td>
+									</tr>
+									<tr>
+										<th>카테고리</th>
+										<td>피자</td>
+									</tr>
+									<tr>
+										<th>구분</th>
+										<td>클래식</td>
+									</tr>
+									<tr>
+										<th>가격</th>
+										<td>27,900</td>
+									</tr>
+									<tr>
+										<th>선택 가능 도우</th>
+										<td>슈퍼 시드 함유 도우, 더블 치즈 엣지, 오리지널, 나폴리, 씬</td>
+									</tr>
+									<tr>
+										<th>총 중량(g)</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>1회분 기준</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>1회분 중량(g)</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>열량(kcal/1회분)</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>단백질(g/1회분)</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>포화지방(g/1회분)</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>나트륨(mg/1회분)</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>당류(g/1회분)</th>
+										<td></td>
+									</tr>
+									<tr>
+										<th>제품 이미지</th>
+										<td>
+											<!-- 제품 이미지파일명 들어오기. 썸네일도 보여지면 좋을듯 -->
+										</td>
+									</tr>
+								</table>
+							</div>
+						</form>
 					</div>
 				</div>
 			</main>
@@ -245,21 +272,24 @@
 		</div>
 	</div>
 
-	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		crossorigin="anonymous"></script>
 	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
-	
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+		crossorigin="anonymous"></script>
+	<script src="assets/demo/chart-area-demo.js"></script>
+	<script src="assets/demo/chart-bar-demo.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
+		crossorigin="anonymous"></script>
+	<script src="assets/demo/datatables-demo.js"></script>
 
 </body>
 </html>
