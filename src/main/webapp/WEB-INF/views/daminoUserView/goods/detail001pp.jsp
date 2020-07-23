@@ -125,8 +125,8 @@
 							<h2 class="page-title">메뉴</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="#">홈</a></li>
-									<li><a href="#">메뉴</a></li>
+									<li><a href="main.do">홈</a></li>
+									<li><a href="goodslist.do">메뉴</a></li>
 									<li><strong>더블크러스트 이베리코</strong></li>
 								</ol>
 							</div>
@@ -139,10 +139,10 @@
 									<div class="menu-nav">
 										<ul>
 											<li class="active"><a
-												href="list985d.html?dsp_ctgr=C0101">피자</a></li>
+												href="goodslist.do">피자</a></li>
 											<li><a
-												href="javascript:goLink('', '/goods/list?dsp_ctgr=C0201');">사이드디시</a></li>
-											<li><a href="listc6d6.html?dsp_ctgr=C0202">음료&기타</a></li>
+												href="#">사이드디시</a></li>
+											<li><a href="#">음료&기타</a></li>
 										</ul>
 									</div>
 									<div class="sch-box">
@@ -190,7 +190,7 @@
 										<!-- //대표 이미지 슬라이드 -->
 
 										<a
-											href="javascript:getDetailSlide('RPZ161DL','C0102','');trk_call('nonlist');"
+											href="detail001pp.do"
 											class="btn-detail"> <i class="ico-sch2"></i> <span
 											class="hidden">상세버튼</span>
 										</a>
@@ -211,7 +211,7 @@
 										</div>
 
 										<div class="btn-wrap2">
-											<a href="javascript:UI.layerPopUp({selId:'#pop-allergy'})"
+											<a href="#"
 												class="btn-type-left v2">영양성분 및 알레르기 유발성분</a>
 										</div>
 									</div>

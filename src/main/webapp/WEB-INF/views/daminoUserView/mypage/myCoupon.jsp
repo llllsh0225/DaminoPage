@@ -105,8 +105,8 @@
 							<h2 class="page-title">나의정보</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="/main">홈</a></li>
-									<li><a href="/mypage/myOrderList">나의정보</a></li>
+									<li><a href="main.do">홈</a></li>
+									<li><a href="mylevel.do">나의정보</a></li>
 									<li><strong>쿠폰함</strong></li>
 								</ol>
 							</div>
@@ -115,11 +115,11 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li><a href="/mypage/myLevel">매니아 등급</a></li>
-										<li><a href="/mypage/myOrderList">주문내역</a></li>
-										<li class="active"><a href="/mypage/myCoupon">쿠폰함</a></li>
-										<li><a href="/mypage/qustionList">1:1문의</a></li>
-										<li><a href="/member/userinfoConfirm">정보수정</a></li>
+										<li><a href="mylevel.do">매니아 등급</a></li>
+										<li><a href="myorderlist.do">주문내역</a></li>
+										<li class="active"><a href="mycoupon.do">쿠폰함</a></li>
+										<li><a href="myquestionlist.do">1:1문의</a></li>
+										<li><a href="myuserinfoconfirm.do">정보수정</a></li>
 									</ul>
 								</div>
 							</div>
@@ -128,10 +128,9 @@
 									<span>OOO</span>님께서 보유하고 있는 할인쿠폰 내역입니다.
 								</div>
 								<div class="text-type">쿠폰을 사용하여 피자를 주문해보세요!</div>
-								<a href="/mypage/myCrewCoupon" class="btn-type4-brd4"
-									style='display: none;'>Crew 쿠폰</a>
+								<a href="#" class="btn-type4-brd4"
+									style='display: none;'>쿠폰</a>
 							</div>
-							<div class="coupon-wrap">
 								<div class="table-type4">
 									<table>
 										<caption>나의 퀵 오더</caption>
@@ -377,4 +376,4 @@
 	</div>
 	<!-- //wrap -->
 </body>
-</html>
+</html></html>
