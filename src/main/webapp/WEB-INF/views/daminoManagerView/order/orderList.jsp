@@ -117,7 +117,7 @@
 										.getElementById('layoutSidenav_content').style.marginTop = "-56px";
 							}
 						</script>
-						<img src="assets/img/refresh_icon.png" width="20"
+						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
 							onClick="div_refresh()"
 							style="margin-left: 15px; cursor: pointer;">
 					</div>

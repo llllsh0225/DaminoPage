@@ -177,7 +177,7 @@
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <strong>매출 현황</strong>
 						<!--새로고침 버튼-->
-						<img src="././resources/assets/admin/img/refresh_icon.png" width="20"
+						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
 							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
