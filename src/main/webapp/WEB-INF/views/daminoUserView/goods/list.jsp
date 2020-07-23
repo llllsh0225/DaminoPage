@@ -100,8 +100,8 @@
 							<h2 class="page-title">메뉴</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="../main.html">홈</a></li>
-									<li><a href="list985d.html?dsp_ctgr=C0101">메뉴</a></li>
+									<li><a href="main.do">홈</a></li>
+									<li><a href="goodslist.do">메뉴</a></li>
 									<li><strong>피자 </strong></li>
 								</ol>
 							</div>
@@ -113,10 +113,10 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li class="active"><a href="list985d.html?dsp_ctgr=C0101">피자</a></li>
+										<li class="active"><a href="goodslist.do">피자</a></li>
 										<li><a
-											href="javascript:goLink('', '/goods/list?dsp_ctgr=C0201');">사이드디시</a></li>
-										<li><a href="listc6d6.html?dsp_ctgr=C0202">음료&기타</a></li>
+											href="#;">사이드디시</a></li>
+										<li><a href="#">음료&기타</a></li>
 									</ul>
 								</div>
 								<div class="sch-box">

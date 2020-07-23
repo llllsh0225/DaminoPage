@@ -98,8 +98,8 @@
 							<h2 class="page-title">나의정보</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="/main">홈</a></li>
-									<li><a href="/mypage/myOrderList">나의 정보</a></li>
+									<li><a href="main.do">홈</a></li>
+									<li><a href="myorderlist.do">나의 정보</a></li>
 									<li><strong>주문내역</strong></li>
 								</ol>
 							</div>
@@ -108,11 +108,11 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li><a href="/mypage/myLevel">매니아 등급</a></li>
-										<li class="active"><a href="/mypage/myOrderList">주문내역</a></li>
-										<li><a href="/mypage/myCoupon">쿠폰함</a></li>
-										<li><a href="/mypage/qustionList">1:1문의</a></li>
-										<li><a href="/member/userinfoConfirm">정보수정</a></li>
+										<li><a href="mylevel.do">매니아 등급</a></li>
+										<li class="active"><a href="myorderlist.do">주문내역</a></li>
+										<li><a href="mycoupon.do">쿠폰함</a></li>
+										<li><a href="myquestionlist.do">1:1문의</a></li>
+										<li><a href="myuserinfoconfirm.do">정보수정</a></li>
 									</ul>
 								</div>
 							</div>
@@ -213,7 +213,7 @@
 			</section>
 		</div>
 
-		<form name="f" id="f" method="get" action="/mypage/myOrderList">
+		<form name="f" id="f" method="get" action="myorderlist.do">
 			<input type="hidden" name="pageNo" id="pageNo" value="1">
 		</form>
 
@@ -245,7 +245,6 @@
 				<div class="pop_header">
 					<h2>장바구니</h2>
 				</div>
-				<!-- iframe src="100_cart_pop_frame.html" width="1000" height="832" frameborder="0"></iframe><!-- 2016-10-05//아이프레임대체 -->
 				<a href="javascript:;" onclick="setBasketCnt();"
 					class="btn_ico btn_close">닫기</a>
 			</div>

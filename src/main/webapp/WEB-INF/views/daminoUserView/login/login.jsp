@@ -99,7 +99,7 @@
 							<h2 class="page-title">로그인</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="#">홈</a></li>
+									<li><a href="main.do">홈</a></li>
 									<li><strong>로그인</strong></li>
 								</ol>
 							</div>
@@ -107,7 +107,7 @@
 						<article class="login-area">
 							<div class="tab-type5 js_tab">
 								<ul>
-									<li class="active"><a href="#login">회원로그인</a></li>
+									<li class="active"><a href="login.do">회원로그인</a></li>
 									<li><a href="#guest" onclick="showAlert(); return false;">비회원
 											주문</a></li>
 								</ul>
