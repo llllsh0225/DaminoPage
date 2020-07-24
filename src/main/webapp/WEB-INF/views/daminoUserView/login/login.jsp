@@ -119,12 +119,12 @@
 										id="partycar_seq" value="" /> <input type="hidden"
 										name="event_gubun" id="event_gubun" value="" />
 									<div class="form-item">
-										<input type="text" name="id" id="id" maxlength="20"
+										<input type="text" name="userid" id="userid" maxlength="20"
 											placeholder="아이디" value="">
 									</div>
 									<div class="form-item">
-										<input type="password" placeholder="비밀번호" name="passwd"
-											id="passwd" maxlength="20"
+										<input type="password" placeholder="비밀번호" name="userpasswd"
+											id="userpasswd" maxlength="20"
 											onkeydown="javascript:if(event.keyCode==13){doLoginSSL();}">
 									</div>
 									<div class="chk-item">
