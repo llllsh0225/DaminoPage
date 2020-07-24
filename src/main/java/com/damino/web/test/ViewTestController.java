@@ -17,6 +17,7 @@ public class ViewTestController {
 		
 		return mav;
 	}
+	
 	// ---- user main end ----
 	
 	// ---- user branch ----
@@ -31,6 +32,46 @@ public class ViewTestController {
 	}
 	// ---- user branch end ----
 	
+	//-----user email 인증 -------
+	@RequestMapping("/emailForm.do")
+	public ModelAndView getEmailPage() {
+		System.out.println("이메일 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/emailForm");
+		
+		return mav;
+	}
+	//-----user email 회원가입 축하 ------
+		@RequestMapping("/email_Reg.do")
+		public ModelAndView getEmail_RegPage() {
+			System.out.println("회원가입 축하 이메일 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/userinfo/email_Reg");
+			
+			return mav;
+		}
+	//-----user 회원가입 페이지 -------
+	@RequestMapping("/regForm.do")
+	   public ModelAndView getUserRegFormPage() {
+	      System.out.println("사용자 회원 가입 페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/userinfo/regForm");
+	      
+	      return mav;
+	   }
+	@RequestMapping("/regResult.do")
+	   public ModelAndView getUserRegResultPage() {
+	      System.out.println("사용자 회원 가입 결과 페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/userinfo/regResult");
+	      
+	      return mav;
+	   
+	}
 	@RequestMapping("/quickOrder.do")
 	public ModelAndView getQuickOrderPage() {
 		System.out.println("퀵오더페이지 열기");
