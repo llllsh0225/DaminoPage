@@ -5,9 +5,8 @@
 <mapper namespace="UserDAO">
 
 	<select id="getUser" resultType="user">
-		select userid, userpasswd from logintest
-		where userid = #{userid} and userpasswd = #{userpasswd}
+		SELECT userid, userpasswd FROM logintest
+		WHERE userid = #{userid} AND userpasswd = #{userpasswd}
 	</select>
-	
 
 </mapper>

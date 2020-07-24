@@ -15,5 +15,4 @@ public class UserVO {
 	public void setUserpasswd(String userpasswd) {
 		this.userpasswd = userpasswd;
 	}
-	
 }

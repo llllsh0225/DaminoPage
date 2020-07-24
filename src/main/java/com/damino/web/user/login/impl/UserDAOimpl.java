@@ -12,7 +12,6 @@ public class UserDAOimpl implements UserDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	
 	@Override
 	public UserVO getUser(UserVO vo) {
 		return sqlSessionTemplate.selectOne("UserDAO.getUser", vo);
