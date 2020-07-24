@@ -15,7 +15,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/loginTest.do", method=RequestMethod.GET)
 	private String loginView(UserVO vo) {
-		System.out.println("로그인 화면으로 이동");
+		System.out.println("로그인 페이지로 이동");
 		System.out.println(loginService.toString());
 		return "login/login";
 	}
@@ -28,14 +28,13 @@ public class LoginController {
 		
 		if(user != null) {
 			System.out.println("로그인에 성공하였습니다.");
-			
 			mav.setViewName("main");
 			return mav;
 		}else {
-			System.out.println("로그인에 실패하였습니다. 아이디 또는 비밀번호를 확인해주세요.");
+			System.out.println("로그인에 실패하였습니다.");
 			
 			mav.setViewName("login/login");
-			
+
 			return mav;
 		}
 	}
