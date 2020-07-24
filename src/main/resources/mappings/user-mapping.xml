@@ -8,5 +8,5 @@
 		SELECT userid, userpasswd FROM logintest
 		WHERE userid = #{userid} AND userpasswd = #{userpasswd}
 	</select>
-
+	
 </mapper>

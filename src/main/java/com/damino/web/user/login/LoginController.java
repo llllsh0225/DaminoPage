@@ -25,6 +25,7 @@ public class LoginController {
 		System.out.println("로그인 인증 처리");
 		
 		UserVO user = loginService.getUser(vo);
+		
 		if(user != null) {
 			System.out.println("로그인에 성공하였습니다.");
 			
