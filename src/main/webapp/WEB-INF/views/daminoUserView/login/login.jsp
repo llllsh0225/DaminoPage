@@ -113,18 +113,18 @@
 								</ul>
 							</div>
 							<div class="tab-content active" id="login">
-								<form id="loginFrm" name="loginFrm" action="#" method="post">
+								<form id="loginFrm" name="loginFrm" action="loginTest.do" method="post">
 									<input type="hidden" name="redirectUrl" id="redirectUrl"
 										value="/main" /> <input type="hidden" name="partycar_seq"
 										id="partycar_seq" value="" /> <input type="hidden"
 										name="event_gubun" id="event_gubun" value="" />
 									<div class="form-item">
-										<input type="text" name="id" id="id" maxlength="20"
+										<input type="text" name="userid" id="userid" maxlength="20"
 											placeholder="아이디" value="">
 									</div>
 									<div class="form-item">
-										<input type="password" placeholder="비밀번호" name="passwd"
-											id="passwd" maxlength="20"
+										<input type="password" placeholder="비밀번호" name="userpasswd"
+											id="userpasswd" maxlength="20"
 											onkeydown="javascript:if(event.keyCode==13){doLoginSSL();}">
 									</div>
 									<div class="chk-item">
@@ -140,7 +140,9 @@
 									</div>
 
 									<div class="btn-wrap">
-										<a href="javascript:doLoginSSL();" class="btn-type v4">로그인</a>
+										<input type="submit" class="btn-type-brd5" value="로그인" />
+										<!--  <a href="loginTest.do" class="btn-type v4">로그인</a> -->
+
 									</div>
 									<div class="btn-wrap">
 										<a href="javascript:goIdLoginPop();" class="btn-type-brd5">회원가입</a>
