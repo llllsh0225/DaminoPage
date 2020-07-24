@@ -17,5 +17,5 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.damino.web" />
+	<context:component-scan base-package="com.damino.web.admin" />
 </beans:beans>
