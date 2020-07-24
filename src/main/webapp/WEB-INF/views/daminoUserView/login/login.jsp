@@ -142,6 +142,7 @@
 									<div class="btn-wrap">
 										<input type="submit" class="btn-type-brd5" value="로그인" />
 										<!--  <a href="loginTest.do" class="btn-type v4">로그인</a> -->
+
 									</div>
 									<div class="btn-wrap">
 										<a href="javascript:goIdLoginPop();" class="btn-type-brd5">회원가입</a>
