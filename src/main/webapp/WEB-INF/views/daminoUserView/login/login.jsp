@@ -113,7 +113,7 @@
 								</ul>
 							</div>
 							<div class="tab-content active" id="login">
-								<form id="loginFrm" name="loginFrm" action="#" method="post">
+								<form id="loginFrm" name="loginFrm" action="loginTest.do" method="post">
 									<input type="hidden" name="redirectUrl" id="redirectUrl"
 										value="/main" /> <input type="hidden" name="partycar_seq"
 										id="partycar_seq" value="" /> <input type="hidden"
@@ -140,7 +140,8 @@
 									</div>
 
 									<div class="btn-wrap">
-										<a href="javascript:doLoginSSL();" class="btn-type v4">로그인</a>
+										<input type="submit" class="btn-type-brd5" value="로그인" />
+										<!--  <a href="loginTest.do" class="btn-type v4">로그인</a> -->
 									</div>
 									<div class="btn-wrap">
 										<a href="javascript:goIdLoginPop();" class="btn-type-brd5">회원가입</a>
