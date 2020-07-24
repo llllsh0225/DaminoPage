@@ -15,26 +15,26 @@ public class LoginController {
 	
 	@RequestMapping(value="/loginTest.do", method=RequestMethod.GET)
 	private String loginView(UserVO vo) {
-		System.out.println("ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™");
+		System.out.println("·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿");
 		System.out.println(loginService.toString());
 		return "login/login";
 	}
 	
 	@RequestMapping(value="/loginTest.do", method=RequestMethod.POST)
 	private ModelAndView loginCheck(UserVO vo, ModelAndView mav, HttpSession session) {
-		System.out.println("ë¡œê·¸ì¸ ì¸ì¦ ì²˜ë¦¬");
+		System.out.println("·Î±×ÀÎ ÀÎÁõ Ã³¸®");
 		
 		UserVO user = loginService.getUser(vo);
-    
+		
 		if(user != null) {
-			System.out.println("ë¡œê·¸ì¸ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤.");
-			
+			System.out.println("·Î±×ÀÎ¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.");
 			mav.setViewName("main");
 			return mav;
 		}else {
-			System.out.println("ë¡œê·¸ì¸ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ì•„ì´ë”” ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
+			System.out.println("·Î±×ÀÎ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
 			
 			mav.setViewName("login/login");
+
 			return mav;
 		}
 	}
