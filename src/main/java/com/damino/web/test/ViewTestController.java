@@ -559,15 +559,15 @@ public class ViewTestController {
 	      return mav;
 	   }
 	
-	@RequestMapping("/boardList.admdo")
-	   public ModelAndView getAdminBoardListPage() {
-	      System.out.println("게시글 목록 열기");
-	      
-	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("/board/boardList");
-	      
-	      return mav;
-	   }
+//	@RequestMapping("/boardList.admdo")
+//	   public ModelAndView getAdminBoardListPage() {
+//	      System.out.println("게시글 목록 열기");
+//	      
+//	      ModelAndView mav = new ModelAndView();
+//	      mav.setViewName("/board/boardList");
+//	      
+//	      return mav;
+//	   }
 	//error 폴더 시작 --------
 	@RequestMapping("/error_401.admdo")
 	   public ModelAndView getAdminError401Page() {
