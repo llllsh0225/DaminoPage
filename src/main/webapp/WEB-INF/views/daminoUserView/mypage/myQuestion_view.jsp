@@ -406,65 +406,32 @@
 	                    <div class="form">
 	                        <dl class="cs">
 										<dt>아이디</dt>
-										<dd>${qnaboard.writerId }</dd>
+										<dd>${qnaboard.writerId}</dd>
 										<dt>연락처</dt>
-										<dd>${qnaboard.phone }</dd>
+										<dd>${qnaboard.phone}</dd>
 										<dt>이메일</dt>
-										<dd>${qnaboard.email }</dd>
+										<dd>${qnaboard.email}</dd>
 										<dt>문의유형</dt>
 										<dd>${qnaboard.qnaType }</dd>
 										<dt>매장선택</dt>
-										<dd>${qnaboard.storeRegion }</dd>
-										<dd>${qnaboard.storeName }</dd>
+										<dd>${qnaboard.storeRegion }, ${qnaboard.storeName }</dd>
 										<dt>제목</dt>
 										<dd>${qnaboard.title }</dd>
 							</dl>
 							<dl>
-								<c:forEach var="qnaboard" items="${boardList }">
-									<dd>${qnaboard.seq }</dd>
-									<dd><a href="myQuestion_view.do?seq=${qnaboard.seq}">${qnaboard.title}</a></dd>
-									<dd>${qnaboard.writer }</dd>
-									<dd><fmt:formatDate value="${qnaboard.regDate }" pattern="yyyy-MM-dd" /></dd>
-									<dd>${qnaboard.storeRegion }</dd>
-									<dd>${qnaboard.storeName }</dd>
-								</c:forEach>
-							</dl>
-							
-	                        <dl>
-                                <dt class="top">문의내용</dt>
-                                <dd>
-                                    <div class="form-item">
-                                        <textarea name="" id="content" cols="30" rows="10" readonly="">빠르고 친절하게 배달해주셔서 감사해요~
-따뜻하고 맛있게 잘 먹었습니다!</textarea>
+								<dt class="top">문의내용</dt>	
+									
+									<dd><div class="form-item">
+                                        <textarea name="" id="content" cols="30" rows="10" readonly="">${qnaboard.content }</textarea>
                                     </div>
-                                </dd>
-                            </dl>
+                                    </dd>
+							</dl>
+	                      
                             <dl>
                                 <dt class="top">답변</dt>
                                 <dd>
                                     <div class="form-item">
-                                        <textarea name="" id="content2" cols="30" rows="10" readonly="">저희 다미노피자를 이용해 주셔서 감사드립니다.
-
-다미노피자를 찾아주시는 한 분 한 분의 고객님들께 
-정성을 다해 만든 피자와 친절한 서비스로 찾아뵐 수 있도록 
-최선의 노력을 다하고 있습니다. 
-
-당연히 제공해 드려야 하는 서비스임에도 불구하고 
-이렇듯 소중한 시간을 내시어 칭찬의 글을 올려주시니 
-한없이 감사하고 또 더욱 열심히 해야 겠다는 생각이 듭니다. 
-
-고객님의 말씀은 해당 매장 담당자에게 전달하였으며 
-해당 직원 또한 너무나 기뻐하였습니다. 
-
-고마우신 고객님의 글로 인해 힘입어 언제나 정성어린 서비스로 
-고객님을 맞을 수 있도록 더욱 노력하는 밑거름으로 삼겠습니다. 
-
-다미노피자를 이용해주시는 고객님께 다시 한번 감사드리며 
-늘 웃음과 정성으로 찾아 뵙겠습니다. 
-
-늘 건강하시고 행복하시길 바랍니다. 
-
-감사합니다. </textarea>
+                                        <textarea name="" id="content2" cols="30" rows="10" readonly="">${qnaboard.답변 }</textarea>
                                     </div>
                                 </dd>
                             </dl>
