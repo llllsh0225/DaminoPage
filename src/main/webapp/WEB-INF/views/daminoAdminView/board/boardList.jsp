@@ -41,7 +41,8 @@
 					<a class="dropdown-item" href="memberEdit.admdo">정보수정</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -191,7 +192,7 @@
 					</div>
 					<div class="card-body">
 						<input type="button" class="btn btn-primary" value="글쓰기" style="float: right" 
-						style="margin-right: 5px" onClick="boardWrite.admdo" />
+						style="margin-right: 5px" onclick="location.href='boardWrite.admdo'" />
 						<div class="table-responsive">
 
 							<table class="table table-bordered" id="dataTable" width="100%"
