@@ -13,5 +13,15 @@
 	<select id="getBoard" resultType="com.damino.web.admin.board.BoardVO">
 		SELECT * FROM board WHERE seq=#{seq}
 	</select>
+	
+	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO">
+		SELECT seq, title, writer, regdate, cnt
+		FROM board
+		ORDER BY seq desc
+	</select>
+	
+	<select id="myQuestion" resultType="com.damino.web.user.board.QnaBoardVO">
+		SELECT * FROM board WHERE seq=#{seq}
+	</select>
 
 </mapper>

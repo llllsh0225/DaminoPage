@@ -1,173 +1,452 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+<title>도미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
+	<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
 	
-	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
+	<script type="text/javascript" src="/resources/js/selectbox.js"></script><!-- js 수정함. -->
+	<script type="text/javascript" src="/resources/js/d2CommonUtil.js?ver=1.5"></script>
+	<script type="text/javascript" src="/resources/js/Cookie.js"></script>
+	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/basket_w.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/asset/css/font.css"> 
+	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/pc/css/common.css"> 
+	
+	<!--메인에는 sub.css 호출하지않음-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/pc/css/sub.css">
+	<!--//메인에는 sub.css 호출하지않음  -->
+
+	<script src="https://cdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
+	<script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
+	<script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
+	<script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
+	
+	<script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
+	<script type="text/javascript" src="/resources/js/gcenmaps/gcenmap.js"></script><!--서브에는 main.js 호출하지않음-->
+	<!--//서브에는 main.js 호출하지않음-->
+	
+	<!-- 기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 -->
+	<style>
+	#card_add .pop_wrap{position:fixed;top:50%;width:490px;margin-left:-245px;margin-top:-35px;}
+	#card_add .pop_wrap .pop_content p{font-size:18px;color:#fff;text-align:center}
+	.pop_toast {display: block;position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;}
+	.pop_toast.open {display:block}
+	
+	.pop_toast .bg {position:fixed; width:100%; height:100%;}
+	.pop_toast .pop_wrap {overflow:hidden;position:absolute; top:100px; left:50%; min-width:400px;min-height:70px; margin-left:-200px; padding:20px; background:url(https://cdn.dominos.co.kr/renewal2018/w/img/bg/bg_color_navy.png) repeat 0 0;border-radius:12px;}
+	.pop_toast .pop_wrap .btn_close3 {position:absolute; top:15px; right:20px;}
+	.pop_toast .pop_header {position:absolute;top:0;left:0;width:100%;height:66px;padding:0 40px;background-color:#eeece9;line-height:66px;}
+	.pop_toast .pop_header h2 {font-size:30px;font-weight:500;color:#38474f;}
+	.pop_toast .pop_content {position:relative;width:100%;padding: 0;}
+	.pop_type2 .pop_wrap .btn_close3 {position:absolute; top:15px; right:20px;}
+	
+	/* <!-- //기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 --> */
+	</style>
+	<script type="text/javascript">
+	
+	/*gps lsm 전역변수 */
+	var lat;
+	var lon;
+	var xdot;
+	var ydot;
+	var address;
+	var gps_yn;
+	
+	var CON_DOMAIN_URL = "http://web.dominos.co.kr";
+	var CON_SSL_URL = "https://web.dominos.co.kr";
+	var CON_STATIC_URL = "https://cdn.dominos.co.kr/renewal2018/w";
+	function goLink(menuCode, link) {
+		location.href = link;
+	}
+
+	$(document).ready(function() {
+		$.ajaxSetup({cache:false});
+
+		setBasketCnt();
+
+		// 마이쿠폰 정보 조회(가입회원)
+		
+			$.ajax({
+				type: "POST",
+				url: "/mypage/mainMyCouponInfoAjax",
+				dataType : "json",
+				success:function(data) {
+				 	if (data.resultData.status == "success") {
+				 		$('#myMonth').text(data.resultData.myMonth+'월');
+				 		$('#myLevel').text(data.resultData.myLevel);
+				 		if(data.resultData.myCouponCnt > 0) {
+				 			$(".none_coupon").hide();
+					 		$(".exist_coupon").show();
+					 		$('#myCouponCnt').html(data.resultData.myCouponCnt+"<span>개</span>");
+					 		$('#gnbCoupon').text("("+data.resultData.myCouponCnt+")");
+				 		}
+					} else {
+// 						console.log("마이쿠폰 정보 가져오기 실패");
+					}
+				}
+			});
+			
+
+
+	function setBasketCnt() {
+		var basketCnt = cookieManager.getCookie("BASKETCNT");
+		var basket = cookieManager.getCookie("BASKET");
+		var finish_basket = cookieManager.getCookie("FINISH_BASKET");
+
+		if(basketCnt == "") basketCnt = "0";
+		else if(basket != "" && basket == finish_basket) basketCnt = "0";
+		
+		if(basketCnt != "0"){ 
+			$(".btn-cart > strong ").addClass("cart-count");
+			$(".cart-count").text(basketCnt);
+		}else{
+			$(".btn-cart > strong").removeClass("cart-count");
+		}
+	}
+
+	var goCart = function() {
+		location.href="/basket/detail";
+	};
+
+	var doLogin = function() {
+		location.href="/global/login";
+	};
+
+	var myOrderDetail = function() {
+		var order_no = $('#tracker_order_no').val();
+		location.href="/mypage/myOrderView?order_no="+order_no+"&pageNo=1";
+	};
 	
 	
+	var goPresentLogin = function(gubun) {
+		var rtnUrl = "/voucher/list?gubun="+gubun;
+		if("true" == "true"){
+			location.href = rtnUrl;
+		}else{
+			location.href = "/global/login?returnUrl="+rtnUrl;	
+		}
+	};
+	
+	function appendLocation(paramArr) {
+		var simpleAddress;
+		
+		gps_yn = 'Y';
+		
+		if (paramArr == null || paramArr.length == 0){
+			return;
+		}
+		
+		$.ajax({
+		    type: "GET",
+		    url: "/gis/getXyAddressAjax",
+		    data: paramArr.join('&'),
+		    
+		    success:function(data) {
+		        $('#myloc').html("");
+		        
+		        if(data.resultData.result.length > 0) {
+		        	var html = '';
+					html += '<div class="tip-box center" id="tip-box">';
+					html += '<p>주변 매장의 프로모션을 확인해보세요!</p>';
+					html += '</div>';
+					
+					$("#tip-box-top").append(html);
+					$("#tip-box").delay(2000).fadeOut(1000);
+					
+		       		$.each(data.resultData.result, function(i, v) {
+		       			if(v.roadaddr === ''){
+		       				simpleAddress = v.sggname+' '+v.bemdname+' '+v.jbmain+(v.jbsub=='0'?'':'-'+v.jbsub);
+		       				$('#myloc').html(simpleAddress);
+		       				lat = v.lat;
+		       				lon = v.lon;
+		       				xdot = v.kx;
+		       				ydot = v.ky;
+		       				address = simpleAddress;
+		       				
+		       			}else{
+		       				simpleAddress = v.roadname+' '+v.bdmain+(v.bdsub=='0'?'':'-'+v.bdsub);
+		       				$('#myloc').html(simpleAddress);
+		       				lat = v.lat;
+		       				lon = v.lon;
+		       				xdot = v.kx;
+		       				ydot = v.ky;
+		       				address = simpleAddress;
+		       			}
+		       		});
+		   	    }else {
+		       		 $('#myloc').html("주변 매장의 프로모션이 궁금하시면, 위치 서비스를 허용해주세요.");
+		    	}
+		    },
+		    error: function (error){
+		        alert("다시 시도해주세요.");
+		    }
+		    
+		});
+	}
+	
+	//현재 위치 받아오기
+
+	var geo = {
+		init : function() { 
+			
+			if ('geolocation' in navigator) {
+				/* 지오로케이션 사용 가능 */
+				navigator.geolocation.getCurrentPosition(geo.success, geo.error);
+				
+			} else {
+				/* 지오로케이션 사용 불가능 */
+				alert('geolocationx');
+				alert('사용자의 브라우저는 지오로케이션을 지원하지 않습니다.');
+
+				//geo.changeTab();
+			}
+		},
+		success : function(position) {
+
+			var latitude  = position.coords.latitude;
+		    var longitude = position.coords.longitude;
+		  	// console.log('<p>위도 : ' + latitude + '° <br>경도 : ' + longitude + '°</p>');
+
+		    findLocation(latitude, longitude);
+		},
+		error : function(err) {
+			
+			var userAgent = navigator.userAgent.toString();
+
+			if(/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream){ // iOS
+				alert('아이폰 > 설정 >개인정보보호 > 위치서비스 > 도미노피자 항목의 위치접근허용을 체크해주세요.');
+				return;
+			} else {
+				//alert('위치접근허용을 승인해주세요.');
+				$('#myloc').html('주변 매장의 프로모션을 확인해보세요!');
+				return;
+				/* var latitude  = '37.539465';
+				var longitude = '127.052185';
+
+				findLocation(latitude,longitude);
+				gps_yn = 'Y'; */
+			}
+		}
+	}
+
+
+
+	function findLocation(lat,lon) {
+		//if (!!!optn) return;
+
+		// 검색 파라미터 설정
+		var paramArr = [];	
+		paramArr[0] = 'lat=' + lat;
+		paramArr[1] = 'lon=' + lon;
+		
+		appendLocation(paramArr);
+	}
+	
+	function gpsLsm(gps_yn){
+		if(gps_yn == 'Y'){
+			address = encodeURIComponent(address);
+			UI.layerPopUp({selId:'#pop-lsm', url:'/branch/gpsLsm', data:{lon:lon, lat:lat, xdot:xdot, ydot:ydot, address:address}});
+			address = decodeURIComponent(address);
+			_trk_call();
+		}else{
+			alert('위치접근허용을 승인해주세요.');	
+		}
+	}
+	
+	var _trk_call = function () {
+	    // 트래킹
+		var _trk_url = document.baseURI + '&_TRK_PI=WP_1P&_TRK_CP=LSM 팝업';
+	    try {
+	       	_trk_code_base = _trk_code_base.replace(/(du=).*?(&)/,'$1' + escape(_trk_url) + '$2');
+	        _trk_flashEnvView("_TRK_PI=WP_1P","_TRK_CP=LSM 팝업");
+	        /* console.log('TRK WEB_3_2 DONE!!'); */
+	    } catch (e) {
+	    	console.log(e.message);
+	    }
+		
+	}
+</script>
+
 </head>
 <body>
-	<div id="wrap">
-		<header id="header">
+
+	
+<div id="wrap">
+	<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
-						<h1 class="hidden">다미노피자</h1>
+					<a href="/main" class="btn-logo">
+						<i class="ico-logo"></i>
+						<h1 class="hidden">도미노피자</h1>
 					</a>
-
-					<div class="location active">
-						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
-					</div>
-
+					
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+								<a href="/global/logout">로그아웃</a>
+								<a href="/mypage/myLevel">나의정보</a>
+								<a href="javascript:goCart();"  class="btn-cart">
+									<i class="ico-cart"></i>
+									<span class="hidden ">장바구니</span>
+									<strong class="cart_count"></strong> <!-- count -->
+								</a>
+		                <a href="javascript:void(0);" class="lang">
+		                    <div class="select-type2 language">
+		                    	<select id="select-type2">
+									<option value="/main?locale=ko">KOR</option>
+									<option value="/main?locale=en">ENG</option>
+								</select>
+		                    </div>
+		                </a>
 					</div>
 				</div>
 			</div>
-
+				
+			<!-- main 1dep menu -->
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
-						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
-						<li><a href="branch.do"><span>매장검색</span></a></li>
+						<li class="active">
+							<a href="/goods/list?dsp_ctgr=C0101"><span>메뉴</span></a>
+						</li>
+						<li>
+							<a href="/ecoupon/index"><span>e-쿠폰</span></a>
+						</li>
+						<li>
+							<a href="/voucher/list?gubun=M"><span>상품권 선물</span></a>
+						</li>
+						<li>
+							<a href="/event/list?gubun=E0200"><span>이벤트&middot;제휴</span></a>
+						</li>
+						<li>
+							<a href="/branch"><span>매장검색</span></a>
+						</li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
-
+				
 				<div class="snb-wrap">
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="mania.do">다미노 서비스</a>
+								<a href="/event/mania">도미노 서비스</a>
 								<ul>
-									<li><a href="mania.do">매니아 혜택</a></li>
-									<li><a href="quickOrder.do">퀵 오더</a></li>
-									<li><a href="groupOrder.do">단체주문 서비스</a></li>
+									<li><a href="/event/mania">매니아 혜택</a></li>
+									<li><a href="/goods/dominosMoment">도미노 모멘트</a></li>
+									<li><a href="/quickOrder/index">퀵 오더</a></li>
+									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="faqMain.do">고객센터</a>
+								<a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
-									<li><a href="qnaForm.do">온라인 신문고</a></li>
+									<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">자주하는 질문</a></li>
+									<li><a href="/bbs/qnaForm">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="overview.do">회사소개</a>
+								<a href="/company/contents/overview">회사소개</a>
 								<ul>
-									<li><a href="overview.do">한국다미노피자</a></li>
-									<li><a href="chainstore1.do">가맹점 모집</a></li>
+									<li><a href="/company/contents/overview">한국도미노피자</a></li>
+									<li><a href="/company/tvcfList">광고갤러리</a></li>
+									<li><a href="/company/contents/society">사회공헌활동</a></li>
+									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
+									<li><a href="/company/jobList?type=R">인재채용</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="noticeList.do">공지사항</a>
+							<a href="/bbs/newsList?type=N">공지사항</a>
 							<ul>
-								<li><a href="noticeList.do">다미노뉴스</a></li>
+								<li><a href="/bbs/newsList?type=N">도미노뉴스</a></li>
+								<li><a href="/bbs/newsList?type=P">보도자료</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</header>
-		<!-- //header -->
-		<!-- container -->
-		<div id="container">
-			<section id="content">
-				<div class="sub-type mypage">
-					<div class="inner-box">
-						<div class="page-title-wrap">
-							<h2 class="page-title">나의정보</h2>
-							<div class="depth-area">
-								<ol>
-									<li><a href="main.do">홈</a></li>
-									<li><a href="myorderlist.do">나의 정보</a></li>
-									<li><strong>1:1문의</strong></li>
-								</ol>
+			<!-- //main 1dep menu -->
+		</header><!-- //header -->
+	<!-- container -->
+<div id="container">
+	<section id="content">
+		<div class="sub-type mypage">
+			<div class="inner-box">
+				<div class="page-title-wrap">
+					<h2 class="page-title">나의정보</h2>
+					<div class="depth-area">
+						<ol>
+							<li><a href="/main">홈</a></li>
+							<li><a href="/mypage/myOrderList">나의 정보</a></li>
+							<li><strong>1:1문의</strong></li>
+						</ol>
+					</div>
+				</div>
+				<article class="mypage-wrap mypage-grade mypage-counsil">
+					<div class="menu-nav-wrap">
+							<div class="menu-nav">
+								<ul>
+									<li><a href="/mypage/myLevel">매니아 등급</a></li>
+									<li><a href="/mypage/myOrderList">주문내역</a></li>
+									<li><a href="/mypage/myCoupon">쿠폰함</a></li>
+									<li class="active"><a href="/mypage/qustionList">1:1문의</a></li>
+									<li><a href="/member/userinfoConfirm">정보수정</a></li>
+								</ul>
 							</div>
 						</div>
-						<article class="mypage-wrap mypage-grade mypage-counsil">
-							<div class="menu-nav-wrap">
-								<div class="menu-nav">
-									<ul>
-										<li><a href="mylevel.do">매니아 등급</a></li>
-										<li><a href="myorderlist.do">주문내역</a></li>
-										<li><a href="mycoupon.do">쿠폰함</a></li>
-										<li class="active"><a href="myquestionlist.do">1:1문의</a></li>
-										<li><a href="myuserinfoconfirm.do">정보수정</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="info-wrap">
-								<div class="user">
-									<span>OOO</span>님께서 문의하신 내용입니다.
-								</div>
-								<div class="text-type">
-									OOO님께서 문의하신 내용은 <strong>총 0건</strong> 입니다.
-								</div>
-							</div>
-							<div class="counsil-wrap">
-								<div class="table-type4">
-									<table>
-										<caption>피자 영양성분</caption>
-										<colgroup>
-											<col style="width: 140px">
-											<col>
-											<col style="width: 180px">
-											<col style="width: 180px">
-										</colgroup>
-										<thead>
-											<tr>
-												<th>번호</th>
-												<th>제목</th>
-												<th>등록일</th>
-												<th>처리상태</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
+					<div class="info-wrap">
+						<div class="user">
+							<span>강수현</span>님께서 문의하신 내용입니다.
+						</div>
+						<div class="text-type">강수현님께서 문의하신 내용은 <strong>총 0건</strong> 입니다.</div>
+					</div>
+					<div class="counsil-wrap">
+						<div class="table-type4">
+							<table>
+								<caption>피자 영양성분</caption>
+								<colgroup>
+									<col style="width:140px">
+									<col>
+									<col style="width:180px">
+									<col style="width:180px">
+								</colgroup>
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>등록일</th>
+										<th>처리상태</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
 												<td colspan="4">문의하신 내용이 없습니다.</td>
 											</tr>
 										</tbody>
-									</table>
+							</table>
+						</div>
+						<div class="pager-wrap">
+							<div class="pager-inner">
 								</div>
-								<div class="pager-wrap">
-									<div class="pager-inner"></div>
-								</div>
-								<div class="btn-wrap">
-									<a href="javascript:UI.layerPopUp({selId:'#pop-write'});"
-										class="btn-type v4">문의하기</a>
-								</div>
-							</div>
-						</article>
+						</div>
+						<div class="btn-wrap">
+							<a href="javascript:UI.layerPopUp({selId:'#pop-write'});" class="btn-type v4">문의하기</a>
+						</div>
 					</div>
-				</div>
-			</section>
+				</article>
+			</div>
 		</div>
+	</section>
+</div>
 
-		<!-- 문의하기 -->
+<!-- 문의하기 -->
 <form name="q" id="q" method="post" action="/mypage/qustionProc" >
 <div class="pop-layer" id="pop-write">
 	<div class="dim"></div>
-	<div class="pop-wrap" style="margin-left: -290px; margin-top: -300px;">
+	<div class="pop-wrap">
 		<div class="pop-title-wrap">
 			<h2 class="pop-title v2">문의하기</h2>
 		</div>
@@ -249,7 +528,8 @@
 						</dd>
 					</dl>
 				</div>
-				<div class="cs-guide">
+			</div>
+			<div class="cs-guide">
 				<p>등록하신 내용 및 답변은 회원정보상의 이메일로도 발송이 됩니다.<br/>상담원과 통화를 원하시면 아래 번호로 전화주시기 바랍니다.</p>
 				<p>고객만족 센터 : <span>080-860-3082</span></p>
 				<div class="btn-wrap">
@@ -261,141 +541,216 @@
 		<a href="#" class="btn-close"></a>
 	</div>
 </div>
-</div>
-			
 </form>
-		<!--//문의하기 -->
+<!--//문의하기 -->
 
-		<form name="f" id="f" method="get" action="myquestionlist.do">
-			<input type="hidden" name="idx" id="idx" /> <input type="hidden"
-				name="no" id="no" /> <input type="hidden" name="pageNo" id="pageNo"
-				value="1">
-		</form>
+<form name="f" id="f" method="get" action="/mypage/qustionList">
+<input type="hidden" name="idx" id="idx" />
+<input type="hidden" name="no" id="no" />
+<input type="hidden" name="pageNo" id="pageNo" value="1">
+</form>
 
-		<script type="text/javascript">
-			_TRK_PI = "WP_24_4";
-			_TRK_CP = "나의 정보>1:1문의";
-		</script>
-		<!-- 로딩 이미지 -->
-		<!-- // 로딩 이미지 -->
+<script type="text/javascript">
+//페이징
+function paging(no){
+	$("#pageNo").val(no);
+	$('#f').attr("action", "/mypage/qustionList");
+	$("#f").submit();
+}
 
-		<!-- 로딩 이미지 -->
-		<!-- 장바구니 담기 토스트 팝업(s) -->
-		<div class="pop_toast" id="card_add" style="display: none;">
-			<div class="bg"></div>
-			<div class="pop_wrap">
-				<div class="pop_content">
-					<p>장바구니에 담았습니다.</p>
-				</div>
+//문의 내역 상세보기
+function goView(idx, no) {
+	$('#idx').val(idx);
+	$('#no').val(no);
+	$('#f').attr("action", "/mypage/qustionView");
+	$('#f').submit();
+}
+
+//매장목록
+function changeBranch(region){
+	$.ajax({
+		url: '/mypage/branchListAjax',
+		data: { branch_region : encodeURIComponent(region) },
+		type: 'get',
+		dataType: 'json',
+		success: function(data) {
+			if (data.status == 'success') {
+				var htmlStr = '<option value="">매장 선택</option>';
+				$.each(data.resultData, function(index, addrObj) {
+					htmlStr += '<option value="'+ addrObj.branch_code +'">'+ addrObj.branch_name +'</option>';
+				});
+				$('#sel3').html(htmlStr);
+			} else {
+				alert(data.msg);
+			}
+		},
+		error: function() {
+			alert('처리도중 오류가 발생했습니다.');
+		}
+	});
+}
+
+//다시입력
+function doReset(){
+	if(confirm("입력한 내용을 모두 지우고 다시 입력하시겠습니까?")){
+		document.q.reset();
+		$("#type_div1").focus();
+	}
+}
+
+//문의하기
+var send = false;
+function proc(){
+	if(send){
+		alert('등록중 입니다.');
+	}else{
+		if($('#type_div1').val() == '') { alert('유형분류를 선택해주세요'); $('#type_div1').focus(); return;}
+		if($('#subject').val() == '') { alert('제목을 입력하세요'); $('#subject').focus(); return;}
+		if($('textarea[name=content]').val() == '') { alert('내용을 입력하세요.'); $('#content').focus(); return;}	
+		send = true;
+		$('#q').submit();
+	}	
+}
+</script>
+<script type="text/javascript">
+	_TRK_PI = "WP_24_4";			
+	_TRK_CP = "나의 정보>1:1문의";
+</script>
+<!-- 로딩 이미지 -->
+	<!-- // 로딩 이미지 -->
+	
+	<!-- 로딩 이미지 -->
+	<!-- 장바구니 담기 토스트 팝업(s) -->
+	<div class="pop_toast" id="card_add" style="display: none;">
+		<div class="bg"></div>
+		<div class="pop_wrap">
+			<div class="pop_content">
+				<p>장바구니에 담았습니다.</p>
 			</div>
 		</div>
+	</div>
 
-		<!-- //장바구니 담기 토스트 팝업(e) -->
+	<!-- //장바구니 담기 토스트 팝업(e) -->
 
-		<!-- 장바구니(s) -->
-		<div class="pop_layer pop_type" id="cart_pop" style="display: none;">
-			<div class="bg"></div>
-			<div class="pop_wrap">
-				<div class="pop_header">
-					<h2>장바구니</h2>
-				</div>
-				<a href="javascript:;" onclick="setBasketCnt();"
-					class="btn_ico btn_close">닫기</a>
+	<!-- 장바구니(s) -->
+	<div class="pop_layer pop_type" id="cart_pop" style="display: none;">
+		<div class="bg"></div>
+		<div class="pop_wrap">
+			<div class="pop_header">
+				<h2>장바구니</h2>
 			</div>
+			<!-- iframe src="100_cart_pop_frame.html" width="1000" height="832" frameborder="0"></iframe><!-- 2016-10-05//아이프레임대체 -->
+			<a href="javascript:;" onclick="setBasketCnt();" class="btn_ico btn_close">닫기</a>
 		</div>
-		<!-- //장바구니(e) -->
+	</div>
+	<!-- //장바구니(e) -->
 
 	<footer id="footer">
-			<div class="footer-area">
-				<div class="inner-box">
-					<div class="footer-order">
-						<i class="ico-logo2"></i> <span class="tel">1577-3082</span>
+		<div class="footer-area">
+			<div class="inner-box">
+				<div class="footer-order">
+					<i class="ico-logo2"></i>
+					<span class="tel">1577-3082</span>
+				</div>
+	
+				<ul class="footer-contact">
+					<li><a href="/contents/law">이용약관</a></li>
+					<li class="on"><a href="/contents/privacy">개인정보처리방침</a></li>
+					<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a></li>
+					<li><a href="/company/jobList?type=R">인재채용</a></li>
+					<li><a href="/company/contents/chainstore1">가맹점모집</a></li>
+					<li><a href="/order/groupOrder">단체주문</a></li>
+				</ul>
+	
+				<div class="footer-info">
+					<p>06229 서울특별시 강남구 언주로 315 청오디피케이㈜｜대표이사 : 오광현</p>
+					<p>사업자 등록번호: 220-81-03371｜통신판매업신고: 강남 5064호｜개인정보 보호책임자 : 이명윤</p>
+					<p>문의 : webmaster@dominos.co.kr</p>
+					<p>Copyright ⓒ Domino’s Pizza. All rights reserved.</p>
+	
+					<p class="notice">청오디피케이㈜의 사전 서면동의 없이 도미노피자 사이트(PC, 모바일, 앱)의 일체의 정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
+				</div>
+	
+				<div class="footer-cont">
+					<div class="select-type language">
+						<select id="select-type">
+							<option value="/main?locale=ko">KOR</option>
+							<option value="/main?locale=en">ENG</option>
+						</select>
 					</div>
-
-					<ul class="footer-contact">
-						<li><a href="law.do">이용약관</a></li>
-						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
-						<li><a href="groupOrder.do">단체주문</a></li>
-					</ul>
-
-					<div class="footer-info">
-						<p>03138 서울특별시 종구 돈화문로 26 단성골드빌딩 KG아이티뱅크｜대표이사 : 오수현, 강수현, 정민균,
-							정민식, 김진혁</p>
-						<p>사업자 등록번호: 220-81-03371｜통신판매업신고: 강남 5064호｜개인정보 보호책임자 : 이승재</p>
-						<p>문의 : admin@daminos.co.kr</p>
-						<p>Copyright ⓒ Damino’s Pizza. All rights reserved.</p>
-
-						<p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 사이트(PC, 모바일, 앱)의 일체의
-							정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
-					</div>
-
-					<div class="footer-cont">
-
-						<dl class="app-box">
-							<dt>DOWNLOAD APP</dt>
-							<dd>
-								<a
-									href="https://itunes.apple.com/kr/app/dominopija-domino-pizza-korea/id371008429?mt=8"><i
-									class="ico-ios"></i>ios 앱다운로드</a> <a
-									href="https://play.google.com/store/apps/details?id=kr.co.d2.dominos"><i
-									class="ico-android">안드로이드 앱다운로드</i></a>
-							</dd>
-						</dl>
-
-						<div class="sns-box">
-							<ul>
-								<li><a href="http://blog.naver.com/dominostory"><i
-										class="ico-blog"></i>블로그</a></li>
-								<li><a href="https://www.instagram.com/dominostory/"><i
-										class="ico-insta"></i>인스타그램</a></li>
-								<li><a href="https://www.facebook.com/dominostory/"><i
-										class="ico-facebook"></i>페이스북</a></li>
-								<li><a href="https://www.youtube.com/user/dominostory3082"><i
-										class="ico-youtube"></i>유튜브</a></li>
-								<li><a href="https://twitter.com/dominostory"><i
-										class="ico-twitter"></i>트위터 </a></li>
-							</ul>
-						</div>
+	
+					<dl class="app-box">
+						<dt>DOWNLOAD APP</dt>
+						<dd>
+							<a href="https://itunes.apple.com/kr/app/dominopija-domino-pizza-korea/id371008429?mt=8"><i class="ico-ios"></i>ios 앱다운로드</a>
+							<a href="https://play.google.com/store/apps/details?id=kr.co.d2.dominos"><i class="ico-android">안드로이드 앱다운로드</i></a>
+						</dd>
+					</dl>
+	
+					<div class="sns-box">
+						<ul>
+							<li><a href="http://blog.naver.com/dominostory"><i class="ico-blog"></i>블로그</a></li>
+							<li><a href="https://www.instagram.com/dominostory/"><i class="ico-insta"></i>인스타그램</a></li>
+							<li><a href="https://www.facebook.com/dominostory/"><i class="ico-facebook"></i>페이스북</a></li>
+							<li><a href="https://www.youtube.com/user/dominostory3082"><i class="ico-youtube"></i>유튜브</a></li>
+							<li><a href="https://twitter.com/dominostory"><i class="ico-twitter"></i>트위터 </a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="awards-area">
-				<div class="inner-box">
-					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
-							<p>
-								식품안전<br>경영시스템 인증
-							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
-							<p>
-								지식경제부<br>우수디자인 선정
-							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
-							<p>
-								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
-							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
-							<p>
-								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
-							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
-							<p>
-								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
-							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
-							<p>
-								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
-							</p></li>
-					</ul>
-				</div>
+		</div>
+		<div class="awards-area">
+			<div class="inner-box">
+				<ul>
+					<li>
+						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards.png" alt="">
+						<p>식품안전<br>경영시스템 인증</p>
+					</li>
+					<li>
+						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards2.png" alt="">
+						<p>지식경제부<br>우수디자인 선정</p>
+					</li>
+					<li>
+						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards3.png" alt="">
+						<p>고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위</p>
+					</li>
+					<li>
+						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards4.png" alt="">
+						<p>2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위</p>
+					</li>
+					<li>
+						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards5.png" alt="">
+						<p>2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상</p>
+					</li>
+					<li>
+						<img src="https://cdn.dominos.co.kr/domino/pc/images/list_awards6.png" alt="">
+						<p>대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정</p>
+					</li>
+				</ul>
 			</div>
-		</footer>
-		<!-- //footer -->
-	</div>
-	<!-- //wrap -->
+		</div>
+	</footer>
+	<!-- //footer -->
+</div><!-- //wrap -->
+
+	<script type="text/javascript">var _TRK_LID="21550";var _L_TD="ssl.logger.co.kr";var _TRK_CDMN=".dominos.co.kr";</script>
+	<script type="text/javascript">var _CDN_DOMAIN = location.protocol == "https:" ? "https://fs.bizspring.net" : "http://fs.bizspring.net";
+	(function(b,s){var f=b.getElementsByTagName(s)[0],j=b.createElement(s);j.async=true;j.src='//fs.bizspring.net/fs4/bstrk.1.js';f.parentNode.insertBefore(j,f);})(document,'script');</script>
+	<noscript><img alt="Logger Script" width="1" height="1" src="http://ssl.logger.co.kr/tracker.tsp?u=21550&amp;js=N" /></noscript>
+	
+	<script type="text/javascript">
+	(function(b,s,t,c,k){b[k]=s;b[s]=b[s]||function(){(b[s].q=b[s].q||[]).push(arguments)};  var f=t.getElementsByTagName(c)[0],j=t.createElement(c);j.async=true;j.src='//fs.bizspring.net/fs4/l4cts.v4.2.js';f.parentNode.insertBefore(j,f);})(window,'_tcts_m',document,'script','BSAnalyticsObj');
+	_tcts_m('15484','BCTS');
+	</script>
 
 
 </body>
+<script>
+cookieManager.makePCID("PCID", 10);
+
+$(".select-type.language").change(function() {
+	
+	location.href = $("#select-type").val();
+});
+</script>
 </html>
