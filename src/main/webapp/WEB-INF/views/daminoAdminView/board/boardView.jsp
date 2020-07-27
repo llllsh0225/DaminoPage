@@ -1,6 +1,9 @@
+<%@page import="com.damino.web.admin.board.impl.BoardDAOImpl"%>
+<%@page import="com.damino.web.admin.board.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,11 +195,11 @@
 							<table class="table table-bordered" id="dataTable" width="100%"
 								cellspacing="0">
 								<tr>
-									<td colspan="2">[공지사항] 게시물 테스트 입니다</td>
+									<td colspan="2"><input type="text" name="title" value="${board.title}"/></td>
 								</tr>
 								<tr>
-									<td colspan="2">작성자 : 관리자(admin@test.com) 작성일 : 2020-07-14
-										조회수 : 10</td>
+									<td colspan="2">작성자 : ${board.writer } 작성일 : <fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" />
+										조회수 : ${board.cnt }</td>
 								</tr>
 								<tr>
 									<td>첨부파일 :</td>
@@ -204,7 +207,7 @@
 								</tr>
 								<tr>
 									<td>내용</td>
-									<td><textarea rows="10" cols="14" style="width: 50%">게시물테스트입니다(내용)반갑습니다!</textarea></td>
+									<td><textarea rows="10" cols="14" style="width: 50%" name="content">${board.content}</textarea></td>
 								</tr>
 								<tr>
 									<td>이전글</td>

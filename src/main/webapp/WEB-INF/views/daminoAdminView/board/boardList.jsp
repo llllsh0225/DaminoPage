@@ -211,7 +211,7 @@
 									<c:forEach var="board" items="${boardList }">
 										<tr>
 											<td>${board.seq }</td>
-											<td><a href="getBoard.do?seq=${board.seq}">${board.title}</a></td>
+											<td><a href="boardView.admdo?seq=${board.seq}">${board.title}</a></td>
 											<td>${board.writer }</td>
 											<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" /></td>
 											<td>${board.cnt }</td>

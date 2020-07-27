@@ -4,11 +4,14 @@
 
 <mapper namespace="BoardDAO">
 
-	<select id="getBoardList" parameterType="int" resultType="com.damino.web.admin.board.BoardVO">
+	<select id="getBoardList" resultType="com.damino.web.admin.board.BoardVO">
 		SELECT seq, title, writer, regdate, cnt
 		FROM board
 		ORDER BY seq desc
 	</select>
-
+	
+	<select id="getBoard" resultType="com.damino.web.admin.board.BoardVO">
+		SELECT * FROM board WHERE seq=#{seq}
+	</select>
 
 </mapper>

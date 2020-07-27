@@ -539,15 +539,15 @@ public class ViewTestController {
 	   }
 	
 	//board 폴더 시작 --------
-	@RequestMapping("/boardView.admdo")
-	   public ModelAndView getAdminBoardPage() {
-	      System.out.println("게시글 열기");
-	      
-	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("/board/boardView");
-	      
-	      return mav;
-	   }
+//	@RequestMapping("/boardView.admdo")
+//	   public ModelAndView getAdminBoardPage() {
+//	      System.out.println("게시글 열기");
+//	      
+//	      ModelAndView mav = new ModelAndView();
+//	      mav.setViewName("/board/boardView");
+//	      
+//	      return mav;
+//	   }
 	
 	@RequestMapping("/boardWrite.admdo")
 	   public ModelAndView getAdminBoardWritePage() {
@@ -559,15 +559,6 @@ public class ViewTestController {
 	      return mav;
 	   }
 	
-//	@RequestMapping("/boardList.admdo")
-//	   public ModelAndView getAdminBoardListPage() {
-//	      System.out.println("게시글 목록 열기");
-//	      
-//	      ModelAndView mav = new ModelAndView();
-//	      mav.setViewName("/board/boardList");
-//	      
-//	      return mav;
-//	   }
 	//error 폴더 시작 --------
 	@RequestMapping("/error_401.admdo")
 	   public ModelAndView getAdminError401Page() {

@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface BoardDAO {
 	public List<BoardVO> getBoardList();
+	public BoardVO getBoard(BoardVO vo);
 }
