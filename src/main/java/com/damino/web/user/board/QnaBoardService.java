@@ -2,7 +2,10 @@ package com.damino.web.user.board;
 
 import java.util.List;
 
-public interface BoardService {
-	public List<QnaBoardVO> getBoardList();
-	public QnaBoardVO getBoard(QnaBoardVO vo);
+public interface QnaBoardService {
+	public List<QnaBoardVO> myQuestionList();
+	public QnaBoardVO myQuestion(QnaBoardVO vo);
+	public void qnaInsertBoard(QnaBoardVO vo);
+	public void qnaUpdateBoard(QnaBoardVO vo);
+	public void qnaDeleteBoard(QnaBoardVO vo);
 }

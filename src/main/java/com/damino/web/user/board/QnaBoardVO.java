@@ -4,23 +4,32 @@ import java.util.Date;
 
 public class QnaBoardVO {
 	private int seq;
-	private String writer;
+	private String writerId;
+	private String title;
 	private String phone;
 	private String email;
+	private String qnaType;
 	private Date regDate = new Date();
 	private String content;
-	
+	private String storeRegion;
+	private String storeName;
 	public int getSeq() {
 		return seq;
 	}
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-	public String getWriter() {
-		return writer;
+	public String getWriterId() {
+		return writerId;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getPhone() {
 		return phone;
@@ -34,6 +43,12 @@ public class QnaBoardVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getQnaType() {
+		return qnaType;
+	}
+	public void setQnaType(String qnaType) {
+		this.qnaType = qnaType;
+	}
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -46,11 +61,25 @@ public class QnaBoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getStoreRegion() {
+		return storeRegion;
+	}
+	public void setStoreRegion(String storeRegion) {
+		this.storeRegion = storeRegion;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
 	
 	@Override
 	public String toString() {
-		return "BoardVO [seq=" + seq + ", writer=" + writer + ", phone=" + phone + ", email=" + email + ", regDate="
-				+ regDate + ", content=" + content + "]";
+		return "QnaBoardVO [seq=" + seq + ", writerId=" + writerId + ", title=" + title + ", phone=" + phone
+				+ ", email=" + email + ", qnaType=" + qnaType + ", regDate=" + regDate + ", content=" + content
+				+ ", storeRegion=" + storeRegion + ", storeName=" + storeName + "]";
 	}
+	
 	
 }

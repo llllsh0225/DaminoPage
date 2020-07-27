@@ -10,27 +10,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class BoardController {
+public class QnaBoardController {
 	@Autowired
-	private BoardService boardService;
+	private QnaBoardService qnaBoardService;
 	
-	@RequestMapping("/boardList.admdo")
-	public ModelAndView getBoardList(){
-		System.out.println("글 목록 ");
-		List<QnaBoardVO> boardList = boardService.getBoardList();
+	@RequestMapping("/myquestionlist.do")
+	public ModelAndView getMyQuestionList() {
+		System.out.println("내 질문내역 1:1 열기");
+		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList();
 		System.out.println(boardList.toString());
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardList");
-		mav.addObject("boardList", boardList);
+		mav.setViewName("/mypage/myQuestionList");
 		return mav;
 	}
 	
-	@RequestMapping(value="/boardView.admdo", method=RequestMethod.GET)
+	@RequestMapping(value="/myquestion_view.do", method=RequestMethod.POST)
 	public ModelAndView getBoard(QnaBoardVO vo) {
-		System.out.println("글 상세");
-		QnaBoardVO board = boardService.getBoard(vo);
+		System.out.println("1:1 문의글 상세");
+		QnaBoardVO board = qnaBoardService.myQuestion(vo);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardView");
+		mav.setViewName("/mypage/myquestion_view");
 		mav.addObject("board", board);
 		return mav;
 	}

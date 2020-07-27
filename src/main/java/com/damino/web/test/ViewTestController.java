@@ -507,14 +507,7 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/myquestionlist.do")
-	public ModelAndView getMyQuestionList() {
-		System.out.println("내 질문내역 1:1 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mypage/myQuestionList");
-		return mav;
-	}
+	
 	
 	@RequestMapping("/myuserinfoconfirm.do")
 	public ModelAndView getMyUserInfoConfirm() {
@@ -809,15 +802,14 @@ public class ViewTestController {
 	}
 	
 	//store 폴더 시작 -------
-	@RequestMapping("/storeEdit.admdo")
-	public ModelAndView getAdminStoreEditPage() {
-		System.out.println("매장 수정 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/store/storeEdit");
-		
-		return mav;
-	}
+	/*
+	 * @RequestMapping("/storeEdit.admdo") public ModelAndView
+	 * getAdminStoreEditPage() { System.out.println("매장 수정 페이지 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); mav.setViewName("/store/storeEdit");
+	 * 
+	 * return mav; }
+	 */
 	@RequestMapping("/storeRegForm.admdo")
 	public ModelAndView getAdminStoreRegFormPage() {
 		System.out.println("매장 등록 페이지 열기");
