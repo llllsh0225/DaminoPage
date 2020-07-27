@@ -177,35 +177,34 @@
 					<h1 class="mt-4">매장등록</h1>
 					<div class="card mb-4">
 						<div class="card-body">
-
 							<p class="mb-0">
-							<form action="#" method="post" class>
+							<form action="insertMarket.admdo" method="post">
 								<p>
 									<label>점포이름 : <input class="text-jms" type="text"
-										name="partyname" required>
+										name="name" required>
 									</label>
 								</p>
 
 								<p>
-									<label>전화번호 : <input type="tel" class="text-jms"
+									<label>전화번호 : <input type="tel" class="text-jms" name="tel"
 										required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
 										title="###-####-####">
 									</label>
 								</p>
 								<p>
-									<label>오픈시간 : <input type="time" name="opentime"
+									<label>오픈시간 : <input type="time" name="time" 
 										class="text-jms"> 마감시간 : <input type="time"
-										name="endtime" class="text-jms"></label>
+										name="etime" class="text-jms"></label>
 								</p>
 
 								<h5>주차정보</h5>
 								<p>
-									<input type="radio" name="parking" value="no" checked>주차공간
-									없음 <input type="radio" name="parking" value="yes">매장
+									<input type="radio" value="no" checked>주차공간
+									없음 <input type="radio" value="yes">매장
 									주차가능
 								</p>
 								<p>
-									<textarea class="text2-jms" name="parkinginfo" rows="2"
+									<textarea class="text2-jms" name="park" rows="2" name="park"
 										cols="40" placeholder="ex)매장 앞 보도, 인근 주차장 없음"></textarea>
 								</p>
 
@@ -221,16 +220,14 @@
 								</p>
 								<h5>특이사항</h5>
 								<p>
-									<textarea class="text2-jms" name="location" rows="2" cols="40"></textarea>
+									<textarea class="text2-jms" name="etc" rows="2" cols="40"></textarea>
 								</p>
 								<p>
-									<input type="button" value="등록">
+									<input type="submit" value="등록">
 								</p>
-							</form>
-							</p>
+							</form>					
 						</div>
 					</div>
-
 				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">

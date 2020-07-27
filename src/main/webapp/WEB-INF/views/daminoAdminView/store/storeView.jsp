@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.List"%>
-<%@page import="com.damino.web.admin.market.impl.MarketDAOimpl"%>
+<%@page import="com.damino.web.admin.market.impl.MarketDAOImpl"%>
 <%@page import="com.damino.web.admin.market.MarketVO"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
@@ -20,6 +20,7 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+
 
 </head>
 <body class="sb-nav-fixed">
@@ -200,7 +201,8 @@
 										<th>전화번호</th>
 										<th>주소</th>
 										<th>위치정보</th>
-										<th>영업시간</th>
+										<th>오픈시간</th>
+										<th>마감시간</th>
 										<th>주차시설</th>
 										<th>특이사항</th>
 										<th><a class="btn btn-secondary" href="emailForm.admdo"
@@ -213,25 +215,22 @@
 									<tr>
 										<td>
 											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="check1"
+												<input class="custom-control-input" id="check"
 													type="checkbox" /> <label class="custom-control-label"
 													for="check1"></label>
-											</div>
-											</label>
 											</div>
 										</td>
 										<td>${market.name }</td>
 										<td>${market.tel }</td>
-										<td>${market.address}<br>
-										</td>
-										<td>${market.location } <br>
-										</td>
+										<td>${market.address}</td>
+										<td>${market.location }</td>
 										<td>${market.time }</td>
+										<td>${market.etime }</td>
 										<td>${market.park }</td>
 										<td>${market.etc }</td>
-										<td><a class="btn btn-primary" href="storeEdit.admdo"
+										<td><a class="btn btn-primary" href="storeEdit.admdo?name=${market.name }"
 											role="button">수정</a>
-										</button>
+
 											<button class="btn btn-danger" type="submit">삭제</button></td>
 									</tr>
 									</c:forEach>
