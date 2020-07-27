@@ -17,6 +17,15 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+	function boardSubmit(index){
+		if(index==1){
+			document.form1.action='updateMarket.admdo';
+		}
+		document.form1.submit();
+	}
+</script>
+
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -53,7 +62,7 @@
 						<a class="nav-link" href="main.admdo"> 메인 </a>
 
 						<div class="sb-sidenav-menu-heading">Interface</div>
-
+				
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
 							data-target="#customerPage" aria-expanded="false"
 							aria-controls="customerPage"> 회원관리
@@ -61,6 +70,7 @@
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
+						
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
@@ -180,42 +190,43 @@
 								<div class="card-header">
 									<h3 class="text-center font-weight-light my-4">매장정보 수정</h3>
 								</div>
+								<form name="form1" method="post">
 								<div class="card-body">
-									<form>
+									
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputFirstName">점포명
 													</label> <input class="form-control py-4" id="inputFirstName"
-														type="text" placeholder="" />
+														type="text" placeholder="" name="name" value="${market.name }"/>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputLastName">전화번호
 													</label> <input class="form-control py-4" id="inputLastName"
-														type="text" placeholder="" />
+														type="text" placeholder="" name="tel" value="${market.tel }"/>
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="small mb-1" for="inputEmailAddress">주소</label>
 											<input class="form-control py-4" id="inputEmailAddress"
-												type="text" aria-describedby="emailHelp" placeholder="" />
+												type="text" aria-describedby="emailHelp" placeholder="" name="address" value="${market.address }"/>
 										</div>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputPassword">위치정보</label>
 													<input class="form-control py-4" id="inputPassword"
-														type="text" placeholder="" />
+														type="text" placeholder="" name="location" value="${market.location }"/>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputConfirmPassword">주차시설</label>
 													<input class="form-control py-4" id="inputConfirmPassword"
-														type="text" placeholder="" />
+														type="text" placeholder="" name="park" value="${market.park }"/>
 												</div>
 											</div>
 										</div>
@@ -223,13 +234,15 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputPassword">오픈시간</label>
-                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" />
+                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
+                                                        name="time" value="${market.time }"/>
                                                     </div>
                                                 </div>
 												<div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPassword">마감시간</label>
-                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" />
+                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
+                                                        name="etime" value="${market.etime }"/>
                                                     </div>
                                                 </div>
 											</div>
@@ -237,16 +250,18 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPassword">특이사항</label>
-                                                      <input class="form-control py-4" id="inputPassword" type="text" placeholder="" />
+                                                      <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
+                                                      name="etc" value="${market.etc }"/>
                                                     </div>
                                                 </div>
 												<div class="col-md-6"> </div>
 											</div>
-                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" href="login.html">변경정보
-												저장</a>
+                                            <div class="form-group mt-4 mb-0">
+                                            <input type="button" class="btn btn-primary btn-block" value="변경정보 저장" onclick="boardSubmit(1)" />
 										</div>
-									</form>
+									
 								</div>
+								</form>
 								<div class="card-footer text-center">
 									<div class="small">
 										<a href="storeView.admdo">돌아가기</a>

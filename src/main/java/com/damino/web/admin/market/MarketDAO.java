@@ -4,4 +4,8 @@ import java.util.List;
 
 public interface MarketDAO {
 	public List<MarketVO> getMarketList();
+	public MarketVO getMarket(MarketVO vo);
+	public void updateMarket(MarketVO vo);
+	public void insertMarket(MarketVO vo);
 }
+

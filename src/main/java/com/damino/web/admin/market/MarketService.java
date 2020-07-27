@@ -4,4 +4,7 @@ import java.util.List;
 
 public interface MarketService {
 	public List<MarketVO> getMarketList();
+	public MarketVO getMarket(MarketVO vo);
+	public void updateMarket(MarketVO vo);
+	public void insertMarket(MarketVO vo);
 }

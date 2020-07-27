@@ -21,4 +21,26 @@ public class MarketServiceImpl implements MarketService{
 		return marketDAO.getMarketList(); 
 	}
 
+	@Override
+	public MarketVO getMarket(MarketVO vo) {
+		System.out.println("MarketServiceImpl getMarket(vo)");
+		return marketDAO.getMarket(vo);
+	}
+
+		
+	@Override
+	public void updateMarket(MarketVO vo) {
+		System.out.println("MarketServiceImpl updateMarket(vo)");
+		marketDAO.updateMarket(vo);
+	}
+
+	@Override
+	public void insertMarket(MarketVO vo) {
+		System.out.println("MarketServiceImpl insertMarket(vo)");
+		marketDAO.insertMarket(vo);
+	}
+
+	
+	
 }
+ 

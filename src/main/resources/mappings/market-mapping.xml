@@ -5,8 +5,26 @@
 <mapper namespace="MarketDAO">
 
 	<select id="getMarketList" resultType="com.damino.web.admin.market.MarketVO">
-			SELECT name, tel, address, location, time, park, etc
+			SELECT name, tel, address, location, time, etime, park, etc
 			FROM market
 	</select>
 
+	<select id="getMarket" resultType="com.damino.web.admin.market.MarketVO">
+			SELECT * FROM market where name=#{name}
+	</select>
+
+
+ 	<update id="updateMarket" parameterType="com.damino.web.admin.market.MarketVO"> 
+			UPDATE market
+			set name=#{name}, tel=#{tel}, address=#{address}, location=#{location}, time=#{time}, etime=#{etime}, park=#{park}, etc=#{etc}
+	</update> 
+		
+	<delete id="deleteMarket" parameterType="com.damino.web.admin.market.MarketVO">
+			DELETE FROM market where name =#{name}
+	</delete>
+	
+	<insert id="insertMarket" parameterType="com.damino.web.admin.market.MarketVO">
+			INSERT INTO market (name, tel, address, location, time, etime, park, etc)
+			VALUES(#{name}, #{tel}, #{address}, #{location}, #{time}, #{etime}, #{park}, #{etc})
+	</insert>
 </mapper>

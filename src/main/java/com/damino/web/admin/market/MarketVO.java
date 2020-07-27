@@ -6,6 +6,14 @@ public class MarketVO {
 	private String address;
 	private String location;
 	private String time;
+	private String etime;
+	
+	public String getEtime() {
+		return etime;
+	}
+	public void setEtime(String etime) {
+		this.etime = etime;
+	}
 	private String park;
 	private String etc;
 	
@@ -54,7 +62,8 @@ public class MarketVO {
 	@Override
 	public String toString() {
 		return "MarketVO [name=" + name + ", tel=" + tel + ", address=" + address + ", location=" + location + ", time="
-				+ time + ", park=" + park + ", etc=" + etc + "]";
+				+ time + ", etime=" + etime + ", park=" + park + ", etc=" + etc + "]";
 	}
+	
 	
 }
