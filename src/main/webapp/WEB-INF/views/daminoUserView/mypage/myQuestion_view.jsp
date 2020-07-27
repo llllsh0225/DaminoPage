@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE HTML>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
+<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
 
-<title>도미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
-	<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
+	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.google-analytics.com/plugins/ua/ecommerce.js"></script><script type="text/javascript" async="" src="https://www.googleadservices.com/pagead/conversion_async.js"></script><script async="" src="//fs.bizspring.net/fs4/logger.v4.1.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-TR97KL"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=AW-956654516&amp;l=dataLayer&amp;cx=c"></script><script type="text/javascript" async="" src="https://www.googleadservices.com/pagead/conversion_async.js"></script><script async="" src="//fs.bizspring.net/fs4/l4cts.v4.2.js"></script><script async="" src="//fs.bizspring.net/fs4/bstrk.1.js"></script><script async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
 	
 	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
 	<script type="text/javascript" src="/resources/js/selectbox.js"></script><!-- js 수정함. -->
@@ -27,7 +26,7 @@
 	<script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
 	
 	<script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
-	<script type="text/javascript" src="/resources/js/gcenmaps/gcenmap.js"></script><!--서브에는 main.js 호출하지않음-->
+	<script type="text/javascript" src="/resources/js/gcenmaps/gcenmap.js"></script><script src="/resources/js/gcenmaps/lib/system.js"></script><script src="/resources/js/gcenmaps/lib/basetype.js"></script><script src="/resources/js/gcenmaps/lib/excanvas.js"></script><script src="/resources/js/gcenmaps/lib/maps.js"></script><!--서브에는 main.js 호출하지않음-->
 	<!--//서브에는 main.js 호출하지않음-->
 	
 	<!-- 기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 -->
@@ -89,9 +88,14 @@
 // 						console.log("마이쿠폰 정보 가져오기 실패");
 					}
 				}
-			});
-			
+			});		
 
+		
+		//상단 영문사이트 바로가기 버튼
+		$(".select-type2.language").change(function() {
+			location.href = $("#select-type2").val();
+		});
+	});
 
 	function setBasketCnt() {
 		var basketCnt = cookieManager.getCookie("BASKETCNT");
@@ -219,7 +223,7 @@
 			var userAgent = navigator.userAgent.toString();
 
 			if(/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream){ // iOS
-				alert('아이폰 > 설정 >개인정보보호 > 위치서비스 > 도미노피자 항목의 위치접근허용을 체크해주세요.');
+				alert('아이폰 > 설정 >개인정보보호 > 위치서비스 > 다미노피자 항목의 위치접근허용을 체크해주세요.');
 				return;
 			} else {
 				//alert('위치접근허용을 승인해주세요.');
@@ -272,27 +276,27 @@
 	}
 </script>
 
-</head>
+<script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/753034372/?random=1595833099673&amp;cv=9&amp;fst=1595833099673&amp;num=1&amp;bg=ffffff&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;eid=376635470&amp;u_h=864&amp;u_w=1536&amp;u_ah=824&amp;u_aw=1536&amp;u_cd=24&amp;u_his=8&amp;u_tz=540&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2oa7f0&amp;sendb=1&amp;ig=1&amp;data=event%3Dgtag.config&amp;frm=0&amp;url=https%3A%2F%2Fweb.dominos.co.kr%2Fmypage%2FqustionView%3Fidx%3D238307%26no%3D1%26pageNo%3D1&amp;ref=https%3A%2F%2Fweb.dominos.co.kr%2Fmypage%2FqustionList&amp;tiba=%EB%8F%84%EB%AF%B8%EB%85%B8%ED%94%BC%EC%9E%90%20-%20%EB%8B%B9%EC%8B%A0%EC%9D%98%20%EC%9D%B8%EC%83%9D%EC%97%90%20%EC%99%84%EB%B2%BD%ED%95%9C%20%ED%95%9C%EB%81%BC!%20Life%20Food%2C%20Domino's&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script><script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/956654516/?random=1595833099884&amp;cv=9&amp;fst=1595833099884&amp;num=1&amp;bg=ffffff&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=864&amp;u_w=1536&amp;u_ah=824&amp;u_aw=1536&amp;u_cd=24&amp;u_his=8&amp;u_tz=540&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2oa7f0&amp;sendb=1&amp;ig=1&amp;data=event%3Dgtag.config&amp;frm=0&amp;url=https%3A%2F%2Fweb.dominos.co.kr%2Fmypage%2FqustionView%3Fidx%3D238307%26no%3D1%26pageNo%3D1&amp;ref=https%3A%2F%2Fweb.dominos.co.kr%2Fmypage%2FqustionList&amp;tiba=%EB%8F%84%EB%AF%B8%EB%85%B8%ED%94%BC%EC%9E%90%20-%20%EB%8B%B9%EC%8B%A0%EC%9D%98%20%EC%9D%B8%EC%83%9D%EC%97%90%20%EC%99%84%EB%B2%BD%ED%95%9C%20%ED%95%9C%EB%81%BC!%20Life%20Food%2C%20Domino's&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script></head>
 <body>
-
 	
 <div id="wrap">
-	<header id="header">
+	<header id="header" style="transform: translateY(-86.4px);">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
 					<a href="/main" class="btn-logo">
 						<i class="ico-logo"></i>
-						<h1 class="hidden">도미노피자</h1>
+						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
 					<div class="util-nav">
 								<a href="/global/logout">로그아웃</a>
 								<a href="/mypage/myLevel">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
+								<a href="javascript:goCart();" class="btn-cart">
 									<i class="ico-cart"></i>
 									<span class="hidden ">장바구니</span>
 									<strong class="cart_count"></strong> <!-- count -->
 								</a>
+							<!--2020-03-17 추가(s)-->
 		                <a href="javascript:void(0);" class="lang">
 		                    <div class="select-type2 language">
 		                    	<select id="select-type2">
@@ -316,12 +320,6 @@
 							<a href="/ecoupon/index"><span>e-쿠폰</span></a>
 						</li>
 						<li>
-							<a href="/voucher/list?gubun=M"><span>상품권 선물</span></a>
-						</li>
-						<li>
-							<a href="/event/list?gubun=E0200"><span>이벤트&middot;제휴</span></a>
-						</li>
-						<li>
 							<a href="/branch"><span>매장검색</span></a>
 						</li>
 					</ul>
@@ -332,25 +330,25 @@
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="/event/mania">도미노 서비스</a>
+								<a href="/event/mania">다미노 서비스</a>
 								<ul>
 									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li><a href="/goods/dominosMoment">도미노 모멘트</a></li>
+									<li><a href="/goods/dominosMoment">다미노 모멘트</a></li>
 									<li><a href="/quickOrder/index">퀵 오더</a></li>
 									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a>
+								<a href="/bbs/faqList?view_gubun=W&amp;bbs_cd=online">고객센터</a>
 								<ul>
-									<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">자주하는 질문</a></li>
+									<li><a href="/bbs/faqList?view_gubun=W&amp;bbs_cd=online">자주하는 질문</a></li>
 									<li><a href="/bbs/qnaForm">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
 								<a href="/company/contents/overview">회사소개</a>
 								<ul>
-									<li><a href="/company/contents/overview">한국도미노피자</a></li>
+									<li><a href="/company/contents/overview">한국다미노피자</a></li>
 									<li><a href="/company/tvcfList">광고갤러리</a></li>
 									<li><a href="/company/contents/society">사회공헌활동</a></li>
 									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
@@ -361,11 +359,12 @@
 						<div class="notice-box">
 							<a href="/bbs/newsList?type=N">공지사항</a>
 							<ul>
-								<li><a href="/bbs/newsList?type=N">도미노뉴스</a></li>
+								<li><a href="/bbs/newsList?type=N">다미노뉴스</a></li>
 								<li><a href="/bbs/newsList?type=P">보도자료</a></li>
 							</ul>
 						</div>
 					</div>
+
 				</div>
 			</div>
 			<!-- //main 1dep menu -->
@@ -399,222 +398,104 @@
 						</div>
 					<div class="info-wrap">
 						<div class="user">
-							<span>강수현</span>님께서 문의하신 내용입니다.
+							<span>ㅇㅇㅇ</span>님께서 문의하신 내용입니다.
 						</div>
-						<div class="text-type">강수현님께서 문의하신 내용은 <strong>총 0건</strong> 입니다.</div>
+						<div class="text-type">ㅇㅇㅇ님께서 문의하신 내용은 <strong>총 1건</strong> 입니다.</div>
 					</div>
-					<div class="counsil-wrap">
-						<div class="table-type4">
-							<table>
-								<caption>피자 영양성분</caption>
-								<colgroup>
-									<col style="width:140px">
-									<col>
-									<col style="width:180px">
-									<col style="width:180px">
-								</colgroup>
-								<thead>
-									<tr>
-										<th>번호</th>
-										<th>제목</th>
-										<th>등록일</th>
-										<th>처리상태</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-												<td colspan="4">문의하신 내용이 없습니다.</td>
-											</tr>
-										</tbody>
-							</table>
-						</div>
-						<div class="pager-wrap">
-							<div class="pager-inner">
-								</div>
-						</div>
-						<div class="btn-wrap">
-							<a href="javascript:UI.layerPopUp({selId:'#pop-write'});" class="btn-type v4">문의하기</a>
-						</div>
-					</div>
+					<div class="myinfo-wrap">
+	                    <div class="form">
+	                        <dl class="cs">
+										<dt>아이디</dt>
+										<dd>${qnaboard.writerId }</dd>
+										<dt>연락처</dt>
+										<dd>${qnaboard.phone }</dd>
+										<dt>이메일</dt>
+										<dd>${qnaboard.email }</dd>
+										<dt>문의유형</dt>
+										<dd>${qnaboard.qnaType }</dd>
+										<dt>매장선택</dt>
+										<dd>${qnaboard.storeRegion }</dd>
+										<dd>${qnaboard.storeName }</dd>
+										<dt>제목</dt>
+										<dd>${qnaboard.title }</dd>
+							</dl>
+							<dl>
+								<c:forEach var="qnaboard" items="${boardList }">
+									<dd>${qnaboard.seq }</dd>
+									<dd><a href="myQuestion_view.do?seq=${qnaboard.seq}">${qnaboard.title}</a></dd>
+									<dd>${qnaboard.writer }</dd>
+									<dd><fmt:formatDate value="${qnaboard.regDate }" pattern="yyyy-MM-dd" /></dd>
+									<dd>${qnaboard.storeRegion }</dd>
+									<dd>${qnaboard.storeName }</dd>
+								</c:forEach>
+							</dl>
+							
+	                        <dl>
+                                <dt class="top">문의내용</dt>
+                                <dd>
+                                    <div class="form-item">
+                                        <textarea name="" id="content" cols="30" rows="10" readonly="">빠르고 친절하게 배달해주셔서 감사해요~
+따뜻하고 맛있게 잘 먹었습니다!</textarea>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt class="top">답변</dt>
+                                <dd>
+                                    <div class="form-item">
+                                        <textarea name="" id="content2" cols="30" rows="10" readonly="">저희 다미노피자를 이용해 주셔서 감사드립니다.
+
+다미노피자를 찾아주시는 한 분 한 분의 고객님들께 
+정성을 다해 만든 피자와 친절한 서비스로 찾아뵐 수 있도록 
+최선의 노력을 다하고 있습니다. 
+
+당연히 제공해 드려야 하는 서비스임에도 불구하고 
+이렇듯 소중한 시간을 내시어 칭찬의 글을 올려주시니 
+한없이 감사하고 또 더욱 열심히 해야 겠다는 생각이 듭니다. 
+
+고객님의 말씀은 해당 매장 담당자에게 전달하였으며 
+해당 직원 또한 너무나 기뻐하였습니다. 
+
+고마우신 고객님의 글로 인해 힘입어 언제나 정성어린 서비스로 
+고객님을 맞을 수 있도록 더욱 노력하는 밑거름으로 삼겠습니다. 
+
+다미노피자를 이용해주시는 고객님께 다시 한번 감사드리며 
+늘 웃음과 정성으로 찾아 뵙겠습니다. 
+
+늘 건강하시고 행복하시길 바랍니다. 
+
+감사합니다. </textarea>
+                                    </div>
+                                </dd>
+                            </dl>
+	                    </div>
+	                    <div class="cs-guide">
+                            <p class="text-type">등록하신 내용 및 답변은 회원정보상의 이메일로도 발송이 됩니다. 상담원과 통화를 원하시면 아래 번호로 전화주시기 바랍니다.</p>
+                            <p class="title-type6">고객만족 센터<em>080-860-3082</em></p>
+                        </div>
+                        <div class="btn-wrap">
+                            <a href="javascript:doDel('238307');" class="btn-type v5">삭제</a>
+                            <a href="javascript:goList();" class="btn-type v4">목록</a>
+                            <p>
+                        </p></div>
+	                </div>
 				</article>
 			</div>
 		</div>
 	</section>
 </div>
-
-<!-- 문의하기 -->
-<form name="q" id="q" method="post" action="/mypage/qustionProc" >
-<div class="pop-layer" id="pop-write">
-	<div class="dim"></div>
-	<div class="pop-wrap">
-		<div class="pop-title-wrap">
-			<h2 class="pop-title v2">문의하기</h2>
-		</div>
-		<div class="pop-content">
-			<div class="guide-box3">
-				주문 취소 / 변경과 같은 긴급한 요청은 매장으로 연락 부탁드립니다.
-			</div>
-			<div class="step-wrap">
-				<dl>
-					<dt>아이디</dt>
-					<dd>rkdtngus1122</dd>
-				</dl>
-				<dl>
-					<dt>연락처</dt>
-					<dd>010-9174-9355</dd>
-				</dl>
-				<dl>
-					<dt>이메일</dt>
-					<dd>rkdtngus1122@naver.com</dd>
-				</dl>
-			</div>
-			<div class="step-wrap">
-				<div class="form">
-					<dl>
-						<dt>문의유형</dt>
-						<dd>
-							<div class="form-item">
-								<div class="select-type2">
-									<select id="sel" name="type_div1">
-										<option value="">선택</option>
-										<option value="제품관련">제품관련</option>
-										<option value="배달서비스 관련">배달서비스 관련</option>
-										<option value="직원 서비스 관련">직원 서비스 관련</option>
-										<option value="콜센타 관련">콜센타 관련</option>
-										<option value="칭찬">칭찬</option>
-										<option value="제안">제안</option>
-										<option value="단순문의">단순문의</option>
-										<option value="기타">기타</option>
-									</select>
-								</div>
-							</div>
-						</dd>
-					</dl>
-					<dl>
-						<dt>매장선택</dt>
-						<dd class="form-group">
-							<div class="form-item">
-								<div class="select-type2">
-									<select id="sel2" name="branch_region" onChange="changeBranch($('#sel2 option:selected').val());">
-										<option>지역</option>
-										<option value="서울">서울</option>
-										</select>
-								</div>
-							</div>
-							<div class="form-item">
-								<div class="select-type2">
-									<select id="sel3" name="branch_code">
-										<option>매장 선택</option>
-										<option>셀렉트박스2</option>
-									</select>
-								</div>
-							</div>
-						</dd>
-					</dl>
-					<dl>
-						<dt>제목</dt>
-						<dd>
-							<div class="form-item">
-								<input type="text" id="subject" name="subject" />
-							</div>
-						</dd>
-					</dl>
-					<dl>
-						<dt class="top">문의내용</dt>
-						<dd>
-							<div class="form-item">
-								<textarea name="content" id="content" cols="30" rows="10"></textarea>
-							</div>
-						</dd>
-					</dl>
-				</div>
-			</div>
-			<div class="cs-guide">
-				<p>등록하신 내용 및 답변은 회원정보상의 이메일로도 발송이 됩니다.<br/>상담원과 통화를 원하시면 아래 번호로 전화주시기 바랍니다.</p>
-				<p>고객만족 센터 : <span>080-860-3082</span></p>
-				<div class="btn-wrap">
-					<a href="javascript:doReset();" class="btn-type v5">다시입력</a>
-					<a href="javascript:proc();" class="btn-type v4">문의하기</a>
-				</div>
-			</div>
-		</div>
-		<a href="#" class="btn-close"></a>
-	</div>
-</div>
-</form>
-<!--//문의하기 -->
-
-<form name="f" id="f" method="get" action="/mypage/qustionList">
-<input type="hidden" name="idx" id="idx" />
-<input type="hidden" name="no" id="no" />
-<input type="hidden" name="pageNo" id="pageNo" value="1">
-</form>
-
 <script type="text/javascript">
-//페이징
-function paging(no){
-	$("#pageNo").val(no);
-	$('#f').attr("action", "/mypage/qustionList");
-	$("#f").submit();
+//목록
+function goList(){
+	location.href = "/mypage/qustionList?pageNo="+'1';
 }
 
-//문의 내역 상세보기
-function goView(idx, no) {
-	$('#idx').val(idx);
-	$('#no').val(no);
-	$('#f').attr("action", "/mypage/qustionView");
-	$('#f').submit();
-}
-
-//매장목록
-function changeBranch(region){
-	$.ajax({
-		url: '/mypage/branchListAjax',
-		data: { branch_region : encodeURIComponent(region) },
-		type: 'get',
-		dataType: 'json',
-		success: function(data) {
-			if (data.status == 'success') {
-				var htmlStr = '<option value="">매장 선택</option>';
-				$.each(data.resultData, function(index, addrObj) {
-					htmlStr += '<option value="'+ addrObj.branch_code +'">'+ addrObj.branch_name +'</option>';
-				});
-				$('#sel3').html(htmlStr);
-			} else {
-				alert(data.msg);
-			}
-		},
-		error: function() {
-			alert('처리도중 오류가 발생했습니다.');
-		}
-	});
-}
-
-//다시입력
-function doReset(){
-	if(confirm("입력한 내용을 모두 지우고 다시 입력하시겠습니까?")){
-		document.q.reset();
-		$("#type_div1").focus();
+// 삭제
+function doDel(idx){
+	if(confirm("문의하신 사항을 삭제하시겠습니까?")){
+		location.href = "/mypage/questionDelete?idx=" + idx;
 	}
 }
-
-//문의하기
-var send = false;
-function proc(){
-	if(send){
-		alert('등록중 입니다.');
-	}else{
-		if($('#type_div1').val() == '') { alert('유형분류를 선택해주세요'); $('#type_div1').focus(); return;}
-		if($('#subject').val() == '') { alert('제목을 입력하세요'); $('#subject').focus(); return;}
-		if($('textarea[name=content]').val() == '') { alert('내용을 입력하세요.'); $('#content').focus(); return;}	
-		send = true;
-		$('#q').submit();
-	}	
-}
-</script>
-<script type="text/javascript">
-	_TRK_PI = "WP_24_4";			
-	_TRK_CP = "나의 정보>1:1문의";
 </script>
 <!-- 로딩 이미지 -->
 	<!-- // 로딩 이미지 -->
@@ -630,7 +511,6 @@ function proc(){
 		</div>
 	</div>
 
-	<!-- //장바구니 담기 토스트 팝업(e) -->
 
 	<!-- 장바구니(s) -->
 	<div class="pop_layer pop_type" id="cart_pop" style="display: none;">
@@ -656,7 +536,7 @@ function proc(){
 				<ul class="footer-contact">
 					<li><a href="/contents/law">이용약관</a></li>
 					<li class="on"><a href="/contents/privacy">개인정보처리방침</a></li>
-					<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a></li>
+					<li><a href="/bbs/faqList?view_gubun=W&amp;bbs_cd=online">고객센터</a></li>
 					<li><a href="/company/jobList?type=R">인재채용</a></li>
 					<li><a href="/company/contents/chainstore1">가맹점모집</a></li>
 					<li><a href="/order/groupOrder">단체주문</a></li>
@@ -671,7 +551,7 @@ function proc(){
 
 						<p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 사이트(PC, 모바일, 앱)의 일체의
 							정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
-				</div>
+					</div>
 	
 				<div class="footer-cont">
 					<div class="select-type language">
@@ -735,6 +615,18 @@ function proc(){
 	<!-- //footer -->
 </div><!-- //wrap -->
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-40278626-1', 'auto', {'allowLinker': true});
+  ga('require', 'linker');
+  ga('linker:autoLink', ['cdn.dominos.co.kr'] );
+  ga('send', 'pageview');
+
+</script>
 	<script type="text/javascript">var _TRK_LID="21550";var _L_TD="ssl.logger.co.kr";var _TRK_CDMN=".dominos.co.kr";</script>
 	<script type="text/javascript">var _CDN_DOMAIN = location.protocol == "https:" ? "https://fs.bizspring.net" : "http://fs.bizspring.net";
 	(function(b,s){var f=b.getElementsByTagName(s)[0],j=b.createElement(s);j.async=true;j.src='//fs.bizspring.net/fs4/bstrk.1.js';f.parentNode.insertBefore(j,f);})(document,'script');</script>
@@ -744,9 +636,8 @@ function proc(){
 	(function(b,s,t,c,k){b[k]=s;b[s]=b[s]||function(){(b[s].q=b[s].q||[]).push(arguments)};  var f=t.getElementsByTagName(c)[0],j=t.createElement(c);j.async=true;j.src='//fs.bizspring.net/fs4/l4cts.v4.2.js';f.parentNode.insertBefore(j,f);})(window,'_tcts_m',document,'script','BSAnalyticsObj');
 	_tcts_m('15484','BCTS');
 	</script>
-
-
-</body>
+	
+	
 <script>
 cookieManager.makePCID("PCID", 10);
 
@@ -755,4 +646,6 @@ $(".select-type.language").change(function() {
 	location.href = $("#select-type").val();
 });
 </script>
+
+</body>
 </html>
