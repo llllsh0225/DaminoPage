@@ -40,6 +40,12 @@ public class MarketServiceImpl implements MarketService{
 		marketDAO.insertMarket(vo);
 	}
 
+	@Override
+	public void deleteMarket(MarketVO vo) {
+		System.out.println("MarketServiceImpl deleteMarket(vo)");
+		marketDAO.deleteMarket(vo);
+	}
+
 	
 	
 }

@@ -20,7 +20,12 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-
+<script>
+	function del(){
+		document.form1.action='deleteMarket.admdo';
+		document.form1.submit();
+	}
+</script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -178,6 +183,7 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
+				<form id="form1">
 				<div class="card mb-4">
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> 매장관리
@@ -228,15 +234,16 @@
 										<td>${market.etime }</td>
 										<td>${market.park }</td>
 										<td>${market.etc }</td>
-										<td><a class="btn btn-primary" href="storeEdit.admdo?name=${market.name }"
+										<td><a class="btn btn-primary" href="storeEdit.admdo?seq=${market.seq }"
 											role="button">수정</a>
 
-											<button class="btn btn-danger" type="submit">삭제</button></td>
+											<button class="btn btn-danger" onClick="del()">삭제</button></td>
 									</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
+						</form>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
