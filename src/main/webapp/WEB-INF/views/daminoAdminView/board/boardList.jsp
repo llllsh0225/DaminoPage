@@ -99,9 +99,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-
-								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
-								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
+								  <a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -145,10 +144,10 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
-											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
-											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
-											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> 
+										<a class="nav-link" href="insertMenu_side.admdo">사이드디시</a> 
+										<a class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> 
+										<a class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -163,9 +162,9 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
-									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
-									class="nav-link" href="terms_list.admdo">약관관리</a>
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> 
+								<a class="nav-link" href="bannerBoardView.admdo">배너관리</a> 
+								<a class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
 						</div>
 					</div>
