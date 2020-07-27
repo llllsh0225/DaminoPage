@@ -17,7 +17,17 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-	
+<script type="text/javascript">
+	function boardSubmit(index){
+		if(index==1){
+			document.form1.action='updateBoard.admdo';
+		}
+		if(index==2){
+			document.form1.action='deleteBoard.admdo';
+		}
+		document.form1.submit();
+	}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -184,44 +194,45 @@
 						<!--새로고침 버튼-->
 
 					</div>
-					<div class="card-body">
-						<input type="button" class="btn btn-primary" value="글수정"
-							style="float: right" /> <input type="button" class="btn-delete"
-							value="글삭제" style="float: right" /> <input type="button"
-							class="btn-delete" value="전체 목록" style="float: right"
-							onClick="location.href='boardList.html'" />
-						<div class="table-responsive">
-
-							<table class="table table-bordered" id="dataTable" width="100%"
-								cellspacing="0">
-								<tr>
-									<td colspan="2"><input type="text" name="title" value="${board.title}"/></td>
-								</tr>
-								<tr>
-									<td colspan="2">작성자 : ${board.writer } 작성일 : <fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" />
-										조회수 : ${board.cnt }</td>
-								</tr>
-								<tr>
-									<td>첨부파일 :</td>
-									<td><input type="text" size="40" /></td>
-								</tr>
-								<tr>
-									<td>내용</td>
-									<td><textarea rows="10" cols="14" style="width: 50%" name="content">${board.content}</textarea></td>
-								</tr>
-								<tr>
-									<td>이전글</td>
-									<td>
-										<!-- 이전글 자리-->
-									</td>
-								</tr>
-								<tr>
-									<td>다음글</td>
-									<td><a href="#">게시물 테스트1 입니다</a></td>
-								</tr>
-							</table>
+					
+					<form id="form1" name="form1" method="post">
+					
+						<div class="card-body">
+							<input type="hidden" name="seq" id="seq" value="${board.seq }" />
+							<input type="button" class="btn btn-primary" value="글수정" onclick="boardSubmit(1)" style="float: right" /> 
+							<input type="button" class="btn btn-primary" value="글삭제" onclick="boardSubmit(2)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="전체 목록" style="float: right"/>
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<tr>
+										<td colspan="2"><input type="text" name="title" value="${board.title}"/></td>
+									</tr>
+									<tr>
+										<td colspan="2">작성자 : ${board.writer } 작성일 : <fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" />
+											조회수 : ${board.cnt }</td>
+									</tr>
+									<tr>
+										<td>첨부파일 :</td>
+										<td><input type="text" size="40" /></td>
+									</tr>
+									<tr>
+										<td>내용</td>
+										<td><textarea rows="10" cols="14" style="width: 50%" name="content">${board.content}</textarea></td>
+									</tr>
+									<tr>
+										<td>이전글</td>
+										<td>
+											<!-- 이전글 자리-->
+										</td>
+									</tr>
+									<tr>
+										<td>다음글</td>
+										<td><a href="#">게시물 테스트1 입니다</a></td>
+									</tr>
+								</table>
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
