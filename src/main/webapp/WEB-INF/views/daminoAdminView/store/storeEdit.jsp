@@ -191,8 +191,9 @@
 									<h3 class="text-center font-weight-light my-4">매장정보 수정</h3>
 								</div>
 								<form name="form1" method="post">
+								
 								<div class="card-body">
-									
+									<input type="hidden" name="seq" id="seq" value="${market.seq }"/>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">

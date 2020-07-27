@@ -7,5 +7,6 @@ public interface MarketDAO {
 	public MarketVO getMarket(MarketVO vo);
 	public void updateMarket(MarketVO vo);
 	public void insertMarket(MarketVO vo);
+	public void deleteMarket(MarketVO vo);
 }
 

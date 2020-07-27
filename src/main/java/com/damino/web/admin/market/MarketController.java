@@ -32,7 +32,6 @@ public class MarketController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/store/storeEdit");
 		mav.addObject("market", market);
-		System.out.println(market);
 		return mav;
 	}
 	
@@ -63,6 +62,13 @@ public class MarketController {
 		System.out.println("주차 :" + vo.getPark());
 		System.out.println("특이사항 : " + vo.getEtc());
 		marketService.insertMarket(vo);
+		return "redirect:storeView.admdo";
+	}
+	
+	@RequestMapping(value="/deleteMarket.admdo", method=RequestMethod.POST)
+	public String deleteMarket(@ModelAttribute MarketVO vo) {
+		System.out.println("매장 삭제");
+		marketService.deleteMarket(vo);
 		return "redirect:storeView.admdo";
 	}
 }

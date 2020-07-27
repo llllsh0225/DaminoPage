@@ -42,4 +42,11 @@ public class MarketDAOImpl implements MarketDAO{
 		System.out.println("MarketDAOImpl insertMarket(vo)");
 		sqlSessionTemplate.insert("MarketDAO.insertMarket", vo);
 	}
+
+	// 매장 삭제
+	@Override
+	public void deleteMarket(MarketVO vo) {
+		System.out.println("MarketDAOImpl deleteMarket(vo)");
+		sqlSessionTemplate.delete("MarketDAO.deleteMarket", vo);
+	}
 }

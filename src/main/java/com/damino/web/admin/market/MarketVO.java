@@ -1,6 +1,7 @@
 package com.damino.web.admin.market;
 
 public class MarketVO {
+	private int seq;
 	private String name;
 	private String tel;
 	private String address;
@@ -8,6 +9,12 @@ public class MarketVO {
 	private String time;
 	private String etime;
 	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public String getEtime() {
 		return etime;
 	}
@@ -61,9 +68,10 @@ public class MarketVO {
 	}
 	@Override
 	public String toString() {
-		return "MarketVO [name=" + name + ", tel=" + tel + ", address=" + address + ", location=" + location + ", time="
-				+ time + ", etime=" + etime + ", park=" + park + ", etc=" + etc + "]";
+		return "MarketVO [seq=" + seq + ", name=" + name + ", tel=" + tel + ", address=" + address + ", location="
+				+ location + ", time=" + time + ", etime=" + etime + ", park=" + park + ", etc=" + etc + "]";
 	}
+
 	
 	
 }
