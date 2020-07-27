@@ -190,10 +190,8 @@
 
 					</div>
 					<div class="card-body">
-						<input type="button" class="btn btn-primary" value="글쓰기"
-							style="float: right" style="margin-right: 5px" onClick="location.href='boardWrite.admdo'" />
-							<input type="button" class="btn-delete" value="글삭제" style="float: right"
-							style="margin-right: 5px" />
+						<input type="button" class="btn btn-primary" value="글쓰기" style="float: right" 
+						style="margin-right: 5px" onClick="boardWrite.admdo" />
 						<div class="table-responsive">
 
 							<table class="table table-bordered" id="dataTable" width="100%"
