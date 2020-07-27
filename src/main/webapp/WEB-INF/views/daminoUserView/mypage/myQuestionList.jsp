@@ -164,111 +164,106 @@
 		</div>
 
 		<!-- 문의하기 -->
-		<form name="q" id="q" method="post" action="/mypage/qustionProc"> <!-- Proc 파일이 들어갔나봄. -->
-			<div class="pop-layer" id="pop-write">
-				<div class="dim"></div>
-				<div class="pop-wrap">
-					<div class="pop-title-wrap">
-						<h2 class="pop-title v2">문의하기</h2>
-					</div>
-					<div class="pop-content">
-						<div class="guide-box3">주문 취소 / 변경과 같은 긴급한 요청은 매장으로 연락
-							부탁드립니다.</div>
-						<div class="step-wrap">
-							<dl>
-								<dt>아이디</dt>
-								<dd>llllsh0225</dd>
-							</dl>
-							<dl>
-								<dt>연락처</dt>
-								<dd>010-9361-3740</dd>
-							</dl>
-							<dl>
-								<dt>이메일</dt>
-								<dd>romantico_u@naver.com</dd>
-							</dl>
-						</div>
-						<div class="step-wrap">
-							<div class="form">
-								<dl>
-									<dt>문의유형</dt>
-									<dd>
-										<div class="form-item">
-											<div class="select-type2">
-												<select id="sel" name="type_div1">
-													<option value="">선택</option>
-													<option value="제품관련">제품관련</option>
-													<option value="배달서비스 관련">배달서비스 관련</option>
-													<option value="직원 서비스 관련">직원 서비스 관련</option>
-													<option value="콜센타 관련">콜센타 관련</option>
-													<option value="칭찬">칭찬</option>
-													<option value="제안">제안</option>
-													<option value="단순문의">단순문의</option>
-													<option value="기타">기타</option>
-												</select>
-											</div>
-										</div>
-									</dd>
-								</dl>
-								<dl>
-									<dt>매장선택</dt>
-									<dd class="form-group">
-										<div class="form-item">
-											<div class="select-type2">
-												<select id="sel2" name="branch_region"
-													onChange="changeBranch($('#sel2 option:selected').val());">
-													<option>지역</option>
-													<option value="서울">서울</option>
-													<!-- 지역 서울만 -->
-												</select>
-											</div>
-										</div>
-										<div class="form-item">
-											<div class="select-type2">
-												<select id="sel3" name="branch_code">
-													<option>매장 선택</option>
-													<option>셀렉트박스2</option>
-												</select>
-											</div>
-										</div>
-									</dd>
-								</dl>
-								<dl>
-									<dt>제목</dt>
-									<dd>
-										<div class="form-item">
-											<input type="text" id="subject" name="subject" />
-										</div>
-									</dd>
-								</dl>
-								<dl>
-									<dt class="top">문의내용</dt>
-									<dd>
-										<div class="form-item">
-											<textarea name="content" id="content" cols="30" rows="10"></textarea>
-										</div>
-									</dd>
-								</dl>
+<form name="q" id="q" method="post" action="/mypage/qustionProc" >
+<div class="pop-layer" id="pop-write">
+	<div class="dim"></div>
+	<div class="pop-wrap" style="margin-left: -290px; margin-top: -300px;">
+		<div class="pop-title-wrap">
+			<h2 class="pop-title v2">문의하기</h2>
+		</div>
+		<div class="pop-content">
+			<div class="guide-box3">
+				주문 취소 / 변경과 같은 긴급한 요청은 매장으로 연락 부탁드립니다.
+			</div>
+			<div class="step-wrap">
+				<dl>
+					<dt>아이디</dt>
+					<dd>rkdtngus1122</dd>
+				</dl>
+				<dl>
+					<dt>연락처</dt>
+					<dd>010-9174-9355</dd>
+				</dl>
+				<dl>
+					<dt>이메일</dt>
+					<dd>rkdtngus1122@naver.com</dd>
+				</dl>
+			</div>
+			<div class="step-wrap">
+				<div class="form">
+					<dl>
+						<dt>문의유형</dt>
+						<dd>
+							<div class="form-item">
+								<div class="select-type2">
+									<select id="sel" name="type_div1">
+										<option value="">선택</option>
+										<option value="제품관련">제품관련</option>
+										<option value="배달서비스 관련">배달서비스 관련</option>
+										<option value="직원 서비스 관련">직원 서비스 관련</option>
+										<option value="콜센타 관련">콜센타 관련</option>
+										<option value="칭찬">칭찬</option>
+										<option value="제안">제안</option>
+										<option value="단순문의">단순문의</option>
+										<option value="기타">기타</option>
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="cs-guide">
-							<p>
-								등록하신 내용 및 답변은 회원정보상의 이메일로도 발송이 됩니다.<br />상담원과 통화를 원하시면 아래 번호로
-								전화주시기 바랍니다.
-							</p>
-							<p>
-								고객만족 센터 : <span>080-860-3082</span>
-							</p>
-							<div class="btn-wrap">
-								<a href="javascript:doReset();" class="btn-type v5">다시입력</a> <a
-									href="javascript:proc();" class="btn-type v4">문의하기</a>
+						</dd>
+					</dl>
+					<dl>
+						<dt>매장선택</dt>
+						<dd class="form-group">
+							<div class="form-item">
+								<div class="select-type2">
+									<select id="sel2" name="branch_region" onChange="changeBranch($('#sel2 option:selected').val());">
+										<option>지역</option>
+										<option value="서울">서울</option>
+										</select>
+								</div>
 							</div>
-						</div>
-					</div>
-					<a href="#" class="btn-close"></a>
+							<div class="form-item">
+								<div class="select-type2">
+									<select id="sel3" name="branch_code">
+										<option>매장 선택</option>
+										<option>셀렉트박스2</option>
+									</select>
+								</div>
+							</div>
+						</dd>
+					</dl>
+					<dl>
+						<dt>제목</dt>
+						<dd>
+							<div class="form-item">
+								<input type="text" id="subject" name="subject" />
+							</div>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="top">문의내용</dt>
+						<dd>
+							<div class="form-item">
+								<textarea name="content" id="content" cols="30" rows="10"></textarea>
+							</div>
+						</dd>
+					</dl>
+				</div>
+				<div class="cs-guide">
+				<p>등록하신 내용 및 답변은 회원정보상의 이메일로도 발송이 됩니다.<br/>상담원과 통화를 원하시면 아래 번호로 전화주시기 바랍니다.</p>
+				<p>고객만족 센터 : <span>080-860-3082</span></p>
+				<div class="btn-wrap">
+					<a href="javascript:doReset();" class="btn-type v5">다시입력</a>
+					<a href="javascript:proc();" class="btn-type v4">문의하기</a>
 				</div>
 			</div>
-		</form>
+		</div>
+		<a href="#" class="btn-close"></a>
+	</div>
+</div>
+</div>
+			
+</form>
 		<!--//문의하기 -->
 
 		<form name="f" id="f" method="get" action="myquestionlist.do">
