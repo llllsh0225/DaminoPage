@@ -9,5 +9,6 @@
 	<mappers>
 		<mapper resource="mappings/user-mapping.xml" />
 		<mapper resource="mappings/board-mapping.xml"/>
+		<mapper resource="mappings/market-mapping.xml"/>
 	</mappers>
 </configuration>

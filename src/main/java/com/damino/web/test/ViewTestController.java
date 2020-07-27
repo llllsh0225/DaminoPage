@@ -827,15 +827,15 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	@RequestMapping("/storeView.admdo")
-	public ModelAndView getAdminStoreViewPage() {
-		System.out.println("매장 조회 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/store/storeView");
-		
-		return mav;
-	}
+//	@RequestMapping("/storeView.admdo")
+//	public ModelAndView getAdminStoreViewPage() {
+//		System.out.println("매장 조회 페이지 열기");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/store/storeView");
+//		
+//		return mav;
+//	}
 	
 	//store_sales 폴더 시작 -------
 	@RequestMapping("/orderList.admdo")
