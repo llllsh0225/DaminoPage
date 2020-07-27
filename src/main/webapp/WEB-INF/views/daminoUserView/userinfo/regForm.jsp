@@ -30,7 +30,31 @@
 <!-- 회원가입 관련 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
-
+<script>
+function doSendAuthKey(){
+	var phoneNumber1 = $('#sel_hand_tel1').val();
+	var phoneNumber2 = $('#hand_tel2').val();
+	var phoneNumber3 = $('#hand_tel3').val();
+	var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
+	
+	$.ajax({
+		type : "GET",
+		url : "/sendAuthKey.do",
+		data : {
+			"phoneNumber" : phoneNumber
+		},
+		success : function(res){
+			function doSendAuthKey(){
+				if($.trim(res) == $('#security_no').val()){
+                    alert('휴대폰 인증이 정상적으로 완료되었습니다.');
+				}else{
+                    alert('인증번호가 일치하지 않습니다. 다시 시도해주세요.');
+                }
+			}
+		}
+	});
+}
+</script>
 </head>
 <div id="wrap">
 	<header id="header" style="transform: translateY(0px);">
@@ -50,8 +74,7 @@
 		<div id="gnb" class="gnb-wrap">
 			<div class="gnb-inner">
 				<ul>
-					<li class="active"><a href="menuList.do"><span>메뉴</span></a>
-					</li>
+					<li class="active"><a href="menuList.do"><span>메뉴</span></a></li>
 					<li><a href="ecoupon.do"><span>e-쿠폰</span></a></li>
 					<li><a href="branch.do"><span>매장검색</span></a></li>
 				</ul>
@@ -72,8 +95,7 @@
 						<div class="mnu-box">
 							<a href="faqMain.do">고객센터</a>
 							<ul>
-								<li><a href="faqMain.do">자주하는
-										질문</a></li>
+								<li><a href="faqMain.do">자주하는 질문</a></li>
 								<li><a href="qnaForm.do">온라인 신문고</a></li>
 							</ul>
 						</div>
@@ -196,8 +218,7 @@
 															</div>
 														</div>
 														<div class="select-type2">
-															<select name="byear" id="byear"
-																class="selected">
+															<select name="byear" id="byear" class="selected">
 																<option value="">년</option>
 																<option value="2020">2020</option>
 																<option value="2019">2019</option>
@@ -324,8 +345,7 @@
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bmonth" id="bmonth"
-																class="selected">
+															<select name="bmonth" id="bmonth" class="selected">
 																<option>월</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -342,8 +362,7 @@
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bday" id="bday"
-																class="selected">
+															<select name="bday" id="bday" class="selected">
 																<option>일</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -420,8 +439,7 @@
 														<div class="select-type2">
 															<input type="hidden" name="sel_hand_tel_agency"
 																id="sel_hand_tel_agency" value=""> <select
-																name="sel_hand_tel1" id="sel_hand_tel1" class="disabled"
-																title="휴대전화번호">
+																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호">
 																<option value="010">010</option>
 																<option value="011">011</option>
 																<option value="016">016</option>
@@ -432,13 +450,9 @@
 														</div>
 
 														<input type="text" name="hand_tel2" id="hand_tel2"
-															maxlength="4" class="i_text"
-															onkeyup="checkNum($(this), '숫자만 입력해주세요.');"
-															title="휴대전화번호"> <input type="text"
-															name="hand_tel3" id="hand_tel3" maxlength="4"
-															class="i_text"
-															onkeyup="checkNum($(this), '숫자만 입력해주세요.');"
-															title="휴대전화번호"> <a
+															maxlength="4" class="i_text" title="휴대전화번호"> <input
+															type="text" name="hand_tel3" id="hand_tel3" maxlength="4"
+															class="i_text" title="휴대전화번호"> <a
 															href="javascript:doSendAuthKey();" id="btn_sendAuthchk"
 															class="btn-type v7">인증요청</a>
 													</div>
