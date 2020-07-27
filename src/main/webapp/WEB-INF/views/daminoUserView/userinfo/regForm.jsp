@@ -27,6 +27,9 @@
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<!-- 회원가입 관련 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/member.js'/>"></script>
 
 </head>
 <div id="wrap">
@@ -157,7 +160,7 @@
 											<dd>
 												<div class="form-item name">
 													<input type="text" placeholder="" id="name" name="name"
-														value="" disabled="">
+														value="">
 												</div>
 											</dd>
 										</dl>
@@ -193,7 +196,7 @@
 															</div>
 														</div>
 														<div class="select-type2">
-															<select name="byear" id="byear" disabled=""
+															<select name="byear" id="byear"
 																class="selected">
 																<option value="">년</option>
 																<option value="2020">2020</option>
@@ -321,7 +324,7 @@
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bmonth" id="bmonth" disabled=""
+															<select name="bmonth" id="bmonth"
 																class="selected">
 																<option>월</option>
 																<option value="1">1</option>
@@ -339,7 +342,7 @@
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bday" id="bday" disabled=""
+															<select name="bday" id="bday"
 																class="selected">
 																<option>일</option>
 																<option value="1">1</option>
