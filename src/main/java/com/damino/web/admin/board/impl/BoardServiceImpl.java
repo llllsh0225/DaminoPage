@@ -20,4 +20,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.getBoardList();
 	}
 
+	@Override
+	public BoardVO getBoard(BoardVO vo) {
+		System.out.println("BoardServiceImpl getBoard()");
+		return boardDAO.getBoard(vo);
+	}
+
 }

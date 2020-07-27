@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -23,4 +24,15 @@ public class BoardController {
 		mav.addObject("boardList", boardList);
 		return mav;
 	}
+	
+	@RequestMapping(value="/boardView.admdo", method=RequestMethod.GET)
+	public ModelAndView getBoard(BoardVO vo) {
+		System.out.println("±Û »ó¼¼");
+		BoardVO board = boardService.getBoard(vo);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/boardView");
+		mav.addObject("board", board);
+		return mav;
+	}
+	
 }

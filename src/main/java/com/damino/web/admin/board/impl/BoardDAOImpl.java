@@ -20,4 +20,10 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSessionTemplate.selectList("BoardDAO.getBoardList");
 	}
 
+	@Override
+	public BoardVO getBoard(BoardVO vo) {
+		System.out.println("BoardDAOImpl getBoard()");
+		return sqlSessionTemplate.selectOne("BoardDAO.getBoard", vo);
+	}
+
 }
