@@ -41,7 +41,8 @@
 					<a class="dropdown-item" href="memberEdit.admdo">정보수정</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -190,10 +191,8 @@
 
 					</div>
 					<div class="card-body">
-						<input type="button" class="btn btn-primary" value="글쓰기"
-							style="float: right" style="margin-right: 5px" onClick="location.href='boardWrite.admdo'" />
-							<input type="button" class="btn-delete" value="글삭제" style="float: right"
-							style="margin-right: 5px" />
+						<input type="button" class="btn btn-primary" value="글쓰기" style="float: right" 
+						style="margin-right: 5px" onclick="location.href='boardWrite.admdo'" />
 						<div class="table-responsive">
 
 							<table class="table table-bordered" id="dataTable" width="100%"
@@ -211,7 +210,7 @@
 									<c:forEach var="board" items="${boardList }">
 										<tr>
 											<td>${board.seq }</td>
-											<td><a href="getBoard.do?seq=${board.seq}">${board.title}</a></td>
+											<td><a href="boardView.admdo?seq=${board.seq}">${board.title}</a></td>
 											<td>${board.writer }</td>
 											<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" /></td>
 											<td>${board.cnt }</td>

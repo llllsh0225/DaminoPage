@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.List"%>
+<%@page import="com.damino.web.admin.market.impl.MarketDAOimpl"%>
+<%@page import="com.damino.web.admin.market.MarketVO"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,6 +209,7 @@
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="market" items="${marketList }">
 									<tr>
 										<td>
 											<div class="custom-control custom-checkbox">
@@ -215,20 +220,21 @@
 											</label>
 											</div>
 										</td>
-										<td>명동1점</td>
-										<td>02-888-8888</td>
-										<td>서울특별시 중구 마른내로 47<br>(초동서울특별시 중구 마른내로 47(초동))
+										<td>${market.name }</td>
+										<td>${market.tel }</td>
+										<td>${market.address}<br>
 										</td>
-										<td>을지로3가역 8번출구 <br>명보아트홀 건물1층
+										<td>${market.location } <br>
 										</td>
-										<td>10:00~22:00</td>
-										<td>매장주차불가</td>
-										<td>없음</td>
+										<td>${market.time }</td>
+										<td>${market.park }</td>
+										<td>${market.etc }</td>
 										<td><a class="btn btn-primary" href="storeEdit.admdo"
 											role="button">수정</a>
 										</button>
 											<button class="btn btn-danger" type="submit">삭제</button></td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

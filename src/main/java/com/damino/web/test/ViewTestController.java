@@ -167,6 +167,15 @@ public class ViewTestController {
 		return mav;
 	}
 	
+	@RequestMapping("/noticeDetail.do")
+	public ModelAndView getNoticeDetailPage() {
+		System.out.println("공지사항 상세 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/noticeDetail");
+		return mav;
+	}
+	
 	@RequestMapping("/qnaForm.do")
 	public ModelAndView getQnaFormPage() {
 		System.out.println("1:1 문의 페이지 열기");
@@ -507,14 +516,7 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/myquestionlist.do")
-	public ModelAndView getMyQuestionList() {
-		System.out.println("내 질문내역 1:1 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mypage/myQuestionList");
-		return mav;
-	}
+	
 	
 	@RequestMapping("/myuserinfoconfirm.do")
 	public ModelAndView getMyUserInfoConfirm() {
@@ -539,15 +541,15 @@ public class ViewTestController {
 	   }
 	
 	//board 폴더 시작 --------
-	@RequestMapping("/boardView.admdo")
-	   public ModelAndView getAdminBoardPage() {
-	      System.out.println("게시글 열기");
-	      
-	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("/board/boardView");
-	      
-	      return mav;
-	   }
+//	@RequestMapping("/boardView.admdo")
+//	   public ModelAndView getAdminBoardPage() {
+//	      System.out.println("게시글 열기");
+//	      
+//	      ModelAndView mav = new ModelAndView();
+//	      mav.setViewName("/board/boardView");
+//	      
+//	      return mav;
+//	   }
 	
 	@RequestMapping("/boardWrite.admdo")
 	   public ModelAndView getAdminBoardWritePage() {
@@ -559,15 +561,6 @@ public class ViewTestController {
 	      return mav;
 	   }
 	
-//	@RequestMapping("/boardList.admdo")
-//	   public ModelAndView getAdminBoardListPage() {
-//	      System.out.println("게시글 목록 열기");
-//	      
-//	      ModelAndView mav = new ModelAndView();
-//	      mav.setViewName("/board/boardList");
-//	      
-//	      return mav;
-//	   }
 	//error 폴더 시작 --------
 	@RequestMapping("/error_401.admdo")
 	   public ModelAndView getAdminError401Page() {
@@ -818,15 +811,14 @@ public class ViewTestController {
 	}
 	
 	//store 폴더 시작 -------
-	@RequestMapping("/storeEdit.admdo")
-	public ModelAndView getAdminStoreEditPage() {
-		System.out.println("매장 수정 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/store/storeEdit");
-		
-		return mav;
-	}
+	/*
+	 * @RequestMapping("/storeEdit.admdo") public ModelAndView
+	 * getAdminStoreEditPage() { System.out.println("매장 수정 페이지 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); mav.setViewName("/store/storeEdit");
+	 * 
+	 * return mav; }
+	 */
 	@RequestMapping("/storeRegForm.admdo")
 	public ModelAndView getAdminStoreRegFormPage() {
 		System.out.println("매장 등록 페이지 열기");
@@ -836,15 +828,15 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	@RequestMapping("/storeView.admdo")
-	public ModelAndView getAdminStoreViewPage() {
-		System.out.println("매장 조회 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/store/storeView");
-		
-		return mav;
-	}
+//	@RequestMapping("/storeView.admdo")
+//	public ModelAndView getAdminStoreViewPage() {
+//		System.out.println("매장 조회 페이지 열기");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/store/storeView");
+//		
+//		return mav;
+//	}
 	
 	//store_sales 폴더 시작 -------
 	@RequestMapping("/orderList.admdo")
