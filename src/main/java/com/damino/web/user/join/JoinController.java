@@ -1,11 +1,17 @@
 package com.damino.web.user.join;
 
+import java.util.Map;
 import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -13,10 +19,13 @@ public class JoinController {
 	@Autowired
 	private JoinService joinService;
 	
-	@RequestMapping("/sendAuthKey.do")
+	@RequestMapping(value="/sendAuthKey.do", produces="text/json; charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
-	public String sendSMS(String phoneNumber) {
+	public String sendSMS(@RequestBody Map<String, Object> params, HttpServletRequest request){
 		System.out.println("인증번호 송신");
+		System.out.println(params.toString());
+		
+		String phoneNumber = (String) params.get("phoneNumber");
 		String authKey = "";
 		
 		Random rand = new Random();
@@ -30,6 +39,6 @@ public class JoinController {
 		
 		joinService.certifiedPhoneNumber(phoneNumber, authKey);
 		
-		return authKey;
+		return "test";
 	}
 }

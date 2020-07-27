@@ -17,6 +17,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/css/user/card_add.css' />">
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
@@ -36,13 +37,16 @@ function doSendAuthKey(){
 	var phoneNumber2 = $('#hand_tel2').val();
 	var phoneNumber3 = $('#hand_tel3').val();
 	var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
+	alert(phoneNumber);
 	
 	$.ajax({
-		type : "GET",
-		url : "/sendAuthKey.do",
-		data : {
-			"phoneNumber" : phoneNumber
-		},
+		type : "POST",
+		url : "sendAuthKey.do",
+		dataType : "json",
+		contentType: "application/json; charset=utf-8;",
+		data : JSON.stringify({
+			phoneNumber : phoneNumber,
+		}),
 		success : function(res){
 			function doSendAuthKey(){
 				if($.trim(res) == $('#security_no').val()){
