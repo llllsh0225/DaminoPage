@@ -12,36 +12,36 @@ import com.damino.web.user.board.QnaBoardVO;
 @Service("qnaBoardService")
 public class QnaBoardServiceImpl implements QnaBoardService {
 	@Autowired
-	private QnaBoardDAO boardDAO;
+	private QnaBoardDAO qnaBoardDAO;
 	
 	@Override
 	public void qnaInsertBoard(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl insertBoard(vo)");
-		boardDAO.insertBoard(vo);
+		qnaBoardDAO.insertBoard(vo);
 	}
 
 	@Override
 	public void qnaUpdateBoard(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl updateBoard(vo)");
-		boardDAO.updateBoard(vo);
+		qnaBoardDAO.updateBoard(vo);
 	}
 
 	@Override
 	public void qnaDeleteBoard(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl deleteBoard(vo)");
-		boardDAO.deleteBoard(vo);
+		qnaBoardDAO.deleteBoard(vo);
 	}
 	
 	@Override
 	public List<QnaBoardVO> myQuestionList(){
 		System.out.println("QnaBoardServiceImpl myQuestionList()");
-		return boardDAO.getBoardList();
+		return qnaBoardDAO.getBoardList();
 	}
 
 	@Override
 	public QnaBoardVO myQuestion(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl myQuestion(vo)");
-		return boardDAO.getBoard(vo);
+		return qnaBoardDAO.getBoard(vo);
 	}
 
 
