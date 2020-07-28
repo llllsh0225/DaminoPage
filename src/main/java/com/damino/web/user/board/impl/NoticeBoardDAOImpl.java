@@ -19,5 +19,11 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 		System.out.println("NoticeBoardDAOImpl getNoticeBoardList()");
 		return sqlSessionTemplate.selectList("BoardDAO.getNoticeBoardList");
 	}
+
+	@Override
+	public NoticeBoardVO getNoticeBoard(NoticeBoardVO vo) {
+		System.out.println("NoticeBoardDAOImpl getNoticeBoard(vo)");
+		return sqlSessionTemplate.selectOne("BoardDAO.getNoticeBoard", vo);
+	}
 	
 }

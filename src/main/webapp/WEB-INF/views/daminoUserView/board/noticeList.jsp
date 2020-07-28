@@ -165,7 +165,7 @@
 												<c:forEach var="board" items="${noticeBoardList }">
 													<tr>
 														<td>${board.seq }</td>
-														<td><strong>[${board.flag }]<a href="noticeDetail.do?seq=${board.seq}">${board.title}</a></strong></td>
+														<td><strong><a href="noticeDetail.do?seq=${board.seq}">[${board.flag }]${board.title}</a></strong></td>
 														<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" /></td>
 														<td>${board.cnt }</td>
 													</tr>

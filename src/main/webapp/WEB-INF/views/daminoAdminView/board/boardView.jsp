@@ -18,7 +18,7 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <!-- CK에디터 추가 -->
-<script type="text/javascript" src="<c:url value='https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js' />"></script>
+<script type="text/javascript" src="<c:url value='https://cdn.ckeditor.com/4.14.1/full/ckeditor.js' />"></script>
 <script type="text/javascript">
 	function boardSubmit(index){
 		if(index==1){
