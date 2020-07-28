@@ -158,14 +158,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/noticeList.do")
-	public ModelAndView getNoticeListPage() {
-		System.out.println("공지사항 목록 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/noticeList");
-		return mav;
-	}
 	
 	@RequestMapping("/noticeDetail.do")
 	public ModelAndView getNoticeDetailPage() {

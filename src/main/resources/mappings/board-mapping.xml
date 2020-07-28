@@ -58,4 +58,10 @@
 	</select>
 	<!-- End 1:1 문의 게시판 -->
 	
+	<!-- 공지사항 게시판 관련 내용 -->
+	<select id="getNoticeBoardList" resultType="com.damino.web.user.board.NoticeBoardVO">
+		SELECT seq, title, writer, regdate, cnt, flag
+		FROM board
+		ORDER BY seq desc
+	</select>
 </mapper>
