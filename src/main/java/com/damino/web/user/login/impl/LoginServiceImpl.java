@@ -19,5 +19,10 @@ public class LoginServiceImpl implements LoginService {
 	public UserVO getUser(UserVO vo) {
 		return userDAO.getUser(vo);
 	}
+	
+//	@Override
+//	public UserVO checkSignup(UserVO vo) {
+//		return userDAO.checkSignup(vo);
+//	}
 
 }

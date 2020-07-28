@@ -31,6 +31,7 @@
 <!-- 회원가입 관련 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
+	
 <script>
 function doSendAuthKey(){
 	var phoneNumber1 = $('#sel_hand_tel1').val();
@@ -58,6 +59,28 @@ function doSendAuthKey(){
 		}
 	});
 }
+
+//아이디 중복조회(구현  시도중)
+/* $(document).ready(function(){
+	$('#checkIdBtn').on('click', function(){
+		$.ajax({
+			type: 'POST',
+			url: 'checkSignup.do',
+			data: {
+				"id" : $('#id').val() 
+			}, 
+			success: function(data){ 
+				if($.trim(data) == 0){ 
+					$('#checkMsg').html('<p style="color:blue">사용가능</p>');
+				} 
+				else{ 
+					$('#checkMsg').html('<p style="color:red">사용불가능</p>'); 
+				}
+			}
+		});
+	});
+}); */
+
 </script>
 </head>
 <div id="wrap">
@@ -196,8 +219,7 @@ function doSendAuthKey(){
 											<dd>
 												<div class="form-item name">
 													<input type="text" name="id" id="id" maxlength="16"
-														placeholder=""> <a
-														href="javascript:idCheck($('#id'));" class="btn-type v7">중복확인</a>
+														placeholder=""> <a href="" id="checkIdBtn" class="btn-type v7" role="button" onclick="submit">중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
 											</dd>
@@ -595,7 +617,7 @@ function doSendAuthKey(){
 								</div>
 
 								<div class="btn-wrap">
-									<a href="javascript:goInsert();" class="btn-type v6">가입하기</a>
+									<a href="javascript:checks()" class="btn-type v6">가입하기</a>
 								</div>
 							</div>
 						</div>
@@ -1272,7 +1294,7 @@ function doSendAuthKey(){
 									<li><strong><em>제2조</em> 이용약관의 효력 및 변경</strong>
 										<ol>
 											<li>(1) 본 약관은 서비스를 신청한 이용자 또는 개인위치정보주체가 본 약관에 동의하고 회사가
-												정한 소정의 절차에 따라 서비스의 이용자로 등록함으로써 효력이 발생합니다.</li>
+  												정한 소정의 절차에 따라 서비스의 이용자로 등록함으로써 효력이 발생합니다.</li>
 											<li>(2) 이용자가 온라인에서 본 약관의 "동의하기" 버튼을 클릭하였을 경우 본 약관의 내용을
 												모두 읽고 이를 충분히 이해하였으며, 적용에 동의한 것으로 봅니다.</li>
 											<li>(3) 회사는 서비스에 새로운 업무 적용, 정부에 의한 시정명령의 이행 및 기타 회사의 업무상
