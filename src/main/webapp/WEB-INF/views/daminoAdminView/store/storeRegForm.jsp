@@ -199,9 +199,8 @@
 
 								<h5>주차정보</h5>
 								<p>
-									<input type="radio" value="no" checked>주차공간
-									없음 <input type="radio" value="yes">매장
-									주차가능
+									<label><input type="radio" name="car" value="X" checked>주차공간 없음</label> 
+									<label><input type="radio" name="car" value="O">매장 주차가능</label>
 								</p>
 								<p>
 									<textarea class="text2-jms" name="park" rows="2" name="park"
