@@ -17,4 +17,9 @@ public class UserDAOimpl implements UserDAO {
 		return sqlSessionTemplate.selectOne("UserDAO.getUser", vo);
 	}
 
+//	@Override
+//	public UserVO checkSignup(UserVO vo) {
+//		return sqlSessionTemplate.selectOne("UserDAO.getUser", vo);
+//	}
+
 }
