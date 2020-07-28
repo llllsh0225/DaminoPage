@@ -1,6 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="com.damino.web.user.board.impl.NoticeBoardDAOImpl"%>
+<%@page import="com.damino.web.user.board.NoticeBoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -158,14 +162,14 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>343</td>
-													<td><a href="#none"
-														onclick="goView('2357'); return false;"><p>[공지]다미노피자
-																이용약관 개정 안내</p></a></td>
-													<td>2020-07-01</td>
-													<td>47</td>
-												</tr>
+												<c:forEach var="board" items="${noticeBoardList }">
+													<tr>
+														<td>${board.seq }</td>
+														<td><strong>[${board.flag }]<a href="noticeDetail.do?seq=${board.seq}">${board.title}</a></strong></td>
+														<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" /></td>
+														<td>${board.cnt }</td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>
