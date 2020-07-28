@@ -44,9 +44,7 @@
 	</update>
 	
 	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO">
-		<![CDATA[SELECT * FROM (SELECT rownum rnum, seq, writerId, title, phone, email, content, storeRegion, storeName
-		FROM (SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=? AND rnum<=?");
-		]]>
+		SELECT seq, title, regdate, result FROM qnaboard ORDER BY seq desc
 	</select>
 	
 	<select id="myQuestion" resultType="com.damino.web.user.board.QnaBoardVO">
@@ -64,4 +62,9 @@
 		FROM board
 		ORDER BY seq desc
 	</select>
+	
+	<select id="getNoticeBoard" resultType="com.damino.web.user.board.NoticeBoardVO">
+      SELECT * FROM board WHERE seq=#{seq}
+   </select>
+   
 </mapper>

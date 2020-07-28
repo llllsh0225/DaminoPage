@@ -12,40 +12,46 @@ import com.damino.web.user.board.QnaBoardVO;
 
 @Repository("qnaBoardDAO")
 public class QnaBoardDAOImpl implements QnaBoardDAO {
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	
 	@Override
-	public void insertBoard(QnaBoardVO vo) {
-		System.out.println("BoardDAOImpl insertBoard(vo)");
-		sqlSessionTemplate.insert("BoardDAO.insertBoard", vo);
+	public void qnaInsertBoard(QnaBoardVO vo) {
+		System.out.println("QnaBoardDAOImpl qnaInsertBoard(vo)");
+		sqlSessionTemplate.insert("BoardDAO.qnaInsertBoard", vo);
 	}
 
 	@Override
-	public void updateBoard(QnaBoardVO vo) {
-		System.out.println("BoardDAOImpl updateBoard(vo)");
-		sqlSessionTemplate.update("BoardDAO.updateBoard", vo);
+	public void qnaUpdateBoard(QnaBoardVO vo) {
+		System.out.println("QnaBoardDAOImpl qnaUpdateBoard(vo)");
+		sqlSessionTemplate.update("BoardDAO.qnaUpdateBoard", vo);
 	}
 
 	@Override
-	public void deleteBoard(QnaBoardVO vo) {
-		System.out.println("BoardDAOImpl deleteBoard(vo)");
-		sqlSessionTemplate.delete("BoardDAO.deleteBoard", vo);
+	public void qnaDeleteBoard(QnaBoardVO vo) {
+		System.out.println("QnaBoardDAOImpl qnaDeleteBoard(vo)");
+		sqlSessionTemplate.delete("BoardDAO.qnaDeleteBoard", vo);
 	}
 	
 	@Override
-	public List<QnaBoardVO> getBoardList(){
-		System.out.println("BoardDAOImpl getBoardList()");
-		return sqlSessionTemplate.selectList("BoardDAO.getBoardList");
+	public List<QnaBoardVO> myQuestionList(){
+		System.out.println("QnaBoardDAOImpl myQuestionList()");
+		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList");
 	}
 
 	@Override
-	public QnaBoardVO getBoard(QnaBoardVO vo) {
-		System.out.println("BoardDAOImpl getBoard(vo)");
-		return sqlSessionTemplate.selectOne("BoardDAO.getBoard", vo);
+	public QnaBoardVO myQuestion(QnaBoardVO vo) {
+		System.out.println("QnaBoardDAOImpl myQuestion(vo)");
+		return sqlSessionTemplate.selectOne("BoardDAO.myQuestion", vo);
 	}
 
-
+	@Override
+	public int getArticleCount() {
+		System.out.println("QnaBoardDAOImpl getArticleCount()");
+		return sqlSessionTemplate.selectOne("BoardDAO.getQnaCount");
+	}
+	
 
 }

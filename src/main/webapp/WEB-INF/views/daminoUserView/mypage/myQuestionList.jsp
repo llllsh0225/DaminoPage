@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.damino.web.user.board.impl.QnaBoardDAOImpl"%>
+<%@ page import="com.damino.web.user.board.QnaBoardVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -315,12 +317,7 @@
 						<li>
 							<a href="/ecoupon/index"><span>e-쿠폰</span></a>
 						</li>
-						<li>
-							<a href="/voucher/list?gubun=M"><span>상품권 선물</span></a>
-						</li>
-						<li>
-							<a href="/event/list?gubun=E0200"><span>이벤트&middot;제휴</span></a>
-						</li>
+						
 						<li>
 							<a href="/branch"><span>매장검색</span></a>
 						</li>
@@ -399,9 +396,9 @@
 						</div>
 					<div class="info-wrap">
 						<div class="user">
-							<span>강수현</span>님께서 문의하신 내용입니다.
+							<span>ㅇㅇㅇ</span>님께서 문의하신 내용입니다.
 						</div>
-						<div class="text-type">강수현님께서 문의하신 내용은 <strong>총 0건</strong> 입니다.</div>
+						<div class="text-type">ㅇㅇㅇ님께서 문의하신 내용은 <strong>총 ${count}건</strong> 입니다.</div>
 					</div>
 					<div class="counsil-wrap">
 						<div class="table-type4">
@@ -422,10 +419,20 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-												<td colspan="4">문의하신 내용이 없습니다.</td>
-											</tr>
-										</tbody>
+									<c:forEach var="qnaboard" items="${boardList }">
+										<tr>
+											<td>${qnaboard.seq }</td>
+											<td><a href="myquestion_view.do?seq=${qnaboard.seq}">${qnaboard.title}</a></td>
+											<td><fmt:formatDate value="${qnaboard.regDate }" pattern="yyyy-MM-dd" /></td>
+											<td>${qnaboard.result }</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+								<tbody>
+									<c:if test="${count==0}">
+										<td colspan="4">문의하신 내용이 없습니다.</td>
+									</c:if>
+								</tbody>
 							</table>
 						</div>
 						<div class="pager-wrap">
@@ -443,7 +450,7 @@
 </div>
 
 <!-- 문의하기 -->
-<form name="q" id="q" method="post" action="/mypage/qustionProc" >
+<form name="qnaBoardInsert" id="qnaBoardInsert" method="post" action="javascript:proc()">
 <div class="pop-layer" id="pop-write">
 	<div class="dim"></div>
 	<div class="pop-wrap">
@@ -501,15 +508,39 @@
 										</select>
 								</div>
 							</div>
-							<div class="form-item">
-								<div class="select-type2">
-									<select id="sel3" name="branch_code">
-										<option>매장 선택</option>
-										<option>셀렉트박스2</option>
-									</select>
-								</div>
-							</div>
-						</dd>
+										<div class="form-item">
+											<div class="select-type2">
+												<select id="sel3" name="branch_code">
+													<option value="">구/군</option>
+													<option value="0111">강남구</option>
+													<option value="0110">강동구</option>
+													<option value="0117">강북구</option>
+													<option value="0124">강서구</option>
+													<option value="0120">관악구</option>
+													<option value="0118">광진구</option>
+													<option value="0121">구로구</option>
+													<option value="0122">금천구</option>
+													<option value="0115">노원구</option>
+													<option value="0108">도봉구</option>
+													<option value="0106">동대문구</option>
+													<option value="0123">동작구</option>
+													<option value="0104">마포구</option>
+													<option value="0103">서대문구</option>
+													<option value="0113">서초구</option>
+													<option value="0109">성동구</option>
+													<option value="0112">성북구</option>
+													<option value="0114">송파구</option>
+													<option value="0125">양천구</option>
+													<option value="0119">영등포구</option>
+													<option value="0116">용산구</option>
+													<option value="0105">은평구</option>
+													<option value="0102">종로구</option>
+													<option value="0101" selected>중구</option>
+													<option value="0107">중랑구</option>
+												</select>
+											</div>
+										</div>
+									</dd>
 					</dl>
 					<dl>
 						<dt>제목</dt>
@@ -554,7 +585,7 @@
 //페이징
 function paging(no){
 	$("#pageNo").val(no);
-	$('#f').attr("action", "/mypage/qustionList");
+	$('#f').attr("action", "/mypage/myQustionList");
 	$("#f").submit();
 }
 
@@ -562,7 +593,7 @@ function paging(no){
 function goView(idx, no) {
 	$('#idx').val(idx);
 	$('#no').val(no);
-	$('#f').attr("action", "/mypage/qustionView");
+	$('#f').attr("action", "/mypage/myQuestion_view");
 	$('#f').submit();
 }
 
@@ -608,7 +639,8 @@ function proc(){
 		if($('#subject').val() == '') { alert('제목을 입력하세요'); $('#subject').focus(); return;}
 		if($('textarea[name=content]').val() == '') { alert('내용을 입력하세요.'); $('#content').focus(); return;}	
 		send = true;
-		$('#q').submit();
+		document.qnaForm.action='qnaInsertBoard.do';
+		$('#qnaBoardInsert').submit();
 	}	
 }
 </script>
@@ -740,19 +772,6 @@ function proc(){
 	(function(b,s){var f=b.getElementsByTagName(s)[0],j=b.createElement(s);j.async=true;j.src='//fs.bizspring.net/fs4/bstrk.1.js';f.parentNode.insertBefore(j,f);})(document,'script');</script>
 	<noscript><img alt="Logger Script" width="1" height="1" src="http://ssl.logger.co.kr/tracker.tsp?u=21550&amp;js=N" /></noscript>
 	
-	<script type="text/javascript">
-	(function(b,s,t,c,k){b[k]=s;b[s]=b[s]||function(){(b[s].q=b[s].q||[]).push(arguments)};  var f=t.getElementsByTagName(c)[0],j=t.createElement(c);j.async=true;j.src='//fs.bizspring.net/fs4/l4cts.v4.2.js';f.parentNode.insertBefore(j,f);})(window,'_tcts_m',document,'script','BSAnalyticsObj');
-	_tcts_m('15484','BCTS');
-	</script>
-
 
 </body>
-<script>
-cookieManager.makePCID("PCID", 10);
-
-$(".select-type.language").change(function() {
-	
-	location.href = $("#select-type").val();
-});
-</script>
 </html>

@@ -17,33 +17,34 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	@Override
 	public void qnaInsertBoard(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl insertBoard(vo)");
-		qnaBoardDAO.insertBoard(vo);
+		qnaBoardDAO.qnaInsertBoard(vo);
 	}
 
 	@Override
 	public void qnaUpdateBoard(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl updateBoard(vo)");
-		qnaBoardDAO.updateBoard(vo);
+		qnaBoardDAO.qnaUpdateBoard(vo);
 	}
 
 	@Override
 	public void qnaDeleteBoard(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl deleteBoard(vo)");
-		qnaBoardDAO.deleteBoard(vo);
+		qnaBoardDAO.qnaDeleteBoard(vo);
 	}
 	
-	@Override
-	public List<QnaBoardVO> myQuestionList(){
-		System.out.println("QnaBoardServiceImpl myQuestionList()");
-		return qnaBoardDAO.getBoardList();
-	}
+
 
 	@Override
 	public QnaBoardVO myQuestion(QnaBoardVO vo) {
 		System.out.println("QnaBoardServiceImpl myQuestion(vo)");
-		return qnaBoardDAO.getBoard(vo);
+		return qnaBoardDAO.myQuestion(vo);
 	}
 
+	@Override
+	public List<QnaBoardVO> myQuestionList() {
+		System.out.println("QnaBoardServiceImpl myQuestionList()");
+		return qnaBoardDAO.myQuestionList();
+	}
 
 
 }
