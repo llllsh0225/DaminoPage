@@ -159,15 +159,6 @@ public class ViewTestController {
 	}
 	
 	
-	@RequestMapping("/noticeDetail.do")
-	public ModelAndView getNoticeDetailPage() {
-		System.out.println("공지사항 상세 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/noticeDetail");
-		return mav;
-	}
-	
 	@RequestMapping("/qnaForm.do")
 	public ModelAndView getQnaFormPage() {
 		System.out.println("1:1 문의 페이지 열기");

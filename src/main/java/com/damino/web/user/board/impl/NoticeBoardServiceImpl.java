@@ -20,4 +20,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return noticeBoardDAO.getNoticeBoardList();
 	}
 
+	@Override
+	public NoticeBoardVO getNoticeBoard(NoticeBoardVO vo) {
+		System.out.println("NoticeBoardServiceImpl getNoticeBoard(vo)");
+		return noticeBoardDAO.getNoticeBoard(vo);
+	}
+
 }
