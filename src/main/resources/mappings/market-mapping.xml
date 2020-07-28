@@ -4,8 +4,8 @@
 
 <mapper namespace="MarketDAO">
 	<insert id="insertMarket" parameterType="com.damino.web.admin.market.MarketVO">
-			INSERT INTO market (seq, name, tel, address, location, time, etime, park, etc)
-			VALUES((select nvl(max(seq), 0)+1 from market), #{name}, #{tel}, #{address}, #{location}, #{time}, #{etime}, #{park}, #{etc})
+			INSERT INTO market (seq, name, tel, address, location, time, etime, car, park, etc)
+			VALUES((select nvl(max(seq), 0)+1 from market), #{name}, #{tel}, #{address}, #{location}, #{time}, #{etime}, #{car}, #{park}, #{etc})
 	</insert>
 
 	<delete id="deleteMarket" parameterType="com.damino.web.admin.market.MarketVO">
@@ -14,12 +14,12 @@
 
 	 <update id="updateMarket" parameterType="com.damino.web.admin.market.MarketVO"> 
 			UPDATE market
-			set name=#{name}, tel=#{tel}, address=#{address}, location=#{location}, time=#{time}, etime=#{etime}, park=#{park}, etc=#{etc}
+			set name=#{name}, tel=#{tel}, address=#{address}, location=#{location}, time=#{time}, etime=#{etime}, car=#{car}, park=#{park}, etc=#{etc}
 			where seq=#{seq}
 	</update> 
 
 	<select id="getMarketList" resultType="com.damino.web.admin.market.MarketVO">
-			SELECT seq, name, tel, address, location, time, etime, park, etc
+			SELECT seq, name, tel, address, location, time, etime, car, park, etc
 			FROM market
 			ORDER BY seq desc
 	</select>

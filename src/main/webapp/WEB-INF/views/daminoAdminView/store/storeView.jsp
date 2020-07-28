@@ -21,9 +21,11 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <script>
-	function del(){
-		document.form1.action='deleteMarket.admdo';
-		document.form1.submit();
+	function del(seq){
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if(chk){
+			location.href='deleteMarket.admdo?seq='+seq;
+		}
 	}
 </script>
 
@@ -209,6 +211,7 @@
 										<th>위치정보</th>
 										<th>오픈시간</th>
 										<th>마감시간</th>
+										<th>매장주차</th>
 										<th>주차시설</th>
 										<th>특이사항</th>
 										<th><a class="btn btn-secondary" href="emailForm.admdo"
@@ -232,12 +235,13 @@
 										<td>${market.location }</td>
 										<td>${market.time }</td>
 										<td>${market.etime }</td>
+										<td>${market.car }</td>
 										<td>${market.park }</td>
 										<td>${market.etc }</td>
 										<td><a class="btn btn-primary" href="storeEdit.admdo?seq=${market.seq }"
 											role="button">수정</a>
 
-											<button class="btn btn-danger" onClick="del()">삭제</button></td>
+											<button class="btn btn-danger" onClick="del(${market.seq})">삭제</button></td>
 									</tr>
 									</c:forEach>
 								</tbody>

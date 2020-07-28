@@ -8,7 +8,17 @@ public class MarketVO {
 	private String location;
 	private String time;
 	private String etime;
+	private String park;
+	private String etc;
+	private String car;
 	
+
+	public String getCar() {
+		return car;
+	}
+	public void setCar(String car) {
+		this.car = car;
+	}
 	public int getSeq() {
 		return seq;
 	}
@@ -21,9 +31,6 @@ public class MarketVO {
 	public void setEtime(String etime) {
 		this.etime = etime;
 	}
-	private String park;
-	private String etc;
-	
 	public String getName() {
 		return name;
 	}
@@ -69,7 +76,8 @@ public class MarketVO {
 	@Override
 	public String toString() {
 		return "MarketVO [seq=" + seq + ", name=" + name + ", tel=" + tel + ", address=" + address + ", location="
-				+ location + ", time=" + time + ", etime=" + etime + ", park=" + park + ", etc=" + etc + "]";
+				+ location + ", time=" + time + ", etime=" + etime + ", park=" + park + ", etc=" + etc + ", car=" + car
+				+ "]";
 	}
 
 	

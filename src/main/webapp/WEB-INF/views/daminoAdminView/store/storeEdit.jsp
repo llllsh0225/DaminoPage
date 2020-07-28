@@ -20,10 +20,13 @@
 <script type="text/javascript">
 	function boardSubmit(index){
 		if(index==1){
+/* 			var radio = $(':radio[name="parking"]:checked').val();
+			${market.car} = radio; */
 			document.form1.action='updateMarket.admdo';
 		}
 		document.form1.submit();
 	}
+
 </script>
 
 </head>
@@ -187,18 +190,15 @@
 					<div class="row justify-content-center">
 						<div class="col-lg-7">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
-								<div class="card-header">
-									<h3 class="text-center font-weight-light my-4">매장정보 수정</h3>
-								</div>
-								<form name="form1" method="post">
-								
+								<div class="card-header"><h3 class="text-center font-weight-light my-4">매장정보 수정</h3></div>
 								<div class="card-body">
+								<form name="form1" method="post">
 									<input type="hidden" name="seq" id="seq" value="${market.seq }"/>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputFirstName">점포명
-													</label> <input class="form-control py-4" id="inputFirstName"
+													<label class="small mb-1" for="inputFirstName">점포</label> 
+													<input class="form-control py-4" id="inputFirstName"
 														type="text" placeholder="" name="name" value="${market.name }"/>
 												</div>
 											</div>
@@ -226,6 +226,8 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputConfirmPassword">주차시설</label>
+													<label class="small mb-1"><input type="radio" name="car" value="X" checked="checked" <c:if test="${market.car eq 'X'}">checked</c:if>/>주차공간 없음</label> 
+													<label class="small mb-1"><input type="radio" name="car" value="O" <c:if test="${market.car eq 'O'}">checked</c:if>/>매장주차 가능</label> 
 													<input class="form-control py-4" id="inputConfirmPassword"
 														type="text" placeholder="" name="park" value="${market.park }"/>
 												</div>
@@ -255,14 +257,17 @@
                                                       name="etc" value="${market.etc }"/>
                                                     </div>
                                                 </div>
-												<div class="col-md-6"> </div>
+												<div class="col-md-6"> 
+													<div class="form-group">
+														<label class="small mb-1">
+
+													 </label>
+												</div>
 											</div>
-                                            <div class="form-group mt-4 mb-0">
-                                            <input type="button" class="btn btn-primary btn-block" value="변경정보 저장" onclick="boardSubmit(1)" />
-										</div>
-									
-								</div>
-								</form>
+                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" role ="button" onclick="boardSubmit(1)">변경정보 저장</a>	
+											</div>
+										</form>
+									</div>
 								<div class="card-footer text-center">
 									<div class="small">
 										<a href="storeView.admdo">돌아가기</a>
@@ -271,7 +276,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
