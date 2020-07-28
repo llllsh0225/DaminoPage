@@ -4,15 +4,18 @@ import java.util.Date;
 
 public class QnaBoardVO {
 	private int seq;
-	private String writerId;
+	private String writerId; //고객 id
 	private String title;
 	private String phone;
 	private String email;
-	private String qnaType;
+	private String qnaType; //문의 형태
 	private Date regDate = new Date();
 	private String content;
-	private String storeRegion;
-	private String storeName;
+	private String storeRegion; //매장 지역
+	private String storeName; //매장명
+	private String result; //답변 처리 결과
+	private String replyContent; //답변 내용
+	
 	public int getSeq() {
 		return seq;
 	}
@@ -73,12 +76,25 @@ public class QnaBoardVO {
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public String getReplyContent() {
+		return replyContent;
+	}
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
 	
 	@Override
 	public String toString() {
 		return "QnaBoardVO [seq=" + seq + ", writerId=" + writerId + ", title=" + title + ", phone=" + phone
 				+ ", email=" + email + ", qnaType=" + qnaType + ", regDate=" + regDate + ", content=" + content
-				+ ", storeRegion=" + storeRegion + ", storeName=" + storeName + "]";
+				+ ", storeRegion=" + storeRegion + ", storeName=" + storeName + ", result=" + result + ", replyContent="
+				+ replyContent + "]";
 	}
 	
 	

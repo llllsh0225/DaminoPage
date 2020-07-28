@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@page import="com.damino.web.user.board.impl.QnaBoardDAOImpl"%>
+<%@page import="com.damino.web.user.board.QnaBoardVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
@@ -400,9 +402,12 @@
 						<div class="user">
 							<span>ㅇㅇㅇ</span>님께서 문의하신 내용입니다.
 						</div>
-						<div class="text-type">ㅇㅇㅇ님께서 문의하신 내용은 <strong>총 1건</strong> 입니다.</div>
+						<div class="text-type">ㅇㅇㅇ님께서 문의하신 내용은 <strong>총 ${count }건</strong> 입니다.</div>
 					</div>
+				
+				<form id="qnaForm" name="qnaForm" method="post">
 					<div class="myinfo-wrap">
+					 <input type="hidden" name="seq" id="seq" value="${qnaboard.seq }" />
 	                    <div class="form">
 	                        <dl class="cs">
 										<dt>아이디</dt>
@@ -431,7 +436,7 @@
                                 <dt class="top">답변</dt>
                                 <dd>
                                     <div class="form-item">
-                                        <textarea name="" id="content2" cols="30" rows="10" readonly="">${qnaboard.답변 }</textarea>
+                                        <textarea name="" id="content2" cols="30" rows="10" readonly="">${qnaboard.replyContent }</textarea>
                                     </div>
                                 </dd>
                             </dl>
@@ -446,22 +451,25 @@
                             <p>
                         </p></div>
 	                </div>
+	               </form>
 				</article>
 			</div>
 		</div>
 	</section>
+	
 </div>
 <script type="text/javascript">
 //목록
 function goList(){
-	location.href = "/mypage/qustionList?pageNo="+'1';
+	location.href = "/mypage/myQuestionList?pageNo="+'1';
 }
 
 // 삭제
 function doDel(idx){
 	if(confirm("문의하신 사항을 삭제하시겠습니까?")){
-		location.href = "/mypage/questionDelete?idx=" + idx;
+		document.qnaForm.action='qnaDeleteBoard.do';
 	}
+	document.qnaForm.submit();
 }
 </script>
 <!-- 로딩 이미지 -->
