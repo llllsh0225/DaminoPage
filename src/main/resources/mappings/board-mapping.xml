@@ -44,13 +44,17 @@
 	</update>
 	
 	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO">
-		SELECT seq, writerId, title, phone, email, content, storeRegion, storeName
-		FROM qnaboard
-		ORDER BY seq desc
+		<![CDATA[SELECT * FROM (SELECT rownum rnum, seq, writerId, title, phone, email, content, storeRegion, storeName
+		FROM (SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=? AND rnum<=?");
+		]]>
 	</select>
 	
 	<select id="myQuestion" resultType="com.damino.web.user.board.QnaBoardVO">
 		SELECT * FROM qnaboard WHERE seq=#{seq}
+	</select>
+	
+	<select id="getQnaCount" resultType="com.damino.web.user.board.QnaBoardVO">
+		SELECT count(*) FROM qnaboard;
 	</select>
 	<!-- End 1:1 문의 게시판 -->
 	
