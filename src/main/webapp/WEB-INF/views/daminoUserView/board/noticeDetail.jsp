@@ -1,5 +1,8 @@
+<%@page import="com.damino.web.user.board.impl.NoticeBoardDAOImpl"%>
+<%@page import="com.damino.web.user.board.NoticeBoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -108,61 +111,34 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li class="active"><a href="/bbs/newsList?type=N">News</a></li>
-										<li><a href="/bbs/newsList?type=P">Press</a></li>
+										<li class="active"><a href="#">공지사항</a></li>
+										<li><a href="#">보도자료</a></li>
 									</ul>
 								</div>
 							</div>
 							<div class="news-view">
-								<form id="newsForm" name="newsForm" method="post">
+								<form id="form2" name="form2" method="POST" >
 									<dl class="news-content">
-										<input type="hidden" id="type" name="type" value="N">
-										<input type="hidden" id="pageNo" name="pageNo" value="1">
-										<input type="hidden" id="search" name="search" value="subject">
-										<input type="hidden" id="condition" name="condition" value="">
+										<input type="hidden" id="seq" name="seq" value="${noticeBoard.seq }"/>
 										<dt>
-											<strong>OK캐쉬백 포인트 결제수단 일시 중단 안내</strong>
+											<strong>[${noticeBoard.flag}]${noticeBoard.title }</strong>
 											<ul>
-												<li>2020-05-29</li>
-												<li>조회 <span>108</span></li>
+												<li><fmt:formatDate value="${noticeBoard.regDate }" pattern="yyyy-MM-dd" /></li>
+												<li>조회 <span>${noticeBoard.cnt }</span></li>
 											</ul>
 										</dt>
 										<dd>
-											<p>안녕하세요 고객님.</p>
-											<p>언제나 저희 다미노피자를 사랑해주셔서 감사의 말씀 드립니다.</p>
-											<p>&nbsp;</p>
-											<p>
-												<br>다름 아니라 5/19(화)부터 오픈한 OK캐쉬백 포인트 결제수단이 내부 시스템 이슈로
-											</p>
-											<p>잠시 일시중단 후 재 오픈 예정입니다.</p>
-											<p>&nbsp;</p>
-											<p>
-												<br>이용에 불편을 드려 사과의 말씀 드리며 시스템 개선 후 재 오픈 진행하겠습니다.
-											</p>
-											<p>&nbsp;</p>
-											<p>
-												<br>============================================================================
-											</p>
-											<p>1) OK캐쉬백 포인트 결제 일시 중단</p>
-											<p>2) 일정</p>
-											<p>● 일시중단 : 5/29(금) ~ 6/28(일)</p>
-											<p>● 재 오픈 : 6/29(월)~</p>
-											<p>*내부 사정에 따라 위 일정은 변동될 수 있음.</p>
-											<p>============================================================================</p>
-											<p>&nbsp;</p>
-											<p>
-												<br>감사합니다.
-											</p>
+											${noticeBoard.content }
 										</dd>
 									</dl>
 									<ul class="news-button">
-										<li><span>이전</span><a href="#none" onclick="goView('2336', 'view'); return false;">2020 다미노 온라인 매니아 혜택 변경 안내</a></li>
-										<li><span>다음</span><a href="#none" onclick="goView('2316', 'view'); return false;">갈릭&amp;허브윙스(8조각) 가격 인상 안내</a></li>
+										<li><span>이전</span><a href="#none" onclick="#">이전글</a></li>
+										<li><span>다음</span><a href="#none" onclick="#">다음글</a></li>
 									</ul>
 								</form>
 							</div>
 							<div class="btn-wrap">
-								<a href="javascript:goView('2334', 'list');" class="btn-type v2">목록</a>
+								<a href="noticeList.do" class="btn-type v2">목록</a>
 							</div>
 						</article>
 					</div>
@@ -225,12 +201,6 @@
 					</div>
 
 					<div class="footer-cont">
-						<div class="select-type language">
-							<select id="select-type">
-								<option value="/main?locale=ko">KOR</option>
-								<option value="/main?locale=en">ENG</option>
-							</select>
-						</div>
 
 						<dl class="app-box">
 							<dt>DOWNLOAD APP</dt>
