@@ -232,10 +232,32 @@ function doSendAuthKey(){
 											<dt class="top">아이디</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" name="id" id="id" maxlength="16"
+													<input type="text" name="userid" id="userid" maxlength="16"
 														placeholder=""> <a href="" id="checkIdBtn" class="btn-type v7" role="button" onclick="submit">중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
+											</dd>
+										</dl>
+										
+										<dl>
+											<dt class="center">비밀번호</dt>
+											<dd>
+												<div class="form-item name">
+													<input type="password" placeholder="" id="userpasswd" name="userpasswd"
+														value="">
+												</div>
+												<div class="text-type4" id="pwd_alert" style="display: none;"></div>
+											</dd>
+										</dl>
+										
+										<dl>
+											<dt class="center">비밀번호 확인</dt>
+											<dd>
+												<div class="form-item name">
+													<input type="password" placeholder="" id="userpasswdChk" name="userpasswdChk"
+														value="">
+												</div>
+												<div class="text-type4" id="pwdChk_alert" style="display: none;"></div>
 											</dd>
 										</dl>
 
