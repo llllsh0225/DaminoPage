@@ -29,9 +29,9 @@
 	
 	<!-- 1:1 문의 게시판 관련 내용 -->
 	<insert id="qnaInsertBoard" parameterType="com.damino.web.user.board.QnaBoardVO">
-		INSERT INTO qnaboard (seq, writerId, title, phone, email, content, storeRegion, storeName)
+		INSERT INTO qnaboard (seq, writerId, title, phone, email, qnaType, content, storeRegion, storeName, result)
 		VALUES((select nvl(max(seq), 0)+1 from qnaboard), #{writerId},
-		#{title}, #{phone}, #{email}, #{content}, #{storeRegion}, #{storeName})
+		#{title}, #{phone}, #{email}, #{qnaType}, #{content}, #{storeRegion}, #{branch_code}, '처리대기')
 	</insert>
 	
 	<delete id="qnaDeleteBoard" parameterType="com.damino.web.user.board.QnaBoardVO">
