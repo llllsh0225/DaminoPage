@@ -33,6 +33,7 @@
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
 	
 <script>
+
 function phoneCheckValChange(){ 
 	$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
 }
@@ -73,6 +74,8 @@ function doSendAuthKey(){
 		}
 	});
 }
+
+
 
 //아이디 중복조회(구현  시도중)
 /* $(document).ready(function(){
@@ -222,7 +225,7 @@ function doSendAuthKey(){
 											<dt class="center">이름</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" placeholder="" id="name" name="name"
+													<input type="text" placeholder="" id="username" name="username"
 														value="">
 												</div>
 											</dd>
@@ -243,7 +246,7 @@ function doSendAuthKey(){
 											<dt class="center">비밀번호</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="password" placeholder="" id="userpasswd" name="userpasswd"
+													<input type="password" id="password" name="password"
 														value="">
 												</div>
 												<div class="text-type4" id="pwd_alert" style="display: none;"></div>
@@ -254,7 +257,7 @@ function doSendAuthKey(){
 											<dt class="center">비밀번호 확인</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="password" placeholder="" id="userpasswdChk" name="userpasswdChk"
+													<input type="password" placeholder="" id="passwordChk" name="passwordChk"
 														value="">
 												</div>
 												<div class="text-type4" id="pwdChk_alert" style="display: none;"></div>
@@ -473,15 +476,15 @@ function doSendAuthKey(){
 												<div class="form-group v2">
 													<div class="form-item gender">
 														<div class="chk-wrap">
-															<div class="chk-box M selected">
+															<div class="chk-box M">
 																<input type="radio" name="sex" id="sex_m" value="M"
-																	checked="checked" disabled=""> <label
+																	checked="checked" > <label
 																	class="checkbox" for="sex_m"></label> <label
 																	for="sex_m">남성</label>
 															</div>
-															<div class="chk-box F">
+															<div class="chk-box F selected">
 																<input type="radio" name="sex" id="sex_f" value="F"
-																	disabled=""> <label class="checkbox"
+																	> <label class="checkbox"
 																	for="sex_f"></label> <label for="sex_f">여성</label>
 															</div>
 														</div>
@@ -569,7 +572,7 @@ function doSendAuthKey(){
 											<dd>
 												<div class="form agree">
 													<div class="chk-box v4">
-														<input type="checkbox" id="agree_all" name="agree_chk"
+														<input type="checkbox" id="agree_all" name="agree_all"
 															value="Y" class="all-check"> <label
 															class="checkbox" for="agree_all"></label> <label
 															for="agree_all">전체 동의하기</label>
@@ -578,7 +581,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_2" id="agree_2"
-																	value="Y"> <label class="checkbox"
+																	value="Y" > <label class="checkbox"
 																	for="agree_2"></label> <label for="agree_2">개인정보
 																	수집 및 이용 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p2'})"
@@ -588,7 +591,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_1" id="agree_1"
-																	value="Y"> <label class="checkbox"
+																	value="Y" > <label class="checkbox"
 																	for="agree_1"></label> <label for="agree_1">이용약관
 																	동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms'})"
@@ -598,7 +601,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="location_yn"
-																	name="location_yn" value="Y"> <label
+																	name="location_yn" value="Y" > <label
 																	class="checkbox" for="location_yn"></label> <label
 																	for="location_yn">위치기반 서비스 약관 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p4'})"
@@ -616,7 +619,7 @@ function doSendAuthKey(){
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all2" name="agreeType1"
-															class="all-check"> <label class="checkbox"
+															class="all-check2"> <label class="checkbox"
 															for="agree_all2"></label> <label for="all1">전체
 															동의하기</label>
 													</div>

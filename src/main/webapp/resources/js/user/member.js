@@ -1,35 +1,98 @@
 /**
  * 이름, 아이디 확인
- * @param id
  * @return
  * 
  */
 function checks(){
 	
-	var getId = /^[a-zA-Z0-9]{6,12}$/
-	var getPw = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	
+	var getId = /^[a-zA-Z0-9]{6,16}$/
+	var getPw = !/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+	var getName = /^[가-힣]+$/;
+
 	//이름 공백 확인
-	if($("#name").val() == ""){
+	if($("#username").val() == ""){
 		alert("이름을 입력해 주세요.");
-		$("#name").focus();
+		$("#username").focus();
+		return false;
+	}
+	
+	//이름 유효성 검사
+	if(!getName.test($("#username").val())){
+		alert("올바르지 않은 이름입니다.");
+		$("#username").val("");
+		$("#username").focus();
 		return false;
 	}
 	
 	//아이디 공백 확인
-	if($("#id").val() == ""){
+	if($("#userid").val() == ""){
 		alert("아이디를 입력해주세요.");
-		$("#id").focus();
+		$("#userid").focus();
 		return false;
 	}
+	
 	//아이디 형식 확인
-	if(!getId.test($("#id").val())){
-		alert("6~12자의 영문 대문자와 소문자로 입력해주세요.");
-		$("#id").val(""); 
-		$("#id").focus(); 
+	if(!getId.test($("#userid").val())){
+		alert("6~16자의 영문 대문자와 소문자로 입력해주세요.");
+		$("#userid").val(""); 
+		$("#userid").focus(); 
 		return false; 
 	}
+	
+	//비밀번호 공백 확인 
+	if($("#password").val() == ""){ 
+		alert("패스워드를 입력하세요"); 
+		$("#password").focus(); 
+		return false; 
+	}
+
+	//비밀번호 유효성검사 
+	if(!getPw.test($("#password").val())){ 
+		alert("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다."); 
+		$("#password").val(""); 
+		$("#password").focus(); 
+		return false; }
+
+	//비밀번호 동일여부
+	if($("#password").val() != $("#passwordChk").val()){ 
+		alert("패스워드가 일치하지 않습니다"); 
+		$("#password").val(""); 
+		$("#passwordChk").val(""); 
+		$("#password").focus(); 
+		return false; 
+	}	
 }
+
+/**
+ * 약관동의
+  
+	 $(document).ready(function(){
+	    $('.all-check').click( function(){
+	        $('#location_yn','#agree_1','#agree_2').prop('checked', this.checked);
+	    });
+	});
+*/
+
+
+/**
+ * 이메일 셀렉박스
+ *
+ * @param obj, obj2
+ * @return
+ */
+function checkEmailState(obj, obj2) {
+	if (obj.val() == "WRITE") {
+		obj2.attr("readOnly", false);
+		obj2.attr("disabled", false);
+		obj2.val('');
+		$('#email3').focus();
+	} else {
+		obj2.val(obj.val());
+		obj2.attr("readOnly", true);
+	}
+}
+
+
 
 /**
  * 인증번호 발송
