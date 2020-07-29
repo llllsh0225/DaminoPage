@@ -106,7 +106,7 @@
 								<ol>
 									<li><a href="#">홈</a></li>
 									<li><a href="noticeList.do">공지사항</a></li>
-									<li><strong>다미노뉴스</strong></li>
+									<li><strong>공지사항</strong></li>
 								</ol>
 							</div>
 						</div>
@@ -114,7 +114,8 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li class="active"><a href="noticeList.do">다미노뉴스</a></li>
+										<li><a href="noticeList.do">공지사항</a></li>
+										<li><a href="noticeList.do">보도자료</a></li>
 									</ul>
 								</div>
 							</div>
@@ -165,7 +166,7 @@
 												<c:forEach var="board" items="${noticeBoardList }">
 													<tr>
 														<td>${board.seq }</td>
-														<td><strong><a href="noticeDetail.do?seq=${board.seq}">[${board.flag }]${board.title}</a></strong></td>
+														<td><strong><a href="noticeDetail.do?seq=${board.seq}">[${board.flag }] ${board.title}</a></strong></td>
 														<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" /></td>
 														<td>${board.cnt }</td>
 													</tr>
