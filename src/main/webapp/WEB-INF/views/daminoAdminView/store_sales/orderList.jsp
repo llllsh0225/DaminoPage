@@ -228,61 +228,30 @@
 								</thead>
 								<!-- 테이블 몸통 -->
 								<tbody>
+									<c:forEach var="orderlist" items="${orderlistInv }">
 									<tr>
 										<!-- 예시 -->
-										<td><a href="#">주문번호0000</a></td>
-										<td>홍 길동</td>
-										<td>2020-05-03</td>
-										<td>서울시 강남구 A 아파트</td>
-										<td>010-5555-2233</td>
-										<td>포테이토 피자 x1<br>콜라 1.5L
-										</td>
-										<td>16,500</td>
-										<td>포장</td>
-										<td><a href="#">강남점</a></td>
-										<td>카카오페이</td>
-										<td>결제 완료</td>
-										<td><select>
+										<td>${orderlist.orderseq }</td>
+										<td>${orderlist.name }</td>
+										<td>${orderlist.regdate }</td>
+										<td>${orderlist.address }</td>
+										<td>${orderlist.tel }</td>
+										<td>${orderlist.orderli }</td>
+										<td>${orderlist.price }</td>
+										<td>${orderlist.take }</td>
+										<td>${orderlist.store }</td>
+										<td>${orderlist.paytool }</td>
+										<td>${orderlist.paystate }</td>
+										<!--
+										<td>  
+										<select>
 												<option value="true">완료</option>
 												<option value="false" selected>미완료</option>
-										</select></td>
-									</tr>
-									<tr>
-										<td><a href="#">주문번호0002</a></td>
-										<td>고 길동</td>
-										<td>2020-06-22</td>
-										<td>서울시 서초구 B 아파트</td>
-										<td>010-1234-4567</td>
-										<td>고구마 피자 x1<br>콜라 1.5L
+										</select>
 										</td>
-										<td>15,500</td>
-										<td>포 장</td>
-										<td><a href="#">서초점</a></td>
-										<td>카카오페이</td>
-										<td>결제 완료</td>
-										<td><select>
-												<option value="true">완료</option>
-												<option value="false" selected>미완료</option>
-										</select></td>
+										-->
 									</tr>
-									<tr>
-										<td><a href="#">주문번호0003</a></td>
-										<td>둘 리</td>
-										<td>2020-07-17</td>
-										<td>서울시 서초구 B 아파트</td>
-										<td>010-1234-7894</td>
-										<td>비싼 피자 x1<br>사이 1.5L
-										</td>
-										<td>22,500</td>
-										<td>배 달</td>
-										<td><a href="#">서초점</a></td>
-										<td>카카오페이</td>
-										<td>결제 완료</td>
-										<td><select>
-												<option value="true">완료</option>
-												<option value="false" selected>미완료</option>
-										</select></td>
-									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
