@@ -20,13 +20,22 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<!-- 체크박스 쓰기위한 제이쿼리 다운로드 -->
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+
 	function del(seq){
 		var chk = confirm("정말 삭제하시겠습니까?");
 		if(chk){
 			location.href='deleteMarket.admdo?seq='+seq;
 		}
 	}
+<!-- 체크박스  -->	
+	$(document).ready(function(){
+		$('#checkAll').click( function(){
+			$('.custom-control-input').prop('checked', this.checked);
+		});
+	});
 </script>
 
 </head>
@@ -220,13 +229,13 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="market" items="${marketList }">
+								<c:forEach var="market" items="${marketList }" > 
 									<tr>
 										<td>
 											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="check"
-													type="checkbox" /> <label class="custom-control-label"
-													for="check1"></label>
+												<input class="custom-control-input" id="check${market.seq }"
+													type="checkbox" /> <label class="custom-control-label" 
+													for="check${market.seq }"></label>
 											</div>
 										</td>
 										<td>${market.name }</td>
