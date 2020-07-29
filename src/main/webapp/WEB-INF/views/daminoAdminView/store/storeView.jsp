@@ -20,8 +20,8 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-<!-- 체크박스 쓰기위한 제이쿼리 다운로드 -->
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 체크박스 -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 <script>
 
 	function del(seq){
@@ -30,7 +30,7 @@
 			location.href='deleteMarket.admdo?seq='+seq;
 		}
 	}
-<!-- 체크박스  -->	
+/* 체크박스  */	
 	$(document).ready(function(){
 		$('#checkAll').click( function(){
 			$('.custom-control-input').prop('checked', this.checked);
