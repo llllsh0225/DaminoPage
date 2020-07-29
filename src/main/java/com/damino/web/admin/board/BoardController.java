@@ -50,6 +50,7 @@ public class BoardController {
 		System.out.println("작성자 : " + vo.getWriter());
 		System.out.println("제목 : " + vo.getTitle());
 		System.out.println("내용 : " + vo.getContent());
+		System.out.println("flag : " + vo.getFlag());
 		boardService.insertBoard(vo);
 		return "redirect:boardList.admdo";
 	}
