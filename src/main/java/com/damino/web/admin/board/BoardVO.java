@@ -9,6 +9,7 @@ public class BoardVO {
 	private String content;
 	private Date regDate = new Date();
 	private int cnt;
+	private String flag;
 	
 	public int getSeq() {
 		return seq;
@@ -46,11 +47,18 @@ public class BoardVO {
 	public void setcnt(int cnt) {
 		this.cnt = cnt;
 	}
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content + ", regDate="
-				+ regDate + ", cnt=" + cnt + "]";
+				+ regDate + ", cnt=" + cnt + ", flag=" + flag + "]";
 	}
+	
 	
 	
 }

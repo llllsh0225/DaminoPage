@@ -12,7 +12,7 @@
 
 <script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <!-- CK에디터 추가 -->
-<script type="text/javascript" src="<c:url value='https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js' />"></script>
+<script type="text/javascript" src="<c:url value='https://cdn.ckeditor.com/4.14.1/full/ckeditor.js' />"></script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -181,14 +181,16 @@
 								<table class="table table-bordered" id="dataTable" width="100%" height="100%" cellspacing="0">
 									<tr>
 										<th>게시판 그룹</th>
-										<td><select>
-												<option>공지사항</option>
-												<option>다미노 뉴스</option>
-										</select></td>
+										<td>
+											<select name="flag">
+													<option value="공지사항">공지사항</option>
+													<option value="보도자료">보도자료</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<th>작성자</th>
-										<td><input name="writer" type="text" size="5"  /></td>
+										<td><input name="writer" type="text" size="5"/></td>
 									</tr>
 									<tr>
 										<th>비밀글 여부</th>

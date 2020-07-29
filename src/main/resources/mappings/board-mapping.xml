@@ -4,8 +4,8 @@
 
 <mapper namespace="BoardDAO">
 	<insert id="insertBoard" parameterType="com.damino.web.admin.board.BoardVO">
-		INSERT INTO board (seq, title, writer, content)
-		VALUES((select nvl(max(seq), 0)+1 from board), #{title}, #{writer}, #{content})
+		INSERT INTO board (seq, title, writer, content, flag)
+		VALUES((select nvl(max(seq), 0)+1 from board), #{title}, #{writer}, #{content}, #{flag})
 	</insert>
 	
 	<delete id="deleteBoard" parameterType="com.damino.web.admin.board.BoardVO">
@@ -18,7 +18,7 @@
 	</update>
 	
 	<select id="getBoardList" resultType="com.damino.web.admin.board.BoardVO">
-		SELECT seq, title, writer, regdate, cnt
+		SELECT seq, title, writer, regdate, cnt, flag
 		FROM board
 		ORDER BY seq desc
 	</select>
