@@ -33,12 +33,15 @@
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
 	
 <script>
+function phoneCheckValChange(){ 
+	$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
+}
+
 function doSendAuthKey(){
 	var phoneNumber1 = $('#sel_hand_tel1').val();
 	var phoneNumber2 = $('#hand_tel2').val();
 	var phoneNumber3 = $('#hand_tel3').val();
 	var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
-	alert(phoneNumber);
 	
 	$.ajax({
 		type : "POST",
@@ -49,13 +52,24 @@ function doSendAuthKey(){
 			phoneNumber : phoneNumber,
 		}),
 		success : function(res){
-			function doSendAuthKey(){
+			alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
+			$('#btn_AuthKeyConfirm').click(function(){
+				alert("인증번호 입력");
 				if($.trim(res) == $('#security_no').val()){
-                    alert('휴대폰 인증이 정상적으로 완료되었습니다.');
+					$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
+                    $('#security_alert').text("휴대폰 인증이 완료되었습니다.");
+                    $('#security_alert').show();
 				}else{
-                    alert('인증번호가 일치하지 않습니다. 다시 시도해주세요.');
+                    $('#security_alert').text("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+                    $('#security_alert').show();
+                    $('#security_no').val() = "";
+                    $('#security_no').focus();
+                    return;
                 }
-			}
+			})
+		},
+		error: function (error){
+			alert("인증문자 발송에 실패하였습니다. 다시 시도해주세요.");
 		}
 	});
 }
@@ -463,9 +477,9 @@ function doSendAuthKey(){
 												<div class="form-group v2">
 													<div class="form-item">
 														<div class="select-type2">
-															<input type="hidden" name="sel_hand_tel_agency"
-																id="sel_hand_tel_agency" value=""> <select
-																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호">
+															<input type="hidden" name="phoneCheck"
+																id="phoneCheck" value="N"> <select
+																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호" onChange="phoneCheckValChange()">
 																<option value="010">010</option>
 																<option value="011">011</option>
 																<option value="016">016</option>
@@ -476,9 +490,9 @@ function doSendAuthKey(){
 														</div>
 
 														<input type="text" name="hand_tel2" id="hand_tel2"
-															maxlength="4" class="i_text" title="휴대전화번호"> <input
+															maxlength="4" class="i_text" title="휴대전화번호" onChange="phoneCheckValChange()"> <input
 															type="text" name="hand_tel3" id="hand_tel3" maxlength="4"
-															class="i_text" title="휴대전화번호"> <a
+															class="i_text" title="휴대전화번호" onChange="phoneCheckValChange()"> <a
 															href="javascript:doSendAuthKey();" id="btn_sendAuthchk"
 															class="btn-type v7">인증요청</a>
 													</div>
@@ -494,8 +508,7 @@ function doSendAuthKey(){
 												<div class="form-group2">
 													<div class="form-item number">
 														<input type="text" name="security_no" id="security_no"
-															placeholder="인증번호 4자리" maxlength="20"> <a
-															href="javascript:doAuthKeyChk();" class="btn-type v4">인증하기</a>
+															placeholder="인증번호 4자리" maxlength="20"> <Button type="button" id="btn_AuthKeyConfirm" class="btn-type v4">인증하기</button>
 													</div>
 													<div class="text-type4" id="security_alert"
 														style="display: none;"></div>

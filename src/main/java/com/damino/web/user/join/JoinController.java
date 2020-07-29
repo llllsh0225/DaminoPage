@@ -39,6 +39,6 @@ public class JoinController {
 		
 		joinService.certifiedPhoneNumber(phoneNumber, authKey);
 		
-		return "test";
+		return authKey;
 	}
 }
