@@ -184,6 +184,7 @@
 							<table class="table table-bordered" id="dataTable" width="100%"
 								cellspacing="0">
 								<thead>
+									
 									<tr>
 										<th><label class="checkbox-inline"><label
 												class="checkbox-inline"><div
@@ -199,12 +200,16 @@
 										<th>생년월일</th>
 										<th>휴대전화</th>
 										<th>이메일</th>
+										<th>SMS수신</th>
+										<th>Email수신</th>
+										<th>DM수신</th>
 										<th><a class="btn btn-secondary" href="emailForm.admdo"
 											role="button">메일발송</a> <a class="btn btn-secondary"
 											href="smsForm.admdo" role="button">SMS발송</a></th>
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="users" items="${usersList }">
 									<tr>
 										<td><div class="custom-control custom-checkbox">
 												<input class="custom-control-input" id="check1"
@@ -212,18 +217,22 @@
 													for="check1"></label>
 											</div></td>
 										<td>1</td>
-										<td>홍길동</td>
-										<td>abc1234</td>
-										<td>1234</td>
-										<td>REGULAR</td>
-										<td>1990.06.20</td>
-										<td>010-1111-1111</td>
-										<td>abc@naver.com</td>
+										<td>${users.username}</td>
+										<td>${users.userid}</td>
+										<td>${users.userpasswd}</td>
+										<td>${users.userlevel}</td>
+										<td>${users.birthday}</td>
+										<td>${users.phone}</td>
+										<td>${users.email}</td>
+										<td>${users.receive_sms }</td>
+										<td>${users.receive_email }</td>
+										<td>${users.receive_dm }</td>
 										<td><a class="btn btn-primary" href="memberEdit.admdo"
 											role="button">수정</a>
-										</button>
+										
 											<button class="btn btn-danger" type="submit">삭제</button></td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

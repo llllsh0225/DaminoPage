@@ -611,15 +611,15 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	@RequestMapping("/memberInfo.admdo")
-	public ModelAndView getAdminmembersInfoPage() {
-		System.out.println("회원 정보 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/member/memberInfo");
-		
-		return mav;
-	}
+//	@RequestMapping("/memberInfo.admdo")
+//	public ModelAndView getAdminmembersInfoPage() {
+//		System.out.println("회원 정보 페이지 열기");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/members/member/memberInfo");
+//		
+//		return mav;
+//	}
 	@RequestMapping("/passwordChange.admdo")
 	public ModelAndView getAdminPasswordChangePage() {
 		System.out.println("비밀번호 변경 페이지 열기");
