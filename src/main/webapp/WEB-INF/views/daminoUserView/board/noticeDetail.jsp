@@ -121,7 +121,7 @@
 									<dl class="news-content">
 										<input type="hidden" id="seq" name="seq" value="${noticeBoard.seq }"/>
 										<dt>
-											<strong>[${noticeBoard.flag}]${noticeBoard.title }</strong>
+											<strong>[${noticeBoard.flag}] ${noticeBoard.title }</strong>
 											<ul>
 												<li><fmt:formatDate value="${noticeBoard.regDate }" pattern="yyyy-MM-dd" /></li>
 												<li>조회 <span>${noticeBoard.cnt }</span></li>
