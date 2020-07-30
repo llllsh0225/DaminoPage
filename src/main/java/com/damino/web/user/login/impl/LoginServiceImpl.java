@@ -20,6 +20,13 @@ public class LoginServiceImpl implements LoginService {
 		return userDAO.getUser(vo);
 	}
 	
+	//id 중복확인
+	@Override
+	public int idcheck(String userid) {
+		System.out.println("service" + userid);
+		return userDAO.idcheck(userid);
+	}
+	
 //	@Override
 //	public UserVO checkSignup(UserVO vo) {
 //		return userDAO.checkSignup(vo);

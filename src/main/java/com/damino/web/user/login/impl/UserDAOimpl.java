@@ -16,10 +16,18 @@ public class UserDAOimpl implements UserDAO {
 	public UserVO getUser(UserVO vo) {
 		return sqlSessionTemplate.selectOne("UserDAO.getUser", vo);
 	}
-
+	
+	//id 중복확인
+	@Override
+	public int idcheck(String userid) {
+		System.out.println("DAO" + userid);
+		return sqlSessionTemplate.selectOne("UserDAO.idcheck", userid);
+	}
+	
 //	@Override
 //	public UserVO checkSignup(UserVO vo) {
 //		return sqlSessionTemplate.selectOne("UserDAO.getUser", vo);
 //	}
+	
 
 }

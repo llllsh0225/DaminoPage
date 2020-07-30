@@ -23,14 +23,14 @@ function checks(){
 		$("#username").focus();
 		return false;
 	}
-	
+/*	
 	//아이디 공백 확인
 	if($("#userid").val() == ""){
 		alert("아이디를 입력해주세요.");
 		$("#userid").focus();
 		return false;
 	}
-	
+
 	//아이디 형식 확인
 	if(!getId.test($("#userid").val())){
 		alert("6~16자의 영문 대문자와 소문자로 입력해주세요.");
@@ -38,7 +38,7 @@ function checks(){
 		$("#userid").focus(); 
 		return false; 
 	}
-	
+*/	
 	//비밀번호 공백 확인 
 	if($("#password").val() == ""){ 
 		alert("패스워드를 입력하세요"); 

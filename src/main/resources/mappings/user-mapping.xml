@@ -8,5 +8,10 @@
 		SELECT userid, userpasswd FROM logintest
 		WHERE userid = #{userid} AND userpasswd = #{userpasswd}
 	</select>
+	
+	<select id="idcheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM testidcheck
+		WHERE userid = #{userid}
+	</select>
 
 </mapper>
