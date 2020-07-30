@@ -477,13 +477,13 @@ function doSendAuthKey(){
 													<div class="form-item gender">
 														<div class="chk-wrap">
 															<div class="chk-box M">
-																<input type="radio" name="sex" value="M"
+																<input type="radio" name="sex" value="M" id="sex_m"
 																	checked="checked" > <label
 																	class="checkbox" for="sex_m"></label> <label
 																	for="sex_m">남성</label>
 															</div>
 															<div class="chk-box F selected">
-																<input type="radio" name="sex" value="F"
+																<input type="radio" name="sex" value="F" id="sex_f"
 																	> <label class="checkbox"
 																	for="sex_f"></label> <label for="sex_f">여성</label>
 															</div>
