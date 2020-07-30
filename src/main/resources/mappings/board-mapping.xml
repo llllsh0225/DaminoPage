@@ -69,11 +69,16 @@
 	</select>
 	
 	<select id="getNoticeBoard" resultType="com.damino.web.user.board.NoticeBoardVO">
-      SELECT * FROM board WHERE seq=#{seq}
-   </select>
+      	SELECT * FROM board WHERE seq=#{seq}
+   	</select>
    
-   <select id="countNoticeBoard" resultType="int">
-         SELECT COUNT(*) FROM board
-   </select>
-   
+   	<select id="countNoticeBoard" resultType="int">
+        SELECT COUNT(*) FROM board
+   	</select>
+   	
+   	<update id="increaseCnt" parameterType="com.damino.web.user.board.NoticeBoardVO">
+		UPDATE board
+		SET cnt=cnt+1
+		WHERE seq=#{seq}
+	</update>
 </mapper>

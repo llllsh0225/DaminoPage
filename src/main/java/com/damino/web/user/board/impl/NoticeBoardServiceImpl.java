@@ -2,8 +2,6 @@ package com.damino.web.user.board.impl;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +34,12 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	public int countNoticeBoard() {
 		System.out.println("NoticeBoardServiceImpl countNoticeBoard()");
 		return noticeBoardDAO.countNoticeBoard();
+	}
+
+	@Override
+	public void increaseCnt(NoticeBoardVO vo) {
+		System.out.println("NoticeBoardServiceImpl increaseCnt()");
+		noticeBoardDAO.increaseCnt(vo);
 	}
 
 	

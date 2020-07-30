@@ -34,6 +34,12 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 		System.out.println("NoticeBoardDAOImpl countNoticeBoard()");
 		return sqlSessionTemplate.selectOne("BoardDAO.countNoticeBoard");
 	}
+
+	@Override
+	public void increaseCnt(NoticeBoardVO vo) {
+		System.out.println("NoticeBoardDAOImpl increaseCnt()");
+		sqlSessionTemplate.update("BoardDAO.increaseCnt", vo);
+	}
 	
 	
 	
