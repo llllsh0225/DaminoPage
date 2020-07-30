@@ -21,6 +21,7 @@ public class JoinController {
 	
 	@RequestMapping(value="/sendAuthKey.do", produces="text/json; charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
+	// 인증문자 발송 메소드
 	public String sendSMS(@RequestBody Map<String, Object> params, HttpServletRequest request){
 		System.out.println("인증번호 송신");
 		System.out.println(params.toString());
