@@ -21,6 +21,7 @@ public class JoinController {
 	
 	@RequestMapping(value="/sendAuthKey.do", produces="text/json; charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¼ï¿½ ï¿½Þ¼Òµï¿½
 	public String sendSMS(@RequestBody Map<String, Object> params, HttpServletRequest request){
 		System.out.println("ÀÎÁõ¹øÈ£ ¼Û½Å");
 		System.out.println(params.toString());
