@@ -1,18 +1,24 @@
 package com.damino.web.user.login;
 
 public class UserVO {
-	private String userid;
-	private String userpasswd;
-	public String getUserid() {
-		return userid;
+	
+	private String userId;
+	private String userPasswd;
+	
+	public String getUserId() {
+		return userId;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getUserpasswd() {
-		return userpasswd;
+	public String getUserPasswd() {
+		return userPasswd;
 	}
-	public void setUserpasswd(String userpasswd) {
-		this.userpasswd = userpasswd;
+	public void setUserPasswd(String userPasswd) {
+		this.userPasswd = userPasswd;
 	}
+	@Override
+	public String toString() {
+		return "UserVO [userId=" + userId + ", userPasswd=" + userPasswd + "]";
+	}	
 }
