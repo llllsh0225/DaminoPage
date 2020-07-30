@@ -81,4 +81,10 @@
 		SET cnt=cnt+1
 		WHERE seq=#{seq}
 	</update>
+	
+	<select id="noticePaging" resultType="com.damino.web.user.board.NoticePagingVO">
+		SELECT seq, title, content, writer, regdate, flag
+		FROM (SELECT seq, title, content, writer, regdate, row_number() OVER(ORDER BY seq DESC) AS rNum FROM board) mp
+		WHERE rNum between #{rowStart} and #{rowEnd}
+	</select>
 </mapper>

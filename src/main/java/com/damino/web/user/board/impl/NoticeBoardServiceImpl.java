@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.damino.web.user.board.NoticeBoardDAO;
 import com.damino.web.user.board.NoticeBoardService;
 import com.damino.web.user.board.NoticeBoardVO;
+import com.damino.web.user.board.NoticePagingVO;
 
 @Service("noticeBoardService")
 public class NoticeBoardServiceImpl implements NoticeBoardService {
@@ -16,9 +17,9 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	
 	//공지사항 전체목록
 	@Override
-	public List<NoticeBoardVO> getNoticeBoardList() {
-		System.out.println("NoticeBoardServiceImpl getNoticeBoardList()");
-		return noticeBoardDAO.getNoticeBoardList();
+	public List<NoticeBoardVO> getNoticeBoardList(NoticePagingVO vo) {
+		System.out.println("NoticeBoardServiceImpl getNoticeBoardList(vo)");
+		return noticeBoardDAO.getNoticeBoardList(vo);
 	}
 	
 	//공지사항 상세보기

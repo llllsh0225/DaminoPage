@@ -184,14 +184,19 @@
 										</table>
 									</div>
 									<div class="pagination">
-										<a href='javascript:;' class='pager-first'>처음</a><a
-											href='javascript:;' class='pager-prev'>이전</a>
 										<ol>
-											<li><strong>1</strong></li>
+										 	<c:if test="${noticePageMaker.prev}">
+										    	<li><a href="list.do?page=${noticePageMaker.makeQuery(noticePageMaker.startPage - 1)}">이전</a></li>
+										    </c:if> 
+										
+										    <c:forEach begin="${noticePageMaker.startPage}" end="${noticePageMaker.endPage}" var="idx">
+										    	<li><a href="list.do?page=${noticePageMaker.makeQuery(idx)}">${idx}</a></li>
+										    </c:forEach>
+										
+										    <c:if test="${noticePageMaker.next && noticePageMaker.endPage > 0}">
+										    	<li><a href="list.do?page=${noticePageMaker.makeQuery(noticePageMaker.endPage + 1)}">다음</a></li>
+										    </c:if> 
 										</ol>
-										<a href='javascript:;' class='pager-next'>다음</a><a
-											href='javascript:;' class='pager-last'
-											onclick='javascript:paging(35); return false;'>마지막</a>
 									</div>
 								</form>
 							</div>
