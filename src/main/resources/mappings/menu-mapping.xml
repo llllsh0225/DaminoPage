@@ -13,5 +13,27 @@
 			VALUES('NP'||LPAD(p_nutrients_seq.nextval, 3, '0'), #{gross_weight}, #{onetime_basis}, #{onetime_weight}, #{kcal}, #{protein}, #{fat}, #{natrium}, #{sugars}, 'P'||LPAD(pizza_seq.nextval, 3, '0'))
 		SELECT * FROM DUAL
 	</insert>
+	
+	<insert id="insertSide"
+		parameterType="com.damino.web.admin.menu.SideVO">
+		INSERT ALL
+			INTO side (s_code, s_name, s_price, s_image)
+			VALUES('S'||LPAD(side_seq.nextval, 3, '0'), #{s_name}, #{s_price}, #{s_image})
+			INTO s_nutrients (s_nutrients_code, gross_weight, kcal, protein, fat, natrium, sugars, s_code)
+			VALUES('NS'||LPAD(s_nutrients_seq.nextval, 3, '0'), #{gross_weight}, #{kcal}, #{protein}, #{fat}, #{natrium}, #{sugars}, 'S'||LPAD(side_seq.nextval, 3, '0'))
+		SELECT * FROM DUAL
+	</insert>
+	
+	<insert id="insertDrinkEtc"
+		parameterType="com.damino.web.admin.menu.DrinkEtcVO">
+		INSERT INTO drink_etc (d_code, d_name, d_price, d_image)
+		VALUES ('D'||LPAD(drink_etc_seq.nextval, 3, '0'), #{d_name}, #{d_price}, #{d_image})
+	</insert>
+	
+	<insert id="insertTopping"
+		parameterType="com.damino.web.admin.menu.ToppingVO">
+		INSERT INTO topping (t_code, t_name, t_type, t_price, t_image)
+		VALUES ('T'||LPAD(topping_seq.nextval, 3, '0'), #{t_name}, #{t_type}, #{t_price}, #{t_image})
+	</insert>
 
 </mapper>

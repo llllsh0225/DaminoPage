@@ -187,13 +187,13 @@
 							<strong>메뉴 등록 - 사이드디시</strong>
 						</h6>
 						<br>
-						<form>
+						<form id="insertSideForm" action="insertSide.admdo" method="post" enctype="multipart/form-data">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="s_name"/></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
@@ -201,35 +201,35 @@
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="s_price"/></td>
 									</tr>
 									<tr>
 										<th>총 중량(g)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="gross_weight"/></td>
 									</tr>
 									<tr>
 										<th>열량(kcal/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="kcal"/></td>
 									</tr>
 									<tr>
 										<th>단백질(g/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="protein" /></td>
 									</tr>
 									<tr>
 										<th>포화지방(g/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="fat" /></td>
 									</tr>
 									<tr>
 										<th>나트륨(mg/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="natrium" /></td>
 									</tr>
 									<tr>
 										<th>당류(g/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="sugars" /></td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
-										<td><input type="file"></td>
+										<td><input type="file" name="uploadFile" /></td>
 									</tr>
 								</table>
 								<br>
