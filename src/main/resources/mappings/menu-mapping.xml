@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MenuDAO">
+
+	<insert id="insertPizza"
+		parameterType="com.damino.web.admin.menu.PizzaVO">
+		INSERT ALL
+			INTO pizza (p_code, p_name, p_type, p_size, p_price, p_dough, p_image)
+			VALUES('P'||LPAD(pizza_seq.nextval, 3, '0'), #{p_name}, #{p_type}, #{p_size}, #{p_price}, #{p_dough}, #{p_image})
+			INTO p_nutrients (p_nutrients_code, gross_weight, onetime_basis, onetime_weight, kcal, protein, fat, natrium, sugars, p_code)
+			VALUES('NP'||LPAD(p_nutrients_seq.nextval, 3, '0'), #{gross_weight}, #{onetime_basis}, #{onetime_weight}, #{kcal}, #{protein}, #{fat}, #{natrium}, #{sugars}, 'P'||LPAD(pizza_seq.nextval, 3, '0'))
+		SELECT * FROM DUAL
+	</insert>
+
+</mapper>

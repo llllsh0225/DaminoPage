@@ -188,13 +188,13 @@
 							<strong>메뉴 등록 - 피자</strong>
 						</h6>
 						<br>
-						<form>
+						<form id="insertPizzaForm" action="insertPizza.admdo" method="post" enctype="multipart/form-data">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="p_name" id="p_name"/></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
@@ -202,65 +202,65 @@
 									</tr>
 									<tr>
 										<th>구분</th>
-										<td><select>
-												<option>프리미엄</option>
-												<option>클래식</option>
+										<td><select name="p_type" id="p_type">
+												<option value="프리미엄">프리미엄</option>
+												<option value="클래식">클래식</option>
 										</select></td>
 									</tr>
 									<tr>
 										<th>사이즈</th>
-										<td><select>
-												<option>L</option>
-												<option>M</option>
+										<td><select name="p_size" id="p_size">
+												<option value="L">L</option>
+												<option value="M">M</option>
 										</select></td>
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="p_price" id="p_price"/></td>
 									</tr>
 									<tr>
 										<th>선택 가능 도우</th>
-										<td><input type="checkbox" value="슈퍼 시드 함유 도우" /> 슈퍼 시드
-											함유 도우&nbsp; <input type="checkbox" value="더블 치즈 엣지" /> 더블 치즈
-											엣지&nbsp; <input type="checkbox" value="오리지널" /> 오리지널&nbsp; <input
-											type="checkbox" value="나폴리" /> 나폴리&nbsp; <input
-											type="checkbox" value="씬" /> 씬&nbsp;</td>
+										<td><input type="checkbox" name="p_dough" value="슈퍼 시드 함유 도우" /> 슈퍼 시드 함유 도우&nbsp; 
+											<input type="checkbox" name="p_dough" value="더블 치즈 엣지" /> 더블 치즈 엣지&nbsp; 
+											<input type="checkbox" name="p_dough" value="오리지널" /> 오리지널&nbsp; 
+											<input type="checkbox" name="p_dough" value="나폴리" /> 나폴리&nbsp; 
+											<input type="checkbox" name="p_dough" value="씬" /> 씬&nbsp;</td>
 									</tr>
 									<tr>
 										<th>총 중량(g)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="gross_weight" /></td>
 									</tr>
 									<tr>
 										<th>1회분 기준</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="onetime_basis" /></td>
 									</tr>
 									<tr>
 										<th>1회분 중량(g)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="onetime_weight" /></td>
 									</tr>
 									<tr>
 										<th>열량(kcal/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="kcal" /></td>
 									</tr>
 									<tr>
 										<th>단백질(g/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="protein" /></td>
 									</tr>
 									<tr>
 										<th>포화지방(g/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="fat" /></td>
 									</tr>
 									<tr>
 										<th>나트륨(mg/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="natrium" /></td>
 									</tr>
 									<tr>
 										<th>당류(g/1회분)</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="fat" /></td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
-										<td><input type="file"></td>
+										<td><input type="file" name="uploadFile" /></td>
 									</tr>
 								</table>
 								<br>
