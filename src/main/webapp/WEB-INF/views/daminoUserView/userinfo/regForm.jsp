@@ -33,12 +33,16 @@
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
 	
 <script>
+
+function phoneCheckValChange(){ 
+	$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
+}
+
 function doSendAuthKey(){
 	var phoneNumber1 = $('#sel_hand_tel1').val();
 	var phoneNumber2 = $('#hand_tel2').val();
 	var phoneNumber3 = $('#hand_tel3').val();
 	var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
-	alert(phoneNumber);
 	
 	$.ajax({
 		type : "POST",
@@ -49,16 +53,29 @@ function doSendAuthKey(){
 			phoneNumber : phoneNumber,
 		}),
 		success : function(res){
-			function doSendAuthKey(){
+			alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
+			$('#btn_AuthKeyConfirm').click(function(){
+				alert("인증번호 입력");
 				if($.trim(res) == $('#security_no').val()){
-                    alert('휴대폰 인증이 정상적으로 완료되었습니다.');
+					$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
+                    $('#security_alert').text("휴대폰 인증이 완료되었습니다.");
+                    $('#security_alert').show();
 				}else{
-                    alert('인증번호가 일치하지 않습니다. 다시 시도해주세요.');
+                    $('#security_alert').text("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+                    $('#security_alert').show();
+                    $('#security_no').val() = "";
+                    $('#security_no').focus();
+                    return;
                 }
-			}
+			})
+		},
+		error: function (error){
+			alert("인증문자 발송에 실패하였습니다. 다시 시도해주세요.");
 		}
 	});
 }
+
+
 
 //아이디 중복조회(구현  시도중)
 /* $(document).ready(function(){
@@ -208,7 +225,7 @@ function doSendAuthKey(){
 											<dt class="center">이름</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" placeholder="" id="name" name="name"
+													<input type="text" placeholder="" id="username" name="username"
 														value="">
 												</div>
 											</dd>
@@ -218,10 +235,32 @@ function doSendAuthKey(){
 											<dt class="top">아이디</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" name="id" id="id" maxlength="16"
+													<input type="text" name="userid" id="userid" maxlength="16"
 														placeholder=""> <a href="" id="checkIdBtn" class="btn-type v7" role="button" onclick="submit">중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
+											</dd>
+										</dl>
+										
+										<dl>
+											<dt class="center">비밀번호</dt>
+											<dd>
+												<div class="form-item name">
+													<input type="password" id="password" name="password"
+														value="">
+												</div>
+												<div class="text-type4" id="pwd_alert" style="display: none;"></div>
+											</dd>
+										</dl>
+										
+										<dl>
+											<dt class="center">비밀번호 확인</dt>
+											<dd>
+												<div class="form-item name">
+													<input type="password" placeholder="" id="passwordChk" name="passwordChk"
+														value="">
+												</div>
+												<div class="text-type4" id="pwdChk_alert" style="display: none;"></div>
 											</dd>
 										</dl>
 
@@ -437,15 +476,15 @@ function doSendAuthKey(){
 												<div class="form-group v2">
 													<div class="form-item gender">
 														<div class="chk-wrap">
-															<div class="chk-box M selected">
+															<div class="chk-box M">
 																<input type="radio" name="sex" id="sex_m" value="M"
-																	checked="checked" disabled=""> <label
+																	checked="checked" > <label
 																	class="checkbox" for="sex_m"></label> <label
 																	for="sex_m">남성</label>
 															</div>
-															<div class="chk-box F">
+															<div class="chk-box F selected">
 																<input type="radio" name="sex" id="sex_f" value="F"
-																	disabled=""> <label class="checkbox"
+																	> <label class="checkbox"
 																	for="sex_f"></label> <label for="sex_f">여성</label>
 															</div>
 														</div>
@@ -463,9 +502,9 @@ function doSendAuthKey(){
 												<div class="form-group v2">
 													<div class="form-item">
 														<div class="select-type2">
-															<input type="hidden" name="sel_hand_tel_agency"
-																id="sel_hand_tel_agency" value=""> <select
-																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호">
+															<input type="hidden" name="phoneCheck"
+																id="phoneCheck" value="N"> <select
+																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호" onChange="phoneCheckValChange()">
 																<option value="010">010</option>
 																<option value="011">011</option>
 																<option value="016">016</option>
@@ -476,9 +515,9 @@ function doSendAuthKey(){
 														</div>
 
 														<input type="text" name="hand_tel2" id="hand_tel2"
-															maxlength="4" class="i_text" title="휴대전화번호"> <input
+															maxlength="4" class="i_text" title="휴대전화번호" onChange="phoneCheckValChange()"> <input
 															type="text" name="hand_tel3" id="hand_tel3" maxlength="4"
-															class="i_text" title="휴대전화번호"> <a
+															class="i_text" title="휴대전화번호" onChange="phoneCheckValChange()"> <a
 															href="javascript:doSendAuthKey();" id="btn_sendAuthchk"
 															class="btn-type v7">인증요청</a>
 													</div>
@@ -494,8 +533,7 @@ function doSendAuthKey(){
 												<div class="form-group2">
 													<div class="form-item number">
 														<input type="text" name="security_no" id="security_no"
-															placeholder="인증번호 4자리" maxlength="20"> <a
-															href="javascript:doAuthKeyChk();" class="btn-type v4">인증하기</a>
+															placeholder="인증번호 4자리" maxlength="20"> <Button type="button" id="btn_AuthKeyConfirm" class="btn-type v4">인증하기</button>
 													</div>
 													<div class="text-type4" id="security_alert"
 														style="display: none;"></div>
@@ -534,7 +572,7 @@ function doSendAuthKey(){
 											<dd>
 												<div class="form agree">
 													<div class="chk-box v4">
-														<input type="checkbox" id="agree_all" name="agree_chk"
+														<input type="checkbox" id="agree_all" name="agree_all"
 															value="Y" class="all-check"> <label
 															class="checkbox" for="agree_all"></label> <label
 															for="agree_all">전체 동의하기</label>
@@ -543,7 +581,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_2" id="agree_2"
-																	value="Y"> <label class="checkbox"
+																	value="Y" > <label class="checkbox"
 																	for="agree_2"></label> <label for="agree_2">개인정보
 																	수집 및 이용 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p2'})"
@@ -553,7 +591,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_1" id="agree_1"
-																	value="Y"> <label class="checkbox"
+																	value="Y" > <label class="checkbox"
 																	for="agree_1"></label> <label for="agree_1">이용약관
 																	동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms'})"
@@ -563,7 +601,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="location_yn"
-																	name="location_yn" value="Y"> <label
+																	name="location_yn" value="Y" > <label
 																	class="checkbox" for="location_yn"></label> <label
 																	for="location_yn">위치기반 서비스 약관 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p4'})"
@@ -581,7 +619,7 @@ function doSendAuthKey(){
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all2" name="agreeType1"
-															class="all-check"> <label class="checkbox"
+															class="all-check2"> <label class="checkbox"
 															for="agree_all2"></label> <label for="all1">전체
 															동의하기</label>
 													</div>
