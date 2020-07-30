@@ -13,6 +13,7 @@ public class PizzaVO {
 	private String p_image; // 제품 이미지 파일명
 	private MultipartFile uploadFile;
 	
+	// ----- 영양성분 ------
 	private int gross_weight; // 피자 총중량
 	private String onetime_basis; // 1회분 기준
 	private int onetime_weight; // 1회분 중량

@@ -187,13 +187,13 @@
 							<strong>메뉴 등록 - 토핑</strong>
 						</h6>
 						<br>
-						<form>
+						<form id="insertToppingForm" action="insertTopping.admdo" method="post" enctype="multipart/form-data">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="t_name" /></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
@@ -201,19 +201,19 @@
 									</tr>
 									<tr>
 										<th>구분</th>
-										<td><select>
-												<option>메인</option>
-												<option>치즈</option>
-												<option>애프터</option>
+										<td><select name="t_type">
+												<option value="메인">메인</option>
+												<option value="치즈">치즈</option>
+												<option value="애프터">애프터</option>
 										</select></td>
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="t_price" /></td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
-										<td><input type="file"></td>
+										<td><input type="file" name="uploadFile" /></td>
 									</tr>
 								</table>
 								<br>
