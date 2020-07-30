@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +20,12 @@ public class JoinController {
 	@Autowired
 	private JoinService joinService;
 	
+	@Autowired
+	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체
+	
 	@RequestMapping(value="/sendAuthKey.do", produces="text/json; charset=utf-8", method=RequestMethod.POST)
 	@ResponseBody
+	// 휴대폰 인증문자 발송
 	public String sendSMS(@RequestBody Map<String, Object> params, HttpServletRequest request){
 		System.out.println("인증번호 송신");
 		System.out.println(params.toString());

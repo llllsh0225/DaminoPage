@@ -18,10 +18,12 @@ public class NoticeBoardController {
 	public ModelAndView getNoticeBoardList(){
 		System.out.println("공지사항 목록");
 		List<NoticeBoardVO> noticeBoardList = noticeBoardService.getNoticeBoardList();
+		int countNoticeBoard = noticeBoardService.countNoticeBoard();
 		System.out.println(noticeBoardList.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/noticeList");
 		mav.addObject("noticeBoardList", noticeBoardList);
+		mav.addObject("countNoticeBoard", countNoticeBoard);
 		return mav;
 	}
 	

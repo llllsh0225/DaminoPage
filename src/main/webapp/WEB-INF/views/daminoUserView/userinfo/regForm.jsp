@@ -32,10 +32,56 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
 
+
+
 <script>
-	function phoneCheckValChange() {
-		$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
-	}
+
+function phoneCheckValChange(){ 
+	$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
+}
+
+function doSendAuthKey(){
+	var phoneNumber1 = $('#sel_hand_tel1').val();
+	var phoneNumber2 = $('#hand_tel2').val();
+	var phoneNumber3 = $('#hand_tel3').val();
+	var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
+	
+	$.ajax({
+		type : "POST",
+		url : "sendAuthKey.do",
+		dataType : "json",
+		contentType: "application/json; charset=utf-8;",
+		data : JSON.stringify({
+			phoneNumber : phoneNumber,
+		}),
+		success : function(res){
+			alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
+			$('#btn_AuthKeyConfirm').click(function(){
+				alert("인증번호 입력");
+				if($.trim(res) == $('#security_no').val()){
+					$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
+                    $('#security_alert').text("휴대폰 인증이 완료되었습니다.");
+                    $('#security_alert').show();
+				}else{
+                    $('#security_alert').text("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+                    $('#security_alert').show();
+                    $('#security_no').val() = "";
+                    $('#security_no').focus();
+                    return;
+                }
+			})
+		},
+		error: function (error){
+			alert("인증문자 발송에 실패하였습니다. 다시 시도해주세요.");
+		}
+	});
+}
+/**
+ * 이름, 아이디 확인
+ * @return
+ * 
+ */
+
 
 	function doSendAuthKey() {
 		var phoneNumber1 = $('#sel_hand_tel1').val();
@@ -217,8 +263,8 @@
 
 							<div class="myinfo-wrap">
 								<div class="form">
-									<form name="frm" id="frm" action="/member/regStep2Proc"
-										method="post">
+									<form name="frm" id="frm" action="registMember.do" name="form1"
+										method="post" onsubmit="return checks()">
 										<input type="hidden" name="parent_email" id="parent_email">
 										<input type="hidden" name="dupInfo" id="dupInfo" value="">
 										<input type="hidden" name="connInfo" id="connInfo" value="">
@@ -231,7 +277,7 @@
 										<input type="hidden" name="hand_tel_agency"
 											id="hand_tel_agency"> <input type="hidden"
 											name="hand_tel1" id="hand_tel1"> <input type="hidden"
-											name="email" id="email"> <input type="hidden"
+											name="emaill" id="email"> <input type="hidden"
 											name="dm_fl" id="dm_fl" value="N"> <input
 											type="hidden" name="o_dm_fl" id="o_dm_fl" value="N">
 										<input type="hidden" name="ds_fl" id="ds_fl" value="N">
@@ -253,8 +299,12 @@
 											<dt class="center">이름</dt>
 											<dd>
 												<div class="form-item name">
+
 													<input type="text" placeholder="" id="username"
 														name="username" value="">
+
+													<input type="text" name="username" id="username">
+
 												</div>
 											</dd>
 										</dl>
@@ -263,10 +313,14 @@
 											<dt class="top">아이디</dt>
 											<dd>
 												<div class="form-item name">
+
 													<input type="text" name="userid" id="userid" maxlength="16"
 														placeholder="">
 													<button class="btn-type v7" id="idcheck" onClick="idck();">버튼</button>
 													
+
+													<input type="text" name="userid" id="userid" maxlength="16"> <a href="" id="checkIdBtn" class="btn-type v7" role="button" onclick="submit">중복확인</a>
+
 												</div>
 												
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
@@ -278,8 +332,7 @@
 											<dt class="center">비밀번호</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="password" id="password" name="password"
-														value="">
+													<input type="password" name="userpasswd" id="userpasswd">
 												</div>
 												<div class="text-type4" id="pwd_alert"
 													style="display: none;"></div>
@@ -290,8 +343,12 @@
 											<dt class="center">비밀번호 확인</dt>
 											<dd>
 												<div class="form-item name">
+
 													<input type="password" placeholder="" id="passwordChk"
 														name="passwordChk" value="">
+
+													<input type="password" placeholder="" id="passwordChk" name="passwordChk" value="">
+
 												</div>
 												<div class="text-type4" id="pwdChk_alert"
 													style="display: none;"></div>
@@ -305,19 +362,19 @@
 													<div class="form-item birth">
 														<div class="chk-wrap">
 															<div class="chk-box selected">
-																<input type="radio" name="birth_fl" id="birth_s"
-																	value="S" checked="checked"> <label
+																<input type="radio" name="cyear" id="birth_s"
+																	value="양력" checked="checked"> <label
 																	class="checkbox" for="birth_s"></label> <label
 																	for="birth_s">양력</label>
 															</div>
 															<div class="chk-box">
-																<input type="radio" name="birth_fl" id="birth_m"
-																	value="M"> <label class="checkbox"
+																<input type="radio" name="cyear" id="birth_m"
+																	value="음력"> <label class="checkbox"
 																	for="birth_m"></label> <label for="birth_m">음력</label>
 															</div>
 														</div>
 														<div class="select-type2">
-															<select name="byear" id="byear" class="selected">
+															<select name="birthday" id="cyear" class="selected">
 																<option value="">년</option>
 																<option value="2020">2020</option>
 																<option value="2019">2019</option>
@@ -444,7 +501,7 @@
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bmonth" id="bmonth" class="selected">
+															<select name="birthday" id="bmonth" class="selected">
 																<option>월</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -461,7 +518,7 @@
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bday" id="bday" class="selected">
+															<select name="birthday" id="bday" class="selected">
 																<option>일</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -511,6 +568,7 @@
 													<div class="form-item gender">
 														<div class="chk-wrap">
 															<div class="chk-box M">
+
 																<input type="radio" name="sex" id="sex_m" value="M"
 																	checked="checked"> <label class="checkbox"
 																	for="sex_m"></label> <label for="sex_m">남성</label>
@@ -519,6 +577,17 @@
 																<input type="radio" name="sex" id="sex_f" value="F">
 																<label class="checkbox" for="sex_f"></label> <label
 																	for="sex_f">여성</label>
+
+																<input type="radio" name="sex" value="M" id="sex_m"
+																	checked="checked" > <label
+																	class="checkbox" for="sex_m"></label> <label
+																	for="sex_m">남성</label>
+															</div>
+															<div class="chk-box F selected">
+																<input type="radio" name="sex" value="F" id="sex_f"
+																	> <label class="checkbox"
+																	for="sex_f"></label> <label for="sex_f">여성</label>
+
 															</div>
 														</div>
 														<div class="text-type4" id="gender_alert"
@@ -535,10 +604,16 @@
 												<div class="form-group v2">
 													<div class="form-item">
 														<div class="select-type2">
+
 															<input type="hidden" name="phoneCheck" id="phoneCheck"
 																value="N"> <select name="sel_hand_tel1"
 																id="sel_hand_tel1" title="휴대전화번호"
 																onChange="phoneCheckValChange()">
+
+															<input type="hidden" name="phone"
+																id="phoneCheck" value="N"> <select
+																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호" onChange="phoneCheckValChange()">
+
 																<option value="010">010</option>
 																<option value="011">011</option>
 																<option value="016">016</option>
@@ -583,11 +658,16 @@
 											<dt class="center">이메일</dt>
 											<dd>
 												<div class="form-group v2">
+
 													<div class="form-item e-mail">s
 														<input type="text" name="email1" id="email1"> <span>@</span>
+
+													<div class="form-item e-mail">
+														<input type="text" name="email" id="email1"><span>@</span>
+
 														<input type="text" name="email2" id="email2">
 														<div class="select-type2">
-															<select name="email3" id="email3"
+															<select name="email" id="email3"
 																onchange="checkEmailState($('#email3'),$('#email2'))">
 																<option value="naver.com">네이버</option>
 																<option value="hanmail.net">한메일</option>
@@ -664,14 +744,14 @@
 													<ul>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_ds_fl" name="chk_ds_fl"
+																<input type="checkbox" id="chk_ds_fl" name="receive_sms"
 																	value="Y"> <label class="checkbox"
 																	for="chk_ds_fl"></label> <label for="chk_ds_fl">문자메세지(선택)</label>
 															</div>
 														</li>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_dm_fl" name="chk_dm_fl"
+																<input type="checkbox" id="chk_dm_fl" name="receive_email"
 																	value="Y"> <label class="checkbox"
 																	for="chk_dm_fl"></label> <label for="chk_dm_fl">이메일(선택)</label>
 															</div>
@@ -679,7 +759,7 @@
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="chk_o_dm_fl"
-																	name="chk_o_dm_fl" value="Y"> <label
+																	name="receive_dm" value="Y"> <label
 																	class="checkbox" for="chk_o_dm_fl"></label> <label
 																	for="chk_o_dm_fl">DM 우편(최근 배달주소로 배송)(선택)</label>
 															</div>
@@ -689,12 +769,14 @@
 
 											</dd>
 										</dl>
+
+									<div class="btn-wrap">
+									<input type="submit" class="btn-type v6" value="가입하기" >
+									
+								</div>
 									</form>
 								</div>
 
-								<div class="btn-wrap">
-									<a href="javascript:checks()" class="btn-type v6">가입하기</a>
-								</div>
 							</div>
 						</div>
 					</article>
@@ -1591,7 +1673,8 @@
 					</div>
 					<p class="sub">가입하신 아이디로 다양한 혜택을 누려보세요.</p>
 					<div class="btn-wrap">
-						<a href="javaScript:doLogin();" class="btn-type1">로그인하러 가기</a>
+						<a onclick="javaScript:doLogin();" class="btn-type1" >로그인하러 가기</a>
+						<input type="submit" value="등록" >
 					</div>
 				</div>
 			</div>

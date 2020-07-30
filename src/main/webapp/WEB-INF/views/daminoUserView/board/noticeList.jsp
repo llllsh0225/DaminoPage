@@ -24,7 +24,16 @@
 <script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+<script type="text/javascript">
+	var countNoticeBoard=${countNoticeBoard}; //총 게시글
+	var countPerPage=15; //한페이지에 보여줄 게시글 수
+	var totalPage=countNoticeBoard/countPerPage; //총 페이지 수
+	var pageCount=5; // << 1 2 3 4 5 >> 
+	function gg(){
+		alert('총 게시글 수 : ' + countNoticeBoard + '\n한페이지 게시글 수 : ' 
+				+ countPerPage + '\n총 페이지 수 : ' + totalPage);
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -141,11 +150,11 @@
 										</div>
 										<div class="form-item">
 											<button type="button" class="btn-search"
-												onclick="fncSearch();">검색</button>
+												onclick="gg();">검색</button>
 										</div>
 									</div>
 									<div class="table-type3">
-										<p class="side">총 343건</p>
+										<p class="side">총 ${countNoticeBoard }건</p>
 										<table>
 											<caption>news</caption>
 											<colgroup>
@@ -179,24 +188,6 @@
 											href='javascript:;' class='pager-prev'>이전</a>
 										<ol>
 											<li><strong>1</strong></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(2); return false;'>2</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(3); return false;'>3</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(4); return false;'>4</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(5); return false;'>5</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(6); return false;'>6</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(7); return false;'>7</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(8); return false;'>8</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(9); return false;'>9</a></li>
-											<li><a href='javascript:;'
-												onclick='javascript:paging(10); return false;'>10</a></li>
 										</ol>
 										<a href='javascript:;' class='pager-next'>다음</a><a
 											href='javascript:;' class='pager-last'

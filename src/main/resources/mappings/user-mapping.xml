@@ -3,11 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="UserDAO">
-
+	<!-- 로그인 -->
 	<select id="getUser" resultType="user">
-		SELECT userid, userpasswd FROM logintest
+		SELECT userid, userpasswd FROM usermember
 		WHERE userid = #{userid} AND userpasswd = #{userpasswd}
 	</select>
+
 	
 	<select id="idcheck" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM testidcheck
@@ -15,3 +16,4 @@
 	</select>
 
 </mapper>
+
