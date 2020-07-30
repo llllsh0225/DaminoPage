@@ -30,6 +30,7 @@ public class NoticeBoardController {
 	@RequestMapping(value="/noticeDetail.do", method=RequestMethod.GET)
 	public ModelAndView getNoticeBoard(NoticeBoardVO vo) {
 		System.out.println("공지사항 상세");
+		noticeBoardService.increaseCnt(vo);//조회수 증가
 		NoticeBoardVO noticeBoard = noticeBoardService.getNoticeBoard(vo);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/noticeDetail");
