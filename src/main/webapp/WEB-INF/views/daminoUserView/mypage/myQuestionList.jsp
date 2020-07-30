@@ -482,7 +482,7 @@
 						<dd>
 							<div class="form-item">
 								<div class="select-type2">
-									<select id="sel" name="type_div1">
+									<select id="sel" name="qnaType">
 										<option value="">선택</option>
 										<option value="제품관련">제품관련</option>
 										<option value="배달서비스 관련">배달서비스 관련</option>
@@ -625,7 +625,7 @@ function changeBranch(region){
 function doReset(){
 	if(confirm("입력한 내용을 모두 지우고 다시 입력하시겠습니까?")){
 		document.q.reset();
-		$("#type_div1").focus();
+		$("#qnaType").focus();
 	}
 }
 
@@ -635,7 +635,7 @@ function proc(){
 	if(send){
 		alert('등록중 입니다.');
 	}else{
-		if($('#type_div1').val() == '') { alert('유형분류를 선택해주세요'); $('#type_div1').focus(); return;}
+		if($('#qnaType').val() == '') { alert('유형분류를 선택해주세요'); $('#qnaType').focus(); return;}
 		if($('#subject').val() == '') { alert('제목을 입력하세요'); $('#subject').focus(); return;}
 		if($('textarea[name=content]').val() == '') { alert('내용을 입력하세요.'); $('#content').focus(); return;}	
 		send = true;
