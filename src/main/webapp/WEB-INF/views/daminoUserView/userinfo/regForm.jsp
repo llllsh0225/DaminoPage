@@ -102,6 +102,37 @@ function doSendAuthKey(){
 	});
 }); */
 
+/* 로그인 중복 확인*/
+/* 1620 줄로 이동에서 실험해볼 수 있습니다.*/
+function idck() {
+	var userid = $("#useridtest").val();
+	$.ajax({
+		type : "POST",
+		data : JSON.stringify({
+			userid : userid,
+		}),
+		url : "idcheck.do",
+		dataType : "json",
+		contentType : "application/json; charset=UTF-8;",
+		success : function(data) {
+			if (data > 0) {
+				alert("아이디 중복");
+				$('#id_alert').text("중복사용이 되는 아이디입니다.");
+				$('#id_alert').show();
+				$('#id_alert').focus();
+				return;
+			} else {
+				alert("사용가능");
+				$('#id_alert').text("사용가능 아이디입니다.");
+				$('#id_alert').show();	
+			}
+		},
+		error : function(err) {
+			alert()
+		}
+	});
+}
+
 </script>
 </head>
 <div id="wrap">
@@ -1590,6 +1621,14 @@ function doSendAuthKey(){
 		</div>
 	</div>
 	<!-- //장바구니(e) -->
+	
+	<!-- id중복 체크 실험 -->
+	<div class="form-item name">
+		<input type="text" name="userid" id="useridtest" maxlength="16"
+			placeholder="">
+		<button class="btn-type v7" id="idcheck" onClick="idck();">버튼</button>
+	</div>
+
 
 	<footer id="footer">
 		<div class="footer-area">
