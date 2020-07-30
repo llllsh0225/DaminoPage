@@ -31,7 +31,7 @@
 	<insert id="qnaInsertBoard" parameterType="com.damino.web.user.board.QnaBoardVO">
 		INSERT INTO qnaboard (seq, writerId, title, phone, email, qnaType, content, storeRegion, storeName, result)
 		VALUES((select nvl(max(seq), 0)+1 from qnaboard), #{writerId},
-		#{title}, #{phone}, #{email}, #{qnaType}, #{content}, #{storeRegion}, #{branch_code}, '처리대기')
+		#{title}, #{phone}, #{email}, #{qnaType}, #{content}, #{storeRegion}, #{storeName}, '처리대기')
 	</insert>
 	
 	<delete id="qnaDeleteBoard" parameterType="com.damino.web.user.board.QnaBoardVO">
@@ -40,19 +40,24 @@
 	
 	<update id="qnaUpdateBoard" parameterType="com.damino.web.user.board.QnaBoardVO">
 		UPDATE qnaboard
-		SET title=#{title}, content=#{content} WHERE seq=#{seq}
+		SET result=#{result} WHERE seq=#{seq}
 	</update>
 	
-	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO">
+	<!-- <select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO">
 		SELECT seq, title, regdate, result FROM qnaboard ORDER BY seq desc
+	</select> -->
+	
+	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO">
+		<![CDATA[SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result FROM
+		(SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=? AND rnum<=?"]]>
 	</select>
 	
 	<select id="myQuestion" resultType="com.damino.web.user.board.QnaBoardVO">
 		SELECT * FROM qnaboard WHERE seq=#{seq}
 	</select>
 	
-	<select id="getQnaCount" resultType="com.damino.web.user.board.QnaBoardVO">
-		SELECT count(*) FROM qnaboard;
+	<select id="getQnaCount" resultType="int">
+		 SELECT count(*) FROM qnaboard
 	</select>
 	<!-- End 1:1 문의 게시판 -->
 	
@@ -65,6 +70,10 @@
 	
 	<select id="getNoticeBoard" resultType="com.damino.web.user.board.NoticeBoardVO">
       SELECT * FROM board WHERE seq=#{seq}
+   </select>
+   
+   <select id="countNoticeBoard" resultType="int">
+         SELECT COUNT(*) FROM board
    </select>
    
 </mapper>
