@@ -17,10 +17,19 @@ public class UserMemberDAOimpl implements UserMemberDAO{
 		System.out.println("UserMemberimpl registUserMember(vo)");
 		sqlSessionTemplate.insert("UserMemberDAO.registUserMember", vo);
 	}
+	
+	//중복체크
+	//id
+	@Override
+	public int idcheck(String userid) {
+		System.out.println("#DAO[id] : " + userid);
+		return sqlSessionTemplate.selectOne("UserMemberDAO.idcheck", userid);
+	}
 
 	@Override
 	public int emailcheck(String email) {
 		System.out.println("#DAO[email] : " + email);
 		return sqlSessionTemplate.selectOne("UserMemberDAO.emailcheck", email);
 	}
+	
 }

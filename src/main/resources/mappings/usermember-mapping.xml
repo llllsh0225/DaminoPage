@@ -9,6 +9,13 @@
 		VALUES (#{username}, #{userid}, #{userpasswd}, #{birthday}, #{sex}, #{cyear}, #{phone}, #{email}, #{receive_sms}, #{receive_email}, #{receive_dm}, 'REGULAR' )
 	</insert>
 	
+	<!-- id 중복 체크 -->
+	<select id="idcheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM usermember
+		WHERE userid = #{userid}
+	</select>
+
+	
 	<!-- 이메일 중복 체크 -->
 	<select id="emailcheck" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM usermember

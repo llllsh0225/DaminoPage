@@ -112,21 +112,22 @@
 		});
 
 	}
-
-	function idck() {
-		var userid = $("#useridtest").val();
+	
+	//id 중복체크
+	function idCheck() {
+		var userid = $("#userid").val();
 		$.ajax({
+			url : "idCheck.do",
 			type : "POST",
+			contentType : "application/json; charset=UTF-8;",
+			dataType : "json",
 			data : JSON.stringify({
 				userid : userid,
 			}),
-			url : "idcheck.do",
-			dataType : "json",
-			contentType : "application/json; charset=UTF-8;",
 			success : function(data) {
 				if (data > 0) {
 					alert("아이디 중복");
-					$('#id_alert').text("중복사용이 되는 아이디입니다.");
+					$('#id_alert').text("이미 사용중인 아이디입니다.");
 					$('#id_alert').show();
 					return;
 				} else {

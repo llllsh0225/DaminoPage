@@ -48,10 +48,22 @@ public class RegistServiceImpl implements RegistService {
 		}
 
 	}
-
+	
+	
+	//중복체크
+	//id
+	@Override
+	public int idcheck(String userid) {
+		System.out.println("#service[id] : " + userid);
+		return userMemberDAO.idcheck(userid);
+	}
+	
+	//email
 	@Override
 	public int emailcheck(String email) {
 		System.out.println("#service[email] : " + email);
 		return userMemberDAO.emailcheck(email);
 	}
+
+	
 }
