@@ -1,4 +1,4 @@
-package com.damino.web.admin.homepage.user;
+package com.damino.web.admin.user;
 
 public class UsersVO {
 

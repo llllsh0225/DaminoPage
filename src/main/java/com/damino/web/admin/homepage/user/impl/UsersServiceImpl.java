@@ -1,13 +1,13 @@
-package com.damino.web.admin.homepage.user.impl;
+package com.damino.web.admin.user.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.damino.web.admin.homepage.user.UsersDAO;
-import com.damino.web.admin.homepage.user.UsersService;
-import com.damino.web.admin.homepage.user.UsersVO;
+import com.damino.web.admin.user.UsersDAO;
+import com.damino.web.admin.user.UsersService;
+import com.damino.web.admin.user.UsersVO;
 
 @Service("usersService")
 public class UsersServiceImpl implements UsersService{
