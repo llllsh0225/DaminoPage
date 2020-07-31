@@ -99,6 +99,17 @@ public class RegistController {
 	}
 	
 	// ID중복체크 ( loginController 에서 옮길 예정 )
+	@RequestMapping(value ="/idCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int idcheck(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+		int cnt_id = 0;
+		String userid = (String)params.get("userid");
+		System.out.println("#Controller[id] : "+ userid);
+		
+		cnt_id = registService.idcheck(userid);
+		System.out.println("[cnt_id] :"+ cnt_id);// --- 중복일경우  1 , 사용가능 0 ---
+		return cnt_id;
+	}
 	
 	// 이메일 중복체크
 	@RequestMapping(value ="/emailCheck.do", method = RequestMethod.POST)
