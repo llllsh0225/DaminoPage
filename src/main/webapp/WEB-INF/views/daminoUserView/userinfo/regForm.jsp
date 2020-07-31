@@ -78,29 +78,38 @@
 
 	// 구현중
 	function doCheckEmail() {
-		//받은 값을 합침.
+		// email1 : @앞부분 , email2 : @뒷부분(naver.com)
 		var chkEmail1 = $('#email1').val();
 		var chkEmail2 = $('#email2').val();
 		var golbang = "@";
 		var chkEmail = chkEmail1.concat(golbang, chkEmail2);
 
 		alert(chkEmail); //확인용
-
 		$.ajax({
 			url : "emailCheck.do",
 			type : "POST",
 			contentType : "application/json; charset=utf-8;",
 			dataType : "json",
 			data : JSON.stringify({
-				chkEmail : chkEamil
+				chkEmail : chkEmail,
 			}),
-			success : function() {
-
+			success : function(data) {
+				if (data > 0) {
+					alert("이미 사용중인 이메일입니다.");
+					$('#email_alert').text("이미 사용중인 이메일입니다.");
+					$('#email_alert').show();
+					return;
+				} else {
+					alert("사용가능한 이메일입니다.");
+					$('#email_alert').text("사용가능한 이메일입니다..");
+					$('#email_alert').show();
+				}
 			},
-			error : function() {
-
+			error : function(err) {
+				alert("실패!");
 			}
 		});
+
 	}
 
 	function idck() {
@@ -118,7 +127,6 @@
 					alert("아이디 중복");
 					$('#id_alert').text("중복사용이 되는 아이디입니다.");
 					$('#id_alert').show();
-					$('#id_alert').focus();
 					return;
 				} else {
 					alert("사용가능");
@@ -127,7 +135,7 @@
 				}
 			},
 			error : function(err) {
-				alert()
+				alert("실패!");
 			}
 		});
 	}
@@ -583,7 +591,7 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all" name="agree_all"
-															value="Y" class="all-check" onclick="termsOneAllCheck()"> <label
+															value="Y" class="all-check"> <label
 															class="checkbox" for="agree_all"></label> <label
 															for="agree_all">전체 동의하기</label>
 													</div>
@@ -629,7 +637,7 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all2" name="agreeType1"
-															class="all-check2" onclick="termsTwoAllCheck()"> <label class="checkbox"
+															class="all-check2"> <label class="checkbox"
 															for="agree_all2"></label> <label for="all1">전체
 															동의하기</label>
 													</div>

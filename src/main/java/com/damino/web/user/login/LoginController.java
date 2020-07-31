@@ -58,15 +58,7 @@ public class LoginController {
 		
 		count = loginService.idcheck(userid);
 		System.out.println("count : "+ count);
-
 		return count;
 	}
 
-//	@RequestMapping(value = "/checkSignup.do", method = RequestMethod.POST)
-//	public String checkSignup(HttpServletRequest request, Model model) {
-//		String id = request.getParameter("id");
-//		int rowcount = loginService.checkSignup(vo);
-//		
-//		return String.valueOf(rowcount);
-//	}
 }

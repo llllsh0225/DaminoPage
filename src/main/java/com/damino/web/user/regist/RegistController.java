@@ -6,7 +6,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -98,4 +97,21 @@ public class RegistController {
 
 		return authKey;
 	}
+	
+	// ID중복체크 ( loginController 에서 옮길 예정 )
+	
+	// 이메일 중복체크
+	@RequestMapping(value ="/emailCheck.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int emailcheck(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+		int cnt_email = 0;
+		String email = (String)params.get("chkEmail");
+		System.out.println("#Controller[email] : "+ email);
+		
+		cnt_email = registService.emailcheck(email);
+		System.out.println("[cnt_email] :"+ cnt_email);// --- 중복일경우  1 , 사용가능 0 ---
+		return cnt_email;
+	}
+	
+	
 }
