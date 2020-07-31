@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="UsersDAO">
-	<select id="getUsersList" resultType="com.damino.web.admin.homepage.user.UsersVO">
+	<select id="getUsersList" resultType="com.damino.web.admin.homepage.member.HomepageAdminMemVO">
 		SELECT username, userid, userpasswd, birthday, sex, cyear, phone, email, receive_sms, receive_email, receive_dm, userlevel
 		from usermember
 	</select>
