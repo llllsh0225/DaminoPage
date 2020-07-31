@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.damino.web.user.board.NoticeBoardDAO;
 import com.damino.web.user.board.NoticeBoardVO;
-import com.damino.web.user.board.NoticePagingVO;
+import com.damino.web.user.board.paging.Paging;
 
 @Repository("noticeBoardDAO")
 public class NoticeBoardDAOImpl implements NoticeBoardDAO {
@@ -17,16 +17,16 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 	
 	//공지사항 전체목록
 	@Override
-	public List<NoticeBoardVO> getNoticeBoardList(NoticePagingVO vo) {
-		System.out.println("NoticeBoardDAOImpl getNoticeBoardList(vo)");
-		return sqlSessionTemplate.selectList("BoardDAO.getNoticeBoardList", vo);
+	public List<NoticeBoardVO> getNoticeBoardList(Paging pa) {
+		System.out.println("NoticeBoardDAOImpl getNoticeBoardList(pa)");
+		return sqlSessionTemplate.selectList("BoardDAO.getBoardList", pa);
 	}
 	
 	//공지사항 상세보기
 	@Override
 	public NoticeBoardVO getNoticeBoard(NoticeBoardVO vo) {
 		System.out.println("NoticeBoardDAOImpl getNoticeBoard(vo)");
-		return sqlSessionTemplate.selectOne("BoardDAO.noticePaging", vo);
+		return sqlSessionTemplate.selectOne("BoardDAO.getNoticeBoard", vo);
 	}
 	
 	//공지사항 전체 게시글 수 
