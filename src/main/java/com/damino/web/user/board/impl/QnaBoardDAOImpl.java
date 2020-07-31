@@ -36,12 +36,7 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 		sqlSessionTemplate.delete("BoardDAO.qnaDeleteBoard", vo);
 	}
 	
-	/*
-	 * @Override public List<QnaBoardVO> myQuestionList(){
-	 * System.out.println("QnaBoardDAOImpl myQuestionList()"); return
-	 * sqlSessionTemplate.selectList("BoardDAO.myQuestionList"); }
-	 */
-
+	
 	@Override
 	public QnaBoardVO myQuestion(QnaBoardVO vo) {
 		System.out.println("QnaBoardDAOImpl myQuestion(vo)");
@@ -59,13 +54,19 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 		System.out.println("QnaBoardDAOImpl myQuestionList(Paging pa)");
 		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList", pa);
 	}
-
+	
+	/**
+	 * 관리자 권한 접속 - 전체 리스트 조회
+	 * */
 	@Override
 	public List<QnaBoardVO> myQuestionList_adm(Paging pa) throws Exception {
 		System.out.println("QnaBoardDAOImpl myQuestionList_adm(Paging pa)");
 		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList_adm", pa);
 	}
 	
+	/**
+	 * 관리자 권한 접속 - 처리대기 목록 조회 버튼 클릭 시 동작
+	 * */
 	@Override
 	public List<QnaBoardVO> myQuestionList_adm_notComplete(Paging pa) throws Exception {
 		System.out.println("QnaBoardDAOImpl myQuestionList_adm_notComplete(Paging pa)");

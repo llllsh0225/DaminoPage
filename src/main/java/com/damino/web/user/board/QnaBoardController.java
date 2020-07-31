@@ -29,6 +29,9 @@ public class QnaBoardController {
 		
 		//1:1 문의게시판 페이징처리
 		
+		String currentPage = request.getParameter("pageNo");
+		System.out.println(currentPage);
+		
 		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList(pa);
 		System.out.println(boardList.toString());
 		
