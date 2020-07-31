@@ -23,7 +23,7 @@ public class QnaBoardController {
 	
 	@RequestMapping(value = "/myquestionlist.do", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, QnaBoardVO vo, Paging pa) throws Throwable{
+	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
 		System.out.println("내 질문내역 1:1 열기");
 		
 		pa.setWriterId("userid");
