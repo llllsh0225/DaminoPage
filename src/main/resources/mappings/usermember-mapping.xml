@@ -8,6 +8,12 @@
 		INSERT INTO usermember (username, userid, userpasswd, birthday, sex, cyear, phone, email, receive_sms, receive_email, receive_dm, userlevel) 
 		VALUES (#{username}, #{userid}, #{userpasswd}, #{birthday}, #{sex}, #{cyear}, #{phone}, #{email}, #{receive_sms}, #{receive_email}, #{receive_dm}, 'REGULAR' )
 	</insert>
+	
+	<!-- 이메일 중복 체크 -->
+	<select id="emailcheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM usermember
+		WHERE email = #{email}
+	</select>
 </mapper>
 
 

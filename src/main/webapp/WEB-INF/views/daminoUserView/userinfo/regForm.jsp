@@ -78,29 +78,39 @@
 
 	// 구현중
 	function doCheckEmail() {
-		//받은 값을 합침.
+		// email1 : @앞부분 , email2 : @뒷부분(naver.com)
 		var chkEmail1 = $('#email1').val();
 		var chkEmail2 = $('#email2').val();
 		var golbang = "@";
 		var chkEmail = chkEmail1.concat(golbang, chkEmail2);
 
 		alert(chkEmail); //확인용
-
+		
 		$.ajax({
 			url : "emailCheck.do",
 			type : "POST",
 			contentType : "application/json; charset=utf-8;",
 			dataType : "json",
 			data : JSON.stringify({
-				chkEmail : chkEamil
+				chkEmail : chkEmail,
 			}),
-			success : function() {
-
+			success : function(data) {
+				if (data > 0) {
+					alert("이미 사용중인 이메일입니다.");
+					$('#email_alert').text("이미 사용중인 이메일입니다.");
+					$('#email_alert').show();
+					return;
+				} else {
+					alert("사용가능한 이메일입니다.");
+					$('#email_alert').text("사용가능한 이메일입니다..");
+					$('#email_alert').show();
+				}
 			},
-			error : function() {
-
+			error : function(err) {
+				alert("실패!");
 			}
 		});
+
 	}
 
 	function idck() {
@@ -118,7 +128,6 @@
 					alert("아이디 중복");
 					$('#id_alert').text("중복사용이 되는 아이디입니다.");
 					$('#id_alert').show();
-					$('#id_alert').focus();
 					return;
 				} else {
 					alert("사용가능");
@@ -127,7 +136,7 @@
 				}
 			},
 			error : function(err) {
-				alert()
+				alert("실패!");
 			}
 		});
 	}
@@ -241,8 +250,7 @@
 											<dd>
 												<div class="form-item name">
 													<input type="text" name="userid" id="userid" maxlength="16">
-													<a href="" id="checkIdBtn" class="btn-type v7"
-														role="button" onclick="submit">중복확인</a>
+													<a href="javascript:idCheck();" class="btn-type v7" >중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
 											</dd>
@@ -667,7 +675,7 @@
 											<input type="submit" class="btn-type v6" value="가입하기" />
 
 										</div>
-									</form>
+									</form><!-- --------------------------------------------------form end -->
 								</div>
 
 							</div>
@@ -1601,15 +1609,6 @@
 		</div>
 	</div>
 	<!-- //장바구니(e) -->
-
-	<div>임시- 아이디 중복확인</div>
-	<div class="form-item name">
-		<input type="text" name="userid" id="useridtest" maxlength="16"
-			placeholder="">
-		<button class="btn-type v7" id="idcheck" onClick="idck();">버튼</button>
-	</div>
-
-
 
 	<footer id="footer">
 		<div class="footer-area">

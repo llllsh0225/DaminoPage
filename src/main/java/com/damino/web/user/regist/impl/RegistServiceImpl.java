@@ -48,4 +48,10 @@ public class RegistServiceImpl implements RegistService {
 		}
 
 	}
+
+	@Override
+	public int emailcheck(String email) {
+		System.out.println("#service[email] : " + email);
+		return userMemberDAO.emailcheck(email);
+	}
 }
