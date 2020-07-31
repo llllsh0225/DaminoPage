@@ -47,4 +47,10 @@ public class MenuDAOImpl implements MenuDAO {
 		return sqlSessionTemplate.selectList("MenuDAO.getPizzaList");
 	}
 
+	@Override
+	public int countPizzaBoard() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
