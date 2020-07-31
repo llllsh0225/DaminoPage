@@ -583,7 +583,7 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all" name="agree_all"
-															value="Y" class="all-check"> <label
+															value="Y" class="all-check" onclick="termsOneAllCheck()"> <label
 															class="checkbox" for="agree_all"></label> <label
 															for="agree_all">전체 동의하기</label>
 													</div>
@@ -629,7 +629,7 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all2" name="agreeType1"
-															class="all-check2"> <label class="checkbox"
+															class="all-check2" onclick="termsTwoAllCheck()"> <label class="checkbox"
 															for="agree_all2"></label> <label for="all1">전체
 															동의하기</label>
 													</div>
