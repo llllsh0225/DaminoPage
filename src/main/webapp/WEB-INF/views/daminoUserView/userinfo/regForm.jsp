@@ -31,77 +31,106 @@
 <!-- 회원가입 관련 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
-	
+
 <script>
+	function phoneCheckValChange() {
+		$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
+	}
 
-function phoneCheckValChange(){ 
-	$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
-}
+	function doSendAuthKey() {
+		var phoneNumber1 = $('#sel_hand_tel1').val();
+		var phoneNumber2 = $('#hand_tel2').val();
+		var phoneNumber3 = $('#hand_tel3').val();
+		var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
 
-function doSendAuthKey(){
-	var phoneNumber1 = $('#sel_hand_tel1').val();
-	var phoneNumber2 = $('#hand_tel2').val();
-	var phoneNumber3 = $('#hand_tel3').val();
-	var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
-	
-	$.ajax({
-		type : "POST",
-		url : "sendAuthKey.do",
-		dataType : "json",
-		contentType: "application/json; charset=utf-8;",
-		data : JSON.stringify({
-			phoneNumber : phoneNumber,
-		}),
-		success : function(res){
-			alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
-			$('#btn_AuthKeyConfirm').click(function(){
-				alert("인증번호 입력");
-				if($.trim(res) == $('#security_no').val()){
-					$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
-                    $('#security_alert').text("휴대폰 인증이 완료되었습니다.");
-                    $('#security_alert').show();
-				}else{
-                    $('#security_alert').text("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
-                    $('#security_alert').show();
-                    $('#security_no').val() = "";
-                    $('#security_no').focus();
-                    return;
-                }
-			})
-		},
-		error: function (error){
-			alert("인증문자 발송에 실패하였습니다. 다시 시도해주세요.");
-		}
-	});
-}
-/**
- * 이름, 아이디 확인
- * @return
- * 
- */
-
-
-//아이디 중복조회(구현  시도중)
-/* $(document).ready(function(){
-	$('#checkIdBtn').on('click', function(){
 		$.ajax({
-			type: 'POST',
-			url: 'checkSignup.do',
-			data: {
-				"id" : $('#id').val() 
-			}, 
-			success: function(data){ 
-				if($.trim(data) == 0){ 
-					$('#checkMsg').html('<p style="color:blue">사용가능</p>');
-				} 
-				else{ 
-					$('#checkMsg').html('<p style="color:red">사용불가능</p>'); 
-				}
+			type : "POST",
+			url : "sendAuthKey.do",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8;",
+			data : JSON.stringify({
+				phoneNumber : phoneNumber,
+			}),
+			success : function(res) {
+				alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
+				$('#btn_AuthKeyConfirm').click(
+						function() {
+							alert("인증번호 입력");
+							if ($.trim(res) == $('#security_no').val()) {
+								$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
+								$('#security_alert').text("휴대폰 인증이 완료되었습니다.");
+								$('#security_alert').show();
+							} else {
+								$('#security_alert').text(
+										"인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+								$('#security_alert').show();
+								$('#security_no').val() = "";
+								$('#security_no').focus();
+								return;
+							}
+						})
+			},
+			error : function(error) {
+				alert("인증문자 발송에 실패하였습니다. 다시 시도해주세요.");
 			}
 		});
-	});
-}); */
+	}
 
+	// 구현중
+	function doCheckEmail() {
+		//받은 값을 합침.
+		var chkEmail1 = $('#email1').val();
+		var chkEmail2 = $('#email2').val();
+		var golbang = "@";
+		var chkEmail = chkEmail1.concat(golbang, chkEmail2);
+
+		alert(chkEmail); //확인용
+
+		$.ajax({
+			url : "emailCheck.do",
+			type : "POST",
+			contentType : "application/json; charset=utf-8;",
+			dataType : "json",
+			data : JSON.stringify({
+				chkEmail : chkEamil
+			}),
+			success : function() {
+
+			},
+			error : function() {
+
+			}
+		});
+	}
+
+	function idck() {
+		var userid = $("#useridtest").val();
+		$.ajax({
+			type : "POST",
+			data : JSON.stringify({
+				userid : userid,
+			}),
+			url : "idcheck.do",
+			dataType : "json",
+			contentType : "application/json; charset=UTF-8;",
+			success : function(data) {
+				if (data > 0) {
+					alert("아이디 중복");
+					$('#id_alert').text("중복사용이 되는 아이디입니다.");
+					$('#id_alert').show();
+					$('#id_alert').focus();
+					return;
+				} else {
+					alert("사용가능");
+					$('#id_alert').text("사용가능 아이디입니다.");
+					$('#id_alert').show();
+				}
+			},
+			error : function(err) {
+				alert()
+			}
+		});
+	}
 </script>
 </head>
 <div id="wrap">
@@ -209,29 +238,34 @@ function doSendAuthKey(){
 											<dt class="top">아이디</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" name="userid" id="userid" maxlength="16"> <a href="" id="checkIdBtn" class="btn-type v7" role="button" onclick="submit">중복확인</a>
+													<input type="text" name="userid" id="userid" maxlength="16">
+													<a href="" id="checkIdBtn" class="btn-type v7"
+														role="button" onclick="submit">중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
 											</dd>
 										</dl>
-										
+
 										<dl>
 											<dt class="center">비밀번호</dt>
 											<dd>
 												<div class="form-item name">
 													<input type="password" name="userpasswd" id="userpasswd">
 												</div>
-												<div class="text-type4" id="pwd_alert" style="display: none;"></div>
+												<div class="text-type4" id="pwd_alert"
+													style="display: none;"></div>
 											</dd>
 										</dl>
-										
+
 										<dl>
 											<dt class="center">비밀번호 확인</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="password" placeholder="" id="passwordChk" name="passwordChk" value="">
+													<input type="password" placeholder="" id="passwordChk"
+														name="passwordChk" value="">
 												</div>
-												<div class="text-type4" id="pwdChk_alert" style="display: none;"></div>
+												<div class="text-type4" id="pwdChk_alert"
+													style="display: none;"></div>
 											</dd>
 										</dl>
 
@@ -242,15 +276,14 @@ function doSendAuthKey(){
 													<div class="form-item birth">
 														<div class="chk-wrap">
 															<div class="chk-box selected">
-																<input type="radio" name="cyear" id="birth_s"
-																	value="양력" checked="checked"> <label
-																	class="checkbox" for="birth_s"></label> <label
-																	for="birth_s">양력</label>
+																<input type="radio" name="cyear" id="birth_s" value="양력"
+																	checked="checked"> <label class="checkbox"
+																	for="birth_s"></label> <label for="birth_s">양력</label>
 															</div>
 															<div class="chk-box">
-																<input type="radio" name="cyear" id="birth_m"
-																	value="음력"> <label class="checkbox"
-																	for="birth_m"></label> <label for="birth_m">음력</label>
+																<input type="radio" name="cyear" id="birth_m" value="음력">
+																<label class="checkbox" for="birth_m"></label> <label
+																	for="birth_m">음력</label>
 															</div>
 														</div>
 														<div class="select-type2">
@@ -449,14 +482,13 @@ function doSendAuthKey(){
 														<div class="chk-wrap">
 															<div class="chk-box M">
 																<input type="radio" name="sex" value="M" id="sex_m"
-																	checked="checked" > <label
-																	class="checkbox" for="sex_m"></label> <label
-																	for="sex_m">남성</label>
+																	checked="checked"> <label class="checkbox"
+																	for="sex_m"></label> <label for="sex_m">남성</label>
 															</div>
 															<div class="chk-box F selected">
-																<input type="radio" name="sex" value="F" id="sex_f"
-																	> <label class="checkbox"
-																	for="sex_f"></label> <label for="sex_f">여성</label>
+																<input type="radio" name="sex" value="F" id="sex_f">
+																<label class="checkbox" for="sex_f"></label> <label
+																	for="sex_f">여성</label>
 															</div>
 														</div>
 														<div class="text-type4" id="gender_alert"
@@ -473,9 +505,10 @@ function doSendAuthKey(){
 												<div class="form-group v2">
 													<div class="form-item">
 														<div class="select-type2">
-															<input type="hidden" name="phone"
-																id="phoneCheck" value="N"> <select
-																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호" onChange="phoneCheckValChange()">
+															<input type="hidden" name="phone" id="phoneCheck"
+																value="N"> <select name="sel_hand_tel1"
+																id="sel_hand_tel1" title="휴대전화번호"
+																onChange="phoneCheckValChange()">
 																<option value="010">010</option>
 																<option value="011">011</option>
 																<option value="016">016</option>
@@ -486,9 +519,11 @@ function doSendAuthKey(){
 														</div>
 
 														<input type="text" name="hand_tel2" id="hand_tel2"
-															maxlength="4" class="i_text" title="휴대전화번호" onChange="phoneCheckValChange()"> <input
+															maxlength="4" class="i_text" title="휴대전화번호"
+															onChange="phoneCheckValChange()"> <input
 															type="text" name="hand_tel3" id="hand_tel3" maxlength="4"
-															class="i_text" title="휴대전화번호" onChange="phoneCheckValChange()"> <a
+															class="i_text" title="휴대전화번호"
+															onChange="phoneCheckValChange()"> <a
 															href="javascript:doSendAuthKey();" id="btn_sendAuthchk"
 															class="btn-type v7">인증요청</a>
 													</div>
@@ -504,7 +539,9 @@ function doSendAuthKey(){
 												<div class="form-group2">
 													<div class="form-item number">
 														<input type="text" name="security_no" id="security_no"
-															placeholder="인증번호 4자리" maxlength="20"> <Button type="button" id="btn_AuthKeyConfirm" class="btn-type v4">인증하기</button>
+															placeholder="인증번호 4자리" maxlength="20">
+														<Button type="button" id="btn_AuthKeyConfirm"
+															class="btn-type v4">인증하기</button>
 													</div>
 													<div class="text-type4" id="security_alert"
 														style="display: none;"></div>
@@ -552,7 +589,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_2" id="agree_2"
-																	value="Y" > <label class="checkbox"
+																	value="Y"> <label class="checkbox"
 																	for="agree_2"></label> <label for="agree_2">개인정보
 																	수집 및 이용 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p2'})"
@@ -562,7 +599,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_1" id="agree_1"
-																	value="Y" > <label class="checkbox"
+																	value="Y"> <label class="checkbox"
 																	for="agree_1"></label> <label for="agree_1">이용약관
 																	동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms'})"
@@ -572,7 +609,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="location_yn"
-																	name="location_yn" value="Y" > <label
+																	name="location_yn" value="Y"> <label
 																	class="checkbox" for="location_yn"></label> <label
 																	for="location_yn">위치기반 서비스 약관 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p4'})"
@@ -597,19 +634,23 @@ function doSendAuthKey(){
 													<ul>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_ds_fl" name="receive_sms" value="Y"> <label class="checkbox"
+																<input type="checkbox" id="chk_ds_fl" name="receive_sms"
+																	value="Y"> <label class="checkbox"
 																	for="chk_ds_fl"></label> <label for="chk_ds_fl">문자메세지(선택)</label>
 															</div>
 														</li>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_dm_fl" name="receive_email" value="Y"> <label class="checkbox"
-																	for="chk_dm_fl"></label> <label for="chk_dm_fl">이메일(선택)</label>
+																<input type="checkbox" id="chk_dm_fl"
+																	name="receive_email" value="Y"> <label
+																	class="checkbox" for="chk_dm_fl"></label> <label
+																	for="chk_dm_fl">이메일(선택)</label>
 															</div>
 														</li>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_o_dm_fl" name="receive_dm" value="Y"> <label
+																<input type="checkbox" id="chk_o_dm_fl"
+																	name="receive_dm" value="Y"> <label
 																	class="checkbox" for="chk_o_dm_fl"></label> <label
 																	for="chk_o_dm_fl">DM 우편(최근 배달주소로 배송)(선택)</label>
 															</div>
@@ -620,10 +661,10 @@ function doSendAuthKey(){
 											</dd>
 										</dl>
 
-									<div class="btn-wrap">
-									<input type="submit" class="btn-type v6" value="가입하기" />
-									
-									</div>
+										<div class="btn-wrap">
+											<input type="submit" class="btn-type v6" value="가입하기" />
+
+										</div>
 									</form>
 								</div>
 
@@ -1302,7 +1343,7 @@ function doSendAuthKey(){
 									<li><strong><em>제2조</em> 이용약관의 효력 및 변경</strong>
 										<ol>
 											<li>(1) 본 약관은 서비스를 신청한 이용자 또는 개인위치정보주체가 본 약관에 동의하고 회사가
-  												정한 소정의 절차에 따라 서비스의 이용자로 등록함으로써 효력이 발생합니다.</li>
+												정한 소정의 절차에 따라 서비스의 이용자로 등록함으로써 효력이 발생합니다.</li>
 											<li>(2) 이용자가 온라인에서 본 약관의 "동의하기" 버튼을 클릭하였을 경우 본 약관의 내용을
 												모두 읽고 이를 충분히 이해하였으며, 적용에 동의한 것으로 봅니다.</li>
 											<li>(3) 회사는 서비스에 새로운 업무 적용, 정부에 의한 시정명령의 이행 및 기타 회사의 업무상
@@ -1523,8 +1564,8 @@ function doSendAuthKey(){
 					</div>
 					<p class="sub">가입하신 아이디로 다양한 혜택을 누려보세요.</p>
 					<div class="btn-wrap">
-						<a onclick="javaScript:doLogin();" class="btn-type1" >로그인하러 가기</a>
-						<input type="submit" value="등록" >
+						<a onclick="javaScript:doLogin();" class="btn-type1">로그인하러 가기</a>
+						<input type="submit" value="등록">
 					</div>
 				</div>
 			</div>
@@ -1558,6 +1599,15 @@ function doSendAuthKey(){
 		</div>
 	</div>
 	<!-- //장바구니(e) -->
+
+	<div>임시- 아이디 중복확인</div>
+	<div class="form-item name">
+		<input type="text" name="userid" id="useridtest" maxlength="16"
+			placeholder="">
+		<button class="btn-type v7" id="idcheck" onClick="idck();">버튼</button>
+	</div>
+
+
 
 	<footer id="footer">
 		<div class="footer-area">
