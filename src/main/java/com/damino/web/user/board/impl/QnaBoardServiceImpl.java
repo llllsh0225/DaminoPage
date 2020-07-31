@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.damino.web.user.board.QnaBoardDAO;
 import com.damino.web.user.board.QnaBoardService;
 import com.damino.web.user.board.QnaBoardVO;
+import com.damino.web.user.board.paging.Paging;
 
 @Service("qnaBoardService")
 public class QnaBoardServiceImpl implements QnaBoardService {
@@ -40,10 +41,23 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		return qnaBoardDAO.myQuestion(vo);
 	}
 
+	/*
+	 * @Override public List<QnaBoardVO> myQuestionList() {
+	 * System.out.println("QnaBoardServiceImpl myQuestionList()"); return
+	 * qnaBoardDAO.myQuestionList(); }
+	 */
+	
+
 	@Override
-	public List<QnaBoardVO> myQuestionList() {
+	public int getQnaCount() throws Exception {
+		System.out.println("QnaBoardServiceImpl getQnaCount()");
+		return qnaBoardDAO.getQnaCount();
+	}
+
+	@Override
+	public List<QnaBoardVO> myQuestionList(Paging pa) throws Exception {
 		System.out.println("QnaBoardServiceImpl myQuestionList()");
-		return qnaBoardDAO.myQuestionList();
+		return qnaBoardDAO.myQuestionList(pa);
 	}
 
 

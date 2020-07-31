@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.damino.web.user.board.QnaBoardDAO;
 import com.damino.web.user.board.QnaBoardVO;
+import com.damino.web.user.board.paging.Paging;
 
 
 @Repository("qnaBoardDAO")
@@ -35,11 +36,11 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 		sqlSessionTemplate.delete("BoardDAO.qnaDeleteBoard", vo);
 	}
 	
-	@Override
-	public List<QnaBoardVO> myQuestionList(){
-		System.out.println("QnaBoardDAOImpl myQuestionList()");
-		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList");
-	}
+	/*
+	 * @Override public List<QnaBoardVO> myQuestionList(){
+	 * System.out.println("QnaBoardDAOImpl myQuestionList()"); return
+	 * sqlSessionTemplate.selectList("BoardDAO.myQuestionList"); }
+	 */
 
 	@Override
 	public QnaBoardVO myQuestion(QnaBoardVO vo) {
@@ -48,9 +49,15 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	}
 
 	@Override
-	public int getArticleCount() {
-		System.out.println("QnaBoardDAOImpl getArticleCount()");
+	public int getQnaCount() throws Exception{
+		System.out.println("QnaBoardDAOImpl getQnaCount()");
 		return sqlSessionTemplate.selectOne("BoardDAO.getQnaCount");
+	}
+
+	@Override
+	public List<QnaBoardVO> myQuestionList(Paging pa) throws Exception {
+		System.out.println("QnaBoardDAOImpl myQuestionList(Paging pa)");
+		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList", pa);
 	}
 	
 
