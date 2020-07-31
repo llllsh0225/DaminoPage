@@ -1,5 +1,7 @@
 package com.damino.web.admin.menu.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,6 +39,12 @@ public class MenuDAOImpl implements MenuDAO {
 	public void insertTopping(ToppingVO vo) {
 		System.out.println("토핑 메뉴 정보 등록");
 		sqlSessionTemplate.insert("MenuDAO.insertTopping", vo);
+	}
+
+	@Override
+	public List<PizzaVO> getPizzaList() {
+		System.out.println("피자 메뉴 가져오기");
+		return sqlSessionTemplate.selectList("MenuDAO.getPizzaList");
 	}
 
 }

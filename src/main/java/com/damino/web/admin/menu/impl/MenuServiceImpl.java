@@ -1,5 +1,7 @@
 package com.damino.web.admin.menu.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,12 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void insertTopping(ToppingVO vo) {
 		menuDAO.insertTopping(vo);
+	}
+
+	@Override
+	public List<PizzaVO> getPizzaList() {
+		System.out.println("MenuServiceImpl getPizzaList()");
+		return menuDAO.getPizzaList();
 	}
 
 }

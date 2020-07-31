@@ -2,6 +2,7 @@ package com.damino.web.admin.menu;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -115,6 +116,17 @@ public class MenuController {
 		menuService.insertTopping(vo);
 		mav.setViewName("/menu/menuList");
 		
+		return mav;
+	}
+	
+	@RequestMapping(value="/menuList.admdo")
+	public ModelAndView getPizzaList() {
+		System.out.println("피자 목록");
+		List<PizzaVO> pizzaList = menuService.getPizzaList();
+		System.out.println(pizzaList.toString());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuList");
+		mav.addObject("pizzaList", pizzaList);
 		return mav;
 	}
 }

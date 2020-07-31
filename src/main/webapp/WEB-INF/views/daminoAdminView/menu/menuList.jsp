@@ -205,29 +205,20 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="pizza" items="${pizzaList }">
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">1</td>
-											<td><a href="#">핫치킨(오리지널L)</a></td>
-											<td class="center-group">피자</td>
-											<td class="center-group">클래식</td>
-											<td class="center-group">27,900</td>
+											<td><a href="#">${pizza.p_name }</a></td>
+											<td class="center-group">${pizza.p_code }</td>
+											<td class="center-group">${pizza.p_type }</td>
+											<td class="center-group">${pizza.p_price }</td>
 											<td class="center-group"><input type="button"
 												class="btn btn-delete" value="수정" /></td>
 											<td class="center-group"><input type="button"
 												class="btn btn-danger" value="삭제" /></td>
 										</tr>
-										<tr>
-											<td class="center-group">2</td>
-											<td><a href="#">핫치킨(오리지널M)</a></td>
-											<td class="center-group">피자</td>
-											<td class="center-group">클래식</td>
-											<td class="center-group">21,000</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

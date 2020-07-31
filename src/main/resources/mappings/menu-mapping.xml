@@ -36,4 +36,10 @@
 		VALUES ('T'||LPAD(topping_seq.nextval, 3, '0'), #{t_name}, #{t_type}, #{t_price}, #{t_image})
 	</insert>
 
+	<select id="getPizzaList" 
+		resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT P_CODE, P_NAME, P_TYPE, P_PRICE
+		FROM PIZZA 
+	</select>
+
 </mapper>
