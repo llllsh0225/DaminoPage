@@ -44,7 +44,7 @@
 	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO" parameterType="com.damino.web.user.board.paging.Paging">
 		<![CDATA[
 		SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result
-		FROM (SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		FROM (SELECT * FROM qnaboard WHERE writerId=#{writerId} ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
 		]]>
 	</select>
 	<!--  <![CDATA[
@@ -67,7 +67,7 @@
 	</select>
 	
 	<select id="getQnaCount" resultType="int">
-		 SELECT count(*) FROM qnaboard
+		 SELECT count(*) FROM qnaboard WHERE writerId=#{writerId}
 	</select>
 	<!-- End 1:1 문의 게시판 -->
 	
