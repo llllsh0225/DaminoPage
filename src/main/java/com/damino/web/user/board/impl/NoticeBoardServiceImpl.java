@@ -2,6 +2,8 @@ package com.damino.web.user.board.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +40,18 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 	}
 
 	@Override
-	public void increaseCnt(NoticeBoardVO vo) {
-		System.out.println("NoticeBoardServiceImpl increaseCnt()");
-		noticeBoardDAO.increaseCnt(vo);
+	public void increaseCnt(NoticeBoardVO vo, HttpSession session) {
+		System.out.println("NoticeBoardServiceImpl increaseCnt(vo, session)");
+		long updateTime=0;
+		if(session.getAttribute("updateTime_"+vo) != null){
+			updateTime=(long)session.getAttribute("updateTime_"+vo);
+		}
+		long currentTime = System.currentTimeMillis();
+		if(currentTime-updateTime > 5*1000) {
+			noticeBoardDAO.increaseCnt(vo);
+			session.setAttribute("updateTime_"+vo, currentTime);
+		}
+		//noticeBoardDAO.increaseCnt(vo);
 	}
 
 	

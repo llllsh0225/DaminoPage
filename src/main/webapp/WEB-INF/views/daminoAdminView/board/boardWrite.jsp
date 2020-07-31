@@ -168,9 +168,11 @@
 				<!-- 이곳이 Content 영역입니다. -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>게시글 작성</b> <img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20" onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;"> <br>
+						<i class="fas fa-table mr-1"></i> <b>게시글 작성</b> 
 						<!--새로고침 버튼-->
+						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" 
+							width="20" onClick="window.location.reload()" style="margin-left: 15px; cursor: pointer;"> <br>
+						
 
 					</div>
 					<form action="insertBoard.admdo" method="post">
@@ -190,15 +192,7 @@
 									</tr>
 									<tr>
 										<th>작성자</th>
-										<td><input name="writer" type="text" size="5"/></td>
-									</tr>
-									<tr>
-										<th>비밀글 여부</th>
-										<td><input type="checkbox" /></td>
-									</tr>
-									<tr>
-										<th>비밀번호</th>
-										<td><input type="password" size="5" /></td>
+										<td><input name="writer" type="text" size="20"/></td>
 									</tr>
 									<tr>
 										<th>제목</th>
@@ -214,16 +208,7 @@
 								            </script>
 										</td>
 									</tr>
-									<tr>
-										<td>첨부파일</td>
-										<td>
-											<input type="text" size="50" /> 
-											<input type="button" class="btn btn-primary" value="등록" /> 
-											<input type="button" class="btn-delete" value="삭제" />
-										</td>
-									</tr>
 								</table>
-								
 							</div>
 						</div>
 					</form>

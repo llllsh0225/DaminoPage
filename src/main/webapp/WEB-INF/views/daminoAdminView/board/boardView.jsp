@@ -227,10 +227,6 @@
 										<td colspan="2">${board.cnt }</td>
 									</tr>
 									<tr>
-										<td>첨부파일</td>
-										<td><input type="text" size="40"/></td>
-									</tr>
-									<tr>
 										<td>내용</td>
 										<td>
 											<textarea name="content" rows="10" cols="14" style="width: 50%" >${board.content}</textarea>

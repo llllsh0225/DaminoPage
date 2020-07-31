@@ -3,6 +3,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="BoardDAO">
+
+	<!-- 관리자페이지 게시판 관리 관련 내용-->
+	<select id="getBoardList" resultType="com.damino.web.admin.board.BoardVO">
+		SELECT seq, title, writer, regdate, cnt, flag
+		FROM board
+		ORDER BY seq desc
+	</select>
+	
 	<insert id="insertBoard" parameterType="com.damino.web.admin.board.BoardVO">
 		INSERT INTO board (seq, title, writer, content, flag)
 		VALUES((select nvl(max(seq), 0)+1 from board), #{title}, #{writer}, #{content}, #{flag})
@@ -20,6 +28,8 @@
 	<select id="getBoard" resultType="com.damino.web.admin.board.BoardVO">
 		SELECT * FROM board WHERE seq=#{seq}
 	</select>
+	
+	
 	
 	<!-- 1:1 문의 게시판 관련 내용 -->
 	<insert id="qnaInsertBoard" parameterType="com.damino.web.user.board.QnaBoardVO">
@@ -71,13 +81,9 @@
 	</select>
 	<!-- End 1:1 문의 게시판 -->
 	
-	<!-- 공지사항 게시판 관련 내용 -->
-	<select id="getNoticeBoardList" resultType="com.damino.web.user.board.NoticeBoardVO">
-		SELECT seq, title, writer, regdate, cnt, flag
-		FROM board
-		ORDER BY seq desc
-	</select>
 	
+	
+	<!-- 사용자 공지사항 게시판 관련 내용 -->
 	<select id="getNoticeBoard" resultType="com.damino.web.user.board.NoticeBoardVO">
       	SELECT * FROM board WHERE seq=#{seq}
    	</select>
@@ -92,7 +98,7 @@
 		WHERE seq=#{seq}
 	</update>
 	
-	<select id="getBoardList" resultType="com.damino.web.user.board.NoticeBoardVO" parameterType="com.damino.web.user.board.paging.Paging">
+	<select id="getNoticeBoardList" resultType="com.damino.web.user.board.NoticeBoardVO" parameterType="com.damino.web.user.board.paging.Paging">
 	<![CDATA[
 		SELECT * FROM (SELECT rownum rnum, seq, title, writer, regdate, cnt, flag
 		FROM (SELECT * FROM board ORDER BY seq desc))
