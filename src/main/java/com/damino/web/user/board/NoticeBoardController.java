@@ -15,19 +15,26 @@ public class NoticeBoardController {
 	private NoticeBoardService noticeBoardService;
 	
 	@RequestMapping("/noticeList.do")
-	public ModelAndView getNoticeBoardList(){
+	public ModelAndView getNoticeBoardList(NoticePagingVO vo){
 		System.out.println("공지사항 목록");
-		List<NoticeBoardVO> noticeBoardList = noticeBoardService.getNoticeBoardList();
+		List<NoticeBoardVO> noticeBoardList = noticeBoardService.getNoticeBoardList(vo);
+		int countNoticeBoard = noticeBoardService.countNoticeBoard();
+		NoticePageMaker noticePageMaker= new NoticePageMaker();
+		noticePageMaker.setVo(vo);
+		noticePageMaker.setTotalCount(noticeBoardService.countNoticeBoard());
 		System.out.println(noticeBoardList.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/noticeList");
 		mav.addObject("noticeBoardList", noticeBoardList);
+		mav.addObject("countNoticeBoard", countNoticeBoard);
+		mav.addObject("noticePageMaker", noticePageMaker);
 		return mav;
 	}
 	
 	@RequestMapping(value="/noticeDetail.do", method=RequestMethod.GET)
 	public ModelAndView getNoticeBoard(NoticeBoardVO vo) {
 		System.out.println("공지사항 상세");
+		noticeBoardService.increaseCnt(vo);//조회수 증가
 		NoticeBoardVO noticeBoard = noticeBoardService.getNoticeBoard(vo);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/noticeDetail");

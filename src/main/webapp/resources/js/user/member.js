@@ -5,7 +5,7 @@
  */
 function checks(){
 	
-	var getId = /^[a-zA-Z0-9]{6,16}$/
+	var getId = /^[a-zA-Z0-9]{6,16}$/;
 	var getPw = !/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 	var getName = /^[가-힣]+$/;
 
@@ -23,14 +23,14 @@ function checks(){
 		$("#username").focus();
 		return false;
 	}
-	
+/*	
 	//아이디 공백 확인
 	if($("#userid").val() == ""){
 		alert("아이디를 입력해주세요.");
 		$("#userid").focus();
 		return false;
 	}
-	
+
 	//아이디 형식 확인
 	if(!getId.test($("#userid").val())){
 		alert("6~16자의 영문 대문자와 소문자로 입력해주세요.");
@@ -38,31 +38,34 @@ function checks(){
 		$("#userid").focus(); 
 		return false; 
 	}
-	
+*/	
 	//비밀번호 공백 확인 
-	if($("#password").val() == ""){ 
+	if($("#userpasswd").val() == ""){ 
 		alert("패스워드를 입력하세요"); 
-		$("#password").focus(); 
+		$("#userpasswd").focus(); 
 		return false; 
 	}
 
 	//비밀번호 유효성검사 
-	if(!getPw.test($("#password").val())){ 
+	if(!getPw.test($("#userpasswd").val())){ 
 		alert("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다."); 
-		$("#password").val(""); 
-		$("#password").focus(); 
-		return false; }
+		$("#userpasswd").val(""); 
+		$("#userpasswd").focus(); 
+		return false; 
+	}
 
 	//비밀번호 동일여부
-	if($("#password").val() != $("#passwordChk").val()){ 
+	if($("#userpasswd").val() != $("#passwordChk").val()){ 
 		alert("패스워드가 일치하지 않습니다"); 
-		$("#password").val(""); 
+		$("#userpasswd").val(""); 
 		$("#passwordChk").val(""); 
-		$("#password").focus(); 
+		$("#userpasswd").focus(); 
 		return false; 
-	}	
-}
+	}
 
+}
+	
+	
 /**
  * 약관동의
   

@@ -74,7 +74,11 @@ function doSendAuthKey(){
 		}
 	});
 }
-
+/**
+ * 이름, 아이디 확인
+ * @return
+ * 
+ */
 
 
 //아이디 중복조회(구현  시도중)
@@ -97,6 +101,37 @@ function doSendAuthKey(){
 		});
 	});
 }); */
+
+/* 로그인 중복 확인*/
+/* 1620 줄로 이동에서 실험해볼 수 있습니다.*/
+function idck() {
+	var userid = $("#useridtest").val();
+	$.ajax({
+		type : "POST",
+		data : JSON.stringify({
+			userid : userid,
+		}),
+		url : "idcheck.do",
+		dataType : "json",
+		contentType : "application/json; charset=UTF-8;",
+		success : function(data) {
+			if (data > 0) {
+				alert("아이디 중복");
+				$('#id_alert').text("중복사용이 되는 아이디입니다.");
+				$('#id_alert').show();
+				$('#id_alert').focus();
+				return;
+			} else {
+				alert("사용가능");
+				$('#id_alert').text("사용가능 아이디입니다.");
+				$('#id_alert').show();	
+			}
+		},
+		error : function(err) {
+			alert()
+		}
+	});
+}
 
 </script>
 </head>
@@ -189,8 +224,8 @@ function doSendAuthKey(){
 
 							<div class="myinfo-wrap">
 								<div class="form">
-									<form name="frm" id="frm" action="/member/regStep2Proc"
-										method="post">
+									<form name="frm" id="frm" action="registMember.do" name="form1"
+										method="post" onsubmit="return checks()">
 										<input type="hidden" name="parent_email" id="parent_email">
 										<input type="hidden" name="dupInfo" id="dupInfo" value="">
 										<input type="hidden" name="connInfo" id="connInfo" value="">
@@ -203,7 +238,7 @@ function doSendAuthKey(){
 										<input type="hidden" name="hand_tel_agency"
 											id="hand_tel_agency"> <input type="hidden"
 											name="hand_tel1" id="hand_tel1"> <input type="hidden"
-											name="email" id="email"> <input type="hidden"
+											name="emaill" id="email"> <input type="hidden"
 											name="dm_fl" id="dm_fl" value="N"> <input
 											type="hidden" name="o_dm_fl" id="o_dm_fl" value="N">
 										<input type="hidden" name="ds_fl" id="ds_fl" value="N">
@@ -225,8 +260,7 @@ function doSendAuthKey(){
 											<dt class="center">이름</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" placeholder="" id="username" name="username"
-														value="">
+													<input type="text" name="username" id="username">
 												</div>
 											</dd>
 										</dl>
@@ -235,8 +269,7 @@ function doSendAuthKey(){
 											<dt class="top">아이디</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" name="userid" id="userid" maxlength="16"
-														placeholder=""> <a href="" id="checkIdBtn" class="btn-type v7" role="button" onclick="submit">중복확인</a>
+													<input type="text" name="userid" id="userid" maxlength="16"> <a href="" id="checkIdBtn" class="btn-type v7" role="button" onclick="submit">중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
 											</dd>
@@ -246,8 +279,7 @@ function doSendAuthKey(){
 											<dt class="center">비밀번호</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="password" id="password" name="password"
-														value="">
+													<input type="password" name="userpasswd" id="userpasswd">
 												</div>
 												<div class="text-type4" id="pwd_alert" style="display: none;"></div>
 											</dd>
@@ -257,8 +289,7 @@ function doSendAuthKey(){
 											<dt class="center">비밀번호 확인</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="password" placeholder="" id="passwordChk" name="passwordChk"
-														value="">
+													<input type="password" placeholder="" id="passwordChk" name="passwordChk" value="">
 												</div>
 												<div class="text-type4" id="pwdChk_alert" style="display: none;"></div>
 											</dd>
@@ -271,19 +302,19 @@ function doSendAuthKey(){
 													<div class="form-item birth">
 														<div class="chk-wrap">
 															<div class="chk-box selected">
-																<input type="radio" name="birth_fl" id="birth_s"
-																	value="S" checked="checked"> <label
+																<input type="radio" name="cyear" id="birth_s"
+																	value="양력" checked="checked"> <label
 																	class="checkbox" for="birth_s"></label> <label
 																	for="birth_s">양력</label>
 															</div>
 															<div class="chk-box">
-																<input type="radio" name="birth_fl" id="birth_m"
-																	value="M"> <label class="checkbox"
+																<input type="radio" name="cyear" id="birth_m"
+																	value="음력"> <label class="checkbox"
 																	for="birth_m"></label> <label for="birth_m">음력</label>
 															</div>
 														</div>
 														<div class="select-type2">
-															<select name="byear" id="byear" class="selected">
+															<select name="birthday" id="cyear" class="selected">
 																<option value="">년</option>
 																<option value="2020">2020</option>
 																<option value="2019">2019</option>
@@ -410,7 +441,7 @@ function doSendAuthKey(){
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bmonth" id="bmonth" class="selected">
+															<select name="birthday" id="bmonth" class="selected">
 																<option>월</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -427,7 +458,7 @@ function doSendAuthKey(){
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="bday" id="bday" class="selected">
+															<select name="birthday" id="bday" class="selected">
 																<option>일</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -477,13 +508,13 @@ function doSendAuthKey(){
 													<div class="form-item gender">
 														<div class="chk-wrap">
 															<div class="chk-box M">
-																<input type="radio" name="sex" id="sex_m" value="M"
+																<input type="radio" name="sex" value="M" id="sex_m"
 																	checked="checked" > <label
 																	class="checkbox" for="sex_m"></label> <label
 																	for="sex_m">남성</label>
 															</div>
 															<div class="chk-box F selected">
-																<input type="radio" name="sex" id="sex_f" value="F"
+																<input type="radio" name="sex" value="F" id="sex_f"
 																	> <label class="checkbox"
 																	for="sex_f"></label> <label for="sex_f">여성</label>
 															</div>
@@ -502,7 +533,7 @@ function doSendAuthKey(){
 												<div class="form-group v2">
 													<div class="form-item">
 														<div class="select-type2">
-															<input type="hidden" name="phoneCheck"
+															<input type="hidden" name="phone"
 																id="phoneCheck" value="N"> <select
 																name="sel_hand_tel1" id="sel_hand_tel1" title="휴대전화번호" onChange="phoneCheckValChange()">
 																<option value="010">010</option>
@@ -546,10 +577,10 @@ function doSendAuthKey(){
 											<dd>
 												<div class="form-group v2">
 													<div class="form-item e-mail">
-														<input type="text" name="email1" id="email1"> <span>@</span>
+														<input type="text" name="email" id="email1"><span>@</span>
 														<input type="text" name="email2" id="email2">
 														<div class="select-type2">
-															<select name="email3" id="email3"
+															<select name="email" id="email3"
 																onchange="checkEmailState($('#email3'),$('#email2'))">
 																<option value="naver.com">네이버</option>
 																<option value="hanmail.net">한메일</option>
@@ -626,14 +657,14 @@ function doSendAuthKey(){
 													<ul>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_ds_fl" name="chk_ds_fl"
+																<input type="checkbox" id="chk_ds_fl" name="receive_sms"
 																	value="Y"> <label class="checkbox"
 																	for="chk_ds_fl"></label> <label for="chk_ds_fl">문자메세지(선택)</label>
 															</div>
 														</li>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_dm_fl" name="chk_dm_fl"
+																<input type="checkbox" id="chk_dm_fl" name="receive_email"
 																	value="Y"> <label class="checkbox"
 																	for="chk_dm_fl"></label> <label for="chk_dm_fl">이메일(선택)</label>
 															</div>
@@ -641,7 +672,7 @@ function doSendAuthKey(){
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="chk_o_dm_fl"
-																	name="chk_o_dm_fl" value="Y"> <label
+																	name="receive_dm" value="Y"> <label
 																	class="checkbox" for="chk_o_dm_fl"></label> <label
 																	for="chk_o_dm_fl">DM 우편(최근 배달주소로 배송)(선택)</label>
 															</div>
@@ -651,12 +682,14 @@ function doSendAuthKey(){
 
 											</dd>
 										</dl>
+
+									<div class="btn-wrap">
+									<input type="submit" class="btn-type v6" value="가입하기" >
+									
+								</div>
 									</form>
 								</div>
 
-								<div class="btn-wrap">
-									<a href="javascript:checks()" class="btn-type v6">가입하기</a>
-								</div>
 							</div>
 						</div>
 					</article>
@@ -1553,7 +1586,8 @@ function doSendAuthKey(){
 					</div>
 					<p class="sub">가입하신 아이디로 다양한 혜택을 누려보세요.</p>
 					<div class="btn-wrap">
-						<a href="javaScript:doLogin();" class="btn-type1">로그인하러 가기</a>
+						<a onclick="javaScript:doLogin();" class="btn-type1" >로그인하러 가기</a>
+						<input type="submit" value="등록" >
 					</div>
 				</div>
 			</div>
@@ -1587,6 +1621,14 @@ function doSendAuthKey(){
 		</div>
 	</div>
 	<!-- //장바구니(e) -->
+	
+	<!-- id중복 체크 실험 -->
+	<div class="form-item name">
+		<input type="text" name="userid" id="useridtest" maxlength="16"
+			placeholder="">
+		<button class="btn-type v7" id="idcheck" onClick="idck();">버튼</button>
+	</div>
+
 
 	<footer id="footer">
 		<div class="footer-area">

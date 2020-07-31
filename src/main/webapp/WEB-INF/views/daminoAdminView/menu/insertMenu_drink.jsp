@@ -187,13 +187,13 @@
 							<strong>메뉴 등록 - 음료&기타</strong>
 						</h6>
 						<br>
-						<form>
+						<form id="insertDrinkEtcForm" action="insertDrinkEtc.admdo" method="post" enctype="multipart/form-data">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="d_name" /></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
@@ -201,11 +201,11 @@
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td><input type="text" /></td>
+										<td><input type="text" name="d_price" /></td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
-										<td><input type="file"></td>
+										<td><input type="file" name="uploadFile" /></td>
 									</tr>
 								</table>
 								<br>

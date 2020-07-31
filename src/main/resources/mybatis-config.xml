@@ -11,5 +11,8 @@
 		<mapper resource="mappings/board-mapping.xml"/>
 		<mapper resource="mappings/market-mapping.xml"/>
 		<mapper resource="mappings/orderlist-mapping.xml"/>
+		<mapper resource="mappings/usermember-mapping.xml"/>
+		<mapper resource="mappings/menu-mapping.xml"/>
+		<mapper resource="mappings/seeuser-mapping.xml"/>
 	</mappers>
 </configuration>
