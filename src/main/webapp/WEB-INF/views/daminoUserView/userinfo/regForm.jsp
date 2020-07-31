@@ -229,8 +229,10 @@
 											<dt class="center">이름</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" name="username" id="username">
+													<input type="text" name="username" id="username" />
 												</div>
+												<div class="text-type4" id="name_alert"
+													style="display: none;"></div>
 											</dd>
 										</dl>
 
@@ -505,8 +507,8 @@
 												<div class="form-group v2">
 													<div class="form-item">
 														<div class="select-type2">
-															<input type="hidden" name="phone" id="phoneCheck"
-																value="N"> <select name="sel_hand_tel1"
+															<input type="hidden" name="phoneCheck" id="phoneCheck"
+																value="N" /> <select name="sel_hand_tel1"
 																id="sel_hand_tel1" title="휴대전화번호"
 																onChange="phoneCheckValChange()">
 																<option value="010">010</option>
