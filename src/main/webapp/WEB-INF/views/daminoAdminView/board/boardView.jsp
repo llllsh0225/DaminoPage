@@ -209,6 +209,20 @@
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<tr>
+										<td>게시판 그룹</td>
+										<td>
+											<select name="flag">
+												<c:if test="${board.flag eq '공지사항'}">
+													<option value="공지사항" selected>공지사항</option>
+													<option value="보도자료">보도자료</option>
+												</c:if>
+												<c:if test="${board.flag eq '보도자료'}">
+													<option value="공지사항">공지사항</option>
+													<option value="보도자료" selected>보도자료</option>
+												</c:if>
+											</select>
+										</td>
+									<tr>
 										<td>제목</td>
 										<td colspan="2"><input type="text" name="title" size="40" value="${board.title}"/></td>
 									</tr>
