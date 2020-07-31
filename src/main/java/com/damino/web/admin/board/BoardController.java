@@ -52,6 +52,7 @@ public class BoardController {
 		System.out.println("내용 : " + vo.getContent());
 		System.out.println("flag : " + vo.getFlag());
 		boardService.insertBoard(vo);
+		//System.out.println(insertBoard(vo).toString());//버그있음
 		return "redirect:boardList.admdo";
 	}
 	
