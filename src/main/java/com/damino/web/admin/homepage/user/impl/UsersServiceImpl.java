@@ -13,12 +13,12 @@ import com.damino.web.admin.homepage.user.UsersVO;
 public class UsersServiceImpl implements UsersService{
 
 	@Autowired
-	private UsersDAO userDAO;
+	private UsersDAO usersDAO;
 	
 	@Override
 	public List<UsersVO> getUsersList() {
 		System.out.println("UserServiceImpl getUserList()");
-		return userDAO.getUsersList();
+		return usersDAO.getUsersList();
 	}
 
 }
