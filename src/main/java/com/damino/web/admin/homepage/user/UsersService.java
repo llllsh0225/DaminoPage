@@ -1,4 +1,4 @@
-package com.damino.web.admin.user;
+package com.damino.web.admin.homepage.user;
 
 import java.util.List;
 
