@@ -11,7 +11,16 @@ public class PageMaker {
 	private boolean next; //다음
 	private int displayPageNum = 10; //페이지당 보여주는 게시글 수
 	private Paging pa;
+	private String writerId;
 	
+	
+	
+	public String getWriterId() {
+		return writerId;
+	}
+	public void setWriterId(String writerId) {
+		this.writerId = writerId;
+	}
 	public int getTotalCount() {
 		return totalCount;
 	}
