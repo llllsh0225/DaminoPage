@@ -16,6 +16,13 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	var countNoticeBoard=${countPizzaBoard}; //총 게시글
+	var countPerPage=5; //한페이지에 보여줄 게시글 수
+	var totalPage=countNoticeBoard/countPerPage; //총 페이지 수
+	var pageCount=5; // << 1 2 3 4 5 >> 
+
+</script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -205,33 +212,37 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="pizza" items="${pizzaList }">
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">1</td>
-											<td><a href="#">핫치킨(오리지널L)</a></td>
-											<td class="center-group">피자</td>
-											<td class="center-group">클래식</td>
-											<td class="center-group">27,900</td>
+											<td><a href="#">${pizza.p_name }</a></td>
+											<td class="center-group">${pizza.p_code }</td>
+											<td class="center-group">${pizza.p_type }</td>
+											<td class="center-group">${pizza.p_price }</td>
 											<td class="center-group"><input type="button"
 												class="btn btn-delete" value="수정" /></td>
 											<td class="center-group"><input type="button"
 												class="btn btn-danger" value="삭제" /></td>
 										</tr>
-										<tr>
-											<td class="center-group">2</td>
-											<td><a href="#">핫치킨(오리지널M)</a></td>
-											<td class="center-group">피자</td>
-											<td class="center-group">클래식</td>
-											<td class="center-group">21,000</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
-					</div>
+						</div>
+						<ol>
+							<c:if test="${pizzaPageMaker.prev}">
+								<li><a href="menuList.do${pizzaPageMaker.makeQuery(pizzaPageMaker.startPage - 1)}">이전</a></li>
+										 </c:if> 
+										
+								<c:forEach begin="${pizzaPageMaker.startPage}" end="${pizzaPageMaker.endPage}" var="idx">
+									<li><a href="menuList.do${pizzaPageMaker.makeQuery(idx)}">${idx}</a></li>
+								</c:forEach>
+										
+								<c:if test="${pizzaPageMaker.next && pizzaPageMaker.endPage > 0}">
+									<li><a href="menuList.do${pizzaPageMaker.makeQuery(pizzaPageMaker.endPage + 1)}">다음</a></li>
+								</c:if> 
+							</ol>
 					</form>
 				</div>
 			</main>

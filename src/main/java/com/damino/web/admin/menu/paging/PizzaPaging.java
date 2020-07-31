@@ -1,21 +1,12 @@
-package com.damino.web.user.board.paging;
+package com.damino.web.admin.menu.paging;
 
-public class Paging {
+public class PizzaPaging {
 	private int pageNo; //처음 시작시 보이는 페이지 번호
 	private int perPageNum; //페이지당 보이는 게시글 seq 개수 
 	private int rowStart; //DB 테이블 seq 첫번째 게시글 번호
 	private int rowEnd; //DB 테이블 seq 마지막 게시글 번호
-	private String writerId;
 	
-	public String getWriterId() {
-		return writerId;
-	}
-
-	public void setWriterId(String writerId) {
-		this.writerId = writerId;
-	}
-
-	public Paging() {
+	public PizzaPaging() {
 		this.pageNo = 1;
 		this.perPageNum = 10;
 	}
@@ -64,5 +55,4 @@ public class Paging {
 				+ rowEnd + "]";
 	}
 
-	
 }

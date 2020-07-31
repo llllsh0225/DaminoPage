@@ -9,7 +9,7 @@
 <style type="text/css">
 	#qna_list_num {list-style:none; text-align:center; padding:15px; margin:20px;}
 </style>
-<title>도미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
+<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 	<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
 	
 	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
@@ -223,7 +223,7 @@
 			var userAgent = navigator.userAgent.toString();
 
 			if(/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream){ // iOS
-				alert('아이폰 > 설정 >개인정보보호 > 위치서비스 > 도미노피자 항목의 위치접근허용을 체크해주세요.');
+				alert('아이폰 > 설정 >개인정보보호 > 위치서비스 > 다미노피자 항목의 위치접근허용을 체크해주세요.');
 				return;
 			} else {
 				//alert('위치접근허용을 승인해주세요.');
@@ -286,7 +286,7 @@
 				<div class="inner-box" id="tip-box-top">
 					<a href="/main" class="btn-logo">
 						<i class="ico-logo"></i>
-						<h1 class="hidden">도미노피자</h1>
+						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
 					<div class="util-nav">
@@ -331,10 +331,10 @@
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="/event/mania">도미노 서비스</a>
+								<a href="/event/mania">다미노 서비스</a>
 								<ul>
 									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li><a href="/goods/dominosMoment">도미노 모멘트</a></li>
+									<li><a href="/goods/dominosMoment">다미노 모멘트</a></li>
 									<li><a href="/quickOrder/index">퀵 오더</a></li>
 									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
 								</ul>
@@ -349,7 +349,7 @@
 							<div class="mnu-box">
 								<a href="/company/contents/overview">회사소개</a>
 								<ul>
-									<li><a href="/company/contents/overview">한국도미노피자</a></li>
+									<li><a href="/company/contents/overview">한국다미노피자</a></li>
 									<li><a href="/company/tvcfList">광고갤러리</a></li>
 									<li><a href="/company/contents/society">사회공헌활동</a></li>
 									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
@@ -360,7 +360,7 @@
 						<div class="notice-box">
 							<a href="/bbs/newsList?type=N">공지사항</a>
 							<ul>
-								<li><a href="/bbs/newsList?type=N">도미노뉴스</a></li>
+								<li><a href="/bbs/newsList?type=N">다미노뉴스</a></li>
 								<li><a href="/bbs/newsList?type=P">보도자료</a></li>
 							</ul>
 						</div>
@@ -464,7 +464,7 @@
 </div>
 
 <!-- 문의하기 -->
-<form name="qnaBoardInsert" id="qnaBoardInsert" method="post" action="javascript:proc()"> 
+<form name="qnaBoardInsert" id="qnaBoardInsert" method="post" action="javascript:proc()">
 <div class="pop-layer" id="pop-write">
 	<div class="dim"></div>
 	<div class="pop-wrap">
@@ -475,8 +475,11 @@
 			<div class="guide-box3">
 				주문 취소 / 변경과 같은 긴급한 요청은 매장으로 연락 부탁드립니다.
 			</div>
+			<input type="text" name="pageNo" id="pageNo" value="1">
+			
 			<div class="step-wrap">
-				<dl>
+			<input type="hidden" name="writerId" id="writerId">
+				<dl> 
 					<dt>아이디</dt>
 					<dd>userid</dd>
 				</dl>
@@ -593,6 +596,7 @@
 <input type="hidden" name="idx" id="idx" />
 <input type="hidden" name="no" id="no" />
 <input type="hidden" name="pageNo" id="pageNo" value="1">
+<input type="hidden" name="writerId" id="writerId" value="${pageMaker.writerId }">
 </form>
 
 <script type="text/javascript">
@@ -603,7 +607,6 @@ function paging(no){
 	console.log($("#pageNo").val(no));
 	$("#f").submit();
 }
-//var phoneNumber1 = $('#sel_hand_tel1').val();
 
 //문의 내역 상세보기
 function goView(idx, no) {
@@ -634,7 +637,6 @@ function proc(){
 	
 		alert('등록중 입니다.');
 		 var qnaType = $('#sel_qnaType').val();
-		 console.log(qnaType);
 		 $('#qnaBoardInsert').submit();
 		 document.qnaBoardInsert.action='qnaInsertBoard.do';
 		
