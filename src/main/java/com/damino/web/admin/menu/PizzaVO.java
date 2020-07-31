@@ -12,7 +12,14 @@ public class PizzaVO {
 	private String p_dough; // 선택 가능 도우
 	private String p_image; // 제품 이미지 파일명
 	private MultipartFile uploadFile;
+	private int seq;
 	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	// ----- 영양성분 ------
 	private int gross_weight; // 피자 총중량
 	private String onetime_basis; // 1회분 기준

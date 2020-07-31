@@ -12,4 +12,5 @@ public interface MenuService {
 	
 	public List<PizzaVO> getPizzaList(PizzaPaging pa); // 피자 가져오기
 	public int countPizzaBoard(); // 피자 수
+	public List<ToppingVO> getToppingList();
 }
