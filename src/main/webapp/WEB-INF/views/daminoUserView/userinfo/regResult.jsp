@@ -148,12 +148,12 @@
 										PIZZA!
 									</strong>
 									<p>
-										<span> OOO 고객님, 다미노피자 회원이 되신 것을 환영합니다. </span>
+										<span>${usermember} 고객님, 다미노피자 회원이 되신 것을 환영합니다. </span>
 									</p>
 									<p class="sub-txt">로그인 후 쿠폰함으로 제공된 선물을 확인하세요!</p>
 									<div class="btn-wrap">
 										<a href="main.do" class="btn-type v4">HOME</a> <a
-											href="javascript:doLogin();" class="btn-type v6">로그인</a>
+											href="login.do" class="btn-type v6">로그인</a>
 									</div>
 								</div>
 							</div>
