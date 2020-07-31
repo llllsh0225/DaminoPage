@@ -8,6 +8,22 @@ public class ToppingVO {
 	private int t_price; // 토핑 가격
 	private String t_image; // 토핑 제품이미지 파일명
 	private MultipartFile uploadFile;
+	private String t_code;
+	
+	public String getT_code() {
+		return t_code;
+	}
+	public void setT_code(String t_code) {
+		this.t_code = t_code;
+	}
+	private int seq;
+	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public String getT_name() {
 		return t_name;
 	}

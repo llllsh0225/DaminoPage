@@ -134,8 +134,18 @@ public class MenuController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/menu/menuList");
 		mav.addObject("pizzaList", pizzaList);
-		mav.addObject("countPizzaBoard", countPizzaBoard);
-		mav.addObject("pizzaPageMaker", pizzaPageMaker);
+
+		return mav;
+	}
+	
+	@RequestMapping(value="/menuToppingList.admdo", method = RequestMethod.GET)
+	public ModelAndView getToppingList() {
+		System.out.println("토핑 목록");
+		List<ToppingVO> toppingList = menuService.getToppingList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuToppingList");
+		mav.addObject("toppingList", toppingList);
+		
 		return mav;
 	}
 }

@@ -17,10 +17,7 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <script type="text/javascript">
-/* 	var countPizzaBoard=${countPizzaBoard}; //총 게시글
-	var countPerPage=5; //한페이지에 보여줄 게시글 수
-	var totalPage=countPizzaBoard/countPerPage; //총 페이지 수
-	var pageCount=5; // << 1 2 3 4 5 >>  */
+
 
 </script>
 
@@ -147,11 +144,10 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="menuList.admdo">피자</a> <a
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
 											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
-											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> 
-											<a
-											class="nav-link" href="menuToppingList.admdo">토핑</a>
+											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
+											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -212,14 +208,14 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="pizza" items="${pizzaList }">
+										<c:forEach var="topping" items="${toppingList }">
 										<tr>
 											<!-- 데이터 예시 -->
-											<td class="center-group">${pizza.seq }</td>
-											<td><a href="#">${pizza.p_name }</a></td>
-											<td class="center-group">${pizza.p_code }</td>
-											<td class="center-group">${pizza.p_type }</td>
-											<td class="center-group">${pizza.p_price }</td>
+											<td class="center-group">${topping.seq }</td>
+											<td><a href="#">${topping.t_name }</a></td>
+											<td class="center-group">${topping.t_code }</td>
+											<td class="center-group">${topping.t_type }</td>
+											<td class="center-group">${topping.t_price }</td>
 											<td class="center-group"><input type="button"
 												class="btn btn-delete" value="수정" /></td>
 											<td class="center-group"><input type="button"
@@ -230,6 +226,7 @@
 								</table>
 							</div>
 						</div>
+					
 					</form>
 				</div>
 			</main>

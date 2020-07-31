@@ -53,4 +53,10 @@ public class MenuDAOImpl implements MenuDAO {
 		return 0;
 	}
 
+	@Override
+	public List<ToppingVO> getToppingList() {
+		System.out.println("토핑 메뉴 가져오기");
+		return sqlSessionTemplate.selectList("MenuDAO.getToppingList");
+	}
+
 }
