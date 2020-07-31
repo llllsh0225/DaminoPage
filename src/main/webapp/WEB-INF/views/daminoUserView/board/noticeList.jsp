@@ -24,16 +24,7 @@
 <script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-<script type="text/javascript">
-	var countNoticeBoard=${countNoticeBoard}; //총 게시글
-	var countPerPage=15; //한페이지에 보여줄 게시글 수
-	var totalPage=countNoticeBoard/countPerPage; //총 페이지 수
-	var pageCount=5; // << 1 2 3 4 5 >> 
-	function gg(){
-		alert('총 게시글 수 : ' + countNoticeBoard + '\n한페이지 게시글 수 : ' 
-				+ countPerPage + '\n총 페이지 수 : ' + totalPage);
-	}
-</script>
+
 </head>
 <body>
 	<div id="wrap">
