@@ -8,26 +8,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.user.board.paging.PageMaker;
+import com.damino.web.user.board.paging.Paging;
+
 
 @Controller
 public class NoticeBoardController {
 	@Autowired
 	private NoticeBoardService noticeBoardService;
 	
-	@RequestMapping("/noticeList.do")
-	public ModelAndView getNoticeBoardList(NoticePagingVO vo){
+	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET )
+	public ModelAndView getNoticeBoardList(Paging pa){
 		System.out.println("공지사항 목록");
-		List<NoticeBoardVO> noticeBoardList = noticeBoardService.getNoticeBoardList(vo);
-		int countNoticeBoard = noticeBoardService.countNoticeBoard();
-		NoticePageMaker noticePageMaker= new NoticePageMaker();
-		noticePageMaker.setVo(vo);
-		noticePageMaker.setTotalCount(noticeBoardService.countNoticeBoard());
+		List<NoticeBoardVO> noticeBoardList = noticeBoardService.getNoticeBoardList(pa);//게시글 목록
+		int countNoticeBoard = noticeBoardService.countNoticeBoard();//게시글 수
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPa(pa);
+		pageMaker.setTotalCount(countNoticeBoard);
 		System.out.println(noticeBoardList.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/noticeList");
 		mav.addObject("noticeBoardList", noticeBoardList);
 		mav.addObject("countNoticeBoard", countNoticeBoard);
-		mav.addObject("noticePageMaker", noticePageMaker);
+		mav.addObject("noticePageMaker", pageMaker);
 		return mav;
 	}
 	

@@ -130,9 +130,9 @@
 							</div>
 							<div class="notice-wrap">
 								<form id="searchForm" name="searchForm"
-									action="https://web.dominos.co.kr/bbs/newsList" method="post">
-									<input type="hidden" id="type" name="type" value="N" /> <input
-										type="hidden" id="pageNo" name="pageNo" value="1" />
+									action="#" method="post">
+									<input type="hidden" id="type" name="type" value="N" /> 
+									<input type="hidden" id="pageNo" name="pageNo" value="1" />
 									<div class="form-group srch-type">
 										<div class="form-item">
 											<div class="select-type2">
@@ -186,15 +186,15 @@
 									<div class="pagination">
 										<ol>
 										 	<c:if test="${noticePageMaker.prev}">
-										    	<li><a href="list.do?page=${noticePageMaker.makeQuery(noticePageMaker.startPage - 1)}">이전</a></li>
+										    	<li><a href="noticeList.do${noticePageMaker.makeQuery(noticePageMaker.startPage - 1)}">이전</a></li>
 										    </c:if> 
 										
 										    <c:forEach begin="${noticePageMaker.startPage}" end="${noticePageMaker.endPage}" var="idx">
-										    	<li><a href="list.do?page=${noticePageMaker.makeQuery(idx)}">${idx}</a></li>
+										    	<li><a href="noticeList.do${noticePageMaker.makeQuery(idx)}">${idx}</a></li>
 										    </c:forEach>
 										
 										    <c:if test="${noticePageMaker.next && noticePageMaker.endPage > 0}">
-										    	<li><a href="list.do?page=${noticePageMaker.makeQuery(noticePageMaker.endPage + 1)}">다음</a></li>
+										    	<li><a href="noticeList.do${noticePageMaker.makeQuery(noticePageMaker.endPage + 1)}">다음</a></li>
 										    </c:if> 
 										</ol>
 									</div>
