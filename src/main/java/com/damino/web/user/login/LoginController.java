@@ -45,20 +45,5 @@ public class LoginController {
 			return mav;
 		}
 	}
-	
-
-
-	// id중복체크
-	@RequestMapping(value ="/idcheck.do", method = RequestMethod.POST)
-	@ResponseBody
-	public int idcheck(@RequestBody Map<String, Object> params, HttpServletRequest request){
-		int count = 0;
-		String userid = (String)params.get("userid");
-		System.out.println(userid);
-		
-		count = loginService.idcheck(userid);
-		System.out.println("count : "+ count);
-		return count;
-	}
 
 }

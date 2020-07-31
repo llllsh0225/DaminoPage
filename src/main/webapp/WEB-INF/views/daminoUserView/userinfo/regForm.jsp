@@ -85,6 +85,7 @@
 		var chkEmail = chkEmail1.concat(golbang, chkEmail2);
 
 		alert(chkEmail); //확인용
+		
 		$.ajax({
 			url : "emailCheck.do",
 			type : "POST",
@@ -249,8 +250,7 @@
 											<dd>
 												<div class="form-item name">
 													<input type="text" name="userid" id="userid" maxlength="16">
-													<a href="" id="checkIdBtn" class="btn-type v7"
-														role="button" onclick="submit">중복확인</a>
+													<a href="javascript:idCheck();" class="btn-type v7" >중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
 											</dd>
@@ -675,7 +675,7 @@
 											<input type="submit" class="btn-type v6" value="가입하기" />
 
 										</div>
-									</form>
+									</form><!-- --------------------------------------------------form end -->
 								</div>
 
 							</div>
@@ -1609,15 +1609,6 @@
 		</div>
 	</div>
 	<!-- //장바구니(e) -->
-
-	<div>임시- 아이디 중복확인</div>
-	<div class="form-item name">
-		<input type="text" name="userid" id="useridtest" maxlength="16"
-			placeholder="">
-		<button class="btn-type v7" id="idcheck" onClick="idck();">버튼</button>
-	</div>
-
-
 
 	<footer id="footer">
 		<div class="footer-area">
