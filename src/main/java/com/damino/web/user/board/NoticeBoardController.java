@@ -2,6 +2,8 @@ package com.damino.web.user.board;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +37,9 @@ public class NoticeBoardController {
 	}
 	
 	@RequestMapping(value="/noticeDetail.do", method=RequestMethod.GET)
-	public ModelAndView getNoticeBoard(NoticeBoardVO vo) {
+	public ModelAndView getNoticeBoard(NoticeBoardVO vo, HttpSession session) {
 		System.out.println("공지사항 상세");
-		noticeBoardService.increaseCnt(vo);//조회수 증가
+		noticeBoardService.increaseCnt(vo, session);//조회수 증가
 		NoticeBoardVO noticeBoard = noticeBoardService.getNoticeBoard(vo);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/noticeDetail");
