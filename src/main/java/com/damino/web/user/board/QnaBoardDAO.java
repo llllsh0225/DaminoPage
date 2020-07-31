@@ -15,6 +15,12 @@ public interface QnaBoardDAO {
 	public int getQnaCount() throws Exception;
 	public List<QnaBoardVO> myQuestionList(Paging pa) throws Exception;
 	
+	//어드민 접속 - 전체조회
+	public List<QnaBoardVO> myQuestionList_adm(Paging pa) throws Exception; 
+	//어드민 접속 - 처리대기
+	public List<QnaBoardVO> myQuestionList_adm_notComplete(Paging pa) throws Exception; 
+	
+	
 	public static QnaBoardDAO getInstance() {
 		if(instance == null) {
 			synchronized(QnaBoardDAO.class) {

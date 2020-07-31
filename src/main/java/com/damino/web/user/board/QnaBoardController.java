@@ -22,7 +22,6 @@ public class QnaBoardController {
 	private QnaBoardService qnaBoardService;
 	
 	@RequestMapping(value = "/myquestionlist.do", method = RequestMethod.GET)
-	@ResponseBody
 	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
 		System.out.println("내 질문내역 1:1 열기");
 		
@@ -87,4 +86,63 @@ public class QnaBoardController {
 		qnaBoardService.qnaInsertBoard(vo);
 		return "redirect:myquestionlist.do";
 	}
+	
+	
+	/**
+	 * 관리자 권한으로 1:1 문의사항 - 전체조회 접근하는 경로
+	 */
+	@RequestMapping(value = "/myquestionlist.admdo", method = RequestMethod.GET)
+	public ModelAndView getMyQuestionList_adm(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+		System.out.println("관리자권한으로 질문내역 1:1 열기");
+		
+		//1:1 문의게시판 페이징처리
+		
+		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm(pa);
+		System.out.println(boardList.toString());
+		
+		int count = qnaBoardService.getQnaCount();
+		 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userQnaBoard/myQuestionList_adm");
+		
+		mav.addObject("boardList", boardList);
+		mav.addObject("count", count); //총 게시글 개수
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPa(pa);
+		pageMaker.setTotalCount(count);
+		
+		mav.addObject("pageMaker", pageMaker);
+		
+		return mav;
+	}
+	
+	/**
+	 * 관리자 권한으로 1:1 문의사항 - 처리대기 접근하는 경로
+	 */
+	@RequestMapping(value = "/myquestionlist_notComplete.admdo", method = RequestMethod.GET)
+	public ModelAndView getMyQuestionList_adm_notComplete(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+		System.out.println("관리자권한으로 질문내역 1:1 열기");
+		
+		//1:1 문의게시판 페이징처리
+		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm_notComplete(pa);
+		System.out.println(boardList.toString());
+		
+		int count = qnaBoardService.getQnaCount();
+		 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userQnaBoard/myQuestionList_adm");
+		
+		mav.addObject("boardList", boardList);
+		mav.addObject("count", count); //총 게시글 개수
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPa(pa);
+		pageMaker.setTotalCount(count);
+		
+		mav.addObject("pageMaker", pageMaker);
+		
+		return mav;
+	}
+	
 }
