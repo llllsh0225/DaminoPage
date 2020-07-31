@@ -9,7 +9,6 @@ function checks(){
 	var idChk= RegExp(/^[a-zA-Z0-9]{4,12}$/);
 	var emailChk = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 
-	출처: https://cho-coding.tistory.com/49 [당 떨어질 땐 초코딩]
 
 	// 생년월일 입력값
 	var cyear = $('#cyear').val();
