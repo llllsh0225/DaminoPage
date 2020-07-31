@@ -21,7 +21,7 @@
 	
 	<update id="updateBoard" parameterType="com.damino.web.admin.board.BoardVO">
 		UPDATE board
-		SET title=#{title}, content=#{content} WHERE seq=#{seq}
+		SET title=#{title}, content=#{content}, flag=#{flag} WHERE seq=#{seq}
 	</update>
 	
 	<select id="getBoard" resultType="com.damino.web.admin.board.BoardVO">
