@@ -59,6 +59,18 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 		System.out.println("QnaBoardDAOImpl myQuestionList(Paging pa)");
 		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList", pa);
 	}
+
+	@Override
+	public List<QnaBoardVO> myQuestionList_adm(Paging pa) throws Exception {
+		System.out.println("QnaBoardDAOImpl myQuestionList_adm(Paging pa)");
+		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList_adm", pa);
+	}
+	
+	@Override
+	public List<QnaBoardVO> myQuestionList_adm_notComplete(Paging pa) throws Exception {
+		System.out.println("QnaBoardDAOImpl myQuestionList_adm_notComplete(Paging pa)");
+		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList_adm_notComplete", pa);
+	}
 	
 
 }

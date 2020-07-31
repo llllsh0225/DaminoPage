@@ -398,9 +398,9 @@
 						</div>
 					<div class="info-wrap">
 						<div class="user">
-							<span>ㅇㅇㅇ</span>님께서 문의하신 내용입니다.
+							<span>다미노고객</span>님들이 문의하신 내용입니다.
 						</div>
-						<div class="text-type">ㅇㅇㅇ님께서 문의하신 내용은 <strong>총 ${count}건</strong> 입니다.</div>
+						<div class="text-type">다미노고객님께서 문의하신 내용은 <strong>총 ${count}건</strong> 입니다.</div>
 					</div>
 					<div class="counsil-wrap">
 						<div class="table-type4">
@@ -427,7 +427,7 @@
 									<c:forEach var="qnaboard" items="${boardList }">
 									<tr>
 											<td>${qnaboard.seq }</td>
-											  <td><a href="myquestion_view.do?seq=${qnaboard.seq}">${qnaboard.title}</a></td>
+											  <td><a href="myquestion_view.do?seq=${qnaboard.seq}&pageNo=${currentPage}">${qnaboard.title}</a></td>
 											<!--<td><a href="javascript:goView()">${qnaboard.title}</a></td>-->
 											<td><fmt:formatDate value="${qnaboard.regDate }" pattern="yyyy-MM-dd" /></td>
 											<td>${qnaboard.result }</td>
@@ -455,6 +455,8 @@
 						</div>
 						<div class="btn-wrap">
 							<a href="javascript:UI.layerPopUp({selId:'#pop-write'});" class="btn-type v4">문의하기</a>
+							<a href="myquestionlist_notComplete.admdo" class="btn-type v4">처리대기 글 조회</a>
+							<!-- a 태그에 select 기능 구현한 컨트롤러 url 입력 필요 -->
 						</div>
 					</div>
 				</article>
