@@ -1,33 +1,101 @@
 package com.damino.web.user.regist;
 
+import java.util.Map;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RegistController {
 	@Autowired
 	private RegistService registService;
-	
-	@RequestMapping(value="/registMember.do", method=RequestMethod.POST)
-	public String registMember(@ModelAttribute UserMemberVO vo) {
+
+	@Autowired
+	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체
+
+	@RequestMapping(value = "/registMember.do", method = RequestMethod.POST)
+	public ModelAndView registMember(@ModelAttribute UserMemberVO vo, ModelAndView mav, HttpServletRequest request) throws Throwable{
 		System.out.println("회원 등록");
-		System.out.println("이름 : " + vo.getUsername());
-		System.out.println("아이디 : " + vo.getUserid());
-		System.out.println("비밀번호 : " + vo.getUserpasswd());
-		System.out.println("생년월일 : " + vo.getBirthday());
-		System.out.println("성별 : " + vo.getSex());
-		System.out.println("양력/음력: " + vo.getCyear());
-		System.out.println("전화번호: " + vo.getPhone());
-		System.out.println("이메일: " + vo.getEmail());
-		System.out.println("SMS 수신여부: " + vo.getReceive_sms());
-		System.out.println("Email 수신여부: " + vo.getReceive_dm());
-		System.out.println("DM 수신여부: " + vo.getReceive_dm());
+
+		// 비밀번호 암호화 처리
+		String pwd = vo.getUserpasswd();
+		String userpasswd = pwdEncoder.encode(pwd);
+		
+		vo.setUserpasswd(userpasswd);
+		
+		// 생년월일 처리
+		String birthday1 = request.getParameter("birthday1");
+		String birthday2 = request.getParameter("birthday2");
+		String birthday3 = request.getParameter("birthday3");
+		String birthday = birthday1 + "/" + birthday2 + "/" + birthday3;
+		
+		vo.setBirthday(birthday);
+		
+		// 전화번호 처리
+		String phone1 = request.getParameter("sel_hand_tel1");
+		String phone2 = request.getParameter("hand_tel2");
+		String phone3 = request.getParameter("hand_tel3");
+		String phone = phone1 + phone2 + phone3;
+		
+		vo.setPhone(phone);
+		
+		// 이메일 처리
+		String email1 = request.getParameter("email1");
+		String email2 = request.getParameter("email2");
+		String email = email1 + "@" + email2;
+		
+		vo.setEmail(email);
+		
+		// 광고성 정보제공 수신 비동의 처리
+		if(vo.getReceive_sms() == null) {
+			vo.setReceive_sms("N");
+		}
+		if(vo.getReceive_email() == null) {
+			vo.setReceive_email("N");
+		}
+		if(vo.getReceive_dm() == null) {
+			vo.setReceive_dm("N");
+		}
+		
 		registService.registMember(vo);
-		return "redirect:regForm.do";
+		mav.addObject("usermember", vo.getUsername());
+		mav.setViewName("/userinfo/regResult");
+		
+		return mav;
+	}
+
+	@RequestMapping(value = "/sendAuthKey.do", produces = "text/json; charset=utf-8", method = RequestMethod.POST)
+	@ResponseBody
+	// 휴대폰 인증문자 발송
+	public String sendSMS(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+		System.out.println("인증번호 송신");
+		System.out.println(params.toString());
+
+		String phoneNumber = (String) params.get("phoneNumber");
+		String authKey = "";
+
+		Random rand = new Random();
+		for (int i = 0; i < 4; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			authKey += ran;
+		}
+
+		System.out.println("수신자 번호 : " + phoneNumber);
+		System.out.println("인증 번호 : " + authKey);
+
+		registService.certifiedPhoneNumber(phoneNumber, authKey);
+
+		return authKey;
 	}
 }
-
-

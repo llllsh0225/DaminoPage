@@ -102,37 +102,6 @@ function doSendAuthKey(){
 	});
 }); */
 
-/* 로그인 중복 확인*/
-/* 1620 줄로 이동에서 실험해볼 수 있습니다.*/
-function idck() {
-	var userid = $("#useridtest").val();
-	$.ajax({
-		type : "POST",
-		data : JSON.stringify({
-			userid : userid,
-		}),
-		url : "idcheck.do",
-		dataType : "json",
-		contentType : "application/json; charset=UTF-8;",
-		success : function(data) {
-			if (data > 0) {
-				alert("아이디 중복");
-				$('#id_alert').text("중복사용이 되는 아이디입니다.");
-				$('#id_alert').show();
-				$('#id_alert').focus();
-				return;
-			} else {
-				alert("사용가능");
-				$('#id_alert').text("사용가능 아이디입니다.");
-				$('#id_alert').show();	
-			}
-		},
-		error : function(err) {
-			alert()
-		}
-	});
-}
-
 </script>
 </head>
 <div id="wrap">
@@ -226,35 +195,6 @@ function idck() {
 								<div class="form">
 									<form name="frm" id="frm" action="registMember.do" name="form1"
 										method="post" onsubmit="return checks()">
-										<input type="hidden" name="parent_email" id="parent_email">
-										<input type="hidden" name="dupInfo" id="dupInfo" value="">
-										<input type="hidden" name="connInfo" id="connInfo" value="">
-										<input type="hidden" name="auth_type" id="auth_type" value="H">
-										<input type="hidden" name="age" id="age" value=""> <input
-											type="hidden" name="vno" id="vno" value=""> <input
-											type="hidden" name="birth" id="birth" value=""> <input
-											type="hidden" name="job" id="job" value=""> <input
-											type="hidden" name="idDupChk" id="idDupChk" value="N">
-										<input type="hidden" name="hand_tel_agency"
-											id="hand_tel_agency"> <input type="hidden"
-											name="hand_tel1" id="hand_tel1"> <input type="hidden"
-											name="emaill" id="email"> <input type="hidden"
-											name="dm_fl" id="dm_fl" value="N"> <input
-											type="hidden" name="o_dm_fl" id="o_dm_fl" value="N">
-										<input type="hidden" name="ds_fl" id="ds_fl" value="N">
-										<input type="hidden" name="hdnAuthKey" id="hdnAuthKey"
-											value=""> <input type="hidden" name="hdnAuthChk"
-											id="hdnAuthChk" value="N"> <input type="hidden"
-											name="id_uuid" id="id_uuid" value=""> <input
-											type="hidden" name="id_link_YN" id="id_link_YN" value="">
-										<input type="hidden" name="id_uuid2" id="id_uuid2"
-											value="136070238"> <input type="hidden"
-											name="id_link_YN2" id="id_link_YN2" value="Y"> <input
-											type="hidden" name="passwd" id="passwd" value="136070238">
-										<input type="hidden" name="confirmpw" id="confirmpw"
-											value="136070238"> <input type="hidden"
-											name="joinptype" id="joinptype" value="N"> <input
-											type="hidden" name="emailChk" id="emailChk" value="">
 
 										<dl>
 											<dt class="center">이름</dt>
@@ -314,7 +254,7 @@ function idck() {
 															</div>
 														</div>
 														<div class="select-type2">
-															<select name="birthday" id="cyear" class="selected">
+															<select name="birthday1" id="cyear" class="selected">
 																<option value="">년</option>
 																<option value="2020">2020</option>
 																<option value="2019">2019</option>
@@ -441,7 +381,7 @@ function idck() {
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="birthday" id="bmonth" class="selected">
+															<select name="birthday2" id="bmonth" class="selected">
 																<option>월</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -458,7 +398,7 @@ function idck() {
 															</select>
 														</div>
 														<div class="select-type2">
-															<select name="birthday" id="bday" class="selected">
+															<select name="birthday3" id="bday" class="selected">
 																<option>일</option>
 																<option value="1">1</option>
 																<option value="2">2</option>
@@ -577,10 +517,10 @@ function idck() {
 											<dd>
 												<div class="form-group v2">
 													<div class="form-item e-mail">
-														<input type="text" name="email" id="email1"><span>@</span>
+														<input type="text" name="email1" id="email1"><span>@</span>
 														<input type="text" name="email2" id="email2">
 														<div class="select-type2">
-															<select name="email" id="email3"
+															<select name="email3" id="email3"
 																onchange="checkEmailState($('#email3'),$('#email2'))">
 																<option value="naver.com">네이버</option>
 																<option value="hanmail.net">한메일</option>
@@ -657,22 +597,19 @@ function idck() {
 													<ul>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_ds_fl" name="receive_sms"
-																	value="Y"> <label class="checkbox"
+																<input type="checkbox" id="chk_ds_fl" name="receive_sms" value="Y"> <label class="checkbox"
 																	for="chk_ds_fl"></label> <label for="chk_ds_fl">문자메세지(선택)</label>
 															</div>
 														</li>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_dm_fl" name="receive_email"
-																	value="Y"> <label class="checkbox"
+																<input type="checkbox" id="chk_dm_fl" name="receive_email" value="Y"> <label class="checkbox"
 																	for="chk_dm_fl"></label> <label for="chk_dm_fl">이메일(선택)</label>
 															</div>
 														</li>
 														<li>
 															<div class="chk-box v4">
-																<input type="checkbox" id="chk_o_dm_fl"
-																	name="receive_dm" value="Y"> <label
+																<input type="checkbox" id="chk_o_dm_fl" name="receive_dm" value="Y"> <label
 																	class="checkbox" for="chk_o_dm_fl"></label> <label
 																	for="chk_o_dm_fl">DM 우편(최근 배달주소로 배송)(선택)</label>
 															</div>
@@ -684,9 +621,9 @@ function idck() {
 										</dl>
 
 									<div class="btn-wrap">
-									<input type="submit" class="btn-type v6" value="가입하기" >
+									<input type="submit" class="btn-type v6" value="가입하기" />
 									
-								</div>
+									</div>
 									</form>
 								</div>
 
@@ -1621,14 +1558,6 @@ function idck() {
 		</div>
 	</div>
 	<!-- //장바구니(e) -->
-	
-	<!-- id중복 체크 실험 -->
-	<div class="form-item name">
-		<input type="text" name="userid" id="useridtest" maxlength="16"
-			placeholder="">
-		<button class="btn-type v7" id="idcheck" onClick="idck();">버튼</button>
-	</div>
-
 
 	<footer id="footer">
 		<div class="footer-area">
