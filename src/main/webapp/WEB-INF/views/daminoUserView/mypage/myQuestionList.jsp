@@ -6,7 +6,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-
+<style type="text/css">
+	#qna_list_num {list-style:none; text-align:center; padding:15px; margin:20px;}
+</style>
 <title>도미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
 	<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
 	
@@ -389,7 +391,7 @@
 									<li><a href="/mypage/myLevel">매니아 등급</a></li>
 									<li><a href="/mypage/myOrderList">주문내역</a></li>
 									<li><a href="/mypage/myCoupon">쿠폰함</a></li>
-									<li class="active"><a href="/mypage/qustionList">1:1문의</a></li>
+									<li class="active"><a href="myquestionlist.do">1:1문의</a></li>
 									<li><a href="/member/userinfoConfirm">정보수정</a></li>
 								</ul>
 							</div>
@@ -419,21 +421,33 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="qnaboard" items="${boardList }">
-										<tr>
-											<td>${qnaboard.seq }</td>
-											<td><a href="myquestion_view.do?seq=${qnaboard.seq}">${qnaboard.title}</a></td>
-											<td><fmt:formatDate value="${qnaboard.regDate }" pattern="yyyy-MM-dd" /></td>
-											<td>${qnaboard.result }</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-								<tbody>
 									<c:if test="${count==0}">
 										<td colspan="4">문의하신 내용이 없습니다.</td>
 									</c:if>
-								</tbody>
+									<c:forEach var="qnaboard" items="${boardList }">
+									<tr>
+											<td>${qnaboard.seq }</td>
+											  <td><a href="myquestion_view.do?seq=${qnaboard.seq}&pageNo=${currentPage}">${qnaboard.title}</a></td>
+											<!--<td><a href="javascript:goView()">${qnaboard.title}</a></td>-->
+											<td><fmt:formatDate value="${qnaboard.regDate }" pattern="yyyy-MM-dd" /></td>
+											<td>${qnaboard.result }</td>
+									</tr>
+									</c:forEach>
+									</tbody>
 							</table>
+								<div id="qna_list_num">
+									<ul>
+										<c:if test="${pageMaker.prev}">
+											<a href="myquestionlist.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
+										</c:if>
+										<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
+											<a href="myquestionlist.do${pageMaker.makeQuery(i)}">[${i}]</a>
+										</c:forEach>
+										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+											<a href="myquestionlist.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
+										</c:if>
+									</ul>
+								</div>
 						</div>
 						<div class="pager-wrap">
 							<div class="pager-inner">
@@ -450,7 +464,7 @@
 </div>
 
 <!-- 문의하기 -->
-<form name="qnaBoardInsert" id="qnaBoardInsert" method="post" action="javascript:proc()">
+<form name="qnaBoardInsert" id="qnaBoardInsert" method="post" action="javascript:proc()"> 
 <div class="pop-layer" id="pop-write">
 	<div class="dim"></div>
 	<div class="pop-wrap">
@@ -464,15 +478,15 @@
 			<div class="step-wrap">
 				<dl>
 					<dt>아이디</dt>
-					<dd>rkdtngus1122</dd>
+					<dd>userid</dd>
 				</dl>
 				<dl>
 					<dt>연락처</dt>
-					<dd>010-9174-9355</dd>
+					<dd>01012341234</dd>
 				</dl>
 				<dl>
 					<dt>이메일</dt>
-					<dd>rkdtngus1122@naver.com</dd>
+					<dd>test@hanmail.net</dd>
 				</dl>
 			</div>
 			<div class="step-wrap">
@@ -480,63 +494,63 @@
 					<dl>
 						<dt>문의유형</dt>
 						<dd>
-							<div class="form-item">
+							<div class="form-item"> 
 								<div class="select-type2">
-									<select id="sel" name="qnaType">
-										<option value="">선택</option>
-										<option value="제품관련">제품관련</option>
-										<option value="배달서비스 관련">배달서비스 관련</option>
-										<option value="직원 서비스 관련">직원 서비스 관련</option>
-										<option value="콜센타 관련">콜센타 관련</option>
-										<option value="칭찬">칭찬</option>
-										<option value="제안">제안</option>
-										<option value="단순문의">단순문의</option>
-										<option value="기타">기타</option>
+									<select id="sel_qnaType" name="qnaType">
+										<option value="0" <c:if test="${qnaType == 0}"></c:if>>선택</option>
+										<option value="제품관련" <c:if test="${qnaType == '제품관련'}"></c:if>>제품관련</option>
+										<option value="배달서비스 관련" <c:if test="${qnaType == '배달서비스 관련'}"></c:if>>배달서비스 관련</option>
+										<option value="직원 서비스 관련" <c:if test="${qnaType == '직원 서비스 관련'}"></c:if>>직원 서비스 관련</option>
+										<option value="콜센타 관련" <c:if test="${qnaType == '콜센타 관련'}"></c:if>>콜센타 관련</option>
+										<option value="칭찬" <c:if test="${qnaType == '칭찬'}"></c:if>>칭찬</option>
+										<option value="제안" <c:if test="${qnaType == '제안'}"></c:if>>제안</option>
+										<option value="단순문의" <c:if test="${qnaType == '단순문의'}"></c:if>>단순문의</option>
+										<option value="기타" <c:if test="${qnaType == '기타'}"></c:if>>기타</option>
 									</select>
 								</div>
 							</div>
-						</dd>
+						</dd> 
 					</dl>
 					<dl>
 						<dt>매장선택</dt>
 						<dd class="form-group">
 							<div class="form-item">
 								<div class="select-type2">
-									<select id="sel2" name="branch_region" onChange="changeBranch($('#sel2 option:selected').val());">
-										<option>지역</option>
-										<option value="서울">서울</option>
+									<select id="sel2" name="storeRegion" >
+										<option value="0" <c:if test="${storeRegion == 0}"></c:if>>지역</option>
+										<option value="서울" <c:if test="${storeRegion == '서울'}"></c:if>>서울</option>
 										</select>
 								</div>
 							</div>
 										<div class="form-item">
 											<div class="select-type2">
-												<select id="sel3" name="branch_code">
-													<option value="">구/군</option>
-													<option value="0111">강남구</option>
-													<option value="0110">강동구</option>
-													<option value="0117">강북구</option>
-													<option value="0124">강서구</option>
-													<option value="0120">관악구</option>
-													<option value="0118">광진구</option>
-													<option value="0121">구로구</option>
-													<option value="0122">금천구</option>
-													<option value="0115">노원구</option>
-													<option value="0108">도봉구</option>
-													<option value="0106">동대문구</option>
-													<option value="0123">동작구</option>
-													<option value="0104">마포구</option>
-													<option value="0103">서대문구</option>
-													<option value="0113">서초구</option>
-													<option value="0109">성동구</option>
-													<option value="0112">성북구</option>
-													<option value="0114">송파구</option>
-													<option value="0125">양천구</option>
-													<option value="0119">영등포구</option>
-													<option value="0116">용산구</option>
-													<option value="0105">은평구</option>
-													<option value="0102">종로구</option>
-													<option value="0101" selected>중구</option>
-													<option value="0107">중랑구</option>
+												<select id="sel3" name="storeName">
+													<option value="0" <c:if test="${storeName == 0}"></c:if>>구/군</option>
+													<option value="강남구" <c:if test="${storeName == '강남구'}"></c:if>>강남구</option>
+													<option value="강동구" <c:if test="${storeName == '강동구'}"></c:if>>강동구</option>
+													<option value="강북구" <c:if test="${storeName == '강북구'}"></c:if>>강북구</option>
+													<option value="강서구" <c:if test="${storeName == '강서구'}"></c:if>>강서구</option>
+													<option value="관악구" <c:if test="${storeName == '관악구'}"></c:if>>관악구</option>
+													<option value="광진구" <c:if test="${storeName == '광진구'}"></c:if>>광진구</option>
+													<option value="구로구" <c:if test="${storeName == '구로구'}"></c:if>>구로구</option>
+													<option value="금천구" <c:if test="${storeName == '금천구'}"></c:if>>금천구</option>
+													<option value="노원구" <c:if test="${storeName == '노원구'}"></c:if>>노원구</option>
+													<option value="도봉구" <c:if test="${storeName == '도봉구'}"></c:if>>도봉구</option>
+													<option value="동대문구" <c:if test="${storeName == '동대문구'}"></c:if>>동대문구</option>
+													<option value="동작구" <c:if test="${storeName == '동작구'}"></c:if>>동작구</option>
+													<option value="마포구" <c:if test="${storeName == '마포구'}"></c:if>>마포구</option>
+													<option value="서대문구" <c:if test="${storeName == '서대문구'}"></c:if>>서대문구</option>
+													<option value="서초구" <c:if test="${storeName == '서초구'}"></c:if>>서초구</option>
+													<option value="성동구" <c:if test="${storeName == '성동구'}"></c:if>>성동구</option>
+													<option value="성북구" <c:if test="${storeName == '성북구'}"></c:if>>성북구</option>
+													<option value="송파구" <c:if test="${storeName == '송파구'}"></c:if>>송파구</option>
+													<option value="양천구" <c:if test="${storeName == '양천구'}"></c:if>>양천구</option>
+													<option value="영등포구" <c:if test="${storeName == '영등포구'}"></c:if>>영등포구</option>
+													<option value="용산구" <c:if test="${storeName == '용산구'}"></c:if>>용산구</option>
+													<option value="은평구" <c:if test="${storeName == '은평구'}"></c:if>>은평구</option>
+													<option value="종로구" <c:if test="${storeName == '종로구'}"></c:if>>종로구</option>
+													<option value="중구" selected <c:if test="${storeName == '중구'}"></c:if>>중구</option>
+													<option value="중랑구" <c:if test="${storeName == '중랑구'}"></c:if>>중랑구</option>
 												</select>
 											</div>
 										</div>
@@ -546,7 +560,7 @@
 						<dt>제목</dt>
 						<dd>
 							<div class="form-item">
-								<input type="text" id="subject" name="subject" />
+								<input type="text" id="title" name="title" />
 							</div>
 						</dd>
 					</dl>
@@ -575,7 +589,7 @@
 </form>
 <!--//문의하기 -->
 
-<form name="f" id="f" method="get" action="/mypage/qustionList">
+<form name="f" id="f" method="get" action="myquestionlist.do">
 <input type="hidden" name="idx" id="idx" />
 <input type="hidden" name="no" id="no" />
 <input type="hidden" name="pageNo" id="pageNo" value="1">
@@ -585,41 +599,21 @@
 //페이징
 function paging(no){
 	$("#pageNo").val(no);
-	$('#f').attr("action", "/mypage/myQustionList");
+	$('#f').attr("action", "myquestionlist.do");
+	console.log($("#pageNo").val(no));
 	$("#f").submit();
 }
+//var phoneNumber1 = $('#sel_hand_tel1').val();
 
 //문의 내역 상세보기
 function goView(idx, no) {
 	$('#idx').val(idx);
 	$('#no').val(no);
-	$('#f').attr("action", "/mypage/myQuestion_view");
+	$('#f').attr("action", "myquestion_view.do");
 	$('#f').submit();
 }
 
-//매장목록
-function changeBranch(region){
-	$.ajax({
-		url: '/mypage/branchListAjax',
-		data: { branch_region : encodeURIComponent(region) },
-		type: 'get',
-		dataType: 'json',
-		success: function(data) {
-			if (data.status == 'success') {
-				var htmlStr = '<option value="">매장 선택</option>';
-				$.each(data.resultData, function(index, addrObj) {
-					htmlStr += '<option value="'+ addrObj.branch_code +'">'+ addrObj.branch_name +'</option>';
-				});
-				$('#sel3').html(htmlStr);
-			} else {
-				alert(data.msg);
-			}
-		},
-		error: function() {
-			alert('처리도중 오류가 발생했습니다.');
-		}
-	});
-}
+
 
 //다시입력
 function doReset(){
@@ -630,19 +624,23 @@ function doReset(){
 }
 
 //문의하기
-var send = false;
 function proc(){
-	if(send){
+	if($('#qnaType').val() == '') { alert('유형분류를 선택해주세요'); $('#qnaType').focus(); return;}
+	if($('#title').val() == '') { alert('제목을 입력하세요'); $('#title').focus(); return;}
+	if($('textarea[name=content]').val() == '') { alert('내용을 입력하세요.'); $('#content').focus(); return;}	
+	var send = true;
+	
+		if(send == true){
+	
 		alert('등록중 입니다.');
-	}else{
-		if($('#qnaType').val() == '') { alert('유형분류를 선택해주세요'); $('#qnaType').focus(); return;}
-		if($('#subject').val() == '') { alert('제목을 입력하세요'); $('#subject').focus(); return;}
-		if($('textarea[name=content]').val() == '') { alert('내용을 입력하세요.'); $('#content').focus(); return;}	
-		send = true;
-		document.qnaForm.action='qnaInsertBoard.do';
-		$('#qnaBoardInsert').submit();
-	}	
+		 var qnaType = $('#sel_qnaType').val();
+		 console.log(qnaType);
+		 $('#qnaBoardInsert').submit();
+		 document.qnaBoardInsert.action='qnaInsertBoard.do';
+		
+	}
 }
+
 </script>
 <script type="text/javascript">
 	_TRK_PI = "WP_24_4";			

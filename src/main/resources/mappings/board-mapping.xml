@@ -47,11 +47,27 @@
 		SELECT seq, title, regdate, result FROM qnaboard ORDER BY seq desc
 	</select> -->
 	
-	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO">
-		<![CDATA[SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result FROM
-		(SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=? AND rnum<=?"]]>
+	<select id="myQuestionList" resultType="com.damino.web.user.board.QnaBoardVO" parameterType="com.damino.web.user.board.paging.Paging">
+		<![CDATA[
+		SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result
+		FROM (SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		]]>
 	</select>
-	
+	<!--  <![CDATA[
+		SELECT seq, title, regdate, result
+		FROM (
+			SELECT seq, title, regdate, result
+			row_number() over(ORDER BY seq desc) As rnum
+			FROM qnaboard
+			) 
+			WHERE rnum BETWEEN #{rowStart} AND #{rowEnd}
+			ORDER BY seq desc
+			
+			SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result
+		FROM (SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}"
+			]]>
+	-->
+			
 	<select id="myQuestion" resultType="com.damino.web.user.board.QnaBoardVO">
 		SELECT * FROM qnaboard WHERE seq=#{seq}
 	</select>

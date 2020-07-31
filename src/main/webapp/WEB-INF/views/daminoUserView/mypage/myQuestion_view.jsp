@@ -298,7 +298,6 @@
 									<span class="hidden ">장바구니</span>
 									<strong class="cart_count"></strong> <!-- count -->
 								</a>
-							<!--2020-03-17 추가(s)-->
 		                <a href="javascript:void(0);" class="lang">
 		                    <div class="select-type2 language">
 		                    	<select id="select-type2">
@@ -435,7 +434,7 @@
                             <dl>
                                 <dt class="top">답변</dt>
                                 <dd>
-                                    <div class="form-item">
+                                    <div class="form-item"> 
                                         <textarea name="" id="content2" cols="30" rows="10" readonly="">${qnaboard.replyContent }</textarea>
                                     </div>
                                 </dd>
@@ -461,7 +460,8 @@
 <script type="text/javascript">
 //목록
 function goList(){
-	location.href = "/mypage/myQuestionList?pageNo="+'1';
+	location.href = "/DaminoPage/myquestionlist.do?pageNo="+'1';
+	//location.href = "/mypage/myQuestionList?pageNo="+'1';
 }
 
 // 삭제
