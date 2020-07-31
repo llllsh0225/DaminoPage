@@ -74,7 +74,7 @@
 	</select>
 	
 	<select id="getQnaCount" resultType="int">
-		 SELECT count(*) FROM qnaboard WHERE writerId=#{writerId}
+		 SELECT count(*) FROM qnaboard
 	</select>
 	<!-- End 1:1 문의 게시판 -->
 	
