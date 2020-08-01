@@ -89,7 +89,7 @@ function regCheck(){
 									<h3 class="text-center font-weight-light my-4">매장관리자 계정 등록</h3>
 								</div>
 								<div class="card-body" style="height:500px">
-									<form name="frm" id="frm" action="registMember.do" name="form1"
+									<form name="frm" id="frm" action="registMarketAdminMember.smdo" name="form1"
 										method="post" onsubmit="return regCheck()">
 										<!--수정1-->
 										
@@ -133,7 +133,7 @@ function regCheck(){
 												<div class="form-group">
 													<label class="small mb-1">구 선택</label>
 													<select class="form-control py-4" id="storeRegion">
-														<option>강남구</option>
+														<option value="1">강남구</option>
 														<option>강동구</option>
 														<option>강북구</option>
 														<option>강서구</option>
@@ -167,6 +167,10 @@ function regCheck(){
 													<select class="form-control py-4" id="storeName">
 														<option>명동점</option>
 														<option>신당점</option>
+														<c:if test="${storeRegion == 1}">
+															<option>샤로수길점</option>
+															<option>서초점</option>
+														</c:if>
 													</select>
 												</div>
 											</div>
