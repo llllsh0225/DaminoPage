@@ -183,17 +183,17 @@
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<form>
+						<form action="insertFaq.admdo" method="post">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제목</th>
-										<td><input type="text" size="40" /></td>
+										<td><input type="text" name="title" size="40" /></td>
 									</tr>
 									<tr>
 										<th>질문 분류</th>
-										<td><select class="form-control-osh-qna-insert">
+										<td><select name="faq_type" class="form-control-osh-qna-insert">
 												<option>피자 주문하기</option>
 												<option>주문확인</option>
 												<option>포장 주문</option>
@@ -204,10 +204,10 @@
 									</tr>
 									<tr>
 										<th>내용</th>
-										<td><textarea cols="80" rows="10"></textarea></td>
+										<td><textarea name="content" cols="80" rows="10"></textarea></td>
 									</tr>
 									<tr>
-										<td colspan="2" class="center-group"><input type="button"
+										<td colspan="2" class="center-group"><input type="submit"
 											class="btn btn-primary" value="Q&A 등록" /> <input
 											type="button" class="btn btn-delete" value="취소" /></td>
 									</tr>

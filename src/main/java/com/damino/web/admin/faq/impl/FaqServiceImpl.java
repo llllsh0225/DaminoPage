@@ -19,4 +19,29 @@ public class FaqServiceImpl implements FaqService {
 		return faqDAO.getFaqList();
 	}
 
+	@Override
+	public void insertFaq(FaqVO vo) {
+		faqDAO.insertFaq(vo);
+	}
+
+	@Override
+	public FaqVO getFaq(FaqVO vo) {
+		return faqDAO.getFaq(vo);
+	}
+
+	@Override
+	public void updateFaq(FaqVO vo) {
+		faqDAO.updateFaq(vo);
+	}
+
+	@Override
+	public void deleteFaq(FaqVO vo) {
+		faqDAO.deleteFaq(vo);
+	}
+
+	@Override
+	public List<FaqVO> getFaqTypeList(String faq_type) {
+		return faqDAO.getFaqTypeList(faq_type);
+	}
+
 }
