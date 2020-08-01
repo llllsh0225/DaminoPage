@@ -12,9 +12,69 @@
 <meta name="author" content="" />
 <title>다미노피자 - 매장관리자 등록</title>
 <link href="<c:url value='/resources/css/admin/styles.css' />" rel="stylesheet" />
+<!-- <style>
+	#managerId{
+		clear : both;
+	}
+</style> -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous">
+</script>
+<script>
+function idCheck(){
+	var managerId = $("#managerId").val();
+	$.ajax({
+		url : "managerIdCheck.smdo",
+		type : "POST",
+		contentType : "application/json; charset=UTF-8;",
+		dataType : "json",
+		data : JSON.stringify({
+			managerId : managerId,
+		}),
+		success : function(data){
+			if(data > 0){
+				alert("아이디 중복");
+				$('#id_alert').text("이미 사용중인 아이디입니다.");
+				$('#id_alert').show();
+				return;
+			}else{
+				alert("사용가능");
+				$('#id_alert').text("사용 가능한 아이디입니다.");
+				$('#id_alert').show();
+			}
+		},
+		error : function(err){
+			alert("등록에 실패했습니다");
+		}
+	});
+}
+
+function regCheck(){
+	var theForm = document.managerRegister;
+	if(!theForm.managerName.value){
+		alert("이름을 입력해 주세요");
+		theForm.managerName.focus();
+		return;
+	}
+	if(!theForm.managerId.value){
+		alert("아이디를 입력해 주세요");
+		theForm.managerId.focus();
+		return;
+	}
+	if(!theForm.managerPasswd.value){
+		alert("비밀번호를 입력해 주세요");
+		theForm.managerPasswd.focus();
+		return;
+	}
+	if(theForm.ConfirmPassword.value != theForm.managerPasswd.value){
+		alert("비밀번호가 일치하지 않습니다.");
+		theForm.ConfirmPassword.focus();
+		return;
+	}
+	
+}
+</script>
 </head>
 
 <body class="bg-primary">
@@ -28,28 +88,42 @@
 								<div class="card-header">
 									<h3 class="text-center font-weight-light my-4">매장관리자 계정 등록</h3>
 								</div>
-								<div class="card-body">
-									<form>
+								<div class="card-body" style="height:500px">
+									<form name="frm" id="frm" action="registMember.do" name="form1"
+										method="post" onsubmit="return regCheck()">
 										<!--수정1-->
-										<div class="form-group">
-											<label class="small mb-1" for="inputAdminID">아이디</label> <input
-												class="form-control py-4" id="inputEmailAddress"
-												type="adminID" aria-describedby="IdlHelp" placeholder="ID" />
+										
+										<div class="form-row">
+											<div class="col-md-6">
+											<label class="small mb-1">이름</label>
+											<input class="form-control py-4" id="managerName"
+												name="managerName" placeholder="Name" />
+											</div>
+											</div>
+										<div class="form-row">
+											<div class="col-md-6">
+												<label class="small mb-1">아이디</label> <input
+													class="form-control py-4" id="managerId" name="managerId" placeholder="Id">
+											</div>
+											<div class="col-md-2" style="padding: 15px">
+												<a href="javascript:idCheck();" class="btn btn-primary"
+													style="margin: 2px">중복확인</a>
+												<div id="id_alert" style="display: none;"></div>
+											</div>
 										</div>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputPassword">비밀번호</label>
-													<input class="form-control py-4" id="inputPassword"
-														type="password" placeholder="password" />
+													<label class="small mb-1" >비밀번호</label>
+													<input class="form-control py-4" id="managerPasswd"
+													name="managerPasswd" placeholder="Password" />
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputConfirmPassword">비밀번호
+													<label class="small mb-1" >비밀번호
 														확인</label> <input class="form-control py-4"
-														id="inputConfirmPassword" type="password"
-														placeholder="Confirm password" />
+														id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" />
 												</div>
 											</div>
 										</div>
@@ -57,8 +131,8 @@
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="selectStoreGu">구 선택</label>
-													<select class="form-control py-4" id="selectStoreGu">
+													<label class="small mb-1">구 선택</label>
+													<select class="form-control py-4" id="storeRegion">
 														<option>강남구</option>
 														<option>강동구</option>
 														<option>강북구</option>
@@ -89,8 +163,8 @@
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="selectStoreName">매장명</label>
-													<select class="form-control py-4" id="selectStoreName">
+													<label class="small mb-1" >매장명</label>
+													<select class="form-control py-4" id="storeName">
 														<option>명동점</option>
 														<option>신당점</option>
 													</select>
@@ -98,8 +172,10 @@
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<a class="btn btn-primary btn-block" href="managerLogin.smdo">계정
-												승인 신청</a>
+											<input type="submit" class="btn btn-primary btn-block"
+											value="승인 신청"/>
+											<input type="reset" class="btn-delete"
+											style="display: block; width: 100%" value="다시 입력"/>
 										</div>
 									</form>
 								</div>
