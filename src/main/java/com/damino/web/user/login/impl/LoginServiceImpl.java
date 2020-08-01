@@ -12,12 +12,10 @@ public class LoginServiceImpl implements LoginService {
 	@Autowired
 	private UserDAO userDAO;
 	
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
 	@Override
-	public UserVO getUser(UserVO vo) {
-		return userDAO.getUser(vo);
+	public UserVO login(UserVO vo) {
+		System.out.println("LoginServiceImpl login(vo)");
+		return userDAO.login(vo);
 	}
 	
 
