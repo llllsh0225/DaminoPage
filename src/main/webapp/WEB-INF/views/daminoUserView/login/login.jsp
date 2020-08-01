@@ -108,34 +108,26 @@
 							<div class="tab-type5 js_tab">
 								<ul>
 									<li class="active"><a href="login.do">회원로그인</a></li>
-									<li><a href="#guest" onclick="showAlert(); return false;">비회원
-											주문</a></li>
+									<li><a href="#guest" onclick="showAlert(); return false;">비회원 주문</a></li>
 								</ul>
 							</div>
 							<div class="tab-content active" id="login">
-								<form id="loginFrm" name="loginFrm" action="loginTest.do" method="post">
-									<input type="hidden" name="redirectUrl" id="redirectUrl"
-										value="/main" /> <input type="hidden" name="partycar_seq"
-										id="partycar_seq" value="" /> <input type="hidden"
-										name="event_gubun" id="event_gubun" value="" />
+								<form id="loginFrm" name="loginFrm" action="loginSuccess.do" method="post">
 									<div class="form-item">
-										<input type="text" name="userid" id="userid" maxlength="20"
-											placeholder="아이디" value="">
+										<input type="text" name="userid" id="userid" maxlength="20" placeholder="아이디">
 									</div>
 									<div class="form-item">
-										<input type="password" placeholder="비밀번호" name="userpasswd"
-											id="userpasswd" maxlength="20"
-											onkeydown="javascript:if(event.keyCode==13){doLoginSSL();}">
+										<input type="password" name="userpasswd" id="userpasswd" maxlength="20" placeholder="비밀번호"> 
 									</div>
 									<div class="chk-item">
 										<div class="chk-box v4">
-											<input type="checkbox" id="idcheck"> <label
-												class="checkbox" for="idcheck"></label> <label for="idcheck">아이디저장</label>
+											<input type="checkbox" id="idcheck"> 
+											<label class="checkbox" for="idcheck"></label> 
+											<label for="idcheck">아이디저장</label>
 										</div>
 										<div class="btn-member-wrap" style="margin-bottom: 20px">
-											<span><a href="javascript:goFindIdPwd('#srchid');">아이디
-													찾기</a></span> <span><a
-												href="javascript:goFindIdPwd('#srchpw');">비밀번호 찾기</a></span>
+											<span><a href="javascript:goFindIdPwd('#srchid');">아이디 찾기</a></span> 
+													<span><a href="javascript:goFindIdPwd('#srchpw');">비밀번호 찾기</a></span>
 										</div>
 									</div>
 
