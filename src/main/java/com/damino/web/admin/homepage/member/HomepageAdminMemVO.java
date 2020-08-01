@@ -159,14 +159,5 @@ public class HomepageAdminMemVO {
 		this.userlevel = userlevel;
 	}
 
-	@Override
-	public String toString() {
-		return "UserMemberVO [username=" + username + ", userid=" + userid + ", userpasswd=" + userpasswd
-				+ ", birthday=" + birthday + ", sex=" + sex + ", cyear=" + cyear + ", phone=" + phone + ", email="
-				+ email + ", receive_sms=" + receive_sms + ", receive_email=" + receive_email + ", receive_dm="
-				+ receive_dm + ", userlevel=" + userlevel + "]";
-	}
-
-	
 }
 

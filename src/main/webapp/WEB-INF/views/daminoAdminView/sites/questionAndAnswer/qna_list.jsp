@@ -214,51 +214,17 @@
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach var="faq" items="${faqList }">
 										<tr>
-											<td class="center-group">5</td>
-											<td><a href="#">예약주문만 가능한 경우는 왜 그런가요?</a></td>
-											<td>피자 주문하기</td>
+											<td class="center-group">${faq.seq }</td>
+											<td><a href="#">${faq.title }</a></td>
+											<td>${faq.faq_type }</td>
 											<td class="center-group"><input type="button"
 												class="btn btn-delete" value="수정" /></td>
 											<td class="center-group"><input type="button"
 												class="btn btn-danger" value="삭제" /></td>
 										</tr>
-										<tr>
-											<td class="center-group">4</td>
-											<td><a href="#">매장상태에 따른 주문불가는 무엇인가요?</a></td>
-											<td>피자 주문하기</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
-										<tr>
-											<td class="center-group">3</td>
-											<td><a href="#">신용카드/휴대폰 승인 및 취소현황은 어떻게 확인하나요?</a></td>
-											<td>주문확인</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
-										<tr>
-											<td class="center-group">2</td>
-											<td><a href="#">주문한 내역은 어디에서 확인할 수 있나요?</a></td>
-											<td>주문확인</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
-										<tr>
-											<td class="center-group">1</td>
-											<td><a href="#">포장주문 이용은 어떻게 하나요?</a></td>
-											<td>포장 주문</td>
-											<td class="center-group"><input type="submit"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="reset"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

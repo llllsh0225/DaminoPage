@@ -763,15 +763,6 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	@RequestMapping("/qna_list.admdo")
-	public ModelAndView getAdminQna_listPage() {
-		System.out.println("문의사항 목록 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sites/questionAndAnswer/qna_list");
-		
-		return mav;
-	}
 	
 	//sites > terms 폴더 시작 -------
 	@RequestMapping("/terms_insert.admdo")

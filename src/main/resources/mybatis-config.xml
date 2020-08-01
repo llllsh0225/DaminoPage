@@ -13,5 +13,6 @@
 		<mapper resource="mappings/menu-mapping.xml"/>
 		<mapper resource="mappings/seeuser-mapping.xml"/>
 		<mapper resource="mappings/market_admin_member-mapping.xml"/>
+		<mapper resource="mappings/faq-mapping.xml"/>
 	</mappers>
 </configuration>
