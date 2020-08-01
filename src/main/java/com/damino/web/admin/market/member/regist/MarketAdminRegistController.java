@@ -26,26 +26,22 @@ public class MarketAdminRegistController {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체
 
-	@RequestMapping(value = "/registMember.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/registMarketAdminMember.smdo", method = RequestMethod.POST)
 	public ModelAndView registMember(@ModelAttribute MarketAdminMemberVO vo, ModelAndView mav, HttpServletRequest request) throws Throwable{
-		System.out.println("회원 등록");
-
+		System.out.println("매장관리자 멤버 등록");
+		
+		// 매장 지역, 매장명 처리
+		System.out.println("매장 지역 : " + vo.getStoreRegion());
+		System.out.println("매장명 : " + vo.getStoreName());
+		
 		// 비밀번호 암호화 처리
 		String pwd = vo.getManagerPasswd();
 		String managerPasswd = pwdEncoder.encode(pwd);
-		
+
 		vo.setManagerPasswd(managerPasswd);
-		
-		// 매장 지역, 매장명 처리
-		String phone1 = request.getParameter("sel_hand_tel1");
-		String phone2 = request.getParameter("hand_tel2");
-		String phone3 = request.getParameter("hand_tel3");
-		String phone = phone1 + phone2 + phone3;
-		
-		//vo.setPhone(phone);	
-		
+				
 		marketAdminRegistService.registMarketAdminMember(vo);
-		mav.addObject("usermember", vo.getManagerName());
+		mav.addObject("MarketAdminMember", vo.getManagerName());
 		mav.setViewName("/userinfo/regResult");
 		
 		return mav;

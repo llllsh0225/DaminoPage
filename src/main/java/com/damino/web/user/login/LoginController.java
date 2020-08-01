@@ -28,7 +28,7 @@ public class LoginController {
 		System.out.println("로그인 정보 확인");
 		//session.getAttribute("username");
 		UserVO login = loginService.login(vo);
-		//boolean pwdMatch = pwdEncoder.matches(vo.getUserid(), login.getUserpasswd());
+		boolean pwdMatch = pwdEncoder.matches(vo.getUserid(), login.getUserpasswd());
 		
 		if(login != null && pwdMatch==true) {
 			System.out.println("로그인에 성공하였습니다.");
