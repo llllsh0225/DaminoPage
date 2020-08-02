@@ -76,13 +76,17 @@
 		});
 	}
 
-	// 구현중
+	function emailCheckValChange() {
+		$('#emailCheckVal').val("N"); // 이메일이 바뀔 때 인증여부를 "N"으로 세팅
+	}
+	
 	function doCheckEmail() {
 		// email1 : @앞부분 , email2 : @뒷부분(naver.com)
 		var chkEmail1 = $('#email1').val();
 		var chkEmail2 = $('#email2').val();
 		var golbang = "@";
 		var chkEmail = chkEmail1.concat(golbang, chkEmail2);
+		var Emchkvalue =$('#emailCheckVal');
 
 		alert(chkEmail); //확인용
 		
@@ -102,6 +106,8 @@
 					return;
 				} else {
 					alert("사용가능한 이메일입니다.");
+					$('#emailCheckVal').val("Y");
+					console.log(Emchkvalue);
 					$('#email_alert').text("사용가능한 이메일입니다..");
 					$('#email_alert').show();
 				}
@@ -113,9 +119,15 @@
 
 	}
 	
+	function idCheckValChange() {
+		$('#idCheckVal').val("N"); // 아이디 이 바뀔 때 인증여부를 "N"으로 세팅
+	}
+	
 	//id 중복체크
 	function idCheck() {
 		var userid = $("#userid").val();
+		var IDchkvalue =$('#idCheckVal');
+		
 		$.ajax({
 			url : "idCheck.do",
 			type : "POST",
@@ -132,6 +144,8 @@
 					return;
 				} else {
 					alert("사용가능");
+					$('#idCheckVal').val("Y");
+					console.log(IDchkvalue);
 					$('#id_alert').text("사용가능 아이디입니다.");
 					$('#id_alert').show();
 				}
@@ -250,7 +264,8 @@
 											<dt class="top">아이디</dt>
 											<dd>
 												<div class="form-item name">
-													<input type="text" name="userid" id="userid" maxlength="16">
+													<input type="hidden" name="idCheckVal" id="idCheckVal"/>
+													<input type="text" name="userid" id="userid" maxlength="16" onchange="idCheckValChange()">
 													<a href="javascript:idCheck();" class="btn-type v7" >중복확인</a>
 												</div>
 												<div class="text-type4" id="id_alert" style="display: none;"></div>
@@ -565,7 +580,8 @@
 											<dd>
 												<div class="form-group v2">
 													<div class="form-item e-mail">
-														<input type="text" name="email1" id="email1"><span>@</span>
+														<input type="hidden" name="idCheckVal" id="emailCheckVal"/>
+														<input type="text" name="email1" id="email1" onchange="emailCheckValChange()"><span>@</span>
 														<input type="text" name="email2" id="email2">
 														<div class="select-type2">
 															<select name="email3" id="email3"
