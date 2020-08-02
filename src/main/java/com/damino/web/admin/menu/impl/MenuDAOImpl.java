@@ -48,15 +48,15 @@ public class MenuDAOImpl implements MenuDAO {
 	}
 
 	@Override
-	public int countPizzaBoard() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public List<ToppingVO> getToppingList() {
 		System.out.println("토핑 메뉴 가져오기");
 		return sqlSessionTemplate.selectList("MenuDAO.getToppingList");
+	}
+
+	@Override
+	public PizzaVO getPizza(PizzaVO vo) {
+		System.out.println("피자 메뉴 DAO");
+		return sqlSessionTemplate.selectOne("MenuDAO.getPizza", vo);
 	}
 
 }

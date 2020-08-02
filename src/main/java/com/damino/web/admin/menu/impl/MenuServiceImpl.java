@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.menu.DrinkEtcVO;
 import com.damino.web.admin.menu.MenuDAO;
 import com.damino.web.admin.menu.MenuService;
 import com.damino.web.admin.menu.PizzaVO;
 import com.damino.web.admin.menu.SideVO;
 import com.damino.web.admin.menu.ToppingVO;
-import com.damino.web.admin.menu.paging.PizzaPaging;
 
 @Service("menuService")
 public class MenuServiceImpl implements MenuService {
@@ -38,15 +38,9 @@ public class MenuServiceImpl implements MenuService {
 		menuDAO.insertTopping(vo);
 	}
 
-	
-	@Override
-	public int countPizzaBoard() {
-		System.out.println("MenuServiceImpl countPizzaBoard()");
-		return menuDAO.countPizzaBoard();
-	}
 
 	@Override
-	public List<PizzaVO> getPizzaList(PizzaPaging pa) {
+	public List<PizzaVO> getPizzaList() {
 		System.out.println("MenuServiceImpl getPizzaList()");
 		return menuDAO.getPizzaList();
 	}
@@ -57,4 +51,9 @@ public class MenuServiceImpl implements MenuService {
 		return menuDAO.getToppingList();
 	}
 
+	@Override
+	public PizzaVO getPizza(PizzaVO vo) {
+		return menuDAO.getPizza(vo);
+		
+	}
 }

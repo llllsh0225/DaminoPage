@@ -47,4 +47,10 @@
 		SELECT seq, t_code, t_name, t_type, t_price
 		FROM topping
 		</select>
+		
+	<select id="getPizza" 
+		resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT * FROM pizza where seq=#{seq}
+	</select>
+
 </mapper>
