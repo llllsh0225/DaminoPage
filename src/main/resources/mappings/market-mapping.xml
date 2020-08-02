@@ -18,14 +18,18 @@
 			where seq=#{seq}
 	</update> 
 
-	<select id="getMarketList" resultType="com.damino.web.admin.market.MarketVO">
+	<select id="getMarketList" resultMap="getMark">
 			SELECT seq, name, tel, address, location, time, etime, car, park, etc
-			FROM market
-			ORDER BY seq desc
+			FROM MARKET
+			ORDER BY seq DESC
 	</select>
 
 	<select id="getMarket" resultType="com.damino.web.admin.market.MarketVO">
 			SELECT * FROM market where seq=#{seq}
 	</select>
+
+	<resultMap id="getMark" type="com.damino.web.admin.market.MarketVO">
+		<result column="name" property="name"/>
+	</resultMap>
 
 </mapper>

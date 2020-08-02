@@ -10,6 +10,5 @@ public interface MenuDAO {
 	public void insertTopping(ToppingVO vo); // 토핑 메뉴 등록
 	
 	public List<PizzaVO> getPizzaList(); // 피자 가져오기
-	public int countPizzaBoard(); // 피자 수
 	public List<ToppingVO> getToppingList();
 }
