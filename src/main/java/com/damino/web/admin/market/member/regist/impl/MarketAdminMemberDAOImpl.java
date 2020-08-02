@@ -16,7 +16,7 @@ public class MarketAdminMemberDAOImpl implements MarketAdminMemberDAO{
 	@Override
 	public void MarketAdminMember(MarketAdminMemberVO vo) {
 		System.out.println("MarketAdminMemberDAOImpl MarketAdminMemberVO(vo)");
-		sqlSessionTemplate.insert("marketAdminMemberDAO.MarketAdminMemberVO", vo);
+		sqlSessionTemplate.insert("marketAdminMemberDAO.registMarketAdminMember", vo);
 	}
 	
 	/**

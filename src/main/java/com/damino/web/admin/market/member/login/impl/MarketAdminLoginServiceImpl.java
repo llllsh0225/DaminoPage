@@ -4,28 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.damino.web.admin.market.member.login.MarketAdminDAO;
-import com.damino.web.admin.market.member.login.MarketAdminService;
+import com.damino.web.admin.market.member.login.MarketAdminLoginService;
 import com.damino.web.admin.market.member.login.MarketAdminVO;
 
-@Service("marketAdminService")
-public class MarketAdminServiceImpl implements MarketAdminService{
+@Service("marketAdminLoginService")
+public class MarketAdminLoginServiceImpl implements MarketAdminLoginService{
 
 	@Autowired
 	private MarketAdminDAO marketAdminDAO;
 	
-	
-	public MarketAdminDAO getMarketAdminMemDAO() {
-		return marketAdminDAO;
-	}
-
-
-	public void setMarketAdminMemDAO(MarketAdminDAO marketAdminDAO) {
-		this.marketAdminDAO = marketAdminDAO;
-	}
-
 	@Override
 	public MarketAdminVO getMember(MarketAdminVO vo) {
-		System.out.println("marketAdminService getMember(MarketAdminVO vo)");
+		System.out.println("MarketAdminLoginServiceImpl getMember(MarketAdminVO vo)");
 		return marketAdminDAO.getMember(vo);
 	}
 

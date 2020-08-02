@@ -4,13 +4,13 @@
 
 <mapper namespace="marketAdminMemberDAO">
 	<!-- 회원 가입 -->
-	<insert id="MarketAdminMember" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+	<insert id="registMarketAdminMember" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
 		INSERT INTO MarketAdminMember (managerName, managerId, managerPasswd, storeRegion, storeName) 
 		VALUES (#{managerName}, #{managerId}, #{managerPasswd}, #{storeRegion}, #{storeName} )
 	</insert>
 	
 	<!-- id 중복 체크 -->
-	<select id="idcheck" parameterType="String" resultType="Integer">
+	<select id="idCheck" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM MarketAdminMember
 		WHERE managerId = #{managerId}
 	</select>

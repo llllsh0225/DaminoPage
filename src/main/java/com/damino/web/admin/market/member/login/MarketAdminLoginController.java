@@ -13,12 +13,12 @@ import com.damino.web.user.login.UserVO;
 @Controller
 public class MarketAdminLoginController {
 	@Autowired
-	private MarketAdminService marketAdminService;
+	private MarketAdminLoginService marketAdminLoginService;
 	
 	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.GET)
 	private String loginView(MarketAdminVO vo) {
 		System.out.println("로그인 페이지로 이동");
-		System.out.println(marketAdminService.toString());
+		System.out.println(marketAdminLoginService.toString());
 		return "members/managerLogin";
 	}
 	
@@ -26,7 +26,7 @@ public class MarketAdminLoginController {
 	private ModelAndView loginCheck(MarketAdminVO vo, ModelAndView mav, HttpSession session) {
 		System.out.println("로그인 인증 처리");
 		
-		MarketAdminVO user = marketAdminService.getMember(vo);
+		MarketAdminVO user = marketAdminLoginService.getMember(vo);
 		
 		if(user != null) {
 			System.out.println("로그인에 성공하였습니다.");

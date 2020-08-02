@@ -3,6 +3,7 @@ package com.damino.web.admin.market.member.regist;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,21 @@ public class MarketAdminRegistController {
 	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체
 
 	@RequestMapping(value = "/registMarketAdminMember.smdo", method = RequestMethod.POST)
-	public ModelAndView registMember(@ModelAttribute MarketAdminMemberVO vo, ModelAndView mav, HttpServletRequest request) throws Throwable{
+	public ModelAndView registMember(@ModelAttribute MarketAdminMemberVO vo, ModelAndView mav, HttpServletRequest request, HttpServletResponse response) throws Throwable{
 		System.out.println("매장관리자 멤버 등록");
 		
+		String storeRegion = request.getParameter("storeRegion");
+		vo.setStoreRegion(storeRegion);
+		
+		String storeName = request.getParameter("storeName");
+		vo.setStoreName(storeName);
+		
 		// 매장 지역, 매장명 처리
-		System.out.println("매장 지역 : " + vo.getStoreRegion());
-		System.out.println("매장명 : " + vo.getStoreName());
+		//System.out.println("매니저이름 : " + vo.getManagerName());
+		//System.out.println("id : " + vo.getManagerId());
+		//System.out.println("password : " + vo.getManagerPasswd());
+		//System.out.println("매장 지역 : " + vo.getStoreRegion());
+		//System.out.println("매장명 : " + vo.getStoreName());
 		
 		// 비밀번호 암호화 처리
 		String pwd = vo.getManagerPasswd();
@@ -42,22 +52,32 @@ public class MarketAdminRegistController {
 				
 		marketAdminRegistService.registMarketAdminMember(vo);
 		mav.addObject("MarketAdminMember", vo.getManagerName());
-		mav.setViewName("/userinfo/regResult");
+		
+		mav.setViewName("/members/managerLogin");
 		
 		return mav;
 	}
 	
 	// ID중복체크 ( loginController 에서 옮길 예정 )
-		@RequestMapping(value ="/idCheck.smdo", method = RequestMethod.POST)
+		@RequestMapping(value ="/managerIdCheck.smdo", method = RequestMethod.POST)
 		@ResponseBody
-		public int idcheck(@RequestBody Map<String, Object> params, HttpServletRequest request) {
-			int cnt_id = 0;
+		public int idCheck(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+			int check_id = 0;
 			String managerId = (String)params.get("managerId");
 			System.out.println("#Controller[id] : "+ managerId);
 			
-			cnt_id = marketAdminRegistService.idCheck(managerId);
-			System.out.println("[cnt_id] :"+ cnt_id);// --- 중복일경우  1 , 사용가능 0 ---
-			return cnt_id;
+			check_id = marketAdminRegistService.idCheck(managerId);
+			System.out.println("[check_id] :"+ check_id);// --- 중복일경우  1 , 사용가능 0 ---
+			return check_id;
 		}
-	
+		
+		@RequestMapping(value ="/daminoStoreList.smdo", method = RequestMethod.POST)
+		@ResponseBody
+		public String daminoStoreList(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+			String daminoStoreList = "";
+			
+			//daminoStoreList = marketAdminRegistService.emailcheck(email);
+			System.out.println("[daminoStoreList] :"+ daminoStoreList);
+			return daminoStoreList;
+		}
 }
