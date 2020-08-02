@@ -13,10 +13,8 @@ public class UserDAOImpl implements UserDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
-	public UserVO login(UserVO vo) {
+	public UserVO login(UserVO vo){
 		System.out.println("UserDAOImpl login(vo)");
 		return sqlSessionTemplate.selectOne("UserMemberDAO.login", vo);
 	}
-	
-
 }
