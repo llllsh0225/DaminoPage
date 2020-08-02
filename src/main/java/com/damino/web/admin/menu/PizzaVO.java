@@ -127,14 +127,4 @@ public class PizzaVO {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
-	@Override
-	public String toString() {
-		return "PizzaVO [p_code=" + p_code + ", p_name=" + p_name + ", p_type=" + p_type + ", p_size=" + p_size
-				+ ", p_price=" + p_price + ", p_dough=" + p_dough + ", p_image=" + p_image + ", uploadFile="
-				+ uploadFile + ", seq=" + seq + ", gross_weight=" + gross_weight + ", onetime_basis=" + onetime_basis
-				+ ", onetime_weight=" + onetime_weight + ", kcal=" + kcal + ", protein=" + protein + ", fat=" + fat
-				+ ", natrium=" + natrium + ", sugars=" + sugars + "]";
-	}
-	
-	
 }
