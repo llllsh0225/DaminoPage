@@ -144,7 +144,7 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
+										<a class="nav-link" href="menuList.admdo">피자</a> <a
 											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
 											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
 											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
@@ -181,10 +181,10 @@
 				<div class="card mb-4">
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <strong>메뉴 관리</strong><br>
-						<a href="#">피자</a>&nbsp;
+						<a href="menuList.admdo">피자</a>&nbsp;
 						<a href="#">사이드디시</a>&nbsp;
 						<a href="#">음료&기타</a>&nbsp;
-						<a href="#">토핑</a>
+						<a href="menuToppingList.admdo">토핑</a>
 					</div>
 					<div class="card-body">
 						<h6>

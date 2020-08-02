@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.menu.paging.PizzaPageMaker;
-import com.damino.web.admin.menu.paging.PizzaPaging;
-
 @Controller
 public class MenuController {
 	@Autowired
@@ -123,13 +120,9 @@ public class MenuController {
 	}
 	
 	@RequestMapping(value="/menuList.admdo", method = RequestMethod.GET)
-	public ModelAndView getPizzaList(PizzaPaging pa) {
+	public ModelAndView getPizzaList() {
 		System.out.println("피자 목록");
-		List<PizzaVO> pizzaList = menuService.getPizzaList(pa);
-		int countPizzaBoard = menuService.countPizzaBoard();
-		PizzaPageMaker pizzaPageMaker = new PizzaPageMaker();
-		pizzaPageMaker.setPa(pa);
-		pizzaPageMaker.setTotalCount(countPizzaBoard);
+		List<PizzaVO> pizzaList = menuService.getPizzaList();
 		System.out.println(pizzaList.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/menu/menuList");
@@ -148,4 +141,16 @@ public class MenuController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/pizzaInfo.admdo", method = RequestMethod.GET)
+	public ModelAndView getPizza(PizzaVO vo) {
+		System.out.println("피자 목록");
+		PizzaVO pizza = menuService.getPizza(vo);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuInfo");
+		mav.addObject("pizza", pizza);
+		return mav;
+	}	
 }
+
+
