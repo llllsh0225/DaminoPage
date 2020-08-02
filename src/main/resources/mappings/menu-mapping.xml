@@ -38,8 +38,8 @@
 
 	<select id="getPizzaList" 
 		resultType="com.damino.web.admin.menu.PizzaVO">
-		SELECT seq, p_code, p_name, p_type, p_price
-		FROM pizza
+		SELECT seq, P_CODE, P_NAME, P_TYPE, P_PRICE
+		FROM PIZZA
 	</select>
 
 	<select id="getToppingList"
