@@ -45,15 +45,32 @@ public class MenuServiceImpl implements MenuService {
 		return menuDAO.getPizzaList();
 	}
 
+	
 	@Override
 	public List<ToppingVO> getToppingList() {
 		System.out.println("MenuServiceImpl getToppingList()");
 		return menuDAO.getToppingList();
 	}
-
+	
+	@Override
+	public List<SideVO> getSideList() {
+		System.out.println("MenuServiceImpl getSideList()");
+		return menuDAO.getSideList();
+	}
+	
+	@Override
+	public List<DrinkEtcVO> getDrinkEtcList() {
+		return menuDAO.getDrinkEtcList();
+	}
+	
+	
 	@Override
 	public PizzaVO getPizza(PizzaVO vo) {
 		return menuDAO.getPizza(vo);
 		
 	}
+
+	
+
+	
 }

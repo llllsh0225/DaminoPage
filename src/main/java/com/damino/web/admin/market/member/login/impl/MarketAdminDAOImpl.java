@@ -24,5 +24,4 @@ public class MarketAdminDAOImpl implements MarketAdminDAO{
 		System.out.println("MarketAdminDAOImpl checkMemberId(String id)");
 		return sqlSessionTemplate.selectOne("marketAdminDAO.checkMemberId", id);
 	}
-
 }

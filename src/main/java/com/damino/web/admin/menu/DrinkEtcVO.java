@@ -7,7 +7,22 @@ public class DrinkEtcVO {
 	private String d_price; // 음료&기타 가격
 	private String d_image; // 음료&기타 제품이미지 파일명
 	private MultipartFile uploadFile;
+	private int seq;
+	private String d_code;
 	
+	
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
+	public String getD_code() {
+		return d_code;
+	}
+	public void setD_code(String d_code) {
+		this.d_code = d_code;
+	}
 	public String getD_name() {
 		return d_name;
 	}

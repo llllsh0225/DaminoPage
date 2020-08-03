@@ -185,8 +185,8 @@
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <strong>메뉴 관리</strong><br>
 						<a href="menuList.admdo">피자</a>&nbsp;
-						<a href="#">사이드디시</a>&nbsp;
-						<a href="#">음료&기타</a>&nbsp;
+						<a href="menuSideList.admdo">사이드디시</a>&nbsp;
+						<a href="menuDrinkEtcList.admdo">음료&기타</a>&nbsp;
 						<a href="menuToppingList.admdo">토핑</a>
 					</div>
 					<div class="card-body">
