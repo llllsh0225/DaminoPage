@@ -16,8 +16,32 @@ public class FaqViewDAOImpl implements FaqViewDAO {
 	
 	@Override
 	public List<FaqViewVO> getHowToOrderPage() {
-		System.out.println("피자 주문하기 페이지 열기");
+		System.out.println("FAQ 피자 주문하기 페이지 열기");
 		return sqlSessionTemplate.selectList("FaqViewDAO.getHowToOrderPage");
+	}
+
+	@Override
+	public List<FaqViewVO> getOrderCheckPage() {
+		System.out.println("FAQ 주문 확인 페이지 열기");
+		return sqlSessionTemplate.selectList("FaqViewDAO.getOrderCheckPage");
+	}
+
+	@Override
+	public List<FaqViewVO> getWrapOrderPage() {
+		System.out.println("FAQ 포장 주문 페이지 열기");
+		return sqlSessionTemplate.selectList("FaqViewDAO.getWrapOrderPage");
+	}
+
+	@Override
+	public List<FaqViewVO> getSendPresentPage() {
+		System.out.println("FAQ 피자 선물하기 페이지 열기");
+		return sqlSessionTemplate.selectList("FaqViewDAO.getSendPresentPage");
+	}
+
+	@Override
+	public List<FaqViewVO> getAboutHomepagePage() {
+		System.out.println("FAQ 홈페이지 관련 페이지 열기");
+		return sqlSessionTemplate.selectList("FaqViewDAO.getAboutHomepagePage");
 	}
 
 }
