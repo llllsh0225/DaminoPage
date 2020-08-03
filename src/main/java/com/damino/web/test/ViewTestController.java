@@ -784,7 +784,17 @@ public class ViewTestController {
 			
 			return mav;
 		}
-	
+		
+		@RequestMapping("/main_welcome.smdo")
+		public ModelAndView getMainManagerWelcomePage() {
+			System.out.println("메인페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/main_welcome");
+			
+			return mav;
+		}
+		
 	//error 폴더 시작 ------
 		@RequestMapping("/error_401.smdo")
 		   public ModelAndView getManagerError401Page() {

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,23 +23,51 @@ public class MarketAdminLoginController {
 		return "members/managerLogin";
 	}
 	
+//	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.POST)
+//	private ModelAndView loginCheck(MarketAdminVO vo, ModelAndView mav, HttpSession session) {
+//		System.out.println("로그인 인증 처리");
+//		
+//		MarketAdminVO user = marketAdminLoginService.getMember(vo);
+//		
+//		if(user != null) {
+//			System.out.println("로그인에 성공하였습니다.");
+//			mav.setViewName("main");
+//			return mav;
+//		}else {
+//			System.out.println("로그인에 실패하였습니다.");
+//			
+//			mav.setViewName("login/login");
+//
+//			return mav;
+//		}
+//	}
 	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.POST)
-	private ModelAndView loginCheck(MarketAdminVO vo, ModelAndView mav, HttpSession session) {
-		System.out.println("로그인 인증 처리");
-		
-		MarketAdminVO user = marketAdminLoginService.getMember(vo);
-		
-		if(user != null) {
-			System.out.println("로그인에 성공하였습니다.");
-			mav.setViewName("main");
-			return mav;
+	public ModelAndView loginCheck(String id, String pw, HttpSession session, ModelAndView mav) {
+		MarketAdminVO check = marketAdminLoginService.checkMemberId(id);
+		if(check != null) {
+			if(pw.equals(check.getManagerPasswd())) {
+				session.setAttribute("id", check.getManagerId());
+				mav.addObject("id", check.getManagerId());
+				mav.addObject("pw", check.getManagerPasswd());
+				mav.setViewName("login_welcome");
+				return mav;
+			}else {
+				mav.addObject("id_fail", id);
+				mav.setViewName("login_fail_pw");
+				return mav;
+			}
 		}else {
-			System.out.println("로그인에 실패하였습니다.");
-			
-			mav.setViewName("login/login");
-
+			mav.addObject("id_fail", id);
+			mav.setViewName("login_fail_id");
 			return mav;
 		}
-	}
+	}	
 	
+	@RequestMapping(value="/logout.smdo")
+	public String logout(HttpSession session, Model model) {
+		//로그아웃 로직을 작성, 메인페이지로 돌아갈 수 있도록 리다이렉트
+		session.invalidate();
+		return "members/managerLogin";
+	}
 }
+	
