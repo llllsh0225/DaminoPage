@@ -15,7 +15,7 @@
 					AND faq_type = '피자 주문하기'
 				</when>
 				<when test="faqTypeKeyword=='주문확인'">
-					AND faq_type = '주문하기'
+					AND faq_type = '주문확인'
 				</when>
 				<when test="faqTypeKeyword=='포장 주문'">
 					AND faq_type = '포장 주문'
