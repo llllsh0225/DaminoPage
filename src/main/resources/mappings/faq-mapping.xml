@@ -7,10 +7,6 @@
 	<select id="getFaqList" resultType="com.damino.web.admin.faq.FaqVO">
 		SELECT seq, title, faq_type FROM faq ORDER BY seq DESC
 	</select>
-
-	<select id="getFaqTypeList" parameterType="String" resultType="com.damino.web.admin.faq.FaqVO">
-		SELECT seq, title, faq_type FROM faq WHERE faq_type = #{faq_type} ORDER BY seq DESC
-	</select>
 	
 	<select id="getFaq" resultType="com.damino.web.admin.faq.FaqVO">
 		SELECT * FROM faq WHERE seq = #{seq}

@@ -15,8 +15,35 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/style-osh.css' />">
 
+<style>
+#faqNo{
+	width:6%;
+}
+
+#faqType{
+	width:20%;
+}
+</style>
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+
+<script>
+
+function faqTypeSearch(){
+	var faq_type = $('#faqTypeKeyword option:selected').val();
+	
+	$.ajax({
+		type : "POST",
+		url : "getFaqTypeList.admdo",
+		dataType : "json",
+		contentType : "application/json; charset=utf-8;",
+		data : JSON.stringify({
+			faq_type : faq_type,
+		})
+	});
+}
+
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -176,40 +203,49 @@
 				<!-- 메뉴관리 -> 메뉴 등록 페이지 -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <strong>Q&A 등록</strong>
+						<i class="fas fa-table mr-1"></i> <strong>Q&A 페이지 관리</strong>
 						<!--새로고침 버튼-->
 						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
 							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<form action="insertFaq.admdo" method="post">
+						<form id="faqListForm" name="faqListForm" action="post">
 							<div id="table-reponsive">
+								<div id="qna-insert-btn">
+									<input type="button" class="btn btn-primary" value="Q&A 등록"
+										onClick="location.href='qna_insert.admdo'" />
+								</div>
+								<div id="qna-select-btn">
+									<select name="faqTypeKeyword" id="faqTypeKeyword" class="form-control-osh">
+										<option value="ALL">질문 카테고리</option>
+										<option value="피자 주문하기">피자 주문하기</option>
+										<option value="주문확인">주문확인</option>
+										<option value="포장 주문">포장 주문</option>
+										<option value="피자 선물하기">피자 선물하기</option>
+										<option value="홈페이지 관련">홈페이지 관련</option>
+									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="faqTypeSearch();" value="조회" />
+								</div>
+								<div class="for-margin-height-div"></div>
+								<div class="for-margin-height-div"></div>
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
-									<tr>
-										<th>제목</th>
-										<td><input type="text" name="title" size="40" /></td>
-									</tr>
-									<tr>
-										<th>질문 분류</th>
-										<td><select name="faq_type" class="form-control-osh-qna-insert">
-												<option>피자 주문하기</option>
-												<option>주문확인</option>
-												<option>포장 주문</option>
-												<option>피자 선물하기</option>
-												<option>홈페이지 관련</option>
-										</select></td>
-									</tr>
-									<tr>
-										<th>내용</th>
-										<td><textarea name="content" cols="80" rows="10"></textarea></td>
-									</tr>
-									<tr>
-										<td colspan="2" class="center-group"><input type="submit"
-											class="btn btn-primary" value="Q&A 등록" /> <input
-											type="button" class="btn btn-delete" value="취소" /></td>
-									</tr>
+									<thead>
+										<tr>
+											<th id="faqNo">No.</th>
+											<th>제목</th>
+											<th id="faqType">질문 분류</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="faq" items="${faqTypeList }">
+										<tr>
+											<td class="center-group">${faq.seq }</td>
+											<td><a href="getFaq.admdo?seq=${faq.seq }">${faq.title }</a></td>
+											<td class="center-group">${faq.faq_type }</td>
+										</tr>
+										</c:forEach>
+									</tbody>
 								</table>
 							</div>
 						</form>
@@ -244,7 +280,6 @@
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
 
 </body>
 </html>
