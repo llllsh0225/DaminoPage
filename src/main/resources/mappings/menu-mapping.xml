@@ -46,5 +46,27 @@
 		resultType="com.damino.web.admin.menu.ToppingVO">
 		SELECT seq, t_code, t_name, t_type, t_price
 		FROM topping
-		</select>
+	</select>
+		
+	<select id="getSideList"	
+		resultType="com.damino.web.admin.menu.SideVO">
+		SELECT seq, s_code, s_name, s_price
+		FROM side
+	</select>
+
+	<select id="getDrinkEtcList"	
+		resultType="com.damino.web.admin.menu.DrinkEtcVO">
+		SELECT seq, d_code, d_name, d_price
+		FROM drink_Etc
+	</select>
+
+		
+	<select id="getPizza" 
+		resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT * FROM pizza where seq=#{seq}
+	</select>
+
+
+
+
 </mapper>

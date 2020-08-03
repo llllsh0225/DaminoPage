@@ -164,12 +164,9 @@ function getRegionList(callBackFunc) {
 					$('#storeName').html(target);
 				} else if (typeof callbackFunc === 'function') {
 			        callbackFunc();
-			        console.log("2");
 			    }else {
 					alert("다시 시도해주세요");
-					console.log("3");
 				}
-				console.log("4");
 				 
 			},
 			error: function() {

@@ -1,6 +1,6 @@
-package com.damino.web.admin.homepage.member;
+package com.damino.web.admin.homepage.member.vo;
 
-public class HomepageAdminMemVO {
+public class MemberVO {
 
 	private String username;
 	private String userid;

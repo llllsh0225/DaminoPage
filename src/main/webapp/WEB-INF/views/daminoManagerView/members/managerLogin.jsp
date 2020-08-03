@@ -29,17 +29,17 @@
 										Manager Login</h3>
 								</div>
 								<div class="card-body">
-									<form>
+									<form action="managerLogin.smdo" method=POST>
 										<div class="form-group">
 											<label class="small mb-1" for="inputStoreManagerId">ID</label>
 											<input class="form-control py-4" id="inputStoreManagerId"
-												type="text" placeholder="Enter ID" />
+												type="text" placeholder="Enter ID" name="id"/>
 										</div>
 										<div class="form-group">
 											<label class="small mb-1" for="inputStoreManagerPassword">Password</label>
 											<input class="form-control py-4"
 												id="inputStoreManagerPassword" type="password"
-												placeholder="Enter password" />
+												placeholder="Enter password" name="pw"/>
 										</div>
 										<div class="form-group">
 											<div class="custom-control custom-checkbox">
@@ -51,8 +51,8 @@
 										</div>
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="passwordChange.smdo">비밀번호 찾기</a> <a
-												class="btn btn-primary" href="main.smdo">Login</a>
+											<a class="small" href="passwordChange.smdo">비밀번호 찾기</a> 
+											<input type="submit" value="로그인">
 										</div>
 									</form>
 								</div>

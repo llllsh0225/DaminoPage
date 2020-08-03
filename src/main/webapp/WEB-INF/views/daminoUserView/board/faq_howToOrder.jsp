@@ -1,26 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 <meta charset="utf-8">
 <title>FAQ- 다미노피자</title>
-<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon"
+	href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/card_add.css' />">
 
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script>
+function showContent(idx){
+	$('#faqContent' + idx).slideToggle(500);
+}
+</script>
 </head>
 <body>
 
@@ -37,8 +50,7 @@
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -67,9 +79,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -94,7 +104,8 @@
 		<!-- //header -->
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="<c:url value='/resources/css/user/jquery-ui.css' />" />
-		<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
 		<!-- container -->
 		<div id="container">
 			<!-- content -->
@@ -106,8 +117,7 @@
 							<div class="depth-area">
 								<ol>
 									<li><a href="main.do">홈</a></li>
-									<li><a
-										href="faqMain.do">고객센터</a></li>
+									<li><a href="faqMain.do">고객센터</a></li>
 									<li><strong>자주하는 질문</strong></li>
 								</ol>
 							</div>
@@ -137,103 +147,27 @@
 
 									<div class="tab-type4 btn_tab_faq">
 										<ul>
-											<li class="active"><a
-												href="faqHowToOrder.do">피자
+											<li class="active"><a href="faqHowToOrder.do">피자
 													주문하기</a></li>
-											<li><a
-												href="faqOrderCheck.do">주문확인</a></li>
-											<li><a
-												href="faqWrapOrder.do">포장
-													주문</a></li>
-											<li><a
-												href="faqSendPresent.do">피자
-													선물하기</a></li>
-											<li><a
-												href="faqHomePage.do">홈페이지
-													관련</a></li>
+											<li><a href="faqOrderCheck.do">주문확인</a></li>
+											<li><a href="faqWrapOrder.do">포장 주문</a></li>
+											<li><a href="faqSendPresent.do">피자 선물하기</a></li>
+											<li><a href="faqHomePage.do">홈페이지 관련</a></li>
 										</ul>
 									</div>
 									<div class="lst_faq_wrap">
 										<ul>
-											<li>
-												<dl id="active_245" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(245);">예약주문만 가능한 경우는 왜
-															그런가요?</a>
-													</dt>
-													<dd>
-														배달사원부족, 주문폭주 등으로 부득이 하게 예약주문만 가능한 경우가 있습니다. 이 경우 매장이나
-														콜센터(1577-3082)로 전화하셔도 예약주문만 가능하기 때문에 고객님의 많은 양해 <br />부탁
-														드립니다. 또한, 매장 오픈시간 전이나, 영업 종료 후에는 예약 주문만 가능합니다.
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_180" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(180);">매장상태에 따른 주문불가는
-															무엇인가요?</a>
-													</dt>
-													<dd>
-														"주문불가" 인 경우 현재 매장이 불가피한 사정으로 인해 온라인주문이 불가능한 상황입니다. 가령
-														식자재부족이나 리뉴얼, 임시휴무 등으로 당일 온라인주문을 받을 수 없는 경우 <br />입니다. 이런
-														경우 온라인주문은 불가능하고, 매장이나 콜센터(1577-3082)로 전화하시면 매장상태를 다시 한번
-														확인한 후 방문포장의 경우 다른 매장으로 변경 가능합니다. <br />(배달주문은 매장을 변경할 수
-														없습니다.) <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_177" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(177);">피자를 다량으로 주문하고
-															싶습니다. </a>
-													</dt>
-													<dd>
-														온라인 주문으로는 한 주문 당 피자 9판까지 주문이 가능합니다. <br /> <br /> <br>그
-														이상의 주문을 원하시는 고객께서는 매장이나 콜센터(1577-3082)를 이용하여 주시기 바랍니다.
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_176" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(176);">주문 한 메뉴를 변경하거나
-															취소해야 할 경우에는 어떻게 하나요?</a>
-													</dt>
-													<dd>
-														주문 접수 후 바로 피자 메이킹이 이루어져 주문 변경이나 취소가 어렵습니다. <br /> <br>주문변경이나
-														취소는 반드시 해당 매장으로 전화하셔야 가능하며, 해당매장 전화번호는 주문완료 후 주문내역조회로
-														들어가시면 확인할 수 있습니다. <br /> <br /> <br>매장에 전화하셔서 반드시
-														주문내역조회에 나와있는 주문아이디를 말씀해 주셔야 신속한 처리가 이루어집니다. <br /> <br>메뉴를
-														변경해야 할 경우 해당매장에 전화하여 기존 주문을 취소하고 주문을 다시 해주셔야 합니다. <br /> <br>주문이
-														취소되면 기존 결제정보도 취소되며 재주문을 하실 경우 결제도 다시 하셔야 합니다.
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_175" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(175);">홈페이지 주문으로 피자는 몇
-															판까지 주문할 수 있나요?</a>
-													</dt>
-													<dd>
-														따뜻한 피자를 배달해 드리기 위해 홈페이지 온라인 주문 으로는 최대 9판까지 주문이 가능합니다. <br />
-														<br>주문완료 후 해당매장에서 고객님께 연락을 드려 배달가능시간을 알려드립니다.
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_172" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(172);">음료만 주문도 가능한가요?</a>
-													</dt>
-													<dd>
-														음료는 피자나 사이드디쉬와 함께 주문 시 다미노피자의 메뉴를 좀 더 맛있게 드실 수 있도록 제공하는
-														메뉴로, <br /> <br>음료만 주문 시에는 배달이 불가합니다. <br />
-													</dd>
-												</dl>
-											</li>
+											<c:forEach var="faqViewList" items="${faqViewList }" varStatus="status">
+												<li>
+													<dl id="active" class="classActive">
+														<dt>
+															<a style="cursor:pointer" onclick="showContent(${status.index});">${faqViewList.title }</a>
+														</dt>
+														<dd id="faqContent${status.index }">
+															${faqViewList.content }</dd>
+													</dl>
+												</li>
+											</c:forEach>
 										</ul>
 									</div>
 								</form>
@@ -282,8 +216,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -331,27 +264,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>

@@ -35,7 +35,7 @@
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="managerLogin.smdo">Logout</a>
+					<a class="dropdown-item" href="managerLogin.smdo">Login</a>
 				</div></li>
 		</ul>
 	</nav>

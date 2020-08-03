@@ -195,7 +195,6 @@
 										<th>회원번호</th>
 										<th>이름</th>
 										<th>아이디</th>
-										<th>비밀번호</th>
 										<th>등급</th>
 										<th>생년월일</th>
 										<th>휴대전화</th>
@@ -209,7 +208,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="users" items="${usersList }">
+								<c:forEach var="users" items="${userList }">
 									<tr>
 										<td><div class="custom-control custom-checkbox">
 												<input class="custom-control-input" id="check1"
@@ -219,7 +218,6 @@
 										<td>1</td>
 										<td>${users.username}</td>
 										<td>${users.userid}</td>
-										<td>${users.userpasswd}</td>
 										<td>${users.userlevel}</td>
 										<td>${users.birthday}</td>
 										<td>${users.phone}</td>

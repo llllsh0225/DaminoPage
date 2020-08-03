@@ -13,10 +13,11 @@ public class LoginServiceImpl implements LoginService {
 	private UserDAO userDAO;
 	
 	@Override
-	public UserVO login(UserVO vo) {
+	public UserVO login(UserVO vo){
 		System.out.println("LoginServiceImpl login(vo)");
 		return userDAO.login(vo);
 	}
+
 	
 
 }

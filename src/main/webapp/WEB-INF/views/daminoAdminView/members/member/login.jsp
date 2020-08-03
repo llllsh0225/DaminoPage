@@ -26,11 +26,11 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputAdminId">ID</label>
-                                                <input class="form-control py-4" id="inputAdminId" type="text" placeholder="Enter ID" />
+                                                <input class="form-control py-4" id="hpadminId" type="text" placeholder="Enter ID" />
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputAdminPassword">Password</label>
-                                                <input class="form-control py-4" id="inputAdminPassword" type="password" placeholder="Enter password" />
+                                                <input class="form-control py-4" id="hpadminPassword" type="password" placeholder="Enter password" />
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox">

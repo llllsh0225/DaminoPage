@@ -15,26 +15,18 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/style-osh.css' />">
 
+<style>
+#faqNo{
+	width:6%;
+}
+
+#faqType{
+	width:20%;
+}
+</style>
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
-<script>
-/**
-function faqTypeSearch(){
-	var faq_type = $('#faqTypeKeyword option:selected').val();
-	
-	$.ajax({
-		type : "POST",
-		url : "getFaqTypeList.admdo",
-		dataType : "json",
-		contentType : "application/json; charset=utf-8;",
-		data : JSON.stringify({
-			faq_type : faq_type,
-		})
-	});
-}
-*/
-</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -214,9 +206,8 @@ function faqTypeSearch(){
 										<option value="주문확인">주문확인</option>
 										<option value="포장 주문">포장 주문</option>
 										<option value="피자 선물하기">피자 선물하기</option>
-										<option value="도미노콘">도미노콘</option>
 										<option value="홈페이지 관련">홈페이지 관련</option>
-									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="faqTypeSearch();" value="조회" />
+									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="#" value="조회" />
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
@@ -224,11 +215,9 @@ function faqTypeSearch(){
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>No.</th>
+											<th id="faqNo">No.</th>
 											<th>제목</th>
-											<th>질문 분류</th>
-											<th>수정</th>
-											<th>삭제</th>
+											<th id="faqType">질문 분류</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -236,11 +225,7 @@ function faqTypeSearch(){
 										<tr>
 											<td class="center-group">${faq.seq }</td>
 											<td><a href="getFaq.admdo?seq=${faq.seq }">${faq.title }</a></td>
-											<td>${faq.faq_type }</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
+											<td class="center-group">${faq.faq_type }</td>
 										</tr>
 										</c:forEach>
 									</tbody>
