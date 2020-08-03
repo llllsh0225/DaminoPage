@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MarketDAO">
+	<insert id="insertMarket" parameterType="com.damino.web.admin.market.MarketVO">
+			INSERT INTO market (seq, name, tel, address, location, time, etime, car, park, etc)
+			VALUES((select nvl(max(seq), 0)+1 from market), #{name}, #{tel}, #{address}, #{location}, #{time}, #{etime}, #{car}, #{park}, #{etc})
+	</insert>
+
+	<delete id="deleteMarket" parameterType="com.damino.web.admin.market.MarketVO">
+			DELETE FROM market where seq = #{seq}
+	</delete>
+
+	 <update id="updateMarket" parameterType="com.damino.web.admin.market.MarketVO"> 
+			UPDATE market
+			set name=#{name}, tel=#{tel}, address=#{address}, location=#{location}, time=#{time}, etime=#{etime}, car=#{car}, park=#{park}, etc=#{etc}
+			where seq=#{seq}
+	</update> 
+
+	<select id="getMarketList" resultType="com.damino.web.admin.market.MarketVO">
+			SELECT seq, name, tel, address, location, time, etime, car, park, etc
+			FROM market
+			ORDER BY seq desc
+	</select>
+
+	<select id="getMarket" resultType="com.damino.web.admin.market.MarketVO">
+			SELECT * FROM market where seq=#{seq}
+	</select>
+
+</mapper>

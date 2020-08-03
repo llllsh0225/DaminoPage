@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="marketAdminMemberDAO">
+	<!-- 회원 가입 -->
+	<insert id="registMarketAdminMember" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		INSERT INTO MarketAdminMember (managerName, managerId, managerPasswd, storeRegion, storeName) 
+		VALUES (#{managerName}, #{managerId}, #{managerPasswd}, #{storeRegion}, #{storeName} )
+	</insert>
+	
+<!-- 	 id 중복 체크 
+	<select id="idCheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM MarketAdminMember
+		WHERE managerId = #{managerId}
+	</select> -->
+	
+</mapper>
+
+
+

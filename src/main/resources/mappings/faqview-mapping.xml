@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FaqViewDAO">
+
+	<select id="getHowToOrderPage" resultType="com.damino.web.user.faq.FaqViewVO">
+		SELECT * FROM faq WHERE faq_type = '피자 주문하기'
+	</select>
+
+</mapper>

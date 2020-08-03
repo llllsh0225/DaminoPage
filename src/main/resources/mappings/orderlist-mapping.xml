@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrderlistDAO">
+	<select id="getOrderlistInv"
+		resultType="com.damino.web.admin.orderlist.OrderlistVO">
+		SELECT orderseq, name, regdate, address, tel, orderli, price, take, store, paytool ,paystate
+		FROM order_list
+	</select>
+
+</mapper>

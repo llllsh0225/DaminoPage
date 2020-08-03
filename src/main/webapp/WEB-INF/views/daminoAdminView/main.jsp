@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,16 +9,106 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <title>도미노피자 테스트점 관리페이지</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/admin/styles.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"
+	crossorigin="anonymous" />
 
 <script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"
+	crossorigin="anonymous"></script>
 	
+<style>
+    table
+    {
+        text-align:center;
+        width:98%;
+    }
+</style>	
+
+<script language="javascript">
+	var today = new Date(); // 오늘 날짜
+	var date = new Date();
+
+	function beforem() //이전 달을 today에 값을 저장
+	{
+		today = new Date(today.getFullYear(), today.getMonth() - 1, today
+				.getDate());
+		build(); //만들기
+	}
+
+	function nextm() //다음 달을 today에 저장
+	{
+		today = new Date(today.getFullYear(), today.getMonth() + 1, today
+				.getDate());
+		build();
+	}
+
+	function build() {
+		var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
+		var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
+		var tbcal = document.getElementById("calendar"); // 테이블 달력을 만들 테이블
+		var yearmonth = document.getElementById("yearmonth"); //  년도와 월 출력할곳
+		yearmonth.innerHTML = today.getFullYear() + "년 "
+				+ (today.getMonth() + 1) + "월"; //년도와 월 출력
+
+		if (today.getMonth() + 1 == 12) //  눌렀을 때 월이 넘어가는 곳
+		{
+			before.innerHTML = (today.getMonth()) + "월";
+			next.innerHTML = "1월";
+		} else if (today.getMonth() + 1 == 1) //  1월 일 때
+		{
+			before.innerHTML = "12월";
+			next.innerHTML = (today.getMonth() + 2) + "월";
+		} else //   12월 일 때
+		{
+			before.innerHTML = (today.getMonth()) + "월";
+			next.innerHTML = (today.getMonth() + 2) + "월";
+		}
+
+		// 남은 테이블 줄 삭제
+		while (tbcal.rows.length > 2) {
+			tbcal.deleteRow(tbcal.rows.length - 1);
+		}
+		var row = null;
+		row = tbcal.insertRow();
+		var cnt = 0;
+
+		// 1일 시작칸 찾기
+		for (i = 0; i < nMonth.getDay(); i++) {
+			cell = row.insertCell();
+			cnt = cnt + 1;
+		}
+
+		// 달력 출력
+		for (i = 1; i <= lastDate.getDate(); i++) // 1일부터 마지막 일까지
+		{
+			cell = row.insertCell();
+			cell.innerHTML = i;
+			cnt = cnt + 1;
+			if (cnt % 7 == 1) {//일요일 계산
+				cell.innerHTML = "<font color=#FF9090>" + i//일요일에 색
+			}
+			if (cnt % 7 == 0) { // 1주일이 7일 이므로 토요일 계산
+				cell.innerHTML = "<font color=#7ED5E4>" + i//토요일에 색
+				row = calendar.insertRow();// 줄 추가
+			}
+			if (today.getFullYear() == date.getFullYear()
+					&& today.getMonth() == date.getMonth()
+					&& i == date.getDate()) {
+				cell.bgColor = "#BCF1B1"; //오늘날짜배경색
+			}
+		}
+
+	}
+</script>
+
+
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">Damino Administration</a>
+		<a class="navbar-brand" href="main.admdo">Damino Administration</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -35,7 +125,7 @@
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="store-manager-login.html">Logout</a>
+					<a class="dropdown-item" href="login.admdo">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -48,7 +138,7 @@
 
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
 
-						<a class="nav-link" href="index.html"> 메인 </a>
+						<a class="nav-link" href="main.admdo"> 메인 </a>
 
 						<div class="sb-sidenav-menu-heading">Interface</div>
 
@@ -62,8 +152,8 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="member.html"> 회원관리 </a> <a
-									class="nav-link collapsed" href="controlMarket.html"> 점포승인
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리
+								</a> <a class="nav-link collapsed" href="marketList.admdo"> 점포승인
 								</a>
 							</nav>
 						</div>
@@ -78,8 +168,9 @@
 						<div class="collapse" id="storePage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="enroll.html"> 매장등록 </a> <a
-									class="nav-link collapsed" href="control.html"> 매장조회 </a>
+								<a class="nav-link collapsed" href="storeRegForm.admdo">
+									매장등록 </a> <a class="nav-link collapsed" href="storeView.admdo">
+									매장조회 </a>
 							</nav>
 						</div>
 
@@ -93,8 +184,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								  <a class="nav-link collapsed" href="order-count.html"> 주문조회 </a>
-								<a class="nav-link collapse" href="order-stats.html"> 매출현황
+								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -109,8 +200,8 @@
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="noticeBoardView.html">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.html">
+								<a class="nav-link collapsed" href="noticeBoardView.admdo">
+									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
 							</nav>
 						</div>
@@ -126,7 +217,7 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="get-menus.html"> 메뉴조회 </a> <a
+								<a class="nav-link collapsed" href="menuList.admdo"> 메뉴조회 </a> <a
 									class="nav-link collapsed" href="#" data-toggle="collapse"
 									data-target="#insertMenuPage" aria-expanded="false"
 									aria-controls="insertMenuPage"> 메뉴등록
@@ -138,10 +229,10 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insert-menu-pizza.html">피자</a> <a
-											class="nav-link" href="insert-menu-side.html">사이드디시</a> <a
-											class="nav-link" href="insert-menu-drink.html">음료&기타</a> <a
-											class="nav-link" href="insert-menu-topping.html">토핑</a>
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
+											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
+											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
+											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -156,9 +247,9 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="site-qna-list.html">Q&A</a> <a
-									class="nav-link" href="bannerBoardView.html">배너관리</a> <a
-									class="nav-link" href="site-term-list.html">약관관리</a>
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
+									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
+									class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
 						</div>
 					</div>
@@ -184,7 +275,7 @@
 									<i class="fas fa-chart-area mr-1"></i> 월별 차트
 								</div>
 								<div class="card-body">
-									<canvas id="myAreaChart-main" width="100%" height="40"></canvas>
+									<canvas id="AreaChart_month" width="100%" height="40"></canvas>
 								</div>
 							</div>
 						</div>
@@ -194,25 +285,27 @@
 								<div class="card-header bg-dark text-white">
 									<i class="fas fa-chart-area mr-1"></i> 달력
 								</div>
-								<table id="calendar" align="center">
-									<thead>
-										<tr class="btn-wrap clearfix">
-											<td><label id="prev"> &#60; </label></td>
-											<td align="center" id="current-year-month" colspan="5"></td>
-											<td><label id="next"> &#62; </label></td>
-										</tr>
-										<tr>
-											<td class="sun" align="center">Sun</td>
-											<td align="center">Mon</td>
-											<td align="center">Tue</td>
-											<td align="center">Wed</td>
-											<td align="center">Thu</td>
-											<td align="center">Fri</td>
-											<td class="sat" align="center">Sat</td>
-										</tr>
-									</thead>
-									<tbody id="calendar-body" class="calendar-body"></tbody>
+								<table align="center" id="calendar">
+									<tr>
+										<td><font size=1%; color="#B3B6B3"><label
+												onclick="beforem()" id="before"></label></font></td>
+										<td colspan="5" align="center" id="yearmonth"></td>
+										<td><font size=1%; color="#B3B6B3"><label
+												onclick="nextm()" id="next"></label></font></td>
+									</tr>
+									<tr>
+										<td align="center"><font color="#FF9090">일</font></td>
+										<td align="center">월</td>
+										<td align="center">화</td>
+										<td align="center">수</td>
+										<td align="center">목</td>
+										<td align="center">금</td>
+										<td align="center"><font color=#7ED5E4>토</font></td>
+									</tr>
 								</table>
+								<script type="text/javascript">
+									build();
+								</script>
 							</div>
 						</div>
 					</div>
@@ -237,7 +330,7 @@
 													매장대처</a></span></li>
 									</ul>
 									<div align="right">
-										<a href="#" class=small>공지사항로 이동</a>
+										<a href="boardList.admdo" class=small>공지사항로 이동</a>
 									</div>
 								</div>
 							</div>
@@ -259,7 +352,7 @@
 											<span><a href="#" class="text-muted">- 4월 주문내역 -</a></span></li>
 									</ul>
 									<div align="right">
-										<a href="order-count.html" class=small>주문내역로 이동</a>
+										<a href="orderList.admdo" class=small>주문내역로 이동</a>
 									</div>
 								</div>
 							</div>
@@ -282,7 +375,8 @@
 							<div class="card bg-primary text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="member.html">회원관리</a>
+									<a class="small text-white stretched-link"
+										href="membersInfo.admdo">회원관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -293,7 +387,8 @@
 							<div class="card bg-warning text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="control.html">매장관리</a>
+									<a class="small text-white stretched-link"
+										href="marketList.admdo">매장관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -304,7 +399,8 @@
 							<div class="card bg-success text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="get-menus.html">메뉴관리</a>
+									<a class="small text-white stretched-link"
+										href="menuList.admdo">메뉴관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -315,7 +411,8 @@
 							<div class="card bg-danger text-white mb-4">
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
-									<a class="small text-white stretched-link" href="boardList.html">게시판관리</a>
+									<a class="small text-white stretched-link"
+										href="noticeBoardView.admdo">게시판관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -340,23 +437,37 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
 	<script type="text/javascript"
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	
+		src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>"
+		crossorigin="anonymous"></script>
 	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo_month.js'/>"></script>
+		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>"
+		crossorigin="anonymous"></script>
+
 	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
+		src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
+
 	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript"
+		src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+	<!-- 차트 -->
+	<!--  월차트   -->
+	<script type="text/javascript"
+		src="<c:url value='/resources/js/admin/chart-area-month.js'/>"></script>
+	<!-- end차트  -->
+	<script type="text/javascript"
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
 
 </body>
 </html>

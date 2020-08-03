@@ -1,6 +1,11 @@
+<%@page import="java.util.List"%>
+<%@page import="com.damino.web.admin.board.impl.BoardDAOImpl"%>
+<%@page import="com.damino.web.admin.board.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +23,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.html">Damino Administration</a>
+		<a class="navbar-brand" href="main.admdo">Damino Administration</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -33,10 +38,11 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
+					<a class="dropdown-item" href="memberEdit.admdo">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="store-manager-login.html">Logout</a>
-				</div></li>
+					<a class="dropdown-item" href="login.admdo">Logout</a>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -48,7 +54,7 @@
 
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
 
-						<a class="nav-link" href="index.html"> 메인 </a>
+						<a class="nav-link" href="main.admdo"> 메인 </a>
 
 						<div class="sb-sidenav-menu-heading">Interface</div>
 
@@ -62,8 +68,8 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="member.html"> 회원관리 </a> <a
-									class="nav-link collapsed" href="controlMarket.html"> 점포승인
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
+									class="nav-link collapsed" href="marketList.admdo"> 점포승인
 								</a>
 							</nav>
 						</div>
@@ -78,8 +84,8 @@
 						<div class="collapse" id="storePage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="enroll.html"> 매장등록 </a> <a
-									class="nav-link collapsed" href="control.html"> 매장조회 </a>
+								<a class="nav-link collapsed" href="storeRegForm.admdo"> 매장등록 </a> <a
+									class="nav-link collapsed" href="storeView.admdo"> 매장조회 </a>
 							</nav>
 						</div>
 
@@ -93,9 +99,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-
-								<a class="nav-link collapsed" href="order-count.html"> 주문조회
-								</a> <a class="nav-link collapse" href="order-stats.html"> 매출현황
+								  <a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -110,8 +115,8 @@
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="noticeBoardView.html">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.html">
+								<a class="nav-link collapsed" href="noticeBoardView.admdo">
+									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
 							</nav>
 						</div>
@@ -127,7 +132,7 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="get-menus.html"> 메뉴조회 </a> <a
+								<a class="nav-link collapsed" href="menuList.admdo"> 메뉴조회 </a> <a
 									class="nav-link collapsed" href="#" data-toggle="collapse"
 									data-target="#insertMenuPage" aria-expanded="false"
 									aria-controls="insertMenuPage"> 메뉴등록
@@ -139,10 +144,10 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insert-menu-pizza.html">피자</a> <a
-											class="nav-link" href="insert-menu-side.html">사이드디시</a> <a
-											class="nav-link" href="insert-menu-drink.html">음료&기타</a> <a
-											class="nav-link" href="insert-menu-topping.html">토핑</a>
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> 
+										<a class="nav-link" href="insertMenu_side.admdo">사이드디시</a> 
+										<a class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> 
+										<a class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -157,9 +162,9 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="site-qna-list.html">Q&A</a> <a
-									class="nav-link" href="bannerBoardView.html">배너관리</a> <a
-									class="nav-link" href="site-term-list.html">약관관리</a>
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> 
+								<a class="nav-link" href="bannerBoardView.admdo">배너관리</a> 
+								<a class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
 						</div>
 					</div>
@@ -175,21 +180,16 @@
 				<!-- 이곳이 Content 영역입니다. -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>게시글 리스트</b> <img
-							src="././resources/assets/admin/img/refresh_icon.png" width="20"
-							onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;"> <br> <a
-							href="#">전체</a>|<a href="#">카테고리1</a>|<a href="#">다미노 뉴스</a>|<a
-							href="#">공지사항</a>
+						<i class="fas fa-table mr-1"></i> <b>게시글 리스트</b><br> 
+						<a href="#">전체</a>&nbsp;
+						<a href="noticeList.do">공지사항</a>&nbsp;
+						<a href="noticeList.do">보도자료</a>
 						<!--새로고침 버튼-->
 
 					</div>
 					<div class="card-body">
-						<input type="button" class="btn btn-primary" value="글쓰기"
-							style="float: right" style="margin-right: 5px"
-							onClick="location.href='boardWrite.html'" /> <input
-							type="button" class="btn-delete" value="글삭제" style="float: right"
-							style="margin-right: 5px" />
+						<input type="button" class="btn btn-primary" value="글쓰기" style="float: right" 
+						style="margin-right: 5px" onclick="location.href='boardWrite.admdo'" />
 						<div class="table-responsive">
 
 							<table class="table table-bordered" id="dataTable" width="100%"
@@ -204,20 +204,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>2</td>
-										<td><a href="boardView.html">배달 언제오나요?</a></td>
-										<td>사오정</td>
-										<td>2020-07-11</td>
-										<td>5</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td><a href="#">결제수단 문의</a></td>
-										<td>홍길동</td>
-										<td>2020-07-09</td>
-										<td>20</td>
-									</tr>
+									<c:forEach var="board" items="${boardList }">
+										<tr>
+											<td>${board.seq }</td>
+											<td><a href="boardView.admdo?seq=${board.seq}">[${board.flag}] ${board.title} </a></td>
+											<td>${board.writer }</td>
+											<td><fmt:formatDate value="${board.regDate }" pattern="yyyy-MM-dd" /></td>
+											<td>${board.cnt }</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
