@@ -1,11 +1,12 @@
 package com.damino.web.admin.market.member.regist;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.damino.web.user.login.UserVO;
-import com.damino.web.user.regist.UserMemberVO;
 
 @Controller
 public class MarketAdminRegistController {
@@ -36,13 +34,6 @@ public class MarketAdminRegistController {
 		
 		String storeName = request.getParameter("storeName");
 		vo.setStoreName(storeName);
-		
-		// 매장 지역, 매장명 처리
-		//System.out.println("매니저이름 : " + vo.getManagerName());
-		//System.out.println("id : " + vo.getManagerId());
-		//System.out.println("password : " + vo.getManagerPasswd());
-		//System.out.println("매장 지역 : " + vo.getStoreRegion());
-		//System.out.println("매장명 : " + vo.getStoreName());
 		
 		// 비밀번호 암호화 처리
 		String pwd = vo.getManagerPasswd();
@@ -71,13 +62,27 @@ public class MarketAdminRegistController {
 			return check_id;
 		}
 		
-		@RequestMapping(value ="/daminoStoreList.smdo", method = RequestMethod.POST)
+		@RequestMapping(value ="/searchStore.smdo", method = RequestMethod.POST)
 		@ResponseBody
-		public String daminoStoreList(@RequestBody Map<String, Object> params, HttpServletRequest request) {
-			String daminoStoreList = "";
+		public List<MarketAdminMemberVO> searchStore(@RequestBody Map<String, Object> params, HttpServletRequest request) {
+			//storeRegion에 해당되는 매장명 담을 배열 선언
+			String storeRegion = (String)params.get("storeRegion");
+			System.out.println("storeRegion : " + storeRegion);
 			
-			//daminoStoreList = marketAdminRegistService.emailcheck(email);
-			System.out.println("[daminoStoreList] :"+ daminoStoreList);
-			return daminoStoreList;
+			List<MarketAdminMemberVO> storeList = marketAdminRegistService.searchStore(storeRegion);
+			System.out.println("[storeName] :"+ storeList);
+			
+			// JSONObject jStoreRegion = new JSONObject();
+			 
+		/*
+		 * try { for (Map.Entry<String, Object> entry : params.entrySet()) {
+		 * 
+		 * params.put(storeRegion, storeList); System.out.println("jStoreRegion : " +
+		 * jStoreRegion); } } catch (Exception e) { System.out.println(e.toString()); }
+		 */
+	            
+	 
+			return storeList;
 		}
+		//MAP에 Object가 들어갔나?
 }

@@ -1,5 +1,7 @@
 package com.damino.web.admin.market.member.regist.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,6 +28,12 @@ public class MarketAdminMemberDAOImpl implements MarketAdminMemberDAO{
 	public int idCheck(String managerId) {
 		System.out.println("#DAO[id] : " + managerId);
 		return sqlSessionTemplate.selectOne("marketAdminMemberDAO.idCheck", managerId);
+	}
+
+	@Override
+	public List<MarketAdminMemberVO> searchStore(String storeRegion) {
+		System.out.println("#DAO[storeRegion] : " + storeRegion);
+		return sqlSessionTemplate.selectList("marketAdminMemberDAO.searchStore", storeRegion);
 	}
 
 }

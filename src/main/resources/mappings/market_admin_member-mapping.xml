@@ -15,7 +15,11 @@
 		WHERE managerId = #{managerId}
 	</select>
 
-	
+	<!-- 구에 따른 매장명 불러오기 -->
+	<select id="searchStore" parameterType="String" resultType="String">
+		SELECT storeName FROM daminostore
+		WHERE storeRegion = #{storeRegion}
+	</select>
 </mapper>
 
 
