@@ -5,6 +5,8 @@ public class FaqVO {
 	private String title; // FAQ 제목
 	private String faq_type; // FAQ 분류
 	private String content; // FAQ 답변 내용
+	private String faqTypeKeyword; // FAQ 카테고리 검색 키워드
+	
 	public int getSeq() {
 		return seq;
 	}
@@ -28,6 +30,12 @@ public class FaqVO {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getFaqTypeKeyword() {
+		return faqTypeKeyword;
+	}
+	public void setFaqTypeKeyword(String faqTypeKeyword) {
+		this.faqTypeKeyword = faqTypeKeyword;
 	}
 	
 	

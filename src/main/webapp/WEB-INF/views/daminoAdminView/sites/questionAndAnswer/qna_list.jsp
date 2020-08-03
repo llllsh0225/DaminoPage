@@ -193,7 +193,7 @@
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<form id="faqListForm" name="faqListForm" action="post">
+						<form id="faqListForm" name="faqListForm" action="qna_list.admdo" method="post">
 							<div id="table-reponsive">
 								<div id="qna-insert-btn">
 									<input type="button" class="btn btn-primary" value="Q&A 등록"
@@ -207,7 +207,7 @@
 										<option value="포장 주문">포장 주문</option>
 										<option value="피자 선물하기">피자 선물하기</option>
 										<option value="홈페이지 관련">홈페이지 관련</option>
-									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="#" value="조회" />
+									</select>&nbsp; <input type="submit" class="btn btn-delete" value="조회" />
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>

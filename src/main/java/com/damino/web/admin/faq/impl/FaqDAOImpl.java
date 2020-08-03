@@ -15,8 +15,8 @@ public class FaqDAOImpl implements FaqDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
-	public List<FaqVO> getFaqList() {
-		return sqlSessionTemplate.selectList("FaqDAO.getFaqList");
+	public List<FaqVO> getFaqList(FaqVO vo) {
+		return sqlSessionTemplate.selectList("FaqDAO.getFaqList", vo);
 	}
 
 	@Override
