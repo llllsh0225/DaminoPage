@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 					<c:choose>
-						<c:when test="${empty sessionScope.username}">
+						<c:when test="${msg=='logout' }"><%-- ${empty sessionScope.username} --%>
 							<!-- 비로그인 -->
 							<div class="util-nav">
 								<a href="login.do">로그인</a> 
