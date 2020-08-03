@@ -27,23 +27,6 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
-<script>
-
-function faqTypeSearch(){
-	var faq_type = $('#faqTypeKeyword option:selected').val();
-	
-	$.ajax({
-		type : "POST",
-		url : "getFaqTypeList.admdo",
-		dataType : "json",
-		contentType : "application/json; charset=utf-8;",
-		data : JSON.stringify({
-			faq_type : faq_type,
-		})
-	});
-}
-
-</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -223,9 +206,8 @@ function faqTypeSearch(){
 										<option value="주문확인">주문확인</option>
 										<option value="포장 주문">포장 주문</option>
 										<option value="피자 선물하기">피자 선물하기</option>
-										<option value="도미노콘">도미노콘</option>
 										<option value="홈페이지 관련">홈페이지 관련</option>
-									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="faqTypeSearch();" value="조회" />
+									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="#" value="조회" />
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>

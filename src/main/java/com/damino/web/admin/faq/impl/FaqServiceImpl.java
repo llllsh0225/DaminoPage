@@ -39,9 +39,5 @@ public class FaqServiceImpl implements FaqService {
 		faqDAO.deleteFaq(vo);
 	}
 
-	@Override
-	public List<FaqVO> getFaqTypeList(String faq_type) {
-		return faqDAO.getFaqTypeList(faq_type);
-	}
 
 }

@@ -7,7 +7,21 @@ public class SideVO {
 	private int s_price; // 사이드 가격
 	private String s_image; // 사이드 제품이미지 파일명
 	private MultipartFile uploadFile;
+	private int seq;
+	private String s_code;
 	
+	public String getS_code() {
+		return s_code;
+	}
+	public void setS_code(String s_code) {
+		this.s_code = s_code;
+	}
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	//------ 영양성분 -------
 	private int gross_weight; // 총중량
 	private int kcal; // 열량

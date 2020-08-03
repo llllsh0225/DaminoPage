@@ -8,15 +8,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>도미노피자 테스트점 관리페이지</title>
+<title>다미노피자 테스트점 관리페이지</title>
+<link href="<c:url value='/resources/css/admin/styles.css' />" rel="stylesheet" />
+<link href="<c:url value='/resources/css/admin/style-osh.css' />" rel="stylesheet" />
 <link rel="stylesheet"
 	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css' />" crossorigin="anonymous">
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/style-osh.css' />">
-
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<script type="text/javascript">
+/* 	var countPizzaBoard=${countPizzaBoard}; //총 게시글
+	var countPerPage=5; //한페이지에 보여줄 게시글 수
+	var totalPage=countPizzaBoard/countPerPage; //총 페이지 수
+	var pageCount=5; // << 1 2 3 4 5 >>  */
+
+</script>
+
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -142,8 +149,8 @@
 									<nav class="sb-sidenav-menu-nested nav">
 										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
 											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
-											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
-											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
+											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> 
+											<a class="nav-link" href="insertMenu_drink.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -173,47 +180,56 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
-				<!-- 메뉴관리 -> 메뉴 등록 페이지 -->
+				<!-- 메뉴관리 페이지 시작-->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <strong>Q&A 등록</strong>
-						<!--새로고침 버튼-->
-						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;">
+						<i class="fas fa-table mr-1"></i> <strong>메뉴 관리</strong><br>
+						<a href="menuList.admdo">피자</a>&nbsp;
+						<a href="menuSideList.admdo">사이드디시</a>&nbsp;
+						<a href="menuDrinkEtcList.admdo">음료&기타</a>&nbsp;
+						<a href="menuToppingList.admdo">토핑</a>
 					</div>
 					<div class="card-body">
-						<form action="insertFaq.admdo" method="post">
+						<h6>
+							<strong>메뉴조회</strong>
+						</h6>
+						<div class="for-margin-height-div"></div>
+						<form>
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
-									<tr>
-										<th>제목</th>
-										<td><input type="text" name="title" size="40" /></td>
-									</tr>
-									<tr>
-										<th>질문 분류</th>
-										<td><select name="faq_type" class="form-control-osh-qna-insert">
-												<option>피자 주문하기</option>
-												<option>주문확인</option>
-												<option>포장 주문</option>
-												<option>피자 선물하기</option>
-												<option>홈페이지 관련</option>
-										</select></td>
-									</tr>
-									<tr>
-										<th>내용</th>
-										<td><textarea name="content" cols="80" rows="10"></textarea></td>
-									</tr>
-									<tr>
-										<td colspan="2" class="center-group"><input type="submit"
-											class="btn btn-primary" value="Q&A 등록" /> <input
-											type="button" class="btn btn-delete" value="취소" /></td>
-									</tr>
+									<thead>
+										<tr>
+											<!-- 피자 카테고리 일 시 L/M 가격 구분 하고 그 외 카테고리 제품은 가격 컬럼 하나로 통일한다.-->
+											<th>No.</th>
+											<th>제품명</th>
+											<th>카테고리</th>
+											<th>구분</th>
+											<th>가격</th>
+											<th>수정</th>
+											<th>삭제</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="side" items="${sideList }">
+										<tr>
+											<!-- 데이터 예시 -->
+											<td class="center-group">${side.seq }</td>
+											<td><a href="#">${side.s_name }</a></td>
+											<td class="center-group">${side.s_code }</td>
+											<td class="center-group">-</td>
+											<td class="center-group">${side.s_price }</td>
+											<td class="center-group"><a class="btn btn-primary" href="pizzaInfo.admdo?seq=${pizza.seq }"
+											role="button">수정</a></td>
+											<td class="center-group"><input type="button"
+												class="btn btn-danger" value="삭제" /></td>
+										</tr>
+										</c:forEach>
+									</tbody>
 								</table>
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
@@ -232,19 +248,18 @@
 	</div>
 
 	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
-	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
+   <script
+      src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
+   <script type="text/javascript"
+      src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
+   <script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+   <script type="text/javascript"
+      src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
+   <script type="text/javascript"
+      src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
 
 </body>
 </html>

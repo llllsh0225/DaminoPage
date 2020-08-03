@@ -142,6 +142,29 @@ public class MenuController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/menuSideList.admdo", method = RequestMethod.GET)
+	public ModelAndView getSideList() {
+		System.out.println("사이드 목록");
+		List<SideVO> sideList = menuService.getSideList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuSideList");
+		mav.addObject("sideList", sideList);
+		return mav;
+	}
+	
+	@RequestMapping(value="/menuDrinkEtcList.admdo", method = RequestMethod.GET)
+	public ModelAndView getDrinkEtcList() {
+		System.out.println("음료&기타 목록");
+		List<DrinkEtcVO> drinkList = menuService.getDrinkEtcList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuDrinkEtcList");
+		mav.addObject("drinkList", drinkList);
+		return mav;
+	}
+	
+	
+	
+	
 	@RequestMapping(value="/pizzaInfo.admdo", method = RequestMethod.GET)
 	public ModelAndView getPizza(PizzaVO vo) {
 		System.out.println("피자 목록");
@@ -151,6 +174,8 @@ public class MenuController {
 		mav.addObject("pizza", pizza);
 		return mav;
 	}	
+	
+	
 }
 
 
