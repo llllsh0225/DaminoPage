@@ -15,7 +15,9 @@
 	crossorigin="anonymous">
 </script>
 <script>
+
 function idCheck(){
+	
 	var managerId = $("#managerId").val();
 	$.ajax({
 		url : "managerIdCheck.smdo",
@@ -41,6 +43,9 @@ function idCheck(){
 				alert("사용가능");
 				$('#id_alert').text("사용 가능한 아이디입니다.");
 				$('#id_alert').show();
+				//회원가입 버튼 활성화
+				$("#btnConfirm").prop("disabled",false);
+				   
 			}
 			return true;
 		},
@@ -50,16 +55,8 @@ function idCheck(){
 	});
 }
 
-function regCheck(){
-	var theForm = document.managerRegister;
+function btnConfirms(){
 	
-	var managerName = $('#managerName').val();
-	var managerId = $('#managerId').val();
-	var managerPasswd = $('managerPasswd').val();
-	var ConfirmPassword = $('ConfirmPassword').val();
-	
-	var storeName = document.getElementById("storeName");
-
 	//이름 공백 확인
 	if($("#managerName").val() == ""){
 		$('#name_alert').text("이름을 입력해주세요");
@@ -70,20 +67,32 @@ function regCheck(){
 		$('#name_alert').hide();
 	}
 	//아이디 공백 확인
-	if($("#managerId").val() == ""){
+	if(checkIds != 0){
+			$('#id_alert').text("ID 중복체크를 하세요!");
+			$('#id_alert').show();
+			$('#id_alert').focus();
+		//	return;
+			return false;	
+		}else{
+			$('#id_alert').hide();
+		}
+	if ($("#managerId").val() == ""){
 		$('#id_alert').text("아이디를 입력해주세요");
 		$('#id_alert').show();
 		$('#id_alert').focus();
+		//return;
 		return false;
 	}else{
 		$('#id_alert').hide();
 	}
+	
 	//비밀번호 공백 확인
 	if($("#managerPasswd").val() == ""){
 		$('#pwd_alert').text("비밀번호를 입력해주세요");
 		$('#pwd_alert').show();
 		$('#pwd_alert').focus();
-		return false;
+		//return;
+	 return false;
 	}else{
 		$('#pwd_alert').hide();
 	}
@@ -92,7 +101,8 @@ function regCheck(){
 		$('#pwdChk_alert').text("비밀번호 확인을 입력해주세요");
 		$('#pwdChk_alert').show();
 		$('#pwdChk_alert').focus();
-		return false;
+	//	return;
+	 return false;
 	}else{
 		$('#pwdChk_alert').hide();
 	}
@@ -101,7 +111,8 @@ function regCheck(){
 		$('#pwdChk_alert').text("비밀번호 일치여부를 확인해주세요");
 		$('#pwdChk_alert').show();
 		$('#pwdChk_alert').focus();
-		return false;
+	//	return;
+	 return false;
 	}else{
 		$('#pwdChk_alert').hide();
 	}
@@ -110,59 +121,44 @@ function regCheck(){
 		$('#storeName_alert').text("매장명을 확인해주세요");
 		$('#storeName_alert').show();
 		$('#storeName_alert').focus();
-		return false;
+	//	return;
+	 return false;
 	} else{
 		$('#storeName_alert').hide();
-	} 
-}
-
- /* function getRegionList(e){
-	var store_a = ["논현점","개포점"]; //'${storeRegion}'
-	var target = document.getElementById("storeName");
-	if(e.value == "강남구"){
-		var d = store_a;
 	}
-	target.options.length = 0;
+
+        $("#regManager").submit();
 	
-	for (x in d) {
-	    var opt = document.createElement("option");
-	    opt.value = d[x];
-	    opt.innerHTML = d[x];
-	    target.appendChild(opt);
-
-	  } 
-
-}  */
+};
 
 
 //구에 따라 셀렉트 박스에 매장 목록 노출
 function getRegionList(callBackFunc) {
+	
 	var target = document.getElementById("storeName");
-	//var $target = $("select[name='storeName']");
 	var storeRegion = $("#storeRegion").val();
-	//var $storeName = $("select[name='storeName']");
-	//if (target == '') return;
+	
+		
 	$.ajax({
 		url: 'searchStore.smdo',
 		contentType : "application/json; charset=UTF-8;",
 		type: 'post',
 		dataType: 'json',   
 		data : JSON.stringify({
-			storeRegion : storeRegion, //storeList, storeReion : params
+			storeRegion : storeRegion,//searchStore 쿼리에서 필요한 값
 		}),
 		success: function(data) {
+				
 				if (data != null) {
-					console.log("0");
 					for(var i=0; i<data.length; i++){
 						 target += ('<option value="'+ data[i] +'">'+
 								 data[i] + '</option>');
 						
 					}
 					 console.log(target);
-					console.log("1");
 					
 					$('#storeName').html(target);
-				} else if (typeof callbackFunc === 'function') {
+				}else if (typeof callbackFunc === 'function') {
 			        callbackFunc();
 			    }else {
 					alert("다시 시도해주세요");
@@ -190,7 +186,7 @@ function getRegionList(callBackFunc) {
 								</div>
 								<div class="card-body" style="height:500px">
 									<form name="regManager" id="regManager" action="registMarketAdminMember.smdo" 
-										method="post" onsubmit="return regCheck()">
+										method="post" >
 										<!--수정1-->
 										
 										<div class="form-row">
@@ -209,7 +205,7 @@ function getRegionList(callBackFunc) {
 												<div id="id_alert" style="display: none;"></div>
 											</div>
 											<div class="col-md-2" style="padding: 15px">
-												<a href="javascript:idCheck();" class="btn btn-primary"
+												<a href="javascript:idCheck();" class="btn btn-primary" id="checkId"
 													style="margin: 2px">중복확인</a>
 											</div>
 										</div>
@@ -270,14 +266,16 @@ function getRegionList(callBackFunc) {
 													<label class="small mb-1" >매장명</label>
 													<select class="form-control" id="storeName" name="storeName">
 														<option value="">지역을 선택해주세요</option>
+														<option value="명동점">명동점</option>
+														<option value="신당점">신당점</option>
 													</select>
 													<div id="storeName_alert" style="display: none;"></div>
 												</div>
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<input type="submit" class="btn btn-primary btn-block"
-											value="승인 신청" />
+											<input type="button" class="btn btn-primary btn-block"
+											value="승인 신청" id="btnConfirm" disabled="disabled" onClick="btnConfirms();"/>
 											<input type="reset" class="btn-delete"
 											style="display: block; width: 100%" value="다시 입력"/>
 										</div>

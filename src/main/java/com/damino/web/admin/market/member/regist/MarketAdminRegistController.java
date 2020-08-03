@@ -71,18 +71,8 @@ public class MarketAdminRegistController {
 			
 			List<MarketAdminMemberVO> storeList = marketAdminRegistService.searchStore(storeRegion);
 			System.out.println("[storeName] :"+ storeList);
-			
-			// JSONObject jStoreRegion = new JSONObject();
-			 
-		/*
-		 * try { for (Map.Entry<String, Object> entry : params.entrySet()) {
-		 * 
-		 * params.put(storeRegion, storeList); System.out.println("jStoreRegion : " +
-		 * jStoreRegion); } } catch (Exception e) { System.out.println(e.toString()); }
-		 */
 	            
 	 
 			return storeList;
 		}
-		//MAP에 Object가 들어갔나?
 }
