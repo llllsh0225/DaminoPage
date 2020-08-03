@@ -15,8 +15,8 @@ public class FaqServiceImpl implements FaqService {
 	private FaqDAO faqDAO;
 	
 	@Override
-	public List<FaqVO> getFaqList() {
-		return faqDAO.getFaqList();
+	public List<FaqVO> getFaqList(FaqVO vo) {
+		return faqDAO.getFaqList(vo);
 	}
 
 	@Override
