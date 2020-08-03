@@ -12,6 +12,7 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+
 </head>
 
 <body class="bg-primary">
@@ -26,18 +27,19 @@
                                     <h3 class="text-center font-weight-light my-4">관리자 계정 등록</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                	<section id="container">
+                                    <form action="registAdminMember.admdo" method="POST">
                                         <!--수정1-->
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputAdminID">아이디</label>
-                                            <input class="form-control py-4" id="inputAdminID" type="text"
-                                                aria-describedby="IdlHelp" placeholder="ID" />
+                                            <input class="form-control py-4" type="text" id="adminid" name="adminid" maxlength="16"
+                                                placeholder="ID" />
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="inputAdminPassword">비밀번호</label>
-                                                    <input class="form-control py-4" id="inputAdminPassword" type="Password"
+                                                    <input class="form-control py-4" type="Password"  id="adminpassword" name="adminpassword"
                                                         placeholder="password" />
                                                 </div>
                                             </div>
@@ -50,14 +52,18 @@
                                             </div>
                                         </div>
                                          <!--수정2-->
+                                         <!--  
                                         <div class="form-group">
                                             <label class="small mb-1" for="AdminCode">코드</label>
                                             <input class="form-control py-4" id="inputAdminCode" type="text"
                                                 aria-describedby="codeHelp" placeholder="Code" />
                                         </div>
-                                        <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block"
-                                                href="login.admdo">계정 만들기</a></div>
+                                        -->
+                                        <div class="form-group mt-4 mb-0">
+                                        <button class="btn btn-primary btn-block" type="submit" id="submit">계정 만들기</button>
+                                        </div>
                                     </form>
+                                    </section>
                                 </div>
                                 <div class="card-footer text-center">
                                     <div class="small"><a href="login.admdo">로그인 페이지로 돌아가기</a></div>
