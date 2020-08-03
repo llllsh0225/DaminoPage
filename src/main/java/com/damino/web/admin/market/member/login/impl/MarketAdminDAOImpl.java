@@ -1,7 +1,5 @@
 package com.damino.web.admin.market.member.login.impl;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,10 +13,15 @@ public class MarketAdminDAOImpl implements MarketAdminDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	@Override
-	public MarketAdminVO getMember(MarketAdminVO vo) {
-		System.out.println("MarketAdminDAOImpl getMember(MarketAdminMemVO vo)");
-		return sqlSessionTemplate.selectOne("marketAdminDAO.getMember", vo);
-	}
+//	@Override
+//	public MarketAdminVO getMember(MarketAdminVO vo) {
+//		System.out.println("MarketAdminDAOImpl getMember(MarketAdminMemVO vo)");
+//		return sqlSessionTemplate.selectOne("marketAdminMemberDAO.getMember", vo);
+//	}
 
+	@Override
+	public MarketAdminVO checkMemberId(String id) {
+		System.out.println("MarketAdminDAOImpl checkMemberId(String id)");
+		return sqlSessionTemplate.selectOne("marketAdminDAO.checkMemberId", id);
+	}
 }
