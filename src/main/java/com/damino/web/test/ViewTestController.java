@@ -104,59 +104,7 @@ public class ViewTestController {
 	// ---- basket 폴더 end ----
 	
 	// ---- board 폴더 ----
-	@RequestMapping("/faqMain.do")
-	public ModelAndView getFaqMainPage() {
-		System.out.println("FAQ 메인페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/faq_main");
-		return mav;
-	}
 	
-	@RequestMapping("/faqHomePage.do")
-	public ModelAndView getFaqHomepagePage() {
-		System.out.println("FAQ 홈페이지 관련 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/faq_homePage");
-		return mav;
-	}
-	
-	@RequestMapping("/faqHowToOrder.do")
-	public ModelAndView getFaqHowToOrderPage() {
-		System.out.println("FAQ 피자 주문하기 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/faq_howToOrder");
-		return mav;
-	}
-	
-	@RequestMapping("/faqOrderCheck.do")
-	public ModelAndView getFaqOrderCheckPage() {
-		System.out.println("FAQ 주문확인 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/faq_orderCheck");
-		return mav;
-	}
-	
-	@RequestMapping("/faqSendPresent.do")
-	public ModelAndView getFaqSendPresentPage() {
-		System.out.println("FAQ 선물하기 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/faq_sendPresent");
-		return mav;
-	}
-	
-	@RequestMapping("/faqWrapOrder.do")
-	public ModelAndView getFaqWrapOrderPage() {
-		System.out.println("FAQ 포장주문 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/faq_wrapOrder");
-		return mav;
-	}
 	
 	
 	@RequestMapping("/qnaForm.do")
