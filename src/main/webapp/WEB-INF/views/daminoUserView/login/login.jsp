@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,17 +10,32 @@
 <meta name="title" content="다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's" />
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-   <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-   <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-   <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-   
-   <script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-   <!-- 메인페이지 슬라이드 js -->
-   <script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-   <script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-   <!-- 더보기 슬라이드로 내려오는 js -->
-   <script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-   
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+		
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
+	<!-- 메인페이지 슬라이드 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
+	<!-- 더보기 슬라이드로 내려오는 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	<script type="text/javascript">
+	function inputCheck(){
+		var idcheck = $('#userid').val();
+		var pwcheck = $('#userpasswd').val();
+		if(idcheck=="" && pwcheck==""){
+			alert("아이디와 비밀번호를 입력하세요.");
+		}
+		else if(idcheck == ""){
+			alert("아이디를 입력하세요.");
+		}
+		else if(pwcheck == ""){
+			alert("비밀번호를 입력하세요.");
+		}else{
+		}
+	}
+	</script>
    
 </head>
 <body>
@@ -66,9 +82,7 @@
                      <div class="mnu-box">
                         <a href="faqMain.do">고객센터</a>
                         <ul>
-                           <li><a
-                              href="faqMain.do">자주하는
-                                 질문</a></li>
+                           <li><a href="faqMain.do">자주하는 질문</a></li>
                            <li><a href="qnaForm.do">온라인 신문고</a></li>
                         </ul>
                      </div>
@@ -112,12 +126,17 @@
                         </ul>
                      </div>
                      <div class="tab-content active" id="login">
-                        <form id="loginFrm" name="loginFrm" action="loginCheck.do" method="post">
+                        <form id="loginFrm" name="loginFrm" action="loginCheck.do" method="post" onsubmit="inputCheck()">
+                           <c:if test="${msg=='fail'}">
+	                           <div class="form-item" id="idpwcheck" style="color:red">
+	                           		아이디 또는 비밀번호가 일치하지 않습니다.
+	                           </div>
+                           </c:if>
                            <div class="form-item">
-                              <input type="text" name="userid" id="userid" maxlength="20" placeholder="아이디">
+                              <input type="text" name="userid" id="userid" maxlength="20" placeholder="아이디"/>
                            </div>
                            <div class="form-item">
-                              <input type="password" name="userpasswd" id="userpasswd" maxlength="20" placeholder="비밀번호"> 
+                              <input type="password" name="userpasswd" id="userpasswd" maxlength="20" placeholder="비밀번호"/> 
                            </div>
                            <div class="chk-item">
                               <div class="chk-box v4">
@@ -132,7 +151,7 @@
                            </div>
 
                            <div class="btn-wrap">
-                              <input type="submit" class="btn-type-brd5" value="로그인" />
+                              <input type="submit" id="loginbtn" class="btn-type-brd5" value="로그인" />
                               <!--  <a href="loginTest.do" class="btn-type v4">로그인</a> -->
 
                            </div>
