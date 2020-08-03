@@ -26,21 +26,19 @@ public class FaqController {
 		return mav;
 	}
 	
-	/**
 	@RequestMapping(value="/getFaqTypeList.admdo", method=RequestMethod.POST)
-	@ResponseBody
 	public ModelAndView getFaqTypeList(@RequestBody Map<String, Object> param, ModelAndView mav) {
 		String faq_type = (String)param.get("faq_type");
 		System.out.println(faq_type);
 		
-		List<FaqVO> faqList = faqService.getFaqTypeList(faq_type);
+		List<FaqVO> faqTypeList = faqService.getFaqTypeList(faq_type);
+		System.out.println(faqTypeList.toString());
 		
-		mav.addObject("faqList", faqList);
+		mav.addObject("faqTypeList", faqTypeList);
 		mav.setViewName("sites/questionAndAnswer/qna_list");
 		
 		return mav;
 	}
-	*/
 	
 	@RequestMapping(value="/getFaq.admdo", method=RequestMethod.GET)
 	public ModelAndView getFaq(FaqVO vo, ModelAndView mav) {

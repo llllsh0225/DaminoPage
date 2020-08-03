@@ -15,11 +15,20 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/style-osh.css' />">
 
+<style>
+#faqNo{
+	width:6%;
+}
+
+#faqType{
+	width:20%;
+}
+</style>
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
 <script>
-/**
+
 function faqTypeSearch(){
 	var faq_type = $('#faqTypeKeyword option:selected').val();
 	
@@ -33,7 +42,7 @@ function faqTypeSearch(){
 		})
 	});
 }
-*/
+
 </script>
 </head>
 <body class="sb-nav-fixed">
@@ -224,11 +233,9 @@ function faqTypeSearch(){
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>No.</th>
+											<th id="faqNo">No.</th>
 											<th>제목</th>
-											<th>질문 분류</th>
-											<th>수정</th>
-											<th>삭제</th>
+											<th id="faqType">질문 분류</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -236,11 +243,7 @@ function faqTypeSearch(){
 										<tr>
 											<td class="center-group">${faq.seq }</td>
 											<td><a href="getFaq.admdo?seq=${faq.seq }">${faq.title }</a></td>
-											<td>${faq.faq_type }</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
+											<td class="center-group">${faq.faq_type }</td>
 										</tr>
 										</c:forEach>
 									</tbody>
