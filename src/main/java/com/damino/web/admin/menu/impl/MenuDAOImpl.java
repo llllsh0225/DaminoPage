@@ -71,6 +71,12 @@ public class MenuDAOImpl implements MenuDAO {
 		return sqlSessionTemplate.selectOne("MenuDAO.getPizza", vo);
 	}
 
+	@Override
+	public List<PizzaVO> getNutrients() {
+		System.out.println("영양성분 가져오기");
+		return sqlSessionTemplate.selectOne("MenuDAO.getNutrients");
+	}
+
 	
 
 }

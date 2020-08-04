@@ -641,15 +641,15 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	@RequestMapping("/menuInfo.admdo")
-	public ModelAndView getAdminMenuInfoPage() {
-		System.out.println("메뉴 정보 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/menu/menuInfo");
-		
-		return mav;
-	}
+//	@RequestMapping("/menuInfo.admdo")
+//	public ModelAndView getAdminMenuInfoPage() {
+//		System.out.println("메뉴 정보 페이지 열기");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/menu/menuInfo");
+//		
+//		return mav;
+//	}
 //	@RequestMapping("/menuList.admdo")
 //	public ModelAndView getAdminMenuListPage() {
 //		System.out.println("메뉴 목록 페이지 열기");

@@ -15,5 +15,7 @@ public interface MenuDAO {
 	public List<SideVO> getSideList(); // 사이드 가져오기
 	public List<DrinkEtcVO> getDrinkEtcList(); // 음료&기타 가져오기
 	
-	public PizzaVO getPizza(PizzaVO vo);
+	public PizzaVO getPizza(PizzaVO vo); // 피자 수정값 가져오기
+	
+	public List<PizzaVO> getNutrients(); // 영양성분 가져오기
 }
