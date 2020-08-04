@@ -127,7 +127,6 @@ public class MenuController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/menu/menuList");
 		mav.addObject("pizzaList", pizzaList);
-
 		return mav;
 	}
 	
@@ -167,15 +166,26 @@ public class MenuController {
 	
 	@RequestMapping(value="/pizzaInfo.admdo", method = RequestMethod.GET)
 	public ModelAndView getPizza(PizzaVO vo) {
-		System.out.println("피자 목록");
-		PizzaVO pizza = menuService.getPizza(vo);
+		System.out.println("피자의 모든 정보 수정");
+		
+		PizzaVO pizza = menuService.getPizza(vo);	
+//		List<PizzaVO> nutrients = menuService.getNutrients();		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/menu/menuInfo");
 		mav.addObject("pizza", pizza);
+//		mav.addObject("nutrients", nutrients); 
 		return mav;
 	}	
 	
-	
+	@RequestMapping("/menuInfo.admdo")
+	public ModelAndView getAdminMenuInfoPage() {
+		System.out.println("메뉴 정보 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuInfo");
+		
+		return mav;
+	}
 }
 
 

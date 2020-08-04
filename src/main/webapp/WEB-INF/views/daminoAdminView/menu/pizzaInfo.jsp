@@ -215,7 +215,7 @@
 									</tr>
 									<tr>
 										<th>총 중량(g)</th>
-										<td></td>
+										<td>${pizza.p_nutrients_code  }</td>
 									</tr>
 									<tr>
 										<th>1회분 기준</th>

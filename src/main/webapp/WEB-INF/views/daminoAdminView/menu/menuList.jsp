@@ -211,11 +211,12 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="pizza" items="${pizzaList }">
+										<c:forEach var="pizza" items="${pizzaList }" >
+										
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">${pizza.seq }</td>
-											<td><a href="#">${pizza.p_name }</a></td>
+											<td><a href="menuInfo.admdo">${pizza.p_name }</a></td>
 											<td class="center-group">${pizza.p_code }</td>
 											<td class="center-group">${pizza.p_type }</td>
 											<td class="center-group">${pizza.p_price }</td>

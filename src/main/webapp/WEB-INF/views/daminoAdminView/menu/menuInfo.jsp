@@ -105,7 +105,7 @@
 							aria-controls="boardPage"> 게시판관리
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
-							</div>
+							</div> 
 						</a>
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">

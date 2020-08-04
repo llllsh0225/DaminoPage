@@ -70,6 +70,11 @@ public class MenuServiceImpl implements MenuService {
 		
 	}
 
+	@Override
+	public List<PizzaVO> getNutrients() {
+		return menuDAO.getNutrients();
+	}
+
 	
 
 	

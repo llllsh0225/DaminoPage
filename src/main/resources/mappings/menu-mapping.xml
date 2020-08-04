@@ -42,6 +42,12 @@
 		FROM PIZZA
 	</select>
 
+	<select id="getNutrients"
+		resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT *
+		FROM p_nutrients
+	</select>
+	
 	<select id="getToppingList"
 		resultType="com.damino.web.admin.menu.ToppingVO">
 		SELECT seq, t_code, t_name, t_type, t_price
@@ -63,10 +69,16 @@
 		
 	<select id="getPizza" 
 		resultType="com.damino.web.admin.menu.PizzaVO">
-		SELECT * FROM pizza where seq=#{seq}
+        
+        SELECT * FROM pizza 
+        where seq=#{seq}
+        
+                    		
+<!--  		SELECT pizza.p_code, pizza.p_name, pizza.p_type, pizza.p_size, pizza.p_price, pizza.p_dough, pizza.p_image, pizza.seq, p_nutrients.p_nutrients_code,  p_nutrients.gross_weight,  p_nutrients.onetime_basis,  p_nutrients.onetime_weight, p_nutrients.kcal,  p_nutrients.protein,  p_nutrients.fat,  p_nutrients.natrium,  p_nutrients.sugars,  p_nutrients.p_code
+		FROM pizza, p_nutrients
+		WHERE pizza.p_code = p_nutrients.p_code  -->
+		
+		
 	</select>
-
-
-
-
+	
 </mapper>
