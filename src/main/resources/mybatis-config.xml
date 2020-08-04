@@ -18,5 +18,6 @@
 		<mapper resource="mappings/faqview-mapping.xml"/>
 		<mapper resource="mappings/adminmember-mapping.xml"/>
 		<mapper resource="mappings/coupon-mapping.xml"/>
+		<mapper resource="mappings/terms-mapping.xml"/>
 	</mappers>
 </configuration>
