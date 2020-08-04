@@ -7,7 +7,7 @@ public class CouponVO {
 	private String coupon_name; // 쿠폰명
 	private String ordertype; // 할인 적용 타입 (배달/포장)
 	private int discountrate; // 할인율
-	private Date regdate; // 쿠폰 등록일
+	private Date regdate = new Date(); // 쿠폰 등록일
 	private Date validity; // 쿠폰 유효기간
 	private String chkusable; // 사용 가능여부 (Y/N)
 	private String userid; // 사용자 아이디
