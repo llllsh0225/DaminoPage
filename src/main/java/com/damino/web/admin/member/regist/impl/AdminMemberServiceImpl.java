@@ -20,4 +20,10 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		adminMemberDAO.regAdminMember(vo);
 	}
 
+	@Override
+	public int admincheck(String adminid) {
+		System.out.println("#service[admin] : " + adminid);
+		return adminMemberDAO.admincheck(adminid);
+	}
+
 }
