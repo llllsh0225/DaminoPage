@@ -722,15 +722,6 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	@RequestMapping("/terms_list.admdo")
-	public ModelAndView getAdminTerms_listPage() {
-		System.out.println("약관 목록 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sites/terms/terms_list");
-		
-		return mav;
-	}
 	
 	//store 폴더 시작 -------
 	/*
