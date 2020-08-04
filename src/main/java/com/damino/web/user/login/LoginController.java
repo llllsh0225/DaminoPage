@@ -35,7 +35,9 @@ public class LoginController {
 				System.out.println("회원 아이디 : " + login.getUserid());
 				System.out.println("회원 비밀번호 : " + login.getUserpasswd());
 				System.out.println("회원 이름 : " + login.getUsername());//sql select로 userid, userpasswd, username 3개만 가져옴
+				System.out.println("회원 등급 : " + login.getUserlevel());
 				session.setAttribute("username", login.getUsername());//session 객체에 username이라는 키에 로그인한 회원의 이름을 값으로 저장
+				session.setAttribute("user", login); // session 객체의 "user"에 login 한 멤버 객체를 저장
 				mav.setViewName("main");
 				return mav;
 			} else if(login != null && pwdMatch == false){//sql에서 아이디는 가져왔으나 비밀번호가 틀린경우
@@ -55,12 +57,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping("logout.do")
-	private ModelAndView logout(ModelAndView mav, HttpServletRequest request){
+	private ModelAndView logout(UserVO vo, ModelAndView mav, HttpSession session){
 		System.out.println("로그아웃");
-		HttpSession session = request.getSession(false);
 		System.out.println(session.getAttribute("username"));
 		session.invalidate();
-		mav.addObject("msg", "logout");
+		mav.addObject("msg", "logout"); // logout 메세지 세팅
+		mav.addObject("username", vo.getUsername());
 		mav.setViewName("main");
 		return mav;
 		
