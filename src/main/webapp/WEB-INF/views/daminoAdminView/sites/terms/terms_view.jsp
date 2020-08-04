@@ -27,7 +27,7 @@
 		if(index==2){
 			document.form2.action='deleteTerms.admdo';
 		}
-		document.form1.submit();
+		document.form2.submit();
 	}
 </script>
 
@@ -206,22 +206,27 @@
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<tr>
-										<td>구분</td>
+										<td>약관 분류</td>
 										<td>
-											<select name="flag">
-												<c:if test="${terms.flag eq '개인정보 처리방침'}">
+											<select name="title">
+												<c:if test="${terms.title eq '개인정보 처리방침'}">
 													<option value="개인정보 처리방침" selected>개인정보 처리방침</option>
 													<option value="이용약관">이용약관</option>
 												</c:if>
-												<c:if test="${terms.flag eq '이용약관'}">
+												<c:if test="${terms.title eq '이용약관'}">
 													<option value="개인정보 처리방침">개인정보 처리방침</option>
 													<option value="이용약관" selected>이용약관</option>
 												</c:if>
 											</select>
 										</td>
 									<tr>
-										<td>제목</td>
-										<td colspan="2"><input type="text" name="title" size="40" value="${terms.title}"/></td>
+									<tr>
+										<td>시행일</td>
+										<td><input type="date" name="enforcementdate" placeholder="날짜 입력" /></td>
+									</tr>
+									<tr>
+										<td>약관 세부분류</td>
+										<td colspan="2"><input type="text" name="subtitle" size="40" value="${terms.title}"/></td>
 									</tr>
 									<tr>
 										<td>내용</td>
@@ -252,8 +257,7 @@
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
-					<div
-						class="d-flex align-items-center justify-content-between small">
+					<div class="d-flex align-items-center justify-content-between small">
 						<div class="text-muted">Copyright &copy; Your Website 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms

@@ -7,16 +7,11 @@ public class TermsVO {
 	private String title;
 	private String subtitle;
 	private String content;
+	private Date enforcementDate = new Date();
 	private Date regDate = new Date();
-	private String flag;
 	
 	
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
+	
 	public int getSeq() {
 		return seq;
 	}
@@ -41,16 +36,22 @@ public class TermsVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getFlag() {
-		return flag;
+	public Date getEnforcementDate() {
+		return enforcementDate;
 	}
-	public void setFlag(String flag) {
-		this.flag = flag;
+	public void setEnforcementDate(Date enforcementDate) {
+		this.enforcementDate = enforcementDate;
+	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
 	@Override
 	public String toString() {
 		return "TermsVO [seq=" + seq + ", title=" + title + ", subtitle=" + subtitle + ", content=" + content
-				+ ", regDate=" + regDate + ", flag=" + flag + "]";
+				+ ", enforcementDate=" + enforcementDate + ", regDate=" + regDate + "]";
 	}
 	
 }

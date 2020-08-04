@@ -195,14 +195,13 @@
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<th>No</th>
-										<th>제목</th>
-										<th>부제목</th>
+										<th>약관 분류</th>
+										<th>약관 세부분류</th>
+										<th>시행일</th>
 										<th>작성일</th>
-										<th>구분</th>
 									</thead>
 									<tbody>
 										<c:forEach var="terms" items="${termsList }">
@@ -210,8 +209,8 @@
 												<td>${terms.seq }</td>
 												<td><strong><a href="terms_view.admdo?seq=${terms.seq}">${terms.title}</a></strong></td>
 												<td>${terms.subtitle}</td>
+												<td><fmt:formatDate value="${terms.enforcementDate }" pattern="yyyy-MM-dd" /></td>
 												<td><fmt:formatDate value="${terms.regDate }" pattern="yyyy-MM-dd" /></td>
-												<td>${terms.flag }</td>
 											</tr>
 										</c:forEach>
 									</tbody>

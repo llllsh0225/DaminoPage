@@ -21,7 +21,12 @@ public class TermsDAOImpl implements TermsDAO{
 	@Override
 	public TermsVO getTerms(TermsVO vo) {
 		System.out.println("TermsDAOImpl getTerms(vo)");
-		return sqlSessionTemplate.selectOne("TermsDAO.getContent", vo);
+		return sqlSessionTemplate.selectOne("TermsDAO.getTerms", vo);
+	}
+	@Override
+	public void updateTerms(TermsVO vo) {
+		System.out.println("TermsDAOImpl updateTerms(vo)");
+		sqlSessionTemplate.update("TermsDAO.updateTerms", vo);
 	}
 
 }

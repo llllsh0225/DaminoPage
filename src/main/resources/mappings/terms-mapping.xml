@@ -5,13 +5,17 @@
 <mapper namespace="TermsDAO">
 	
 	<select id="getTermsList" resultType="com.damino.web.admin.terms.TermsVO">
-		SELECT seq, title, subtitle, regdate, flag FROM terms 
+		SELECT seq, title, subtitle, enforcementdate, regdate FROM terms 
 	</select>
 	
 	<select id="getTerms" resultType="com.damino.web.admin.terms.TermsVO">
-		SELECT seq, title, subtitle, regdate, flag FROM terms WHERE seq=#{seq}
+		SELECT * FROM terms WHERE seq=#{seq}
 	</select>
 	
+	<update id="updateTerms" parameterType="com.damino.web.admin.terms.TermsVO">
+		UPDATE terms
+		SET content=#{content} WHERE seq=#{seq}
+	</update>
 	<!-- <resultMap type="HashMap" id="result">
 		<result property="content" column="content" jdbcType="CLOB" javaType="java.lang.String"/>
 	</resultMap>
