@@ -21,4 +21,10 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 
 	}
 
+	@Override
+	public int admincheck(String adminid) {
+		System.out.println("#DAO[admin] : " + adminid);
+		return sqlSessionTemplate.selectOne("AdminMemberDAO.admincheck", adminid);
+	}
+
 }
