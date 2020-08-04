@@ -9,11 +9,17 @@
 		VALUES (#{managerName}, #{managerId}, #{managerPasswd}, #{storeRegion}, #{storeName} )
 	</insert>
 	
-<!-- 	 id 중복 체크 
+	<!-- id 중복 체크  -->
 	<select id="idCheck" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM MarketAdminMember
 		WHERE managerId = #{managerId}
-	</select> -->
+	</select>
+
+	<!-- 구에 따른 매장명 불러오기 -->
+	<select id="searchStore" parameterType="String" resultType="String">
+		SELECT storeName FROM daminostore
+		WHERE storeRegion = #{storeRegion}
+	</select>
 	
 </mapper>
 

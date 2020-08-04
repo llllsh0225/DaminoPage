@@ -1,5 +1,7 @@
 package com.damino.web.admin.market.member.regist.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,12 @@ public class MarketAdminRegistServiceImpl implements MarketAdminRegistService{
 	public void registMarketAdminMember(MarketAdminMemberVO vo) {
 		System.out.println("MarketAdminRegistServiceImpl MarketAdminMemberVO(vo)");
 		marketAdminMemberDAO.MarketAdminMember(vo);
+	}
+
+	@Override
+	public List<MarketAdminMemberVO> searchStore(String storeRegion) {
+		System.out.println("MarketAdminRegistServiceImpl String storeRegion");
+		return marketAdminMemberDAO.searchStore(storeRegion);
 	}
 
 

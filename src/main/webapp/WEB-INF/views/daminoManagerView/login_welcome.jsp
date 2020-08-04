@@ -8,6 +8,6 @@
 </head>
 <body>
 <h2>${id }님 환영합니다.</h2><br>
-<a href="main_welcome.smdo">관리자 페이지로</a>
+<a href="main.smdo">관리자 페이지로</a>
 </body>
 </html>

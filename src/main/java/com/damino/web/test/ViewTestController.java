@@ -775,25 +775,25 @@ public class ViewTestController {
 	//daminoManagerView 영역 시작 -------------------------
 	
 	// ---- Manager Main ----
-		@RequestMapping("/main.smdo")
-		public ModelAndView getMainManagerPage() {
-			System.out.println("메인페이지 열기");
-			
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main");
-			
-			return mav;
-		}
-		
-		@RequestMapping("/main_welcome.smdo")
-		public ModelAndView getMainManagerWelcomePage() {
-			System.out.println("메인페이지 열기");
-			
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/main_welcome");
-			
-			return mav;
-		}
+//		@RequestMapping("/main.smdo")
+//		public ModelAndView getMainManagerPage() {
+//			System.out.println("메인페이지 열기");
+//			
+//			ModelAndView mav = new ModelAndView();
+//			mav.setViewName("/main");
+//			
+//			return mav;
+//		}
+//		
+//		@RequestMapping("/main_welcome.smdo")
+//		public ModelAndView getMainManagerWelcomePage() {
+//			System.out.println("메인페이지 열기");
+//			
+//			ModelAndView mav = new ModelAndView();
+//			mav.setViewName("/main_welcome");
+//			
+//			return mav;
+//		}
 		
 	//error 폴더 시작 ------
 		@RequestMapping("/error_401.smdo")
@@ -825,15 +825,15 @@ public class ViewTestController {
 		}
 	
 	//members 폴더 시작 -----------
-		@RequestMapping("/managerLogin.smdo")
-		public ModelAndView getManagerLoginPage() {
-			System.out.println("로그인 페이지 열기");
-			
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/members/managerLogin");
-			
-			return mav;
-		}
+//		@RequestMapping("/managerLogin.smdo")
+//		public ModelAndView getManagerLoginPage() {
+//			System.out.println("로그인 페이지 열기");
+//			
+//			ModelAndView mav = new ModelAndView();
+//			mav.setViewName("/members/managerLogin");
+//			
+//			return mav;
+//		}
 		@RequestMapping("/managerRegister.smdo")
 		public ModelAndView getManagerRegisterPage() {
 			System.out.println("회원가입 페이지 열기");

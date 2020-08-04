@@ -17,32 +17,31 @@ public class MarketAdminLoginController {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
 	
-	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.GET)
-	private String loginView(MarketAdminVO vo) {
-		System.out.println("로그인 페이지로 이동");
-		System.out.println(marketAdminLoginService.toString());
-		return "members/managerLogin";
+	@RequestMapping(value="/main.smdo", method=RequestMethod.GET)
+	   public ModelAndView getAdminMainPage(HttpSession session, Model model) {
+		  String id = (String)session.getAttribute("id");
+		  System.out.println("관리자 화면의 메인페이지 열기");
+	      if(id != null) {
+	    	  ModelAndView mav = new ModelAndView();
+	    	  mav.setViewName("/main_welcome");
+	    	  return mav;
+	      }else {
+	    	  ModelAndView mav = new ModelAndView();
+	    	  mav.setViewName("/main");
+	    	  return mav;
+	      }
+	}	
+
+	@RequestMapping(value="/managerLogin.smdo", method=RequestMethod.GET)
+	public ModelAndView getManagerLoginPage() {
+		System.out.println("로그인 페이지 열기");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/managerLogin");
+		
+		return mav;
 	}
 	
-//	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.POST)
-//	private ModelAndView loginCheck(MarketAdminVO vo, ModelAndView mav, HttpSession session) {
-//		System.out.println("로그인 인증 처리");
-//		
-//		MarketAdminVO user = marketAdminLoginService.getMember(vo);
-//		
-//		if(user != null) {
-//			System.out.println("로그인에 성공하였습니다.");
-//			mav.setViewName("main");
-//			return mav;
-//		}else {
-//			System.out.println("로그인에 실패하였습니다.");
-//			
-//			mav.setViewName("login/login");
-//
-//			return mav;
-//		}
-//	}
-	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.POST)
+	@RequestMapping(value="/managerLogin.smdo", method=RequestMethod.POST)
 	public ModelAndView loginCheck(String id, String pw, HttpSession session, ModelAndView mav) {
 		MarketAdminVO check = marketAdminLoginService.checkMemberId(id);
 		if(check != null) {
@@ -70,5 +69,31 @@ public class MarketAdminLoginController {
 		session.invalidate();
 		return "members/managerLogin";
 	}
+	
+//	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.GET)
+//	private String loginView(MarketAdminVO vo) {
+//		System.out.println("로그인 페이지로 이동");
+//		System.out.println(marketAdminLoginService.toString());
+//		return "members/managerLogin";
+//	}	
+//	
+//	@RequestMapping(value="/loginTest.smdo", method=RequestMethod.POST)
+//	private ModelAndView loginCheck(MarketAdminVO vo, ModelAndView mav, HttpSession session) {
+//		System.out.println("로그인 인증 처리");
+//		
+//		MarketAdminVO user = marketAdminLoginService.getMember(vo);
+//		
+//		if(user != null) {
+//			System.out.println("로그인에 성공하였습니다.");
+//			mav.setViewName("main");
+//			return mav;
+//		}else {
+//			System.out.println("로그인에 실패하였습니다.");
+//			
+//			mav.setViewName("login/login");
+//
+//			return mav;
+//		}
+//	}
 }
 	
