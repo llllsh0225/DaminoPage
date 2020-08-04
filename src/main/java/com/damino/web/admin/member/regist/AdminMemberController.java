@@ -9,24 +9,37 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
 public class AdminMemberController {
 	//확인용 로그
 	private static final Logger logger = LoggerFactory.getLogger(AdminMemberController.class);
-	
+
 	@Autowired
 	private AdminMemberService adminMemberService;
+
+	@Autowired
+	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체 
 	
 	@RequestMapping(value = "/registAdminMember.admdo", method = RequestMethod.POST)
-	public String postRegistAdmin(AdminMemberVO vo) {
+	public String postRegistAdmin(@ModelAttribute AdminMemberVO vo,ModelAndView mav, HttpServletRequest request) throws Throwable {
 		logger.info("postRegistAdmin");	
+		
+		//비밀번호 암호 처리
+		String pwd = vo.getAdminpassword();
+		String adminpassword = pwdEncoder.encode(pwd);
+		vo.setAdminpassword(adminpassword);
+		
+		
 		adminMemberService.registAdminMember(vo);
 		return "redirect:/login.admdo"; //로그인창으로 이동.
 	}
