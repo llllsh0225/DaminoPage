@@ -24,4 +24,9 @@ public class MarketAdminLoginServiceImpl implements MarketAdminLoginService{
 		return marketAdminDAO.checkMemberId(id);
 	}
 
+	@Override
+	public void updateMember(MarketAdminVO vo) {
+		marketAdminDAO.updateMember(vo);
+	}
+
 }
