@@ -17,5 +17,6 @@
 		<mapper resource="mappings/member-mapping.xml"/>
 		<mapper resource="mappings/faqview-mapping.xml"/>
 		<mapper resource="mappings/adminmember-mapping.xml"/>
+		<mapper resource="mappings/terms-mapping.xml"/>
 	</mappers>
 </configuration>

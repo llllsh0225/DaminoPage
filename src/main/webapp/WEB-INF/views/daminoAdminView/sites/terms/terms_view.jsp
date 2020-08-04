@@ -1,7 +1,7 @@
-<%@page import="java.util.List"%>
 <%@page import="com.damino.web.admin.terms.impl.TermsDAOImpl"%>
 <%@page import="com.damino.web.admin.terms.TermsVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -9,17 +9,27 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <title>도미노피자 테스트점 관리페이지</title>
-<link rel="stylesheet"
-	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css' />" crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/style-osh.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<!-- CK에디터 추가 -->
+<script type="text/javascript" src="<c:url value='https://cdn.ckeditor.com/4.14.1/full/ckeditor.js' />"></script>
+<script type="text/javascript">
+	function TermsSubmit(index){
+		if(index==1){
+			document.form2.action='updateTerms.admdo';
+		}
+		if(index==2){
+			document.form2.action='deleteTerms.admdo';
+		}
+		document.form1.submit();
+	}
+</script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -39,10 +49,11 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
+					<a class="dropdown-item" href="memberEdit.admdo">정보수정</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -99,8 +110,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
-								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
+								  <a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -144,10 +155,10 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
-											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
-											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
-											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> 
+										<a class="nav-link" href="insertMenu_side.admdo">사이드디시</a> 
+										<a class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> 
+										<a class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
 							</nav>
@@ -162,9 +173,9 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
-									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
-									class="nav-link" href="terms_list.admdo">약관관리</a>
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> 
+								<a class="nav-link" href="bannerBoardView.admdo">배너관리</a> 
+								<a class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
 						</div>
 					</div>
@@ -177,48 +188,66 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
-				<!-- 메뉴관리 -> 메뉴 등록 페이지 -->
+				<!-- 이곳이 Content 영역입니다. -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <strong>약관 관리</strong>
+						<i class="fas fa-table mr-1"></i> <b>약관 상세보기</b> <br>
 						<!--새로고침 버튼-->
-						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;">
+
 					</div>
-					<div class="card-body">
-						<form>
-							<div id="table-reponsive">
-								<div id="qna-insert-btn">
-									<input type="button" class="btn btn-primary" value="약관 등록"
-										onclick="location.href='terms_insert.admdo'" />
-								</div>
-								<div class="for-margin-height-div"></div>
-								<div class="for-margin-height-div"></div>
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
-									<thead>
-										<th>No</th>
-										<th>제목</th>
-										<th>부제목</th>
-										<th>작성일</th>
-										<th>구분</th>
-									</thead>
-									<tbody>
-										<c:forEach var="terms" items="${termsList }">
-											<tr>
-												<td>${terms.seq }</td>
-												<td><strong><a href="terms_view.admdo?seq=${terms.seq}">${terms.title}</a></strong></td>
-												<td>${terms.subtitle}</td>
-												<td><fmt:formatDate value="${terms.regDate }" pattern="yyyy-MM-dd" /></td>
-												<td>${terms.flag }</td>
-											</tr>
-										</c:forEach>
-									</tbody>
+					
+					<form id="form2" name="form2" method="post">
+					
+						<div class="card-body">
+							<input type="hidden" name="seq" id="seq" value="${terms.seq }" />
+							<input type="button" class="btn btn-primary" value="글수정" onclick="TermsSubmit(1)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="글삭제" onclick="TermsSubmit(2)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='terms_list.admdo'" style="float: right"/>
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<tr>
+										<td>구분</td>
+										<td>
+											<select name="flag">
+												<c:if test="${terms.flag eq '개인정보 처리방침'}">
+													<option value="개인정보 처리방침" selected>개인정보 처리방침</option>
+													<option value="이용약관">이용약관</option>
+												</c:if>
+												<c:if test="${terms.flag eq '이용약관'}">
+													<option value="개인정보 처리방침">개인정보 처리방침</option>
+													<option value="이용약관" selected>이용약관</option>
+												</c:if>
+											</select>
+										</td>
+									<tr>
+										<td>제목</td>
+										<td colspan="2"><input type="text" name="title" size="40" value="${terms.title}"/></td>
+									</tr>
+									<tr>
+										<td>내용</td>
+										<td>
+											<textarea name="content" rows="10" cols="14" style="width: 50%" >${terms.content}</textarea>
+											<script>
+								                CKEDITOR.replace( 'content' );
+								            </script>
+										</td>
+									</tr>
+									<tr>
+										<td>이전글</td>
+										<td>
+											<a href="#">이전글</a>
+										</td>
+									</tr>
+									<tr>
+										<td>다음글</td>
+										<td>
+											<a href="#">다음글</a>
+										</td>
+									</tr>
 								</table>
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
@@ -248,8 +277,7 @@
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
+	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
-
 </body>
 </html>
