@@ -234,23 +234,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/law.do")
-	public ModelAndView getLawPage() {
-		System.out.println("이용약관 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/terms/law");
-		return mav;
-	}
-	
-	@RequestMapping("/privacy.do")
-	public ModelAndView getPrivacyPage() {
-		System.out.println("개인정보 처리방침 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/terms/privacy");
-		return mav;
-	}
 	
 	@RequestMapping("/quickOrderDefaultSet.do")
 	public ModelAndView getQuickOrderDefault() {
@@ -648,15 +631,15 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	@RequestMapping("/menuInfo.admdo")
-	public ModelAndView getAdminMenuInfoPage() {
-		System.out.println("메뉴 정보 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/menu/menuInfo");
-		
-		return mav;
-	}
+//	@RequestMapping("/menuInfo.admdo")
+//	public ModelAndView getAdminMenuInfoPage() {
+//		System.out.println("메뉴 정보 페이지 열기");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/menu/menuInfo");
+//		
+//		return mav;
+//	}
 //	@RequestMapping("/menuList.admdo")
 //	public ModelAndView getAdminMenuListPage() {
 //		System.out.println("메뉴 목록 페이지 열기");
@@ -726,15 +709,6 @@ public class ViewTestController {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/sites/terms/terms_insert");
-		
-		return mav;
-	}
-	@RequestMapping("/terms_list.admdo")
-	public ModelAndView getAdminTerms_listPage() {
-		System.out.println("약관 목록 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sites/terms/terms_list");
 		
 		return mav;
 	}

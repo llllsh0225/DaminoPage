@@ -17,7 +17,8 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-
+<!-- CK에디터 추가 -->
+<script type="text/javascript" src="<c:url value='https://cdn.ckeditor.com/4.14.1/full/ckeditor.js' />"></script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -96,9 +97,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
-								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
-								</a>ㄴ
+								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a> 
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황 </a>
 							</nav>
 						</div>
 
@@ -189,27 +189,36 @@
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
-										<th>약관 분류</th>
-										<td><select class="form-control-osh-qna-insert">
-												<option>개인정보 처리방침</option>
-												<option>홈페이지 이용약관</option>
-												<option>위치기반 서비스 약관</option>
-										</select></td>
-									</tr>
-									<tr>
-										<th>시행 일자</th>
-										<td><input type="date" /></td>
-									</tr>
-									<tr>
-										<th>약관 내용</th>
-										<!-- 게시판 에디터 적용하기 -->
-										<td><textarea id="terms-textarea" cols="80" rows="10"></textarea>
+										<td>약관 분류</td>
+										<td>
+											<select name="title">
+												<option value="개인정보 처리방침">개인정보 처리방침</option>
+												<option value="이용약관">이용 약관</option>
+											</select>
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="center-group"><input type="button"
-											class="btn btn-primary" value="약관 등록" /> <input
-											type="button" class="btn btn-delete" value="취소" /></td>
+										<td>약관 세부분류</td>
+										<td colspan="2"><input type="text" name="subtitle" size="40"/></td>
+									</tr>
+									<tr>
+										<td>시행일</td>
+										<td><input type="date" name="enforcementdate"/></td>
+									</tr>
+									<tr>
+										<td>약관 내용</td>
+										<!-- 게시판 에디터 적용하기 -->
+										<td style="height: 300px">
+											<textarea name="content" rows="10" cols="14" > </textarea>
+											<script>
+								                CKEDITOR.replace( 'content' );
+								            </script>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="center-group">
+										<input type="button" class="btn btn-primary" value="약관 등록" /> 
+										<input type="button" class="btn btn-delete" value="취소" /></td>
 									</tr>
 								</table>
 							</div>

@@ -14,4 +14,5 @@ public interface MenuService {
 	public List<DrinkEtcVO> getDrinkEtcList(); // 음료&기타 가져오기
 	
 	public PizzaVO getPizza(PizzaVO vo);
+	public List<PizzaVO> getNutrients();
 }

@@ -18,7 +18,21 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
-
+<script>
+function myCouponDown(){
+	var userid = '<%=session.getAttribute("userid")%>';
+	alert('매니아 쿠폰이 발급되었습니다. 쿠폰함에서 확인해주세요.');
+	$.ajax({
+		type : "POST",
+		url : "insertManiaCoupon.do",
+		dataType : "json",
+		contentType : "application/json; charset=utf-8;",
+		data : JSON.stringify({
+			userid : userid,
+		})
+	});
+}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -34,7 +48,7 @@
 					</div>
 
 					<c:choose>
-						<c:when test="${msg=='logout' }"><%-- ${empty sessionScope.username} --%>
+						<c:when test="${msg=='logout' }">
 							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
 							<div class="util-nav">
 								<a href="login.do">로그인</a> 
