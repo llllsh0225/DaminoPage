@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import = "org.json.simple.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -27,24 +28,31 @@
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
 <script>
-function presentCoupon(){ // 쿠폰 선물하기
-	var target = document.getElementById("select_coupon");
-	alert(target);
-	$('#select_coupon').html(target);
-	console.log(target);
+
+function presentCoupon(){
+	var couponCode = $('#select_coupon').val(); // 선물할 쿠폰코드
+	var name = $('#name').val(); // 쿠폰을 보낼 사람의 이름
+	var phone = $('#tel').val(); // 쿠폰 보낼 핸드폰번호
 	
-	var test = $("#select_coupon").prop("selected", true);
-	alert(test);
-	
-	
-	var couponCode = $('#select_coupon').val();
-	var name = $('#name').val();
-	var tel = $('#tel').val();
-	
-	alert(couponCode);
+	$.ajax({
+		url : 'presentCoupon.do',
+		type : 'post',
+		contentType : "application/json; charset=UTF-8;",
+		data : JSON.stringify({
+			couponCode : couponCode,
+			name : name,
+			phone : phone,
+		}),
+		success : function(res){
+			alert(name + "님께 쿠폰을 선물하였습니다.");
+			location.reload();
+		},
+		error : function(err){
+			
+		}
+	});
 }
 </script>
-
 </head>
 <body>
 	<div id="wrap">
@@ -220,6 +228,14 @@ function presentCoupon(){ // 쿠폰 선물하기
 									<div class="title-type2">선물할 쿠폰 선택</div>
 									<div class="select-type2">
 										<select id="select_coupon">
+											<c:forEach var="coupon" items="${myCouponList }">
+												<option value="${coupon.coupon_code }">
+												${coupon.coupon_name }(
+												<fmt:formatDate value="${coupon.regdate }" pattern="yyyy.MM.dd"/> ~ 
+												<fmt:formatDate value="${coupon.validity }" pattern="yyyy.MM.dd"/>
+												)
+												</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>

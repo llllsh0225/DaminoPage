@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.damino.web.user.coupon.CouponDAO;
 import com.damino.web.user.coupon.CouponVO;
+import com.damino.web.user.login.UserVO;
 
 @Repository("couponDAO")
 public class CouponDAOImpl implements CouponDAO {
@@ -31,6 +32,18 @@ public class CouponDAOImpl implements CouponDAO {
 	public List<CouponVO> getMyCouponList(String userid) {
 		System.out.println("user의 쿠폰리스트 조회");
 		return sqlSessionTemplate.selectList("CouponDAO.getMyCouponList", userid);
+	}
+
+	@Override
+	public UserVO searchUser(Map<String, String> param) {
+		System.out.println("쿠폰을 선물할 유저가 존재하는지 조회");
+		return sqlSessionTemplate.selectOne("CouponDAO.searchUser", param);
+	}
+
+	@Override
+	public void updatePresentCoupon(Map<String, String> param) {
+		System.out.println("선물할 쿠폰 데이터 업데이트");
+		sqlSessionTemplate.update("CouponDAO.updatePresentCoupon", param);
 	}
 
 }
