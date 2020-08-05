@@ -1,6 +1,6 @@
 package com.damino.web.admin.member.login;
 
-public class AdminMemberVO {
+public class AdminMemberLoginVO {
 	private String adminid;
 	private String adminpassword;
 	
@@ -19,8 +19,7 @@ public class AdminMemberVO {
 	
 	@Override
 	public String toString() {
-		return "AdminMemberVO [adminid=" + adminid + ", adminpassword=" + adminpassword + "]";
+		return "AdminMemberLoginVO [adminid=" + adminid + ", adminpassword=" + adminpassword + "]";
 	}
-	
 	
 }

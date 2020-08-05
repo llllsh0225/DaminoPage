@@ -20,6 +20,8 @@
 		FROM adminmember
 		WHERE adminid = #{adminid}
 	</select>
+	
+
 
 
 </mapper>
