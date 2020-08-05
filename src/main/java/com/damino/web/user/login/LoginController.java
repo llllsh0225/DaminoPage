@@ -40,7 +40,8 @@ public class LoginController {
 				System.out.println("회원 비밀번호 : " + login.getUserpasswd());
 				System.out.println("회원 이름 : " + login.getUsername());//sql select로 userid, userpasswd, username 3개만 가져옴
 				System.out.println("회원 등급 : " + login.getUserlevel());
-				session.setAttribute("username", login.getUsername());//session 객체에 username이라는 키에 로그인한 회원의 이름을 값으로 저장
+				//session.setAttribute("username", login.getUsername());//session 객체에 username이라는 키에 로그인한 회원의 이름을 값으로 저장
+				mav.addObject("username", login.getUsername());
 				session.setAttribute("userid", login.getUserid()); // session 객체에 userid라는 키에 로그인한 회원의 아이디를 값으로 저장
 				session.setAttribute("userlevel", login.getUserlevel()); // session 객체에 userlevel 저장
 				session.setAttribute("user", login); // session 객체의 "user"에 login 한 멤버 객체를 저장

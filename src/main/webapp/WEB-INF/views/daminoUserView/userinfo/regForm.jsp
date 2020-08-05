@@ -155,6 +155,11 @@
 			}
 		});
 	}
+	
+	function formSubmit(){
+		document.frm.action='registMember.do';
+		document.frm.submit();
+	}
 </script>
 </head>
 <div id="wrap">
@@ -246,8 +251,7 @@
 
 							<div class="myinfo-wrap">
 								<div class="form">
-									<form name="frm" id="frm" action="registMember.do" name="form1"
-										method="post" onsubmit="return checks()">
+									<form name="frm" id="frm" method="post" onsubmit="return checks()">
 
 										<dl>
 											<dt class="center">이름</dt>
@@ -689,7 +693,7 @@
 										</dl>
 
 										<div class="btn-wrap">
-											<input type="submit" class="btn-type v6" value="가입하기" />
+											<input type="button" class="btn-type v6" value="가입하기" onclick="formSubmit()"/>
 
 										</div>
 									</form><!-- --------------------------------------------------form end -->
