@@ -192,7 +192,6 @@
 				<div class="card mb-4">
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <b>약관 상세보기</b> <br>
-						<!--새로고침 버튼-->
 
 					</div>
 					
@@ -200,8 +199,8 @@
 					
 						<div class="card-body">
 							<input type="hidden" name="seq" id="seq" value="${terms.seq }" />
-							<input type="button" class="btn btn-primary" value="글수정" onclick="TermsSubmit(1)" style="float: right" /> 
-							<input type="button" class="btn-delete" value="글삭제" onclick="TermsSubmit(2)" style="float: right" /> 
+							<input type="button" class="btn btn-primary" value="약관 수정" onclick="TermsSubmit(1)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="약관 삭제" onclick="TermsSubmit(2)" style="float: right; background-color:#dc3500; color:white" /> 
 							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='terms_list.admdo'" style="float: right"/>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -222,11 +221,11 @@
 									<tr>
 									<tr>
 										<td>시행일</td>
-										<td><input type="date" name="enforcementdate" placeholder="날짜 입력" /></td>
+										<td><input type="date" name="enforcementdate" id="enforcementdate" /></td>
 									</tr>
 									<tr>
 										<td>약관 세부분류</td>
-										<td colspan="2"><input type="text" name="subtitle" size="40" value="${terms.title}"/></td>
+										<td colspan="2"><input type="text" name="subtitle" size="40" value="${terms.subtitle}"/></td>
 									</tr>
 									<tr>
 										<td>내용</td>

@@ -28,5 +28,16 @@ public class TermsDAOImpl implements TermsDAO{
 		System.out.println("TermsDAOImpl updateTerms(vo)");
 		sqlSessionTemplate.update("TermsDAO.updateTerms", vo);
 	}
+	@Override
+	public void insertTerms(TermsVO vo) {
+		System.out.println("TermsDAOImpl insertTerms(vo)");
+		sqlSessionTemplate.insert("TermsDAO.insertTerms", vo);
+	}
+	@Override
+	public void deleteTerms(TermsVO vo) {
+		System.out.println("TermsDAOImpl deleteTerms(vo)");
+		sqlSessionTemplate.insert("TermsDAO.deleteTerms", vo);
+	}
+	
 
 }

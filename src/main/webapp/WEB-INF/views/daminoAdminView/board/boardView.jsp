@@ -204,7 +204,7 @@
 						<div class="card-body">
 							<input type="hidden" name="seq" id="seq" value="${board.seq }" />
 							<input type="button" class="btn btn-primary" value="글수정" onclick="boardSubmit(1)" style="float: right" /> 
-							<input type="button" class="btn-delete" value="글삭제" onclick="boardSubmit(2)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="글삭제" onclick="boardSubmit(2)" style="float: right; background-color:#dc3500; color:white" /> 
 							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='boardList.admdo'" style="float: right"/>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

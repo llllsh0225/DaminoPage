@@ -463,15 +463,6 @@ public class ViewTestController {
 //	      return mav;
 //	   }
 	
-	@RequestMapping("/boardWrite.admdo")
-	   public ModelAndView getAdminBoardWritePage() {
-	      System.out.println("게시글 쓰기 열기");
-	      
-	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("/board/boardWrite");
-	      
-	      return mav;
-	   }
 	
 	//error 폴더 시작 --------
 	@RequestMapping("/error_401.admdo")
@@ -694,15 +685,6 @@ public class ViewTestController {
 	}
 	
 	//sites > terms 폴더 시작 -------
-	@RequestMapping("/terms_insert.admdo")
-	public ModelAndView getAdminTerms_insertPage() {
-		System.out.println("약관 추가 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sites/terms/terms_insert");
-		
-		return mav;
-	}
 	
 	//store 폴더 시작 -------
 	/*
