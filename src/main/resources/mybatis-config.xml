@@ -17,7 +17,11 @@
 		<mapper resource="mappings/member-mapping.xml"/>
 		<mapper resource="mappings/faqview-mapping.xml"/>
 		<mapper resource="mappings/adminmember-mapping.xml"/>
+		<mapper resource="mappings/adminmember-login-mapping.xml"/>
 		<mapper resource="mappings/coupon-mapping.xml"/>
 		<mapper resource="mappings/terms-mapping.xml"/>
+		<!--  
+		<mapper resource="mappings/goods-mapping.xml"/>
+		-->
 	</mappers>
 </configuration>
