@@ -1,7 +1,9 @@
 package com.damino.web.test;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -9,9 +11,9 @@ public class ViewTestController {
 	
 	// ---- user main ----
 	@RequestMapping("/main.do")
-	public ModelAndView getMainPage() {
+	public ModelAndView getMainPage(Authentication auth) {
 		System.out.println("메인페이지 열기");
-		
+		System.out.println("main 페이지 auth : " + auth);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/main");
 		
@@ -100,7 +102,6 @@ public class ViewTestController {
 		mav.setViewName("/basket/basket_empty");
 		return mav;
 	}
-	
 	// ---- basket 폴더 end ----
 	
 	// ---- board 폴더 ----
@@ -390,6 +391,7 @@ public class ViewTestController {
 		mav.setViewName("/login/login");
 		return mav;
 	}
+	
 	// --- end login 폴더 ---
 	
 	
@@ -406,11 +408,16 @@ public class ViewTestController {
 	@RequestMapping("/mylevel.do")
 	public ModelAndView getMyLevel() {
 		System.out.println("내 등급 열기");
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/mypage/myLevel");
 		return mav;
 	}
+	
+	/*
+	 * @RequestMapping(value="/user/mylevel.do") public String getMyLevel() throws
+	 * Exception { System.out.println("내 등급 열기"); return "/mypage/myLevel"; }
+	 */
 	
 	@RequestMapping("/myorderlistcancle.do")
 	public ModelAndView getMyOrderListcancle() {
