@@ -137,7 +137,6 @@ function getRegionList(callBackFunc) {
 	
 	var target = document.getElementById("storeName");
 	var storeRegion = $("#storeRegion").val();
-	
 		
 	$.ajax({
 		url: 'searchStore.smdo',
@@ -153,7 +152,6 @@ function getRegionList(callBackFunc) {
 					for(var i=0; i<data.length; i++){
 						 target += ('<option value="'+ data[i] +'">'+
 								 data[i] + '</option>');
-						
 					}
 					 console.log(target);
 					
@@ -262,7 +260,7 @@ function getRegionList(callBackFunc) {
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="form-group"> <!-- class="form-control" -->
+												<div class="form-group"> 
 													<label class="small mb-1" >매장명</label>
 													<select class="form-control" id="storeName" name="storeName">
 														<option value="">지역을 선택해주세요</option>
