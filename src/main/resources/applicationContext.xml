@@ -97,13 +97,6 @@
 	
 	<context:component-scan base-package="com.damino.web.admin.hompage.member"/> -->
 
-<!-- 아파치 log4j -->
-    <mvc:interceptors>
-         <mvc:interceptor> 
-                  <mvc:mapping path="/**" /> 
-                  <bean id="commonInterceptor" class="com.damino.common.interceptor.CommonInterceptor" />
-         </mvc:interceptor>
-	</mvc:interceptors> 
     
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
 		<property name="order" value="0" />
