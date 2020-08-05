@@ -17,7 +17,42 @@
 <script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script>
 
+function checkLogin(){
+	var userid = '<%=session.getAttribute("userid")%>';
+	
+	// ajax로 넘겨서 로그인 확인하기..
+	return;
+}
+
+function registEcoupon(){
+	var userid = '<%=session.getAttribute("userid")%>';
+	var couponCode = $('#couponCode').val();
+	
+	$.ajax({
+		url : 'registEcoupon.do',
+		type : 'post',
+		contentType : "application/json; charset=UTF-8;",
+		data : JSON.stringify({
+			userid : userid,
+			couponCode : couponCode,
+		}),
+		success : function(res){
+			if(res == 'success'){
+				alert('쿠폰을 성공적으로 등록하였습니다!\n[나의 정보-쿠폰함]에서 확인하세요!');
+				location.reload();
+			}else if(res == 'fail'){
+				alert('등록불가한 쿠폰입니다. 쿠폰코드를 다시 확인해주세요.');
+				location.reload();
+			}
+		},
+		error : function(err){
+			alert('e-쿠폰 등록 중 오류가 발생하였습니다. 다시 시도해주세요.');
+		}
+	})
+}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -32,10 +67,31 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님  &nbsp;
+								<a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a>
+								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -110,9 +166,9 @@
 								<h3 class="title-type5">쿠폰번호를 입력하세요.</h3>
 							</div>
 							<div class="search-form">
-								<input type="text" name="" placeholder="쿠폰번호를 입력하세요."
-									id="couponNo" maxlength="16" onClick="checkLogin();">
-								<button type="submit" onClick="search('s')" class="btn-search">검색</button>
+								<input type="text" name="couponCode" placeholder="쿠폰번호를 입력하세요."
+									id="couponCode" maxlength="16" onClick="checkLogin();">
+								<input type="button" onClick="registEcoupon();" value="검색" />
 							</div>
 
 							<div class="e-coupon-result" id="product" style="display: none">
