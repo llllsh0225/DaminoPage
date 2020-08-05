@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -184,7 +183,7 @@
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<form>
+						<form action="insertTerms.admdo" method="post">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
@@ -203,7 +202,7 @@
 									</tr>
 									<tr>
 										<td>시행일</td>
-										<td><input type="date" name="enforcementdate"/></td>
+										<td><input type="date" name="enforcementDate"/></td>
 									</tr>
 									<tr>
 										<td>약관 내용</td>
@@ -217,8 +216,8 @@
 									</tr>
 									<tr>
 										<td colspan="2" class="center-group">
-										<input type="button" class="btn btn-primary" value="약관 등록" /> 
-										<input type="button" class="btn btn-delete" value="취소" /></td>
+										<input type="submit" class="btn btn-primary" value="약관 등록" /> 
+										</td>
 									</tr>
 								</table>
 							</div>

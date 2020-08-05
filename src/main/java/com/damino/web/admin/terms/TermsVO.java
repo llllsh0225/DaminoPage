@@ -2,12 +2,14 @@ package com.damino.web.admin.terms;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TermsVO {
 	private int seq;
 	private String title;
 	private String subtitle;
 	private String content;
-	private Date enforcementDate = new Date();
+	private String enforcementDate;
 	private Date regDate = new Date();
 	
 	
@@ -36,10 +38,11 @@ public class TermsVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getEnforcementDate() {
+	
+	public String getEnforcementDate() {
 		return enforcementDate;
 	}
-	public void setEnforcementDate(Date enforcementDate) {
+	public void setEnforcementDate(String enforcementDate) {
 		this.enforcementDate = enforcementDate;
 	}
 	public Date getRegDate() {
