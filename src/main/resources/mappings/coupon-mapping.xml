@@ -45,8 +45,17 @@
 	</insert>
 	
 	<select id="getMyCouponList" parameterType="String" resultType="com.damino.web.user.coupon.CouponVO">
-		SELECT coupon_name, regdate, validity FROM coupon 
+		SELECT coupon_code, coupon_name, regdate, validity FROM coupon 
 		WHERE userid = #{userid} AND chkusable = 'Y'
 	</select>
 
+	<select id="searchUser" parameterType="hashMap" resultType="com.damino.web.user.login.UserVO">
+		SELECT * FROM usermember
+		WHERE username = #{name} AND phone = #{phone}
+	</select>
+	
+	<update id="updatePresentCoupon" parameterType="hashMap">
+		UPDATE coupon SET userid = #{presentUserId}, chkusable = 'N'
+		WHERE coupon_code = #{presentCouponCode}
+	</update>
 </mapper>
