@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.user.login.UserVO;
+
 @Controller
 public class CouponController {
 	@Autowired
@@ -61,5 +63,47 @@ public class CouponController {
 		mav.addObject("myCouponList", myCouponList);
 		mav.setViewName("/mypage/myCoupon");
 		return mav;
+	}
+	
+	@RequestMapping(value="/selectCouponList.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<CouponVO> selectCouponList(@RequestBody Map<String, Object> param){
+		String userid = (String) param.get("userid");
+		System.out.println(userid);
+		List<CouponVO> selectCouponList = couponService.getMyCouponList(userid); // 선물할 쿠폰 selectbox에 넣을 쿠폰 리스트
+		System.out.println(selectCouponList.toString());
+		return selectCouponList;
+	}
+	
+	@RequestMapping(value="/presentCoupon.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String presentCoupon(@RequestBody Map<String, Object> info) {
+		String presentCouponCode = (String) info.get("couponCode"); // 선물할 쿠폰코드
+		String name = (String) info.get("name"); // 선물할 유저
+		String phone = (String) info.get("phone"); // 선물할 유저의 핸드폰번호
+		
+		Map<String, String> param = new HashMap<String, String>(); // select 구문에 들어갈 parameter를 담은 Map
+		param.put("name", name);
+		param.put("phone", phone);
+		
+		UserVO presentUser = couponService.searchUser(param); // 선물할 유저가 존재하는지 체크
+		
+		if(presentUser != null) { // 존재할 시
+			System.out.println("해당 유저에게 쿠폰 선물 가능");
+			
+			Map<String, String> updateParam = new HashMap<String, String>(); // update 구문에 들어갈 parameter를 담은 Map
+			String presentUserId = presentUser.getUserid(); // 선물할 유저의 id
+			
+			updateParam.put("presentCouponCode", presentCouponCode);
+			updateParam.put("presentUserId", presentUserId);
+			
+			couponService.updatePresentCoupon(updateParam); // 선물할 쿠폰 데이터 업데이트
+			couponService.sendCouponCodeSMS(name, phone, presentCouponCode); // CoolSMS API 이용하여 쿠폰코드 LMS 발송
+			
+			return "success";
+		}else { // 그렇지 않을 시
+			System.out.println("해당 유저에게 쿠폰 선물 불가");
+			return "fail";
+		}
 	}
 }
