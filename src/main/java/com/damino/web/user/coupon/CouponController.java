@@ -1,7 +1,11 @@
 package com.damino.web.user.coupon;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.damino.web.user.login.UserVO;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CouponController {
@@ -19,16 +22,44 @@ public class CouponController {
 	
 	@RequestMapping(value="/insertManiaCoupon.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String insertManiaCoupon(@RequestBody Map<String, Object> param) { // [나의 정보]-[쿠폰 지급] 매니아 쿠폰 지급 메서드
+	public String insertManiaCoupon(@RequestBody Map<String, Object> param, HttpServletRequest request) { // [나의 정보]-[쿠폰 지급] 매니아 쿠폰 지급 메서드
+		String result = ""; // return 값
+		
+		// myLevel.jsp 에서 넘어온 유저 정보
 		String userid = (String)param.get("userid");
-		System.out.println(userid);
+		String userlevel = (String)param.get("userlevel");
 		
-		UserVO user = couponService.getUser(userid); // userid를 받아 user 객체를 얻어옴
-		Map<String, String> userInfo = new HashMap<String, String>();
-		userInfo.put("userid", user.getUserid());
-		userInfo.put("userlevel", user.getUserlevel());
-		couponService.insertManiaCoupon(userInfo); // 쿠폰 지급 메서드
+		System.out.println("[쿠폰발급] userid = " + userid);
+		System.out.println("[쿠폰발급] userlevel = " + userlevel);
 		
-		return "success";
+		int chkCoupon = couponService.chkUsersManiaCoupon(userid); // 쿠폰 유효기간이 당월 말일까지인 user의 쿠폰이 있는지 확인
+		System.out.println("이미 발급된 쿠폰수 : " + chkCoupon);
+		
+		if(chkCoupon == 0) {
+			// 이미 지급된 쿠폰이 존재하지 않을 때
+			Map<String, String> userInfo = new HashMap<String, String>(); // mybatis insert 시 parameter로 들어갈 HashMap
+			userInfo.put("userid", userid);
+			userInfo.put("userlevel", userlevel);
+			couponService.insertManiaCoupon(userInfo); // 쿠폰 지급 메서드
+			result = "success";
+			System.out.println(result);
+		}else if(chkCoupon != 0){
+			// 이미 지급된 쿠폰이 존재할 때
+			result = "duplicated";
+			System.out.println(result);
+		}
+		return result; // 중복발급 과정이 진행되지 않음
+	}
+	
+	@RequestMapping("/mycoupon.do")
+	public ModelAndView getMyCouponList(HttpSession session, ModelAndView mav) {
+		System.out.println("내 쿠폰함 열기");
+		String userid = (String)session.getAttribute("userid"); // 세션에 저장된 userid 가져오기
+		
+		List<CouponVO> myCouponList = couponService.getMyCouponList(userid); // 사용자가 보유한 사용 가능 쿠폰 리스트
+		
+		mav.addObject("myCouponList", myCouponList);
+		mav.setViewName("/mypage/myCoupon");
+		return mav;
 	}
 }

@@ -19,19 +19,33 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
 <script>
-function myCouponDown(){
+function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확인 한 후, 중복발급이 아닐 경우에만 쿠폰을 지급한다.
 	var userid = '<%=session.getAttribute("userid")%>';
-	alert('매니아 쿠폰이 발급되었습니다. 쿠폰함에서 확인해주세요.');
+	var userlevel = '<%=session.getAttribute("userlevel")%>';
+	
 	$.ajax({
 		type : "POST",
 		url : "insertManiaCoupon.do",
-		dataType : "json",
 		contentType : "application/json; charset=utf-8;",
+		// return 값 받을 때 dataType : "json" 지워주니까 success 에서 제대로 결과값을 받는다; 이유는 모르겠음..
 		data : JSON.stringify({
 			userid : userid,
-		})
+			userlevel : userlevel,
+		}),
+		async : false,
+		success : function(res){
+			if(res == 'success'){
+				alert("매니아 쿠폰이 발급되었습니다. 쿠폰함을 확인하세요!");
+			}else if(res == 'duplicated'){
+				alert("이미 당월 발급된 매니아 쿠폰이 존재합니다.");
+			}
+		},
+		error : function(err){
+			alert("매니아 쿠폰 발급 과정에서 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+		},
 	});
 }
+
 </script>
 </head>
 <body>
@@ -238,12 +252,30 @@ function myCouponDown(){
 								</div>
 								<div class="coupon-list">
 									<style>
-.coupon-list a {
-	cursor: default;
-}
-</style>
+										.coupon-list a {
+											cursor: default;
+										}
+										</style>
 									<ul>
+									<c:choose>
+										<c:when test="${mylevel eq 'REGULAR' }">
 										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 2매</a></li>
+										</c:when>
+										<c:when test="${mylevel eq 'PREMIUM' }">
+										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">배달주문 25% 할인쿠폰 1매</a></li>
+										</c:when>
+										<c:when test="${mylevel eq 'VIP' }">
+										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">배달주문 30% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">포장주문 35% 할인쿠폰 1매</a></li>
+										</c:when>
+										<c:when test="${mylevel eq 'ROYAL' }">
+										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">배달주문 30% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">포장주문 40% 할인쿠폰 1매</a></li>
+										</c:when>
+									</c:choose>
 									</ul>
 								</div>
 								<div class="btn-wrap">

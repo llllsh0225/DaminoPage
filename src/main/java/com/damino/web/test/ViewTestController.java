@@ -396,14 +396,6 @@ public class ViewTestController {
 	
 	
 	// --- mypage 폴더 ---
-	@RequestMapping("/mycoupon.do")
-	public ModelAndView getMyCoupon() {
-		System.out.println("내 쿠폰함 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mypage/myCoupon");
-		return mav;
-	}
 	
 	@RequestMapping("/mylevel.do")
 	public ModelAndView getMyLevel() {

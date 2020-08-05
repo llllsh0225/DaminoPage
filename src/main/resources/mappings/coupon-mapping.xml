@@ -3,11 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="CouponDAO">
-	<select id="getUser" parameterType="String"
-		resultType="com.damino.web.user.login.UserVO">
-		SELECT * FROM usermember WHERE userid = #{userid}
+	<select id="chkUsersManiaCoupon" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM coupon 
+		WHERE to_char(validity, 'yyyymmdd') = to_char(LAST_DAY(sysdate), 'yyyymmdd') 
+		AND userid = #{userid}
 	</select>
-
+	
 	<insert id="insertManiaCoupon" parameterType="hashMap">
 		INSERT ALL
 		<choose>
@@ -42,5 +43,10 @@
 		</choose>
 		SELECT * FROM DUAL
 	</insert>
+	
+	<select id="getMyCouponList" parameterType="String" resultType="com.damino.web.user.coupon.CouponVO">
+		SELECT coupon_name, regdate, validity FROM coupon 
+		WHERE userid = #{userid} AND chkusable = 'Y'
+	</select>
 
 </mapper>
