@@ -363,14 +363,13 @@ public class ViewTestController {
 	}
 	
 	// -- goods 폴더 --
-	@RequestMapping("/goodslist.do")
-	public ModelAndView getOrderList() {
-		System.out.println("제품 목록 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/goods/list");
-		return mav;
-	}
+	/*
+	 * @RequestMapping("/goodslist.do") public ModelAndView getOrderList() {
+	 * System.out.println("제품 목록 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); mav.setViewName("/goods/list"); return
+	 * mav; }
+	 */
 	
 	@RequestMapping("/detail001pp.do")
 	public ModelAndView getDetail001pp() {

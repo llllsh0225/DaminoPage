@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GoodsListDAO">
+
+	<!-- 피자 목록 불러오기 -->
+	<select id="getPizzaList" resultType="com.damino.web.user.goods.GoodsPizzaVO">
+		SELECT * FROM pizza
+		ORDER BY seq desc
+	</select>
+	
+	<!-- 사이드메뉴 목록 불러오기 -->
+	<select id="getSideList" resultType="com.damino.web.user.goods.GoodsSideVO">
+		SELECT * FROM side
+		ORDER BY seq desc
+	</select>	
+
+	<!-- 토핑 목록 불러오기 -->
+	<select id="getToppingList" resultType="com.damino.web.user.goods.GoodsToppingVO">
+		SELECT * FROM topping
+		ORDER BY seq desc
+	</select>	
+
+	<!-- 음료 및 기타 목록 불러오기 -->
+	<select id="getDrinkEtcList" resultType="com.damino.web.user.goods.GoodsDrinkEtcVO">
+		SELECT * FROM drink_etc
+		ORDER BY seq desc
+	</select>
+	
+</mapper>
