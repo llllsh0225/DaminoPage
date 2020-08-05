@@ -108,7 +108,7 @@ function idCheck() {
 
 		if($('#registCheck').val()== "Y") {
 			if ($("#adminCode").val() == code) {
-				alert($("#adminid").val() + "님이 \n 새로운 관리자로 등록되었습니다. ");
+				alert($("#adminid").val() + "님이 \n새로운 관리자로 등록되었습니다. ");
 			} else {
 				alert("확인 코드가 잘못 입력되어있습니다.");
 				$("#adminCode").focus();
@@ -144,8 +144,8 @@ function idCheck() {
 											<input type="hidden" name="registCheck" id="registCheck"
 												value="N">
 											<div class="form-group">
-												<label class="small mb-1" for="inputAdminID">아이디</label> <input
-													class="form-control py-4" type="text" id="adminid"
+												<label class="small mb-1" for="inputAdminID">아이디</label> 
+												<input class="form-control py-4" type="text" id="adminid"
 													name="adminid" maxlength="16" placeholder="ID"
 													onchange="registCheckValChange()" /> <a
 													href="javascript:idCheck();" class="btn-type v7">중복확인</a>

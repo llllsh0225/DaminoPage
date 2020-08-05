@@ -1,5 +1,5 @@
 package com.damino.web.admin.member.login;
 
-public interface AdminMemberLoginService {
+public interface AdminMemberLoginDAO {
 	public AdminMemberLoginVO login(AdminMemberLoginVO vo);
 }
