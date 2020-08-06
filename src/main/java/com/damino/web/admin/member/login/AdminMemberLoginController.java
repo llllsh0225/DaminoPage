@@ -38,7 +38,9 @@ public class AdminMemberLoginController {
 				// -- sql select로  adminid, adminpassword를 가져와서 확인 .
 			
 				session.setAttribute("adminid", adminlogin.getAdminid()); 
+				session.setAttribute("admin", adminlogin); 
 				// -- session객체에 adminid이라는 키에 로그인한 관리자의 id값을 저장 
+				// - session객체 admin에  adminlogin 객체 저장.
 				mav.setViewName("main");
 				return mav;	
 				
@@ -60,16 +62,16 @@ public class AdminMemberLoginController {
 	}
 	
 	// -- 로그아웃 --
-	/*
 	@RequestMapping("/logout.admdo")
-	private ModelAndView logout(AdminMemberVO vo, ModelAndView mav, HttpSession session) {
+	private ModelAndView logout(AdminMemberLoginVO vo, ModelAndView mav, HttpSession session) {
 		System.out.println("---- 로그아웃 ----");
 		System.out.println("대상 : " + session.getAttribute("adminid")); //session 'adminid'
 		session.invalidate(); //session 초기화
-		mav.addObject("msg","logout");
-		mav.addObject("adminid", vo.getAdminid());
-		mav.setViewName("members/member/login");
+		mav.addObject("msg","logout"); // <<<< 이걸 남겨야하나
+		mav.addObject("adminid", vo.getAdminid()); // <<<< 이걸 남겨야하나(20/0805)
+		//mav.setViewName("members/member/login"); 
+		mav.setViewName("main");
 		return mav;
 	}
-	*/
+	
 }

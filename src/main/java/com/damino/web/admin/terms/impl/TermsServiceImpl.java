@@ -31,6 +31,18 @@ public class TermsServiceImpl implements TermsService{
 		System.out.println("TermsServiceImpl updateTerms(vo)");
 		termsDAO.updateTerms(vo);
 	}
+
+	@Override
+	public void insertTerms(TermsVO vo) {
+		System.out.println("TermsServiceImpl insertTerms(vo)");
+		termsDAO.insertTerms(vo);
+	}
+
+	@Override
+	public void deleteTerms(TermsVO vo) {
+		System.out.println("TermsServiceImpl deleteTerms(vo)");
+		termsDAO.deleteTerms(vo);
+	}
 	
 	
 }

@@ -209,7 +209,7 @@
 												<td>${terms.seq }</td>
 												<td><strong><a href="terms_view.admdo?seq=${terms.seq}">${terms.title}</a></strong></td>
 												<td>${terms.subtitle}</td>
-												<td><fmt:formatDate value="${terms.enforcementDate }" pattern="yyyy-MM-dd" /></td>
+												<td>${terms.enforcementDate }<%-- <fmt:formatDate value="${terms.enforcementDate }" pattern="yyyy-MM-dd" /> --%></td>
 												<td><fmt:formatDate value="${terms.regDate }" pattern="yyyy-MM-dd" /></td>
 											</tr>
 										</c:forEach>

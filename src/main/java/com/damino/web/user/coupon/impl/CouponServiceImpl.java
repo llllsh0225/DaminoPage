@@ -72,4 +72,14 @@ public class CouponServiceImpl implements CouponService {
 		
 	}
 
+	@Override
+	public void registEcoupon(Map<String, String> param) {
+		couponDAO.registEcoupon(param);
+	}
+
+	@Override
+	public int chkRegistEcoupon(String userid) {
+		return couponDAO.chkRegistEcoupon(userid);
+	}
+
 }

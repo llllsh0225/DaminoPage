@@ -11,4 +11,6 @@ public interface CouponDAO {
 	public List<CouponVO> getMyCouponList(String userid); // [쿠폰함] 사용자의 사용 가능한 보유 쿠폰 가져오기
 	public UserVO searchUser(Map<String, String> param); // 쿠폰 선물하기 기능 -> 선물할 유저가 존재하는지 확인
 	public void updatePresentCoupon(Map<String, String> param); // 선물할 쿠폰 데이터 업데이트
+	public void registEcoupon(Map<String, String> param); // ECoupon 등록 기능
+	public int chkRegistEcoupon(String userid); // ECoupon - 등록가능한 쿠폰인지 여부 검사
 }

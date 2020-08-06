@@ -46,4 +46,16 @@ public class CouponDAOImpl implements CouponDAO {
 		sqlSessionTemplate.update("CouponDAO.updatePresentCoupon", param);
 	}
 
+	@Override
+	public void registEcoupon(Map<String, String> param) {
+		System.out.println("e-coupon 등록");
+		sqlSessionTemplate.update("CouponDAO.registEcoupon", param);
+	}
+
+	@Override
+	public int chkRegistEcoupon(String userid) {
+		System.out.println("e-coupon 등록 가능한 쿠폰인지 여부 검사");
+		return sqlSessionTemplate.selectOne("CouponDAO.chkRegistEcoupon", userid);
+	}
+
 }

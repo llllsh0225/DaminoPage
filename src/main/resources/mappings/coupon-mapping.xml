@@ -6,7 +6,7 @@
 	<select id="chkUsersManiaCoupon" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM coupon 
 		WHERE to_char(validity, 'yyyymmdd') = to_char(LAST_DAY(sysdate), 'yyyymmdd') 
-		AND userid = #{userid}
+		AND userid = #{userid} AND isPresent = 'N'
 	</select>
 	
 	<insert id="insertManiaCoupon" parameterType="hashMap">
@@ -55,7 +55,27 @@
 	</select>
 	
 	<update id="updatePresentCoupon" parameterType="hashMap">
-		UPDATE coupon SET userid = #{presentUserId}, chkusable = 'N'
+		UPDATE coupon SET userid = #{presentUserId}, chkusable = 'N', isPresent = 'Y'
 		WHERE coupon_code = #{presentCouponCode}
 	</update>
+	
+	<update id="registEcoupon" parameterType="hashMap">
+		UPDATE coupon SET
+		<choose>
+			<when test='chkCouponType=="M"'>
+				chkusable = 'Y' WHERE coupon_code = #{couponCode}
+			</when>
+			<when test='chkCouponType=="P"'>
+				chkusable = 'Y', userid = #{userid} WHERE coupon_code = #{couponCode}
+			</when>
+		</choose>
+	</update>
+	
+	<select id="chkRegistEcoupon" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM coupon 
+		WHERE userid = #{userid} 
+		AND chkusable = 'N' 
+		AND isPresent = 'Y'
+	</select>
+	
 </mapper>

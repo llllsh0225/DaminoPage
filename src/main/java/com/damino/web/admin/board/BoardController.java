@@ -34,7 +34,15 @@ public class BoardController {
 		mav.addObject("board", board);
 		return mav;
 	}
-	
+	@RequestMapping("/boardWrite.admdo")
+	   public ModelAndView getAdminBoardWritePage() {
+	      System.out.println("게시글 쓰기 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/board/boardWrite");
+	      
+	      return mav;
+	   }
 	@RequestMapping(value="/updateBoard.admdo", method=RequestMethod.POST)
 	public String updateBoard(@ModelAttribute BoardVO vo) {
 		System.out.println("글 수정");

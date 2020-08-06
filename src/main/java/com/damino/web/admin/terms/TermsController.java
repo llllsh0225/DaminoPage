@@ -36,11 +36,32 @@ public class TermsController {
 		return mav;
 	}
 	@RequestMapping(value="/updateTerms.admdo", method=RequestMethod.POST)
-	public String updateBoard(@ModelAttribute TermsVO vo) {
-		System.out.println("글 수정");
-		System.out.println("제목 : " + vo.getTitle());
-		System.out.println("내용 : " + vo.getContent());
+	public String updateTerms(@ModelAttribute TermsVO vo) {
+		System.out.println("약관 수정");
 		termsService.updateTerms(vo);
 		return "redirect:terms_list.admdo";
 	}
+	@RequestMapping(value="/deleteTerms.admdo", method=RequestMethod.POST)
+	public String deleteTerms(@ModelAttribute TermsVO vo) {
+		System.out.println("약관 삭제");
+		termsService.deleteTerms(vo);
+		return "redirect:terms_list.admdo";
+	}
+	@RequestMapping("/terms_insert.admdo")
+    public ModelAndView getAdminBoardWritePage() {
+		System.out.println("약관 추가 페이지");
+      
+	    ModelAndView mav = new ModelAndView();
+	    mav.setViewName("/sites/terms/terms_insert");
+      
+	    return mav;
+   }
+	@RequestMapping(value="/insertTerms.admdo", method=RequestMethod.POST)
+	public String insertTerms(@ModelAttribute TermsVO vo) {
+		System.out.println("약관 추가");
+		termsService.insertTerms(vo);
+		return "redirect:terms_list.admdo";
+	}
+	
+	
 }
