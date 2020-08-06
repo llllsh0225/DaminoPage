@@ -4,8 +4,10 @@ public class GoodsPizzaVO {
 	private String p_code;
 	private String p_name;
 	private String p_type;
-	private String p_size;
-	private int p_price;
+	private String p_size_m;
+	private String p_size_l;
+	private int p_price_m;
+	private int p_price_l;
 	private String p_dough;
 	private String p_image;
 	private int seq;
@@ -28,17 +30,29 @@ public class GoodsPizzaVO {
 	public void setP_type(String p_type) {
 		this.p_type = p_type;
 	}
-	public String getP_size() {
-		return p_size;
+	public String getP_size_m() {
+		return p_size_m;
 	}
-	public void setP_size(String p_size) {
-		this.p_size = p_size;
+	public void setP_size_m(String p_size_m) {
+		this.p_size_m = p_size_m;
 	}
-	public int getP_price() {
-		return p_price;
+	public String getP_size_l() {
+		return p_size_l;
 	}
-	public void setP_price(int p_price) {
-		this.p_price = p_price;
+	public void setP_size_l(String p_size_l) {
+		this.p_size_l = p_size_l;
+	}
+	public int getP_price_m() {
+		return p_price_m;
+	}
+	public void setP_price_m(int p_price_m) {
+		this.p_price_m = p_price_m;
+	}
+	public int getP_price_l() {
+		return p_price_l;
+	}
+	public void setP_price_l(int p_price_l) {
+		this.p_price_l = p_price_l;
 	}
 	public String getP_dough() {
 		return p_dough;
@@ -61,8 +75,10 @@ public class GoodsPizzaVO {
 	
 	@Override
 	public String toString() {
-		return "GoodsPizzaVO [p_code=" + p_code + ", p_name=" + p_name + ", p_type=" + p_type + ", p_size=" + p_size
-				+ ", p_price=" + p_price + ", p_dough=" + p_dough + ", p_image=" + p_image + ", seq=" + seq + "]";
+		return "GoodsPizzaVO [p_code=" + p_code + ", p_name=" + p_name + ", p_type=" + p_type + ", p_size_m=" + p_size_m
+				+ ", p_size_l=" + p_size_l + ", p_price_m=" + p_price_m + ", p_price_l=" + p_price_l + ", p_dough="
+				+ p_dough + ", p_image=" + p_image + ", seq=" + seq + "]";
 	}
+	
 	
 }

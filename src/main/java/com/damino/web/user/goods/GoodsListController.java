@@ -26,4 +26,38 @@ public class GoodsListController {
 		return mav;
 	}
 	
+	@RequestMapping("/goodsSideList.do") 
+	public ModelAndView getSideList(ModelAndView mav) {
+		System.out.println("사이드디시 리스트 열기");
+
+		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
+
+		mav.addObject("goodsSideList", goodsSideList);
+		mav.setViewName("/goods/list");
+
+		return mav;
+	}
+
+	/*
+	 * @RequestMapping("/goodsToppingList.do") public ModelAndView
+	 * getToppingList(ModelAndView mav) { System.out.println("토핑 리스트 열기");
+	 * 
+	 * List<GoodsToppingVO> goodsToppingList = goodsListService.getToppingList();
+	 * 
+	 * mav.addObject("goodsList", goodsToppingList); mav.setViewName("/goods/list");
+	 * 
+	 * return mav; }
+	 */
+	@RequestMapping("/goodsDrinkEtcList.do") 
+	public ModelAndView getDrinkEtcList(ModelAndView mav) {
+		System.out.println("음료&기타 메뉴 열기");
+
+		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
+
+		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
+		mav.setViewName("/goods/list");
+
+		return mav;
+	}
+	
 }

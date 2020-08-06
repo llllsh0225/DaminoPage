@@ -114,9 +114,8 @@
 								<div class="menu-nav">
 									<ul>
 										<li class="active"><a href="goodslist.do">피자</a></li>
-										<li><a
-											href="#;">사이드디시</a></li>
-										<li><a href="#">음료&기타</a></li>
+										<li><a href="goodsSideList.do">사이드디시</a></li>
+										<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
 									</ul>
 								</div>
 								<div class="sch-box">
@@ -129,33 +128,41 @@
 								</div>
 							</div>
 							<!-- //menu-list -->
-							<div class="title-wrap-center">
-								<h3 class="title-type">프리미엄</h3>
-							</div>
+
+							<!-- 피자 -->
+							<c:forEach var="goodsList" items="${goodsList}">
+							
+							<c:if test="${goodsList.p_type}" == '프리미엄'>
 							<div class="menu-list">
-								<ul>
-									<!-- 피자&사이드 -->
+							<div class="title-wrap-center">
+								<h3 class="title-type">${goodsList.p_type}</h3>
+							</div>
+							</c:if>
+									<ul>
 									<li>
 										<div class="prd-img">
+											<a href="제품상세페이지">
+											<img class="lazyload" src="${goodsList.p_image}"
+											data-src="https://newcdn.dominos.co.kr/admin/upload/goods/"${goodsList.p_image}
+											alt="${goodsList.p_name}"/>
+											</a>
 											<a
-												href="detail17da.html?dsp_ctgr=C0101&amp;code_01=RPZ161DL&amp;dough_gb=203">
-												<img class="lazyload"
-												src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-												data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200508_9n85647d.jpg"
-												alt="더블크러스트 이베리코" />
-											</a> <a
-												href="javascript:getDetailSlide('RPZ161DL','C0102','203');trk_call('list');"
+												href="#"
 												class="btn-detail"> <i class="ico-sch"></i> <span
 												class="hidden">상세버튼</span>
 											</a>
 										</div>
 										<div class="prd-cont">
-											<div class="subject">더블크러스트 이베리코</div>
+											<div class="subject">${goodsList.p_name}</div>
 										</div>
 										<div class="prd-price">
 											<div class="price-box">
-												<span class="price"><span class="size_l">L</span>34,900원~&nbsp;</span>
-												<span class="price"><span class="size_m">M</span>29,000원~</span>
+											  <c:if test="${goodsList.p_size_l}"> 
+												<span class="price"><span class="size_l">${goodsList.p_size_l}</span>${goodsList.p_price_l}~&nbsp;</span>
+											  </c:if>
+											  <c:if test="${goodsList.p_size_m}"> 
+												<span class="price"><span class="size_m">${goodsList.p_size_m}</span>${goodsList.p_price_m}~&nbsp;</span>
+											  </c:if>
 											</div>
 										</div>
 										<div class="label-box"></div>
@@ -163,15 +170,128 @@
 											<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
 										</div>
 									</li>
-									<!-- //피자&사이드 -->
-								</ul>
-							</div>
+									</ul>
+									</div>
+									</c:forEach>
+									
+							<c:forEach var="goodsList" items="${goodsList}">								
+							<div class="menu-list">
+							<div class="title-wrap-center">
+								<h3 class="title-type">${goodsList.p_type}</h3>
+							</div>	
+									<ul>
+									<li>
+										<div class="prd-img">
+											<a href="제품상세페이지">
+											<img class="lazyload" src="${goodsList.p_image}"
+											data-src="https://newcdn.dominos.co.kr/admin/upload/goods/"${goodsList.p_image}
+											alt="${goodsList.p_name}"/>
+											</a>
+											<a
+												href="#"
+												class="btn-detail"> <i class="ico-sch"></i> <span
+												class="hidden">상세버튼</span>
+											</a>
+										</div>
+										<div class="prd-cont">
+											<div class="subject">${goodsList.p_name}</div>
+										</div>
+										<div class="prd-price">
+											<div class="price-box">
+											  <c:if test="${goodsList.p_size_l}"> 
+												<span class="price"><span class="size_l">${goodsList.p_size_l}</span>${goodsList.p_price_l}~&nbsp;</span>
+											  </c:if>
+											  <c:if test="${goodsList.p_size_m}"> 
+												<span class="price"><span class="size_m">${goodsList.p_size_m}</span>${goodsList.p_price_m}~&nbsp;</span>
+											  </c:if>
+											</div>
+										</div>
+										<div class="label-box"></div>
+										<div class="hashtag">
+											<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+										</div>
+									</li>
+									</ul>
+									</div>									
+									</c:forEach>
+									
+								<!-- END 피자 -->	
+								<!-- 사이드디시 시작 -->
+									<c:forEach var="goodsSideList" items="${goodsSideList}">
+										<div class="title-wrap-center">
+											<h3 class="title-type"></h3>
+										</div>
+										<div class="menu-list ect-type">
+											<ul>
+												<li>
+													<div class="prd-img">
+														<a href="detail?dsp_ctgr=C0201&code_01=RSD173M1&dough_gb=">
+
+															<img class="lazyload"
+															src="${goodsSideList.s_image}"
+															data-src="https://cdn.dominos.co.kr/admin/upload/goods/20200702_e7hmHOmD.jpg"
+															alt="치캉스 팩" />
+														</a> <a
+															href="javascript:getDetailSlide('RSD173M1','C0201','');trk_call('list');"
+															class="btn-detail"> <i class="ico-sch"></i> <span
+															class="hidden">상세버튼</span>
+														</a>
+													</div>
+													<div class="prd-cont">
+														<div class="subject">${goodsSideList.s_name}</div>
+													</div>
+													<div class="prd-price">
+														<div class="price-box">
+															<span class="price">${goodsSideList.s_price}</span>
+														</div>
+													</div>
+													<div class="label-box">
+														<span class="label sale">NEW</span>
+													</div>
+													<div class="hashtag"></div>
+												</li>
+												</ul>
+										</div>
+										
+									</c:forEach>
+									<!-- END 사이드디시 -->
+									
+									<!-- 음료 시작-->
+									<c:forEach var="goodsDrinkEtcList" items="${goodsDrinkEtcList}">
+									<ul>
+									<li>
+										<div class="prd-img">
+											<img class="lazyload" src="https://cdn.dominos.co.kr/domino/pc/images/bg.gif"
+											data-src="https://cdn.dominos.co.kr/admin/upload/goods/${goodsDrinkEtcList.d_price}"
+											alt="코카콜라 1.25L"  />
+										</div>
+										
+										<div class="prd-cont type2">
+											<div class="subject">${goodsDrinkEtcList.d_name}</div>
+										</div>
+										
+										<div class="prd-price">
+											<div class="price-box">	
+												<span class="price">${goodsDrinkEtcList.d_price}</span>
+											</div>
+										</div>
+										
+										<div class="quantity-group">
+											<div class="quantity-box type2">
+												<button type="button" class="btn-minus"></button>
+												<input type="number" value="1" id="RDK001L6_qty">
+												<button type="button" class="btn-plus"></button>
+											</div>
+											<a href="#" class="btn-cart">주문</a>
+										</div>
+										</ul>
+									</li>
+									</c:forEach>
+									<!-- END 음료 -->
 
 							<!-- 하단 클래식피자 리스트  -->
 
-							<div class="title-wrap-center">
-								<h3 class="title-type">클래식</h3>
-							</div>
+							
 						</article>
 						<div class="bottom-guide-area">
 							<div class="box">
