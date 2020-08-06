@@ -26,7 +26,7 @@ public class MenuController {
 	@RequestMapping(value="/insertPizza.admdo", method=RequestMethod.POST)
 	public ModelAndView insertPizza(PizzaVO vo, ModelAndView mav, HttpServletRequest request) throws IOException{
 		System.out.println("Controller ---> 피자 메뉴, 영양성분 등록");
-		String path = request.getSession().getServletContext().getRealPath("menu_imgs"); // 이미지가 저장될 절대 경로
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
 		
 		String p_image = "";
 		MultipartFile uploadFile = vo.getUploadFile();
