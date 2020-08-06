@@ -219,7 +219,7 @@
 											<td><a href="menuInfo.admdo">${pizza.p_name }</a></td>
 											<td class="center-group">${pizza.p_code }</td>
 											<td class="center-group">${pizza.p_type }</td>
-											<td class="center-group">M&nbps;&nbsp;${pizza.p_price_m }&nbps;&nbsp;L${pizza.p_price_l }</td>
+											<td style="margin-left:5px">M&nbsp;&nbsp;${pizza.p_price_m }&nbsp;&nbsp;/&nbsp;&nbsp;L&nbsp;&nbsp;${pizza.p_price_l }</td>
 											<td class="center-group"><a class="btn btn-primary" href="pizzaInfo.admdo?seq=${pizza.seq }"
 											role="button">수정</a></td>
 											<td class="center-group"><input type="button"
