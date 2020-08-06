@@ -45,7 +45,7 @@
 	<servlet-mapping>
 		<servlet-name>daminoUser</servlet-name>
 		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>	
 	
 	<!-- 홈페이지 관리자 페이지 Context -->
 	<servlet>
@@ -78,5 +78,17 @@
 		<servlet-name>daminoManager</servlet-name>
 		<url-pattern>*.smdo</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Spring Security Filter -->
+
+    <!-- <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+ 
+    <filter-mapping>
+          <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping> -->
 
 </web-app>

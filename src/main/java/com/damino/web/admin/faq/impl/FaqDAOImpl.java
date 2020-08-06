@@ -15,8 +15,8 @@ public class FaqDAOImpl implements FaqDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
-	public List<FaqVO> getFaqList() {
-		return sqlSessionTemplate.selectList("FaqDAO.getFaqList");
+	public List<FaqVO> getFaqList(FaqVO vo) {
+		return sqlSessionTemplate.selectList("FaqDAO.getFaqList", vo);
 	}
 
 	@Override
@@ -39,9 +39,5 @@ public class FaqDAOImpl implements FaqDAO {
 		sqlSessionTemplate.delete("FaqDAO.deleteFaq", vo);
 	}
 
-	@Override
-	public List<FaqVO> getFaqTypeList(String faq_type) {
-		return sqlSessionTemplate.selectList("FaqDAO.getFaqTypeList", faq_type);
-	}
 
 }

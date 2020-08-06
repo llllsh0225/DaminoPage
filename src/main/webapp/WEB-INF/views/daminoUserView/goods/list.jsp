@@ -114,64 +114,140 @@
 								<div class="menu-nav">
 									<ul>
 										<li class="active"><a href="goodslist.do">피자</a></li>
-										<li><a
-											href="#;">사이드디시</a></li>
-										<li><a href="#">음료&기타</a></li>
+										<li><a href="goodsSideList.do">사이드디시</a></li>
+										<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
 									</ul>
 								</div>
 								<div class="sch-box">
 									<span>인기순</span>
 									<div class="sch-slider"></div>
 									<div class="sch-slider-nav"></div>
-									<a href="javascript:;" class="btn-open"> <span
+									<a href="#" class="btn-open"> <span
 										class="hidden">열기</span><i></i>
 									</a>
 								</div>
 							</div>
+							
 							<!-- //menu-list -->
-							<div class="title-wrap-center">
-								<h3 class="title-type">프리미엄</h3>
-							</div>
-							<div class="menu-list">
-								<ul>
-									<!-- 피자&사이드 -->
-									<li>
-										<div class="prd-img">
-											<a
-												href="detail17da.html?dsp_ctgr=C0101&amp;code_01=RPZ161DL&amp;dough_gb=203">
-												<img class="lazyload"
-												src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-												data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200508_9n85647d.jpg"
-												alt="더블크러스트 이베리코" />
-											</a> <a
-												href="javascript:getDetailSlide('RPZ161DL','C0102','203');trk_call('list');"
-												class="btn-detail"> <i class="ico-sch"></i> <span
-												class="hidden">상세버튼</span>
-											</a>
+							<!-- 피자 프리미엄 -->
+									<div class="menu-list">
+										<div class="title-wrap-center">
+											<h3 class="title-type">프리미엄</h3>
 										</div>
-										<div class="prd-cont">
-											<div class="subject">더블크러스트 이베리코</div>
+									</div>
+									<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
+											<ul>
+												<li>
+													<div class="prd-img">
+														<a href="제품상세페이지"> <img class="lazyload"
+															src="${goodsPremiumList.p_image}"
+															data-src="https://newcdn.dominos.co.kr/admin/upload/goods/"
+															${goodsPremiumList.p_image} alt="${goodsPremiumList.p_name}" />
+														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
+															<span class="hidden">상세버튼</span>
+														</a>
+													</div>
+													<div class="prd-cont">
+														<div class="subject">${goodsPremiumList.p_name}</div>
+													</div>
+													<div class="prd-price">
+														<div class="price-box">
+															<c:if test="${goodsPremiumList.p_size_l}">
+																<span class="price"><span class="size_l">${goodsPremiumList.p_size_l}</span>${goodsPremiumList.p_price_l}~&nbsp;</span>
+															</c:if>
+															<c:if test="${goodsPremiumList.p_size_m}">
+																<span class="price"><span class="size_m">${goodsPremiumList.p_size_m}</span>${goodsPremiumList.p_price_m}~&nbsp;</span>
+															</c:if>
+														</div>
+													</div>
+													<div class="label-box"></div>
+													<div class="hashtag">
+														<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+													</div>
+												</li>
+											</ul>
+										</c:forEach>
+									<div class="menu-list">
+										<div class="title-wrap-center">
+											<h3 class="title-type">클래식</h3>
 										</div>
-										<div class="prd-price">
-											<div class="price-box">
-												<span class="price"><span class="size_l">L</span>34,900원~&nbsp;</span>
-												<span class="price"><span class="size_m">M</span>29,000원~</span>
+									</div>
+									<c:forEach var="goodsClassicList" items="${goodsClassicList}">
+											<ul>
+												<li>
+													<div class="prd-img">
+														<a href="제품상세페이지"> <img class="lazyload"
+															src="${goodsClassicList.p_image}"
+															data-src="https://newcdn.dominos.co.kr/admin/upload/goods/"
+															${goodsClassicList.p_image} alt="${goodsClassicList.p_name}" />
+														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
+															<span class="hidden">상세버튼</span>
+														</a>
+													</div>
+													<div class="prd-cont">
+														<div class="subject">${goodsClassicList.p_name}</div>
+													</div>
+													<div class="prd-price">
+														<div class="price-box">
+															<c:if test="${goodsClassicList.p_size_l}">
+																<span class="price"><span class="size_l">${goodsClassicList.p_size_l}</span>${goodsClassicList.p_price_l}~&nbsp;</span>
+															</c:if>
+															<c:if test="${goodsClassicList.p_size_m}">
+																<span class="price"><span class="size_m">${goodsClassicList.p_size_m}</span>${goodsClassicList.p_price_m}~&nbsp;</span>
+															</c:if>
+														</div>
+													</div>
+													<div class="label-box"></div>
+													<div class="hashtag">
+														<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+													</div>
+												</li>
+											</ul>
+										</c:forEach>
+											
+										</div>
+										<!-- END 피자 -->
+										<!-- 사이드디시 시작 -->
+										<c:forEach var="goodsSideList" items="${goodsSideList}">
+											<div class="title-wrap-center">
+												<h3 class="title-type"></h3>
 											</div>
-										</div>
-										<div class="label-box"></div>
-										<div class="hashtag">
-											<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
-										</div>
-									</li>
-									<!-- //피자&사이드 -->
-								</ul>
-							</div>
+											<div class="menu-list ect-type">
+												<ul>
+													<li>
+														<div class="prd-img">
+															<a
+																href="detail?dsp_ctgr=C0201&code_01=RSD173M1&dough_gb=">
 
-							<!-- 하단 클래식피자 리스트  -->
+																<img class="lazyload" src="${goodsSideList.s_image}"
+																data-src="https://cdn.dominos.co.kr/admin/upload/goods/20200702_e7hmHOmD.jpg"
+																alt="치캉스 팩" />
+															</a> <a
+																href="javascript:getDetailSlide('RSD173M1','C0201','');trk_call('list');"
+																class="btn-detail"> <i class="ico-sch"></i> <span
+																class="hidden">상세버튼</span>
+															</a>
+														</div>
+														<div class="prd-cont">
+															<div class="subject">${goodsSideList.s_name}</div>
+														</div>
+														<div class="prd-price">
+															<div class="price-box">
+																<span class="price">${goodsSideList.s_price}</span>
+															</div>
+														</div>
+														<div class="label-box">
+															<span class="label sale">NEW</span>
+														</div>
+														<div class="hashtag"></div>
+													</li>
+												</ul>
+											</div>
+										</c:forEach>
+										<!-- END 사이드디시 -->
 
-							<div class="title-wrap-center">
-								<h3 class="title-type">클래식</h3>
-							</div>
+
+										<!-- 하단 클래식피자 리스트  -->
 						</article>
 						<div class="bottom-guide-area">
 							<div class="box">

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:p="http://www.springframework.org/schema/p"
@@ -15,12 +17,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-
 	<!-- Root Context -->
 	<context:component-scan
 		base-package="com.damino.web"></context:component-scan>
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-
+	
+ <!-- schema/beans -->
+ 
 	<!-- DataSource 설정 -->
 	<context:property-placeholder
 		location="classpath:config/database.properties" />
@@ -64,15 +67,18 @@
 					</list>
 				</property>
 			</bean>
-			<bean
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="supportedMediaTypes">
 					<list>
 						<value>application/json; charset=UTF-8</value>
 					</list>
 				</property>
 			</bean>
+			
+			
 		</mvc:message-converters>
+		
+		
 	</mvc:annotation-driven>
 	
 	<!-- 파일 업로드를 위한 설정 -->
@@ -90,4 +96,14 @@
 	<mybatis-spring:scan base-package="com.damino.web.admin.homepage.member.dao"/>
 	
 	<context:component-scan base-package="com.damino.web.admin.hompage.member"/> -->
+
+    
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="order" value="0" />
+	</bean>
+      
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+      <property name="order" value="0"/>
+    </bean>
+    
 </beans>

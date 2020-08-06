@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TermsDAO">
+	<!-- 관리자 페이지 -->
+	<select id="getTermsList" resultType="com.damino.web.admin.terms.TermsVO">
+		SELECT seq, title, subtitle, enforcementdate, regdate FROM terms
+	</select>
+	
+	<select id="getTerms" resultType="com.damino.web.admin.terms.TermsVO">
+		SELECT * FROM terms WHERE seq=#{seq}
+	</select>
+	
+	<update id="updateTerms" parameterType="com.damino.web.admin.terms.TermsVO">
+		UPDATE terms
+		SET title=#{title}, subtitle=#{subtitle}, content=#{content} WHERE seq=#{seq}
+	</update>
+	
+	<insert id="insertTerms" parameterType="com.damino.web.admin.terms.TermsVO">
+		INSERT INTO terms (seq, title, subtitle, content, enforcementdate, regdate)
+		VALUES((select nvl(max(seq), 0)+1 from terms), #{title}, #{subtitle}, #{content}, TO_DATE(#{enforcementDate},'yyyy-MM-dd'), sysdate)
+	</insert>
+	
+	<delete id="deleteTerms" parameterType="com.damino.web.admin.terms.TermsVO">
+		DELETE FROM terms WHERE seq=#{seq}
+	</delete>
+	<!-- 사용자 페이지 -->
+	<select id="getPrivacy" resultType="com.damino.web.user.terms.UserTermsVO">
+		SELECT * FROM terms WHERE title='개인정보 처리방침'
+	</select>
+	<select id="getHomepageLaw" resultType="com.damino.web.user.terms.UserTermsVO">
+		SELECT * FROM terms WHERE subtitle='홈페이지 이용약관'
+	</select>
+	<select id="getLocationLaw" resultType="com.damino.web.user.terms.UserTermsVO">
+		SELECT * FROM terms WHERE subtitle='위치기반 서비스 약관'
+	</select>
+</mapper>

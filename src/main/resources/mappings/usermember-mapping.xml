@@ -24,7 +24,7 @@
 	
 	<!-- 로그인 -->
 	<select id="login" resultType="com.damino.web.user.login.UserVO">
-		SELECT userid, userpasswd, username
+		SELECT *
 		FROM usermember
 		WHERE userid=#{userid}
 	</select>

@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="com.damino.web.admin.terms.impl.TermsDAOImpl"%>
+<%@page import="com.damino.web.admin.terms.TermsVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,47 +195,24 @@
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-										<th>No.</th>
+										<th>No</th>
 										<th>약관 분류</th>
-										<th>시행 일자</th>
-										<th>등록일</th>
-										<th>약관 수정</th>
-										<th>약관 삭제</th>
+										<th>약관 세부분류</th>
+										<th>시행일</th>
+										<th>작성일</th>
 									</thead>
 									<tbody>
-										<tr>
-											<td class="center-group">3</td>
-											<td><a href="#">개인정보 처리방침</a></td>
-											<td class="center-group">2020/07/20</td>
-											<td class="center-group">2020/07/17</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
-										<tr>
-											<td class="center-group">2</td>
-											<td><a href="#">홈페이지 이용 약관</a></td>
-											<td class="center-group">2020/07/20</td>
-											<td class="center-group">2020/07/17</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
-										<tr>
-											<td class="center-group">1</td>
-											<td><a href="#">위치기반 서비스 약관</a></td>
-											<td class="center-group">2020/07/20</td>
-											<td class="center-group">2020/07/17</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
-										</tr>
+										<c:forEach var="terms" items="${termsList }">
+											<tr>
+												<td>${terms.seq }</td>
+												<td><strong><a href="terms_view.admdo?seq=${terms.seq}">${terms.title}</a></strong></td>
+												<td>${terms.subtitle}</td>
+												<td>${terms.enforcementDate }<%-- <fmt:formatDate value="${terms.enforcementDate }" pattern="yyyy-MM-dd" /> --%></td>
+												<td><fmt:formatDate value="${terms.regDate }" pattern="yyyy-MM-dd" /></td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

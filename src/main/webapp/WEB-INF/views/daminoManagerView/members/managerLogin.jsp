@@ -29,7 +29,7 @@
 										Manager Login</h3>
 								</div>
 								<div class="card-body">
-									<form action="loginTest.smdo" method=POST>
+									<form action="managerLogin.smdo" method=POST>
 										<div class="form-group">
 											<label class="small mb-1" for="inputStoreManagerId">ID</label>
 											<input class="form-control py-4" id="inputStoreManagerId"

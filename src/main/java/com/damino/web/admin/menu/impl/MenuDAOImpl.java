@@ -52,11 +52,31 @@ public class MenuDAOImpl implements MenuDAO {
 		System.out.println("토핑 메뉴 가져오기");
 		return sqlSessionTemplate.selectList("MenuDAO.getToppingList");
 	}
+	
+	@Override
+	public List<SideVO> getSideList() {
+		System.out.println("사이드 메뉴 가져오기");
+		return sqlSessionTemplate.selectList("MenuDAO.getSideList");
+	}
 
+	@Override
+	public List<DrinkEtcVO> getDrinkEtcList() {
+		System.out.println("음료&기타 메뉴 가져오기");
+		return sqlSessionTemplate.selectList("MenuDAO.getDrinkEtcList");
+	}
+	
 	@Override
 	public PizzaVO getPizza(PizzaVO vo) {
 		System.out.println("피자 메뉴 DAO");
 		return sqlSessionTemplate.selectOne("MenuDAO.getPizza", vo);
 	}
+
+	@Override
+	public List<PizzaVO> getNutrients() {
+		System.out.println("영양성분 가져오기");
+		return sqlSessionTemplate.selectOne("MenuDAO.getNutrients");
+	}
+
+	
 
 }

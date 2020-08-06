@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminMemberLoginDAO">
+
+	<!-- 로그인 / 관리자 아이디값 파라미터 -->
+	<select id="adminloginCheckId" parameterType="String" resultType="com.damino.web.admin.member.login.AdminMemberLoginVO">
+		SELECT * FROM adminmember
+		WHERE adminid = #{adminid} 
+	</select>
+
+</mapper>

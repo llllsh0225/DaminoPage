@@ -185,8 +185,8 @@
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <strong>메뉴 관리</strong><br>
 						<a href="menuList.admdo">피자</a>&nbsp;
-						<a href="#">사이드디시</a>&nbsp;
-						<a href="#">음료&기타</a>&nbsp;
+						<a href="menuSideList.admdo">사이드디시</a>&nbsp;
+						<a href="menuDrinkEtcList.admdo">음료&기타</a>&nbsp;
 						<a href="menuToppingList.admdo">토핑</a>
 					</div>
 					<div class="card-body">
@@ -211,14 +211,15 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="pizza" items="${pizzaList }">
+										<c:forEach var="pizza" items="${pizzaList }" >
+										
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">${pizza.seq }</td>
-											<td><a href="#">${pizza.p_name }</a></td>
+											<td><a href="menuInfo.admdo">${pizza.p_name }</a></td>
 											<td class="center-group">${pizza.p_code }</td>
 											<td class="center-group">${pizza.p_type }</td>
-											<td class="center-group">${pizza.p_price }</td>
+											<td style="margin-left:5px">M&nbsp;&nbsp;${pizza.p_price_m }&nbsp;&nbsp;/&nbsp;&nbsp;L&nbsp;&nbsp;${pizza.p_price_l }</td>
 											<td class="center-group"><a class="btn btn-primary" href="pizzaInfo.admdo?seq=${pizza.seq }"
 											role="button">수정</a></td>
 											<td class="center-group"><input type="button"

@@ -14,5 +14,14 @@
 		)
 	</insert>
 
+	<!-- id 중복 체크 -->
+	<select id="admincheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) 
+		FROM adminmember
+		WHERE adminid = #{adminid}
+	</select>
+	
+
+
 
 </mapper>

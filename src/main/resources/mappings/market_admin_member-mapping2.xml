@@ -9,6 +9,14 @@
 	SELECT * FROM MarketAdminMember WHERE managerId=#{managerId}
 	</select>
 	
+	
+	<update id="updateMember" parameterType="com.damino.web.admin.market.member.login.MarketAdminVO">
+	UPDATE MarketAdminMember
+	set managerName=#{managerName}, managerPasswd=#{managerPasswd}, storeRegion=#{storeRegion}, storeName=#{storeName}
+		WHERE
+	managerId=#{managerId}
+</update>
+	
 </mapper>
 
 

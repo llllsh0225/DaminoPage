@@ -198,7 +198,6 @@
 												<option>주문확인</option>
 												<option>포장 주문</option>
 												<option>피자 선물하기</option>
-												<option>도미노콘</option>
 												<option>홈페이지 관련</option>
 										</select></td>
 									</tr>

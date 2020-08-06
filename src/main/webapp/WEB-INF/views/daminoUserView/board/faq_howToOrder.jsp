@@ -1,26 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 <meta charset="utf-8">
 <title>FAQ- 다미노피자</title>
-<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon"
+	href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/card_add.css' />">
 
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script>
+function showContent(idx){
+	$('#faqContent' + idx).slideToggle(500);
+}
+</script>
 </head>
 <body>
 
@@ -37,8 +50,7 @@
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -67,9 +79,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -94,7 +104,8 @@
 		<!-- //header -->
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="<c:url value='/resources/css/user/jquery-ui.css' />" />
-		<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
 		<!-- container -->
 		<div id="container">
 			<!-- content -->
@@ -106,8 +117,7 @@
 							<div class="depth-area">
 								<ol>
 									<li><a href="main.do">홈</a></li>
-									<li><a
-										href="faqMain.do">고객센터</a></li>
+									<li><a href="faqMain.do">고객센터</a></li>
 									<li><strong>자주하는 질문</strong></li>
 								</ol>
 							</div>
@@ -137,36 +147,27 @@
 
 									<div class="tab-type4 btn_tab_faq">
 										<ul>
-											<li class="active"><a
-												href="faqHowToOrder.do">피자
+											<li class="active"><a href="faqHowToOrder.do">피자
 													주문하기</a></li>
-											<li><a
-												href="faqOrderCheck.do">주문확인</a></li>
-											<li><a
-												href="faqWrapOrder.do">포장
-													주문</a></li>
-											<li><a
-												href="faqSendPresent.do">피자
-													선물하기</a></li>
-											<li><a
-												href="faqHomePage.do">홈페이지
-													관련</a></li>
+											<li><a href="faqOrderCheck.do">주문확인</a></li>
+											<li><a href="faqWrapOrder.do">포장 주문</a></li>
+											<li><a href="faqSendPresent.do">피자 선물하기</a></li>
+											<li><a href="faqHomePage.do">홈페이지 관련</a></li>
 										</ul>
 									</div>
 									<div class="lst_faq_wrap">
 										<ul>
-										<c:forEach var="faqView" items="${faqViewList }">
-											<li>
-												<dl id="active" class="classActive">
-													<dt>
-														<a href="#none" onclick="#">${faqView.title }</a>
-													</dt>
-													<dd>
-														${faqView.content }
-													</dd>
-												</dl>
-											</li>
-										</c:forEach>
+											<c:forEach var="faqViewList" items="${faqViewList }" varStatus="status">
+												<li>
+													<dl id="active" class="classActive">
+														<dt>
+															<a style="cursor:pointer" onclick="showContent(${status.index});">${faqViewList.title }</a>
+														</dt>
+														<dd id="faqContent${status.index }">
+															${faqViewList.content }</dd>
+													</dl>
+												</li>
+											</c:forEach>
 										</ul>
 									</div>
 								</form>
@@ -215,8 +216,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -264,27 +264,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>

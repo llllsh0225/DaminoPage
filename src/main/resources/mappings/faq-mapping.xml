@@ -4,29 +4,54 @@
 
 <mapper namespace="FaqDAO">
 
-	<select id="getFaqList" resultType="com.damino.web.admin.faq.FaqVO">
-		SELECT seq, title, faq_type FROM faq ORDER BY seq DESC
+	<select id="getFaqList" parameterType="com.damino.web.admin.faq.FaqVO" resultType="com.damino.web.admin.faq.FaqVO">
+		SELECT seq, title, faq_type FROM faq
+		WHERE 1=1
+		<if test="faqTypeKeyword != null">
+			<choose>
+				<when test="faqTypeKeyword=='ALL'">
+				</when>
+				<when test="faqTypeKeyword=='피자 주문하기'">
+					AND faq_type = '피자 주문하기'
+				</when>
+				<when test="faqTypeKeyword=='주문확인'">
+					AND faq_type = '주문확인'
+				</when>
+				<when test="faqTypeKeyword=='포장 주문'">
+					AND faq_type = '포장 주문'
+				</when>
+				<when test="faqTypeKeyword=='피자 선물하기'">
+					AND faq_type = '피자 선물하기'
+				</when>
+				<when test="faqTypeKeyword=='홈페이지 관련'">
+					AND faq_type = '홈페이지 관련'
+				</when>
+			</choose>
+		</if>
+		ORDER BY seq DESC
 	</select>
 
-	<select id="getFaqTypeList" parameterType="String" resultType="com.damino.web.admin.faq.FaqVO">
-		SELECT seq, title, faq_type FROM faq WHERE faq_type = #{faq_type} ORDER BY seq DESC
-	</select>
-	
 	<select id="getFaq" resultType="com.damino.web.admin.faq.FaqVO">
-		SELECT * FROM faq WHERE seq = #{seq}
+		SELECT * FROM faq WHERE seq =
+		#{seq}
 	</select>
-	
-	<insert id="insertFaq" parameterType="com.damino.web.admin.faq.FaqVO">
-		INSERT INTO faq (seq, title, faq_type, content) 
-		VALUES ((select nvl(max(seq), 0)+1 from faq), #{title}, #{faq_type}, #{content})
+
+	<insert id="insertFaq"
+		parameterType="com.damino.web.admin.faq.FaqVO">
+		INSERT INTO faq (seq, title, faq_type, content)
+		VALUES ((select nvl(max(seq), 0)+1 from faq), #{title}, #{faq_type},
+		#{content})
 	</insert>
-	
-	<update id="updateFaq" parameterType="com.damino.web.admin.faq.FaqVO">
+
+	<update id="updateFaq"
+		parameterType="com.damino.web.admin.faq.FaqVO">
 		UPDATE faq
-		SET title = #{title}, content = #{content} WHERE seq = #{seq}
+		SET title = #{title}, content = #{content}
+		WHERE seq = #{seq}
 	</update>
-	
-	<delete id="deleteFaq" parameterType="com.damino.web.admin.faq.FaqVO">
+
+	<delete id="deleteFaq"
+		parameterType="com.damino.web.admin.faq.FaqVO">
 		DELETE FROM faq WHERE seq = #{seq}
 	</delete>
 </mapper>

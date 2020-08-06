@@ -20,4 +20,24 @@ public class FaqViewServiceImpl implements FaqViewService {
 		return faqViewDAO.getHowToOrderPage();
 	}
 
+	@Override
+	public List<FaqViewVO> getOrderCheckPage() {
+		return faqViewDAO.getOrderCheckPage();
+	}
+
+	@Override
+	public List<FaqViewVO> getWrapOrderPage() {
+		return faqViewDAO.getWrapOrderPage();
+	}
+
+	@Override
+	public List<FaqViewVO> getSendPresentPage() {
+		return faqViewDAO.getSendPresentPage();
+	}
+
+	@Override
+	public List<FaqViewVO> getAboutHomepagePage() {
+		return faqViewDAO.getAboutHomepagePage();
+	}
+
 }

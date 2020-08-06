@@ -26,7 +26,7 @@ public class MenuController {
 	@RequestMapping(value="/insertPizza.admdo", method=RequestMethod.POST)
 	public ModelAndView insertPizza(PizzaVO vo, ModelAndView mav, HttpServletRequest request) throws IOException{
 		System.out.println("Controller ---> 피자 메뉴, 영양성분 등록");
-		String path = request.getSession().getServletContext().getRealPath("menu_imgs"); // 이미지가 저장될 절대 경로
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
 		
 		String p_image = "";
 		MultipartFile uploadFile = vo.getUploadFile();
@@ -42,7 +42,7 @@ public class MenuController {
 		vo.setP_image(p_image);
 		
 		menuService.insertPizza(vo);
-		mav.setViewName("/menu/menuList");
+		mav.setViewName("redirect:/menuList.admdo");
 		
 		return mav;
 	}
@@ -127,7 +127,6 @@ public class MenuController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/menu/menuList");
 		mav.addObject("pizzaList", pizzaList);
-
 		return mav;
 	}
 	
@@ -142,15 +141,51 @@ public class MenuController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/menuSideList.admdo", method = RequestMethod.GET)
+	public ModelAndView getSideList() {
+		System.out.println("사이드 목록");
+		List<SideVO> sideList = menuService.getSideList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuSideList");
+		mav.addObject("sideList", sideList);
+		return mav;
+	}
+	
+	@RequestMapping(value="/menuDrinkEtcList.admdo", method = RequestMethod.GET)
+	public ModelAndView getDrinkEtcList() {
+		System.out.println("음료&기타 목록");
+		List<DrinkEtcVO> drinkList = menuService.getDrinkEtcList();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuDrinkEtcList");
+		mav.addObject("drinkList", drinkList);
+		return mav;
+	}
+	
+	
+	
+	
 	@RequestMapping(value="/pizzaInfo.admdo", method = RequestMethod.GET)
 	public ModelAndView getPizza(PizzaVO vo) {
-		System.out.println("피자 목록");
-		PizzaVO pizza = menuService.getPizza(vo);
+		System.out.println("피자의 모든 정보 수정");
+		
+		PizzaVO pizza = menuService.getPizza(vo);	
+//		List<PizzaVO> nutrients = menuService.getNutrients();		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/menu/menuInfo");
 		mav.addObject("pizza", pizza);
+//		mav.addObject("nutrients", nutrients); 
 		return mav;
 	}	
+	
+	@RequestMapping("/menuInfo.admdo")
+	public ModelAndView getAdminMenuInfoPage() {
+		System.out.println("메뉴 정보 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/menuInfo");
+		
+		return mav;
+	}
 }
 
 
