@@ -22,39 +22,11 @@
 	<!-- 구글 지도 api -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPY14fWtREsDgmgVgmAaEazsQakxds8TY&callback=initMap">
 	</script>
-	<script type="text/javascript">
-	function initMap() {
-		 // lat위도   lng경도
-			var kglat = 37.571058;
-		 	var kglng = 126.992378;
-
-			var kglocation = {lat: kglat,  lng: kglng}; //kg아이티뱅크
-
-			//zoom커지면 확대, 15~17이 적당
-			var map = new google.maps.Map(document.getElementById('map_canvas'), {zoom: 18, center: kglocation});
-			
-			var contentString = '<div id="content">'+ 
-									'<div id="siteNotice">'+
-										'종로구'+
-									'</div>'+
-									'<h1 id="firstHeading" class="firstHeading">KG아이티뱅크</h1>'+
-								  	'<div id="bodyContent">'+'<p>학원입니다.</p>' +'</div>'+
-								'</div>';
-			var imageaddress = "<c:url value='https://i.imgur.com/Cm6tqUL.png'/>"
-			
-			var infowindow = new google.maps.InfoWindow({content: contentString});
-			
-			var markerIcon = new google.maps.MarkerImage(imageaddress,null,null,null,new google.maps.Size(40,52));
-			
-			var marker = new google.maps.Marker({position: kglocation, map: map, icon: markerIcon});
-			
-			marker.addListener('click', function() {infowindow.open(map, marker);});
-		}
-	</script>
+	<!-- 맵관련 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/map.js'/>"></script>
+	
 </head>
 <body>
-
-
 	<div id="wrap">
 		<header id="header">
 			<div class="top-wrap">
@@ -231,12 +203,10 @@
 										<div class="address-set-wrap store">
 											<div class="form-group srch-type">
 												<div class="form-item">
-													<input type="text" id="branch_name"
-														placeholder="매장명을 검색하세요.">
+													<input type="text" id="branch_name" placeholder="매장명을 검색하세요.">
 												</div>
 												<div class="form-item">
-													<button type="button" class="btn-search"
-														onclick="findBranch('name'); return false;">검색</button>
+													<button type="button" class="btn-search" onclick="findBranch('name'); return false;">검색</button>
 												</div>
 											</div>
 
