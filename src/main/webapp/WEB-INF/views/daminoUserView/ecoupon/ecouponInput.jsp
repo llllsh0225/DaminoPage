@@ -40,8 +40,7 @@ function registEcoupon(){
 		}),
 		success : function(res){
 			if(res == 'success'){
-				alert('쿠폰을 성공적으로 등록하였습니다!\n[나의 정보-쿠폰함]에서 확인하세요!');
-				location.reload();
+				location.href='ecouponResult.do'; // 쿠폰등록 성공 -> 결과페이지로 이동
 			}else if(res == 'fail'){
 				alert('등록불가한 쿠폰입니다. 쿠폰코드를 다시 확인해주세요.');
 				location.reload();

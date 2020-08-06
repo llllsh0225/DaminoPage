@@ -203,14 +203,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/ecouponResult.do")
-	public ModelAndView getEcouponResultPage() {
-		System.out.println("ecoupon 등록결과 확인페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/ecoupon/ecouponResult");
-		return mav;
-	}
 	// ---- ecoupon 폴더 end ----
 	
 	// ---- error 폴더 ----
