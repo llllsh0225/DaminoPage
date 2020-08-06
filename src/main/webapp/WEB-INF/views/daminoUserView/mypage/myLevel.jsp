@@ -35,7 +35,7 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 		async : false,
 		success : function(res){
 			if(res == 'success'){
-				alert("매니아 쿠폰이 발급되었습니다. 쿠폰함을 확인하세요!");
+				location.href='ecouponResult.do';
 			}else if(res == 'duplicated'){
 				alert("이미 당월 발급된 매니아 쿠폰이 존재합니다.");
 			}

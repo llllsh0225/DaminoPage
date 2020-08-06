@@ -134,4 +134,12 @@ public class CouponController {
 			return "fail";
 		}
 	}
+	
+	@RequestMapping("/ecouponResult.do")
+	public ModelAndView getEcouponResultPage(ModelAndView mav) {
+		System.out.println("ecoupon 등록결과 확인페이지 열기");
+		
+		mav.setViewName("/ecoupon/ecouponResult");
+		return mav;
+	}
 }
