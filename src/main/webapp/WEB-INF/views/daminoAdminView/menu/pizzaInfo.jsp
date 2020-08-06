@@ -16,6 +16,20 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
+<script>
+window.onload = function(){
+	// 페이지 로드 시 셀렉트박스에 DB에 저장된 피자구분값 세팅
+	var p_type_db = $('#p_type_db').val();
+	$("#p_type").val(p_type_db).prop("selected", true);
+	
+	// 페이지 로드 시 체크박스에 DB에 저장된 도우 확인하여 체크
+	var splitDoughCode = $("#dough_db").val().split(",");
+	for (var i=0; i<splitDoughCode.length; i++){
+		console.log(splitDoughCode[i]);
+		$("input[name='test[]']").eq(0).val(1)
+	}
+}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -189,67 +203,121 @@
 							<input type="button" class="btn btn-delete" value="목록" />
 						</div>
 						<div class="for-margin-height-div"></div>
-						<form>
+						<form id="pizzaInfoForm" name="pizzaInfoForm">
+							<input type="hidden" id="p_type_db" value="${pizza.p_type }" />
+							<input type="hidden" id="dough_db" value="${pizza.p_dough }" />
+							<input type="hidden" name="dough_array" />
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td>${pizza.p_name}</td>
+										<td><input type="text" name="p_name" id="p_name" value="${pizza.p_name }"/></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
-										<td>${pizza.p_code }</td>
+										<td>피자</td>
 									</tr>
 									<tr>
 										<th>구분</th>
-										<td>${pizza.p_type }</td>
+										<c:set var="type" value="${pizza.p_type }" />
+										<td><select name="p_type" id="p_type">
+												<option value="프리미엄">프리미엄</option>
+												<option value="클래식">클래식</option>
+										</select></td>
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td>${pizza.p_price }</td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="p_price_m" id="p_price_m" value="${pizza.p_price_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L
+										<input type="text" style="margin-left:5px" name="p_price_l" id="p_price_l" value="${pizza.p_price_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>선택 가능 도우</th>
-										<td>${pizza.p_dough }</td>
+										<td><input type="checkbox" name="p_dough" value="슈퍼 시드 함유 도우"/> 슈퍼 시드 함유 도우&nbsp; 
+											<input type="checkbox" name="p_dough" value="더블 치즈 엣지" /> 더블 치즈 엣지&nbsp; 
+											<input type="checkbox" name="p_dough" value="오리지널" /> 오리지널&nbsp; 
+											<input type="checkbox" name="p_dough" value="나폴리" /> 나폴리&nbsp; 
+											<input type="checkbox" name="p_dough" value="씬" /> 씬&nbsp;</td>
 									</tr>
 									<tr>
 										<th>총 중량(g)</th>
-										<td>${pizza.p_nutrients_code  }</td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="gross_weight_m" id="gross_weight_m" value="${pizza.gross_weight_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="gross_weight_l" id="gross_weight_m" value="${pizza.gross_weight_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>1회분 기준</th>
-										<td></td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="onetime_basis_m" id="onetime_basis_m" value="${pizza.onetime_basis_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="onetime_basis_l" id="onetime_basis_l" value="${pizza.onetime_basis_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>1회분 중량(g)</th>
-										<td></td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="onetime_weight_m" id="onetime_weight_m" value="${pizza.onetime_weight_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="onetime_weight_l" id="onetime_weight_l" value="${pizza.onetime_weight_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>열량(kcal/1회분)</th>
-										<td></td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="kcal_m" id="kcal_m" value="${pizza.kcal_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="kcal_l" id="kcal_l" value="${pizza.kcal_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>단백질(g/1회분)</th>
-										<td></td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="protein_m" id="protein_m" value="${pizza.protein_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="protein_l" id="protein_l" value="${pizza.protein_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>포화지방(g/1회분)</th>
-										<td></td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="fat_m" id="fat_m" value="${pizza.fat_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="fat_l" id="fat_l" value="${pizza.fat_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>나트륨(mg/1회분)</th>
-										<td></td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="natrium_m" id="natrium_m" value="${pizza.natrium_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="natrium_l" id="natrium_l" value="${pizza.natrium_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>당류(g/1회분)</th>
-										<td></td>
+										<td>
+										M
+										<input type="text" style="margin-left:5px" name="sugars_m" id="sugars_m" value="${pizza.sugars_m }"/>
+										&nbsp;&nbsp;&nbsp;&nbsp;L 
+										<input type="text" style="margin-left:5px" name="sugars_l" id="sugars_l" value="${pizza.sugars_l }"/>
+										</td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
-										<td>
-											<!-- 제품 이미지파일명 들어오기. 썸네일도 보여지면 좋을듯 -->
-										</td>
+										<td><input type="file" name="uploadFile" /></td>
 									</tr>
 								</table>
 							</div>
@@ -271,7 +339,6 @@
 			</footer>
 		</div>
 	</div>
-
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		crossorigin="anonymous"></script>
 	<script
