@@ -7,10 +7,10 @@
 	<insert id="insertPizza"
 		parameterType="com.damino.web.admin.menu.PizzaVO">
 		INSERT ALL
-			INTO pizza (p_code, p_name, p_type, p_size, p_price, p_dough, p_image, seq)
-			VALUES('P'||LPAD(pizza_seq.nextval, 3, '0'), #{p_name}, #{p_type}, #{p_size}, #{p_price}, #{p_dough}, #{p_image}, (select nvl(max(seq), 0)+1 from pizza))
-			INTO p_nutrients (p_nutrients_code, gross_weight, onetime_basis, onetime_weight, kcal, protein, fat, natrium, sugars, p_code)
-			VALUES('NP'||LPAD(p_nutrients_seq.nextval, 3, '0'), #{gross_weight}, #{onetime_basis}, #{onetime_weight}, #{kcal}, #{protein}, #{fat}, #{natrium}, #{sugars}, 'P'||LPAD(pizza_seq.nextval, 3, '0'))
+			INTO pizza (p_code, p_name, p_type, p_size_m, p_size_l, p_price_m, p_price_l, p_dough, p_image, seq)
+			VALUES('P'||LPAD(pizza_seq.nextval, 3, '0'), #{p_name}, #{p_type}, 'M', 'L', #{p_price_m}, #{p_price_l}, #{p_dough}, #{p_image}, (select nvl(max(seq), 0)+1 from pizza))
+			INTO p_nutrients (p_nutrients_code, gross_weight_m, gross_weight_l, onetime_basis_m, onetime_basis_l, onetime_weight_m, onetime_weight_l, kcal_m, kcal_l, protein_m, protein_l, fat_m, fat_l, natrium_m, natrium_l, sugars_m, sugars_l, p_code)
+			VALUES('NP'||LPAD(p_nutrients_seq.nextval, 3, '0'), #{gross_weight_m}, #{gross_weight_l}, #{onetime_basis_m}, #{onetime_basis_l}, #{onetime_weight_m}, #{onetime_weight_l}, #{kcal_m}, #{kcal_l}, #{protein_m}, #{protein_l}, #{fat_m}, #{fat_l}, #{natrium_m}, #{natrium_l}, #{sugars_m}, #{sugars_l}, 'P'||LPAD(pizza_seq.nextval, 3, '0'))
 		SELECT * FROM DUAL
 	</insert>
 	
@@ -38,7 +38,7 @@
 
 	<select id="getPizzaList" 
 		resultType="com.damino.web.admin.menu.PizzaVO">
-		SELECT seq, P_CODE, P_NAME, P_TYPE, P_PRICE
+		SELECT seq, P_CODE, P_NAME, P_TYPE, P_PRICE_M, P_PRICE_L
 		FROM PIZZA
 	</select>
 
