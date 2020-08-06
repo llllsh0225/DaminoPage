@@ -42,7 +42,7 @@ public class MenuController {
 		vo.setP_image(p_image);
 		
 		menuService.insertPizza(vo);
-		mav.setViewName("/menu/menuList");
+		mav.setViewName("redirect:/menuList.admdo");
 		
 		return mav;
 	}
