@@ -23,6 +23,12 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		System.out.println("GoodsListDAOImpl getPizzaList()");
 		return sqlSessionTemplate.selectList("GoodsListDAO.getPizzaList");
 	}
+	
+	@Override
+	public List<GoodsPizzaVO> getPizzaClassicList() {
+		System.out.println("GoodsListDAOImpl getPizzaClassicList()");
+		return sqlSessionTemplate.selectList("GoodsListDAO.getPizzaClassicList");
+	}
 
 	@Override
 	public List<GoodsSideVO> getSideList() {
@@ -41,5 +47,7 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		System.out.println("GoodsListDAOImpl getDrinkEtcList()");
 		return sqlSessionTemplate.selectList("GoodsListDAO.getDrinkEtcList");
 	}
+
+	
 	
 }

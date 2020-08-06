@@ -4,9 +4,14 @@
 
 <mapper namespace="GoodsListDAO">
 
-	<!-- 피자 목록 불러오기 -->
+	<!-- 프리미엄 피자 목록 불러오기 -->
 	<select id="getPizzaList" resultType="com.damino.web.user.goods.GoodsPizzaVO">
-		SELECT * FROM pizza
+		SELECT * FROM pizza WHERE p_type='프리미엄'
+		ORDER BY seq desc
+	</select>
+	<!-- 클래식 피자 목록 불러오기 -->
+	<select id="getPizzaClassicList" resultType="com.damino.web.user.goods.GoodsPizzaVO">
+		SELECT * FROM pizza WHERE p_type='클래식'
 		ORDER BY seq desc
 	</select>
 	

@@ -1,13 +1,17 @@
 package com.damino.web.user.goods;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.damino.web.user.faq.FaqViewVO;
 
 @Controller
 public class GoodsListController {
@@ -17,10 +21,13 @@ public class GoodsListController {
 	@RequestMapping("/goodslist.do") 
 	public ModelAndView getPizzaList(ModelAndView mav) {
 		System.out.println("제품 목록 열기");
-
-		List<GoodsPizzaVO> goodsList = goodsListService.getPizzaList();
-
-		mav.addObject("goodsList", goodsList);
+		
+		List<GoodsPizzaVO> goodsPremiumList = goodsListService.getPizzaList();
+		List<GoodsPizzaVO> goodsClassicList = goodsListService.getPizzaClassicList();
+		
+		mav.addObject("goodsPremiumList", goodsPremiumList);
+		mav.addObject("goodsClassicList", goodsClassicList);
+		
 		mav.setViewName("/goods/list");
 
 		return mav;
@@ -33,7 +40,7 @@ public class GoodsListController {
 		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
 
 		mav.addObject("goodsSideList", goodsSideList);
-		mav.setViewName("/goods/list");
+		mav.setViewName("/goods/side_list");
 
 		return mav;
 	}
@@ -55,7 +62,7 @@ public class GoodsListController {
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
 		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
-		mav.setViewName("/goods/list");
+		mav.setViewName("/goods/drink_list");
 
 		return mav;
 	}
