@@ -25,6 +25,12 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("GoodsListServiceImpl getPizzaList()");
 		return goodsListDAO.getPizzaList();
 	}
+	
+	@Override
+	public List<GoodsPizzaVO> getPizzaClassicList() {
+		System.out.println("GoodsListServiceImpl getPizzaClassicList()");
+		return goodsListDAO.getPizzaClassicList();
+	}
 
 	@Override
 	public List<GoodsSideVO> getSideList() {
@@ -43,5 +49,7 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("GoodsListServiceImpl getDrinkEtcList()");
 		return goodsListDAO.getDrinkEtcList();
 	}
+
+	
 
 }
