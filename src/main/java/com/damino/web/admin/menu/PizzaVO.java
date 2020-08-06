@@ -10,7 +10,8 @@ public class PizzaVO {
 	private int p_price_m; // 피자 가격 (M)
 	private int p_price_l; // 피자 가격 (L)
 	private String p_dough; // 선택 가능 도우
-	private String p_image; // 제품 이미지 파일명
+	private String p_image; // 실제 저장된 제품 이미지 파일명
+	private String p_originalFileName; // 사용자가 입력한 이미지 파일명 
 	private MultipartFile uploadFile;
 	private int seq;
 
@@ -180,6 +181,12 @@ public class PizzaVO {
 	}
 	public void setSugars_l(int sugars_l) {
 		this.sugars_l = sugars_l;
+	}
+	public String getP_originalFileName() {
+		return p_originalFileName;
+	}
+	public void setP_originalFileName(String p_originalFileName) {
+		this.p_originalFileName = p_originalFileName;
 	}
 	
 }

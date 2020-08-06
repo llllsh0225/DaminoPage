@@ -28,18 +28,21 @@ public class MenuController {
 		System.out.println("Controller ---> 피자 메뉴, 영양성분 등록");
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
 		
-		String p_image = "";
+		String p_image = ""; // 실제 저장될 파일명
+		String originalFileName = ""; // 사용자가 업로드한 original 파일명
 		MultipartFile uploadFile = vo.getUploadFile();
 		
 		if(!uploadFile.isEmpty()) {
-			String orginalFileName = uploadFile.getOriginalFilename();
-			String ext = FilenameUtils.getExtension(orginalFileName); // 확장자 구하기
+			originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
 			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
 			p_image = uuid + "." + ext;
 			uploadFile.transferTo(new File(path + "/" + p_image));
 		}
 		
 		vo.setP_image(p_image);
+		vo.setP_originalFileName(originalFileName);
+		System.out.println(originalFileName);
 		
 		menuService.insertPizza(vo);
 		mav.setViewName("redirect:/menuList.admdo");
@@ -52,11 +55,12 @@ public class MenuController {
 		System.out.println("Controller ---> 사이드 메뉴, 영양성분 등록");
 		String path = request.getSession().getServletContext().getRealPath("menu_imgs"); // 이미지가 저장될 절대 경로
 		
-		String s_image = "";
+		String s_image = ""; // 실제 저장될 파일명
+		String originalFileName = ""; // 사용자가 업로드한 original 파일명
 		MultipartFile uploadFile = vo.getUploadFile();
 		
 		if(!uploadFile.isEmpty()) {
-			String originalFileName = uploadFile.getOriginalFilename(); // 업로드한 실제 파일명
+			originalFileName = uploadFile.getOriginalFilename(); // 업로드한 실제 파일명
 			String ext = FilenameUtils.getExtension(originalFileName); // 파일명으로 확장자명 추출
 			UUID uuid = UUID.randomUUID(); // uuid 생성
 			
@@ -65,6 +69,8 @@ public class MenuController {
 		}
 		
 		vo.setS_image(s_image);
+		vo.setS_originalFileName(originalFileName);
+		
 		menuService.insertSide(vo);
 		mav.setViewName("/menu/menuList");
 		

@@ -3,25 +3,14 @@ package com.damino.web.admin.menu;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SideVO {
+	private String s_code; // 사이드 제품코드 (PK)
 	private String s_name; // 사이드 제품명
 	private int s_price; // 사이드 가격
 	private String s_image; // 사이드 제품이미지 파일명
+	private String s_originalFileName; // 실제 사용자가 지정한 사이드 제품이미지 파일명 
 	private MultipartFile uploadFile;
 	private int seq;
-	private String s_code;
 	
-	public String getS_code() {
-		return s_code;
-	}
-	public void setS_code(String s_code) {
-		this.s_code = s_code;
-	}
-	public int getSeq() {
-		return seq;
-	}
-	public void setSeq(int seq) {
-		this.seq = seq;
-	}
 	//------ 영양성분 -------
 	private int gross_weight; // 총중량
 	private int kcal; // 열량
@@ -29,6 +18,12 @@ public class SideVO {
 	private int fat; // 포화지방
 	private int natrium; // 나트륨
 	private int sugars; // 당류
+	public String getS_code() {
+		return s_code;
+	}
+	public void setS_code(String s_code) {
+		this.s_code = s_code;
+	}
 	public String getS_name() {
 		return s_name;
 	}
@@ -47,11 +42,23 @@ public class SideVO {
 	public void setS_image(String s_image) {
 		this.s_image = s_image;
 	}
+	public String getS_originalFileName() {
+		return s_originalFileName;
+	}
+	public void setS_originalFileName(String s_originalFileName) {
+		this.s_originalFileName = s_originalFileName;
+	}
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	public int getGross_weight() {
 		return gross_weight;
@@ -89,4 +96,5 @@ public class SideVO {
 	public void setSugars(int sugars) {
 		this.sugars = sugars;
 	}
+	
 }
