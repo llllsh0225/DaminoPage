@@ -18,6 +18,11 @@
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 
+
+
+
+
+
 <style type="text/css">
 body {
 	margin-top: 20px;
