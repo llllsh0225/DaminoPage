@@ -1,24 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
+<!-- css -->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<!-- slick 배너용 css -->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='resources/css/slick.css' />">
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-	
-	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
-	
+<!-- js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<!-- slick 배너용 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/slick.min.js' />"></script>
+
+
+<!-- 배너 실험실 -->
+<style>
+.banner_img {
+	width: "100%"
+}
+</style>
+
+<script>
+	// 이미지 슬라이더
+	$(document).ready(function() {
+		$(".banner-slider").slick({
+			dots : false,
+			autoplay : true,
+			autoplaySpeed : 3000,
+			arrows : true,
+			responsive : [ {
+				breakpoints : 768,
+				settings : {
+					arrows : true,
+					dots : false
+				}
+			} ]
+		});
+	});
+</script>
+<!-- //배너 실험실 -->
+
 </head>
 <body>
 	<div id="wrap">
@@ -36,24 +77,22 @@
 						<c:when test="${sessionScope.username eq null}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:when test="${msg=='logout' }">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<!-- 로그인 -->
 							<div class="util-nav">
-								${sessionScope.username } 님  &nbsp;
-								<a href="logout.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a>
-								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -84,9 +123,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -112,14 +149,36 @@
 		<div id="container">
 			<section id="content">
 				<div class="main">
+					<!-- 메인 배너 -->
 					<article class="article visual-area">
 						<div class="visual-slider">
+							<!-- 전버튼 -->
+							<!-- 카운터 버튼 -->
 							<div class="slide-count-wrap">
 								<span class="slide-count"></span> <a href="javascript:;"
 									class="btn-play">btnPlay</a>
 							</div>
+							<div class="banner-slider" id="#">
+								<div>
+									<img class="banner_img"
+										src="<c:url value='/resources/images/user/banner/banner001.jpg'/>"
+										alt="">
+								</div>
+								<div>
+									<img class="banner_img"
+										src="<c:url value='/resources/images/user/banner/banner002.jpg'/>"
+										alt="">
+								</div>
+								<div>
+									<img class="banner_img"
+										src="<c:url value='/resources/images/user/banner/banner003.jpg'/>"
+										alt="">
+								</div>
+							</div>
+							<!-- 후버튼 -->
 						</div>
 					</article>
+					<!-- //메인 배너 영역 -->
 					<article class="article delivery-area">
 						<div class="inner-box">
 							<div class="item-wrap v2">
@@ -157,8 +216,7 @@
 								<div class="login-before">
 									<div class="title-wrap">
 										<div class="title-type2">
-											다미노피자의<br>
-											<strong>특별한 매니아 혜택</strong><br>누려보세요!
+											다미노피자의<br> <strong>특별한 매니아 혜택</strong><br>누려보세요!
 										</div>
 									</div>
 									<div class="btn-wrap">
@@ -188,6 +246,7 @@
 									<a href="goods/dominosMoment.do"><img
 										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card5.png" /></a>
 								</div>
+
 							</div>
 						</div>
 					</article>
@@ -195,11 +254,32 @@
 					<!-- banner -->
 					<article class="article banner-area">
 						<div class="inner-box">
-							<div class="banner-slider" id="group_order_area"></div>
+							<div class="banner-slider" id="#">
+								<div>
+									<img class="banner_img"
+										src="<c:url value='/resources/images/user/banner/banner_mini_001.jpg'/>"
+										alt="">
+								</div>
+								<div>
+									<img class="banner_img"
+										src="<c:url value='/resources/images/user/banner/banner_mini_002.jpg'/>"
+										alt="">
+								</div>
+								<div>
+									<img class="banner_img"
+										src="<c:url value='/resources/images/user/banner/banner_mini_003.jpg'/>"
+										alt="">
+								</div>
+								<div>
+									<img class="banner_img"
+										src="<c:url value='/resources/images/user/banner/banner_mini_004.jpg'/>"
+										alt="">
+								</div>
+							</div>
 						</div>
 					</article>
-
 					<!-- //banner -->
+
 				</div>
 				<!-- //main -->
 			</section>
@@ -298,8 +378,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -347,27 +426,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>
