@@ -216,7 +216,7 @@
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">${pizza.seq }</td>
-											<td><a href="menuInfo.admdo">${pizza.p_name }</a></td>
+											<td><a href="getPizzaInfo.admdo?seq=${pizza.seq }">${pizza.p_name }</a></td>
 											<td class="center-group">${pizza.p_code }</td>
 											<td class="center-group">${pizza.p_type }</td>
 											<td style="margin-left:5px">M&nbsp;&nbsp;${pizza.p_price_m }&nbsp;&nbsp;/&nbsp;&nbsp;L&nbsp;&nbsp;${pizza.p_price_l }</td>
