@@ -6,28 +6,51 @@
 
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
-<title>매장찾기- 다미노피자</title>
+	<title>매장찾기- 다미노피자</title>
+	
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
+	
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+	<!-- 메인페이지 슬라이드 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+	<!-- 더보기 슬라이드로 내려오는 js -->
+	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	<!-- 구글 지도 api -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPY14fWtREsDgmgVgmAaEazsQakxds8TY&callback=initMap">
+	</script>
+	<script type="text/javascript">
+	function initMap() {
+		 // lat위도   lng경도
+			var kglat = 37.571058;
+		 	var kglng = 126.992378;
 
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/user/sub.css' />">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/user/card_add.css' />">
+			var kglocation = {lat: kglat,  lng: kglng}; //kg아이티뱅크
 
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
-<!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript"
-	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript"
-	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
-<!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript"
-	src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+			//zoom커지면 확대, 15~17이 적당
+			var map = new google.maps.Map(document.getElementById('map_canvas'), {zoom: 18, center: kglocation});
+			
+			var contentString = '<div id="content">'+ 
+									'<div id="siteNotice">'+
+										'종로구'+
+									'</div>'+
+									'<h1 id="firstHeading" class="firstHeading">KG아이티뱅크</h1>'+
+								  	'<div id="bodyContent">'+'<p>학원입니다.</p>' +'</div>'+
+								'</div>';
+			var imageaddress = "<c:url value='https://i.imgur.com/Cm6tqUL.png'/>"
+			
+			var infowindow = new google.maps.InfoWindow({content: contentString});
+			
+			var markerIcon = new google.maps.MarkerImage(imageaddress,null,null,null,new google.maps.Size(40,52));
+			
+			var marker = new google.maps.Marker({position: kglocation, map: map, icon: markerIcon});
+			
+			marker.addListener('click', function() {infowindow.open(map, marker);});
+		}
+	</script>
 </head>
 <body>
 
@@ -256,7 +279,7 @@
 					<div class="pop-content">
 						<div class="store-map-area" id="map_large_canvas">
 							<!-- MAP 영역 -->
-
+							
 						</div>
 					</div>
 					<a href="#" class="btn-close"></a>
@@ -324,6 +347,9 @@
 							</div>
 							<div class="store-map-area" id="map_detail_canvas">
 								<!-- MAP 영역 -->
+								<div class="store-map-wrap">
+									<div class="store-map" id="map_canvas"></div>
+								</div>
 								<div class="store-spot" style="right: 20%; top: 50%;"></div>
 							</div>
 							<div class="store-slider" id="detail_photos"></div>
