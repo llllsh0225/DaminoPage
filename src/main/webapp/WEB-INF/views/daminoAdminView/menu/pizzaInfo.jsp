@@ -23,10 +23,17 @@ window.onload = function(){
 	$("#p_type").val(p_type_db).prop("selected", true);
 	
 	// 페이지 로드 시 체크박스에 DB에 저장된 도우 확인하여 체크
-	var splitDoughCode = $("#dough_db").val().split(",");
-	for (var i=0; i<splitDoughCode.length; i++){
-		console.log(splitDoughCode[i]);
-		$("input[name='test[]']").eq(0).val(1)
+	var splitDoughCode = $("#dough_db").val().split(","); // DB에 저장된 선택가능 도우 입력값을 ',' 구분자로 split한 배열
+	var chkbox = $('.p_dough'); // 체크박스 클래스로 가져옴 (체크박스들을 배열로 저장)
+
+	for(var i=0; i<splitDoughCode.length; i++) {
+		console.log(i);
+		for(var j=0; j<chkbox.length; j++) {
+			console.log(j);
+			if(splitDoughCode[i]==chkbox[j].value) {
+				chkbox[j].checked=true;
+			}
+		}
 	}
 }
 </script>
@@ -199,14 +206,14 @@ window.onload = function(){
 						<h6>
 							<strong>메뉴 상세정보</strong>
 						</h6>
-						<div align="right">
-							<input type="button" class="btn btn-delete" value="목록" />
-						</div>
 						<div class="for-margin-height-div"></div>
-						<form id="pizzaInfoForm" name="pizzaInfoForm">
+						<form id="pizzaInfoForm" name="pizzaInfoForm" method="post">
+							<input type="hidden" name="seq" id="seq" value="${pizza.seq }" />
+							<input type="button" class="btn btn-primary" value="글수정" onclick="pizzaAction(1)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="글삭제" onclick="pizzaAction(2)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='qna_list.admdo'" style="float: right"/>
 							<input type="hidden" id="p_type_db" value="${pizza.p_type }" />
 							<input type="hidden" id="dough_db" value="${pizza.p_dough }" />
-							<input type="hidden" name="dough_array" />
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
@@ -237,11 +244,11 @@ window.onload = function(){
 									</tr>
 									<tr>
 										<th>선택 가능 도우</th>
-										<td><input type="checkbox" name="p_dough" value="슈퍼 시드 함유 도우"/> 슈퍼 시드 함유 도우&nbsp; 
-											<input type="checkbox" name="p_dough" value="더블 치즈 엣지" /> 더블 치즈 엣지&nbsp; 
-											<input type="checkbox" name="p_dough" value="오리지널" /> 오리지널&nbsp; 
-											<input type="checkbox" name="p_dough" value="나폴리" /> 나폴리&nbsp; 
-											<input type="checkbox" name="p_dough" value="씬" /> 씬&nbsp;</td>
+										<td><input type="checkbox" name="p_dough" class="p_dough" value="슈퍼 시드 함유 도우"/> 슈퍼 시드 함유 도우&nbsp; 
+											<input type="checkbox" name="p_dough" class="p_dough" value="더블 치즈 엣지" /> 더블 치즈 엣지&nbsp; 
+											<input type="checkbox" name="p_dough" class="p_dough" value="오리지널" /> 오리지널&nbsp; 
+											<input type="checkbox" name="p_dough" class="p_dough" value="나폴리" /> 나폴리&nbsp; 
+											<input type="checkbox" name="p_dough" class="p_dough" value="씬" /> 씬&nbsp;</td>
 									</tr>
 									<tr>
 										<th>총 중량(g)</th>
@@ -317,7 +324,10 @@ window.onload = function(){
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
-										<td><input type="file" name="uploadFile" /></td>
+										<td>
+										<input type="file" name="uploadFile" />
+										<input type="text" name="p_originalFileName" value="${pizza.p_originalFileName }" disabled="disabled" />
+										</td>
 									</tr>
 								</table>
 							</div>
