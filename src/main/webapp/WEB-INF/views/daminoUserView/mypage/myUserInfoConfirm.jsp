@@ -17,7 +17,12 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
+	<script type="text/javascript">
+	function passwdSubmit(){
+		document.passwdCheck.action='changeinfo.do';
+		document.passwdCheck.submit();
+	}
+</script>
 	
 </head>
 <body>
@@ -33,10 +38,31 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님  &nbsp;
+								<a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a>
+								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -118,36 +144,38 @@
 							</div>
 							<div class="info-wrap">
 								<div class="user">본인여부 확인</div>
-								<div class="text-type">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번
-									확인합니다.</div>
+								<div class="text-type">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인합니다.</div>
 							</div>
 							<div class="myinfo-wrap">
 								<div class="form">
 									<dl>
 										<dt>아이디</dt>
-										<dd>userid</dd>
+										<dd>${sessionScope.userid}</dd>
 									</dl>
 									<dl>
 										<dt>비밀번호</dt>
 										<dd>
 											<div class="form-group2">
 												<div class="form-item number">
-													<form name="frm_popup" id="frm_popup" method="post">
-														<input type="hidden" id="confirm_member"
-															name="confirm_member" value=""> <input
-															type="hidden" id="confirm_type" name="confirm_type"
-															value="1"> <input type="hidden"
-															id="certification_mode" name="certification_mode"
-															value="pwd"> <input type="password"
-															id="pop_passwd" name="pop_passwd"
-															onkeydown="javascript:if(event.keyCode==13){confirm_memberProc(); return false;}">
-														<a href="javascript:confirm_memberProc();"
-															class="btn-type v4">확인</a>
+													<form name="passwdCheck" method="post">
+														<input type="hidden" id="userid" name="userid" value="${sessionScope.userid}"/> 
+														<input type="password" id="userpasswd" name="userpasswd"/>
+														<input type="button" class="btn-type v4" value="확인" onclick="passwdSubmit()" style="cursor: pointer"/>
 													</form>
 												</div>
 												<div class="text-type4" style="display: none;"></div>
 											</div>
 										</dd>
+									</dl>
+									<dl>
+										<dt></dt>
+										<dd>
+											<c:if test="${msg=='fail'}">
+					                           <div class="form-item" style="color:red">
+					                           		비밀번호가 일치하지 않습니다.
+					                           </div>
+				                           </c:if>
+			                           </dd>
 									</dl>
 								</div>
 							</div>

@@ -30,8 +30,17 @@
 	</select>
 	
 	<!-- 패스워드 체크 -->
-	<select id="passwdcheck" resultType="int">
+	<select id="passwdCheck" resultType="com.damino.web.user.userinfo.UserInfoVO">
+		SELECT *
+		FROM usermember
+		WHERE userid=#{userid}
 	</select>
+	
+	<update id="updateUserMember" parameterType="com.damino.web.user.userinfo.UserInfoVO">
+		UPDATE usermember
+		SET userpasswd=#{userpasswd}, birthday=#{birthday}, cyear=#{cyear}, phone=#{phone}, email=#{email}, receive_sms=#{receive_sms}, receive_email=#{receive_email}, receive_dm=#{receive_dm}
+		WHERE userid=#{userid}
+	</update>
 </mapper>
 
 
