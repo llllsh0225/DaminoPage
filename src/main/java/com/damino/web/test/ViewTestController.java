@@ -273,14 +273,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/changeinfo.do")
-	public ModelAndView getChangeInfo() {
-		System.out.println("회원 정보변경 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/userinfo/change_info");
-		return mav;
-	}
 	
 	@RequestMapping("/signup1.do")
 	public ModelAndView getSignUp1() {
@@ -420,16 +412,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	
-	
-	@RequestMapping("/myuserinfoconfirm.do")
-	public ModelAndView getMyUserInfoConfirm() {
-		System.out.println("내 정보수정 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mypage/myUserInfoConfirm");
-		return mav;
-	}
 	// --- end page 폴더 ---
 	
 	//-----daminoAdminView 영역 시작--------------------------

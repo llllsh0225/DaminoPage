@@ -157,8 +157,13 @@
 	}
 	
 	function formSubmit(){
-		document.frm.action='registMember.do';
-		document.frm.submit();
+		if(checks()==false){
+			alert('작성 내용을 다시 확인해주세요.');
+		}else{
+			alert('회원가입 완료');
+			document.frm.action='registMember.do';
+			document.frm.submit();
+		}
 	}
 </script>
 </head>
@@ -693,7 +698,7 @@
 										</dl>
 
 										<div class="btn-wrap">
-											<input type="button" class="btn-type v6" value="가입하기" onclick="formSubmit()"/>
+											<input type="button" class="btn-type v6" value="가입하기" onclick="formSubmit()" style="cursor: pointer"/>
 
 										</div>
 									</form><!-- --------------------------------------------------form end -->
