@@ -17,7 +17,11 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
+<script type="text/javascript">
+var path = ${path};
+console.log(path);
 
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -140,9 +144,8 @@
 												<li>
 													<div class="prd-img">
 														<a href="제품상세페이지"> <img class="lazyload"
-															src="${goodsPremiumList.p_image}"
-															data-src="https://newcdn.dominos.co.kr/admin/upload/goods/"
-															${goodsPremiumList.p_image} alt="${goodsPremiumList.p_name}" />
+															src="${path}/${goodsPremiumList.p_image}"
+															data-src="${pageContext.request.contextPath}/resources/images/admin/goods/${goodsPremiumList.p_image}" alt="${goodsPremiumList.p_name}" />
 														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
 															<span class="hidden">상세버튼</span>
 														</a>
@@ -177,9 +180,9 @@
 												<li>
 													<div class="prd-img">
 														<a href="제품상세페이지"> <img class="lazyload"
-															src="${goodsClassicList.p_image}"
-															data-src="https://newcdn.dominos.co.kr/admin/upload/goods/"
-															${goodsClassicList.p_image} alt="${goodsClassicList.p_name}" />
+															src="${path}/${goodsClassicList.p_image}"
+															data-src="${path}/${goodsClassicList.p_image}"
+															alt="${goodsClassicList.p_name}" />
 														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
 															<span class="hidden">상세버튼</span>
 														</a>
