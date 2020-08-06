@@ -106,7 +106,7 @@
 								<ol>
 									<li><a href="main.do">홈</a></li>
 									<li><a href="goodslist.do">메뉴</a></li>
-									<li><strong>피자 </strong></li>
+									<li><strong>사이드디시</strong></li>
 								</ol>
 							</div>
 						</div>
@@ -117,8 +117,8 @@
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li class="active"><a href="goodslist.do">피자</a></li>
-										<li><a href="goodsSideList.do">사이드디시</a></li>
+										<li><a href="goodslist.do">피자</a></li>
+										<li class="active"><a href="goodsSideList.do">사이드디시</a></li>
 										<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
 									</ul>
 								</div>
