@@ -15,7 +15,19 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-
+<script type="text/javascript">
+	function drinkAction(index){
+		if(index==1){
+			console.log("수정");
+			document.drinkInfoForm.action='updateDrinkEtc.admdo'; 
+		}
+		if(index==2){
+			console.log("삭제");
+			document.drinkInfoForm.action='deleteDrinkEtc.admdo';
+		}
+		document.drinkInfoForm.submit();
+	}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -182,17 +194,17 @@
 							<strong>메뉴 상세정보</strong>
 						</h6>
 						<div class="for-margin-height-div"></div>
-						<form id="pizzaInfoForm" name="pizzaInfoForm" method="post">
+						<form id="drinkInfoForm" name="drinkInfoForm" method="post" enctype="multipart/form-data">
 							<input type="hidden" name="seq" id="seq" value="${drink.seq }" />
-							<input type="button" class="btn btn-primary" value="글수정" onclick="pizzaAction(1)" style="float: right" /> 
-							<input type="button" class="btn-delete" value="글삭제" onclick="pizzaAction(2)" style="float: right" /> 
+							<input type="button" class="btn btn-primary" value="글수정" onclick="drinkAction(1)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="글삭제" onclick="drinkAction(2)" style="float: right" /> 
 							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='menuDrinkEtcList.admdo'" style="float: right"/>
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td><input type="text" name="s_name" id="s_name" value="${drink.d_name }"/></td>
+										<td><input type="text" name="d_name" id="d_name" value="${drink.d_name }"/></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
@@ -200,7 +212,7 @@
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td><input type="text" name="s_price" id="s_price" value="${drink.d_price }"/></td>
+										<td><input type="text" name="d_price" id="d_price" value="${drink.d_price }"/></td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>

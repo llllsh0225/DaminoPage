@@ -21,6 +21,12 @@ public interface MenuService {
 	public List<PizzaVO> getNutrients();
 	
 	void deletePizza(PizzaVO vo);
+	void deleteSide(SideVO vo);   
+	void deleteDrinkEtc(DrinkEtcVO vo); 
+	void deleteTopping(ToppingVO vo); 
+	
 	void updatePizza(PizzaVO vo);
 	void updateSide(SideVO vo);
+	void updateDrinkEtc(DrinkEtcVO vo);
+	void updateTopping(ToppingVO vo);
 }

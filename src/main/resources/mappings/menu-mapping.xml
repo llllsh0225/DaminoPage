@@ -92,6 +92,17 @@
 		DELETE FROM pizza WHERE seq = #{seq}
 	</delete>
 	
+	<delete id="deleteSide" parameterType="com.damino.web.admin.menu.SideVO">
+		DELETE FROM side WHERE seq = #{seq}
+	</delete>
+	
+	<delete id="deleteDrinkEtc" parameterType="com.damino.web.admin.menu.DrinkEtcVO">
+		DELETE FROM drink_etc WHERE seq = #{seq}
+	</delete>
+	
+	<delete id="deleteTopping" parameterType="com.damino.web.admin.menu.ToppingVO">
+		DELETE FROM topping WHERE seq = #{seq}
+	</delete>
 	
 	<update id="updatePizza" parameterType="com.damino.web.admin.menu.PizzaVO">
 			UPDATE pizza
@@ -101,8 +112,20 @@
 	
 	<update id="updateSide" parameterType="com.damino.web.admin.menu.SideVO">
 			UPDATE side
-			set	side.s_name=#{side.s_name }, side.s_price=#{side.s_price }, side.gross_weight=#{side.gross_weight }, side.kcal=#{side.kcal }, side.protein=#{side.protein }, side.fat=#{side.fat }, side.natrium=#{side.natrium } side.sugars=#{side.sugars }, side.s_originalFileName=#{side.s_originalFileName }
+			set	s_name=#{s_name }, s_price=#{s_price }, gross_weight=#{gross_weight }, kcal=#{kcal }, protein=#{protein }, fat=#{fat }, natrium=#{natrium }, sugars=#{sugars }, s_originalFileName=#{s_originalFileName }
 			where seq=#{seq}
 	</update>
+	
+	<update id="updateDrinkEtc" parameterType="com.damino.web.admin.menu.DrinkEtcVO">
+			UPDATE drink_etc
+			set d_name=#{d_name}, d_price=#{d_price}, d_originalFileName=#{d_originalFileName}
+			where seq=#{seq}
+	</update>	
+	
+	<update id="updateTopping" parameterType="com.damino.web.admin.menu.ToppingVO">
+			UPDATE topping
+			set t_name=#{t_name}, t_price=#{t_price}, t_originalFileName=#{t_originalFileName}
+			where seq=#{seq}
+	</update>	
 	
 </mapper>

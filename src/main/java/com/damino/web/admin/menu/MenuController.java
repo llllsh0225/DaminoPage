@@ -222,6 +222,28 @@ public class MenuController {
 		return "redirect:menuList.admdo";
 	}
 	
+	@RequestMapping(value="/deleteSide.admdo", method = RequestMethod.POST)
+	public String deleteSide(SideVO vo) {
+		System.out.println("사이드 삭제");
+		menuService.deleteSide(vo);
+		return "redirect:menuSideList.admdo";
+	}
+	
+	@RequestMapping(value="/deleteDrinkEtc.admdo", method = RequestMethod.POST)
+	public String deleteDrink(DrinkEtcVO vo) {
+		System.out.println("음료 삭제");
+		menuService.deleteDrinkEtc(vo);
+		return "redirect:menuDrinkEtcList.admdo";
+	}
+	
+	@RequestMapping(value="/deleteTopping.admdo", method = RequestMethod.POST)
+	public String deleteToping(ToppingVO vo) {
+		System.out.println("토핑 삭제");
+		menuService.deleteTopping(vo);
+		return "redirect:menuToppingList.admdo";
+	}
+
+	
 	@RequestMapping(value="/updatePizza.admdo", method=RequestMethod.POST) 
 	public ModelAndView updatePizza(ModelAndView mav, PizzaVO vo, HttpServletRequest request)throws IOException {
 		System.out.println("피자 업데이트");
@@ -272,6 +294,58 @@ public class MenuController {
 		
 		menuService.updateSide(vo);
 		mav.setViewName("redirect:/menuSideList.admdo");
+		return mav;
+	}
+	
+	@RequestMapping(value="/updateDrinkEtc.admdo", method = RequestMethod.POST)
+	public ModelAndView updateDrink(ModelAndView mav, DrinkEtcVO vo, HttpServletRequest request)throws IOException {
+		System.out.println("음료 업데이트");
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
+		
+		String d_image = ""; // 실제 저장될 파일명
+		String originalFileName = ""; // 사용자가 업로드한 original 파일명
+		MultipartFile uploadFile = vo.getUploadFile();
+		
+		if(!uploadFile.isEmpty()) {
+			originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
+			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
+			d_image = uuid + "." + ext;
+			uploadFile.transferTo(new File(path + "/" + d_image));
+		}
+		
+		vo.setD_image(d_image);
+		vo.setD_originalFileName(originalFileName);
+		
+		menuService.updateDrinkEtc(vo);
+		mav.setViewName("redirect:/menuDrinkEtcList.admdo");
+		return mav;
+	}
+	
+	@RequestMapping(value="/updateTopping.admdo", method = RequestMethod.POST)
+	public ModelAndView updateTopping(ModelAndView mav, ToppingVO vo, HttpServletRequest request)throws IOException {
+		System.out.println("음료 업데이트");
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
+		
+		String t_image = ""; // 실제 저장될 파일명
+		String originalFileName = ""; // 사용자가 업로드한 original 파일명
+		MultipartFile uploadFile = vo.getUploadFile();
+		
+		if(!uploadFile.isEmpty()) {
+			originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
+			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
+			t_image = uuid + "." + ext;
+			uploadFile.transferTo(new File(path + "/" + t_image));
+		}
+		
+		vo.setT_image(t_image);
+		vo.setT_originalFileName(originalFileName);
+		
+		menuService.updateTopping(vo);
+		mav.setViewName("redirect:/menuToppingList.admdo");
 		return mav;
 	}
 }
