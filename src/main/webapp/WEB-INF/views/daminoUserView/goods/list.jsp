@@ -6,21 +6,30 @@
 <head>
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-	
-	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
-<script type="text/javascript">
-var path = ${path};
-console.log(path);
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
 
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+
+<script type="text/javascript">
+	var path = $
+	{
+		path
+	};
+	console.log(path);
 </script>
 </head>
 <body>
@@ -37,8 +46,7 @@ console.log(path);
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -67,9 +75,7 @@ console.log(path);
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -126,131 +132,86 @@ console.log(path);
 									<span>인기순</span>
 									<div class="sch-slider"></div>
 									<div class="sch-slider-nav"></div>
-									<a href="#" class="btn-open"> <span
-										class="hidden">열기</span><i></i>
+									<a href="#" class="btn-open"> <span class="hidden">열기</span><i></i>
 									</a>
 								</div>
 							</div>
-							
+
 							<!-- //menu-list -->
 							<!-- 피자 프리미엄 -->
-									<div class="menu-list">
-										<div class="title-wrap-center">
-											<h3 class="title-type">프리미엄</h3>
-										</div>
-									</div>
-									<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
-											<ul>
-												<li>
-													<div class="prd-img">
-														<a href="제품상세페이지"> <img class="lazyload"
-															src="${path}/${goodsPremiumList.p_image}"
-															data-src="${pageContext.request.contextPath}/resources/images/admin/goods/${goodsPremiumList.p_image}" alt="${goodsPremiumList.p_name}" />
-														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
-															<span class="hidden">상세버튼</span>
-														</a>
+							<div class="menu-list">
+								<div class="title-wrap-center">
+									<h3 class="title-type">프리미엄</h3>
+								</div>
+								<div class="menu-list ect-type">
+									<ul>
+										<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
+											<li>
+												<div class="prd-img">
+													<a href="제품상세페이지"> <img class="lazyload"
+														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
+													</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
+														<span class="hidden">상세버튼</span>
+													</a>
+												</div>
+												<div class="prd-cont">
+													<div class="subject">${goodsPremiumList.p_name}</div>
+												</div>
+												<div class="prd-price">
+													<div class="price-box">
+														<span class="price"><span class="size_l">${goodsPremiumList.p_size_l}</span>${goodsPremiumList.p_price_l}~&nbsp;</span>
+														<span class="price"><span class="size_m">${goodsPremiumList.p_size_m}</span>${goodsPremiumList.p_price_m}~&nbsp;</span>
 													</div>
-													<div class="prd-cont">
-														<div class="subject">${goodsPremiumList.p_name}</div>
-													</div>
-													<div class="prd-price">
-														<div class="price-box">
-															<c:if test="${goodsPremiumList.p_size_l}">
-																<span class="price"><span class="size_l">${goodsPremiumList.p_size_l}</span>${goodsPremiumList.p_price_l}~&nbsp;</span>
-															</c:if>
-															<c:if test="${goodsPremiumList.p_size_m}">
-																<span class="price"><span class="size_m">${goodsPremiumList.p_size_m}</span>${goodsPremiumList.p_price_m}~&nbsp;</span>
-															</c:if>
-														</div>
-													</div>
-													<div class="label-box"></div>
-													<div class="hashtag">
-														<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
-													</div>
-												</li>
-											</ul>
+												</div>
+												<div class="label-box">
+													<span class="label sale">NEW</span>
+												</div>
+												<div class="hashtag">
+													<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+												</div>
+											</li>
 										</c:forEach>
-									<div class="menu-list">
-										<div class="title-wrap-center">
-											<h3 class="title-type">클래식</h3>
-										</div>
-									</div>
-									<c:forEach var="goodsClassicList" items="${goodsClassicList}">
-											<ul>
-												<li>
-													<div class="prd-img">
-														<a href="제품상세페이지"> <img class="lazyload"
-															src="${path}/${goodsClassicList.p_image}"
-															data-src="${path}/${goodsClassicList.p_image}"
-															alt="${goodsClassicList.p_name}" />
-														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
-															<span class="hidden">상세버튼</span>
-														</a>
+									</ul>
+								</div>
+							</div>
+							<div class="menu-list">
+								<div class="title-wrap-center">
+									<h3 class="title-type">클래식</h3>
+								</div>
+								<div class="menu-list ect-type">
+									<ul>
+										<c:forEach var="goodsClassicList" items="${goodsClassicList}">
+											<li>
+												<div class="prd-img">
+													<a href="제품상세페이지"> <img class="lazyload"
+														src="<c:url value= '/resources/images/admin/goods/${goodsClassicList.p_image}' />"
+														alt="${goodsClassicList.p_name}" />
+													</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
+														<span class="hidden">상세버튼</span>
+													</a>
+												</div>
+												<div class="prd-cont">
+													<div class="subject">${goodsClassicList.p_name}</div>
+												</div>
+												<div class="prd-price">
+													<div class="price-box">
+														<span class="price"><span class="size_l">${goodsClassicList.p_size_l}</span>${goodsClassicList.p_price_l}~&nbsp;</span>
+														<span class="price"><span class="size_m">${goodsClassicList.p_size_m}</span>${goodsClassicList.p_price_m}~&nbsp;</span>
 													</div>
-													<div class="prd-cont">
-														<div class="subject">${goodsClassicList.p_name}</div>
-													</div>
-													<div class="prd-price">
-														<div class="price-box">
-															<c:if test="${goodsClassicList.p_size_l}">
-																<span class="price"><span class="size_l">${goodsClassicList.p_size_l}</span>${goodsClassicList.p_price_l}~&nbsp;</span>
-															</c:if>
-															<c:if test="${goodsClassicList.p_size_m}">
-																<span class="price"><span class="size_m">${goodsClassicList.p_size_m}</span>${goodsClassicList.p_price_m}~&nbsp;</span>
-															</c:if>
-														</div>
-													</div>
-													<div class="label-box"></div>
-													<div class="hashtag">
-														<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
-													</div>
-												</li>
-											</ul>
+												</div>
+												<div class="label-box"></div>
+												<div class="hashtag">
+													<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+												</div>
+											</li>
 										</c:forEach>
-											
-										</div>
-										<!-- END 피자 -->
-										<!-- 사이드디시 시작 -->
-										<c:forEach var="goodsSideList" items="${goodsSideList}">
-											<div class="title-wrap-center">
-												<h3 class="title-type"></h3>
-											</div>
-											<div class="menu-list ect-type">
-												<ul>
-													<li>
-														<div class="prd-img">
-															<a
-																href="detail?dsp_ctgr=C0201&code_01=RSD173M1&dough_gb=">
+									</ul>
+								</div>
+							</div>
 
-																<img class="lazyload" src="${goodsSideList.s_image}"
-																data-src="https://cdn.dominos.co.kr/admin/upload/goods/20200702_e7hmHOmD.jpg"
-																alt="치캉스 팩" />
-															</a> <a
-																href="javascript:getDetailSlide('RSD173M1','C0201','');trk_call('list');"
-																class="btn-detail"> <i class="ico-sch"></i> <span
-																class="hidden">상세버튼</span>
-															</a>
-														</div>
-														<div class="prd-cont">
-															<div class="subject">${goodsSideList.s_name}</div>
-														</div>
-														<div class="prd-price">
-															<div class="price-box">
-																<span class="price">${goodsSideList.s_price}</span>
-															</div>
-														</div>
-														<div class="label-box">
-															<span class="label sale">NEW</span>
-														</div>
-														<div class="hashtag"></div>
-													</li>
-												</ul>
-											</div>
-										</c:forEach>
-										<!-- END 사이드디시 -->
+							<!-- END 피자 -->
 
-
-										<!-- 하단 클래식피자 리스트  -->
+							<!-- 하단 클래식피자 리스트  -->
 						</article>
 						<div class="bottom-guide-area">
 							<div class="box">
@@ -856,7 +817,7 @@ console.log(path);
 		</div>
 		<!-- //장바구니(e) -->
 
-<footer id="footer">
+		<footer id="footer">
 			<div class="footer-area">
 				<div class="inner-box">
 					<div class="footer-order">
@@ -866,8 +827,7 @@ console.log(path);
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -915,27 +875,39 @@ console.log(path);
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>

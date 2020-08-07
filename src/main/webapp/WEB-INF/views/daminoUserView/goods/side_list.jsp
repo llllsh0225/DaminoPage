@@ -131,29 +131,23 @@
 								</div>
 							</div>
 
-							<!-- //menu-list -->
+							<!-- 사이드디시 시작 -->
 							<div class="menu-list">
 								<div class="title-wrap-center">
 									<h3 class="title-type">메뉴</h3>
 								</div>
-							</div>
-
-							<!-- 사이드디시 시작 -->
-							<c:forEach var="goodsSideList" items="${goodsSideList}">
-								<div class="title-wrap-center">
-									<h3 class="title-type"></h3>
-								</div>
 								<div class="menu-list ect-type">
 									<ul>
+									<c:forEach var="goodsSideList" items="${goodsSideList}">
 										<li>
 											<div class="prd-img">
-												<a href="detail?dsp_ctgr=C0201&code_01=RSD173M1&dough_gb=">
-
-													<img class="lazyload" src="${goodsSideList.s_image}"
-													data-src="https://cdn.dominos.co.kr/admin/upload/goods/20200702_e7hmHOmD.jpg"
-													alt="치캉스 팩" />
+												<!-- <a href="detail?dsp_ctgr=C0201&code_01=RSD173M1&dough_gb="> -->
+												<a href="#">
+													<img class="lazyload"
+													src="<c:url value= '/resources/images/admin/goods/${goodsSideList.s_image}' />"
+													alt="${goodsSideList.s_name}" />
 												</a> <a
-													href="javascript:getDetailSlide('RSD173M1','C0201','');trk_call('list');"
+													href="#"
 													class="btn-detail"> <i class="ico-sch"></i> <span
 													class="hidden">상세버튼</span>
 												</a>
@@ -171,9 +165,10 @@
 											</div>
 											<div class="hashtag"></div>
 										</li>
+										</c:forEach>
 									</ul>
 								</div>
-							</c:forEach>
+							</div>
 							<!-- END 사이드디시 -->
 
 
