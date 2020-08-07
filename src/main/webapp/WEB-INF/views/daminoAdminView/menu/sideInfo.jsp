@@ -16,46 +16,6 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
-<script>
-window.onload = function(){
-	// 페이지 로드 시 셀렉트박스에 DB에 저장된 피자구분값 세팅
-	var p_type_db = $('#p_type_db').val();
-	$("#p_type").val(p_type_db).prop("selected", true);
-	
-	// 페이지 로드 시 체크박스에 DB에 저장된 도우 확인하여 체크
-	var splitDoughCode = $("#dough_db").val().split(","); // DB에 저장된 선택가능 도우 입력값을 ',' 구분자로 split한 배열
-	var chkbox = $('.p_dough'); // 체크박스 클래스로 가져옴 (체크박스들을 배열로 저장)
-
-	for(var i=0; i<splitDoughCode.length; i++) {
-		console.log(i);
-		for(var j=0; j<chkbox.length; j++) {
-			console.log(j);
-			if(splitDoughCode[i]==chkbox[j].value) {
-				chkbox[j].checked=true;
-			}
-		}
-	}
-}
-</script>
-
-<script type="text/javascript">
-	function pizzaAction(index){
-		if(index==1){
-			console.log("수정");
-			document.pizzaInfoForm.action='updatePizza.admdo'; 
-		}
-		if(index==2){
-			console.log("삭제");
-			document.pizzaInfoForm.action='deletePizza.admdo';
-		}
-		document.pizzaInfoForm.submit();
-	}
-</script>
-
-
-
-
-
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -223,125 +183,59 @@ window.onload = function(){
 						</h6>
 						<div class="for-margin-height-div"></div>
 						<form id="pizzaInfoForm" name="pizzaInfoForm" method="post" enctype="multipart/form-data">
-							<input type="hidden" name="seq" id="seq" value="${pizza.seq }" />
+							<input type="hidden" name="seq" id="seq" value="${side.seq }" />
 							<input type="button" class="btn btn-primary" value="글수정" onclick="pizzaAction(1)" style="float: right" /> 
 							<input type="button" class="btn-delete" value="글삭제" onclick="pizzaAction(2)" style="float: right" /> 
-							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='menuList.admdo'" style="float: right"/>
-							<input type="hidden" id="p_type_db" value="${pizza.p_type }" />
-							<input type="hidden" id="dough_db" value="${pizza.p_dough }" />
+							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='menuSideList.admdo'" style="float: right"/>
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td><input type="text" name="p_name" id="p_name" value="${pizza.p_name }"/></td>
+										<td><input type="text" name="s_name" id="s_name" value="${side.s_name }"/></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
-										<td>피자</td>
+										<td>사이드메뉴</td>
 									</tr>
 									<tr>
 										<th>구분</th>
-										<c:set var="type" value="${pizza.p_type }" />
-										<td><select name="p_type" id="p_type">
-												<option value="프리미엄">프리미엄</option>
-												<option value="클래식">클래식</option>
-										</select></td>
+										<td></td>
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="p_price_m" id="p_price_m" value="${pizza.p_price_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L
-										<input type="text" style="margin-left:5px" name="p_price_l" id="p_price_l" value="${pizza.p_price_l }"/>
-										</td>
+										<td><input type="text" name="s_price" id="s_price" value="${side.s_price }"/></td>
 									</tr>
-									<tr>
-										<th>선택 가능 도우</th>
-										<td><input type="checkbox" name="p_dough" class="p_dough" value="슈퍼 시드 함유 도우"/> 슈퍼 시드 함유 도우&nbsp; 
-											<input type="checkbox" name="p_dough" class="p_dough" value="더블 치즈 엣지" /> 더블 치즈 엣지&nbsp; 
-											<input type="checkbox" name="p_dough" class="p_dough" value="오리지널" /> 오리지널&nbsp; 
-											<input type="checkbox" name="p_dough" class="p_dough" value="나폴리" /> 나폴리&nbsp; 
-											<input type="checkbox" name="p_dough" class="p_dough" value="씬" /> 씬&nbsp;</td>
-									</tr>
+			
 									<tr>
 										<th>총 중량(g)</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="gross_weight_m" id="gross_weight_m" value="${pizza.gross_weight_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="gross_weight_l" id="gross_weight_m" value="${pizza.gross_weight_l }"/>
-										</td>
+										<td><input type="text" name="gross_weight" id="gross_weight" value="${side.gross_weight }"/></td>
 									</tr>
 									<tr>
-										<th>1회분 기준</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="onetime_basis_m" id="onetime_basis_m" value="${pizza.onetime_basis_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="onetime_basis_l" id="onetime_basis_l" value="${pizza.onetime_basis_l }"/>
-										</td>
+										<th>열량(kcal)</th>
+										<td><input type="text" name="kcal" id="kca" value="${side.kcal }"/></td>
 									</tr>
 									<tr>
-										<th>1회분 중량(g)</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="onetime_weight_m" id="onetime_weight_m" value="${pizza.onetime_weight_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="onetime_weight_l" id="onetime_weight_l" value="${pizza.onetime_weight_l }"/>
-										</td>
+										<th>단백질(g)</th>
+										<td><input type="text" name="protein" id="protein" value="${side.protein }"/></td>
 									</tr>
 									<tr>
-										<th>열량(kcal/1회분)</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="kcal_m" id="kcal_m" value="${pizza.kcal_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="kcal_l" id="kcal_l" value="${pizza.kcal_l }"/>
-										</td>
+										<th>포화지방(g)</th>
+										<td><input type="text" name="fat" id="fat" value="${side.fat }"/></td>
 									</tr>
 									<tr>
-										<th>단백질(g/1회분)</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="protein_m" id="protein_m" value="${pizza.protein_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="protein_l" id="protein_l" value="${pizza.protein_l }"/>
-										</td>
+										<th>나트륨(mg)</th>
+										<td><input type="text" name="natrium" id="natrium" value="${side.natrium }"/></td>
 									</tr>
 									<tr>
-										<th>포화지방(g/1회분)</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="fat_m" id="fat_m" value="${pizza.fat_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="fat_l" id="fat_l" value="${pizza.fat_l }"/>
-										</td>
-									</tr>
-									<tr>
-										<th>나트륨(mg/1회분)</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="natrium_m" id="natrium_m" value="${pizza.natrium_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="natrium_l" id="natrium_l" value="${pizza.natrium_l }"/>
-										</td>
-									</tr>
-									<tr>
-										<th>당류(g/1회분)</th>
-										<td>
-										M
-										<input type="text" style="margin-left:5px" name="sugars_m" id="sugars_m" value="${pizza.sugars_m }"/>
-										&nbsp;&nbsp;&nbsp;&nbsp;L 
-										<input type="text" style="margin-left:5px" name="sugars_l" id="sugars_l" value="${pizza.sugars_l }"/>
-										</td>
+										<th>당류(g)</th>
+										<td><input type="text" name="sugars" id="sugars" value="${side.sugars }"/></td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
 										<td>
 										<input type="file" name="uploadFile" />
-										<input type="text" name="p_originalFileName" value="${pizza.p_originalFileName }" disabled="disabled" />
+										<input type="text" name="s_originalFileName" value="${side.s_originalFileName }" disabled="disabled" />
 										</td>
 									</tr>
 								</table>
