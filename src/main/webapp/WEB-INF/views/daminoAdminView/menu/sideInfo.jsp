@@ -16,6 +16,24 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+	function sideAction(index){
+		if(index==1){
+			console.log("수정");
+			document.sideInfoForm.action='updateSide.admdo'; 
+		}
+		if(index==2){
+			console.log("삭제");
+			document.sideInfoForm.action='deleteSide.admdo';
+		}
+		document.sideInfoForm.submit();
+	}
+</script>
+
+
+
+
+
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -182,10 +200,10 @@
 							<strong>메뉴 상세정보</strong>
 						</h6>
 						<div class="for-margin-height-div"></div>
-						<form id="pizzaInfoForm" name="pizzaInfoForm" method="post" enctype="multipart/form-data">
+						<form id="sideInfoForm" name="sideInfoForm" method="post" enctype="multipart/form-data">
 							<input type="hidden" name="seq" id="seq" value="${side.seq }" />
-							<input type="button" class="btn btn-primary" value="글수정" onclick="pizzaAction(1)" style="float: right" /> 
-							<input type="button" class="btn-delete" value="글삭제" onclick="pizzaAction(2)" style="float: right" /> 
+							<input type="button" class="btn btn-primary" value="글수정" onclick="sideAction(1)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="글삭제" onclick="sideAction(2)" style="float: right" /> 
 							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='menuSideList.admdo'" style="float: right"/>
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
