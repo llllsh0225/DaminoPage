@@ -24,13 +24,6 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
-<script type="text/javascript">
-	var path = $
-	{
-		path
-	};
-	console.log(path);
-</script>
 </head>
 <body>
 	<div id="wrap">
@@ -143,16 +136,18 @@
 								<div class="title-wrap-center">
 									<h3 class="title-type">프리미엄</h3>
 								</div>
-								<div class="menu-list ect-type">
+								<div class="menu-list">
 									<ul>
 										<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
 											<li>
 												<div class="prd-img">
-													<a href="제품상세페이지"> <img class="lazyload"
+													<a href="detail?p_code=${goodsPremiumList.p_code}&p_name=${goodsPremiumList.p_name}">
+													<img class="lazyload"
 														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
 													</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
 														<span class="hidden">상세버튼</span>
 													</a>
+													<!-- "javascript:getDetailSlide('RPZ196SL','C0102','203');trk_call('list');"  -->
 												</div>
 												<div class="prd-cont">
 													<div class="subject">${goodsPremiumList.p_name}</div>
@@ -304,6 +299,7 @@
 										<div class="title-type">제품 상세보기</div>
 										<a href="#" class="btn-toggle-close"> <span class="hidden">열기</span>
 										</a>
+										<!-- <a href="#" onclick="함수();return false;"></a> -->
 									</div>
 									<div class="js_toggle_box detail_contents close ">
 										<div class="detail-box">
@@ -315,8 +311,13 @@
 													있습니다.</div>
 											</div>
 											<div class="img-box">
-												<img src="#" alt="블랙타이거 슈림프1" class="img-zoom"
-													data-elem="pinchzoomer" />
+												<c:forEach var="goodsPremiumList"
+													items="${goodsPremiumList}">
+													<img
+														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
+														alt="${goodsPremiumList.p_name}" class="img-zoom"
+														data-elem="pinchzoomer" />
+												</c:forEach>
 											</div>
 										</div>
 									</div>
@@ -392,28 +393,21 @@
 					<div class="zoom-wrap">
 						<div class="menu-zoom-wrap">
 							<div class="menu-big" id="zoom">
-								<img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프1" class="img-zoom-big" />
+								<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
+									<img
+										src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
+										alt="${goodsPremiumList.p_name}" class="img-zoom-big" />
+								</c:forEach>
 							</div>
 						</div>
 						<div class="menu-thumb">
 							<div class="item subimg1 active">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프1" class="img-zoom-big1" />
-								</a>
-							</div>
-							<div class="item subimg2">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프2" class="img-zoom-big2" />
-								</a>
-							</div>
-							<div class="item subimg3">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프3" class="img-zoom-big3" />
+								<a href="#"> <c:forEach var="goodsPremiumList"
+										items="${goodsPremiumList}">
+										<img
+											src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
+											alt="${goodsPremiumList.p_name}" class="img-zoom-big1" />
+									</c:forEach>
 								</a>
 							</div>
 						</div>
@@ -776,7 +770,30 @@
 			</div>
 		</div>
 		<!-- //팝업-메인 빅배너 -->
-		<!-- //알레르기 -->
+		<!--//팝업-확대 이미지 -->
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user/jquery.zoom.min.js'/>"></script>
+		<script>
+			$(function() {
+				$('.menu-thumb .item a').on('click', function(e) {
+					e.preventDefault();
+					$('.menu-thumb .item').removeClass('active');
+					$(this).closest('.item').addClass('active');
+
+					var src = $(this).find("img").attr("src");
+					$(".menu-big > img").attr("src", src);
+					$(".menu-big .zoomImg").attr("src", src);
+
+				});
+			});
+
+			$('.zoom-wrap').each(function() {
+				$('#zoom').zoom({
+					on : 'click',
+					magnify : 2
+				});
+			});
+		</script>
 
 		<!-- 팝업 -->
 		<div class="pop_layer pop_type pop_ingredient" id="nutrient_table"></div>
@@ -784,12 +801,73 @@
 
 		<div class="pop_layer pop_type topping" id="rpzLayer_pop"></div>
 		<div class="pop_layer pop_type topping" id="topping_info_pop"></div>
-		<!-- LOGGER 환경변수 설정 -->
-		<!-- // LOGGER 환경변수 설정 -->
 
-		<!-- 로딩 이미지 -->
-		<!-- // 로딩 이미지 -->
+		<!-- 팝업 메뉴 상세보기 -->
+		<script>
+			function getDetailSlide(p_code, p_name) {
+				$.ajax({
+					url : '/goods/detailSlide.do',
+					type : 'get',
+					data : {
+						"p_code" : p_code,
+						"p_name" : p_name
+					},
+					success : function(data) {
+						$("#detail_main_slide").html(data);
+						getDetail(p_code, p_name);
+						console.log("success1");
+					},
+					error : function(error) {
+						alert("다시 시도해주세요.");
+					}
+				})
+			}
+		
+			function getDetail(p_code, p_name){
 
+				$.ajax({
+					url: '/goods/detailAjax.do',
+					type: 'get',
+					data: {
+						"p_code" : p_code,
+						"p_name" : p_name,
+					},
+					
+					success: function(data) {
+						alert("2번째 단계");
+						console.log("success2");
+						UI.layerPopUp({selId:'#pop-menu-detail'});
+						$(".menu-name").text(data.resultData.detail.name);
+						$(".detail_topping").text(data.resultData.detail.topping);
+						$(".detail_origin").text(data.resultData.detail.origin);
+						$(".detail_contents").html(data.resultData.detail.w_contents);
+						$(".hide_code").val(data.resultData.detail.code_01);
+						$(".btn_order a").attr("href","detail?p_code="+p_code+"&p_name="+p_name);
+						//$(".zoom-wrap").html("<img src=https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1+" alt="+data.resultData.detail.name+" class='img-zoom' />");
+									
+						$(".img-zoom-big").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						$(".img-zoom-big1").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						$(".menu-big .zoomImg").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						
+						if(data.resultData.detail.file_nm2 != "" && data.resultData.detail.file_nm2 != null){
+							$(".subimg2").show();
+							$(".img-zoom-big2").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm2);
+						}else {
+							$(".subimg2").hide();
+						}
+						
+						if(data.resultData.detail.file_nm3 != "" && data.resultData.detail.file_nm3 != null){
+							$(".subimg3").show();
+							$(".img-zoom-big3").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm3);
+						}else {
+							$(".subimg3").hide();
+						}
+					}
+				});
+			}
+		</script>		
+		
+		
 		<!-- 로딩 이미지 -->
 		<!-- 장바구니 담기 토스트 팝업(s) -->
 		<div class="pop_toast" id="card_add" style="display: none;">

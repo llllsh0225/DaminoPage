@@ -1,12 +1,16 @@
 package com.damino.web.user.goods;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -64,4 +68,21 @@ public class GoodsListController {
 		return mav;
 	}
 	
+	@RequestMapping(value ="/goods/detailSlide.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView goodsDetail(@RequestBody Map<String, Object> params, ModelAndView mav, HttpServletRequest request) {
+		
+		//서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
+		System.out.println("[상품 상세보기 화면 진입 시도] :");
+		mav.setViewName("/goods/detail001pp");
+		return mav;
+	}
+	
+	/*
+	 * @RequestMapping("/detail001pp.do") public ModelAndView getDetail001pp() {
+	 * System.out.println("제품 -이베리코- 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); mav.setViewName("/goods/detail001pp");
+	 * return mav; }
+	 */
 }
