@@ -109,6 +109,10 @@
 									<li><strong>매장검색</strong></li>
 								</ol>
 							</div>
+							<p>위도 : ${latitude } / 경도 : ${longitude }</p>
+							<input type="hidden" id="store_name" value=${name }>
+							<input type="hidden" id="lat" value=${latitude }>
+							<input type="hidden" id="lng" value=${longitude }>
 						</div>
 						<div class="store-wrap">
 							<div class="btn-wrap">
@@ -176,7 +180,7 @@
 												</div>
 												<div class="form-item">
 													<button type="button" class="btn-search"
-														onclick="findBranch('address'); return false;">검색</button>
+														onclick="">검색</button>
 												</div>
 											</div>
 

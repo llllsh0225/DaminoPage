@@ -23,15 +23,15 @@ public class ViewTestController {
 	// ---- user main end ----
 	
 	// ---- user branch ----
-	@RequestMapping("/branch.do")
-	public ModelAndView getBranchPage() {
-		System.out.println("매장검색 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/branch");
-		
-		return mav;
-	}
+//	@RequestMapping("/branch.do")
+//	public ModelAndView getBranchPage() {
+//		System.out.println("매장검색 페이지 열기");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/branch");
+//		
+//		return mav;
+//	}
 	// ---- user branch end ----
 	
 	//-----user email 인증 -------
