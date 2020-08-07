@@ -102,7 +102,7 @@
 		INSERT ALL
 			<foreach collection="couponList" item="coupon" index="index">
 			INTO coupon(coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, ispresent, coupon_type)
-			VALUES(#{coupon.coupon_code}, #{coupon.seq}, #{coupon.coupon_name}, #{coupon.ordertype}, #{coupon.discountrate}, sysdate, LAST_DAY(sysdate), 'N', 'P', 'PROMOTION')
+			VALUES(#{coupon.coupon_code}, #{coupon.seq}, #{coupon.coupon_name}, #{coupon.ordertype}, #{coupon.discountrate}, sysdate, ADD_MONTHS(sysdate, 3), 'N', 'P', 'PROMOTION')
 			</foreach>
 		SELECT * FROM DUAL
 	</insert>

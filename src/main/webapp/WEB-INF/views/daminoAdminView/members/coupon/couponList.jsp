@@ -177,7 +177,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -201,11 +201,7 @@
 										onClick="location.href='insertCouponForm.admdo'" />
 								</div>
 								<div id="qna-select-btn">
-									<select name="couponTypeKeyword" id="couponTypeKeyword" class="form-control-osh">
-										<option value="ALL">쿠폰 카테고리</option>
-										<option value="MANIA">매니아쿠폰</option>
-										<option value="PROMOTION">프로모션쿠폰</option>
-									</select>&nbsp; <input type="submit" class="btn btn-delete" value="조회" />
+									<input type="button" class="btn btn-danger" value="만료쿠폰 일괄삭제" onClick="#"/>
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
@@ -213,12 +209,13 @@
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th style="width:10%;">회원 ID</th>
-											<th style="width:20%;">쿠폰코드</th>
-											<th style="width:25%;">쿠폰명</th>
-											<th style="width:20%;">분류</th>
+											<th style="width:11%;">회원 ID</th>
+											<th style="width:15%;">쿠폰코드</th>
+											<th style="width:22%;">쿠폰명</th>
+											<th style="width:13%;">분류</th>
 											<th>쿠폰등록일</th>
 											<th>유효일자</th>
+											<th style="width:12%">사용가능여부</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -230,6 +227,7 @@
 											<td class="center-group">${coupon.coupon_type }</td>
 											<td class="center-group"><fmt:formatDate value="${coupon.regdate }" pattern="yyyy-MM-dd" /></td>
 											<td class="center-group"><fmt:formatDate value="${coupon.validity }" pattern="yyyy-MM-dd" /></td>
+											<td class="center-group">${coupon.chkusable }</td>
 										</tr>
 										</c:forEach>
 									</tbody>
