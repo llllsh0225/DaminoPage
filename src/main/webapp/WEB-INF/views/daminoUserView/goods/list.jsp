@@ -6,22 +6,24 @@
 <head>
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-	
-	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
-<script type="text/javascript">
-var path = ${path};
-console.log(path);
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
 
-</script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+
 </head>
 <body>
 	<div id="wrap">
@@ -37,8 +39,7 @@ console.log(path);
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -67,9 +68,7 @@ console.log(path);
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -126,131 +125,88 @@ console.log(path);
 									<span>인기순</span>
 									<div class="sch-slider"></div>
 									<div class="sch-slider-nav"></div>
-									<a href="#" class="btn-open"> <span
-										class="hidden">열기</span><i></i>
+									<a href="#" class="btn-open"> <span class="hidden">열기</span><i></i>
 									</a>
 								</div>
 							</div>
-							
+
 							<!-- //menu-list -->
 							<!-- 피자 프리미엄 -->
-									<div class="menu-list">
-										<div class="title-wrap-center">
-											<h3 class="title-type">프리미엄</h3>
-										</div>
-									</div>
-									<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
-											<ul>
-												<li>
-													<div class="prd-img">
-														<a href="제품상세페이지"> <img class="lazyload"
-															src="${path}/${goodsPremiumList.p_image}"
-															data-src="${pageContext.request.contextPath}/resources/images/admin/goods/${goodsPremiumList.p_image}" alt="${goodsPremiumList.p_name}" />
-														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
-															<span class="hidden">상세버튼</span>
-														</a>
+							<div class="menu-list">
+								<div class="title-wrap-center">
+									<h3 class="title-type">프리미엄</h3>
+								</div>
+								<div class="menu-list">
+									<ul>
+										<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
+											<li>
+												<div class="prd-img">
+													<a href="detail?p_code=${goodsPremiumList.p_code}&p_name=${goodsPremiumList.p_name}">
+													<img class="lazyload"
+														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
+													</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
+														<span class="hidden">상세버튼</span>
+													</a>
+													<!-- "javascript:getDetailSlide('RPZ196SL','C0102','203');trk_call('list');"  -->
+												</div>
+												<div class="prd-cont">
+													<div class="subject">${goodsPremiumList.p_name}</div>
+												</div>
+												<div class="prd-price">
+													<div class="price-box">
+														<span class="price"><span class="size_l">${goodsPremiumList.p_size_l}</span>${goodsPremiumList.p_price_l}~&nbsp;</span>
+														<span class="price"><span class="size_m">${goodsPremiumList.p_size_m}</span>${goodsPremiumList.p_price_m}~&nbsp;</span>
 													</div>
-													<div class="prd-cont">
-														<div class="subject">${goodsPremiumList.p_name}</div>
-													</div>
-													<div class="prd-price">
-														<div class="price-box">
-															<c:if test="${goodsPremiumList.p_size_l}">
-																<span class="price"><span class="size_l">${goodsPremiumList.p_size_l}</span>${goodsPremiumList.p_price_l}~&nbsp;</span>
-															</c:if>
-															<c:if test="${goodsPremiumList.p_size_m}">
-																<span class="price"><span class="size_m">${goodsPremiumList.p_size_m}</span>${goodsPremiumList.p_price_m}~&nbsp;</span>
-															</c:if>
-														</div>
-													</div>
-													<div class="label-box"></div>
-													<div class="hashtag">
-														<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
-													</div>
-												</li>
-											</ul>
+												</div>
+												<div class="label-box">
+													<span class="label sale">NEW</span>
+												</div>
+												<div class="hashtag">
+													<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+												</div>
+											</li>
 										</c:forEach>
-									<div class="menu-list">
-										<div class="title-wrap-center">
-											<h3 class="title-type">클래식</h3>
-										</div>
-									</div>
-									<c:forEach var="goodsClassicList" items="${goodsClassicList}">
-											<ul>
-												<li>
-													<div class="prd-img">
-														<a href="제품상세페이지"> <img class="lazyload"
-															src="${path}/${goodsClassicList.p_image}"
-															data-src="${path}/${goodsClassicList.p_image}"
-															alt="${goodsClassicList.p_name}" />
-														</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
-															<span class="hidden">상세버튼</span>
-														</a>
+									</ul>
+								</div>
+							</div>
+							<div class="menu-list">
+								<div class="title-wrap-center">
+									<h3 class="title-type">클래식</h3>
+								</div>
+								<div class="menu-list ect-type">
+									<ul>
+										<c:forEach var="goodsClassicList" items="${goodsClassicList}">
+											<li>
+												<div class="prd-img">
+													<a href="제품상세페이지"> <img class="lazyload"
+														src="<c:url value= '/resources/images/admin/goods/${goodsClassicList.p_image}' />"
+														alt="${goodsClassicList.p_name}" />
+													</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
+														<span class="hidden">상세버튼</span>
+													</a>
+												</div>
+												<div class="prd-cont">
+													<div class="subject">${goodsClassicList.p_name}</div>
+												</div>
+												<div class="prd-price">
+													<div class="price-box">
+														<span class="price"><span class="size_l">${goodsClassicList.p_size_l}</span>${goodsClassicList.p_price_l}~&nbsp;</span>
+														<span class="price"><span class="size_m">${goodsClassicList.p_size_m}</span>${goodsClassicList.p_price_m}~&nbsp;</span>
 													</div>
-													<div class="prd-cont">
-														<div class="subject">${goodsClassicList.p_name}</div>
-													</div>
-													<div class="prd-price">
-														<div class="price-box">
-															<c:if test="${goodsClassicList.p_size_l}">
-																<span class="price"><span class="size_l">${goodsClassicList.p_size_l}</span>${goodsClassicList.p_price_l}~&nbsp;</span>
-															</c:if>
-															<c:if test="${goodsClassicList.p_size_m}">
-																<span class="price"><span class="size_m">${goodsClassicList.p_size_m}</span>${goodsClassicList.p_price_m}~&nbsp;</span>
-															</c:if>
-														</div>
-													</div>
-													<div class="label-box"></div>
-													<div class="hashtag">
-														<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
-													</div>
-												</li>
-											</ul>
+												</div>
+												<div class="label-box"></div>
+												<div class="hashtag">
+													<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+												</div>
+											</li>
 										</c:forEach>
-											
-										</div>
-										<!-- END 피자 -->
-										<!-- 사이드디시 시작 -->
-										<c:forEach var="goodsSideList" items="${goodsSideList}">
-											<div class="title-wrap-center">
-												<h3 class="title-type"></h3>
-											</div>
-											<div class="menu-list ect-type">
-												<ul>
-													<li>
-														<div class="prd-img">
-															<a
-																href="detail?dsp_ctgr=C0201&code_01=RSD173M1&dough_gb=">
+									</ul>
+								</div>
+							</div>
 
-																<img class="lazyload" src="${goodsSideList.s_image}"
-																data-src="https://cdn.dominos.co.kr/admin/upload/goods/20200702_e7hmHOmD.jpg"
-																alt="치캉스 팩" />
-															</a> <a
-																href="javascript:getDetailSlide('RSD173M1','C0201','');trk_call('list');"
-																class="btn-detail"> <i class="ico-sch"></i> <span
-																class="hidden">상세버튼</span>
-															</a>
-														</div>
-														<div class="prd-cont">
-															<div class="subject">${goodsSideList.s_name}</div>
-														</div>
-														<div class="prd-price">
-															<div class="price-box">
-																<span class="price">${goodsSideList.s_price}</span>
-															</div>
-														</div>
-														<div class="label-box">
-															<span class="label sale">NEW</span>
-														</div>
-														<div class="hashtag"></div>
-													</li>
-												</ul>
-											</div>
-										</c:forEach>
-										<!-- END 사이드디시 -->
+							<!-- END 피자 -->
 
-
-										<!-- 하단 클래식피자 리스트  -->
+							<!-- 하단 클래식피자 리스트  -->
 						</article>
 						<div class="bottom-guide-area">
 							<div class="box">
@@ -343,6 +299,7 @@ console.log(path);
 										<div class="title-type">제품 상세보기</div>
 										<a href="#" class="btn-toggle-close"> <span class="hidden">열기</span>
 										</a>
+										<!-- <a href="#" onclick="함수();return false;"></a> -->
 									</div>
 									<div class="js_toggle_box detail_contents close ">
 										<div class="detail-box">
@@ -354,8 +311,13 @@ console.log(path);
 													있습니다.</div>
 											</div>
 											<div class="img-box">
-												<img src="#" alt="블랙타이거 슈림프1" class="img-zoom"
-													data-elem="pinchzoomer" />
+												<c:forEach var="goodsPremiumList"
+													items="${goodsPremiumList}">
+													<img
+														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
+														alt="${goodsPremiumList.p_name}" class="img-zoom"
+														data-elem="pinchzoomer" />
+												</c:forEach>
 											</div>
 										</div>
 									</div>
@@ -431,28 +393,21 @@ console.log(path);
 					<div class="zoom-wrap">
 						<div class="menu-zoom-wrap">
 							<div class="menu-big" id="zoom">
-								<img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프1" class="img-zoom-big" />
+								<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
+									<img
+										src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
+										alt="${goodsPremiumList.p_name}" class="img-zoom-big" />
+								</c:forEach>
 							</div>
 						</div>
 						<div class="menu-thumb">
 							<div class="item subimg1 active">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프1" class="img-zoom-big1" />
-								</a>
-							</div>
-							<div class="item subimg2">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프2" class="img-zoom-big2" />
-								</a>
-							</div>
-							<div class="item subimg3">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프3" class="img-zoom-big3" />
+								<a href="#"> <c:forEach var="goodsPremiumList"
+										items="${goodsPremiumList}">
+										<img
+											src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
+											alt="${goodsPremiumList.p_name}" class="img-zoom-big1" />
+									</c:forEach>
 								</a>
 							</div>
 						</div>
@@ -815,7 +770,30 @@ console.log(path);
 			</div>
 		</div>
 		<!-- //팝업-메인 빅배너 -->
-		<!-- //알레르기 -->
+		<!--//팝업-확대 이미지 -->
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user/jquery.zoom.min.js'/>"></script>
+		<script>
+			$(function() {
+				$('.menu-thumb .item a').on('click', function(e) {
+					e.preventDefault();
+					$('.menu-thumb .item').removeClass('active');
+					$(this).closest('.item').addClass('active');
+
+					var src = $(this).find("img").attr("src");
+					$(".menu-big > img").attr("src", src);
+					$(".menu-big .zoomImg").attr("src", src);
+
+				});
+			});
+
+			$('.zoom-wrap').each(function() {
+				$('#zoom').zoom({
+					on : 'click',
+					magnify : 2
+				});
+			});
+		</script>
 
 		<!-- 팝업 -->
 		<div class="pop_layer pop_type pop_ingredient" id="nutrient_table"></div>
@@ -823,12 +801,73 @@ console.log(path);
 
 		<div class="pop_layer pop_type topping" id="rpzLayer_pop"></div>
 		<div class="pop_layer pop_type topping" id="topping_info_pop"></div>
-		<!-- LOGGER 환경변수 설정 -->
-		<!-- // LOGGER 환경변수 설정 -->
 
-		<!-- 로딩 이미지 -->
-		<!-- // 로딩 이미지 -->
+		<!-- 팝업 메뉴 상세보기 -->
+		<script>
+			function getDetailSlide(p_code, p_name) {
+				$.ajax({
+					url : '/goods/detailSlide.do',
+					type : 'get',
+					data : {
+						"p_code" : p_code,
+						"p_name" : p_name
+					},
+					success : function(data) {
+						$("#detail_main_slide").html(data);
+						getDetail(p_code, p_name);
+						console.log("success1");
+					},
+					error : function(error) {
+						alert("다시 시도해주세요.");
+					}
+				})
+			}
+		
+			function getDetail(p_code, p_name){
 
+				$.ajax({
+					url: '/goods/detailAjax.do',
+					type: 'get',
+					data: {
+						"p_code" : p_code,
+						"p_name" : p_name,
+					},
+					
+					success: function(data) {
+						alert("2번째 단계");
+						console.log("success2");
+						UI.layerPopUp({selId:'#pop-menu-detail'});
+						$(".menu-name").text(data.resultData.detail.name);
+						$(".detail_topping").text(data.resultData.detail.topping);
+						$(".detail_origin").text(data.resultData.detail.origin);
+						$(".detail_contents").html(data.resultData.detail.w_contents);
+						$(".hide_code").val(data.resultData.detail.code_01);
+						$(".btn_order a").attr("href","detail?p_code="+p_code+"&p_name="+p_name);
+						//$(".zoom-wrap").html("<img src=https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1+" alt="+data.resultData.detail.name+" class='img-zoom' />");
+									
+						$(".img-zoom-big").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						$(".img-zoom-big1").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						$(".menu-big .zoomImg").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						
+						if(data.resultData.detail.file_nm2 != "" && data.resultData.detail.file_nm2 != null){
+							$(".subimg2").show();
+							$(".img-zoom-big2").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm2);
+						}else {
+							$(".subimg2").hide();
+						}
+						
+						if(data.resultData.detail.file_nm3 != "" && data.resultData.detail.file_nm3 != null){
+							$(".subimg3").show();
+							$(".img-zoom-big3").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm3);
+						}else {
+							$(".subimg3").hide();
+						}
+					}
+				});
+			}
+		</script>		
+		
+		
 		<!-- 로딩 이미지 -->
 		<!-- 장바구니 담기 토스트 팝업(s) -->
 		<div class="pop_toast" id="card_add" style="display: none;">
@@ -856,7 +895,7 @@ console.log(path);
 		</div>
 		<!-- //장바구니(e) -->
 
-<footer id="footer">
+		<footer id="footer">
 			<div class="footer-area">
 				<div class="inner-box">
 					<div class="footer-order">
@@ -866,8 +905,7 @@ console.log(path);
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -915,27 +953,39 @@ console.log(path);
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>

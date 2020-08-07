@@ -355,14 +355,7 @@ public class ViewTestController {
 	 * mav; }
 	 */
 	
-	@RequestMapping("/detail001pp.do")
-	public ModelAndView getDetail001pp() {
-		System.out.println("제품 -이베리코- 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/goods/detail001pp");
-		return mav;
-	}
+	
 	// --- end goods 폴더 ---
 	
 	// --- login 폴더 ---

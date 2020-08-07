@@ -16,13 +16,6 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-<script type="text/javascript">
-/* 	var countPizzaBoard=${countPizzaBoard}; //총 게시글
-	var countPerPage=5; //한페이지에 보여줄 게시글 수
-	var totalPage=countPizzaBoard/countPerPage; //총 페이지 수
-	var pageCount=5; // << 1 2 3 4 5 >>  */
-
-</script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -206,8 +199,6 @@
 											<th>카테고리</th>
 											<th>구분</th>
 											<th>가격</th>
-											<th>수정</th>
-											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -220,10 +211,6 @@
 											<td class="center-group">${pizza.p_code }</td>
 											<td class="center-group">${pizza.p_type }</td>
 											<td style="margin-left:5px">M&nbsp;&nbsp;${pizza.p_price_m }&nbsp;&nbsp;/&nbsp;&nbsp;L&nbsp;&nbsp;${pizza.p_price_l }</td>
-											<td class="center-group"><a class="btn btn-primary" href="pizzaInfo.admdo?seq=${pizza.seq }"
-											role="button">수정</a></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
 										</tr>
 										</c:forEach>
 									</tbody>

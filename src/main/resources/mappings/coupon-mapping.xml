@@ -30,7 +30,7 @@
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
 				VALUES('MVD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MVW'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '포장주문 35% 할인쿠폰', '포장', 35, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MVW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '포장주문 35% 할인쿠폰', '포장', 35, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 			</when>
 			<when test="userlevel=='ROYAL'">
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
@@ -38,7 +38,7 @@
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
 				VALUES('MLD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MLW'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '포장주문 40% 할인쿠폰', '포장', 40, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MLW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '포장주문 40% 할인쿠폰', '포장', 40, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 			</when>
 		</choose>
 		SELECT * FROM DUAL
@@ -71,11 +71,40 @@
 		</choose>
 	</update>
 	
-	<select id="chkRegistEcoupon" parameterType="String" resultType="Integer">
-		SELECT COUNT(*) FROM coupon 
-		WHERE userid = #{userid} 
-		AND chkusable = 'N' 
-		AND isPresent = 'Y'
+	<select id="chkRegistEcoupon" parameterType="hashMap" resultType="Integer">
+		SELECT COUNT(*) FROM coupon
+		<choose>
+			<when test='chkCouponType=="M"'>
+				WHERE userid = #{userid} 
+				AND chkusable = 'N' 
+				AND isPresent = 'Y'
+			</when>
+			<when test='chkCouponType=="P"'>
+				WHERE coupon_code = #{couponCode}
+				AND chkusable = 'N'
+			</when>
+		</choose> 
 	</select>
+	
+	<select id="getUsersCouponList" resultType="com.damino.web.user.coupon.CouponVO">
+		SELECT * FROM coupon
+	</select>
+	
+	<select id="getNextCouponCode" resultType="String">
+		SELECT 'PRM'||LPAD(prom_coupon_seq.nextval, 8, '0') FROM DUAL
+	</select>
+	
+	<select id="getNextCouponSeq" resultType="Integer">
+		SELECT (select nvl(max(seq), 0)+1 from coupon) FROM DUAL
+	</select>
+	
+	<insert id="insertPromotionCoupon" parameterType="hashMap">
+		INSERT ALL
+			<foreach collection="couponList" item="coupon" index="index">
+			INTO coupon(coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, ispresent, coupon_type)
+			VALUES(#{coupon.coupon_code}, #{coupon.seq}, #{coupon.coupon_name}, #{coupon.ordertype}, #{coupon.discountrate}, sysdate, LAST_DAY(sysdate), 'N', 'P', 'PROMOTION')
+			</foreach>
+		SELECT * FROM DUAL
+	</insert>
 	
 </mapper>

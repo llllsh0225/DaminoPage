@@ -33,4 +33,9 @@
 		ORDER BY seq desc
 	</select>
 	
+	<!-- 사용자 선택 피자 메뉴 불러오기 -->
+	<select id="getUserPizzaGoods" resultType="com.damino.web.user.goods.GoodsPizzaVO">
+		SELECT * FROM pizza WHERE p_code = #{p_code} AND p_name = #{p_name}
+	</select>
+	
 </mapper>

@@ -15,7 +15,19 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-
+<script type="text/javascript">
+	function toppingAction(index){
+		if(index==1){
+			console.log("수정");
+			document.toppingInfoForm.action='updateTopping.admdo'; 
+		}
+		if(index==2){
+			console.log("삭제");
+			document.toppingInfoForm.action='deleteTopping.admdo';
+		}
+		document.toppingInfoForm.submit();
+	}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -105,7 +117,7 @@
 							aria-controls="boardPage"> 게시판관리
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
-							</div> 
+							</div>
 						</a>
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
@@ -176,79 +188,37 @@
 				<div class="card mb-4">
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <strong>메뉴 관리</strong>
-						<!--새로고침 버튼-->
-						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
 						<h6>
 							<strong>메뉴 상세정보</strong>
 						</h6>
-						<div align="right">
-							<input type="button" class="btn btn-delete" value="목록" />
-						</div>
 						<div class="for-margin-height-div"></div>
-						<form>
+						<form id="toppingInfoForm" name="toppingInfoForm" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="seq" id="seq" value="${topping.seq }" />
+							<input type="button" class="btn btn-primary" value="글수정" onclick="toppingAction(1)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="글삭제" onclick="toppingAction(2)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='menuToppingList.admdo'" style="float: right"/>
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제품명</th>
-										<td>${pizza.p_name}</td>
+										<td><input type="text" name="t_name" id="t_name" value="${topping.t_name }"/></td>
 									</tr>
 									<tr>
 										<th>카테고리</th>
-										<td>${pizza.p_code }</td>
-									</tr>
-									<tr>
-										<th>구분</th>
-										<td>${pizza.p_type }</td>
+										<td>토핑</td>
 									</tr>
 									<tr>
 										<th>가격</th>
-										<td>${pizza.p_price }</td>
-									</tr>
-									<tr>
-										<th>선택 가능 도우</th>
-										<td>${pizza.p_dough }</td>
-									</tr>
-									<tr>
-										<th>총 중량(g)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>1회분 기준</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>1회분 중량(g)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>열량(kcal/1회분)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>단백질(g/1회분)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>포화지방(g/1회분)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>나트륨(mg/1회분)</th>
-										<td></td>
-									</tr>
-									<tr>
-										<th>당류(g/1회분)</th>
-										<td></td>
+										<td><input type="text" name="t_price" id="t_price" value="${topping.t_price }"/></td>
 									</tr>
 									<tr>
 										<th>제품 이미지</th>
 										<td>
-											<!-- 제품 이미지파일명 들어오기. 썸네일도 보여지면 좋을듯 -->
+										<input type="file" name="uploadFile" />
+										<input type="text" name="t_originalFileName" value="${topping.t_originalFileName }" disabled="disabled" />
 										</td>
 									</tr>
 								</table>
@@ -271,7 +241,6 @@
 			</footer>
 		</div>
 	</div>
-
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		crossorigin="anonymous"></script>
 	<script

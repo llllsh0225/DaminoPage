@@ -206,8 +206,6 @@
 											<th>카테고리</th>
 											<th>구분</th>
 											<th>가격</th>
-											<th>수정</th>
-											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -215,14 +213,10 @@
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">${side.seq }</td>
-											<td><a href="#">${side.s_name }</a></td>
+											<td><a href="getSideInfo.admdo?seq=${side.seq }">${side.s_name }</a></td>
 											<td class="center-group">${side.s_code }</td>
 											<td class="center-group">-</td>
 											<td class="center-group">${side.s_price }</td>
-											<td class="center-group"><a class="btn btn-primary" href="pizzaInfo.admdo?seq=${pizza.seq }"
-											role="button">수정</a></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
 										</tr>
 										</c:forEach>
 									</tbody>

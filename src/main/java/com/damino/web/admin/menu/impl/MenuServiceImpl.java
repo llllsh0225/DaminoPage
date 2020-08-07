@@ -75,7 +75,60 @@ public class MenuServiceImpl implements MenuService {
 		return menuDAO.getNutrients();
 	}
 
-	
+	@Override
+	public SideVO getSide(SideVO vo) {
+		return menuDAO.getSide(vo);
+	}
 
+	@Override
+	public DrinkEtcVO getDrinkEtc(DrinkEtcVO vo) {
+		return menuDAO.getDrinkEtc(vo);
+	}
+
+	@Override
+	public ToppingVO getTopping(ToppingVO vo) {
+		return menuDAO.getTopping(vo);
+	}
+
+	@Override
+	public void deletePizza(PizzaVO vo) {
+		menuDAO.deletePizza(vo);
+	}
+
+	@Override
+	public void updatePizza(PizzaVO vo) {
+		menuDAO.updatePizza(vo);
+	}
+
+	@Override
+	public void updateSide(SideVO vo) {
+		menuDAO.updateSide(vo);
+	}
+
+	@Override
+	public void updateDrinkEtc(DrinkEtcVO vo) {
+		menuDAO.updateDrinkEtc(vo);
+	}
+
+	@Override
+	public void updateTopping(ToppingVO vo) {
+		menuDAO.updateTopping(vo);
+	}
+
+	@Override
+	public void deleteSide(SideVO vo) {
+		menuDAO.deleteSide(vo);
+	}
+
+	@Override
+	public void deleteDrinkEtc(DrinkEtcVO vo) {
+		menuDAO.deleteDrinkEtc(vo);
+	}
+
+	@Override
+	public void deleteTopping(ToppingVO vo) {
+		menuDAO.deleteTopping(vo);
+	}
+	
 	
 }

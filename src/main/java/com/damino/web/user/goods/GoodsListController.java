@@ -1,24 +1,17 @@
 package com.damino.web.user.goods;
 
-import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.damino.web.admin.menu.PizzaVO;
 
 @Controller
 public class GoodsListController {
@@ -26,23 +19,14 @@ public class GoodsListController {
 	private GoodsListService goodsListService;
 	
 	@RequestMapping("/goodslist.do") 
-	public ModelAndView getPizzaList(ModelAndView mav, HttpServletRequest request) {
+	public ModelAndView getPizzaList(ModelAndView mav) {
 		System.out.println("제품 목록 열기");
-		
-		String p_image = "";
-		
-		//MultipartFile uploadFile = vo.getUploadFile();
-		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장된 절대 경로
-		System.out.println("절대경로 : " +path+ "/ + 이미지");
-		
-		//파일이름 읽어오기
 		
 		List<GoodsPizzaVO> goodsPremiumList = goodsListService.getPizzaList();
 		List<GoodsPizzaVO> goodsClassicList = goodsListService.getPizzaClassicList();
 		
 		mav.addObject("goodsPremiumList", goodsPremiumList);
 		mav.addObject("goodsClassicList", goodsClassicList);
-		mav.addObject("path", path);
 		
 		System.out.println("프리미엄 피자 리스트 : " + goodsPremiumList);
 		mav.setViewName("/goods/list");
@@ -84,4 +68,21 @@ public class GoodsListController {
 		return mav;
 	}
 	
+	@RequestMapping(value ="/goods/detailSlide.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView goodsDetail(@RequestBody Map<String, Object> params, ModelAndView mav, HttpServletRequest request) {
+		
+		//서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
+		System.out.println("[상품 상세보기 화면 진입 시도] :");
+		mav.setViewName("/goods/detail001pp");
+		return mav;
+	}
+	
+	/*
+	 * @RequestMapping("/detail001pp.do") public ModelAndView getDetail001pp() {
+	 * System.out.println("제품 -이베리코- 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); mav.setViewName("/goods/detail001pp");
+	 * return mav; }
+	 */
 }
