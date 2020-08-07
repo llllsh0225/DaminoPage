@@ -21,6 +21,6 @@
 		<mapper resource="mappings/coupon-mapping.xml"/>
 		<mapper resource="mappings/terms-mapping.xml"/>
 		<mapper resource="mappings/goods-mapping.xml"/>
-		
+		<mapper resource="mappings/map-mapping.xml"/>
 	</mappers>
 </configuration>
