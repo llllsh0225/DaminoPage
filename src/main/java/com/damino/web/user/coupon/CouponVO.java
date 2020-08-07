@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class CouponVO {
 	private String coupon_code; // 쿠폰코드
+	private int seq; // 쿠폰 시퀀스 넘버
 	private String coupon_name; // 쿠폰명
 	private String ordertype; // 할인 적용 타입 (배달/포장)
 	private int discountrate; // 할인율
@@ -11,6 +12,8 @@ public class CouponVO {
 	private Date validity; // 쿠폰 유효기간
 	private String chkusable; // 사용 가능여부 (Y/N)
 	private String userid; // 사용자 아이디
+	private String coupon_type; // 쿠폰 분류 (MANIA/PROMOTION)
+	
 	public String getCoupon_code() {
 		return coupon_code;
 	}
@@ -58,6 +61,18 @@ public class CouponVO {
 	}
 	public void setUserid(String userid) {
 		this.userid = userid;
+	}
+	public String getCoupon_type() {
+		return coupon_type;
+	}
+	public void setCoupon_type(String coupon_type) {
+		this.coupon_type = coupon_type;
+	}
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 	
 }

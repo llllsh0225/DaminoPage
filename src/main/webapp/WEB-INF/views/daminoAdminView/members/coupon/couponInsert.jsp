@@ -176,39 +176,39 @@
 				<!-- 메뉴관리 -> 메뉴 등록 페이지 -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <strong>Q&A 등록</strong>
-						<!--새로고침 버튼-->
-						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;">
+						<i class="fas fa-table mr-1"></i> <strong>프로모션쿠폰 등록</strong>
 					</div>
 					<div class="card-body">
-						<form action="insertFaq.admdo" method="post">
+						<form action="insertPromotionCoupon.admdo" method="post">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
-										<th>제목</th>
-										<td><input type="text" name="title" size="40" /></td>
+										<th>쿠폰명</th>
+										<td><input type="text" name="coupon_name" size="40" /></td>
 									</tr>
 									<tr>
-										<th>질문 분류</th>
-										<td><select name="faq_type" class="form-control-osh-qna-insert">
-												<option>피자 주문하기</option>
-												<option>주문확인</option>
-												<option>포장 주문</option>
-												<option>피자 선물하기</option>
-												<option>홈페이지 관련</option>
-										</select></td>
+										<th>할인적용</th>
+										<td>
+											<select name="ordertype" id="ordertype">
+												<option value="배달">배달</option>
+												<option value="포장">포장</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
-										<th>내용</th>
-										<td><textarea name="content" cols="80" rows="10"></textarea></td>
+										<th>할인율</th>
+										<td><input type="text" name="discountrate" size="5" />&nbsp;%</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="center-group"><input type="submit"
-											class="btn btn-primary" value="Q&A 등록" /> <input
-											type="button" class="btn btn-delete" value="취소" /></td>
+										<th>신규등록 수량</th>
+										<td><input type="text" name="newCouponCnt" size="5" />&nbsp;매</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="center-group">
+											<input type="submit" class="btn btn-primary" value="프로모션쿠폰 등록" /> 
+											<input type="button" class="btn btn-delete" value="취소" />
+										</td>
 									</tr>
 								</table>
 							</div>

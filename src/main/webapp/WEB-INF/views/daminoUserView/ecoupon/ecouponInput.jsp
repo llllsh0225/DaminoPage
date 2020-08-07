@@ -167,7 +167,7 @@ function registEcoupon(){
 							<div class="search-form">
 								<input type="text" name="couponCode" placeholder="쿠폰번호를 입력하세요."
 									id="couponCode" maxlength="16" onClick="checkLogin();">
-								<input type="button" onClick="registEcoupon();" value="검색" />
+								<Button class="btn-search" onClick="registEcoupon();">검색</Button>
 							</div>
 
 							<div class="e-coupon-result" id="product" style="display: none">
