@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.damino.web.admin.board.BoardVO;
 
 @Controller
 public class MenuController {
@@ -176,6 +179,72 @@ public class MenuController {
 		mav.addObject("pizza", pizza);
 		mav.setViewName("/menu/pizzaInfo");
 		
+		return mav;
+	}
+	
+	@RequestMapping("/getSideInfo.admdo")
+	public ModelAndView getAdminSideInfoPage(SideVO vo, ModelAndView mav) {
+		System.out.println("메뉴-사이드 정보 페이지 열기");
+		
+		SideVO side = menuService.getSide(vo);
+		mav.addObject("side", side);
+		mav.setViewName("/menu/sideInfo");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/getDrinkEtc.admdo")
+	public ModelAndView getAdminDrinkEtcInfoPage(DrinkEtcVO vo, ModelAndView mav) {
+		System.out.println("메뉴-사이드 정보 페이지 열기");
+		
+		DrinkEtcVO drink = menuService.getDrinkEtc(vo);
+		mav.addObject("drink", drink);
+		mav.setViewName("/menu/drinkInfo");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/getTopping.admdo")
+	public ModelAndView getAdminToppingInfoPage(ToppingVO vo, ModelAndView mav) {
+		System.out.println("토핑 정보 페이지 열기");
+		
+		ToppingVO topping = menuService.getTopping(vo);
+		mav.addObject("topping", topping);
+		mav.setViewName("/menu/toppingInfo");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/deletePizza.admdo", method = RequestMethod.POST)
+	public String deletePizza(PizzaVO vo) {
+		System.out.println("피자 삭제");
+		menuService.deletePizza(vo);
+		return "redirect:menuList.admdo";
+	}
+	
+	@RequestMapping(value="/updatePizza.admdo", method=RequestMethod.POST) 
+	public ModelAndView updatePizza(ModelAndView mav, PizzaVO vo, HttpServletRequest request)throws IOException {
+		System.out.println("피자 업데이트");
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
+		
+		String p_image = ""; // 실제 저장될 파일명
+		String originalFileName = ""; // 사용자가 업로드한 original 파일명
+		MultipartFile uploadFile = vo.getUploadFile();
+		
+		if(!uploadFile.isEmpty()) {
+			originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
+			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
+			p_image = uuid + "." + ext;
+			uploadFile.transferTo(new File(path + "/" + p_image));
+		}
+		
+		vo.setP_image(p_image);
+		vo.setP_originalFileName(originalFileName);
+		
+		menuService.updatePizza(vo);
+		mav.setViewName("redirect:/menuList.admdo");
 		return mav;
 	}
 }

@@ -203,8 +203,6 @@
 											<th>카테고리</th>
 											<th>구분</th>
 											<th>가격</th>
-											<th>수정</th>
-											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -212,14 +210,10 @@
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">${topping.seq }</td>
-											<td><a href="#">${topping.t_name }</a></td>
+											<td><a href="getTopping.admdo?seq=${topping.seq }">${topping.t_name }</a></td>
 											<td class="center-group">${topping.t_code }</td>
 											<td class="center-group">${topping.t_type }</td>
 											<td class="center-group">${topping.t_price }</td>
-											<td class="center-group"><input type="button"
-												class="btn btn-delete" value="수정" /></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
 										</tr>
 										</c:forEach>
 									</tbody>
