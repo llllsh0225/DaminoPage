@@ -88,26 +88,12 @@ public class GoodsListController {
 		String name = vo.getP_name();
 		System.out.println("code" + code);
 		System.out.println("name" + name);
-		/*
-		 * String p_code = (String)params.get("p_code"); String p_name =
-		 * (String)params.get("p_name");
-		 */
-		//System.out.println("p_code" + p_code);
-		//String a = vo.setP_code();
 		
 		GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
-		System.out.println("다왔다");
 		mav.addObject("goodsDetail", goodsDetail);
-		mav.setViewName("/goods/detail001pp");
+		mav.setViewName("/goods/detail_goods");
 
 		return mav;
 	}
 	
-	/*
-	 * @RequestMapping("/detail001pp.do") public ModelAndView getDetail001pp() {
-	 * System.out.println("제품 -이베리코- 열기");
-	 * 
-	 * ModelAndView mav = new ModelAndView(); mav.setViewName("/goods/detail001pp");
-	 * return mav; }
-	 */
 }
