@@ -34,7 +34,7 @@
 	</select>
 	
 	<!-- 사용자 선택 피자 메뉴 불러오기 -->
-	<select id="getUserPizzaGoods" resultType="com.damino.web.user.goods.GoodsPizzaVO">
+	<select id="getUserPizzaGoods" resultType="com.damino.web.user.goods.GoodsPizzaVO" parameterType="com.damino.web.user.goods.GoodsPizzaVO" >
 		SELECT * FROM pizza WHERE p_code = #{p_code} AND p_name = #{p_name}
 	</select>
 	

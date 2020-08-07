@@ -141,10 +141,10 @@
 										<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
 											<li>
 												<div class="prd-img">
-													<a href="detail?p_code=${goodsPremiumList.p_code}&p_name=${goodsPremiumList.p_name}">
+													<a href="detail.do?p_code=${goodsPremiumList.p_code}&p_name=${goodsPremiumList.p_name}">
 													<img class="lazyload"
 														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
-													</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>
+													</a> <a href="javascript:getDetailSlide(${goodsPremiumList.p_code},${goodsPremiumList.p_name});" class="btn-detail"> <i class="ico-sch"></i>
 														<span class="hidden">상세버튼</span>
 													</a>
 													<!-- "javascript:getDetailSlide('RPZ196SL','C0102','203');trk_call('list');"  -->
@@ -804,7 +804,7 @@
 
 		<!-- 팝업 메뉴 상세보기 -->
 		<script>
-			function getDetailSlide(p_code, p_name) {
+			/* function getDetailSlide(p_code, p_name) {
 				$.ajax({
 					url : '/goods/detailSlide.do',
 					type : 'get',
@@ -816,27 +816,28 @@
 						$("#detail_main_slide").html(data);
 						getDetail(p_code, p_name);
 						console.log("success1");
+						alert("성공 1");
 					},
 					error : function(error) {
 						alert("다시 시도해주세요.");
 					}
 				})
-			}
+			} */
 		
-			function getDetail(p_code, p_name){
+			function getDetailSlide(p_code, p_name){
 
 				$.ajax({
-					url: '/goods/detailAjax.do',
+					url: '/detailAjax.do',
 					type: 'get',
 					data: {
 						"p_code" : p_code,
-						"p_name" : p_name,
+						"p_name" : p_name
 					},
 					
 					success: function(data) {
 						alert("2번째 단계");
 						console.log("success2");
-						UI.layerPopUp({selId:'#pop-menu-detail'});
+						/* UI.layerPopUp({selId:'#pop-menu-detail'});
 						$(".menu-name").text(data.resultData.detail.name);
 						$(".detail_topping").text(data.resultData.detail.topping);
 						$(".detail_origin").text(data.resultData.detail.origin);
@@ -847,9 +848,9 @@
 									
 						$(".img-zoom-big").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
 						$(".img-zoom-big1").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
-						$(".menu-big .zoomImg").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						$(".menu-big .zoomImg").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1); */
 						
-						if(data.resultData.detail.file_nm2 != "" && data.resultData.detail.file_nm2 != null){
+						/* if(data.resultData.detail.file_nm2 != "" && data.resultData.detail.file_nm2 != null){
 							$(".subimg2").show();
 							$(".img-zoom-big2").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm2);
 						}else {
@@ -861,8 +862,13 @@
 							$(".img-zoom-big3").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm3);
 						}else {
 							$(".subimg3").hide();
-						}
+						} */
 					}
+					error : function(error) {
+						alert("다시 시도해주세요.");
+					}
+					alert("실패?");
+					console.log("실패");
 				});
 			}
 		</script>		
