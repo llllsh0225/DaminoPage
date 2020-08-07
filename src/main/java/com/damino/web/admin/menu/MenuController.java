@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -261,10 +262,11 @@ public class MenuController {
 			p_image = uuid + "." + ext;
 			uploadFile.transferTo(new File(path + "/" + p_image));
 		}
+
 		
 		vo.setP_image(p_image);
 		vo.setP_originalFileName(originalFileName);
-		
+			
 		menuService.updatePizza(vo);
 		mav.setViewName("redirect:/menuList.admdo");
 		return mav;
