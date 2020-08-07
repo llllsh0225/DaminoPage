@@ -104,4 +104,31 @@ public class MenuServiceImpl implements MenuService {
 	public void updateSide(SideVO vo) {
 		menuDAO.updateSide(vo);
 	}
+
+	@Override
+	public void updateDrinkEtc(DrinkEtcVO vo) {
+		menuDAO.updateDrinkEtc(vo);
+	}
+
+	@Override
+	public void updateTopping(ToppingVO vo) {
+		menuDAO.updateTopping(vo);
+	}
+
+	@Override
+	public void deleteSide(SideVO vo) {
+		menuDAO.deleteSide(vo);
+	}
+
+	@Override
+	public void deleteDrinkEtc(DrinkEtcVO vo) {
+		menuDAO.deleteDrinkEtc(vo);
+	}
+
+	@Override
+	public void deleteTopping(ToppingVO vo) {
+		menuDAO.deleteTopping(vo);
+	}
+	
+	
 }

@@ -113,6 +113,35 @@ public class MenuDAOImpl implements MenuDAO {
 		sqlSessionTemplate.update("MenuDAO.updateSide", vo);
 	}
 
+	@Override
+	public void updateDrinkEtc(DrinkEtcVO vo) {
+		System.out.println("음료&기타 업데이트");
+		sqlSessionTemplate.update("MenuDAO.updateDrinkEtc", vo);
+	}
+
+	@Override
+	public void updateTopping(ToppingVO vo) {
+		sqlSessionTemplate.update("MenuDAO.updateTopping", vo);
+	}
+
+	@Override
+	public void deleteSide(SideVO vo) {
+		System.out.println("사이드 삭제 DAO");
+		sqlSessionTemplate.delete("MenuDAO.deleteSide", vo);
+	}
+
+	@Override
+	public void deleteDrinkEtc(DrinkEtcVO vo) {
+		System.out.println("음료 삭제 DAO");
+		sqlSessionTemplate.delete("MenuDAO.deleteDrinkEtc", vo);
+	}
+
+	@Override
+	public void deleteTopping(ToppingVO vo) {
+		System.out.println("토핑 삭제 DAO");
+		sqlSessionTemplate.delete("MenuDAO.deleteTopping", vo);
+	}
+
 	
 
 }
