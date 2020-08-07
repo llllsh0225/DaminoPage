@@ -299,7 +299,6 @@
 										<div class="title-type">제품 상세보기</div>
 										<a href="#" class="btn-toggle-close"> <span class="hidden">열기</span>
 										</a>
-										<!-- <a href="#" onclick="함수();return false;"></a> -->
 									</div>
 									<div class="js_toggle_box detail_contents close ">
 										<div class="detail-box">
@@ -837,7 +836,7 @@
 					success: function(data) {
 						alert("2번째 단계");
 						console.log("success2");
-						/* UI.layerPopUp({selId:'#pop-menu-detail'});
+						 UI.layerPopUp({selId:'#pop-menu-detail'});
 						$(".menu-name").text(data.resultData.detail.name);
 						$(".detail_topping").text(data.resultData.detail.topping);
 						$(".detail_origin").text(data.resultData.detail.origin);
@@ -862,7 +861,7 @@
 							$(".img-zoom-big3").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm3);
 						}else {
 							$(".subimg3").hide();
-						} */
+						} 
 					}
 					error : function(error) {
 						alert("다시 시도해주세요.");

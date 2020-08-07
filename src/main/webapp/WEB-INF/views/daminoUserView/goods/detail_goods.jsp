@@ -166,31 +166,17 @@
 									<div class="view-box">
 										<!-- 대표 이미지 슬라이드 -->
 										<div class="menu-slider-view2">
+										<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
 											<div>
-												<img
-													src="../../newcdn.dominos.co.kr/admin/upload/goods/20200508_9n85647d.jpg"
-													alt="더블크러스트 이베리코1" />
+												<img src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
 											</div>
-											<div>
-												<img
-													src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-													data-lazy="https://newcdn.dominos.co.kr/admin/upload/goods/20200311_sWqEoZvk.jpg"
-													class="lazyload" alt="더블크러스트 이베리코2" />
-											</div>
-											<div>
-												<img
-													src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-													data-lazy="https://newcdn.dominos.co.kr/admin/upload/goods/20200311_hxn3l88T.jpg"
-													class="lazyload" alt="더블크러스트 이베리코3" />
-											</div>
+										</c:forEach>
 										</div>
-
 										<div class="menu-slider-viewdouble" style="display: none;"></div>
 
 										<!-- //대표 이미지 슬라이드 -->
-
 										<a
-											href="detail001pp.do"
+											href="javascript:getDetailSlide(${goodsPremiumList.p_code},${goodsPremiumList.p_name});"
 											class="btn-detail"> <i class="ico-sch2"></i> <span
 											class="hidden">상세버튼</span>
 										</a>
