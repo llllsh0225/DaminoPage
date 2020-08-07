@@ -114,18 +114,15 @@ public class CouponController {
 		String couponCode = (String) param.get("couponCode"); // 사용자가 입력한 쿠폰코드
 		String chkCouponType = String.valueOf(couponCode.charAt(0)); // 쿠폰코드의 첫번째 문자 ('M' : 선물받은 매니아 쿠폰 / 'P' : 프로모션 쿠폰)
 		
-		int couponChk = couponService.chkRegistEcoupon(userid); // 등록 가능한 쿠폰인지 확인
-		System.out.println(couponChk);
-		System.out.println(chkCouponType);
+		Map<String, String> couponInfo = new HashMap<String, String>();
+		couponInfo.put("userid", userid);
+		couponInfo.put("couponCode", couponCode);
+		couponInfo.put("chkCouponType", chkCouponType);
+		
+		int couponChk = couponService.chkRegistEcoupon(couponInfo); // 등록 가능한 쿠폰인지 확인
 		
 		if(couponChk != 0) {
 			System.out.println("등록 가능 쿠폰");
-			
-			Map<String, String> couponInfo = new HashMap<String, String>();
-			couponInfo.put("userid", userid);
-			couponInfo.put("couponCode", couponCode);
-			couponInfo.put("chkCouponType", chkCouponType);
-			
 			couponService.registEcoupon(couponInfo); // 쿠폰 사용가능 여부(chkusable) 컬럼을 'Y'로 업데이트
 			
 			return "success";

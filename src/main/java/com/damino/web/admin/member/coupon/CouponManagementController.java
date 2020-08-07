@@ -1,6 +1,10 @@
 package com.damino.web.admin.member.coupon;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +34,35 @@ public class CouponManagementController {
 		System.out.println("프로모션쿠폰 등록폼 열기");
 		
 		mav.setViewName("/members/coupon/couponInsert");
+		return mav;
+	}
+	
+	@RequestMapping(value="/insertPromotionCoupon.admdo", method=RequestMethod.POST)
+	public ModelAndView insertPromotionCoupon(ModelAndView mav, HttpServletRequest request, MakePromotionCouponVO vo) {
+		System.out.println("프로모션 쿠폰 insert");
+		
+		// 생성될 프로모션 쿠폰 정보 세팅 
+		vo.setCoupon_name(request.getParameter("coupon_name"));
+		vo.setOrdertype(request.getParameter("ordertype"));
+		vo.setDiscountrate(Integer.parseInt(request.getParameter("discountrate")));
+		vo.setNumber(Integer.parseInt(request.getParameter("number")));
+		
+		List<CouponVO> couponList = couponManagementService.makePromotionCoupons(vo); // CouponVO 리스트 생성
+		
+		for(int i=0; i<couponList.size(); i++) {
+			CouponVO coupon = couponList.get(i);
+			coupon.setCoupon_code(couponManagementService.getNextCouponCode()); // 프로모션 쿠폰코드 세팅
+			coupon.setSeq(couponManagementService.getNextCouponSeq() + i); // 쿠폰 시퀀스넘버 세팅
+			System.out.println(coupon.getCoupon_code());
+			System.out.println(coupon.getSeq());
+		}
+		
+		Map<String, Object> list = new HashMap<String, Object>();
+		list.put("couponList", couponList);
+		
+		couponManagementService.insertPromotionCoupon(list); // 프로모션 쿠폰 insert 기능 수행
+		
+		mav.setViewName("redirect:/couponList.admdo");
 		return mav;
 	}
 }
