@@ -95,8 +95,7 @@
 	
 	<update id="updatePizza" parameterType="com.damino.web.admin.menu.PizzaVO">
 			UPDATE pizza
-			p_name, p_type, p_size_m, p_size_l, p_price_m, p_price_l, p_dough, p_originalFileName, p_image, gross_weight_m, gross_weight_l, onetime_basis_m, onetime_basis_l, onetime_weight_m, onetime_weight_l, kcal_m, kcal_l, protein_m, protein_l, fat_m, fat_l, natrium_m, natrium_l, sugars_m, sugars_l)
-			set p_name=#{p_name}, p_type=#{p_type}, p_size_m=#{p_size_m}, p_size_l=#{p_size_l}, p_price_l=#{p_price_l}, p_price_m=#{p_price_m}, p_dough=#{p_dough}, p_originalFileName=#{p_originalFileName}, p_image=#{p_image}, gross_weight_m=#{gross_weight_m}, gross_weight_l=#{gross_weight_l}, onetime_basis_m=#{onetime_basis_m}, onetime_basis_l=#{onetime_basis_l}, onetime_weight_m=#{onetime_weight_m}, onetime_weight_l=#{onetime_weight_l}, kcal_m=#{kcal_m}, kcal_l=#{kcal_l}, protein_m=#{protein_m}, protein_l=#{protein_l}, fat_m=#{fat_m}, fat_l=#{fat_l}, natrium_m=#{natrium_m}, natrium_l=#{natrium_l}, sugars_m=#{sugars_m}, sugars_l=#{sugars_l}
+			set p_name=#{p_name}, p_type=#{p_type}, p_price_l=#{p_price_l}, p_price_m=#{p_price_m}, p_dough=#{p_dough}, p_originalFileName=#{p_originalFileName}, p_image=#{p_image}, gross_weight_m=#{gross_weight_m}, gross_weight_l=#{gross_weight_l}, onetime_basis_m=#{onetime_basis_m}, onetime_basis_l=#{onetime_basis_l}, onetime_weight_m=#{onetime_weight_m}, onetime_weight_l=#{onetime_weight_l}, kcal_m=#{kcal_m}, kcal_l=#{kcal_l}, protein_m=#{protein_m}, protein_l=#{protein_l}, fat_m=#{fat_m}, fat_l=#{fat_l}, natrium_m=#{natrium_m}, natrium_l=#{natrium_l}, sugars_m=#{sugars_m}, sugars_l=#{sugars_l}
 			where seq=#{seq} 	
 	</update>
 	

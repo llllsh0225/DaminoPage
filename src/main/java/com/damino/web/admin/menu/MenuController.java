@@ -75,7 +75,7 @@ public class MenuController {
 		vo.setS_originalFileName(originalFileName);
 		
 		menuService.insertSide(vo);
-		mav.setViewName("/menu/menuList");
+		mav.setViewName("redirect:/menuList.admdo");
 		
 		return mav;
 	}
@@ -99,7 +99,7 @@ public class MenuController {
 		
 		vo.setD_image(d_image);
 		menuService.insertDrinkEtc(vo);
-		mav.setViewName("/menu/menuList");
+		mav.setViewName("redirect:/menuList.admdo");
 		
 		return mav;
 	}
@@ -123,7 +123,7 @@ public class MenuController {
 		
 		vo.setT_image(t_image);
 		menuService.insertTopping(vo);
-		mav.setViewName("/menu/menuList");
+		mav.setViewName("redirect:/menuList.admdo");
 		
 		return mav;
 	}
@@ -247,6 +247,12 @@ public class MenuController {
 		mav.setViewName("redirect:/menuList.admdo");
 		return mav;
 	}
+	
+	
+
+	
+	
+	
 }
 
 

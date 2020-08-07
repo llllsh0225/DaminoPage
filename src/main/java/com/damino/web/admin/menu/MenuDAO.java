@@ -25,4 +25,6 @@ public interface MenuDAO {
 	
 	void deletePizza(PizzaVO vo); // 피자 삭제
 	void updatePizza(PizzaVO vo); // 피자 업데이트
+	
+	void updateSide(SideVO vo); // 사이드 업데이트
 }
