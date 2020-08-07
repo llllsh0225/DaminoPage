@@ -202,7 +202,7 @@
 									</tr>
 									<tr>
 										<th>신규등록 수량</th>
-										<td><input type="text" name="newCouponCnt" size="5" />&nbsp;매</td>
+										<td><input type="text" name="number" size="5" />&nbsp;매</td>
 									</tr>
 									<tr>
 										<td colspan="2" class="center-group">
