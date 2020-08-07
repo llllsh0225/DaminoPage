@@ -22,4 +22,5 @@ public interface MenuService {
 	
 	void deletePizza(PizzaVO vo);
 	void updatePizza(PizzaVO vo);
+	void updateSide(SideVO vo);
 }
