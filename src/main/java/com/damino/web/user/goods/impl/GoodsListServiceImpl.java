@@ -50,6 +50,12 @@ public class GoodsListServiceImpl implements GoodsListService {
 		return goodsListDAO.getDrinkEtcList();
 	}
 
+	@Override
+	public List<GoodsPizzaVO> getUserPizzaGoods() {
+		System.out.println("GoodsListServiceImpl getUserPizzaGoods()");
+		return goodsListDAO.getUserPizzaGoods();
+	}
+
 	
 
 }
