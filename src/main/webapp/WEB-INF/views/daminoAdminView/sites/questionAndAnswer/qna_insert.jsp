@@ -166,7 +166,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -220,7 +220,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>
