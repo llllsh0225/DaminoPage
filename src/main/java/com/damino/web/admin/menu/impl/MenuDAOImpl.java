@@ -107,6 +107,12 @@ public class MenuDAOImpl implements MenuDAO {
 		sqlSessionTemplate.update("MenuDAO.updatePizza", vo);
 	}
 
+	@Override
+	public void updateSide(SideVO vo) {
+		System.out.println("사이드 업데이트");
+		sqlSessionTemplate.update("MenuDAO.updateSide", vo);
+	}
+
 	
 
 }
