@@ -6,17 +6,24 @@
 <head>
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-	
-	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+
 
 </head>
 <body>
@@ -33,8 +40,7 @@
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -63,9 +69,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -122,54 +126,51 @@
 									<span>인기순</span>
 									<div class="sch-slider"></div>
 									<div class="sch-slider-nav"></div>
-									<a href="#" class="btn-open"> <span
-										class="hidden">열기</span><i></i>
+									<a href="#" class="btn-open"> <span class="hidden">열기</span><i></i>
 									</a>
 								</div>
 							</div>
-							
+
 							<!-- //menu-list -->
-									<div class="menu-list">
-										<div class="title-wrap-center">
-											<h3 class="title-type">메뉴</h3>
-										</div>
-									</div>
-									<div class="menu-list inner-box">
-										<!-- 음료 시작-->
-										<c:forEach var="goodsDrinkEtcList"
-											items="${goodsDrinkEtcList}">
-											<ul>
-												<li>
-													<div class="prd-img">
-														<img class="lazyload"
-															src="https://cdn.dominos.co.kr/domino/pc/images/bg.gif"
-															data-src="https://cdn.dominos.co.kr/admin/upload/goods/20200309_J6k5xlTF.jpg"
-															alt="코카콜라 1.25L" />
-													</div>
+							<div class="menu-list">
+								<div class="title-wrap-center">
+									<h3 class="title-type">메뉴</h3>
+								</div>
+							</div>
+							<div class="menu-list inner-box">
+								<!-- 음료 시작-->
+									<ul>
+									<c:forEach var="goodsDrinkEtcList" items="${goodsDrinkEtcList}">
+										<li>
+											<div class="prd-img">
+												<img class="lazyload"
+												src="<c:url value= '/resources/images/admin/goods/${goodsDrinkEtcList.d_image}' />"
+													alt="${goodsDrinkEtcList.d_name}" />
+											</div>
 
-													<div class="prd-cont type2">
-														<div class="subject">${goodsDrinkEtcList.d_name}</div>
-													</div>
+											<div class="prd-cont type2">
+												<div class="subject">${goodsDrinkEtcList.d_name}</div>
+											</div>
 
-													<div class="prd-price">
-														<div class="price-box">
-															<span class="price">${goodsDrinkEtcList.d_price}</span>
-														</div>
-													</div>
+											<div class="prd-price">
+												<div class="price-box">
+													<span class="price">${goodsDrinkEtcList.d_price}</span>
+												</div>
+											</div>
 
-													<div class="quantity-group">
-														<div class="quantity-box type2">
-															<button type="button" class="btn-minus"></button>
-															<input type="number" value="1" id="RDK001L6_qty">
-															<button type="button" class="btn-plus"></button>
-														</div>
-														<a href="#" class="btn-cart">주문</a>
-													</div>
-												</li>
-											</ul>
+											<div class="quantity-group">
+												<div class="quantity-box type2">
+													<button type="button" class="btn-minus"></button>
+													<input type="number" value="1" id="RDK001L6_qty">
+													<button type="button" class="btn-plus"></button>
+												</div>
+												<a href="#" class="btn-cart">주문</a>
+											</div>
+										</li>
 										</c:forEach>
-									</div>
-										<!-- END 음료 -->
+									</ul>
+							</div>
+							<!-- END 음료 -->
 
 						</article>
 						<div class="bottom-guide-area">
@@ -776,7 +777,7 @@
 		</div>
 		<!-- //장바구니(e) -->
 
-<footer id="footer">
+		<footer id="footer">
 			<div class="footer-area">
 				<div class="inner-box">
 					<div class="footer-order">
@@ -786,8 +787,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -835,27 +835,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>
