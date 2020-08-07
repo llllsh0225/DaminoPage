@@ -56,7 +56,7 @@ public class MenuController {
 	@RequestMapping(value="/insertSide.admdo", method=RequestMethod.POST)
 	public ModelAndView insertSide(SideVO vo, ModelAndView mav, HttpServletRequest request) throws IOException{
 		System.out.println("Controller ---> 사이드 메뉴, 영양성분 등록");
-		String path = request.getSession().getServletContext().getRealPath("menu_imgs"); // 이미지가 저장될 절대 경로
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
 		
 		String s_image = ""; // 실제 저장될 파일명
 		String originalFileName = ""; // 사용자가 업로드한 original 파일명
@@ -84,7 +84,7 @@ public class MenuController {
 	public ModelAndView insertDrinkEtc(DrinkEtcVO vo, ModelAndView mav, HttpServletRequest request) throws IOException{
 		System.out.println("Controller ---> 음료&기타 메뉴 등록");
 		
-		String path = request.getSession().getServletContext().getRealPath("menu_imgs");
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods");
 		String d_image = "";
 		MultipartFile uploadFile = vo.getUploadFile();
 		
@@ -108,7 +108,7 @@ public class MenuController {
 	public ModelAndView insertTopping(ToppingVO vo, ModelAndView mav, HttpServletRequest request) throws IOException{
 		System.out.println("Controller ---> 토핑 메뉴 등록");
 		
-		String path = request.getSession().getServletContext().getRealPath("menu_imgs");
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods");
 		String t_image = "";
 		MultipartFile uploadFile = vo.getUploadFile();
 		
@@ -249,7 +249,31 @@ public class MenuController {
 	}
 	
 
-	
+	@RequestMapping(value="/updateSide.admdo", method = RequestMethod.POST)
+	public ModelAndView updateSide(ModelAndView mav, SideVO vo, HttpServletRequest request)throws IOException {
+		System.out.println("사이드 업데이트");
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
+		
+		String s_image = ""; // 실제 저장될 파일명
+		String originalFileName = ""; // 사용자가 업로드한 original 파일명
+		MultipartFile uploadFile = vo.getUploadFile();
+		
+		if(!uploadFile.isEmpty()) {
+			originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName); // 확장자 구하기
+			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
+			s_image = uuid + "." + ext;
+			uploadFile.transferTo(new File(path + "/" + s_image));
+		}
+		
+		vo.setS_image(s_image);
+		vo.setS_originalFileName(originalFileName);
+		
+		menuService.updateSide(vo);
+		mav.setViewName("redirect:/menuSideList.admdo");
+		return mav;
+	}
 }
 
 

@@ -99,4 +99,10 @@
 			where seq=#{seq} 	
 	</update>
 	
+	<update id="updateSide" parameterType="com.damino.web.admin.menu.SideVO">
+			UPDATE side
+			set	side.s_name=#{side.s_name }, side.s_price=#{side.s_price }, side.gross_weight=#{side.gross_weight }, side.kcal=#{side.kcal }, side.protein=#{side.protein }, side.fat=#{side.fat }, side.natrium=#{side.natrium } side.sugars=#{side.sugars }, side.s_originalFileName=#{side.s_originalFileName }
+			where seq=#{seq}
+	</update>
+	
 </mapper>
