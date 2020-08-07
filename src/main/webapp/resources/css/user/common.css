@@ -40,6 +40,7 @@ a { color: #333; text-decoration: none; }
 
 /* �̹���, ������ ��� */
 img { border: 0; vertical-align: top; width: 100%; }
+img .banner_img { border: 0; vratical-algin: top; width: 75%;}
 
 label, select, input, textarea { vertical-align: middle; }
 
@@ -1175,21 +1176,24 @@ flex-wrap:nowrap;
 
 .slick-arrow.slick-hidden { display: none; }
 
+/* 배너 슬라이더 번호 1,2,3 표시*/
 .slick-dots { position: absolute; bottom: 13px; left: 0; right: 0; text-align: center; font-size: 0; }
 .slick-dots li { display: inline-block; width: 7px; height: 7px; margin: 0 6px; }
 .slick-dots li button { display: block; width: 100%; height: 100%; border-radius: 100%; border: 1px solid #fff; background: #FFF; font-size: 0; }
 .slick-dots li.slick-active button { background: #4e4945; border-color: #4e4945; }
 
+/* 배너 화살표*/
 .slick-arrow { display: block; position: absolute; top: 50%; z-index: 5; width: 65px; height: 65px; transform: translateY(-50%); background-color: transparent; font-size: 0; }
 .slick-arrow:after { content: ''; }
-.slick-arrow.slick-prev { left: 85px; }
+.slick-arrow.slick-prev { left: 75px; }
 .slick-arrow.slick-prev:after { display: inline-block; width: 45px; height: 45px; border-style: solid; border-color: transparent #bbb #bbb transparent; border-width: 0 1px 1px 0; -webkit-transform: rotate(135deg); -ms-transform: rotate(135deg); transform: rotate(135deg); }
-.slick-arrow.slick-next { right: 85px; }
+.slick-arrow.slick-next { right: 75px; }
 .slick-arrow.slick-next:after { display: inline-block; width: 45px; height: 45px; border-style: solid; border-color: transparent #bbb #bbb transparent; border-width: 0 1px 1px 0; -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg); transform: rotate(-45deg); }
 
 .slick-disabled { opacity: .3; }
 
 .slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img { -webkit-transform: translate3d(0, 0, 0); -moz-transform: translate3d(0, 0, 0); -ms-transform: none; -o-transform: translate3d(0, 0, 0); transform: none; }
+
 
 .chk-box { display: inline-block; text-align: left; }
 .chk-box input[type="checkbox"], .chk-box input[type="radio"] { display: none; }

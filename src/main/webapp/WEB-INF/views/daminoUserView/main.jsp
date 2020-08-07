@@ -35,28 +35,24 @@
 
 <!-- 배너 실험실 -->
 <style>
-.banner_img {
-	width: "100%"
-}
+
 </style>
 
 <script>
 	// 이미지 슬라이더
+	// css는 common.css 1153줄~
 	$(document).ready(function() {
 		$(".banner-slider").slick({
-			dots : false,
+			dots : true,
 			autoplay : true,
 			autoplaySpeed : 3000,
-			arrows : true,
-			responsive : [ {
-				breakpoints : 768,
-				settings : {
-					arrows : true,
-					dots : false
-				}
-			} ]
+			arrows : true
+			
 		});
+		
 	});
+	
+	
 </script>
 <!-- //배너 실험실 -->
 
@@ -151,32 +147,24 @@
 				<div class="main">
 					<!-- 메인 배너 -->
 					<article class="article visual-area">
-						<div class="visual-slider">
-							<!-- 전버튼 -->
-							<!-- 카운터 버튼 -->
-							<div class="slide-count-wrap">
-								<span class="slide-count"></span> <a href="javascript:;"
-									class="btn-play">btnPlay</a>
-							</div>
+							<!--  -->
 							<div class="banner-slider" id="#">
 								<div>
 									<img class="banner_img"
 										src="<c:url value='/resources/images/user/banner/banner001.jpg'/>"
-										alt="">
+										alt="화요일40%,목요일1+1">
 								</div>
 								<div>
 									<img class="banner_img"
 										src="<c:url value='/resources/images/user/banner/banner002.jpg'/>"
-										alt="">
+										alt="500만 릴레이 이벤트">
 								</div>
 								<div>
 									<img class="banner_img"
 										src="<c:url value='/resources/images/user/banner/banner003.jpg'/>"
-										alt="">
+										alt="씨푸드 온라인 25%,포장35%">
 								</div>
 							</div>
-							<!-- 후버튼 -->
-						</div>
 					</article>
 					<!-- //메인 배너 영역 -->
 					<article class="article delivery-area">
@@ -253,30 +241,7 @@
 
 					<!-- banner -->
 					<article class="article banner-area">
-						<div class="inner-box">
-							<div class="banner-slider" id="#">
-								<div>
-									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/banner_mini_001.jpg'/>"
-										alt="">
-								</div>
-								<div>
-									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/banner_mini_002.jpg'/>"
-										alt="">
-								</div>
-								<div>
-									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/banner_mini_003.jpg'/>"
-										alt="">
-								</div>
-								<div>
-									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/banner_mini_004.jpg'/>"
-										alt="">
-								</div>
-							</div>
-						</div>
+						
 					</article>
 					<!-- //banner -->
 
