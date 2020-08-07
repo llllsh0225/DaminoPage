@@ -99,4 +99,9 @@ public class MenuServiceImpl implements MenuService {
 	public void updatePizza(PizzaVO vo) {
 		menuDAO.updatePizza(vo);
 	}
+
+	@Override
+	public void updateSide(SideVO vo) {
+		menuDAO.updateSide(vo);
+	}
 }
