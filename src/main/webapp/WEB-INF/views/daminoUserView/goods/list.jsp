@@ -142,11 +142,12 @@
 											<li>
 												<div class="prd-img">
 													<a href="detail.do?p_code=${goodsPremiumList.p_code}&p_name=${goodsPremiumList.p_name}">
-													<img class="lazyload"
+													<img class="lazyload" id="zommInOutImage"
 														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
-													</a> <a href="javascript:getDetailSlide(${goodsPremiumList.p_code},${goodsPremiumList.p_name});" class="btn-detail"> <i class="ico-sch"></i>
+													</a> <a href="javascript:UI.layerPopUp({selId:'#pop-zoom'});" class="btn-detail"> <i class="ico-sch"></i>
 														<span class="hidden">상세버튼</span>
 													</a>
+													
 													<!-- "javascript:getDetailSlide('RPZ196SL','C0102','203');trk_call('list');"  -->
 												</div>
 												<div class="prd-cont">
@@ -244,7 +245,7 @@
 		<div class="pop-layer pop-menu" id="pop-menu-detail">
 			<input type="hidden" value="" class="hide_code" />
 			<div class="dim"></div>
-			<div class="pop-wrap">
+			<div class="pop-wrap" style="top:0px; left:20%;">
 				<div class="pop-title-wrap">
 					<div class="pop-title menu-name"></div>
 				</div>
@@ -310,8 +311,7 @@
 													있습니다.</div>
 											</div>
 											<div class="img-box">
-												<c:forEach var="goodsPremiumList"
-													items="${goodsPremiumList}">
+												<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
 													<img
 														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
 														alt="${goodsPremiumList.p_name}" class="img-zoom"
@@ -400,9 +400,9 @@
 							</div>
 						</div>
 						<div class="menu-thumb">
-							<div class="item subimg1 active">
-								<a href="#"> <c:forEach var="goodsPremiumList"
-										items="${goodsPremiumList}">
+							<div class="item a">
+								<a href="#">
+								<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
 										<img
 											src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />"
 											alt="${goodsPremiumList.p_name}" class="img-zoom-big1" />
@@ -802,10 +802,11 @@
 		<div class="pop_layer pop_type topping" id="topping_info_pop"></div>
 
 		<!-- 팝업 메뉴 상세보기 -->
+		
 		<script>
 			/* function getDetailSlide(p_code, p_name) {
 				$.ajax({
-					url : '/goods/detailSlide.do',
+					url : 'detailSlide.do',
 					type : 'get',
 					data : {
 						"p_code" : p_code,
@@ -813,7 +814,7 @@
 					},
 					success : function(data) {
 						$("#detail_main_slide").html(data);
-						getDetail(p_code, p_name);
+						UI.layerPopUp({selId:'#pop-menu-detail'});
 						console.log("success1");
 						alert("성공 1");
 					},
@@ -823,7 +824,7 @@
 				})
 			} */
 		
-			function getDetailSlide(p_code, p_name){
+			/* function getDetail(p_code, p_name){
 
 				$.ajax({
 					url: '/detailAjax.do',
@@ -842,14 +843,14 @@
 						$(".detail_origin").text(data.resultData.detail.origin);
 						$(".detail_contents").html(data.resultData.detail.w_contents);
 						$(".hide_code").val(data.resultData.detail.code_01);
-						$(".btn_order a").attr("href","detail?p_code="+p_code+"&p_name="+p_name);
+						$(".btn_order a").attr("href","detail.do?p_code="+p_code+"&p_name="+p_name);
 						//$(".zoom-wrap").html("<img src=https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1+" alt="+data.resultData.detail.name+" class='img-zoom' />");
 									
-						$(".img-zoom-big").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
+						$(".img-zoom-big").attr("src", "/resources/images/admin/goods/"+data.resultData.detail.file_nm1});
 						$(".img-zoom-big1").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1);
 						$(".menu-big .zoomImg").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm1); */
 						
-						/* if(data.resultData.detail.file_nm2 != "" && data.resultData.detail.file_nm2 != null){
+						 /* if(data.resultData.detail.file_nm2 != "" && data.resultData.detail.file_nm2 != null){
 							$(".subimg2").show();
 							$(".img-zoom-big2").attr("src", "https://cdn.dominos.co.kr/admin/upload/goods/"+data.resultData.detail.file_nm2);
 						}else {
@@ -863,13 +864,12 @@
 							$(".subimg3").hide();
 						} 
 					}
-					error : function(error) {
-						alert("다시 시도해주세요.");
-					}
+					
 					alert("실패?");
 					console.log("실패");
 				});
-			}
+			} */
+			
 		</script>		
 		
 		

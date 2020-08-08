@@ -127,7 +127,7 @@
 								<ol>
 									<li><a href="main.do">홈</a></li>
 									<li><a href="goodslist.do">메뉴</a></li>
-									<li><strong>더블크러스트 이베리코</strong></li>
+									<li><strong>${goodsDetail.p_name}</strong></li>
 								</ol>
 							</div>
 						</div>
@@ -166,17 +166,15 @@
 									<div class="view-box">
 										<!-- 대표 이미지 슬라이드 -->
 										<div class="menu-slider-view2">
-										<c:forEach var="goodsPremiumList" items="${goodsPremiumList}">
 											<div>
-												<img src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
+												<img src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
 											</div>
-										</c:forEach>
 										</div>
 										<div class="menu-slider-viewdouble" style="display: none;"></div>
 
 										<!-- //대표 이미지 슬라이드 -->
 										<a
-											href="javascript:getDetailSlide(${goodsPremiumList.p_code},${goodsPremiumList.p_name});"
+											href="javascript:getDetailSlide(${goodsDetail.p_code},${goodsDetail.p_name});"
 											class="btn-detail"> <i class="ico-sch2"></i> <span
 											class="hidden">상세버튼</span>
 										</a>
@@ -189,7 +187,7 @@
 									<div class="menu-box">
 										<div class="label-box"></div>
 										<div class="title-box">
-											<h3 class="title pizza">더블크러스트 이베리코</h3>
+											<h3 class="title pizza">${goodsDetail.p_name}</h3>
 
 											<div class="hashtag">
 												<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
