@@ -18,4 +18,11 @@ public class MemberService implements IMemberService{
 	public List<MemberVO> selectAllMembers() {
 		return memberDAO.selectAllMembers();
 	}
+
+	@Override
+	public List<MemberVO> selectAllPhone() {
+		System.out.println(memberDAO.selectAllPhone());
+		return memberDAO.selectAllPhone();
+		
+	}
 }
