@@ -8,4 +8,10 @@
 	SELECT username, userid, userpasswd, birthday, sex, cyear, phone, email, receive_sms, receive_email, receive_dm, userlevel
 		from usermember 
 	</select>
+	
+	<select id="selectAllPhone" resultType="com.damino.web.admin.homepage.member.vo.MemberVO">
+	SELECT phone
+	from usermember
+	where phone=#{phone}
+	</select>
 </mapper>
