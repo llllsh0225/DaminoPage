@@ -8,7 +8,7 @@ public interface BannerService {
 
 	// 목록 보여주기
 	public List<BannerVO> getBannerList();
-
+/*
 	// 목록 가져오기
 	public BannerVO getBanner(BannerVO vo);
 
@@ -17,4 +17,5 @@ public interface BannerService {
 
 	// 삭제
 	void deleteBanner(BannerVO vo);
+*/
 }
