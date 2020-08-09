@@ -630,6 +630,7 @@ public class ViewTestController {
 		
 		return mav;
 	}
+	/*
 	@RequestMapping("/bannerBoardView.admdo")
 	public ModelAndView getAdminBannerBoardViewPage() {
 		System.out.println("배너 목록 페이지 열기");
@@ -639,7 +640,7 @@ public class ViewTestController {
 		
 		return mav;
 	}
-	
+	*/
 	//sites > questionAndAnswer 폴더 시작 -------
 	@RequestMapping("/qna_insert.admdo")
 	public ModelAndView getAdminQna_insertPage() {

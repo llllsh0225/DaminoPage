@@ -174,78 +174,41 @@
 				<!-- 이곳이 Content 영역입니다. -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>게시글 상세보기</b> <img
-							src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							onClick="window.location.reload()"
+						<i class="fas fa-table mr-1"></i> <b>배너 목록</b> <img
+							src="<c:url value='/resources/images/admin/refresh_icon.png' />"
+							width="20" onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
-						<div align="justify">
-							게시판 검색 <select>
-								<option>그룹선택</option>
-								<option>게시판명</option>
-							</select> <input type="text" placeholder="검색 내용" /> <input type="button"
-								class="btn-delete" value="검색" />
-						</div>
 					</div>
 
 					<div class="card-body">
-
-						<div class="table-responsive">
-
-							<table class="table table-bordered" id="dataTable"
-								cellspacing="0">
-
-								<tr>
-									<th>코드(영문)</th>
-									<td><input type="text" size="30" placeholder="main" /></td>
-									<th>그룹이름</th>
-									<td><input type="text" size="30" placeholder="메인페이지" /></td>
-								</tr>
-								<tr>
-									<th>배너 형태</th>
-									<td><div style="margin: 5px; float: left">
-											<input type="radio" value="세로형" />세로형
-										</div>
-										<div style="margin: 5px; float: left">
-											<input type="radio" value="가로형" />가로형
-										</div></td>
-									<th>배너 간격</th>
-									<td><input type="text" size="30" placeholder="0" /></td>
-								</tr>
-								<tr>
-									<th>사용 여부</th>
-									<td>
-										<div style="margin: 5px; float: left">
-											<input type="radio" value="세로형" />세로형
-										</div>
-										<div style="margin: 5px; float: left">
-											<input type="radio" value="가로형" />가로형
-										</div>
-									</td>
-									<th>배너 개수</th>
-									<td><select>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-									</select></td>
-								</tr>
-
-							</table>
-							<br></br>
-							<div align="center">
-								<input type="button" class="btn btn-primary" value="확인" /> <input
-									type="button" class="btn-delete" value="목록" />
-							</div>
-							<br> <br>
-							<div style="background-color: #F0F0F0; padding: 15px">
-								<h5>체크사항</h5>
+						<h6>
+							<strong>배너 등록</strong>
+						</h6>
+						<br>
+						<form id="insertBannerForm" action="insertBanner.admdo" method="post" enctype="multipart/form-data">
+							<div id="table-reponsive">
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<tr>
+										<th>배너 명</th>
+										<td><input type="text" name="banner_name" /></td>
+									</tr>
+									<tr>
+										<th>이미지 설명(20자 이내)</th>
+										<td><input type="text" name="banner_alt" /></td>
+									</tr>
+									<tr>
+										<th>배너 이미지</th>
+										<td><input type="file" name="uploadFile" /></td>
+									</tr>
+								</table>
 								<br>
-								<p>- 코드(영문)은 반드시 영문으로 작성하고 변경이 불가합니다.</p>
-								<p>- 배너간격은 배너와 배너 사이의 간격을 조절합니다.</p>
-								<p>- 배너형태가 가로형인 경우 배너개수만큼 가로로 배너가 나오고 줄바꿈이 됩니다.</p>
+								<div id="insert-menu-btns" align="center">
+									<input type="submit" class="btn btn-primary" value="메뉴등록" /> <input
+										type="button" class="btn btn-delete" value="목록" />
+								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</main>
