@@ -3,14 +3,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="BannerDAO">
+	<!-- 배너등록 (코드) 이름 설명 이미지 이미지(원래이름) 시퀀스 -->
 	<insert id="insertBanner" parameterType="com.damino.web.admin.banner.BannerVO">
 		INSERT INTO banner_db (banner_code, banner_name, banner_alt, banner_image, banner_originalname, banner_seq)
 		VALUES('B'||LPAD(banner_seq.nextval, 3, '0'), #{banner_name}, #{banner_alt}, #{banner_image}, #{banner_originalname}, (select nvl(max(banner_seq), 0)+1 from banner_db))
 	
 	</insert>
 	
+	<!-- 관리자, 사용자 배너이미지 불러오기 -->
 	<select id="getBannerList" parameterType="com.damino.web.admin.banner.BannerVO" resultType="com.damino.web.admin.banner.BannerVO">
-		SELECT banner_seq, banner_code,  banner_name, banner_alt, banner_originalname
+		SELECT banner_seq, banner_code,  banner_name, banner_alt, banner_image
 		FROM banner_db
 	</select>
 

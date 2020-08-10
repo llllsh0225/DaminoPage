@@ -14,6 +14,22 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"
 	crossorigin="anonymous" />
+<style>
+	.img_box{
+		 width: 400px;
+	}
+	
+	tbody{
+	text-align: center;
+	}
+
+	
+	img{
+	display: block;
+	width: 100%;
+	height: auto;
+	}
+</style>	
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"
@@ -177,14 +193,11 @@
 				<!-- 이곳이 Content 영역입니다. -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>배너 목록</b> <img
-							src="<c:url value='/resources/images/admin/refresh_icon.png' />"
-							width="20" onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;">
+						<i class="fas fa-table mr-1"></i> <b>배너 목록</b> 
 					</div>
 
 					<div class="card-body">
-						<input type="button" class="btn btn-primary" value="+ 배너그룹생성"
+						<input type="button" class="btn btn-primary" value="+ 배너생성"
 							style="float: right"
 							onClick="location.href='bannerBoardEdit.admdo'">
 						<form>
@@ -204,18 +217,19 @@
 									<c:forEach var="bannerlist" items="${bannerList }">
 										<tr>
 											<!-- 데이터 예시 -->
-											<td class="center-group">${bannerlist.banner_seq }</td>
-											<td class="center-group">${bannerlist.banner_code }</td>
-											<td class="center-group">${bannerlist.banner_name }</td>
-											<td class="center-group">${bannerlist.banner_alt }</td>
-											<td class="center-group">${bannerlist.banner_originalname }</td>
+											<td>${bannerlist.banner_seq }</td>
+											<td class="center-group" style="align: center;">${bannerlist.banner_code }</td>
+											<td class="center-group" style="align: center;">${bannerlist.banner_name }</td>
+											<td class="center-group" style="align: center;">${bannerlist.banner_alt }</td>
+											<td class="center-group">
+													<img class="img_box" src="<c:url value= '/resources/images/user/banner/${bannerlist.banner_image}' />" />
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
-							<p>1. 배너그룹생성 : 영역별 배너 그룹을 생성합니다. ex)메인고객센터, 서브좌측고객센터, 메인이미지,
-								로고 등..</p>
-							<p>2. 수정 : 배너관리 설정 페이지로 이동합니다.</p>
+							<p>1. 배너생성 : 이름 과 20자이내의 설명, 이미지를 등록하는곳 입니다.</p>
+							<p>2. 이미지 크기는 1860 * 615 크기로 넣어주세요.</p>
 							<br> <br>
 						</div>
 						</form>

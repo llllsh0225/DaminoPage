@@ -35,7 +35,6 @@
 
 <!-- 배너 실험실 -->
 <style>
-
 </style>
 
 <script>
@@ -47,12 +46,10 @@
 			autoplay : true,
 			autoplaySpeed : 3000,
 			arrows : true
-			
+
 		});
-		
+
 	});
-	
-	
 </script>
 <!-- //배너 실험실 -->
 
@@ -147,24 +144,16 @@
 				<div class="main">
 					<!-- 메인 배너 -->
 					<article class="article visual-area">
-							<!--  -->
-							<div class="banner-slider" id="#">
+						<!--  -->
+						<div class="banner-slider" id="#">
+							<c:forEach var="bannerList" items="${bannerList }">
 								<div>
 									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/banner001.jpg'/>"
-										alt="화요일40%,목요일1+1">
+										src="<c:url value='/resources/images/user/banner/${bannerList.banner_image }'/>"
+										alt="${bannerList.banner_alt }">
 								</div>
-								<div>
-									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/banner002.jpg'/>"
-										alt="500만 릴레이 이벤트">
-								</div>
-								<div>
-									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/banner003.jpg'/>"
-										alt="씨푸드 온라인 25%,포장35%">
-								</div>
-							</div>
+							</c:forEach>
+						</div>
 					</article>
 					<!-- //메인 배너 영역 -->
 					<article class="article delivery-area">
@@ -240,9 +229,7 @@
 					</article>
 
 					<!-- banner -->
-					<article class="article banner-area">
-						
-					</article>
+					<article class="article banner-area"></article>
 					<!-- //banner -->
 
 				</div>
