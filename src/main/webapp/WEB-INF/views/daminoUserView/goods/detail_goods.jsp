@@ -1329,7 +1329,9 @@
 									<dl class="pizza">
 										<dt>피자</dt>
 										<dd>
-											<p class="total-pizza"></p>
+											<p class="total-pizza">${p_name}(
+											<fmt:formatNumber value="${goodsDetail.p_price_l}"
+															pattern="#,###" />원)</p>
 											<ul class="list-text v2">
 												<li class="total-dough"></li>
 												<li class="total-topping"></li>
