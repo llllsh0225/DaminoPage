@@ -56,6 +56,11 @@ public class GoodsListServiceImpl implements GoodsListService {
 		return goodsListDAO.getUserPizzaGoods(vo);
 	}
 
+	@Override
+	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo) {
+		System.out.println("GoodsListServiceImpl getUserDoughGoods(GoodsPizzaVO vo)");
+		return goodsListDAO.getUserDoughGoods(vo);
+	}
 	
 
 }

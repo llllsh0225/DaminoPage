@@ -101,7 +101,6 @@ public class GoodsListController {
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo) {
 		System.out.println("사용자 선택 피자메뉴 열기");
 
-		
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);
 		String p_name = request.getParameter("p_name");
@@ -113,5 +112,18 @@ public class GoodsListController {
 
 		return mav;
 	}
+	
+	@RequestMapping("/usersDough.do")
+	public ModelAndView usersDough(ModelAndView mav, @ModelAttribute GoodsPizzaVO vo) {
+		
+		  System.out.println("선택 가능 도우 : " + vo.getP_dough());
+		  
+		GoodsPizzaVO userDough = goodsListService.getUserDoughGoods(vo);
+		  
+		mav.addObject("userDough", userDough);
+		mav.setViewName("/goods/detail_goods");
+		return mav;
+	}
+	
 
 }

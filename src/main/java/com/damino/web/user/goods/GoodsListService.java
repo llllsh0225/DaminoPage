@@ -11,4 +11,6 @@ public interface GoodsListService {
 	
 	//사용자 선택 피자 메뉴 불러오기
 	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
+	//사용자 선택 - 선택 가능 도우 불러오기
+	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);
 }

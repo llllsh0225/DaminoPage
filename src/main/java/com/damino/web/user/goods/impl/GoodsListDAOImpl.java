@@ -56,6 +56,12 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		
 	}
 
+	@Override
+	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo) {
+		System.out.println("GoodsListDAOImpl getUserDoughGoods(GoodsPizzaVO vo)");
+		return sqlSessionTemplate.selectOne("GoodsListDAO.getUserDoughGoods", vo);
+	}
+
 	
 	
 }

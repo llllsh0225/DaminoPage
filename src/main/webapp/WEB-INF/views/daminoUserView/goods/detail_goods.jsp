@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,18 +11,83 @@
 <meta name="title" content="다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's" />
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+
+<script>
+	window.onload = function() {
+		var splitDoughCode = $("#dough_db").val().split(",");
+		/* for(var i=0; i<splitDoughCode.length; i++){
+			alert(splitDoughCode[i]);
+		}*/
+		//var chkBox = $('.p_dough2').val(); 
+		var chkBox = document.getElementsByName('dough');
+		var count = chkBox.length;
+		console.log('라디오버튼 갯수' , count);
+		
+		 for(var i=0; i<splitDoughCode.length; i++){
+			console.log(splitDoughCode[i]);
+			 if(splitDoughCode[i] == chkBox[i]){
+				 chkBox[j].checked = true;
+			 }
+		} 
+		
+			
+		 /* for (var i = 0; i < splitDoughCode.length; i++) {
+			console.log(i); 
+			 for (var j = 0; j < chkBox.length; j++) {
+				console.log(j);
+				if (splitDoughCode[i].index == chkBox[j]) {
+					chkBox[j].checked = true;
+				}
+			} 
+		} */
+		
+		 var strDough = $(':radio[name="dough"]:checked').val();
+			if (strDough == "104") {
+				strDough = "S";
+			} else if (strDough == "115") {
+				strDough = "N";
+			} else if (strDough == "103") {
+				strDough = "H";
+			} else if (strDough == "203") {
+				strDough = "G";
+			} else if (strDough == "102") {
+				strDough = "D";
+			} else if (strDough == "116") {
+				strDough = "A";
+			} else if (strDough == "777") {
+				var goUrl = "/goods/detail?dsp_ctgr=C0102&code_01=RPZ191SL";
+				var doubleCheese = goUrl.substring(37,44);
+				
+				return doubleCheese + $(':radio[name="size"]:checked').val();
+			} else {
+				return "E";
+			}
+			rpzCode += (strDough + $(':radio[name="size"]:checked').val());
+			
+			return rpzCode;
 	
-	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	}
 	
 	
+</script>
+
 </head>
 <body>
 	<div id="wrap">
@@ -36,8 +103,7 @@
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -66,9 +132,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -138,10 +202,8 @@
 								<div class="menu-nav-wrap">
 									<div class="menu-nav">
 										<ul>
-											<li class="active"><a
-												href="goodslist.do">피자</a></li>
-											<li><a
-												href="#">사이드디시</a></li>
+											<li class="active"><a href="goodslist.do">피자</a></li>
+											<li><a href="#">사이드디시</a></li>
 											<li><a href="#">음료&기타</a></li>
 										</ul>
 									</div>
@@ -167,7 +229,8 @@
 										<!-- 대표 이미지 슬라이드 -->
 										<div class="menu-slider-view2">
 											<div>
-												<img src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
+												<img
+													src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
 											</div>
 										</div>
 										<div class="menu-slider-viewdouble" style="display: none;"></div>
@@ -195,8 +258,7 @@
 										</div>
 
 										<div class="btn-wrap2">
-											<a href="#"
-												class="btn-type-left v2">영양성분 및 알레르기 유발성분</a>
+											<a href="#" class="btn-type-left v2">영양성분 및 알레르기 유발성분</a>
 										</div>
 									</div>
 
@@ -212,7 +274,8 @@
 													<input type="radio" id="size1" name="size" value="L"
 														checked onclick="addToppingCheck()" /> <label
 														class="checkbox" for="size1"></label> <label for="size1">L
-														34,900원
+														<fmt:formatNumber value="${goodsDetail.p_price_l}"
+															pattern="#,###" />원
 														</p>
 													</label>
 												</div>
@@ -220,7 +283,8 @@
 												<div class="chk-box2">
 													<input type="radio" id="size2" name="size" value="M"
 														onclick="addToppingCheck()" /> <label class="checkbox"
-														for="size2"></label> <label for="size2">M 29,000원
+														for="size2"></label> <label for="size2">M <fmt:formatNumber
+															value="${goodsDetail.p_price_m}" pattern="#,###" />원
 														</p>
 													</label>
 												</div>
@@ -234,14 +298,27 @@
 														특징</a>
 												</div>
 											</div>
+											
 											<div class="option-box">
+											<c:forEach items="${goodsDetail.p_dough}" var="dough6">
 												<div class="chk-box dough6">
-													<input type="radio" id="dough6" name="dough" value="102"
-														onclick="addToppingCheck()" /> <label class="checkbox"
-														for="dough6"></label> <label for="dough6"> 더블
-														크러스트(기본 갈릭디핑 소스 미제공) </label>
+												<input type="hidden" id="dough_db" value="${goodsDetail.p_dough }" />
+														
+														<input type="radio" id="dough6" class="dough" name="dough"
+														value="${goodsDetail.p_dough }" onclick="addToppingCheck()"/>
+														<label class="checkbox" for="dough6" id="p_dough1" ></label>
+														<label for="dough6" id="dough6" class="dough6"> ${dough6}
+														<em>+5,000원</em>
+														
+														</label>
+														
+														<br>
+														<br>
+														</div>
+														
+													</c:forEach>
 												</div>
-											</div>
+											
 										</div>
 										<div class="step-wrap">
 											<div class="title-wrap close topping">
