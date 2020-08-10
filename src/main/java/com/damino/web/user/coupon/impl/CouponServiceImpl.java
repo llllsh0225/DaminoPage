@@ -1,11 +1,13 @@
 package com.damino.web.user.coupon.impl;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.damino.web.user.coupon.CouponDAO;
@@ -80,6 +82,12 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public int chkRegistEcoupon(Map<String, String> param) {
 		return couponDAO.chkRegistEcoupon(param);
+	}
+
+	@Scheduled(cron = "0 0 0 * * *") // 매일 0시 0분 0초마다 실행
+	@Override
+	public void updateChkusable() { // 유효기간 만료된 쿠폰의 chksuable 속성을 'N'으로 매일 0시 0분 0초마다 자동 업데이트
+		couponDAO.updateChkusable();
 	}
 
 }

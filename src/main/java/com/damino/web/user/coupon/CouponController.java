@@ -139,4 +139,5 @@ public class CouponController {
 		mav.setViewName("/ecoupon/ecouponResult");
 		return mav;
 	}
+
 }
