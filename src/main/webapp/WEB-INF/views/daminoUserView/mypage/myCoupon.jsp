@@ -44,11 +44,15 @@ function presentCoupon(){
 			phone : phone,
 		}),
 		success : function(res){
-			alert(name + "님께 쿠폰을 선물하였습니다.");
-			location.reload();
+			if(res == "success"){
+				alert(name + "님께 쿠폰을 선물하였습니다.");
+				location.reload();
+			}else{
+				alert("해당 수신자에게는 쿠폰 선물이 불가합니다.");
+			}
 		},
 		error : function(err){
-			
+			alert("쿠폰 선물 시도 중 오류가 발생하였습니다. 잠시후 다시 시도해주세요.");
 		}
 	});
 }
@@ -68,6 +72,12 @@ function presentCoupon(){
 					</div>
 
 					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
 						<c:when test="${msg=='logout' }">
 							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
 							<div class="util-nav">
@@ -143,7 +153,7 @@ function presentCoupon(){
 
 		<!-- container -->
 		<div id="container">
-			<section id="content">
+			<div id="content">
 				<div class="sub-type mypage">
 					<div class="inner-box">
 						<div class="page-title-wrap">
@@ -156,7 +166,7 @@ function presentCoupon(){
 								</ol>
 							</div>
 						</div>
-						<article class="mypage-wrap mypage-grade mypage-coupon">
+						<div class="mypage-wrap mypage-grade mypage-coupon">
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
@@ -215,19 +225,26 @@ function presentCoupon(){
 							<div class="btn-wrap">
 								<a href="goodslist.do" class="btn-type v3">피자 주문하기</a>
 							</div>
+							<div style="height:50px;"></div>
+							<hr style="border:1.2px solid black;">
+							<div style="height:23px;"></div>
 					</div>
 					<div class="gift-wrap">
 						<div class="title-wrap">
-							<div class="title-type2">내 쿠폰 선물하기</div>
-							<span>위 미사용 쿠폰 중 선물할 내 쿠폰을 선택 후, 받으실 분의 이름 및 휴대전화번호를 입력해
+							<div class="title-type2" style="margin-left:50px;">내 쿠폰 선물하기</div>
+							<span style="float:right; color:gray;">위 미사용 쿠폰 중 선물할 내 쿠폰을 선택 후, 받으실 분의 이름 및 휴대전화번호를 입력해
 								주세요.</span>
+							<div style="height:20px;"></div>
+							<hr style="color:gray;">
+							<div style="height:50px;"></div>
 						</div>
 						<div class="deli-info form">
 							<div class="form-group">
 								<div class="form-item">
-									<div class="title-type2">선물할 쿠폰 선택</div>
+									
+									<div class="title-type2" style="width:200px;">선물할 쿠폰 선택</div>
 									<div class="select-type2">
-										<select id="select_coupon">
+										<select id="select_coupon" style="width:375px;">
 											<c:forEach var="coupon" items="${myCouponList }">
 												<option value="${coupon.coupon_code }">
 												${coupon.coupon_name }(
@@ -240,8 +257,8 @@ function presentCoupon(){
 									</div>
 								</div>
 								<div class="form-item tel">
-									<div class="title-type2">수신자 정보 입력</div>
-									<input type="text" id="name" placeholder="이름"> 
+									<div class="title-type2" style="width:400px; margin-right:25px;">수신자 정보 입력</div>
+									<input type="text" id="name" placeholder="이름" style="margin-right:10px;"> 
 									<input type="text" id="tel" placeholder="휴대전화번호 ('-'없이 입력)" maxlength="11">
 								</div>
 								<div class="form-item">
@@ -251,10 +268,10 @@ function presentCoupon(){
 							</div>
 						</div>
 					</div>
-					</article>
+					</div>
 				</div>
 		</div>
-		</section>
+		</div>
 	</div>
 
 	<footer id="footer">
