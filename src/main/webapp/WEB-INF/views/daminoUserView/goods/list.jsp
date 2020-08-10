@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,8 +164,11 @@ $(document).ready(function(){
 												</div>
 												<div class="prd-price">
 													<div class="price-box">
-														<span class="price"><span class="size_l">${goodsPremiumList.p_size_l}</span>${goodsPremiumList.p_price_l}~&nbsp;</span>
-														<span class="price"><span class="size_m">${goodsPremiumList.p_size_m}</span>${goodsPremiumList.p_price_m}~&nbsp;</span>
+														<span class="price"><span class="size_l">${goodsPremiumList.p_size_l}</span>
+														<fmt:formatNumber value="${goodsPremiumList.p_price_l}"
+															pattern="#,###" />원~</span>
+														<span class="price"><span class="size_m">${goodsPremiumList.p_size_m}</span>
+														<fmt:formatNumber value="${goodsPremiumList.p_price_m}" pattern="#,###" />원~</span>
 													</div>
 												</div>
 												<div class="label-box">

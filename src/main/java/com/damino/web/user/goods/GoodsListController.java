@@ -111,7 +111,7 @@ public class GoodsListController {
 		
 		mav.addObject("goodsDetail", goodsDetail);
 		//mav.addObject("userDough", userDough);
-		
+		mav.addObject("p_name", p_name);
 		mav.setViewName("/goods/detail_goods");
 
 		return mav;
