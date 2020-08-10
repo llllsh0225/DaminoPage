@@ -107,7 +107,11 @@ public class GoodsListController {
 		//String p_image = request.getParameter("p_image");
 		
 		GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
+		//GoodsPizzaVO userDough = goodsListService.getUserDoughGoods(vo);
+		
 		mav.addObject("goodsDetail", goodsDetail);
+		//mav.addObject("userDough", userDough);
+		
 		mav.setViewName("/goods/detail_goods");
 
 		return mav;

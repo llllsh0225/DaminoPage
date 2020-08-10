@@ -76,13 +76,13 @@ var UI = (function () {
 			});
 
 			// radio,checkbox
-			$("input[type='checkbox'],input[type='radio']").each(function () {
+			/*$("input[type='checkbox'],input[type='radio']").each(function () {
 				if ($(this).attr('checked')) {
 					$(this).parent().addClass('selected');
 				} else {
 					$(this).parent().removeClass('selected');
 				}
-			});
+			});*/
 
 			// checkbox
 			$("input[type='checkbox']").change(function () {
@@ -96,10 +96,10 @@ var UI = (function () {
 			});
 
 			// radio
-			$("input[type='radio']").change(function () {
+			/*$("input[type='radio']").change(function () {
 				$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
 				$(this).parent().addClass('selected');
-			});
+			});*/
 
 			//select
 			$("[class^='select-type'] select").on('change', function () {
