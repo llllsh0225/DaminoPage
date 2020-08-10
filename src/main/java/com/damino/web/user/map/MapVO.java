@@ -1,38 +1,60 @@
 package com.damino.web.user.map;
 
 public class MapVO {
-	private int store;
-	private double latitude;
-	private double longitude;
-	private String name;
-	
-	public int getStore() {
-		return store;
+	private String storeCode;
+	private String storeRegion;
+	private String storeName;
+	private String storeAddress;
+	private String storePhone;
+	private String parking;
+	private String referinfo;
+	public String getStoreCode() {
+		return storeCode;
 	}
-	public void setStore(int store) {
-		this.store = store;
+	public void setStoreCode(String storeCode) {
+		this.storeCode = storeCode;
 	}
-	public String getName() {
-		return name;
+	public String getStoreRegion() {
+		return storeRegion;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setStoreRegion(String storeRegion) {
+		this.storeRegion = storeRegion;
 	}
-	public double getLatitude() {
-		return latitude;
+	public String getStoreName() {
+		return storeName;
 	}
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
 	}
-	public double getLongitude() {
-		return longitude;
+	public String getStoreAddress() {
+		return storeAddress;
 	}
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	public void setStoreAddress(String storeAddress) {
+		this.storeAddress = storeAddress;
+	}
+	public String getStorePhone() {
+		return storePhone;
+	}
+	public void setStorePhone(String storePhone) {
+		this.storePhone = storePhone;
+	}
+	public String getParking() {
+		return parking;
+	}
+	public void setParking(String parking) {
+		this.parking = parking;
+	}
+	public String getReferinfo() {
+		return referinfo;
+	}
+	public void setReferinfo(String referinfo) {
+		this.referinfo = referinfo;
 	}
 	@Override
 	public String toString() {
-		return "MapVO [store=" + store + ", latitude=" + latitude + ", longitude=" + longitude + ", name=" + name + "]";
+		return "MapVO [storeCode=" + storeCode + ", storeRegion=" + storeRegion + ", storeName=" + storeName
+				+ ", storeAddress=" + storeAddress + ", storePhone=" + storePhone + ", parking=" + parking
+				+ ", referinfo=" + referinfo + "]";
 	}
 	
 	
