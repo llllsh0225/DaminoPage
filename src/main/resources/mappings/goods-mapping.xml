@@ -40,7 +40,7 @@
 	
 	<!-- 사용자 선택 - 선택 가능 도우 목록 불러오기 -->
 	<select id="getUserDoughGoods" resultType="com.damino.web.admin.menu.PizzaVO" parameterType="com.damino.web.user.goods.GoodsPizzaVO" >
-		SELECT * FROM dough
+		SELECT p_dough FROM pizza WHERE p_code = #{p_code}
 	</select>
 	
 </mapper>

@@ -46,42 +46,6 @@
 				 chkBox[j].checked = true;
 			 }
 		} 
-		
-			
-		 /* for (var i = 0; i < splitDoughCode.length; i++) {
-			console.log(i); 
-			 for (var j = 0; j < chkBox.length; j++) {
-				console.log(j);
-				if (splitDoughCode[i].index == chkBox[j]) {
-					chkBox[j].checked = true;
-				}
-			} 
-		} */
-		
-		 var strDough = $(':radio[name="dough"]:checked').val();
-			if (strDough == "104") {
-				strDough = "S";
-			} else if (strDough == "115") {
-				strDough = "N";
-			} else if (strDough == "103") {
-				strDough = "H";
-			} else if (strDough == "203") {
-				strDough = "G";
-			} else if (strDough == "102") {
-				strDough = "D";
-			} else if (strDough == "116") {
-				strDough = "A";
-			} else if (strDough == "777") {
-				var goUrl = "/goods/detail?dsp_ctgr=C0102&code_01=RPZ191SL";
-				var doubleCheese = goUrl.substring(37,44);
-				
-				return doubleCheese + $(':radio[name="size"]:checked').val();
-			} else {
-				return "E";
-			}
-			rpzCode += (strDough + $(':radio[name="size"]:checked').val());
-			
-			return rpzCode;
 	
 	}
 	
@@ -299,24 +263,27 @@
 												</div>
 											</div>
 											
-											<div class="option-box">
-											<c:forEach items="${goodsDetail.p_dough}" var="dough6">
-												<div class="chk-box dough6">
-												<input type="hidden" id="dough_db" value="${goodsDetail.p_dough }" />
+											<div class="option-box dough">
 														
-														<input type="radio" id="dough6" class="dough" name="dough"
+														<c:forEach items="${goodsDetail.p_dough}" var="p_dough" varStatus="status">
+														<div class="chk-box">
+														<input type="radio" id="${status.index}" name="p_dough" class="dough" name="dough"
 														value="${goodsDetail.p_dough }" onclick="addToppingCheck()"/>
-														<label class="checkbox" for="dough6" id="p_dough1" ></label>
-														<label for="dough6" id="dough6" class="dough6"> ${dough6}
-														<em>+5,000원</em>
+														<label class="checkbox" for="${status.index}" id="p_dough1" ></label>
 														
+														<label id="p_dough" for="${status.index}" class="p_dough"> ${p_dough}
+														
+														 <c:if test="${p_dough eq '더블 치즈 엣지' }">
+														<em>+5,000원</em>
+														 </c:if> 
+														<c:if test="${p_dough eq '슈퍼 시드 함유 도우' }">
+														<em>+2,000원</em>
+														</c:if>
 														</label>
 														
-														<br>
-														<br>
 														</div>
-														
 													</c:forEach>
+													<%-- --%>
 												</div>
 											
 										</div>
