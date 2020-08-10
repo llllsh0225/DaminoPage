@@ -2,6 +2,8 @@ package com.damino.web.user.goods;
 
 import java.util.List;
 
+import com.damino.web.user.board.QnaBoardVO;
+
 public interface GoodsListDAO {
 	public List<GoodsPizzaVO> getPizzaList(); // 피자 목록 불러오기
 	public List<GoodsPizzaVO> getPizzaClassicList(); // 피자 목록 불러오기
@@ -10,5 +12,5 @@ public interface GoodsListDAO {
 	public List<GoodsDrinkEtcVO> getDrinkEtcList(); // 음료 및 기타 목록 불러오기 
 	
 	//사용자 선택 피자 메뉴 불러오기
-	public List<GoodsPizzaVO> getUserPizzaGoods(); // 피자 목록 불러오기
+	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
 }

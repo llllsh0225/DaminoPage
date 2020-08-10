@@ -20,4 +20,10 @@ public class MemberDAO implements IMemberDAO{
 		return sqlSessionTemplate.selectList("iMemberDAO.selectAllMembers");
 	}
 
+	@Override
+	public List<MemberVO> selectAllPhone() {
+		
+		return sqlSessionTemplate.selectList("iMemberDAO.selectAllPhone");
+	}
+
 }

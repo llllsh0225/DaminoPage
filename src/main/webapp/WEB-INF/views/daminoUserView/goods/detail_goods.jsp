@@ -127,7 +127,7 @@
 								<ol>
 									<li><a href="main.do">홈</a></li>
 									<li><a href="goodslist.do">메뉴</a></li>
-									<li><strong>더블크러스트 이베리코</strong></li>
+									<li><strong>${goodsDetail.p_name}</strong></li>
 								</ol>
 							</div>
 						</div>
@@ -167,30 +167,14 @@
 										<!-- 대표 이미지 슬라이드 -->
 										<div class="menu-slider-view2">
 											<div>
-												<img
-													src="../../newcdn.dominos.co.kr/admin/upload/goods/20200508_9n85647d.jpg"
-													alt="더블크러스트 이베리코1" />
-											</div>
-											<div>
-												<img
-													src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-													data-lazy="https://newcdn.dominos.co.kr/admin/upload/goods/20200311_sWqEoZvk.jpg"
-													class="lazyload" alt="더블크러스트 이베리코2" />
-											</div>
-											<div>
-												<img
-													src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-													data-lazy="https://newcdn.dominos.co.kr/admin/upload/goods/20200311_hxn3l88T.jpg"
-													class="lazyload" alt="더블크러스트 이베리코3" />
+												<img src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
 											</div>
 										</div>
-
 										<div class="menu-slider-viewdouble" style="display: none;"></div>
 
 										<!-- //대표 이미지 슬라이드 -->
-
 										<a
-											href="detail001pp.do"
+											href="javascript:getDetailSlide(${goodsDetail.p_code},${goodsDetail.p_name});"
 											class="btn-detail"> <i class="ico-sch2"></i> <span
 											class="hidden">상세버튼</span>
 										</a>
@@ -203,7 +187,7 @@
 									<div class="menu-box">
 										<div class="label-box"></div>
 										<div class="title-box">
-											<h3 class="title pizza">더블크러스트 이베리코</h3>
+											<h3 class="title pizza">${goodsDetail.p_name}</h3>
 
 											<div class="hashtag">
 												<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>

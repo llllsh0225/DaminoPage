@@ -7,4 +7,5 @@ import com.damino.web.admin.homepage.member.vo.MemberVO;
 public interface IMemberService {
 	
 	List<MemberVO> selectAllMembers();
+	public List<MemberVO> selectAllPhone();
 }

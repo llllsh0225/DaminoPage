@@ -16,6 +16,56 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<!-- 다음 주소 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script type="text/javascript">
+function execPostCode() {
+         new daum.Postcode({
+             oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+ 
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+ 
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if(fullRoadAddr !== ''){
+                    fullRoadAddr += extraRoadAddr;
+                }
+ 
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                console.log(data.zonecode);
+                console.log(fullRoadAddr);
+                
+                
+                $("[name=addr1]").val(data.zonecode);
+                $("[name=addr2]").val(fullRoadAddr);
+                
+                document.getElementById('addr1').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('addr2').value = fullAddr;
+                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+                document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+            }
+         }).open();
+     }
+
+</script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -64,9 +114,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -166,7 +216,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -199,8 +249,8 @@
 
 								<h5>주차정보</h5>
 								<p>
-									<label><input type="radio" name="car" value="X" checked>주차공간 없음</label> 
-									<label><input type="radio" name="car" value="O">매장 주차가능</label>
+									<label><input type="radio" name="car" value="N" checked>주차공간 없음</label> 
+									<label><input type="radio" name="car" value="Y">매장 주차가능</label>
 								</p>
 								<p>
 									<textarea class="text2-jms" name="park" rows="2" name="park"
@@ -215,7 +265,13 @@
 								</p>
 								<h5>주소</h5>
 								<p>
-									<textarea class="text2-jms" name="address" rows="2" cols="40"></textarea>
+									<input class="text-jms" name="addr1" id="addr1" readonly="readonly"/>
+									<a class="btn btn-primary" onclick="execPostCode();">우편번호 찾기</a><br>
+									<input class="text2-jms" name="addr2" id="addr2" readonly="readonly"/>
+								</p>
+								<h5>상세주소</h5>
+								<p>
+									<input class="text2-jms" name="addr3" id="addr3" />
 								</p>
 								<h5>특이사항</h5>
 								<p>
@@ -233,7 +289,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

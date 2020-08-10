@@ -78,9 +78,9 @@ function faqAction(index){
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -180,7 +180,7 @@ function faqAction(index){
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -224,7 +224,7 @@ function faqAction(index){
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

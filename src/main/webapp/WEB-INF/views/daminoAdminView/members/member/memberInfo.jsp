@@ -11,10 +11,35 @@
 <title>도미노피자 테스트점 관리페이지</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
+<!-- 체크박스 -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-
+<script>
+$(document).ready(function(){
+	$('#checkAll').click(function(){
+		$('.custom-control-input').prop('checked', this.checked);
+	});
+});
+</script>
+<script>
+/* function checkboxArr() {
+	console.log('체크');
+    var checkArr = [];     // 배열 초기화
+    $("input:checked").each(function() {
+        checkArr.push($(this).val());     // 체크된 것만 값을 뽑아서 배열에 push
+    $.ajax({
+        url: "/smsForm2.admdo"
+        , type: 'post'
+        , dataType: 'text'
+        , data: { 
+        	valuePhone: checkArr
+        }
+    });
+});
+} */
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -62,9 +87,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -164,7 +189,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -181,18 +206,17 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
+						<form id="form1" name="form1" method="post">
 							<table class="table table-bordered" id="dataTable" width="100%"
 								cellspacing="0">
 								<thead>
-									
 									<tr>
 										<th><label class="checkbox-inline"><label
 												class="checkbox-inline"><div
 														class="custom-control custom-checkbox">
 														<input class="custom-control-input" id="checkAll"
 															type="checkbox" /> <label class="custom-control-label"
-															for="checkAll"></label></th>
-										<th>회원번호</th>
+															for="checkAll"></th>
 										<th>이름</th>
 										<th>아이디</th>
 										<th>등급</th>
@@ -203,19 +227,18 @@
 										<th>Email수신</th>
 										<th>DM수신</th>
 										<th><a class="btn btn-secondary" href="emailForm.admdo"
-											role="button">메일발송</a> <a class="btn btn-secondary"
-											href="smsForm.admdo" role="button">SMS발송</a></th>
+											role="button">메일발송</a> <a href="smsForm2.admdo" class="btn btn-secondary"
+											role="button">SMS발송</a></th>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach var="users" items="${userList }">
 									<tr>
 										<td><div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="check1"
-													type="checkbox" /> <label class="custom-control-label"
-													for="check1"></label>
-											</div></td>
-										<td>1</td>
+												<input class="custom-control-input" id="check${users.phone}"
+													type="checkbox" name="phone" value="${users.phone}"/> <label class="custom-control-label"
+													for="check${users.phone}"></label>
+											</div>
 										<td>${users.username}</td>
 										<td>${users.userid}</td>
 										<td>${users.userlevel}</td>
@@ -231,8 +254,9 @@
 											<button class="btn btn-danger" type="submit">삭제</button></td>
 									</tr>
 									</c:forEach>
-								</tbody>
+								</tbody>	
 							</table>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -241,7 +265,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

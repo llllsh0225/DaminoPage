@@ -9,15 +9,33 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <title>도미노피자 테스트점 관리페이지</title>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"
-	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css' />" />
+
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />" />
 
 <script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"
-	crossorigin="anonymous"></script>
+	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"></script>
+<script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
+<script type="text/javascript">
+    function sendSMS(){
+        console.log("문자를 전송합니다.");
+        $("#smsForm").attr("action",  "sendSms.admdo"); //위에 있는 폼태그를 컨트롤러로 전송한다.
+        $("#smsForm").submit();
+    }
+</script>
+
+
+
+
+
+<style type="text/css">
+body {
+	margin-top: 20px;
+}
+</style>
+
 
 </head>
 <body class="sb-nav-fixed">
@@ -40,8 +58,7 @@
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div>
-			</li>
+				</div></li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -50,6 +67,7 @@
 				id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
+
 
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
 						<a class="nav-link" href="main.admdo"> 메인 </a>
@@ -63,13 +81,13 @@
 						</a>
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리
-								</a> <a class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+							<nav class="sb-sidenav-menu-nested nav accordion"
+								id="sidenavAccordionPages">
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
-
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
 							data-target="#storePage" aria-expanded="false"
 							aria-controls="storePage"> 매장관리
@@ -80,28 +98,24 @@
 						<div class="collapse" id="storePage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="storeRegForm.admdo">
-									매장등록 </a> <a class="nav-link collapsed" href="storeView.admdo">
-									매장조회 </a>
+								<a class="nav-link collapsed" href="storeRegForm.admdo"> 매장등록 </a> <a
+									class="nav-link collapsed" href="storeView.admdo"> 매장조회 </a>
 							</nav>
 						</div>
-
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
-							data-target="#ordersalesPage" aria-expanded="false"
-							aria-controls="ordersalesPage"> 주문/매출관리
+							data-target="#orderSalesPage" aria-expanded="false"
+							aria-controls="orderSalesPage"> 주문/매출관리
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
-						<div class="collapse" id="ordersalesPage"
-							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+						<div class="collapse" id="orderSalesPage"
+							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
-								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
-								</a>
+								<a class="nav-link" href="orderList.admdo"> 주문조회 </a> <a class="nav-link"
+									href="salesStatus.admdo"> 매출현황 </a>
 							</nav>
 						</div>
-
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
 							data-target="#boardPage" aria-expanded="false"
 							aria-controls="boardPage"> 게시판관리
@@ -109,15 +123,13 @@
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
-						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
-							data-parent="#sidenavAccordion">
+						<div class="collapse" id="boardPage" aria-labelledby="headingOne"
+							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
-									게시글관리 </a>
+								<a class="nav-link" href="noticeBoardView.admdo"> 게시판리스트 </a> <a class="nav-link"
+									href="boardList.admdo"> 게시글관리 </a>
 							</nav>
 						</div>
-
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
 							data-target="#menuPage" aria-expanded="false"
 							aria-controls="menuPage"> 메뉴관리
@@ -127,8 +139,7 @@
 						</a>
 						<div class="collapse" id="menuPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionPages">
+							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="menuList.admdo"> 메뉴조회 </a> <a
 									class="nav-link collapsed" href="#" data-toggle="collapse"
 									data-target="#insertMenuPage" aria-expanded="false"
@@ -141,9 +152,9 @@
 									aria-labelledby="headingOne"
 									data-parent="#sidenavAccordionPages">
 									<nav class="sb-sidenav-menu-nested nav">
-										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a
-											class="nav-link" href="insertMenu_side.admdo">사이드디시</a> <a
-											class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
+										<a class="nav-link" href="insertMenu_pizza.admdo">피자</a> <a class="nav-link"
+											href="insertMenu_side.admdo">사이드디시</a>
+											<a class="nav-link" href="insertMenu_drink.admdo">음료&기타</a> <a
 											class="nav-link" href="insertMenu_topping.admdo">토핑</a>
 									</nav>
 								</div>
@@ -159,68 +170,54 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
-									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
-									class="nav-link" href="terms_list.admdo">약관관리</a>
+								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a class="nav-link"
+									href="bannerBoardView.admdo">배너관리</a>
+									<a class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
 						</div>
+						<div class="sb-sidenav-footer">
+							<div class="small">Logged in as: ${admin.adminid }</div>
+							Start Bootstrap
+						</div>
 					</div>
-				</div>
-				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					Start Bootstrap
 				</div>
 			</nav>
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
-				<!-- 이곳이 Content 영역입니다. -->
-				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>배너 목록</b> <img
-							src="<c:url value='/resources/images/admin/refresh_icon.png' />"
-							width="20" onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;">
-					</div>
-
-					<div class="card-body">
-						<input type="button" class="btn btn-primary" value="+ 배너그룹생성"
-							style="float: right"
-							onClick="location.href='bannerBoardEdit.admdo'">
-						<form>
-						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable"
-								cellspacing="0">
-								<thead>
-									<tr>
-										<th>번호</th>
-										<th>코드</th>
-										<th>배너이름</th>
-										<th>배너설명</th>
-										<th>이미지</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="bannerlist" items="${bannerList }">
-										<tr>
-											<!-- 데이터 예시 -->
-											<td class="center-group">${bannerlist.banner_seq }</td>
-											<td class="center-group">${bannerlist.banner_code }</td>
-											<td class="center-group">${bannerlist.banner_name }</td>
-											<td class="center-group">${bannerlist.banner_alt }</td>
-											<td class="center-group">${bannerlist.banner_originalname }</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<p>1. 배너그룹생성 : 영역별 배너 그룹을 생성합니다. ex)메인고객센터, 서브좌측고객센터, 메인이미지,
-								로고 등..</p>
-							<p>2. 수정 : 배너관리 설정 페이지로 이동합니다.</p>
-							<br> <br>
+				<p class="text-center">SMS 발송하기</p>
+				<form method="post" id="smsForm">
+					<div class="form-row mb-2">
+					
+						<label for="to" class="col-2 col-sm-1 col-form-label"></label>
+						<div class="col-10 col-sm-11">
+						<c:forEach var="phone" items="${phone }">
+							<input type="text" class="form-control" id="to" name="from"
+								placeholder=${phone.phone }>
+						</c:forEach>
 						</div>
-						</form>
+					</div>
+					<div class="form-row mb-3">
+						<label for="to" class="col-2 col-sm-1 col-form-label">To:</label>
+						<div class="col-10 col-sm-11">
+							<input type="text" class="form-control" id="to" name="from"
+								placeholder="전화번호만 입력 ">
+						</div>
+					</div>
+				<div class="row">
+					<div class="col-sm-11 ml-auto">
+						<div class="form-group mt-4">
+							<textarea class="form-control" id="message" name="text" rows="7"
+								placeholder=""></textarea>
+						</div>
+						<div class="form-group">
+							<input type="button" class="btn btn-success" onclick="sendSMS()" value="전송하기">
+							<button type="button" class="btn btn-light">Draft</button>
+							<button type="button" class="btn btn-danger">Discard</button>
+						</div>
 					</div>
 				</div>
+				</form>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
@@ -237,30 +234,19 @@
 		</div>
 	</div>
 
+	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
 	<script
-		src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>"
-		crossorigin="anonymous"></script>
-	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>"
-		crossorigin="anonymous"></script>
+		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
 	<script type="text/javascript"
-		src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
+		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
 	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>"
-		crossorigin="anonymous"></script>
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
 	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>"
-		crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>"
-		crossorigin="anonymous"></script>
-
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
 
 
 </body>

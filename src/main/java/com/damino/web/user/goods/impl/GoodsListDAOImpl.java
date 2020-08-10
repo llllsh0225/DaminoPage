@@ -48,10 +48,12 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		return sqlSessionTemplate.selectList("GoodsListDAO.getDrinkEtcList");
 	}
 
+	
 	@Override
-	public List<GoodsPizzaVO> getUserPizzaGoods() {
-		System.out.println("GoodsListDAOImpl getUserPizzaGoods()");
-		return sqlSessionTemplate.selectList("GoodsListDAO.getUserPizzaGoods");
+	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo) {
+		System.out.println("GoodsListDAOImpl getUserPizzaGoods(GoodsPizzaVO vo)");
+		return sqlSessionTemplate.selectOne("GoodsListDAO.getUserPizzaGoods", vo);
+		
 	}
 
 	
