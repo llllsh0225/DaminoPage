@@ -1,5 +1,6 @@
 package com.damino.web.user.coupon;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +15,5 @@ public interface CouponService {
 	public void sendCouponCodeSMS(String presentUserName, String presentUserPhone, String presentCouponCode); // 선물 받은 유저에게 쿠폰 코드 문자 발송
 	public void registEcoupon(Map<String, String> param); // ECoupon 등록 기능
 	public int chkRegistEcoupon(Map<String, String> param); // ECoupon - 등록가능한 쿠폰인지 여부 검사
+	public void updateChkusable(); // 유효기간이 만료된 쿠폰의 chkusable 속성을 'N'로 세팅 (매일 0시 0분 0초마다 실행)
 }

@@ -1,5 +1,6 @@
 package com.damino.web.user.coupon.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,12 @@ public class CouponDAOImpl implements CouponDAO {
 	public int chkRegistEcoupon(Map<String, String> param) {
 		System.out.println("e-coupon 등록 가능한 쿠폰인지 여부 검사");
 		return sqlSessionTemplate.selectOne("CouponDAO.chkRegistEcoupon", param);
+	}
+
+	@Override
+	public void updateChkusable() {
+		System.out.println("[유효기간 만료 쿠폰 사용불가 처리]");
+		sqlSessionTemplate.update("CouponDAO.updateChkusable");
 	}
 
 }
