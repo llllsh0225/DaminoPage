@@ -48,7 +48,7 @@ function geocodeAddress(geocoder, resultsMap) {
     
     geocoder.geocode(
       {
-    	  address: "도미노피자 "+ branch_name + "점"
+    	  address: "도미노피자 "+ branch_name
       },
       (results, status) => {
         if (status === "OK") {
