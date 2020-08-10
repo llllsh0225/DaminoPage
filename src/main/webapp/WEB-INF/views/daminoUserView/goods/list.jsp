@@ -23,7 +23,15 @@
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script type="text/javascript">
 
+$(document).ready(function(){
+	$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
+		$('.pop-layer').hide();
+	});
+});
+
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -377,14 +385,14 @@
 						</article>
 					</div>
 				</div>
-				<a href="#" class="btn-close"></a>
+				<a class="btn-close" style="cursor:pointer;"></a>
 			</div>
 		</div>
 		<!-- //팝업-메뉴 상세보기 -->
 
 		<div class="pop-layer" id="pop-zoom">
 			<div class="dim"></div>
-			<div class="pop-wrap">
+			<div class="pop-wrap" style="top:0px; left:20%;">
 				<div class="pop-title-wrap">
 					<h2 class="pop-title">확대</h2>
 				</div>
@@ -412,7 +420,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="#" class="btn-close"></a>
+				<a class="btn-close" style="cursor:pointer;"></a>
 			</div>
 		</div>
 		<!--//팝업-확대 이미지 -->
@@ -420,7 +428,7 @@
 		<!-- 팝업-메인 빅배너 -->
 		<div class="pop-layer pop-full" id="pop-allergy">
 			<div class="dim"></div>
-			<div class="pop-wrap">
+			<div class="pop-wrap" style="top:0px; left:20%;">
 				<div class="pop-title-wrap">
 					<div class="pop-title v2">영양성분 및 알레르기 유발성분</div>
 				</div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,11 @@ public class QnaBoardController {
 	private QnaBoardService qnaBoardService;
 	
 	@RequestMapping(value = "/myquestionlist.do", method = RequestMethod.GET)
-	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, Paging pa, HttpSession session) throws Throwable{
 		System.out.println("내 질문내역 1:1 열기");
-		
-		pa.setWriterId("userid");
+		String userid = (String)session.getAttribute("userid");
+		System.out.println(userid);
+		pa.setWriterId(userid);
 		
 		//1:1 문의게시판 페이징처리
 		

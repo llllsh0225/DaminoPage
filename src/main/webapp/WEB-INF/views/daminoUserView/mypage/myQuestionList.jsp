@@ -289,23 +289,29 @@
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
-					<div class="util-nav">
-								<a href="/global/logout">로그아웃</a>
-								<a href="/mypage/myLevel">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
-									<i class="ico-cart"></i>
-									<span class="hidden ">장바구니</span>
-									<strong class="cart_count"></strong> <!-- count -->
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님 &nbsp; <a href="logout.do">로그아웃</a> <a
+									href="mylevel.do">나의정보</a> <a href="#" class="btn-cart"> <i
+									class="ico-cart"></i>
 								</a>
-		                <a href="javascript:void(0);" class="lang">
-		                    <div class="select-type2 language">
-		                    	<select id="select-type2">
-									<option value="/main?locale=ko">KOR</option>
-									<option value="/main?locale=en">ENG</option>
-								</select>
-		                    </div>
-		                </a>
-					</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 				
@@ -398,9 +404,9 @@
 						</div>
 					<div class="info-wrap">
 						<div class="user">
-							<span>ㅇㅇㅇ</span>님께서 문의하신 내용입니다.
+							<span>${user.username }</span>님께서 문의하신 내용입니다.
 						</div>
-						<div class="text-type">ㅇㅇㅇ님께서 문의하신 내용은 <strong>총 ${count}건</strong> 입니다.</div>
+						<div class="text-type">${user.username }님께서 문의하신 내용은 <strong>총 ${count}건</strong> 입니다.</div>
 					</div>
 					<div class="counsil-wrap">
 						<div class="table-type4">
@@ -481,15 +487,15 @@
 			<input type="hidden" name="writerId" id="writerId">
 				<dl> 
 					<dt>아이디</dt>
-					<dd>userid</dd>
+					<dd>${user.userid }</dd>
 				</dl>
 				<dl>
 					<dt>연락처</dt>
-					<dd>01012341234</dd>
+					<dd>${user.phone }</dd>
 				</dl>
 				<dl>
 					<dt>이메일</dt>
-					<dd>test@hanmail.net</dd>
+					<dd>${user.email }</dd>
 				</dl>
 			</div>
 			<div class="step-wrap">
