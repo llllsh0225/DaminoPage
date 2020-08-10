@@ -13,4 +13,5 @@ public interface CouponDAO {
 	public void updatePresentCoupon(Map<String, String> param); // 선물할 쿠폰 데이터 업데이트
 	public void registEcoupon(Map<String, String> param); // ECoupon 등록 기능
 	public int chkRegistEcoupon(Map<String, String> param); // ECoupon - 등록가능한 쿠폰인지 여부 검사
+	public void updateChkusable(); // 유효기간이 만료된 쿠폰의 chkusable 속성을 'N'로 세팅 (매일 0시 0분 0초마다 실행)
 }

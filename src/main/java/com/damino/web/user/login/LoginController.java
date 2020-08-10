@@ -69,7 +69,7 @@ public class LoginController {
 		System.out.println(session.getAttribute("username"));
 		session.invalidate();
 		mav.addObject("msg", "logout"); // logout 메세지 세팅
-		mav.addObject("username", vo.getUsername());
+		mav.addObject("username", null);
 		mav.setViewName("main");
 		return mav;
 		
