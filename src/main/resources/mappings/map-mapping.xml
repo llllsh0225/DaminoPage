@@ -7,4 +7,7 @@
 		SELECT * FROM location WHERE store=1
 	</select>
 	
+	<select id="getStoreList" resultType="com.damino.web.user.map.MapVO">
+		SELECT * FROM daminostore
+	</select>
 </mapper>
