@@ -54,6 +54,8 @@ public class BannerVO {
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "BannerVO [banner_code=" + banner_code + ", banner_name=" + banner_name + ", banner_alt=" + banner_alt
