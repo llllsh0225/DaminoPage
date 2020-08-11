@@ -17,7 +17,7 @@
 
 	<!-- 구에 따른 매장명 불러오기 -->
 	<select id="searchStore" parameterType="String" resultType="String">
-		SELECT storeName FROM daminostore
+		SELECT storeName FROM daminostoreinfo
 		WHERE storeRegion = #{storeRegion}
 	</select>
 	

@@ -36,11 +36,7 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		return sqlSessionTemplate.selectList("GoodsListDAO.getSideList");
 	}
 
-	@Override
-	public List<GoodsToppingVO> getToppingList() {
-		System.out.println("GoodsListDAOImpl getToppingList()");
-		return sqlSessionTemplate.selectList("GoodsListDAO.getToppingList");
-	}
+	
 
 	@Override
 	public List<GoodsDrinkEtcVO> getDrinkEtcList() {
@@ -62,6 +58,22 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		return sqlSessionTemplate.selectOne("GoodsListDAO.getUserDoughGoods", vo);
 	}
 
+	@Override
+	public List<GoodsToppingVO> getMainTopping() {
+		System.out.println("GoodsListDAOImpl getMainTopping()");
+		return sqlSessionTemplate.selectList("GoodsListDAO.getMainTopping");
+	}
 	
+	@Override
+	public List<GoodsToppingVO> getCheezeTopping() {
+		System.out.println("GoodsListDAOImpl getCheezeTopping()");
+		return sqlSessionTemplate.selectList("GoodsListDAO.getCheezeTopping");
+	}
+
+	@Override
+	public List<GoodsToppingVO> getAfterTopping() {
+		System.out.println("GoodsListDAOImpl getAfterTopping()");
+		return sqlSessionTemplate.selectList("GoodsListDAO.getAfterTopping");
+	}
 	
 }

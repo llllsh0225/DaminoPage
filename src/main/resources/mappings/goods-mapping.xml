@@ -21,12 +21,6 @@
 		ORDER BY seq desc
 	</select>	
 
-	<!-- 토핑 목록 불러오기 -->
-	<select id="getToppingList" resultType="com.damino.web.user.goods.GoodsToppingVO">
-		SELECT * FROM topping
-		ORDER BY seq desc
-	</select>	
-
 	<!-- 음료 및 기타 목록 불러오기 -->
 	<select id="getDrinkEtcList" resultType="com.damino.web.user.goods.GoodsDrinkEtcVO">
 		SELECT * FROM drink_etc
@@ -38,9 +32,25 @@
 		SELECT * FROM pizza WHERE p_code = #{p_code} AND p_name = #{p_name}
 	</select>
 	
-	<!-- 사용자 선택 - 선택 가능 도우 목록 불러오기 -->
-	<select id="getUserDoughGoods" resultType="com.damino.web.admin.menu.PizzaVO" parameterType="com.damino.web.user.goods.GoodsPizzaVO" >
-		SELECT p_dough FROM pizza WHERE p_code = #{p_code}
+	<!-- 메인 토핑 목록 불러오기 -->
+	<select id="getMainTopping" resultType="com.damino.web.user.goods.GoodsToppingVO">
+		SELECT * FROM topping WHERE t_type = '메인'
+		ORDER BY seq desc
+	</select>	
+	
+	<!-- 치즈 토핑 목록 불러오기 -->
+	<select id="getCheezeTopping" resultType="com.damino.web.user.goods.GoodsToppingVO">
+		SELECT * FROM topping WHERE t_type = '치즈'
+		ORDER BY seq desc
 	</select>
+
+	<!-- 애프터 토핑 목록 불러오기 -->
+	<select id="getAfterTopping" resultType="com.damino.web.user.goods.GoodsToppingVO">
+		SELECT * FROM topping WHERE t_type = '애프터'
+		ORDER BY seq desc
+	</select>	
+	
+	
+	
 	
 </mapper>
