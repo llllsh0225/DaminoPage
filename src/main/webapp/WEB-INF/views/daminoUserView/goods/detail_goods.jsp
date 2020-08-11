@@ -315,35 +315,85 @@
 				$("img.lazyload").lazyload(); 
 			});									
 
-			var 
+			var totalCount = 0;
+			var cnt = Number($('#setNum' + idx).val());			
 			
 			function minus_topping(idx){
 								
-				console.log("+버튼");				
-				var cnt = Number($('#setNum' + idx).val());
-				cnt -= 1;
-				$('#setNum' + idx).val(cnt);
+				console.log("-버튼");													
 				
-				if(cnt < 0){
+				var cnt = Number($('#setNum' + idx).val());
+				
+					if(totalCount < 0 && cnt < 0){
+				
+					alert("토핑은 0개부터 선택 가능 합니다");	
 					$('#setNum' + idx).val(0);
 				}
+				else if(totalCount < 0 || cnt < 0){
+					alert("토핑은 0개부터 선택 가능 합니다");	
+					$('#setNum' + idx).val(0);
+				}
+				else{
+					
+					cnt -= 1;
+					totalCount -= 1;
+					$('#setNum' + idx).val(cnt);
+				}
+				
 			}
 				
 				function plus_topping(idx){
 					
 					console.log("+버튼");				
-					var cnt = Number($('#setNum' + idx).val());
+				if(totalCount < 5 && cnt != 5){
+						
 					cnt += 1;
-					
+					totalCount += 1;
 					$('#setNum' + idx).val(cnt);
-					
-					if(cnt == 6){
+					}
+					else if(totalCount > 5){
+						alert("합계 토핑은 최대 5개 까지 가능 합니다");						
+					}
+					else if(cnt > 5){
 						alert("토핑은 최대 5개 까지 가능 합니다");
 						$('#setNum' + idx).val(5);
 					}
+					
 				}
 		
-			
+			/* if(toppingTotalCnt > 5) {
+		alert("토핑은 최대 5개 까지 가능 합니다.");
+		cnt = parseInt( obj.siblings(".setNum").val()) -1;
+		
+		if(cnt <= 0) cnt = 0;
+		obj.siblings(".setNum").val(cnt);
+		toppingTotalCnt -= 1;
+		$(action).each(function() {
+			if($(this).siblings(".setNum").val() != "0") {
+				toppingTotalAmount = 0;
+				toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
+				
+				toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
+				+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+				+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>";
+			}
+		});
+	} else {
+		$(action).each(function() {
+			if($(this).siblings(".setNum").val() != "0") {
+				toppingTotalAmount = 0;
+				toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
+				
+				toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
+				+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+				+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>";
+			}
+		});
+	}
+	
+	$(".total-topping").html("<div>추가 토핑</div>" + toppingStr);
+	
+	sum(); */
 			
 		</script>
 			
