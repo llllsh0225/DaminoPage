@@ -138,7 +138,7 @@
 							</div>
 
 							<div class="btn-wrap">
-								<a href="javascript:goEdit();" class="btn-type v3">퀵 오더 설정하기</a>
+								<a href="quickOrderSetting.do" class="btn-type v3">퀵 오더 설정하기</a>
 							</div>
 							<div class="pop-layer" id="pop-quick-howto">
 								<div class="dim"></div>
