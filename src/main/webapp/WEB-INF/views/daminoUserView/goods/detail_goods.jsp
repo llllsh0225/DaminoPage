@@ -309,89 +309,50 @@
 												</ul>
 											</div>
 											
-											<div id="allToppingLayer"><script>
+											<div id="allToppingLayer">
+	<script>
 			$(document).ready(function() {
 				$("img.lazyload").lazyload(); 
-			});
+			});									
+
+			var 
 			
-			$(".btn-minus.topping").click(function() {
-				setToppingTotalCnt($(this), ".btn-minus.topping");
-			});	
-			
-			$(".btn-plus.topping").click(function() {
-				setToppingTotalCnt($(this), ".btn-plus.topping");
-			});
-			
-			
-			var toppingTotalAmount = 0;
-			var toppingTotalCnt = 0;
-			var setToppingTotalCnt = function(obj, action) {
+			function minus_topping(idx){
+								
+				console.log("+버튼");				
+				var cnt = Number($('#setNum' + idx).val());
+				cnt -= 1;
+				$('#setNum' + idx).val(cnt);
 				
-				var toppingTotalCntSum = 0;
-				//var etcTotalCnt = 0;
-				var toppingStr = "";
-				toppingTotalAmount = 0;
-				toppingTotalCnt = 0;
-				var cnt = 0;
-				
-				if(action == ".btn-minus.topping") {
-					cnt = parseInt( obj.siblings(".setNum").val()) -1;
-					if(cnt <= 0) cnt = 0;
-					obj.siblings(".setNum").val(cnt);
-				} else {
-					cnt = parseInt( obj.siblings(".setNum").val()) +1;
-					
-					obj.siblings(".setNum").val(cnt);
+				if(cnt < 0){
+					$('#setNum' + idx).val(0);
 				}
+			}
 				
-				
-				$(action).each(function() {
-					if($(this).siblings(".setNum").val() != "0") {
-						toppingTotalCnt += parseInt($(this).siblings(".setNum").val());
+				function plus_topping(idx){
+					
+					console.log("+버튼");				
+					var cnt = Number($('#setNum' + idx).val());
+					cnt += 1;
+					
+					$('#setNum' + idx).val(cnt);
+					
+					if(cnt == 6){
+						alert("토핑은 최대 5개 까지 가능 합니다");
+						$('#setNum' + idx).val(5);
 					}
-				});
-				
-				
-				if(toppingTotalCnt > 5) {
-					alert("토핑은 최대 5개 까지 가능 합니다.");
-					cnt = parseInt( obj.siblings(".setNum").val()) -1;
-					
-					if(cnt <= 0) cnt = 0;
-					obj.siblings(".setNum").val(cnt);
-					toppingTotalCnt -= 1;
-					$(action).each(function() {
-						if($(this).siblings(".setNum").val() != "0") {
-							toppingTotalAmount = 0;
-							toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
-							
-							toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
-							+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
-							+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>";
-						}
-					});
-				} else {
-					$(action).each(function() {
-						if($(this).siblings(".setNum").val() != "0") {
-							toppingTotalAmount = 0;
-							toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
-							
-							toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
-							+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
-							+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>";
-						}
-					});
 				}
-				
-				$(".total-topping").html("<div>추가 토핑</div>" + toppingStr);
-				
-				sum();
-			};
-</script>
+		
+			
+			
+		</script>
+			
+			
 
 <div id="topping1" class="tab-content active">
 	<div class="menu-list-v2">
 		<ul>
-		<c:forEach var="mainToppingList" items="${mainToppingList}">
+		<c:forEach var="mainToppingList" items="${mainToppingList}" varStatus="status">
 			<li>
 						<div class="prd-img">
 							<img class="lazyload"
@@ -407,12 +368,12 @@
 															pattern="#,###" />원</strong></div>
 							
 							<div class="quantity-box">
-								<button type="button" class="btn-minus topping"></button>
-								<input class="setNum" type="number" value="0" readonly="">
+								<button type="button"  class="btn-minus topping" onclick="minus_topping(${status.index })"></button> <!--   -->
+								<input class="setNum" id="setNum${status.index }" type="number" value="0" readonly="">
 								<input class="setName" type="hidden" value="${mainToppingList.t_name}">
 								<input class="setCode" type="hidden" value="${mainToppingList.t_code}">
 								<input class="setPrice" type="hidden" value="${mainToppingList.t_price}">
-								<button type="button" class="btn-plus topping"></button>
+								<button type="button"  class="btn-plus topping" onclick="plus_topping(${status.index })" ></button> <!--onclick="plus_topping(${mainToppingList.t_name},${status.index});"  -->
 							</div>
 						</div>
 					</li>
@@ -1615,9 +1576,8 @@
 											</dl>
 											<dl class="superseed_dough_content large">
 												<dt>
-													<img class="lazyload"
-														data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/superseed_1.jpg"
-														alt="100% 국내산 흑미">
+													<!-- <img class="lazyload"
+														/> -->
 												</dt>
 												<dd class="cont_title">100% 국내산 흑미</dd>
 												<dd class="cont_sub">
