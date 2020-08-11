@@ -31,12 +31,12 @@
 
 <script>
 	window.onload = function() {
+		//쉼표로 저장된 리스트 split으로 자르기
 		var splitDoughCode = $("#dough_db").val().split(",");
-		/* for(var i=0; i<splitDoughCode.length; i++){
-			alert(splitDoughCode[i]);
-		}*/
-		//var chkBox = $('.p_dough2').val(); 
+		
+		//name=dough인 checkbox 정보 var에 저장
 		var chkBox = document.getElementsByName('dough');
+		//checkbox 길이 확인
 		var count = chkBox.length;
 		console.log('라디오버튼 갯수' , count);
 		
@@ -288,31 +288,204 @@
 											
 										</div>
 										<div class="step-wrap">
-											<div class="title-wrap close topping">
-												<div class="title-type2">토핑추가</div>
-												<div class="notice-text side">
-													<a href="javascript:UI.layerPopUp({selId:'#pop-allergy2'})">토핑
-														알레르기 유발성분</a>
-												</div>
-												<a href="#" class="btn-toggle-close"> <span
-													class="hidden">열기</span>
-												</a>
+										<div class="title-wrap topping">
+											<div class="title-type2">토핑추가</div>
+											<div class="notice-text side">
+												<a href="javascript:UI.layerPopUp({selId:'#pop-allergy2'})">토핑 알레르기 유발성분</a>
 											</div>
-											<div class="js_toggle_box close">
-												<ul class="list-text-v4">
-													<li>토핑추가는 피자 한판 당 5개까지 추가 가능</li>
-												</ul>
-												<div class="tab-type js_tab">
-													<ul class="col-3 topping">
-														<li class="active"><a href="#topping1">메인</a></li>
-														<li><a href="#topping2">치즈</a></li>
-														<li><a href="#topping3">애프터</a></li>
-													</ul>
-												</div>
-
-												<div id="allToppingLayer"></div>
-											</div>
+											<a href="#" class="btn-toggle-close">
+												<span class="hidden">열기</span>
+											</a>
 										</div>
+										<div class="js_toggle_box" style="">
+											<ul class="list-text-v4">
+												<li>토핑추가는 피자 한판 당 5개까지 추가 가능</li>
+											</ul>
+											<div class="tab-type js_tab">
+												<ul class="col-3 topping">
+													<li class="active"><a href="#topping1">메인</a></li>
+													<li class=""><a href="#topping2">치즈</a></li>
+													<li class=""><a href="#topping3">애프터</a></li>
+												</ul>
+											</div>
+											
+											<div id="allToppingLayer"><script>
+			$(document).ready(function() {
+				$("img.lazyload").lazyload(); 
+			});
+			
+			$(".btn-minus.topping").click(function() {
+				setToppingTotalCnt($(this), ".btn-minus.topping");
+			});	
+			
+			$(".btn-plus.topping").click(function() {
+				setToppingTotalCnt($(this), ".btn-plus.topping");
+			});
+			
+			
+			var toppingTotalAmount = 0;
+			var toppingTotalCnt = 0;
+			var setToppingTotalCnt = function(obj, action) {
+				
+				var toppingTotalCntSum = 0;
+				//var etcTotalCnt = 0;
+				var toppingStr = "";
+				toppingTotalAmount = 0;
+				toppingTotalCnt = 0;
+				var cnt = 0;
+				
+				if(action == ".btn-minus.topping") {
+					cnt = parseInt( obj.siblings(".setNum").val()) -1;
+					if(cnt <= 0) cnt = 0;
+					obj.siblings(".setNum").val(cnt);
+				} else {
+					cnt = parseInt( obj.siblings(".setNum").val()) +1;
+					
+					obj.siblings(".setNum").val(cnt);
+				}
+				
+				
+				$(action).each(function() {
+					if($(this).siblings(".setNum").val() != "0") {
+						toppingTotalCnt += parseInt($(this).siblings(".setNum").val());
+					}
+				});
+				
+				
+				if(toppingTotalCnt > 5) {
+					alert("토핑은 최대 5개 까지 가능 합니다.");
+					cnt = parseInt( obj.siblings(".setNum").val()) -1;
+					
+					if(cnt <= 0) cnt = 0;
+					obj.siblings(".setNum").val(cnt);
+					toppingTotalCnt -= 1;
+					$(action).each(function() {
+						if($(this).siblings(".setNum").val() != "0") {
+							toppingTotalAmount = 0;
+							toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
+							
+							toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
+							+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+							+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>";
+						}
+					});
+				} else {
+					$(action).each(function() {
+						if($(this).siblings(".setNum").val() != "0") {
+							toppingTotalAmount = 0;
+							toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
+							
+							toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
+							+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+							+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>";
+						}
+					});
+				}
+				
+				$(".total-topping").html("<div>추가 토핑</div>" + toppingStr);
+				
+				sum();
+			};
+</script>
+
+<div id="topping1" class="tab-content active">
+	<div class="menu-list-v2">
+		<ul>
+		<c:forEach var="mainToppingList" items="${mainToppingList}">
+			<li>
+						<div class="prd-img">
+							<img class="lazyload"
+							src="<c:url value= '/resources/images/admin/goods/${mainToppingList.t_image}'/>"
+							data-src="<c:url value= '/resources/images/admin/goods/${mainToppingList.t_image}'
+							 />" />
+						</div>
+						
+						<div class="prd-cont">
+							<div class="subject">${mainToppingList.t_name}</div>
+							<div class="price-box">
+								<strong><fmt:formatNumber value="${mainToppingList.t_price}"
+															pattern="#,###" />원</strong></div>
+							
+							<div class="quantity-box">
+								<button type="button" class="btn-minus topping"></button>
+								<input class="setNum" type="number" value="0" readonly="">
+								<input class="setName" type="hidden" value="${mainToppingList.t_name}">
+								<input class="setCode" type="hidden" value="${mainToppingList.t_code}">
+								<input class="setPrice" type="hidden" value="${mainToppingList.t_price}">
+								<button type="button" class="btn-plus topping"></button>
+							</div>
+						</div>
+					</li>
+					</c:forEach>
+				 </ul>	
+				</div>
+			</div>
+		
+<div id="topping2" class="tab-content">
+	<div class="menu-list-v2">
+		<ul>
+			<c:forEach var="cheezeToppingList" items="${cheezeToppingList}">
+			<li>
+						<div class="prd-img">
+							<img class="lazyload" 
+							src="<c:url value= '/resources/images/admin/goods/${cheezeToppingList.t_image}'/>"
+							data-src="<c:url value= '/resources/images/admin/goods/${cheezeToppingList.t_image}'/>">
+						</div>
+						
+						<div class="prd-cont">
+							<div class="subject">${cheezeToppingList.t_name}</div>
+							<div class="price-box">
+								<strong><fmt:formatNumber value="${cheezeToppingList.t_price}"
+															pattern="#,###" />원</strong></div>
+							
+							<div class="quantity-box">
+								<button type="button" class="btn-minus topping"></button>
+								<input class="setNum" type="number" value="0" readonly="">
+								<input class="setName" type="hidden" value="${cheezeToppingList.t_name}">
+								<input class="setCode" type="hidden" value="${cheezeToppingList.t_code}">
+								<input class="setPrice" type="hidden" value="${cheezeToppingList.t_price}">
+								<button type="button" class="btn-plus topping"></button>
+							</div>
+						</div>
+					</li>
+					</c:forEach>
+				 </ul>	
+				</div>
+			</div> 
+			
+<div id="topping3" class="tab-content">
+	<div class="menu-list-v2">
+		<ul>
+			<c:forEach var="afterToppingList" items="${afterToppingList}">
+			<li>
+						<div class="prd-img">
+							<img class="lazyload" 
+							src="<c:url value= '/resources/images/admin/goods/${afterToppingList.t_image}'/>"
+							data-src="<c:url value= '/resources/images/admin/goods/${afterToppingList.t_image}'/>">
+						</div>
+						
+						<div class="prd-cont">
+							<div class="subject">${afterToppingList.t_name}</div>
+							<div class="price-box">
+								<strong><fmt:formatNumber value="${afterToppingList.t_price}"
+															pattern="#,###" />원</strong></div>
+							
+							<div class="quantity-box">
+								<button type="button" class="btn-minus topping"></button>
+								<input class="setNum" type="number" value="0" readonly="">
+								<input class="setName" type="hidden" value="${afterToppingList.t_name}">
+								<input class="setCode" type="hidden" value="${afterToppingList.t_code}">
+								<input class="setPrice" type="hidden" value="${afterToppingList.t_price}">
+								<button type="button" class="btn-plus topping"></button>
+							</div>
+						</div>
+					</li>
+					</c:forEach>
+				 </ul>	
+				</div>
+			</div> 			
+		</div>
+										
 										<div class="step-wrap">
 											<div class="title-wrap">
 												<div class="title-type2">수량 선택</div>

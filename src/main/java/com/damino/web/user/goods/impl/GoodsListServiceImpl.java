@@ -39,12 +39,6 @@ public class GoodsListServiceImpl implements GoodsListService {
 	}
 
 	@Override
-	public List<GoodsToppingVO> getToppingList() {
-		System.out.println("GoodsListServiceImpl getToppingList()");
-		return goodsListDAO.getToppingList();
-	}
-
-	@Override
 	public List<GoodsDrinkEtcVO> getDrinkEtcList() {
 		System.out.println("GoodsListServiceImpl getDrinkEtcList()");
 		return goodsListDAO.getDrinkEtcList();
@@ -60,6 +54,24 @@ public class GoodsListServiceImpl implements GoodsListService {
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo) {
 		System.out.println("GoodsListServiceImpl getUserDoughGoods(GoodsPizzaVO vo)");
 		return goodsListDAO.getUserDoughGoods(vo);
+	}
+	
+	@Override
+	public List<GoodsToppingVO> getMainTopping() {
+		System.out.println("GoodsListServiceImpl getMainTopping()");
+		return goodsListDAO.getMainTopping();
+	}
+
+	@Override
+	public List<GoodsToppingVO> getCheezeTopping() {
+		System.out.println("GoodsListServiceImpl getCheezeTopping()");
+		return goodsListDAO.getCheezeTopping();
+	}
+
+	@Override
+	public List<GoodsToppingVO> getAfterTopping() {
+		System.out.println("GoodsListServiceImpl getAfterTopping()");
+		return goodsListDAO.getAfterTopping();
 	}
 	
 
