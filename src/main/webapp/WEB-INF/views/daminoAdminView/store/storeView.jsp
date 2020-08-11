@@ -214,15 +214,17 @@
 													type="checkbox" /> <label class="custom-control-label"
 													for="checkAll"></label>
 											</div></th>
+										<th>지역구</th>
 										<th>점포명</th>
-										<th>전화번호</th>
+										<th>우편번호</th>
 										<th>주소</th>
-										<th>위치정보</th>
+										<th>상세주소</th>
+										<th>전화번호</th>
+										<th>매장주차</th>
+										<th>특이사항</th>
+										<th>주차시설</th>
 										<th>오픈시간</th>
 										<th>마감시간</th>
-										<th>매장주차</th>
-										<th>주차시설</th>
-										<th>특이사항</th>
 										<th><a class="btn btn-secondary" href="emailForm.admdo"
 											role="button">메일발송</a> <a class="btn btn-secondary"
 											href="smsForm.admdo" role="button">SMS발송</a></th>
@@ -238,18 +240,19 @@
 													for="check${market.seq }"></label>
 											</div>
 										</td>
-										<td>${market.name }</td>
-										<td>${market.tel }</td>
-										<td>${market.address}</td>
-										<td>${market.location }</td>
-										<td>${market.time }</td>
-										<td>${market.etime }</td>
-										<td>${market.car }</td>
-										<td>${market.park }</td>
-										<td>${market.etc }</td>
+										<td>${market.storeregion }</td>
+										<td>${market.storename }</td>
+										<td>${market.zipcode}</td>
+										<td>${market.storeaddress }</td>
+										<td>${market.detailaddress }</td>
+										<td>${market.storephone }</td>
+										<td>${market.parking }</td>
+										<td>${market.referinfo }</td>
+										<td>${market.parkingplace }</td>
+										<td>${market.opentime }</td>
+										<td>${market.endtime }</td>
 										<td><a class="btn btn-primary" href="storeEdit.admdo?seq=${market.seq }"
 											role="button">수정</a>
-
 											<button class="btn btn-danger" onClick="del(${market.seq})">삭제</button></td>
 									</tr>
 									</c:forEach>

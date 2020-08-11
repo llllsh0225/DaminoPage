@@ -53,11 +53,11 @@ function execPostCode() {
                 console.log(fullRoadAddr);
                 
                 
-                $("[name=addr1]").val(data.zonecode);
-                $("[name=addr2]").val(fullRoadAddr);
+                $("[name=zipcode]").val(data.zonecode);
+                $("[name=storeaddress]").val(fullRoadAddr);
                 
-                document.getElementById('addr1').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('addr2').value = fullAddr;
+                document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('storeaddress').value = fullAddr;
                 /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
                 document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
                 document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
@@ -230,27 +230,31 @@ function execPostCode() {
 							<p class="mb-0">
 							<form action="insertMarket.admdo" method="post">
 								<p>
-									<label>점포이름 : <input class="text-jms" type="text"
-										name="name" required>
+									<label>지역구 : <input class="text-jms" type="text"
+										name="storeregion" required>
 									</label>
 								</p>
-
 								<p>
-									<label>전화번호 : <input type="tel" class="text-jms" name="tel"
+									<label>점포명 : <input class="text-jms" type="text"
+										name="storename" required>
+									</label>
+								</p>
+								<p>
+									<label>전화번호 : <input type="tel" class="text-jms" name="storephone"
 										required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
 										title="###-####-####">
 									</label>
 								</p>
 								<p>
-									<label>오픈시간 : <input type="time" name="time" 
+									<label>오픈시간 : <input type="time" name="opentime" 
 										class="text-jms"> 마감시간 : <input type="time"
-										name="etime" class="text-jms"></label>
+										name="endtime" class="text-jms"></label>
 								</p>
 
 								<h5>주차정보</h5>
 								<p>
-									<label><input type="radio" name="car" value="N" checked>주차공간 없음</label> 
-									<label><input type="radio" name="car" value="Y">매장 주차가능</label>
+									<label><input type="radio" name="parking" value="N" checked>주차공간 없음</label> 
+									<label><input type="radio" name="parking" value="Y">매장 주차가능</label>
 								</p>
 								<p>
 									<textarea class="text2-jms" name="park" rows="2" name="park"
@@ -260,22 +264,22 @@ function execPostCode() {
 
 								<h5>위치정보</h5>
 								<p>
-									<textarea class="text2-jms" name="location" rows="2" cols="40"
+									<textarea class="text2-jms" name="parkingplace" rows="2" cols="40"
 										placeholder="찾아 오시는 길."></textarea>
 								</p>
 								<h5>주소</h5>
 								<p>
-									<input class="text-jms" name="addr1" id="addr1" readonly="readonly"/>
+									<input class="text-jms" name="zipcode" id="zipcode" readonly="readonly"/>
 									<a class="btn btn-primary" onclick="execPostCode();">우편번호 찾기</a><br>
-									<input class="text2-jms" name="addr2" id="addr2" readonly="readonly"/>
+									<input class="text2-jms" name="storeaddress" id="storeaddress" readonly="readonly"/>
 								</p>
 								<h5>상세주소</h5>
 								<p>
-									<input class="text2-jms" name="addr3" id="addr3" />
+									<input class="text2-jms" name="detailaddress" id="detailaddress" />
 								</p>
 								<h5>특이사항</h5>
 								<p>
-									<textarea class="text2-jms" name="etc" rows="2" cols="40"></textarea>
+									<textarea class="text2-jms" name="referinfo" rows="2" cols="40"></textarea>
 								</p>
 								<p>
 									<input type="submit" value="등록">

@@ -2,17 +2,18 @@ package com.damino.web.admin.market;
 
 public class MarketVO {
 	private int seq;
-	private String name;
-	private String tel;
-	private String address;
-	private String location;
-	private String time;
-	private String etime;
-	private String park;
-	private String etc;
+	private String storeregion;
+	private String storename;
+	private String zipcode;
+	private String storeaddress;
+	private String detailaddress;
+	private String storephone;
+	private String parking;
+	private String referinfo;
+	private String parkingplace;
+	private String opentime;
+	private String endtime;
 	private String car;
-	
-
 	public String getCar() {
 		return car;
 	}
@@ -25,59 +26,78 @@ public class MarketVO {
 	public void setSeq(int seq) {
 		this.seq = seq;
 	}
-	public String getEtime() {
-		return etime;
+	public String getStoreregion() {
+		return storeregion;
 	}
-	public void setEtime(String etime) {
-		this.etime = etime;
+	public void setStoreregion(String storeregion) {
+		this.storeregion = storeregion;
 	}
-	public String getName() {
-		return name;
+	public String getStorename() {
+		return storename;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setStorename(String storename) {
+		this.storename = storename;
 	}
-	public String getTel() {
-		return tel;
+	public String getZipcode() {
+		return zipcode;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
-	public String getAddress() {
-		return address;
+	public String getStoreaddress() {
+		return storeaddress;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setStoreaddress(String storeaddress) {
+		this.storeaddress = storeaddress;
 	}
-	public String getLocation() {
-		return location;
+	public String getDetailaddress() {
+		return detailaddress;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setDetailaddress(String detailaddress) {
+		this.detailaddress = detailaddress;
 	}
-	public String getTime() {
-		return time;
+	public String getStorephone() {
+		return storephone;
 	}
-	public void setTime(String time) {
-		this.time = time;
+	public void setStorephone(String storephone) {
+		this.storephone = storephone;
 	}
-	public String getPark() {
-		return park;
+	public String getParking() {
+		return parking;
 	}
-	public void setPark(String park) {
-		this.park = park;
+	public void setParking(String parking) {
+		this.parking = parking;
 	}
-	public String getEtc() {
-		return etc;
+	public String getReferinfo() {
+		return referinfo;
 	}
-	public void setEtc(String etc) {
-		this.etc = etc;
+	public void setReferinfo(String referinfo) {
+		this.referinfo = referinfo;
+	}
+	public String getParkingplace() {
+		return parkingplace;
+	}
+	public void setParkingplace(String parkingplace) {
+		this.parkingplace = parkingplace;
+	}
+	public String getOpentime() {
+		return opentime;
+	}
+	public void setOpentime(String opentime) {
+		this.opentime = opentime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
 	}
 	@Override
 	public String toString() {
-		return "MarketVO [seq=" + seq + ", name=" + name + ", tel=" + tel + ", address=" + address + ", location="
-				+ location + ", time=" + time + ", etime=" + etime + ", park=" + park + ", etc=" + etc + ", car=" + car
-				+ "]";
+		return "MarketVO [seq=" + seq + ", storeregion=" + storeregion + ", storename=" + storename + ", zipcode="
+				+ zipcode + ", storeaddress=" + storeaddress + ", detailaddress=" + detailaddress + ", storephone="
+				+ storephone + ", parking=" + parking + ", referinfo=" + referinfo + ", parkingplace=" + parkingplace
+				+ ", opentime=" + opentime + ", endtime=" + endtime + "]";
 	}
 
 	
