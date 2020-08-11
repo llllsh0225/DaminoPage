@@ -8,14 +8,15 @@ public interface BannerDAO {
 	
 	//목록 보여주기
 	public List<BannerVO> getBannerList();
-/*	
-	//목록 가져오기
+	
+	//수정할 배너 가져오기
 	public BannerVO getBanner(BannerVO vo);
+
 	
 	//수정
 	void updateBanner(BannerVO vo);
 	
 	//삭제
 	void deleteBanner(BannerVO vo);
-*/
+
 }
