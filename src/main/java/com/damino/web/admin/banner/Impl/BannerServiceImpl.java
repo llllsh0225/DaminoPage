@@ -27,10 +27,11 @@ public class BannerServiceImpl implements BannerService {
 		System.out.println("[bannerserviceimpl] getbannerList()...");
 		return bannerDAO.getBannerList();
 	}
-/*
+
 	@Override
 	public BannerVO getBanner(BannerVO vo) {
 		System.out.println("[bannerserviceimpl] getBanner...");
+		System.out.println(" ´ë»ó : " +vo);
 		return bannerDAO.getBanner(vo);
 	}
 
@@ -46,5 +47,5 @@ public class BannerServiceImpl implements BannerService {
 		bannerDAO.deleteBanner(vo);
 
 	}
-*/
+
 }

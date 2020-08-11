@@ -21,10 +21,11 @@ public class BannerController {
 	@Autowired
 	private BannerService bannerService;
 	
+	// -- 배너 등록 --
 	@RequestMapping(value ="/insertBanner.admdo" , method=RequestMethod.POST)
 	public ModelAndView insertBanner(BannerVO vo, ModelAndView mav, HttpServletRequest request) throws IOException {
 		System.out.println("[controller banner] ");
-		String path = request.getSession().getServletContext().getRealPath("/resources/images/user/banner") ;
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/user/banner") ; // 이미지 저장될 절대 경로
 		
 		String banner_image ="";  //실제 저장될 파일명
 		String orignialFileName =""; //사용자 업로드한 original 파일명
@@ -50,6 +51,7 @@ public class BannerController {
 		
 	}
 	
+	// -- 배너 조회--
 	@RequestMapping(value="/bannerBoardView.admdo", method = RequestMethod.GET)//get
 	public ModelAndView getBannerList() {
 		System.out.println("[배너 목록]");
@@ -61,19 +63,71 @@ public class BannerController {
 		return mav;
 	}
 
-/*	
-	@RequestMapping("/getBannerList.admdo")
-	public ModelAndView getAdminBannerBoardPage(BannerVO vo, ModelAndView mav) {
+	// -- 배너 수정페이지 이동 --
+	@RequestMapping(value="/getBannerInfo.admdo", method = RequestMethod.GET)
+	public ModelAndView getBannerBoardInfoPage(BannerVO vo, ModelAndView mav, HttpServletRequest req) throws IOException {
 		System.out.println("배너 정보 페이지 open");
 		
-		BannerVO banner = bannerService.getBanner(vo);
-		mav.addObject("banner", banner);
-		mav.setViewName("/sites/banner/bannerInfo");
+		String seq = req.getParameter("banner_seq");
+		System.out.println("bannr_seq 확인=" +seq);
+		
+		BannerVO bannerList = bannerService.getBanner(vo);
+		mav.addObject("bannerList", bannerList);
+		mav.setViewName("/sites/banner/bannerBoardInfo");
 		
 		return mav;
 	}
 	
-*/	
+	// -- 배너 삭제 --
+	@RequestMapping(value="/deleteBanner.admdo", method = RequestMethod.POST)
+	public String deletebanner(BannerVO vo) {
+		System.out.println("배너 삭제 :" + vo); /* 확인용 */
+		bannerService.deleteBanner(vo);
+		return "redirect:bannerBoardView.admdo";
+	}
+	
+	// -- 배너 수정 --
+	@RequestMapping(value="/updateBanner.admdo", method = RequestMethod.POST)
+	public ModelAndView updateBanner(ModelAndView mav, BannerVO vo, HttpServletRequest request)throws IOException {
+		// -- 기존내용을 유지할때.(A)
+		BannerVO originalBanner = bannerService.getBanner(vo);
+		// -- (A)여기까지
+		
+		String path = request.getSession().getServletContext().getRealPath("/resources/images/user/banner"); // 이미지가 저장딜 절대 경로
+		
+		String banner_image ="";  //실제 저장될 파일명
+		String orignialFileName =""; //사용자 업로드한 original 파일명
+		MultipartFile uploadFile = vo.getUploadFile();
+		
+		if(!uploadFile.isEmpty()) {
+			
+			orignialFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(orignialFileName); //확장자 구하기
+			UUID uuid = UUID.randomUUID(); // uuid(file id) 
+			banner_image = uuid + "." + ext;
+			uploadFile.transferTo(new File(path + "/" + banner_image));
+			vo.setBanner_image(banner_image);
+			vo.setBanner_originalname(orignialFileName);
+			
+		}else if(uploadFile.isEmpty()){
+			// -- 기존내용을 유지할때  이미지 유지..(A)
+			String originalBannerImage = originalBanner.getBanner_image();
+			String originalBannerName = originalBanner.getBanner_originalname();
+			vo.setBanner_image(originalBannerImage);
+			vo.setBanner_originalname(originalBannerName);
+		}
+		
+		
+		System.out.println("[banner_image] : " + banner_image);
+		System.out.println("[originalFileName] : " + orignialFileName);
+		
+		bannerService.updateBanner(vo);
+		mav.setViewName("redirect:/bannerBoardView.admdo");
+		
+		return mav;
+	
+	}
+
 	
 	
 }

@@ -15,21 +15,21 @@
 	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"
 	crossorigin="anonymous" />
 <style>
-	.img_box{
-		 width: 400px;
-	}
-	
-	tbody{
-	text-align: center;
-	}
+/* 이미지 박스 크기 */
+.img_box {
+	width: 400px;
+}
 
-	
-	img{
+tbody {
+	text-align: center;
+}
+/* 이미지 크기 */
+img {
 	display: block;
 	width: 100%;
 	height: auto;
-	}
-</style>	
+}
+</style>
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"
@@ -56,8 +56,7 @@
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div>
-			</li>
+				</div></li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -183,7 +182,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -193,45 +192,48 @@
 				<!-- 이곳이 Content 영역입니다. -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>배너 목록</b> 
+						<i class="fas fa-table mr-1"></i> <b>배너 목록</b>
 					</div>
 
 					<div class="card-body">
+						<h6>
+							<strong>배너 등록정보</strong>
+						</h6>
 						<input type="button" class="btn btn-primary" value="+ 배너생성"
 							style="float: right"
 							onClick="location.href='bannerBoardEdit.admdo'">
 						<form>
-						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable"
-								cellspacing="0">
-								<thead>
-									<tr>
-										<th>번호</th>
-										<th>코드</th>
-										<th>배너이름</th>
-										<th>배너설명</th>
-										<th>이미지</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="bannerlist" items="${bannerList }">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable"
+									cellspacing="0">
+									<thead>
 										<tr>
-											<!-- 데이터 예시 -->
-											<td>${bannerlist.banner_seq }</td>
-											<td class="center-group" style="align: center;">${bannerlist.banner_code }</td>
-											<td class="center-group" style="align: center;">${bannerlist.banner_name }</td>
-											<td class="center-group" style="align: center;">${bannerlist.banner_alt }</td>
-											<td class="center-group">
-													<img class="img_box" src="<c:url value= '/resources/images/user/banner/${bannerlist.banner_image}' />" />
-											</td>
+											<th>번호</th>
+											<th>코드</th>
+											<th>배너이름</th>
+											<th>배너설명</th>
+											<th>이미지</th>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<p>1. 배너생성 : 이름 과 20자이내의 설명, 이미지를 등록하는곳 입니다.</p>
-							<p>2. 이미지 크기는 1860 * 615 크기로 넣어주세요.</p>
-							<br> <br>
-						</div>
+									</thead>
+									<tbody>
+										<c:forEach var="bannerList" items="${bannerList }">
+											<tr>
+												<!-- 데이터 예시 -->
+												<td>${bannerList.banner_seq }</td>
+												<td><a href='getBannerInfo.admdo?banner_seq=${bannerList.banner_seq }'>${bannerList.banner_code }</a></td>
+												<td class="center-group" style="align: center;">${bannerList.banner_name }</td>
+												<td class="center-group" style="align: center;">${bannerList.banner_alt }</td>
+												<td class="center-group">
+													<img class="img_box" src="<c:url value= '/resources/images/user/banner/${bannerList.banner_image}' />" />
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								<p>1. 배너생성 : 이름 과 20자이내의 설명, 이미지를 등록하는곳 입니다.</p>
+								<p>2. 이미지 크기는  -- 1860 * 615 -- 크기로 넣어주세요.</p>
+								<br> <br>
+							</div>
 						</form>
 					</div>
 				</div>

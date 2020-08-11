@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -8,18 +8,33 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>도미노피자 테스트점 관리페이지</title>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"
-	crossorigin="anonymous" />
+<title>다미노피자 테스트점 관리페이지</title>
+<link rel="stylesheet"  
+	href="<c:url value='/resources/css/admin/styles.css' />" />
+<link rel="stylesheet"
+	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css' />" crossorigin="anonymous">
 
-<script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"
-	crossorigin="anonymous"></script>
+<script type="text/javascript" 
+	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous">
+</script>
+<!-- 삭제 수정 버튼 설정 -->
+<script type="text/javascript">
+	function bannerAction(index){
+		if(index==1){
+			console.log("수정");
+			document.bannerInfoForm.action='updateBanner.admdo'; 
+		}
+		if(index==2){
+			console.log("삭제");
+			document.bannerInfoForm.action='deleteBanner.admdo';
+		}
+		document.bannerInfoForm.submit();
+	}
+</script>
+
 
 </head>
+<!-- body -->
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<a class="navbar-brand" href="main.admdo">Damino Administration</a>
@@ -67,9 +82,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리
-								</a> <a class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -83,9 +98,8 @@
 						<div class="collapse" id="storePage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="storeRegForm.admdo">
-									매장등록 </a> <a class="nav-link collapsed" href="storeView.admdo">
-									매장조회 </a>
+								<a class="nav-link collapsed" href="storeRegForm.admdo"> 매장등록 </a> <a
+									class="nav-link collapsed" href="storeView.admdo"> 매장조회 </a>
 							</nav>
 						</div>
 
@@ -99,8 +113,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
-								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
+								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
+								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -175,90 +189,89 @@
 				</div>
 			</nav>
 		</div>
+		<!-- content 영역 -->
 		<div id="layoutSidenav_content">
-			<main>
-				<!-- 이곳이 Content 영역입니다. -->
-				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>배너 목록</b> <img
-							src="<c:url value='/resources/images/admin/refresh_icon.png' />"
-							width="20" onClick="window.location.reload()"
-							style="margin-left: 15px; cursor: pointer;">
-					</div>
-
-					<div class="card-body">
-						<h6>
-							<strong>배너 등록</strong>
-						</h6>
-						<br>
-						<form id="insertBannerForm" action="insertBanner.admdo"
-							method="post" enctype="multipart/form-data">
-							<div id="table-reponsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
-									<tr>
-										<th>배너 명</th>
-										<td><input type="text" name="banner_name" /></td>
-									</tr>
-									<tr>
-										<th>이미지 설명(20자 이내)</th>
-										<td><input type="text" name="banner_alt" /></td>
-									</tr>
-									<tr>
-										<th>배너 이미지</th>
-										<td><input type="file" name="uploadFile" /></td>
-									</tr>
-								</table>
-								<br>
-								<div id="insert-menu-btns" align="center">
-									<input type="submit" class="btn btn-primary" value="메뉴등록" /> <input
-										type="button" class="btn btn-delete" value="목록" />
-								</div>
-							</div>
-						</form>
-					</div>
+		<!-- main -->
+		<main>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-table mr-1"></i> <b>배너 수정</b>
 				</div>
-			</main>
+			</div>
+			
+			<div class="card-body">
+				<h6>
+					<strong>배너 상세정보</strong>
+				</h6>
+				<div class="for-margin-height-div"></div>
+				<form id="bannerInfoForm" name="bannerInfoForm" method="post" enctype="multipart/form-data">
+					<!-- seq를 넘길떄 'banner_seq' vo랑 주의 -->
+					<input type="hidden" name="banner_seq" id="banner_seq" value="${bannerList.banner_seq }" />
+					<input type="button" class="btn btn-primary" value="글수정" onclick="bannerAction(1)" style="float: right" /> 
+					<input type="button" class="btn-delete" value="글삭제" onclick="bannerAction(2)" style="float: right" /> 
+					<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='bannerBoardView.admdo'" style="float: right"/>
+					
+					<div id="table-reponsive">
+						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<tr>
+								<th>배너 명</th>
+								<td><input type="text" name="banner_name" id="banner_name" value="${bannerList.banner_name }" /></td>
+							</tr>
+							<tr>
+								<th>이미지 설명(20자 이내)</th>
+								<td><input type="text" name="banner_alt"  id="banner_alt" value="${bannerList.banner_alt }"/></td>
+							</tr>
+							<tr>
+								<th>배너 이미지</th>
+								<td>
+									<input type="file" name="uploadFile" value="${bannerList.banner_image }" />
+									<input type="text" name="banner_originalname" value="${bannerList.banner_originalname }" disabled="disabled" />
+								</td>
+							</tr>
+						</table>
+						<br>
+						<div id="insert-menu-btns" align="center"> 
+							<input type="button" class="btn btn-delete" value="목록" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</main>
+		<!-- end main -->	
+			
+			<!-- footer -->
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
-							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
-								&amp; Conditions</a>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
 						</div>
 					</div>
 				</div>
 			</footer>
+			<!-- end footer -->
 		</div>
-	</div>
-
-	<script
-		src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>"
+		<!-- end content -->
+	</div>	
+	<!-- script -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 		crossorigin="anonymous"></script>
 	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>"
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>"
+	<script src="js/scripts.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>"
+	<script
+		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>"
+	<script
+		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
 		crossorigin="anonymous"></script>
-
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
-
+	<script src="assets/demo/datatables-demo.js"></script>
+	
 </body>
 </html>
