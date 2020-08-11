@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QuickOrderDAO">
+
+	<select id="getPizzaNames" resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT p_name FROM pizza
+	</select>
+
+	<select id="getPizzaDough" parameterType="String" resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT p_dough FROM pizza WHERE p_name = #{p_name}
+	</select>
+	
+	<select id="getSideNames" resultType="com.damino.web.admin.menu.SideVO">
+		SELECT s_name FROM side
+	</select>
+	
+	<select id="getDrinkNames" resultType="com.damino.web.admin.menu.DrinkEtcVO">
+		SELECT d_name FROM drink_etc
+	</select>
+
+</mapper>

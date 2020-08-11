@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import = "org.json.simple.*" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -19,6 +21,292 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
+	<script type="text/javascript">
+	var toppingCnt = 0; 
+		$(document).ready(function(){
+			if($('#dsp_ctgr').val() == ""){
+				$('.pizza_option').hide();
+			}
+			
+			$('.topping-wrap').hide();
+			
+		});
+		function selectBoxControl(){
+			var optValue = $('#dsp_ctgr').val();
+			if(optValue == "PIZZA"){
+				$('.pizza_option').show();
+				getPizzaName();
+			}else if(optValue == "SIDE"){
+				$('.pizza_option').hide();
+				getSideName();
+			}else if(optValue == "DRINK"){
+				$('.pizza_option').hide();
+				getDrinkName();
+			}
+		}
+
+		function getPizzaName(callbackFunc){
+			var target = document.getElementById("goods_code"); // 제품명 셀렉트박스
+			var ctgr = $('#dsp_ctgr').val(); // 제품 카테고리명
+			
+			$.ajax({
+				url: 'getPizzaNames.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post',
+				dataType: 'json',   
+				data : JSON.stringify({
+					ctgr : ctgr, // 컨트롤러로 보낼 제품 카테고리 명
+				}),
+				success: function(data) {
+					if (data != null) {
+						target += ('<option value="">제품</option>');
+						for(var i=0; i<data.length; i++){
+							target += ('<option value="'+ data[i] +'">'+ data[i] + '</option>');
+						}
+						$('#goods_code').html(target);
+					}else if (typeof callbackFunc === 'function') {
+						callbackFunc();
+					}else {
+						alert("다시 시도해주세요");
+					}		 
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다.');
+				}
+			});
+		}
+		function getPizzaDough(){
+			var target = document.getElementById("dough"); // 선택 가능 도우 셀렉트박스
+			var p_name = $('#goods_code').val(); // 컨트롤러로 보낼 피자 제품명
+			var ctgr = $('#dsp_ctgr').val(); // 제품 카테고리명
+			
+			$('#dough option:eq(1)').prop("selected", "selected"); // 선택된 제품이 바뀔 때 도우 셀렉트박스의 첫번째 값("도우")을 셀렉트
+			$('#size option:eq(0)').prop("selected", "selected"); // 선택된 도우가 바뀔 때 사이즈 셀렉트박스의 첫번째 값("사이즈")을 셀렉트
+			$('.topping-wrap').hide();
+			
+			if(ctgr != "PIZZA"){
+				return;
+			}else{
+				$.ajax({
+					url: 'getPizzaDough.do',
+					contentType : "application/json; charset=UTF-8;",
+					type: 'post',
+					dataType: 'json',   
+					data : JSON.stringify({
+						p_name : p_name,
+					}),
+					success: function(data) {
+						if (data != null) {
+							target += ('<option value="">도우</option>');
+							for(var i=0; i<data.length; i++){
+								target += ('<option value="'+ data[i] +'">'+ data[i] + '</option>');
+							}
+							$('#dough').html(target);
+						}else if (typeof callbackFunc === 'function') {
+							callbackFunc();
+						}else {
+							alert("다시 시도해주세요");
+						}		 
+					},
+					error: function() {
+						alert('처리도중 오류가 발생했습니다.');
+					}
+				});
+			}
+		}
+		function getSize(){
+			var target = document.getElementById("size"); // 사이즈 선택 셀렉트박스
+			$('#size option:eq(1)').prop("selected", "selected"); // 선택된 도우가 바뀔 때 사이즈 셀렉트박스의 첫번째 값("사이즈")을 셀렉트
+			$('.topping-wrap').hide();
+			
+			target += ('<option value="">사이즈</option>');
+			target += ('<option value="L">L</option>');
+			target += ('<option value="M">M</option>');
+			
+			$('#size').html(target);
+			
+		}
+		
+		function getSideName(){
+			var target = document.getElementById("goods_code"); // 제품명 셀렉트박스
+			var ctgr = $('#dsp_ctgr').val(); // 제품 카테고리명
+			
+			$.ajax({
+				url: 'getSideNames.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post',
+				dataType: 'json',   
+				data : JSON.stringify({
+					ctgr : ctgr, // 컨트롤러로 보낼 제품 카테고리 명
+				}),
+				success: function(data) {
+					if (data != null) {
+						target += ('<option value="">제품</option>');
+						for(var i=0; i<data.length; i++){
+							target += ('<option value="'+ data[i] +'">'+ data[i] + '</option>');
+						}
+						$('#goods_code').html(target);
+					}else if (typeof callbackFunc === 'function') {
+						callbackFunc();
+					}else {
+						alert("다시 시도해주세요");
+					}		 
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다.');
+				}
+			});
+		}
+		function getDrinkName(){
+			var target = document.getElementById("goods_code"); // 제품명 셀렉트박스
+			var ctgr = $('#dsp_ctgr').val(); // 제품 카테고리명
+			
+			$.ajax({
+				url: 'getDrinkNames.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post',
+				dataType: 'json',   
+				data : JSON.stringify({
+					ctgr : ctgr, // 컨트롤러로 보낼 제품 카테고리 명
+				}),
+				success: function(data) {
+					if (data != null) {
+						target += ('<option value="">제품</option>');
+						for(var i=0; i<data.length; i++){
+							target += ('<option value="'+ data[i] +'">'+ data[i] + '</option>');
+						}
+						$('#goods_code').html(target);
+					}else if (typeof callbackFunc === 'function') {
+						callbackFunc();
+					}else {
+						alert("다시 시도해주세요");
+					}		 
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다.');
+				}
+			});
+		}
+		
+		function toppingShowOrHide(){
+			var size = $('#size').val();
+			if(size != ""){
+				$('.topping-wrap').show();
+			}else{
+				$('.topping-wrap').hide();
+			}
+		}
+		function qtyMinus(){
+			var qty = Number($('#qty').val());
+			
+			qty -= 1;
+			$('#qty').val(qty);
+			
+			if(qty == 0){
+				$('#qty').val(1);
+			}
+		}
+		
+		function qtyPlus(){
+			var qty = Number($('#qty').val());
+			
+			qty += 1;
+			$('#qty').val(qty);
+			
+			if(qty == 10){
+				alert("수량은 최대 9개 까지 선택 가능합니다.");
+				$('#qty').val(9);
+			}
+		}
+		
+		function mainToppingQtyMinus(idx){
+			var mainToppingQty = Number($('#mainToppingQty' + idx).val());
+			mainToppingQty -= 1;
+			$('#mainToppingQty' + idx).val(mainToppingQty);
+			
+			if(mainToppingQty <= 0){
+				$('#mainToppingQty' + idx).val(0);
+				mainToppingQty = Number($('#mainToppingQty' + idx).val());
+				if(mainToppingQty == 0){
+					toppingCnt -= 1;
+				}
+			}else{
+				toppingCnt -= 1;
+			}
+			alert(toppingCnt);
+		}
+		
+		function mainToppingQtyPlus(idx){
+			var mainToppingQty = Number($('#mainToppingQty' + idx).val());
+			mainToppingQty += 1;
+			$('#mainToppingQty' + idx).val(mainToppingQty);
+			
+			if(mainToppingQty > 5){
+				alert("토핑은 최대 5개 까지 선택 가능합니다.");
+				$('#mainToppingQty' + idx).val(5);
+				mainToppingQty = Number($('#mainToppingQty' + idx).val());
+			}else{
+				toppingCnt += 1;
+			}
+			alert(toppingCnt);
+		}
+		
+		function cheezeToppingQtyMinus(idx){
+			var cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
+			cheezeToppingQty -= 1;
+			$('#cheezeToppingQty' + idx).val(cheezeToppingQty);
+			
+			if(cheezeToppingQty <= 0){
+				$('#cheezeToppingQty' + idx).val(0);
+				cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
+			}else{
+				toppingCnt -= 1;
+			}
+			alert(toppingCnt);
+		}
+		
+		function cheezeToppingQtyPlus(idx){
+			var cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
+			cheezeToppingQty += 1;
+			$('#cheezeToppingQty' + idx).val(cheezeToppingQty);
+			
+			if(cheezeToppingQty > 5){
+				alert("토핑은 최대 5개 까지 선택 가능합니다.");
+				$('#cheezeToppingQty' + idx).val(5);
+				cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
+			}else{
+				toppingCnt += 1;
+			}
+			alert(toppingCnt);
+		}
+		
+		function afterToppingQtyMinus(idx){
+			var afterToppingQty = Number($('#afterToppingQty' + idx).val());
+			afterToppingQty -= 1;
+			$('#afterToppingQty' + idx).val(afterToppingQty);
+			
+			if(afterToppingQty <= 0){
+				$('#afterToppingQty' + idx).val(1);
+			}else{
+				toppingCnt -= 1;
+			}
+			alert(toppingCnt);
+		}
+		
+		function afterToppingQtyPlus(idx){
+			var afterToppingQty = Number($('#afterToppingQty' + idx).val());
+			afterToppingQty += 1;
+			$('#afterToppingQty' + idx).val(afterToppingQty);
+			
+			if(afterToppingQty > 5){
+				alert("토핑은 최대 5개 까지 선택 가능합니다.");
+				$('#afterToppingQty' + idx).val(5);
+			}else{
+				toppingCnt += 1;
+			}
+			alert(toppingCnt);
+		}
+	</script>
 </head>
 <body>	
 <div id="wrap">
@@ -133,41 +421,40 @@
 								<div class="form-group2">
 									<div class="form-field">
 										<div class="select-type type2">
-											<select id="dsp_ctgr" class="">
+											<select id="dsp_ctgr" class="" onchange="selectBoxControl()">
 												<option value="">카테고리</option>
 												<option value="PIZZA">피자</option>
-												<option value="C0201">사이드디시</option>
-												<option value="C0202">음료</option>
-												<option value="C0203">피클&amp;소스</option>
+												<option value="SIDE">사이드디시</option>
+												<option value="DRINK">음료&amp;기타</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-field">
 										<div class="select-type type2 v2">
-											<select class="" id="goods_code">
+											<select class="" id="goods_code" onchange="getPizzaDough()">
 												<option value="">제품</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-field pizza_option">
 										<div class="select-type type2">
-											<select class="" id="dough">
+											<select class="pizza_option" id="dough" onchange="getSize()">
 												<option value="">도우</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-field pizza_option">
 										<div class="select-type type2">
-											<select class="" id="size">
+											<select class="pizza_option" id="size" onchange="toppingShowOrHide()">
 												<option value="">사이즈</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-field">
 										<div class="quantity-box v2">
-											<button type="button" class="btn-minus goods"></button>
+											<button type="button" class="btn-minus goods" onclick="qtyMinus()"></button>
 											<input type="number" class="opt_qty" value="1" id="qty" max="9">
-											<button type="button" class="btn-plus goods"></button>
+											<button type="button" class="btn-plus goods" onclick="qtyPlus()"></button>
 										</div>
 									</div>
 									<a href="javascript:addGoods();" class="btn-type-brd"><i class="ico-plus"></i>제품 추가하기</a>
@@ -185,19 +472,114 @@
 												* 토핑추가는 피자 한판 당 5개까지 추가 가능
 											</div>
 											<div class="notice-text side">
-												<a href="javascript:UI.layerPopUp({selId:'#pop-allergy2'})"">토핑 알레르기 유발성분</a>
+												<a href="javascript:UI.layerPopUp({selId:'#pop-allergy2'})">토핑 알레르기 유발성분</a>
 											</div>
 										</div>
 										<div class="tab-type js_tab">
 											<ul>
-												<li class="active"><a href="#sidedish1">메인</a></li>
-												<li><a href="#sidedish2">치즈</a></li>
-												<li><a href="#sidedish3">애프터</a></li>
+												<li class="active"><a href="#topping1">메인</a></li>
+												<li><a href="#topping2">치즈</a></li>
+												<li><a href="#topping3">애프터</a></li>
 											</ul>
 										</div>
 										
 										<div id="allQuickToppingLayer">
-										
+											<div id="topping1" class="tab-content active">
+											<div class="menu-list-v2">
+												<ul>
+													<c:forEach var="mainToppingList" items="${mainToppingList}" varStatus="status">
+													<li>
+														<div class="prd-img">
+															<img class="lazyload"
+															src="<c:url value= '/resources/images/admin/goods/${mainToppingList.t_image}'/>"
+															data-src="<c:url value= '/resources/images/admin/goods/${mainToppingList.t_image}'
+															 />" />
+														</div>
+						
+														<div class="prd-cont">
+															<div class="subject">${mainToppingList.t_name}</div>
+															<div class="price-box">
+																<strong><fmt:formatNumber value="${mainToppingList.t_price}" pattern="#,###" />원</strong>
+															</div>
+							
+														<div class="quantity-box">
+															<button type="button" class="btn-minus topping" onclick="mainToppingQtyMinus(${status.index})"></button>
+															<input class="setNum" type="number" id="mainToppingQty${status.index }" value="0" readonly="">
+															<input class="setName" type="hidden" value="${mainToppingList.t_name}">
+															<input class="setCode" type="hidden" value="${mainToppingList.t_code}">
+															<input class="setPrice" type="hidden" value="${mainToppingList.t_price}">
+															<button type="button" class="btn-plus topping" onclick="mainToppingQtyPlus(${status.index})"></button>
+														</div>
+														</div>
+													</li>
+													</c:forEach>
+				 							</ul>	
+										</div>
+									</div>
+		
+									<div id="topping2" class="tab-content">
+										<div class="menu-list-v2">
+											<ul>
+												<c:forEach var="cheezeToppingList" items="${cheezeToppingList}" varStatus="status">
+												<li>
+													<div class="prd-img">
+														<img class="lazyload" 
+														src="<c:url value= '/resources/images/admin/goods/${cheezeToppingList.t_image}'/>"
+														data-src="<c:url value= '/resources/images/admin/goods/${cheezeToppingList.t_image}'/>">
+													</div>
+							
+													<div class="prd-cont">
+														<div class="subject">${cheezeToppingList.t_name}</div>
+															<div class="price-box">
+																<strong><fmt:formatNumber value="${cheezeToppingList.t_price}" pattern="#,###" />원</strong>
+															</div>
+							
+														<div class="quantity-box">
+															<button type="button" class="btn-minus topping" onclick="cheezeToppingQtyMinus(${status.index})"></button>
+															<input class="setNum" type="number" id="cheezeToppingQty${status.index }" value="0" readonly="">
+															<input class="setName" type="hidden" value="${cheezeToppingList.t_name}">
+															<input class="setCode" type="hidden" value="${cheezeToppingList.t_code}">
+															<input class="setPrice" type="hidden" value="${cheezeToppingList.t_price}">
+															<button type="button" class="btn-plus topping" onclick="cheezeToppingQtyPlus(${status.index})"></button>
+														</div>
+													</div>
+												</li>
+												</c:forEach>
+				 							</ul>	
+										</div>
+									</div> 
+			
+									<div id="topping3" class="tab-content">
+										<div class="menu-list-v2">
+											<ul>
+												<c:forEach var="afterToppingList" items="${afterToppingList}" varStatus="status">
+												<li>
+													<div class="prd-img">
+														<img class="lazyload" 
+														src="<c:url value= '/resources/images/admin/goods/${afterToppingList.t_image}'/>"
+														data-src="<c:url value= '/resources/images/admin/goods/${afterToppingList.t_image}'/>">
+													</div>
+						
+													<div class="prd-cont">
+														<div class="subject">${afterToppingList.t_name}</div>
+														<div class="price-box">
+															<strong><fmt:formatNumber value="${afterToppingList.t_price}" pattern="#,###" />원</strong>
+														</div>
+														
+														<div class="quantity-box">
+															<button type="button" class="btn-minus topping" onclick="afterToppingQtyMinus(${status.index})"></button>
+															<input class="setNum" type="number" id="afterToppingQty${status.index }" value="0" readonly="">
+															<input class="setName" type="hidden" value="${afterToppingList.t_name}">
+															<input class="setCode" type="hidden" value="${afterToppingList.t_code}">
+															<input class="setPrice" type="hidden" value="${afterToppingList.t_price}">
+															<button type="button" class="btn-plus topping" onclick="afterToppingQtyPlus(${status.index})"></button>
+														</div>
+													</div>
+												</li>
+												</c:forEach>
+				 							</ul>	
+										</div>
+									</div> 		
 										</div>
 									</div>
 								</div>
