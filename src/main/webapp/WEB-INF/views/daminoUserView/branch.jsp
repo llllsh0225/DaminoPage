@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import = "org.json.simple.*" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 
@@ -23,7 +24,49 @@
 	</script>
 <!-- 맵관련 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/map.js'/>"></script>
-
+<script type="text/javascript">
+function searchRegion(callBackFunc){
+	var target = document.getElementById("searchStoreList");
+	var storeRegion = $("#region_name").val();
+	
+	$.ajax({
+		url: 'searchBranch.do',
+		contentType : "application/json; charset=UTF-8;",
+		type: 'post',
+		dataType: 'json',   
+		data : JSON.stringify({
+			storeRegion : storeRegion,//searchStore 쿼리에서 필요한 값
+		}),
+		success: function(data) {
+					if (data != null) {
+						for(var i=0; i<data.length; i++){
+							if(i==0){
+								target += ('<ul id="ul_shop_list" name="searchStoreList"><li><dl><dt>' + data[i] 
+										 + '<span class="tel">' + '전화번호' + '</span></dt><dd class="address">' + '주소 들어감' 
+										 + '</dd></dl><div class = "promotion"><div class="type"><span>온라인<br>방문포장<br>30%</span></div><div class="type2"><span>오프라인<br>방문포장<br>30%</span></div></div></li>');
+							}else if(i==data.length-1){
+								target +=('<li><dl><dt>' + data[i] + '<span class="tel">' + '전화번호' + '</span></dt><dd class="address">' + '주소 들어감' 
+										 + '</dd></dl><div class = "promotion"><div class="type"><span>온라인<br>방문포장<br>30%</span></div><div class="type2"><span>오프라인<br>방문포장<br>30%</span></div></div></li></ul>');
+							}else{
+								target += ('<li><dl><dt>' + data[i] + '<span class="tel">' + '전화번호' + '</span></dt><dd class="address">' + '주소 들어감' 
+										 + '</dd></dl><div class = "promotion"><div class="type"><span>온라인<br>방문포장<br>30%</span></div><div class="type2"><span>오프라인<br>방문포장<br>30%</span></div></div></li>');
+							}
+						}
+						 
+						$('#searchStoreList').html(target);
+						
+					}else if (typeof callbackFunc === 'function') {
+				        callbackFunc();
+				    }else {
+						alert("다시 시도해주세요");
+					}
+				},
+				error: function() {
+					 alert('처리도중 오류가 발생했습니다.');
+				}
+			});
+}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -136,7 +179,7 @@
 												</div>
 												<div class="form-item">
 													<div class="select-type type2">
-														<select id="region_name" name="region_name">
+														<select id="region_name" name="region_name" onchange="searchRegion()">
 															<option value="" selected>구/군</option>
 															<option value="강남구">강남구</option>
 															<option value="강동구">강동구</option>
@@ -182,7 +225,6 @@
 													<a href="javascript:openLayerPopup('promotion');">이용안내</a>
 												</p>
 											</div>
-
 										</div>
 									</div>
 									<!-- //지역 검색 -->
@@ -214,37 +256,13 @@
 										</div>
 									</div>
 									<!-- //매장명 -->
-									<div class="store-address-list">
-										<ul id="ul_shop_list" id="storeName" name="storeName">
-											<c:forEach var="store" items="${storeList }">
-												<li>
-													<dl>
-														<dt>
-															${store.storeName } <span class="tel">${store.storePhone }</span>
-														</dt>
-														<dd class="address">${store.storeAddress }</dd>
-													</dl>
-													<div class="promotion">
-														<div class="type">
-															<span>온라인<br> 방문포장<br>30%
-															</span>
-														</div>
-														<div class="type2">
-															<span>오프라인<br> 방문포장<br> 30%
-															</span>
-														</div>
-													</div>
-													<div class="btn-wrap">
-														<a href="#" onclick="">상세보기</a>
-														<a href="javascript:setBranch(86365);" class="type2">방문포장</a>
-													</div>
-												</li>
-											</c:forEach>
-										</ul>
+									
+									<div class="store-address-list" name="searchStoreList" id="searchStoreList" >
+										<!-- 검색된 매장 리스트 -->
 									</div>
+									
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
