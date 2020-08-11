@@ -46,15 +46,6 @@ public class MarketController {
 	@RequestMapping(value="/updateMarket.admdo", method=RequestMethod.POST)
 	public String updateMarket(@ModelAttribute MarketVO vo) {
 		System.out.println("매장 정보 수정");
-		System.out.println("매장명 : " + vo.getName());
-		System.out.println("전화번호 : " + vo.getTel());
-		System.out.println("주소 : " + vo.getAddress());
-		System.out.println("위치 : " + vo.getLocation());
-		System.out.println("오픈시간 : " + vo.getTime());
-		System.out.println("마감시간 : " + vo.getEtime());
-		System.out.println("매장주차 : " + vo.getCar());
-		System.out.println("주차 :" + vo.getPark());
-		System.out.println("특이사항 : " + vo.getEtc());
 		marketService.updateMarket(vo);
 		return "redirect:storeView.admdo";
 	}
@@ -62,15 +53,6 @@ public class MarketController {
 	@RequestMapping(value="/insertMarket.admdo", method=RequestMethod.POST)
 	public String insertMarket(@ModelAttribute MarketVO vo) {
 		System.out.println("매장 등록");
-		System.out.println("매장명 : " + vo.getName());
-		System.out.println("전화번호 : " + vo.getTel());
-		System.out.println("주소 : " + vo.getAddress());
-		System.out.println("위치 : " + vo.getLocation());
-		System.out.println("오픈시간 : " + vo.getTime());
-		System.out.println("마감시간 : " + vo.getEtime());
-		System.out.println("매장주차 : " + vo.getCar());
-		System.out.println("주차 :" + vo.getPark());
-		System.out.println("특이사항 : " + vo.getEtc());
 		marketService.insertMarket(vo);
 		return "redirect:storeView.admdo";
 	}

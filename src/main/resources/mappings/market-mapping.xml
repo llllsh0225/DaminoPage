@@ -4,28 +4,27 @@
 
 <mapper namespace="MarketDAO">
 	<insert id="insertMarket" parameterType="com.damino.web.admin.market.MarketVO">
-			INSERT INTO market (seq, name, tel, address, location, time, etime, car, park, etc)
-			VALUES((select nvl(max(seq), 0)+1 from market), #{name}, #{tel}, #{address}, #{location}, #{time}, #{etime}, #{car}, #{park}, #{etc})
+			INSERT INTO daminostoreinfo (seq, storeregion, storename, zipcode, storeaddress, detailaddress, storephone, referinfo, parking, parkingplace, opentime, endtime)
+			VALUES((select nvl(max(seq), 0)+1 from daminostoreinfo), #{storeregion}, #{storename}, #{zipcode}, #{storeaddress}, #{detailaddress}, #{storephone}, #{referinfo}, #{parking}, #{parkingplace}, #{opentime}, #{endtime})
 	</insert>
 
 	<delete id="deleteMarket" parameterType="com.damino.web.admin.market.MarketVO">
-			DELETE FROM market where seq = #{seq}
+			DELETE FROM daminostoreinfo where seq = #{seq}
 	</delete>
 
 	 <update id="updateMarket" parameterType="com.damino.web.admin.market.MarketVO"> 
-			UPDATE market
-			set name=#{name}, tel=#{tel}, address=#{address}, location=#{location}, time=#{time}, etime=#{etime}, car=#{car}, park=#{park}, etc=#{etc}
-			where seq=#{seq}
+			UPDATE daminostoreinfo
+			set storename=#{storename}, storephone=#{storephone}, zipcode=#{zipcode}, storeaddress=#{storeaddress}, detailaddress=#{detailaddress}, referinfo=#{referinfo}, parking=#{parking}, parkingplace=#{parkingplace}, opentime=#{opentime}, endtime=#{endtime}
 	</update> 
 
 	<select id="getMarketList" resultType="com.damino.web.admin.market.MarketVO">
-			SELECT seq, name, tel, address, location, time, etime, car, park, etc
-			FROM market
+			SELECT seq, storeregion, storename, zipcode, storeaddress, detailaddress, storephone, referinfo, parking, parkingplace, opentime, endtime
+			FROM daminostoreinfo
 			ORDER BY seq desc
 	</select>
 
 	<select id="getMarket" resultType="com.damino.web.admin.market.MarketVO">
-			SELECT * FROM market where seq=#{seq}
+			SELECT * FROM daminostoreinfo where seq=#{seq}
 	</select>
 
 </mapper>

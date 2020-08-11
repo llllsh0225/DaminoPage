@@ -62,10 +62,12 @@ public class MemberController {
 	
 	@RequestMapping(value ="/smsForm2.admdo", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public ModelAndView getAdminSmsFormPage(@RequestParam(value="phone", required=false) List<String> valueArr) {
+	public ModelAndView getAdminSmsFormPage(HttpServletRequest request) {
 		System.out.println("문자 발송 페이지 열기");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/members/member/smsForm2");
+		String temp[] = request.getParameterValues("phone");
+		System.out.println(temp);
 //		mav.addObject(valueArr);
 //		System.out.println(valueArr);
 		return mav;
