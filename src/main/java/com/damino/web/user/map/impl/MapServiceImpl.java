@@ -22,7 +22,13 @@ public class MapServiceImpl implements MapService{
 
 	@Override
 	public List<MapVO> getStoreList() {
-		System.out.println("MapServiceImpl getStoreList(vo)");
+		System.out.println("MapServiceImpl getStoreList()");
 		return mapDAO.getStoreList();
+	}
+
+	@Override
+	public List<MapVO> getSearchStoreList(String storeRegion) {
+		System.out.println("MapServiceImpl getSearchStoreList()");
+		return mapDAO.getSearchStoreList(storeRegion);
 	}
 }

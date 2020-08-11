@@ -3,11 +3,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MapDAO">
-	<select id="getMap" resultType="com.damino.web.user.map.MapVO">
-		SELECT * FROM location WHERE store=1
-	</select>
 	
 	<select id="getStoreList" resultType="com.damino.web.user.map.MapVO">
-		SELECT * FROM daminostore
+		SELECT * FROM daminostoreinfo
 	</select>
+	
+	<select id="getSearchStoreList" parameterType="String" resultType="String">
+		SELECT storeName FROM daminostoreinfo
+		WHERE storeRegion = #{storeRegion}
+	</select>
+	
 </mapper>
