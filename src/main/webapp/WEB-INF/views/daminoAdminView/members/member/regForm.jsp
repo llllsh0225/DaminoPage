@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,11 +6,10 @@
 <head>
 <meta charset="utf-8" />
 <title>Page Title - SB Admin</title>
-<link rel="stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css" 
 	href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"
-	crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" 
+	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>" crossorigin="anonymous" />
 
 <style>
 .text-type4 {
@@ -21,50 +19,48 @@
 }
 </style>
 
-<script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"
-	crossorigin="anonymous">
+<script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous">
 	
 </script>
 
 
 <script>
-function registCheckValChange() {
-	$('#registCheck').val("N"); //등록체크 거름망
-}
+	function registCheckValChange() {
+		$('#registCheck').val("N"); //등록체크 거름망
+	}
 
-//amdinid 중복체크
-function idCheck() {
-	var adminid = $("#adminid").val();
+	//amdinid 중복체크
+	function idCheck() {
+		var adminid = $("#adminid").val();
 
-	$.ajax({
-		url : "adminidCheck.do",
-		type : "POST",
-		contentType : "application/json; charset=UTF-8;",
-		dataType : "json",
-		data : JSON.stringify({
-			adminid : adminid,
-		}),
-		success : function(data) {
-			if (data > 0) {
-				alert("아이디 중복");
-				$('#id_alert').text("이미 사용중인 아이디입니다.");
-				$('#id_alert').show();
-			} else {
-				$('#registCheck').val("Y");
-				alert("사용가능");
-				$('#id_alert').text("사용가능 아이디입니다.");
-				$('#id_alert').show();
+		$.ajax({
+			url : "adminidCheck.do",
+			type : "POST",
+			contentType : "application/json; charset=UTF-8;",
+			dataType : "json",
+			data : JSON.stringify({
+				adminid : adminid,
+			}),
+			success : function(data) {
+				if (data > 0) {
+					alert("아이디 중복");
+					$('#id_alert').text("이미 사용중인 아이디입니다.");
+					$('#id_alert').show();
+				} else {
+					$('#registCheck').val("Y");
+					alert("사용가능");
+					$('#id_alert').text("사용가능 아이디입니다.");
+					$('#id_alert').show();
+				}
+			},
+			error : function(err) {
+				alert("실패!");
 			}
-		},
-		error : function(err) {
-			alert("실패!");
-		}
-	});
-}
+		});
+	}
 
-//공백확인
-//id
+	//공백확인
+	//id
 	function ad_checks() {
 		if ($("#adminid").val() == "") {
 			$('#id_alert').text("아이디를 입력해주세요.");
@@ -104,9 +100,8 @@ function idCheck() {
 		}
 		//코드 확인
 		var code = "GoodDamino";
-		
 
-		if($('#registCheck').val()== "Y") {
+		if ($('#registCheck').val() == "Y") {
 			if ($("#adminCode").val() == code) {
 				alert($("#adminid").val() + "님이 \n새로운 관리자로 등록되었습니다. ");
 			} else {
@@ -114,13 +109,11 @@ function idCheck() {
 				$("#adminCode").focus();
 				return false;
 			}
-		}else{
+		} else {
 			alert("중복검사를 실시하여 주세요.");
 			return false;
 		}
 	}
-
-
 </script>
 
 </head>
@@ -138,51 +131,39 @@ function idCheck() {
 								</div>
 								<div class="card-body">
 									<section id="container">
-										<form action="registAdminMember.admdo" method="POST"
-											onsubmit="return ad_checks()">
+										<form action="registAdminMember.admdo" method="POST" onsubmit="return ad_checks()">
 											<!--.admdo로 가기전 유효성 검사 -->
-											<input type="hidden" name="registCheck" id="registCheck"
-												value="N">
+											<input type="hidden" name="registCheck" id="registCheck" value="N">
 											<div class="form-group">
 												<label class="small mb-1" for="inputAdminID">아이디</label> 
-												<input class="form-control py-4" type="text" id="adminid"
-													name="adminid" maxlength="16" placeholder="ID"
-													onchange="registCheckValChange()" /> <a
-													href="javascript:idCheck();" class="btn-type v7">중복확인</a>
+												<input class="form-control py-4" type="text" id="adminid" name="adminid" maxlength="16" placeholder="ID"
+													onchange="registCheckValChange()" /> 
+												<a href="javascript:idCheck();" class="btn-type v7">중복확인</a>
 											</div>
 											<div class="text-type4" id="id_alert" style="display: none;"></div>
 											<div class="form-row">
 												<div class="col-md-6">
 													<div class="form-group">
-														<label class="small mb-1" for="inputAdminPassword">비밀번호</label>
-														<input class="form-control py-4" type="Password"
-															id="adminpassword" name="adminpassword"
-															placeholder="password" />
-														<div class="text-type4" id="pw_alert"
-															style="display: none;"></div>
+														<label class="small mb-1" for="inputAdminPassword">비밀번호</label> 
+														<input class="form-control py-4" type="Password" id="adminpassword" name="adminpassword" placeholder="password" />
+														<div class="text-type4" id="pw_alert" style="display: none;"></div>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
-														<label class="small mb-1" for="inpuConfirmPassword">비밀번호
-															확인</label> <input class="form-control py-4"
-															id="adminConfirmpassword" type="password"
-															placeholder="Confirm password" />
-														<div class="text-type4" id="pwc_alert"
-															style="display: none;"></div>
+														<label class="small mb-1" for="inpuConfirmPassword">비밀번호 확인</label> 
+														<input class="form-control py-4" id="adminConfirmpassword" type="password" placeholder="Confirm password" />
+														<div class="text-type4" id="pwc_alert" style="display: none;"></div>
 													</div>
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="small mb-1" for="AdminCode">코드</label> <input
-													class="form-control py-4" id="adminCode" type="text"
-													placeholder="Code" maxlength="11" />
-												<div class="text-type4" id="code_alert"
-													style="display: none;"></div>
+												<label class="small mb-1" for="AdminCode">코드</label> 
+												<input class="form-control py-4" id="adminCode" type="text" placeholder="Code" maxlength="11" />
+												<div class="text-type4" id="code_alert" style="display: none;"></div>
 											</div>
 											<div class="form-group mt-4 mb-0">
-												<button class="btn btn-primary btn-block" type="submit"
-													id="submit">계정 만들기</button>
+												<button class="btn btn-primary btn-block" type="submit" id="submit">계정 만들기</button>
 											</div>
 										</form>
 										<!-- //end form --------------- -->
@@ -202,23 +183,18 @@ function idCheck() {
 		<div id="layoutAuthentication_footer">
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
-					<div
-						class="d-flex align-items-center justify-content-between small">
+					<div class="d-flex align-items-center justify-content-between small">
 						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
-							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
-								&amp; Conditions</a>
+							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a>
 						</div>
 					</div>
 				</div>
 			</footer>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	<script src="js/scripts.js"></script>
 </body>
 

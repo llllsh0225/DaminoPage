@@ -72,7 +72,7 @@
 									<div class="small mb-3 text-muted">* 아이디를 입력하고 받으신 코드를 입력하세요.</div>
 									<div class="small mb-3 text-muted">** 임시비밀번호로 저장됩니다.</div>
 									<section id="container">
-									<form action="#" method="POST" onsubmit="return ad_checks()">
+									<form action="changeTempPw.admdo" method="POST" onsubmit="return ad_checks()">
 										<div class="form-group">
 											<label class="small mb-1" for="inputAdminID">ID</label> 
 											<input class="form-control py-4" id="adminid" type="text" placeholder="Enter ID" />

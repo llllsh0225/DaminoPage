@@ -24,8 +24,8 @@ public class ViewTestController {
 		System.out.println("메인페이지 열기");
 		System.out.println("main 페이지 auth : " + auth);
 		
+		//-- 메인창 배너 생성
 		System.out.println("메인 창 배너");
-		
 		List<UserBannerVO> bannerList = userBannerService.getUserBannerList();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bannerList", bannerList);
@@ -530,6 +530,17 @@ public class ViewTestController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/updateTempPW.admdo")
+	public ModelAndView getAdminPasswordTempPage() {
+		System.out.println("임시 비밀번호 변경 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/updateTempPW");
+		
+		return mav;
+	}
+	
 	@RequestMapping("/regForm.admdo")
 	public ModelAndView getAdminRegFormPage() {
 		System.out.println("회원 가입 페이지 열기");

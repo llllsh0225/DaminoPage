@@ -26,4 +26,10 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		return adminMemberDAO.admincheck(adminid);
 	}
 
+	@Override
+	public void changeTempPW(AdminMemberVO vo) {
+		System.out.println("#service[admin] : " + vo);
+		adminMemberDAO.changeTempPW(vo);
+	}
+
 }

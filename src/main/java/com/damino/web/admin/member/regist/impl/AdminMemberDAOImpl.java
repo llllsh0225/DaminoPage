@@ -27,4 +27,11 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 		return sqlSessionTemplate.selectOne("AdminMemberDAO.admincheck", adminid);
 	}
 
+	@Override
+	public void changeTempPW(AdminMemberVO vo) {
+		System.out.println("#DAO[임시 비밀번호 발급] :" + vo);
+		sqlSessionTemplate.update("AdminMemberDAO.changeTempPW", vo);		
+	}
+
+
 }
