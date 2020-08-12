@@ -315,101 +315,48 @@
 			$(document).ready(function() {
 				$("img.lazyload").lazyload(); 
 			});									
-
-			//var habTotalCount = 0;
-		$(document).ready(function() {
-			$('.btn-minus').click(function() {
-			setToppingTotalCnt($(this), ".btn-minus");
-			//alert("minus");
-			});	
-
-			$('.btn-plus').click(function() {
-			setToppingTotalCnt($(this), ".btn-plus");
-			//alert("plus");
-			});
 			
-
-			var toppingTotalAmount = 0;
-			var toppingTotalCnt = 0;
-			var setToppingTotalCnt = function(obj, action) {
-				
-				var toppingTotalCntSum = 0;
-				//var etcTotalCnt = 0;
-				var toppingStr = "";
-				toppingTotalAmount = 0;
-				var toppingTotalCnt = 0;
-				var cnt = 0;
-				
-				if(action == ".btn-minus") {
-					cnt = parseInt( obj.siblings(".setNum").val()) -1;
-					if(cnt <= 0) cnt = 0;
-					obj.siblings(".setNum").val(cnt);
-				console.log("테스트0");
-				} else {
-					cnt = parseInt( obj.siblings(".setNum").val()) +1;
+			var toppingCnt = 0;
+			
+			
+			function plusTopping(idx){
+				var setNum = Number($('#setNum' + idx).val());
+				setNum += 1;
+				toppingCnt += 1;
+				$('#setNum' + idx).val(setNum);
+						
+				if(toppingCnt > 5){
+					alert("토핑은 5개까지 선택 가능합니다.");
+					toppingCnt = 5;
+					$('#setNum' + idx).val(setNum-1);
 					
-					obj.siblings(".setNum").val(cnt);
-					console.log("테스트1");
 				}
+				console.log(toppingCnt);
+			}
+			
+			function minusTopping(idx){			
 				
+				var setNum = Number($('#setNum' + idx).val());
+				setNum -= 1;
 				
-				
-				$(action).each(function() {
-					if(($(this).siblings(".setNum").val() != '0')) {
+				$('#setNum' + idx).val(setNum);
 						
-						toppingTotalCnt += parseInt($(this).siblings(".setNum").val());
-						
-						
-						console.log("테스트3 toppingTotalCnt : " + toppingTotalCnt);
-					}
-					console.log("테스트4");
-				});
-				
-				
-				if(parseInt(toppingTotalCnt) > 5) {
-					alert("토핑은 최대 5개 까지 가능 합니다.");
-					cnt = parseInt( obj.siblings(".setNum").val()) -1;
-					console.log("테스트5");
-					if(cnt <= 0) cnt = 0;
+				if(setNum == 0){
+					$('#setNum' + idx).val(0);
+					setNum = Number($('#setNum' + idx).val());
 					
-					obj.siblings(".setNum").val(cnt);
-					toppingTotalCnt -= 1;
+					toppingCnt -= 1;
+				}else if(setNum < 0){
+					$('#setNum' + idx).val(0);
+				}else{
 					
-					$(action).each(function() {
-						if($(this).siblings(".setNum").val() != '0') {
-							toppingTotalAmount = 0;
-							toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
-							console.log("테스트6");
-							
-							
-							console.log("최종1 toppingTotalCnt : " + toppingTotalCnt);
-							/* 
-							toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
-							+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
-							+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>"; */
-						 }
-						
-					});
-				} else {
-					$(action).each(function() {
-						console.log("테스트7");
-						if($(this).siblings(".setNum").val() != '0') {
-							toppingTotalAmount = 0;
-							toppingTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
-							
-							/* toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
-							+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
-							+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>"; */
-						}
-					});
+					setNum = Number($('#setNum' + idx).val());
+					toppingCnt -= 1;
 				}
-				//sum();
-			};
+				console.log(toppingCnt);
+			}
 			
-		});
-			
-			
-		</script>
+	</script>
 
 
 
@@ -434,20 +381,14 @@
 																			</div>
 
 																			<div class="quantity-box">
-																				<button type="button" class="btn-minus"
-																					></button>
+																				<button type="button" class="btn-minus topping" onclick="minusTopping(${status.index})"></button>
 																				<!--   -->
-																				<input class="setNum" id="setNum${status.index }"
-																					type="number" value="0" readonly=""> <input
-																					class="setName" type="hidden"
-																					value="${mainToppingList.t_name}"> <input
-																					class="setCode" type="hidden"
-																					value="${mainToppingList.t_code}"> <input
-																					class="setPrice" type="hidden"
-																					value="${mainToppingList.t_price}">
-																				<button type="button" class="btn-plus"
-																					></button>
-																				<!--onclick="plus_topping(${status.index});"  -->
+																				<input class="setNum" id="setNum${status.index}" type="number" value="0" readonly="">
+																				<input class="setName" type="hidden" value="${mainToppingList.t_name}">
+																				<input class="setCode" type="hidden" value="${mainToppingList.t_code}">
+																				<input class="setPrice" type="hidden" value="${mainToppingList.t_price}">
+																				<button type="button" class="btn-plus topping" onclick="plusTopping(${status.index})"></button>
+																				
 																			</div>
 																		</div>
 																	</li>
