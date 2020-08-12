@@ -1,6 +1,7 @@
 package com.damino.web.user.quickorder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -115,5 +117,55 @@ public class QuickOrderController {
 		}
 		
 		return d_name_list;
+	}
+	
+	@RequestMapping(value="/getGoodsPrice.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Integer> getGoodsPrice(@RequestBody Map<String, Object> param){
+		String ctgr = (String) param.get("selectCtgr");
+		String goodsName = (String) param.get("selectGoodsName");
+		String dough = (String) param.get("selectDough");
+		String size = (String) param.get("selectSize");
+		
+		List<Integer> goodsPrice = new ArrayList<Integer>();
+		
+		switch (ctgr) {
+		case "PIZZA" : 
+			if(size.equals("L")) {
+				System.out.println("L사이즈 피자 가격 받아오기");
+				int pizzaLPrice = quickOrderService.getPizzaLPrice(goodsName);
+				int doughPrice = quickOrderService.getDoughPrice(dough);
+				goodsPrice.add(pizzaLPrice);
+				goodsPrice.add(doughPrice);
+			}else {
+				System.out.println("M사이즈 피자 가격 받아오기");
+			}
+			break;
+		case "SIDE" :
+			System.out.println("사이드에용..");
+			break;
+		case "DRINK" :
+			System.out.println("음료에용..");
+			break;
+		}
+		return goodsPrice;
+	}
+	
+	@RequestMapping(value="/getToppingPrice.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Integer> getToppingPrice(@RequestParam(value="toppingList[]") List<String> toppingList){
+		
+		Map<String, Object> toppings = new HashMap<String, Object>();
+		List<Integer> toppingPriceList = new ArrayList<Integer>();
+		
+		toppings.put("toppings", toppingList);
+		
+		/**Map<String, Integer> toppingPriceMap = quickOrderService.getToppingPrice(toppings);
+		
+		for(String key : toppingPriceMap.keySet()) {
+			toppingPriceList.add(toppingPriceMap.get(key));
+		}
+		*/
+		return toppingPriceList;
 	}
 }

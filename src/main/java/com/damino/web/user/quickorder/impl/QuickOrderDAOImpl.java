@@ -41,4 +41,24 @@ public class QuickOrderDAOImpl implements QuickOrderDAO {
 		return sqlSessionTemplate.selectList("QuickOrderDAO.getDrinkNames");
 	}
 
+	@Override
+	public int getPizzaLPrice(String goodsName) {
+		System.out.println("L 사이즈 피자 가격 가져오기");
+		return sqlSessionTemplate.selectOne("QuickOrderDAO.getPizzaLPrice", goodsName);
+	}
+
+	@Override
+	public int getDoughPrice(String dough) {
+		System.out.println("피자 도우 가격 가져오기");
+		return sqlSessionTemplate.selectOne("QuickOrderDAO.getDoughPrice", dough);
+	}
+
+	/**
+	@Override
+	public Map<String, Integer> getToppingPrice(Map<String, Object> toppings) {
+		System.out.println("토핑 가격 리스트 가져오기");
+		return sqlSessionTemplate.selectMap("QuickOrderDAO.getToppingPrice", toppings, "topping");
+	}
+	*/
+
 }

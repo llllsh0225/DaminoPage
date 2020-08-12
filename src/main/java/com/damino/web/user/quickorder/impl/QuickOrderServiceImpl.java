@@ -1,6 +1,7 @@
 package com.damino.web.user.quickorder.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,22 @@ public class QuickOrderServiceImpl implements QuickOrderService {
 	public List<DrinkEtcVO> getDrinkNames() {
 		return quickOrderDAO.getDrinkNames();
 	}
+
+	@Override
+	public int getPizzaLPrice(String goodsName) {
+		return quickOrderDAO.getPizzaLPrice(goodsName);
+	}
+
+	@Override
+	public int getDoughPrice(String dough) {
+		return quickOrderDAO.getDoughPrice(dough);
+	}
+
+	/**
+	@Override
+	public Map<String, Integer> getToppingPrice(Map<String, Object> toppings) {
+		return quickOrderDAO.getToppingPrice(toppings);
+	}
+	*/
 
 }

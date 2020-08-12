@@ -19,5 +19,25 @@
 	<select id="getDrinkNames" resultType="com.damino.web.admin.menu.DrinkEtcVO">
 		SELECT d_name FROM drink_etc
 	</select>
-
+	
+	<select id="getPizzaLPrice" parameterType="String" resultType="Integer">
+		SELECT p_price_l FROM pizza WHERE p_name = #{goodsName}
+	</select>
+	
+	<select id="getPizzaMPrice" parameterType="String" resultType="Integer">
+		SELECT p_price_m FROM pizza WHERE p_name = #{goodsName}
+	</select>
+	
+	<select id="getDoughPrice" parameterType="String" resultType="Integer">
+		SELECT price FROM dough WHERE dough_name = #{dough}
+	</select>
+	
+	<!--  
+	<select id="getToppingPrice" parameterMap="hashMap" resultType="hashMap">
+		SELECT t_price FROM topping
+		<foreach collection="toppings" item="topping">
+			WHERE t_name = #{topping.value}
+		</foreach>
+	</select>
+	-->
 </mapper>
