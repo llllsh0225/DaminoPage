@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,8 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminMemberController {
-	//확인용 로그
-	private static final Logger logger = LoggerFactory.getLogger(AdminMemberController.class);
 
 	@Autowired
 	private AdminMemberService adminMemberService;
@@ -32,7 +28,6 @@ public class AdminMemberController {
 	
 	@RequestMapping(value = "/registAdminMember.admdo", method = RequestMethod.POST)
 	public String postRegistAdmin(@ModelAttribute AdminMemberVO vo,ModelAndView mav, HttpServletRequest request) throws Throwable {
-		logger.info("postRegistAdmin");	
 		
 		//비밀번호 암호 처리
 		String pwd = vo.getAdminpassword();
@@ -54,6 +49,23 @@ public class AdminMemberController {
 		cnt_admin = adminMemberService.admincheck(adminid);
 		System.out.println("[cnt_admin] :"+ cnt_admin);// --- 중복일경우  1 , 사용가능 0 ---
 		return cnt_admin;
+	}
+	
+	//임시 비밀번호
+	/*
+	 * 	#service[admin] : AdminMemberVO [adminid=null, adminpassword=null]
+		#DAO[임시 비밀번호 발급] :AdminMemberVO [adminid=null, adminpassword=null] 받은 ㅅㄱ
+	 * 
+	 * 
+	 * */
+	
+	@RequestMapping("changeTempPw.admdo")
+	public ModelAndView changeTempPw(@ModelAttribute AdminMemberVO vo, ModelAndView mav, HttpServletRequest request) {
+		System.out.println("-- 임시 비밀번호로 교체 --");
+		adminMemberService.changeTempPW(vo);
+		
+		mav.setViewName("/members/member/login");
+		return mav;
 	}
 	
 
