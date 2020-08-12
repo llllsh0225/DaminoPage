@@ -39,7 +39,8 @@ $(document).ready(function(){
 
 </script>
 <script>
-	window.onload = function() {
+	$(document).ready(function() {
+	//window.onload = function() {
 		//쉼표로 저장된 리스트 split으로 자르기
 		var splitDoughCode = $("#dough_db").val().split(",");		
 		
