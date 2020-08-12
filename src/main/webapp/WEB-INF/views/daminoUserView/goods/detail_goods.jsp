@@ -312,12 +312,12 @@
 
 												<div id="allToppingLayer">
 	<script>
+	//메인 토핑 카운트
 			$(document).ready(function() {
 				$("img.lazyload").lazyload(); 
 			});									
 			
-			var toppingCnt = 0;
-			
+			var toppingCnt = 0;			
 			
 			function plusTopping(idx){
 				var setNum = Number($('#setNum' + idx).val());
@@ -356,6 +356,81 @@
 				console.log(toppingCnt);
 			}
 			
+	//치즈 토핑 카운트
+	function plusCheezeTopping(idx){
+				var setNum = Number($('#cheezeSetNum' + idx).val());
+				setNum += 1;
+				toppingCnt += 1;
+				$('#cheezeSetNum' + idx).val(setNum);
+						
+				if(toppingCnt > 5){
+					alert("토핑은 5개까지 선택 가능합니다.");
+					toppingCnt = 5;
+					$('#cheezeSetNum' + idx).val(setNum-1);
+					
+				}
+				console.log(toppingCnt);
+			}
+			
+		function minusCheezeTopping(idx){			
+				
+				var setNum = Number($('#cheezeSetNum' + idx).val());
+				setNum -= 1;
+				
+				$('#cheezeSetNum' + idx).val(setNum);
+						
+				if(setNum == 0){
+					$('#cheezeSetNum' + idx).val(0);
+					setNum = Number($('#cheezeSetNum' + idx).val());
+					
+					toppingCnt -= 1;
+				}else if(setNum < 0){
+					$('#cheezeSetNum' + idx).val(0);
+				}else{
+					
+					setNum = Number($('#cheezeSetNum' + idx).val());
+					toppingCnt -= 1;
+				}
+				console.log(toppingCnt);
+		}
+	
+	//애프터 토핑 카운트	
+	function plusAfterTopping(idx){
+				var setNum = Number($('#afterSetNum' + idx).val());
+				setNum += 1;
+				toppingCnt += 1;
+				$('#afterSetNum' + idx).val(setNum);
+						
+				if(toppingCnt > 5){
+					alert("토핑은 5개까지 선택 가능합니다.");
+					toppingCnt = 5;
+					$('#afterSetNum' + idx).val(setNum-1);
+					
+				}
+				console.log(toppingCnt);
+			}
+			
+		function minusAfterTopping(idx){			
+				
+				var setNum = Number($('#afterSetNum' + idx).val());
+				setNum -= 1;
+				
+				$('#afterSetNum' + idx).val(setNum);
+						
+				if(setNum == 0){
+					$('#afterSetNum' + idx).val(0);
+					setNum = Number($('#afterSetNum' + idx).val());
+					
+					toppingCnt -= 1;
+				}else if(setNum < 0){
+					$('#afterSetNum' + idx).val(0);
+				}else{
+					
+					setNum = Number($('#afterSetNum' + idx).val());
+					toppingCnt -= 1;
+				}
+				console.log(toppingCnt);
+			}
 	</script>
 
 
@@ -369,8 +444,7 @@
 																		<div class="prd-img">
 																			<img class="lazyload"
 																				src="<c:url value= '/resources/images/admin/goods/${mainToppingList.t_image}'/>"
-																				data-src="<c:url value= '/resources/images/admin/goods/${mainToppingList.t_image}'
-							 />" />
+																				data-src="<c:url value= '/resources/images/admin/goods/${mainToppingList.t_image}' />" />
 																		</div>
 
 																		<div class="prd-cont">
@@ -400,8 +474,7 @@
 													<div id="topping2" class="tab-content">
 														<div class="menu-list-v2">
 															<ul>
-																<c:forEach var="cheezeToppingList"
-																	items="${cheezeToppingList}">
+																<c:forEach var="cheezeToppingList" items="${cheezeToppingList}"  varStatus="status">
 																	<li>
 																		<div class="prd-img">
 																			<img class="lazyload"
@@ -418,15 +491,15 @@
 																			</div>
 
 																			<div class="quantity-box">
-																				<button type="button" class="btn-minus topping"></button>
-																				<input class="setNum" type="number" value="0"
+																				<button type="button" class="btn-minus topping" onclick="minusCheezeTopping(${status.index})"></button>
+																				<input class="setNum" id="cheezeSetNum${status.index}" type="number" value="0" 
 																					readonly=""> <input class="setName"
 																					type="hidden" value="${cheezeToppingList.t_name}">
 																				<input class="setCode" type="hidden"
 																					value="${cheezeToppingList.t_code}"> <input
 																					class="setPrice" type="hidden"
 																					value="${cheezeToppingList.t_price}">
-																				<button type="button" class="btn-plus topping"></button>
+																				<button type="button" class="btn-plus topping" onclick="plusCheezeTopping(${status.index})"></button>
 																			</div>
 																		</div>
 																	</li>
@@ -438,8 +511,7 @@
 													<div id="topping3" class="tab-content">
 														<div class="menu-list-v2">
 															<ul>
-																<c:forEach var="afterToppingList"
-																	items="${afterToppingList}">
+																<c:forEach var="afterToppingList" items="${afterToppingList}"  varStatus="status">
 																	<li>
 																		<div class="prd-img">
 																			<img class="lazyload"
@@ -456,15 +528,15 @@
 																			</div>
 
 																			<div class="quantity-box">
-																				<button type="button" class="btn-minus topping"></button>
-																				<input class="setNum" type="number" value="0"
+																				<button type="button" class="btn-minus topping" onclick="minusAfterTopping(${status.index})"></button>
+																				<input class="setNum" id="afterSetNum${status.index}" type="number" value="0" 
 																					readonly=""> <input class="setName"
 																					type="hidden" value="${afterToppingList.t_name}">
 																				<input class="setCode" type="hidden"
 																					value="${afterToppingList.t_code}"> <input
 																					class="setPrice" type="hidden"
 																					value="${afterToppingList.t_price}">
-																				<button type="button" class="btn-plus topping"></button>
+																				<button type="button" class="btn-plus topping" onclick="plusAfterTopping(${status.index})"></button>
 																			</div>
 																		</div>
 																	</li>
