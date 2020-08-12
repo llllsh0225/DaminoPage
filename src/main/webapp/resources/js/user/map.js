@@ -1,6 +1,53 @@
 //초기맵
 function initMap() {
 	navigator.geolocation.getCurrentPosition(current_position);// 위치 권한
+	
+	var geocoder = new google.maps.Geocoder();
+	document.getElementById("name_submit").addEventListener("click", () => {
+		if(document.getElementById("storeName").value != ""){
+	    	document.searchForm1.submit();
+	    	geocodeAddress(geocoder, map);
+    	}else{
+    		alert('매장명을 입력해주세요.');
+    	}
+		
+    });//매장명 검색
+	
+    document.getElementById("location_submit").addEventListener("click", () => {
+    	if(document.getElementById("storeRegion").value != "none"){
+	    	document.searchForm.submit();
+	    	geocodeAddress2(geocoder, map);
+    	}else{
+    		alert('구/군을 선택해주세요.');
+    	}
+    });//지역 검색
+}
+//검색결과맵
+function searchMap(){
+	var location = {lat: 34,  lng: 126}
+	var map = new google.maps.Map(document.getElementById("map_canvas"), {zoom: 8, center: location});
+	
+	var geocoder = new google.maps.Geocoder();
+	
+    document.getElementById("location_submit").addEventListener("click", () => {
+    	if(document.getElementById("storeRegion").value != "none"){
+	    	document.searchForm.submit();
+	    	geocodeAddress2(geocoder, map);
+    	}else{
+    		alert('구/군을 선택해주세요.');
+    	}
+    });//지역 검색
+    
+    document.getElementById("name_submit").addEventListener("click", () => {
+		if(document.getElementById("storeName").value != ""){
+	    	document.searchForm1.submit();
+	    	geocodeAddress(geocoder, map);
+    	}else{
+    		alert('매장명을 입력해주세요.');
+    	}
+		
+    });//매장명 검색
+    
 }
 
 //현재 위치
@@ -12,26 +59,7 @@ function current_position(position){
 	var userLng = position.coords.longitude.toFixed(6);// 현 위치의 경도 소수점 6자리
 	var location = {lat: Number(userLat),  lng: Number(userLng)}// 현위치
 	// 지도에 현위치 표시
-	var map = new google.maps.Map(document.getElementById("map_canvas"), {zoom: 18, center: location});
-	
-	var geocoder = new google.maps.Geocoder();
-	document.getElementById("name_submit").addEventListener("click", () => {
-		if(document.getElementById("storeName").value != ""){
-	    	document.searchForm1.submit();
-	        geocodeAddress(geocoder, map);
-    	}else{
-    		alert('매장명을 입력해주세요.');
-    	}
-    });//매장명 검색
-	
-    document.getElementById("location_submit").addEventListener("click", () => {
-    	if(document.getElementById("storeRegion").value != "none"){
-	    	document.searchForm.submit();
-	        geocodeAddress2(geocoder, map);
-    	}else{
-    		alert('구/군을 선택해주세요.');
-    	}
-    });//지역 검색
+	var map = new google.maps.Map(document.getElementById("map_canvas"), {zoom: 16, center: location});
     
     var contentString = '<div id="content">'+ 
 						    '<div id="siteNotice" style="font-size:20px">'+
@@ -50,6 +78,8 @@ function current_position(position){
     var marker = new google.maps.Marker({position: location, map: map, icon: markerIcon});
     // 맵에서 마커 클릭시 상세정보창을 나오게하는 이벤트 추가
     marker.addListener('click', function() {infowindow.open(map, marker);});
+
+    
 }
 
 // 매장명 검색
