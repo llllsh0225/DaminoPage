@@ -13,34 +13,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.board.BoardVO;
-
 @Controller
 public class MapController {
 	@Autowired
 	private MapService mapService;
 	
 	@RequestMapping("/branch.do")
-	public ModelAndView getMap() {
+	public ModelAndView getMap(MapVO vo, ModelAndView mav) {
 		System.out.println("지도 검색 페이지");
 		
-		List<MapVO> storeList = mapService.getStoreList();
-		
-		ModelAndView mav = new ModelAndView();
+		List<MapVO> locationSearchList = mapService.getLocationSearchList(vo); //지역 검색
+		mav.addObject("locationSearchList", locationSearchList);
 		mav.setViewName("/branch");
-		mav.addObject("storeList", storeList);
+		
+		return mav;
+	}
+	@RequestMapping(value="/branchSearch.do", method=RequestMethod.POST)
+	public ModelAndView getSearchMap(MapVO vo, ModelAndView mav) {
+		System.out.println("지도 검색 페이지");
+		
+		List<MapVO> nameSearchList = mapService.getNameSearchList(vo); //매장명 검색
+		mav.addObject("nameSearchList", nameSearchList);
+		mav.setViewName("/branch");
 		
 		return mav;
 	}
 	
-	@RequestMapping(value="/searchBranch.do", method=RequestMethod.POST)
-	@ResponseBody
-	public List<MapVO> getSearchMap(@RequestBody Map<String, Object> params, HttpServletRequest request) {
-		System.out.println("지역 검색");
-		String storeRegion = (String)params.get("storeRegion");
-		
-		List<MapVO> searchStoreList = mapService.getSearchStoreList(storeRegion);
-		System.out.println(mapService.getSearchStoreList(storeRegion));
-		return searchStoreList;
-	}
 }

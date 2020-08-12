@@ -15,20 +15,14 @@ public class MapDAOImpl implements MapDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
-	public MapVO getMap(MapVO vo) {
-		System.out.println("MapDAOImpl getMap(vo)");
-		return sqlSessionTemplate.selectOne("MapDAO.getMap", vo);
+	public List<MapVO> getLocationSearchList(MapVO vo) {
+		System.out.println("MapDAOImpl getLocationSearchList(vo)");
+		return sqlSessionTemplate.selectList("MapDAO.getLocationSearchList", vo);
 	}
 
 	@Override
-	public List<MapVO> getStoreList() {
-		System.out.println("MapDAOImpl getStoreList()");
-		return sqlSessionTemplate.selectList("MapDAO.getStoreList");
-	}
-
-	@Override
-	public List<MapVO> getSearchStoreList(String storeRegion) {
-		System.out.println("MapDAOImpl getSearchStoreList(searchStoreList)");
-		return sqlSessionTemplate.selectList("MapDAO.getSearchStoreList", storeRegion);
+	public List<MapVO> getNameSearchList(MapVO vo) {
+		System.out.println("MapDAOImpl getNameSearchList(vo)");
+		return sqlSessionTemplate.selectList("MapDAO.getNameSearchList", vo);
 	}
 }
