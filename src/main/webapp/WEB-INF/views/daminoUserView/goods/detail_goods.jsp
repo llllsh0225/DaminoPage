@@ -70,18 +70,49 @@ $(document).ready(function(){
 		
 	}
 	
-	/* function doughSizeCheck(id){
-		
-			$(this).addClass('selected');
-			$(this).attr('checked', true);
-			console.log("사이즈체크1"); */
-			/*} else{
-			$(this).parent().removeClass('selected');
-			$(this).attr('checked', false);
-			console.log("사이즈체크2");
-		} 
-	}*/
 	
+</script>
+<script>
+//사이드디시 일반 카운트
+var sideCnt = 0;
+
+function plusNomalSide(idx){
+	var setNum = Number($('#sideNomalSetNum' + idx).val());
+	setNum += 1;
+	sideCnt += 1;
+	$('#sideNomalSetNum' + idx).val(setNum);
+			
+	if(sideCnt > 9){
+		alert("사이드메뉴는 9개까지 선택 가능합니다.");
+		sideCnt = 9;
+		$('#sideNomalSetNum' + idx).val(setNum-1);
+		
+	}
+	console.log(sideCnt);
+}
+
+function minusNomalSide(idx){			
+	
+	var setNum = Number($('#sideNomalSetNum' + idx).val());
+	setNum -= 1;
+	
+	$('#sideNomalSetNum' + idx).val(setNum);
+			
+	if(setNum == 0){
+		$('#sideNomalSetNum' + idx).val(0);
+		setNum = Number($('#sideNomalSetNum' + idx).val());
+		
+		sideCnt -= 1;
+	}else if(setNum < 0){
+		$('#sideNomalSetNum' + idx).val(0);
+	}else{
+		
+		setNum = Number($('#sideNomalSetNum' + idx).val());
+		sideCnt -= 1;
+	}
+	console.log(sideCnt);
+}
+
 </script>
 
 </head>
@@ -484,6 +515,7 @@ $(document).ready(function(){
 				}
 				console.log(toppingCnt);
 			}
+	
 	</script>
 
 
@@ -620,10 +652,44 @@ $(document).ready(function(){
 														</div>
 													</div>
 													<div class="tab-type js_tab">
-														<ul>
-															<li class="active"><a href="#sidedish1">특가</a></li>
-															<li><a href="#sidedish2">일반</a></li>
-														</ul>
+														<!--<ul>
+														
+															 <li class="active"><a href="#sidedish1">특가</a></li> 
+															<li class="active"><a href="#sidedish2">일반</a></li>
+														</ul>-->
+														<div id="sidedish2" class="tab-content active sidedelete">
+														<div class="menu-list-v2">
+															<ul>
+															<c:forEach var="goodsSideList" items="${goodsSideList}" varStatus="status">
+																<li>
+																	<div class="prd-img">
+																		<img class="lazyload"
+																			src="<c:url value= '/resources/images/admin/goods/${goodsSideList.s_image}' />"
+																			alt="${goodsSideList.s_name}" />
+																	</div>
+
+																	<div class="prd-cont">
+																		<div class="subject">${goodsSideList.s_name}</div>
+																		<div class="price-box">
+																			<strong>${goodsSideList.s_price}</strong>
+																		</div>
+
+																		<div class="quantity-box">
+																			<button class="btn-minus side" onclick="minusNomalSide(${status.index})"></button>
+																			<input class="setNum" id="sideNomalSetNum${status.index}" type="number" value="0"
+																				readonly>
+																				<input class="setName" type="hidden" value="${goodsSideList.s_name}"> <input
+																				class="setCode" type="hidden" value="${goodsSideList.s_code}">
+																			<input class="setPrice" type="hidden" value="${goodsSideList.s_price}">
+																			<button class="btn-plus side" onclick="plusNomalSide(${status.index})"></button>
+																		</div>
+																	</div>
+																</li>
+																</c:forEach>
+																
+															</ul>
+														</div>
+													</div>
 													</div>
 
 													<script>
@@ -631,7 +697,7 @@ $(document).ready(function(){
 												
 											</script>
 
-													<div id="sidedish1" class="tab-content active sidedelete">
+													<!-- <div id="sidedish1" class="tab-content active sidedelete">
 														<div class="menu-list-v2">
 															<ul>
 
@@ -661,629 +727,11 @@ $(document).ready(function(){
 																		</div>
 																	</div>
 																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_NUpa4qjv.jpg"
-																			alt="[반값]한돈 빠에야" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]한돈 빠에야</div>
-																		<div class="price-box">
-																			<del>8800</del>
-																			<strong>4,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]한돈 빠에야"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP82">
-																			<input class="setPrice" type="hidden" value="4400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_TmzIvAh8.jpg"
-																			alt="[반값]샐러드 가든" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]샐러드 가든</div>
-																		<div class="price-box">
-																			<del>6800</del>
-																			<strong>3,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]샐러드 가든"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP81">
-																			<input class="setPrice" type="hidden" value="3400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_aEs4kjTM.jpg"
-																			alt="[반값]펜네 파스타" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]펜네 파스타</div>
-																		<div class="price-box">
-																			<del>8800</del>
-																			<strong>4,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]펜네 파스타"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP80">
-																			<input class="setPrice" type="hidden" value="4400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_aWbsiNe3.jpg"
-																			alt="[반값]슈퍼곡물 치킨" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]슈퍼곡물 치킨</div>
-																		<div class="price-box">
-																			<del>7800</del>
-																			<strong>3,900</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]슈퍼곡물 치킨"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP73">
-																			<input class="setPrice" type="hidden" value="3900">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_S6jN24pt.jpg"
-																			alt="[반값]NEW 치즈 볼로네즈 스파게티" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]NEW 치즈 볼로네즈 스파게티</div>
-																		<div class="price-box">
-																			<del>8800</del>
-																			<strong>4,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]NEW 치즈 볼로네즈 스파게티">
-																			<input class="setCode" type="hidden"
-																				value="SST133A1_HP10"> <input
-																				class="setPrice" type="hidden" value="4400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_AhHif6hZ.jpg"
-																			alt="[반값]트러플 리조또" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]트러플 리조또</div>
-																		<div class="price-box">
-																			<del>8800</del>
-																			<strong>4,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]트러플 리조또"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP67">
-																			<input class="setPrice" type="hidden" value="4400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_8K910ZM4.jpg"
-																			alt="[반값]하프&하프 스파게티" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]하프&하프 스파게티</div>
-																		<div class="price-box">
-																			<del>9800</del>
-																			<strong>4,900</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]하프&하프 스파게티"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP42">
-																			<input class="setPrice" type="hidden" value="4900">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_hqXwqkHf.jpg"
-																			alt="[반값]화이트 크림 스파게티" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]화이트 크림 스파게티</div>
-																		<div class="price-box">
-																			<del>8800</del>
-																			<strong>4,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]화이트 크림 스파게티"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP40">
-																			<input class="setPrice" type="hidden" value="4400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_fMA47AEH.jpg"
-																			alt="[반값]갈릭&허브윙스(8조각)" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]갈릭&허브윙스(8조각)</div>
-																		<div class="price-box">
-																			<del>8800</del>
-																			<strong>4,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]갈릭&허브윙스(8조각)"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP6">
-																			<input class="setPrice" type="hidden" value="4400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_Fyj8Uxvs.jpg"
-																			alt="[반값]프레시 코울슬로" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]프레시 코울슬로</div>
-																		<div class="price-box">
-																			<del>2400</del>
-																			<strong>1,200</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]프레시 코울슬로"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP35">
-																			<input class="setPrice" type="hidden" value="1200">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_A6Fr642B.jpg"
-																			alt="[반값]프레시 콘샐러드" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]프레시 콘샐러드</div>
-																		<div class="price-box">
-																			<del>2400</del>
-																			<strong>1,200</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]프레시 콘샐러드"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP34">
-																			<input class="setPrice" type="hidden" value="1200">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
 															</ul>
-														</div>
-													</div>
-													<div id="sidedish2" class="tab-content sidedelete">
-														<div class="menu-list-v2">
-															<ul>
-
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200702_uCBMigWf.jpg"
-																			alt="치캉스 팩" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">치캉스 팩</div>
-																		<div class="price-box">
-																			<strong>14,900</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="치캉스 팩"> <input
-																				class="setCode" type="hidden" value="RSD173M1">
-																			<input class="setPrice" type="hidden" value="14900">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200429_1Iq6t6Rf.jpg"
-																			alt="크리스피 핫 순살 치킨(8조각)" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">크리스피 핫 순살 치킨(8조각)</div>
-																		<div class="price-box">
-																			<strong>4,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="크리스피 핫 순살 치킨(8조각)"> <input
-																				class="setCode" type="hidden" value="RSD171M1">
-																			<input class="setPrice" type="hidden" value="4800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_z7h539iW.jpg"
-																			alt="한돈 빠에야" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">한돈 빠에야</div>
-																		<div class="price-box">
-																			<strong>8,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="한돈 빠에야"> <input
-																				class="setCode" type="hidden" value="RSD170M1">
-																			<input class="setPrice" type="hidden" value="8800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_3W8R4H4y.jpg"
-																			alt="샐러드 가든" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">샐러드 가든</div>
-																		<div class="price-box">
-																			<strong>6,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="샐러드 가든"> <input
-																				class="setCode" type="hidden" value="RSD169P1">
-																			<input class="setPrice" type="hidden" value="6800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_fBQi689q.jpg"
-																			alt="펜네 파스타" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">펜네 파스타</div>
-																		<div class="price-box">
-																			<strong>8,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="펜네 파스타"> <input
-																				class="setCode" type="hidden" value="RSD168M1">
-																			<input class="setPrice" type="hidden" value="8800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200605_l24qhCGi.jpg"
-																			alt="슈퍼곡물 치킨(10조각)" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">슈퍼곡물 치킨(10조각)</div>
-																		<div class="price-box">
-																			<strong>7,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="슈퍼곡물 치킨(10조각)"> <input
-																				class="setCode" type="hidden" value="RSD161M1">
-																			<input class="setPrice" type="hidden" value="7800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_oK536isq.jpg"
-																			alt="NEW 치즈 볼로네즈 스파게티" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">NEW 치즈 볼로네즈 스파게티</div>
-																		<div class="price-box">
-																			<strong>8,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="NEW 치즈 볼로네즈 스파게티"> <input
-																				class="setCode" type="hidden" value="RSD031M1">
-																			<input class="setPrice" type="hidden" value="8800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_4VvkTEI3.jpg"
-																			alt="트러플 리조또" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">트러플 리조또</div>
-																		<div class="price-box">
-																			<strong>8,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="트러플 리조또"> <input
-																				class="setCode" type="hidden" value="RSD155M1">
-																			<input class="setPrice" type="hidden" value="8800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_fLidgy69.jpg"
-																			alt="하프&하프 스파게티 (NEW 치즈 & 화이트 크림)" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">하프&하프 스파게티 (NEW 치즈 & 화이트
-																			크림)</div>
-																		<div class="price-box">
-																			<strong>9,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="하프&하프 스파게티 (NEW 치즈 & 화이트 크림)">
-																			<input class="setCode" type="hidden" value="RSD120M1">
-																			<input class="setPrice" type="hidden" value="9800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_9wMvHQcZ.jpg"
-																			alt="화이트 크림 스파게티" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">화이트 크림 스파게티</div>
-																		<div class="price-box">
-																			<strong>8,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="화이트 크림 스파게티"> <input
-																				class="setCode" type="hidden" value="RSD118M1">
-																			<input class="setPrice" type="hidden" value="8800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_Ci7PNSUV.jpg"
-																			alt="갈릭&허브윙스(8조각)" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">갈릭&허브윙스(8조각)</div>
-																		<div class="price-box">
-																			<strong>8,800</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="갈릭&허브윙스(8조각)"> <input
-																				class="setCode" type="hidden" value="RSD064M1">
-																			<input class="setPrice" type="hidden" value="8800">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_oi9xdc8U.jpg"
-																			alt="프레시 코울슬로" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">프레시 코울슬로</div>
-																		<div class="price-box">
-																			<strong>2,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="프레시 코울슬로"> <input
-																				class="setCode" type="hidden" value="RSD112P1">
-																			<input class="setPrice" type="hidden" value="2400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200316_AqBJeq2s.jpg"
-																			alt="프레시 콘샐러드" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">프레시 콘샐러드</div>
-																		<div class="price-box">
-																			<strong>2,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="프레시 콘샐러드"> <input
-																				class="setCode" type="hidden" value="RSD111P1">
-																			<input class="setPrice" type="hidden" value="2400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-															</ul>
-														</div>
-													</div>
+															</div>
+															</div> -->
+															
+													
 												</div>
 												<div class="step-wrap">
 													<div class="title-wrap">
