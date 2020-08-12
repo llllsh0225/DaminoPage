@@ -108,16 +108,24 @@ public class GoodsListController {
 		
 		//사용자 선택 메뉴 정보 불러오기
 		GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
+		
 		//토핑 목록 불러오기
 		List<GoodsToppingVO> mainToppingList = goodsListService.getMainTopping();
 		List<GoodsToppingVO> cheezeToppingList = goodsListService.getCheezeTopping();
 		List<GoodsToppingVO> afterToppingList = goodsListService.getAfterTopping();
 		
+		//사이드디시 목록 불러오기
+		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
+
 		//토핑 타입별 목록 불러오기
 		mav.addObject("mainToppingList", mainToppingList);
 		mav.addObject("cheezeToppingList", cheezeToppingList);
 		mav.addObject("afterToppingList", afterToppingList);
 		
+		//사이드디시 목록 불러오기
+		mav.addObject("goodsSideList", goodsSideList);
+		
+		//사용자 선택 메뉴 정보 불러오기
 		mav.addObject("goodsDetail", goodsDetail);
 		//request parameter에서 받은 피자 이름
 		mav.addObject("p_name", p_name);
