@@ -61,6 +61,9 @@ $(document).ready(function(){
 				
 					$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
 					$(this).parent().addClass('selected');
+					var a = $(this).prop('value');
+					a = a.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
+					$('.total-pizza').html($(this).prop('name') + '('+ a +'원)');
 				}); 
 				
 		
@@ -374,9 +377,9 @@ function minusDrink(idx){
 											<div class="size-box">
 												<!-- checkbox 활성화 일 경우 -->
 												<div class="chk-box2 selected">
-													<input type="radio" id="size1" name="size" value="L"
-														/> <label
-														class="checkbox" for="size1"></label> <label for="size1">L
+													<input type="radio" id="size1" name="${goodsDetail.p_name}" value="${goodsDetail.p_price_l}" /> <label
+														class="checkbox" for="size1"></label>
+														<label for="size1">L
 														<fmt:formatNumber value="${goodsDetail.p_price_l}"
 															pattern="#,###" />원
 														</p>
@@ -384,7 +387,7 @@ function minusDrink(idx){
 												</div>
 												<!-- //checkbox 활성화 일 경우 -->
 												<div class="chk-box2">
-													<input type="radio" id="size2" name="size" value="M"
+													<input type="radio" id="size2" name="${goodsDetail.p_name}" value="${goodsDetail.p_price_m}"
 														 /> <label class="checkbox"
 														for="size2"></label> <label for="size2">M <fmt:formatNumber
 															value="${goodsDetail.p_price_m}" pattern="#,###" />원
@@ -858,10 +861,7 @@ function minusDrink(idx){
 											<dl class="pizza">
 												<dt>피자</dt>
 												<dd>
-													<p class="total-pizza">${p_name}(
-														<fmt:formatNumber value="${goodsDetail.p_price_l}"
-															pattern="#,###" />
-														원)
+													<p class="total-pizza">${p_name}(<fmt:formatNumber pattern="#,###,###" value="${goodsDetail.p_price_l}"/>원)
 													</p>
 													<ul class="list-text v2">
 														<li class="total-dough"></li>
