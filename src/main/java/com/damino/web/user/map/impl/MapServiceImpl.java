@@ -15,20 +15,14 @@ public class MapServiceImpl implements MapService{
 	private MapDAO mapDAO;
 
 	@Override
-	public MapVO getMap(MapVO vo) {
-		System.out.println("MapServiceImpl getMap(vo)");
-		return mapDAO.getMap(vo);
+	public List<MapVO> getLocationSearchList(MapVO vo) {
+		System.out.println("MapServiceImpl getLocationSearchList(vo)");
+		return mapDAO.getLocationSearchList(vo);
 	}
 
 	@Override
-	public List<MapVO> getStoreList() {
-		System.out.println("MapServiceImpl getStoreList()");
-		return mapDAO.getStoreList();
-	}
-
-	@Override
-	public List<MapVO> getSearchStoreList(String storeRegion) {
-		System.out.println("MapServiceImpl getSearchStoreList()");
-		return mapDAO.getSearchStoreList(storeRegion);
+	public List<MapVO> getNameSearchList(MapVO vo) {
+		System.out.println("MapServiceImpl getNameSearchList(vo)");
+		return mapDAO.getNameSearchList(vo);
 	}
 }
