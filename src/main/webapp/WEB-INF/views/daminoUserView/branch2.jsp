@@ -20,7 +20,7 @@
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 <!-- 구글 지도 api -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPY14fWtREsDgmgVgmAaEazsQakxds8TY&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPY14fWtREsDgmgVgmAaEazsQakxds8TY&callback=searchMap">
 	</script>
 <!-- 맵관련 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/map.js'/>"></script>
