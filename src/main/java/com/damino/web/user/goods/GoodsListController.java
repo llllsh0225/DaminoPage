@@ -106,17 +106,21 @@ public class GoodsListController {
 		String p_name = request.getParameter("p_name");
 		//String p_image = request.getParameter("p_image");
 		
-		//사용자 선택 메뉴 정보 불러오기
+		//사용자 선택 메뉴 정보 서비스 호출
 		GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
 		
-		//토핑 목록 불러오기
+		//토핑 목록 서비스 호출
 		List<GoodsToppingVO> mainToppingList = goodsListService.getMainTopping();
 		List<GoodsToppingVO> cheezeToppingList = goodsListService.getCheezeTopping();
 		List<GoodsToppingVO> afterToppingList = goodsListService.getAfterTopping();
 		
-		//사이드디시 목록 불러오기
+		//사이드디시 목록 서비스 호출
 		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
-
+		
+		//음료 목록 서비스 호출
+		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
+		
+	//-------사용자 선택 메뉴 정보 불러오기-------------------
 		//토핑 타입별 목록 불러오기
 		mav.addObject("mainToppingList", mainToppingList);
 		mav.addObject("cheezeToppingList", cheezeToppingList);
@@ -125,8 +129,12 @@ public class GoodsListController {
 		//사이드디시 목록 불러오기
 		mav.addObject("goodsSideList", goodsSideList);
 		
-		//사용자 선택 메뉴 정보 불러오기
+		//음료 목록 불러오기
+		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
+		
+		//피자 불러오기
 		mav.addObject("goodsDetail", goodsDetail);
+		
 		//request parameter에서 받은 피자 이름
 		mav.addObject("p_name", p_name);
 		mav.setViewName("/goods/detail_goods");
