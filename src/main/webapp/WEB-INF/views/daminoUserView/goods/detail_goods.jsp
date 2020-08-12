@@ -462,61 +462,67 @@ function minusDrink(idx){
 			var toppingCnt = 0;
 			var toppingStr = "";
 			var totalAmount = 0;
-			var toppingPrice = setNum.value();
+			var selectMainPrice = 0;
+			var selectMainCnt = 0;
+			var mainToppingName = ""; 
 			
 			function plusTopping(idx){
-				var setNum = Number($('#setNum' + idx).val());
+				var setNum = Number($('#mainToppingNum' + idx).val());
+				mainToppingName = $('#mainToppingName' + idx).val();
+				selectMainPrice = Number($("#mainToppingPrice" + idx).val());
+				
 				setNum += 1;
 				toppingCnt += 1;
 				
-				$('#setNum' + idx).val(setNum);
+				$('#mainToppingNum' + idx).val(setNum);
 						
 				if(toppingCnt > 5){
 					alert("토핑은 5개까지 선택 가능합니다.");
 					toppingCnt = 5;
-					$('#setNum' + idx).val(setNum-1);
+					
+					$('#mainToppingNum' + idx).val(setNum-1);
 					
 				}
-				console.log(toppingCnt);
-				console.log("toppingPrice : " + toppingPrice);				
-				
-				if(setNum > 0){
-					//$('.total-pizza').val($('#setPrice').val());
-					//$(".total-pizza").html(toppingPrice+orignPrice);
+					totalAmount = Number($("#mainToppingNum" + idx).val()) * Number($("#mainToppingPrice" + idx).val());
 					
-					totalAmount += parsetInt(("#setNum").val())*parsetInt(("#setPrice").val());										
-						
-					toppingStr += totalAmount;
-				}
-					$(".total-pizza").text(totalAmount);
-							
+					//메인토핑 개별 가격
+					
+					//메인토핑 개별 개수
+					selectMainCnt = Number($('#mainToppingNum' + idx).val());
+					
+					console.log("totalAmount : " + totalAmount);
+					console.log("mainToppingName : " + mainToppingName);
+					
+					toppingStr += "<div>"+ mainToppingName + "(" + selectMainPrice + "원)" + "x"
+					+ "<span class='selectMainCnt'>" + selectMainCnt + "</span>"
+					+ "<input type='hidden' class='toppingSum' value='" + totalAmount + "'></input>" + "</div>";	
+					
+					$(".total-topping").html("<div>추가 토핑</div>" + toppingStr);
+			
 				
-				/* toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
-				+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
-				+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>"; */
 			}
 			
 			function minusTopping(idx){			
 				
-				var setNum = Number($('#setNum' + idx).val());
+				var setNum = Number($('#mainToppingNum' + idx).val());
 				setNum -= 1;
 				
-				$('#setNum' + idx).val(setNum);
+				$('#mainToppingNum' + idx).val(setNum);
 						
 				if(setNum == 0){
-					$('#setNum' + idx).val(0);
-					setNum = Number($('#setNum' + idx).val());
+					$('#mainToppingNum' + idx).val(0);
+					setNum = Number($('#mainToppingNum' + idx).val());
 					
 					toppingCnt -= 1;
 				}else if(setNum < 0){
-					$('#setNum' + idx).val(0);
+					$('#mainToppingNum' + idx).val(0);
 				}else{
 					
-					setNum = Number($('#setNum' + idx).val());
+					setNum = Number($('#mainToppingNum' + idx).val());
 					toppingCnt -= 1;
 				}
-				console.log(toppingCnt);
-				$(".total-pizza").html.remove(toppingPrice);
+				
+				
 			}
 			
 	//치즈 토핑 카운트
@@ -622,10 +628,10 @@ function minusDrink(idx){
 																			<div class="quantity-box">
 																				<button type="button" class="btn-minus topping" onclick="minusTopping(${status.index})"></button>
 																				<!--   -->
-																				<input class="setNum" id="setNum${status.index}" type="number" value="0" readonly="">
-																				<input class="setName" type="hidden" value="${mainToppingList.t_name}">
+																				<input class="setNum" id="mainToppingNum${status.index}" type="number" value="0" readonly="">
+																				<input class="setName" id="mainToppingName${status.index}" type="hidden" value="${mainToppingList.t_name}">
 																				<input class="setCode" type="hidden" value="${mainToppingList.t_code}">
-																				<input class="setPrice" id="setPrice" type="hidden" value="${mainToppingList.t_price}">
+																				<input class="setPrice" id="mainToppingPrice${status.index}" type="hidden" value="${mainToppingList.t_price}">
 																				<button type="button" class="btn-plus topping" onclick="plusTopping(${status.index})"></button>
 																				
 																			</div>
