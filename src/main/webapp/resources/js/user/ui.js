@@ -95,7 +95,7 @@ var UI = (function () {
 				}
 			});
 
-			// radio
+			//radio
 			/*$("input[type='radio']").change(function () {
 				$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
 				$(this).parent().addClass('selected');

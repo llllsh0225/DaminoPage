@@ -28,14 +28,23 @@
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	
+<script type="text/javascript">
 
+$(document).ready(function(){
+	$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
+		$('.pop-layer').hide();
+	});
+});
+
+</script>
 <script>
 	window.onload = function() {
 		//쉼표로 저장된 리스트 split으로 자르기
-		var splitDoughCode = $("#dough_db").val().split(",");
+		var splitDoughCode = $("#dough_db").val().split(",");		
 		
 		//name=dough인 checkbox 정보 var에 저장
-		var chkBox = document.getElementsByName('dough');
+		var chkBox = document.getElementsByName('p_dough');
 		//checkbox 길이 확인
 		var count = chkBox.length;
 		console.log('라디오버튼 갯수' , count);
@@ -46,9 +55,32 @@
 				 chkBox[j].checked = true;
 			 }
 		} 
-	
+		
+		
+		  $("input[type='radio']").change(function () {
+				//$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
+				
+					//$(this).parent().addClass('selected');
+					//$('input:radio[name=' + $(this).attr('name') + ']').parent().addClass('selected');
+					//$(this).parent().removeClass('selected');
+					$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
+					$(this).parent().addClass('selected');
+				}); 
+				
+		
 	}
 	
+	/* function doughSizeCheck(id){
+		
+			$(this).addClass('selected');
+			$(this).attr('checked', true);
+			console.log("사이즈체크1"); */
+			/*} else{
+			$(this).parent().removeClass('selected');
+			$(this).attr('checked', false);
+			console.log("사이즈체크2");
+		} 
+	}*/
 	
 </script>
 
@@ -201,8 +233,7 @@
 
 										<!-- //대표 이미지 슬라이드 -->
 										<a
-											href="javascript:getDetailSlide(${goodsDetail.p_code},${goodsDetail.p_name});"
-											class="btn-detail"> <i class="ico-sch2"></i> <span
+											href="javascript:UI.layerPopUp({selId:'#pop-zoom'});" class="btn-detail"> <i class="ico-sch2"></i> <span
 											class="hidden">상세버튼</span>
 										</a>
 									</div>
@@ -236,7 +267,7 @@
 												<!-- checkbox 활성화 일 경우 -->
 												<div class="chk-box2 selected">
 													<input type="radio" id="size1" name="size" value="L"
-														checked onclick="addToppingCheck()" /> <label
+														/> <label
 														class="checkbox" for="size1"></label> <label for="size1">L
 														<fmt:formatNumber value="${goodsDetail.p_price_l}"
 															pattern="#,###" />원
@@ -246,7 +277,7 @@
 												<!-- //checkbox 활성화 일 경우 -->
 												<div class="chk-box2">
 													<input type="radio" id="size2" name="size" value="M"
-														onclick="addToppingCheck()" /> <label class="checkbox"
+														 /> <label class="checkbox"
 														for="size2"></label> <label for="size2">M <fmt:formatNumber
 															value="${goodsDetail.p_price_m}" pattern="#,###" />원
 														</p>
@@ -264,7 +295,7 @@
 											</div>
 
 											<div class="option-box dough">
-
+												<input type="hidden" value="${goodsDetail.p_dough}" id="dough_db"/>
 												<c:forEach items="${goodsDetail.p_dough}" var="p_dough"
 													varStatus="status">
 													<div class="chk-box">
@@ -317,12 +348,16 @@
 				$("img.lazyload").lazyload(); 
 			});									
 			
-			var toppingCnt = 0;			
+			var toppingCnt = 0;
+			var toppingStr = "";
+			var totalAmount = 0;
+			var toppingPrice = setNum.value();
 			
 			function plusTopping(idx){
 				var setNum = Number($('#setNum' + idx).val());
 				setNum += 1;
 				toppingCnt += 1;
+				
 				$('#setNum' + idx).val(setNum);
 						
 				if(toppingCnt > 5){
@@ -332,6 +367,22 @@
 					
 				}
 				console.log(toppingCnt);
+				console.log("toppingPrice : " + toppingPrice);				
+				
+				if(setNum > 0){
+					//$('.total-pizza').val($('#setPrice').val());
+					//$(".total-pizza").html(toppingPrice+orignPrice);
+					
+					totalAmount += parsetInt(("#setNum").val())*parsetInt(("#setPrice").val());										
+						
+					toppingStr += totalAmount;
+				}
+					$(".total-pizza").text(totalAmount);
+							
+				
+				/* toppingStr += "<div>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x"
+				+ "<span class='toppingCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+				+"<input type='hidden' class='toppingSum' value='"+toppingTotalAmount+"'></input>"+"</div>"; */
 			}
 			
 			function minusTopping(idx){			
@@ -354,10 +405,12 @@
 					toppingCnt -= 1;
 				}
 				console.log(toppingCnt);
+				$(".total-pizza").html.remove(toppingPrice);
 			}
 			
 	//치즈 토핑 카운트
 	function plusCheezeTopping(idx){
+		
 				var setNum = Number($('#cheezeSetNum' + idx).val());
 				setNum += 1;
 				toppingCnt += 1;
@@ -460,7 +513,7 @@
 																				<input class="setNum" id="setNum${status.index}" type="number" value="0" readonly="">
 																				<input class="setName" type="hidden" value="${mainToppingList.t_name}">
 																				<input class="setCode" type="hidden" value="${mainToppingList.t_code}">
-																				<input class="setPrice" type="hidden" value="${mainToppingList.t_price}">
+																				<input class="setPrice" id="setPrice" type="hidden" value="${mainToppingList.t_price}">
 																				<button type="button" class="btn-plus topping" onclick="plusTopping(${status.index})"></button>
 																				
 																			</div>
@@ -1894,6 +1947,39 @@
 					}
 					-->
 				</script>
+				<!-- //팝업-메뉴 상세보기 -->
+
+		<div class="pop-layer" id="pop-zoom">
+			<div class="dim"></div>
+			<div class="pop-wrap" style="top:0px; left:20%;">
+				<div class="pop-title-wrap">
+					<h2 class="pop-title">확대</h2>
+				</div>
+				<div class="pop-content">
+					<div class="zoom-wrap">
+						<div class="menu-zoom-wrap">
+							<div class="menu-big" id="zoom">
+								
+									<img
+										src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"
+										alt="${goodsDetail.p_name}" class="img-zoom-big" />
+								
+							</div>
+						</div>
+						<div class="menu-thumb">
+							<div class="item a">
+								<a href="#">
+								
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a class="btn-close" style="cursor:pointer;"></a>
+			</div>
+		</div>
+		<!--//팝업-확대 이미지 -->
+		
 				<!-- 팝업-메뉴 상세보기 -->
 
 				<div class="pop-layer pop-menu" id="pop-menu-detail">
@@ -2031,10 +2117,7 @@
 				</div>
 				<!-- //팝업-메뉴 상세보기 -->
 
-				<!-- 피자 스토리  -->
-				<div class="pop-layer" id="pop-story"></div>
-				<!-- 피자 스토리  -->
-
+				
 				<!-- 알레르기 -->
 				<!-- 팝업-메인 빅배너 -->
 				<div class="pop-layer pop-full" id="pop-allergy">
