@@ -157,7 +157,6 @@ $(document).ready(function(){
 														<span class="hidden">상세버튼</span>
 													</a>
 													
-													<!-- "javascript:getDetailSlide('RPZ196SL','C0102','203');trk_call('list');"  -->
 												</div>
 												<div class="prd-cont">
 													<div class="subject">${goodsPremiumList.p_name}</div>
