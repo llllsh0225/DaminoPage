@@ -22,7 +22,12 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
 	<script type="text/javascript">
-	var toppingCnt = 0; 
+	var toppingCnt = 0; // 선택 토핑 전체 카운트
+	var toppingStr = ""; // 선택 토핑 정보를 저장할 문자열
+	var selectToppingNameArr = []; // 선택된 토핑이름을 저장할 배열
+	var selectToppingCntArr = []; // 선택된 토핑 수량을 저장할 배열
+	var selectToppingPriceArr = []; // 선택된 토핑의 가격을 저장할 배열
+	
 		$(document).ready(function(){
 			if($('#dsp_ctgr').val() == ""){
 				$('.pizza_option').hide();
@@ -219,92 +224,264 @@
 			}
 		}
 		
-		function mainToppingQtyMinus(idx){
+		function mainToppingQtyMinus(idx){ // 메인토핑 개수 마이너스 & 전체 토핑개수 카운트
 			var mainToppingQty = Number($('#mainToppingQty' + idx).val());
-			mainToppingQty -= 1;
-			$('#mainToppingQty' + idx).val(mainToppingQty);
+			var mainToppingName = $('#mainToppingName' + idx).val();
+			var selectToppingNameIdx = selectToppingNameArr.indexOf(mainToppingName);
 			
-			if(mainToppingQty <= 0){
-				$('#mainToppingQty' + idx).val(0);
+			mainToppingQty -= 1; // 버튼을 클릭하면 메인토핑 개수 -1
+			$('#mainToppingQty' + idx).val(mainToppingQty); // 메인토핑 개수를 위에서 마이너스 한 값으로 다시 세팅
+			
+			if(mainToppingQty == 0){ // 만약 메인토핑수가 0이라면
+				$('#mainToppingQty' + idx).val(0); // 마이너스값이 되지 않게 0으로 세팅
 				mainToppingQty = Number($('#mainToppingQty' + idx).val());
-				if(mainToppingQty == 0){
-					toppingCnt -= 1;
-				}
+				toppingCnt -= 1; // 전체 토핑 카운트를 -1
+				
+				selectToppingCntArr.splice(selectToppingNameIdx, 1);
+				selectToppingNameArr.splice(selectToppingNameIdx, 1);
+		
+			}else if(mainToppingQty < 0){ // 만약 메인토핑 개수가 음수값이라면
+				$('#mainToppingQty' + idx).val(0); // 음수값이 되지 않게 0으로 세팅 (전체 토핑 카운트는 그대로 둔다.)
 			}else{
-				toppingCnt -= 1;
+				toppingCnt -= 1; // 전체 토핑 카운트가 0도 아니고 음수도 아니라면 -1
+				
+				selectToppingCntArr.splice(selectToppingNameIdx, 1, mainToppingQty);
 			}
-			alert(toppingCnt);
+			console.log(toppingCnt);
 		}
 		
-		function mainToppingQtyPlus(idx){
-			var mainToppingQty = Number($('#mainToppingQty' + idx).val());
-			mainToppingQty += 1;
-			$('#mainToppingQty' + idx).val(mainToppingQty);
+		function mainToppingQtyPlus(idx){ // 메인토핑 개수 플러스 & 전체 토핑개수 카운트
+			// 선택된 토핑 정보 저장 변수
+			var mainToppingQty = Number($('#mainToppingQty' + idx).val()); // 선택된 메인토핑 개수
+			var mainToppingName = $('#mainToppingName' + idx).val(); // 선택된 메인토핑 이름
+			var selectToppingNameIdx = selectToppingNameArr.indexOf(mainToppingName);
 			
-			if(mainToppingQty > 5){
-				alert("토핑은 최대 5개 까지 선택 가능합니다.");
-				$('#mainToppingQty' + idx).val(5);
-				mainToppingQty = Number($('#mainToppingQty' + idx).val());
-			}else{
-				toppingCnt += 1;
+			mainToppingQty += 1; // 버튼을 클릭하면 메인토핑 개수 +1
+			toppingCnt += 1; // 버튼을 클릭하면 전체 토핑 카운트 +1
+			$('#mainToppingQty' + idx).val(mainToppingQty); // 메인토핑 개수를 위에서 플러스 한 값으로 다시 세팅
+			
+			if(toppingCnt > 5){ // 만약 전체 토핑 카운트가 5보다 크다면
+				alert("토핑은 5개까지 선택 가능합니다.");
+				toppingCnt = 5; // 5 이상으로 넘어가지 않게 다시 5로 세팅
+				$('#mainToppingQty' + idx).val(mainToppingQty-1); // 메인토핑 개수는 6에서 -1 한 값으로 다시 세팅
 			}
-			alert(toppingCnt);
+			
+			// 선택토핑정보 배열에 저장
+			if(!selectToppingNameArr.includes(mainToppingName)){
+				selectToppingNameArr.push(mainToppingName);
+				selectToppingCntArr.push(mainToppingQty);
+			}else{
+				selectToppingCntArr.splice(selectToppingNameIdx, 1, mainToppingQty);
+			}
 		}
 		
 		function cheezeToppingQtyMinus(idx){
 			var cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
+			var cheezeToppingName = $('#cheezeToppingName' + idx).val();
+			var selectToppingNameIdx = selectToppingNameArr.indexOf(cheezeToppingName);
+			
 			cheezeToppingQty -= 1;
 			$('#cheezeToppingQty' + idx).val(cheezeToppingQty);
 			
-			if(cheezeToppingQty <= 0){
+			if(cheezeToppingQty == 0){
 				$('#cheezeToppingQty' + idx).val(0);
 				cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
+				toppingCnt -= 1;
+				
+				selectToppingCntArr.splice(selectToppingNameIdx, 1);
+				selectToppingNameArr.splice(selectToppingNameIdx, 1);
+			}else if(cheezeToppingQty < 0){
+				$('#cheezeToppingQty' + idx).val(0);
 			}else{
 				toppingCnt -= 1;
+				
+				selectToppingCntArr.splice(selectToppingNameIdx, 1, cheezeToppingQty);
 			}
-			alert(toppingCnt);
+			console.log(toppingCnt);
 		}
 		
 		function cheezeToppingQtyPlus(idx){
 			var cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
+			var cheezeToppingName = $('#cheezeToppingName' + idx).val();
+			var selectToppingNameIdx = selectToppingNameArr.indexOf(cheezeToppingName);
+			
 			cheezeToppingQty += 1;
+			toppingCnt += 1;
 			$('#cheezeToppingQty' + idx).val(cheezeToppingQty);
 			
-			if(cheezeToppingQty > 5){
-				alert("토핑은 최대 5개 까지 선택 가능합니다.");
-				$('#cheezeToppingQty' + idx).val(5);
-				cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
-			}else{
-				toppingCnt += 1;
+			if(toppingCnt > 5){
+				alert("토핑은 5개까지 선택 가능합니다.");
+				toppingCnt = 5;
+				$('#cheezeToppingQty' + idx).val(cheezeToppingQty-1);
 			}
-			alert(toppingCnt);
+			
+			if(!selectToppingNameArr.includes(cheezeToppingName)){
+				selectToppingNameArr.push(cheezeToppingName);
+				selectToppingCntArr.push(cheezeToppingQty);
+				
+			}else{
+				selectToppingCntArr.splice(selectToppingNameIdx, 1, cheezeToppingQty);
+				
+			}
 		}
 		
 		function afterToppingQtyMinus(idx){
 			var afterToppingQty = Number($('#afterToppingQty' + idx).val());
+			var afterToppingName = $('#afterToppingName' + idx).val();
+			var selectToppingNameIdx = selectToppingNameArr.indexOf(afterToppingName);
+			
 			afterToppingQty -= 1;
 			$('#afterToppingQty' + idx).val(afterToppingQty);
 			
-			if(afterToppingQty <= 0){
-				$('#afterToppingQty' + idx).val(1);
+			if(afterToppingQty == 0){
+				$('#afterToppingQty' + idx).val(0);
+				afterToppingQty = Number($('#afterToppingQty' + idx).val());
+				toppingCnt -= 1;
+				
+				selectToppingCntArr.splice(selectToppingNameIdx, 1);
+				selectToppingNameArr.splice(selectToppingNameIdx, 1);
+			}else if(afterToppingQty < 0){
+				$('#afterToppingQty' + idx).val(0);
 			}else{
 				toppingCnt -= 1;
+				
+				selectToppingCntArr.splice(selectToppingNameIdx, 1, afterToppingQty);
 			}
-			alert(toppingCnt);
+			console.log(toppingCnt);
 		}
 		
 		function afterToppingQtyPlus(idx){
 			var afterToppingQty = Number($('#afterToppingQty' + idx).val());
+			var afterToppingName = $('#afterToppingName' + idx).val();
+			var selectToppingNameIdx = selectToppingNameArr.indexOf(afterToppingName);
+			
 			afterToppingQty += 1;
+			toppingCnt += 1;
 			$('#afterToppingQty' + idx).val(afterToppingQty);
 			
-			if(afterToppingQty > 5){
-				alert("토핑은 최대 5개 까지 선택 가능합니다.");
-				$('#afterToppingQty' + idx).val(5);
-			}else{
-				toppingCnt += 1;
+			if(toppingCnt > 5){
+				alert("토핑은 5개까지 선택 가능합니다.");
+				toppingCnt = 5;
+				$('#afterToppingQty' + idx).val(afterToppingQty-1);
 			}
-			alert(toppingCnt);
+			
+			if(!selectToppingNameArr.includes(afterToppingName)){
+				selectToppingNameArr.push(afterToppingName);
+				selectToppingCntArr.push(afterToppingQty);
+				
+			}else{
+				var selectToppingNameIdx = selectToppingNameArr.indexOf(afterToppingName);
+				selectToppingCntArr.splice(selectToppingNameIdx, 1, afterToppingQty);
+			}
+		}
+		
+		function addGoods(){
+			// 선택된 옵션 value
+			var selectCtgr = $('#dsp_ctgr').val();
+			var selectGoodsName = $('#goods_code').val();
+			var selectDough = $('#dough').val();
+			var selectSize = $('#size').val();
+			var selectQty = $('#qty').val(); // 선택 수량
+			
+			var goodsPrice = 0; // 최종 선택된 제품가격 초기화
+			var doughPrice = 0; // 최종 선택된 도우가격 초기화
+			var goods = ""; // 최종 선택된 제품정보 초기화
+			toppingStr = ""; // 토핑 정보 초기화
+			
+			// 제품 추가 전 미선택 항목이 있는지 검사
+			var sizeIdx = $('#size option').index($('#size option:selected'));
+			var doughIdx = $('#dough option').index($('#dough option:selected'));
+			var goodsCodeIdx = $('#goods_code option').index($('#goods_code option:selected'));
+			var ctgrIdx = $('#dsp_ctgr option').index($('#dsp_ctgr option:selected'));
+
+			if($('#dsp_ctgr').val() == "PIZZA"){ // 피자를 선택했을 때
+				if(goodsCodeIdx == 0){
+					alert("제품명을 선택하세요.");
+					return false;
+				}else if(doughIdx == 0){
+					alert("도우를 선택하세요.");
+					return false;
+				}else if(sizeIdx == 0){
+					alert("사이즈를 선택하세요.");
+					return false;
+				}
+				
+				// 선택된 토핑정보를 전역변수 문자열(toppingStr)에 저장
+				for(var i=0; i<selectToppingNameArr.length; i++){
+					toppingStr += "<br>" + "-" + selectToppingNameArr[i] + "(" + selectToppingCntArr[i] + ")";
+				}
+				
+				goods = selectGoodsName + " " + selectDough + " " + selectSize + toppingStr;
+				alert(goods);
+			}else{ // 피자 외의 메뉴를 선택했을 때
+				if(ctgrIdx == 0){
+					alert("제품 카테고리를 선택하세요.");
+					return false;
+				}else if(goodsCodeIdx == 0){
+					alert("제품명을 선택하세요.");
+					return false;
+				}
+				goods = selectGoodsName;
+				alert(goods);
+			}
+			
+			// 선택한 제품의 가격 컨트롤러에서 받아오기
+			$.ajax({
+				url : 'getGoodsPrice.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post',
+				dataType: 'json',   
+				data : JSON.stringify({
+					selectCtgr : selectCtgr,
+					selectGoodsName : selectGoodsName,
+					selectDough : selectDough,
+					selectSize : selectSize,
+				}),
+				success: function(data) {
+					if(data.length > 1){
+						goodsPrice = data[0];
+						doughPrice = data[1];
+					}else{
+						goodsPrice = data[0];
+					}
+					alert(goodsPrice);
+					alert(doughPrice);
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다.');
+				}
+			});
+			
+			var toppingList = { "toppingList" : selectToppingNameArr };
+			
+			/** 토핑을 선택했다면 토핑 각각의 가격 가져오기
+			if(selectToppingNameArr.length != 0){
+				$.ajax({
+					url : 'getToppingPrice.do',
+					dataType : "json",
+                    contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+                    type : "post",
+					data : toppingList,
+					success : function(data){
+						if(data != null){
+							for(var i=0; i<data.length; i++){
+								console.log(data[i]);
+							}
+						}
+					},
+					error : function(err){
+						alert("실패..");
+					}
+				});
+			}
+			*/
+			// 행을 추가할 tbody
+			var goodsList = document.getElementById("goods_list");
+			var orderInfo = goodsList.insertRow(goodsList.rows.length);
+			var goodsCell = orderInfo.insertCell(0);
+			var cntCell = orderInfo.insertCell(1);
+			goodsCell.innerHTML = goods;
+			cntCell.innerHTML = selectQty;
 		}
 	</script>
 </head>
@@ -505,9 +682,9 @@
 														<div class="quantity-box">
 															<button type="button" class="btn-minus topping" onclick="mainToppingQtyMinus(${status.index})"></button>
 															<input class="setNum" type="number" id="mainToppingQty${status.index }" value="0" readonly="">
-															<input class="setName" type="hidden" value="${mainToppingList.t_name}">
-															<input class="setCode" type="hidden" value="${mainToppingList.t_code}">
-															<input class="setPrice" type="hidden" value="${mainToppingList.t_price}">
+															<input class="setName" type="hidden" id="mainToppingName${status.index }" value="${mainToppingList.t_name}">
+															<input class="setCode" type="hidden" id="mainToppingCode${status.index }" value="${mainToppingList.t_code}">
+															<input class="setPrice" type="hidden" id="mainToppingPrice${status.index }" value="${mainToppingList.t_price}">
 															<button type="button" class="btn-plus topping" onclick="mainToppingQtyPlus(${status.index})"></button>
 														</div>
 														</div>
@@ -537,7 +714,7 @@
 														<div class="quantity-box">
 															<button type="button" class="btn-minus topping" onclick="cheezeToppingQtyMinus(${status.index})"></button>
 															<input class="setNum" type="number" id="cheezeToppingQty${status.index }" value="0" readonly="">
-															<input class="setName" type="hidden" value="${cheezeToppingList.t_name}">
+															<input class="setName" type="hidden" id="cheezeToppingName${status.index }" value="${cheezeToppingList.t_name}">
 															<input class="setCode" type="hidden" value="${cheezeToppingList.t_code}">
 															<input class="setPrice" type="hidden" value="${cheezeToppingList.t_price}">
 															<button type="button" class="btn-plus topping" onclick="cheezeToppingQtyPlus(${status.index})"></button>
@@ -569,7 +746,7 @@
 														<div class="quantity-box">
 															<button type="button" class="btn-minus topping" onclick="afterToppingQtyMinus(${status.index})"></button>
 															<input class="setNum" type="number" id="afterToppingQty${status.index }" value="0" readonly="">
-															<input class="setName" type="hidden" value="${afterToppingList.t_name}">
+															<input class="setName" type="hidden" id="afterToppingName${status.index }" value="${afterToppingList.t_name}">
 															<input class="setCode" type="hidden" value="${afterToppingList.t_code}">
 															<input class="setPrice" type="hidden" value="${afterToppingList.t_price}">
 															<button type="button" class="btn-plus topping" onclick="afterToppingQtyPlus(${status.index})"></button>
