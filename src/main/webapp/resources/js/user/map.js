@@ -7,7 +7,7 @@ function initMap() {
 function current_position(position){
 	var msg;
 	msg = "위도 : " + position.coords.latitude.toFixed(6) + ", 경도 : " + position.coords.longitude.toFixed(6);
-	alert(msg);
+//	alert(msg);
 	var userLat = position.coords.latitude.toFixed(6);// 현 위치의 위도 소수점 6자리
 	var userLng = position.coords.longitude.toFixed(6);// 현 위치의 경도 소수점 6자리
 	var location = {lat: Number(userLat),  lng: Number(userLng)}// 현위치
@@ -16,11 +16,21 @@ function current_position(position){
 	
 	var geocoder = new google.maps.Geocoder();
 	document.getElementById("name_submit").addEventListener("click", () => {
-        geocodeAddress(geocoder, map);
+		if(document.getElementById("storeName").value != ""){
+	    	document.searchForm1.submit();
+	        geocodeAddress(geocoder, map);
+    	}else{
+    		alert('매장명을 입력해주세요.');
+    	}
     });//매장명 검색
 	
     document.getElementById("location_submit").addEventListener("click", () => {
-        geocodeAddress2(geocoder, map);
+    	if(document.getElementById("storeRegion").value != "none"){
+	    	document.searchForm.submit();
+	        geocodeAddress2(geocoder, map);
+    	}else{
+    		alert('구/군을 선택해주세요.');
+    	}
     });//지역 검색
     
     var contentString = '<div id="content">'+ 
@@ -44,11 +54,11 @@ function current_position(position){
 
 // 매장명 검색
 function geocodeAddress(geocoder, resultsMap) {
-    var branch_name = document.getElementById("branch_name").value;
+    var storeName = document.getElementById("storeName").value;
     
     geocoder.geocode(
       {
-    	  address: "도미노피자 "+ branch_name
+    	  address: storeName
       },
       (results, status) => {
         if (status === "OK") {
@@ -76,9 +86,7 @@ function geocodeAddress(geocoder, resultsMap) {
           marker2.addListener('click', function() {infowindow2.open(resultsMap, marker2);});
           
         } else {
-          alert(
-            "매장명을 확인해주세요."
-          );
+        	
         }
         
       }
@@ -87,11 +95,11 @@ function geocodeAddress(geocoder, resultsMap) {
 
 // 지역검색
 function geocodeAddress2(geocoder, resultsMap) {
-    var region_name = document.getElementById("region_name").value;
+    var storeRegion = document.getElementById("storeRegion").value;
     
     geocoder.geocode(
       {
-    	  address: region_name
+    	  address: storeRegion
       },
       (results, status) => {
         if (status === "OK") {

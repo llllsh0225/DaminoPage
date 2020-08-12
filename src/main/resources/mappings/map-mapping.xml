@@ -3,14 +3,91 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MapDAO">
-	
-	<select id="getStoreList" resultType="com.damino.web.user.map.MapVO">
-		SELECT * FROM daminostoreinfo
+	<select id="getNameSearchList" resultType="com.damino.web.user.map.MapVO">
+		SELECT * FROM daminostoreinfo WHERE storename LIKE '%'||#{storeName}||'%' OR storeregion LIKE '%'||#{storeName}||'%'
 	</select>
-	
-	<select id="getSearchStoreList" parameterType="String" resultType="String">
-		SELECT storeName FROM daminostoreinfo
-		WHERE storeRegion = #{storeRegion}
+	<select id="getLocationSearchList" parameterType="com.damino.web.user.map.MapVO" resultType="com.damino.web.user.map.MapVO">
+		SELECT * FROM daminostoreinfo WHERE 1=1
+		<if test="storeRegion != null">
+			<choose>
+				<when test="storeRegion=='none'">
+				</when>
+				<when test="storeRegion=='강남구'">
+					AND storeregion='강남구'
+				</when>
+				<when test="storeRegion=='강동구'">
+					AND storeregion='강동구'
+				</when>
+				<when test="storeRegion=='강북구'">
+					AND storeregion='강북구'
+				</when>
+				<when test="storeRegion=='강서구'">
+					AND storeregion='강서구'
+				</when>
+				<when test="storeRegion=='관악구'">
+					AND storeregion='관악구'
+				</when>
+				<when test="storeRegion=='광진구'">
+					AND storeregion='광진구'
+				</when>
+				<when test="storeRegion=='구로구'">
+					AND storeregion='구로구'
+				</when>
+				<when test="storeRegion=='금천구'">
+					AND storeregion='금천구'
+				</when>
+				<when test="storeRegion=='노원구'">
+					AND storeregion='노원구'
+				</when>
+				<when test="storeRegion=='도봉구'">
+					AND storeregion='도봉구'
+				</when>
+				<when test="storeRegion=='동대문구'">
+					AND storeregion='동대문구'
+				</when>
+				<when test="storeRegion=='동작구'">
+					AND storeregion='동작구'
+				</when>
+				<when test="storeRegion=='마포구'">
+					AND storeregion='마포구'
+				</when>
+				<when test="storeRegion=='서대문구'">
+					AND storeregion='서대문구'
+				</when>
+				<when test="storeRegion=='서초구'">
+					AND storeregion='서초구'
+				</when>
+				<when test="storeRegion=='성동구'">
+					AND storeregion='성동구'
+				</when>
+				<when test="storeRegion=='성북구'">
+					AND storeregion='성북구'
+				</when>
+				<when test="storeRegion=='송파구'">
+					AND storeregion='송파구'
+				</when>
+				<when test="storeRegion=='양천구'">
+					AND storeregion='양천구'
+				</when>
+				<when test="storeRegion=='영등포구'">
+					AND storeregion='영등포구'
+				</when>
+				<when test="storeRegion=='용산구'">
+					AND storeregion='용산구'
+				</when>
+				<when test="storeRegion=='은평구'">
+					AND storeregion='은평구'
+				</when>
+				<when test="storeRegion=='종로구'">
+					AND storeregion='종로구'
+				</when>
+				<when test="storeRegion=='중구'">
+					AND storeregion='중구'
+				</when>
+				<when test="storeRegion=='중랑구'">
+					AND storeregion='중랑구'
+				</when>
+			</choose>
+		</if>
 	</select>
-	
 </mapper>

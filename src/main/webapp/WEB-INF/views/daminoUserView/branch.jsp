@@ -25,6 +25,7 @@
 <!-- 맵관련 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/map.js'/>"></script>
 <script type="text/javascript">
+/* 
 function searchRegion(callBackFunc){
 	var target = document.getElementById("searchStoreList");
 	var storeRegion = $("#region_name").val();
@@ -65,7 +66,7 @@ function searchRegion(callBackFunc){
 					 alert('처리도중 오류가 발생했습니다.');
 				}
 			});
-}
+} */
 </script>
 </head>
 <body>
@@ -167,53 +168,54 @@ function searchRegion(callBackFunc){
 									<!-- 지역 검색 -->
 									<div class="tab-content active" id="storeSrch1">
 										<div class="address-set-wrap store">
-											<div class="form-group srch-type">
-												<div class="form-item">
-													<div class="select-type type2">
-														<select id="region_code_1" onchange="getRegionSubList();">
-															<option value="">시/도</option>
-															<option value="01" selected>서울</option>
-
-														</select>
+											<form action="branch.do" name="searchForm" method="post">
+												<div class="form-group srch-type">
+													<div class="form-item">
+														<div class="select-type type2">
+															<select id="region_code_1" onchange="">
+																<option value="">시/도</option>
+																<option value="01" selected>서울</option>
+															</select>
+														</div>
+													</div>
+													
+													<div class="form-item">
+														<div class="select-type type2">
+															<select id="storeRegion" name="storeRegion">
+																<option value="none" selected>구/군</option>
+																<option value="강남구">강남구</option>
+																<option value="강동구">강동구</option>
+																<option value="강북구">강북구</option>
+																<option value="강서구">강서구</option>
+																<option value="관악구">관악구</option>
+																<option value="광진구">광진구</option>
+																<option value="구로구">구로구</option>
+																<option value="금천구">금천구</option>
+																<option value="노원구">노원구</option>
+																<option value="도봉구">도봉구</option>
+																<option value="동대문구">동대문구</option>
+																<option value="동작구">동작구</option>
+																<option value="마포구">마포구</option>
+																<option value="서대문구">서대문구</option>
+																<option value="서초구">서초구</option>
+																<option value="성동구">성동구</option>
+																<option value="성북구">성북구</option>
+																<option value="송파구">송파구</option>
+																<option value="양천구">양천구</option>
+																<option value="영등포구">영등포구</option>
+																<option value="용산구">용산구</option>
+																<option value="은평구">은평구</option>
+																<option value="종로구">종로구</option>
+																<option value="중구">중구</option>
+																<option value="중랑구">중랑구</option>
+															</select>
+														</div>
+													</div>
+													<div class="form-item">
+														<button type="button" class="btn-search" id="location_submit">검색</button>
 													</div>
 												</div>
-												<div class="form-item">
-													<div class="select-type type2">
-														<select id="region_name" name="region_name" onchange="searchRegion()">
-															<option value="" selected>구/군</option>
-															<option value="강남구">강남구</option>
-															<option value="강동구">강동구</option>
-															<option value="강북구">강북구</option>
-															<option value="강서구">강서구</option>
-															<option value="관악구">관악구</option>
-															<option value="광진구">광진구</option>
-															<option value="구로구">구로구</option>
-															<option value="금천구">금천구</option>
-															<option value="노원구">노원구</option>
-															<option value="도봉구">도봉구</option>
-															<option value="동대문구">동대문구</option>
-															<option value="동작구">동작구</option>
-															<option value="마포구">마포구</option>
-															<option value="서대문구">서대문구</option>
-															<option value="서초구">서초구</option>
-															<option value="성동구">성동구</option>
-															<option value="성북구">성북구</option>
-															<option value="송파구">송파구</option>
-															<option value="양천구">양천구</option>
-															<option value="영등포구">영등포구</option>
-															<option value="용산구">용산구</option>
-															<option value="은평구">은평구</option>
-															<option value="종로구">종로구</option>
-															<option value="중구">중구</option>
-															<option value="중랑구">중랑구</option>
-														</select>
-													</div>
-												</div>
-												<div class="form-item">
-													<button type="button" class="btn-search" id="location_submit">검색</button>
-												</div>
-											</div>
-
+											</form>
 											<div class="srch-option">
 												<div class="switch-btn" onclick="toggleSpclPrmtn_address();">
 													<label class="switch"> <input type="checkbox" id="switch"> <a class="slider" id="schPrmt"> <span class="off">OFF</span> <span class="on">ON</span>
@@ -232,15 +234,16 @@ function searchRegion(callBackFunc){
 									<!-- 매장명 -->
 									<div class="tab-content" id="storeSrch2">
 										<div class="address-set-wrap store">
-											<div class="form-group srch-type">
-												<div class="form-item">
-													<input type="text" id="branch_name" placeholder="매장명을 입력해주세요." value="">
+											<form action="branchSearch.do" name="searchForm1" method="post">
+												<div class="form-group srch-type">
+													<div class="form-item">
+														<input type="text" id="storeName" name="storeName" placeholder="매장명을 입력해주세요." value="">
+													</div>
+													<div class="form-item">
+														<button type="button" class="btn-search" id="name_submit">검색</button>
+													</div>
 												</div>
-												<div class="form-item">
-													<button type="button" class="btn-search" id="name_submit">검색</button>
-												</div>
-											</div>
-
+											</form>
 											<div class="srch-option">
 												<div class="switch-btn" onclick="toggleSpclPrmtn_name();">
 													<label class="switch"> <input type="checkbox" id="switch2"> <a class="slider" id="schPrmt"> <span class="off">OFF</span> <span class="on">ON</span>
@@ -257,8 +260,58 @@ function searchRegion(callBackFunc){
 									</div>
 									<!-- //매장명 -->
 									
+									<!-- 검색된 매장 리스트 -->
 									<div class="store-address-list" name="searchStoreList" id="searchStoreList" >
-										<!-- 검색된 매장 리스트 -->
+										<ul id="ul_shop_list" id="storeName" name="storeName">
+                                            <c:forEach var="locationSearch" items="${locationSearchList }">
+                                                <li>
+                                                    <dl>
+                                                        <dt>
+                                                            ${locationSearch.storeName } <span class="tel">${locationSearch.storePhone }</span>
+                                                        </dt>
+                                                        <dd class="address">${locationSearch.storeAddress }</dd>
+                                                    </dl>
+                                                    <div class="promotion">
+                                                        <div class="type">
+                                                            <span>온라인<br> 방문포장<br>30%
+                                                            </span>
+                                                        </div>
+                                                        <div class="type2">
+                                                            <span>오프라인<br> 방문포장<br> 30%
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btn-wrap">
+                                                        <a href="#" onclick="">상세보기</a>
+                                                        <a href="#" class="type2">방문포장</a>
+                                                    </div>
+                                                </li>
+                                            </c:forEach>
+                                            <c:forEach var="nameSearch" items="${nameSearchList }">
+                                                <li>
+                                                    <dl>
+                                                        <dt>
+                                                            ${nameSearch.storeName } <span class="tel">${nameSearch.storePhone }</span>
+                                                        </dt>
+                                                        <dd class="address">${nameSearch.storeAddress }</dd>
+                                                    </dl>
+                                                    <div class="promotion">
+                                                        <div class="type">
+                                                            <span>온라인<br> 방문포장<br>30%
+                                                            </span>
+                                                        </div>
+                                                        <div class="type2">
+                                                            <span>오프라인<br> 방문포장<br> 30%
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btn-wrap">
+                                                        <a href="#" onclick="">상세보기</a>
+                                                        <a href="#" class="type2">방문포장</a>
+                                                    </div>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
 									</div>
 									
 								</div>
