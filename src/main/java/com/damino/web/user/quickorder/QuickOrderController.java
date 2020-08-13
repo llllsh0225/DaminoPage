@@ -139,33 +139,24 @@ public class QuickOrderController {
 				goodsPrice.add(doughPrice);
 			}else {
 				System.out.println("M사이즈 피자 가격 받아오기");
+				int pizzaMPrice = quickOrderService.getPizzaMPrice(goodsName);
+				int doughPrice = quickOrderService.getDoughPrice(dough);
+				goodsPrice.add(pizzaMPrice);
+				goodsPrice.add(doughPrice);
 			}
 			break;
 		case "SIDE" :
-			System.out.println("사이드에용..");
+			System.out.println("사이드메뉴 가격 받아오기");
+			int sidePrice = quickOrderService.getSidePrice(goodsName);
+			goodsPrice.add(sidePrice);
 			break;
 		case "DRINK" :
-			System.out.println("음료에용..");
+			System.out.println("음료 가격 받아오기");
+			int drinkEtcPrice = quickOrderService.getDrinkEtcPrice(goodsName);
+			goodsPrice.add(drinkEtcPrice);
 			break;
 		}
 		return goodsPrice;
 	}
 	
-	@RequestMapping(value="/getToppingPrice.do", method=RequestMethod.POST)
-	@ResponseBody
-	public List<Integer> getToppingPrice(@RequestParam(value="toppingList[]") List<String> toppingList){
-		
-		Map<String, Object> toppings = new HashMap<String, Object>();
-		List<Integer> toppingPriceList = new ArrayList<Integer>();
-		
-		toppings.put("toppings", toppingList);
-		
-		/**Map<String, Integer> toppingPriceMap = quickOrderService.getToppingPrice(toppings);
-		
-		for(String key : toppingPriceMap.keySet()) {
-			toppingPriceList.add(toppingPriceMap.get(key));
-		}
-		*/
-		return toppingPriceList;
-	}
 }

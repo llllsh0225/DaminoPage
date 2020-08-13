@@ -25,31 +25,44 @@
 <script>
 	//
 	// -- 공백 검사 --
-	function ad_checks(){
-		// -- id --
-		if($("#adminid").val() == ""){
-			$("#id_alert").text("아이디를 입력해주세요..");
-			$("#id_alert").show();
-			$("#id_alert").focus();
+	function ad_checks(){		
+		// -- 이전pw --
+		if($("#prePW").val() == ""){
+			alert("이전 비밀번호 칸이 비어있습니다.");
+			$("#prePW").focus();
 			return false;
-		} else {
-			$("#id_alert").hide();
-		}
-		
-		var code = "1234";
-		
-		// -- code --
-		if ($("#adminCode").val() == code) {
-			alert(code + " 로 임시비밀번호로 설정되었습니다.\n 비밀번호를 수정해주세요. ");
-		} else {
-			$('#code_alert').text("코드가 일치하지 않습니다");
-			$('#code_alert').show();
-			$("#adminCode").focus();
+		}else if($("#prePW").val() != "0000" ){
+			alert("초기화된 비밀번호 로 입력해주세요.");
+			$("#prePW").focus();
 			return false;
 		}
+		
+		// -- 새 pw --
+		if($("#newPW").val() == ""){
+			alert("새 비밀번호 칸이 비어있습니다.");
+			$("#newPW").focus();
+			return false;
+		}
+		
+		// -- 새 비번과 이전비번 일치불일치.
+		if($("#newPW").val() == $("#prePW").val()){
+			alert("이전과 새 비밀번호가 같습니다.\n 서로 다르게 해주세요.");
+			$("#newPW").focus();
+			return false;
+		}
+		
 	}
 	
-	//code 난수 생성.
+	function updateAdmin(){
+		if(ad_checks() == false){
+			alert("다시 작성해주세요");
+		}else{
+			alert('비밀번호가 변경되었습니다.');
+			document.changePW.action='changeNewPW.admdo';
+			document.changePW.submit();
+		}
+		
+	}
 	
 	
 	
@@ -71,28 +84,35 @@
 								<div class="card-body">
 									<div class="small mb-3 text-muted">* 아이디를 입력하고 받으신 코드를 입력하세요.</div>
 									<div class="small mb-3 text-muted">** 임시비밀번호로 저장됩니다.</div>
+									<c:if test="${msg=='changepw'}">
+										<script>
+											alert(" -- 초기화 비밀번호 로그인 입니다. --\ -- 비밀번호를 수정해주세요 -- ");
+										</script>
+									</c:if>
 									<section id="container">
-									<form action="#" method="POST" onsubmit="return ad_checks()">
+									<form name="changePW" id="changePW" method="POST" onsubmit="return ad_checks()">
 										<div class="form-group">
 											<label class="small mb-1" for="inputAdminID">ID</label> 
-											<input class="form-control py-4" id="adminid" type="text" placeholder="Enter ID" />
-											<div class="text-type4" id="id_alert" style="display: none;"></div>
+											<input class="form-control py-4" id="adminid" type="text" value="${sessionScope.adminid}" disabled="disabled" /> <!-- ????????? -->
+											<input type="hidden" name="adminid" value="${sessionScope.adminid }"/>
 										</div>
 										<div class="form-group">
-											<label class="small mb-1" for="AdminCode">코드</label> 
-											<input class="form-control py-4" id="adminCode" type="text" placeholder="Code" maxlength="11" />
-											<div class="text-type4" id="code_alert" style="display: none;"></div>
+											<label class="small mb-1" for="inputAdminPassword">현재 Password</label>
+											<input class="form-control py-4" id="prePW" name="prepassword" type="password" value="" placeholder="Enter password" />
+										</div>
+										<div class="form-group">
+											<label class="small mb-1" for="inputAdminPassword">수정 Password</label>
+											<input class="form-control py-4" id="newPW" name="adminpassword" type="password" value="" placeholder="Enter password" />
 										</div>
 										<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="login.admdo">로그인 페이지 이동</a> 
-											<button class="btn btn-primary" type="submit" id="submit">비밀번호 수정</button>
+											<input type="button" class="btn-primary" value="비밀번호 수정" onclick="updateAdmin()"/>
 										</div>
 									</form>
 									</section>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="regForm.admdo">관리자 계정 등록</a>
+										<a class="small" href="main.admdo">메인페이지</a> 
 									</div>
 								</div>
 							</div>

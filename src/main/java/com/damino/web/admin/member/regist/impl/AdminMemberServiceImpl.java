@@ -32,4 +32,11 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		adminMemberDAO.changeTempPW(vo);
 	}
 
+	@Override
+	public void changeNewPw(AdminMemberVO vo) {
+		System.out.println("#service[admin] : " + vo);
+		adminMemberDAO.changeNewPw(vo);
+		
+	}
+
 }

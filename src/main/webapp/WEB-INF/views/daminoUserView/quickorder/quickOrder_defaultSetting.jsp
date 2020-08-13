@@ -227,6 +227,7 @@
 		function mainToppingQtyMinus(idx){ // 메인토핑 개수 마이너스 & 전체 토핑개수 카운트
 			var mainToppingQty = Number($('#mainToppingQty' + idx).val());
 			var mainToppingName = $('#mainToppingName' + idx).val();
+			var mainToppingPrice = Number($('#mainToppingPrice' + idx).val());
 			var selectToppingNameIdx = selectToppingNameArr.indexOf(mainToppingName);
 			
 			mainToppingQty -= 1; // 버튼을 클릭하면 메인토핑 개수 -1
@@ -239,6 +240,7 @@
 				
 				selectToppingCntArr.splice(selectToppingNameIdx, 1);
 				selectToppingNameArr.splice(selectToppingNameIdx, 1);
+				selectToppingPriceArr.splice(selectToppingNameIdx, 1);
 		
 			}else if(mainToppingQty < 0){ // 만약 메인토핑 개수가 음수값이라면
 				$('#mainToppingQty' + idx).val(0); // 음수값이 되지 않게 0으로 세팅 (전체 토핑 카운트는 그대로 둔다.)
@@ -254,6 +256,7 @@
 			// 선택된 토핑 정보 저장 변수
 			var mainToppingQty = Number($('#mainToppingQty' + idx).val()); // 선택된 메인토핑 개수
 			var mainToppingName = $('#mainToppingName' + idx).val(); // 선택된 메인토핑 이름
+			var mainToppingPrice = Number($('#mainToppingPrice' + idx).val()); // 선택된 메인토핑 가격
 			var selectToppingNameIdx = selectToppingNameArr.indexOf(mainToppingName);
 			
 			mainToppingQty += 1; // 버튼을 클릭하면 메인토핑 개수 +1
@@ -270,6 +273,7 @@
 			if(!selectToppingNameArr.includes(mainToppingName)){
 				selectToppingNameArr.push(mainToppingName);
 				selectToppingCntArr.push(mainToppingQty);
+				selectToppingPriceArr.push(mainToppingPrice);
 			}else{
 				selectToppingCntArr.splice(selectToppingNameIdx, 1, mainToppingQty);
 			}
@@ -278,6 +282,7 @@
 		function cheezeToppingQtyMinus(idx){
 			var cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
 			var cheezeToppingName = $('#cheezeToppingName' + idx).val();
+			var cheezeToppingPrice = Number($('#cheezeToppingPrice' + idx).val());
 			var selectToppingNameIdx = selectToppingNameArr.indexOf(cheezeToppingName);
 			
 			cheezeToppingQty -= 1;
@@ -290,6 +295,7 @@
 				
 				selectToppingCntArr.splice(selectToppingNameIdx, 1);
 				selectToppingNameArr.splice(selectToppingNameIdx, 1);
+				selectToppingPriceArr.splice(selectToppingNameIdx, 1);
 			}else if(cheezeToppingQty < 0){
 				$('#cheezeToppingQty' + idx).val(0);
 			}else{
@@ -303,6 +309,7 @@
 		function cheezeToppingQtyPlus(idx){
 			var cheezeToppingQty = Number($('#cheezeToppingQty' + idx).val());
 			var cheezeToppingName = $('#cheezeToppingName' + idx).val();
+			var cheezeToppingPrice = Number($('#cheezeToppingPrice' + idx).val());
 			var selectToppingNameIdx = selectToppingNameArr.indexOf(cheezeToppingName);
 			
 			cheezeToppingQty += 1;
@@ -318,7 +325,7 @@
 			if(!selectToppingNameArr.includes(cheezeToppingName)){
 				selectToppingNameArr.push(cheezeToppingName);
 				selectToppingCntArr.push(cheezeToppingQty);
-				
+				selectToppingPriceArr.push(cheezeToppingPrice);
 			}else{
 				selectToppingCntArr.splice(selectToppingNameIdx, 1, cheezeToppingQty);
 				
@@ -328,6 +335,7 @@
 		function afterToppingQtyMinus(idx){
 			var afterToppingQty = Number($('#afterToppingQty' + idx).val());
 			var afterToppingName = $('#afterToppingName' + idx).val();
+			var afterToppingPrice = Number($('#afterToppingPrice' + idx).val());
 			var selectToppingNameIdx = selectToppingNameArr.indexOf(afterToppingName);
 			
 			afterToppingQty -= 1;
@@ -340,6 +348,7 @@
 				
 				selectToppingCntArr.splice(selectToppingNameIdx, 1);
 				selectToppingNameArr.splice(selectToppingNameIdx, 1);
+				selectToppingPriceArr.splice(selectToppingNameIdx, 1);
 			}else if(afterToppingQty < 0){
 				$('#afterToppingQty' + idx).val(0);
 			}else{
@@ -353,6 +362,7 @@
 		function afterToppingQtyPlus(idx){
 			var afterToppingQty = Number($('#afterToppingQty' + idx).val());
 			var afterToppingName = $('#afterToppingName' + idx).val();
+			var afterToppingPrice = Number($('#afterToppingPrice' + idx).val());
 			var selectToppingNameIdx = selectToppingNameArr.indexOf(afterToppingName);
 			
 			afterToppingQty += 1;
@@ -368,9 +378,9 @@
 			if(!selectToppingNameArr.includes(afterToppingName)){
 				selectToppingNameArr.push(afterToppingName);
 				selectToppingCntArr.push(afterToppingQty);
-				
+				selectToppingPriceArr.push(afterToppingPrice);
 			}else{
-				var selectToppingNameIdx = selectToppingNameArr.indexOf(afterToppingName);
+				
 				selectToppingCntArr.splice(selectToppingNameIdx, 1, afterToppingQty);
 			}
 		}
@@ -381,10 +391,13 @@
 			var selectGoodsName = $('#goods_code').val();
 			var selectDough = $('#dough').val();
 			var selectSize = $('#size').val();
-			var selectQty = $('#qty').val(); // 선택 수량
+			var selectQty = Number($('#qty').val()); // 선택 수량
 			
 			var goodsPrice = 0; // 최종 선택된 제품가격 초기화
 			var doughPrice = 0; // 최종 선택된 도우가격 초기화
+			var totalPrice = 0; // 계산된 각 제품의 총가격 초기화
+			var totalOrderPrice = 0; // 최종 주문 가격 초기화
+			
 			var goods = ""; // 최종 선택된 제품정보 초기화
 			toppingStr = ""; // 토핑 정보 초기화
 			
@@ -412,7 +425,7 @@
 				}
 				
 				goods = selectGoodsName + " " + selectDough + " " + selectSize + toppingStr;
-				alert(goods);
+
 			}else{ // 피자 외의 메뉴를 선택했을 때
 				if(ctgrIdx == 0){
 					alert("제품 카테고리를 선택하세요.");
@@ -422,7 +435,6 @@
 					return false;
 				}
 				goods = selectGoodsName;
-				alert(goods);
 			}
 			
 			// 선택한 제품의 가격 컨트롤러에서 받아오기
@@ -437,52 +449,59 @@
 					selectDough : selectDough,
 					selectSize : selectSize,
 				}),
+				async : false,
 				success: function(data) {
 					if(data.length > 1){
-						goodsPrice = data[0];
-						doughPrice = data[1];
+						goodsPrice = Number(data[0]);
+						doughPrice = Number(data[1]);
 					}else{
-						goodsPrice = data[0];
+						goodsPrice = Number(data[0]);
 					}
-					alert(goodsPrice);
-					alert(doughPrice);
 				},
 				error: function() {
 					alert('처리도중 오류가 발생했습니다.');
 				}
 			});
 			
-			var toppingList = { "toppingList" : selectToppingNameArr };
+			// 총가격 계산
+			totalPrice += (Number(goodsPrice) * Number(selectQty)) + (Number(doughPrice) * Number(selectQty));
 			
-			/** 토핑을 선택했다면 토핑 각각의 가격 가져오기
-			if(selectToppingNameArr.length != 0){
-				$.ajax({
-					url : 'getToppingPrice.do',
-					dataType : "json",
-                    contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-                    type : "post",
-					data : toppingList,
-					success : function(data){
-						if(data != null){
-							for(var i=0; i<data.length; i++){
-								console.log(data[i]);
-							}
-						}
-					},
-					error : function(err){
-						alert("실패..");
-					}
-				});
+			for(var i=0; i<selectToppingPriceArr.length; i++){
+				totalPrice += selectToppingPriceArr[i] * selectToppingCntArr[i];
 			}
-			*/
+			
 			// 행을 추가할 tbody
 			var goodsList = document.getElementById("goods_list");
 			var orderInfo = goodsList.insertRow(goodsList.rows.length);
 			var goodsCell = orderInfo.insertCell(0);
 			var cntCell = orderInfo.insertCell(1);
+			var priceCell = orderInfo.insertCell(2);
+			var delCell = orderInfo.insertCell(3);
+			
 			goodsCell.innerHTML = goods;
 			cntCell.innerHTML = selectQty;
+			priceCell.innerHTML = totalPrice + '원';
+			delCell.innerHTML = '<td><a href="javascript:removeGoods(' + goodsList.rows.length + ');" id="delBtn' + goodsList.rows.length + '" class="btn"><span class="btn-type4-brd2">삭제</span></a></td>';
+			
+			$('#quickOrderList tbody tr').each(function(){
+				var goodsTotalPriceHTML = $(this).find('td').eq(2).html();
+				var goodsTotalPrice = Number(goodsTotalPriceHTML.slice(0,-1));
+				totalOrderPrice += goodsTotalPrice;
+			});
+			
+			$('#totalOrderPrice').text(totalOrderPrice);
 		}
+		
+		function removeGoods(idx){
+			var selectRemoveTr = $('#delBtn' + idx).closest('tr');
+			var selectRemovePriceHTML = selectRemoveTr.find('td').eq(2).html();
+			var selectRemovePrice = Number(selectRemovePriceHTML.slice(0,-1));
+			var totalOrderPriceNow = Number($('#totalOrderPrice').text());
+			totalOrderPriceNow -= selectRemovePrice;
+			$('#totalOrderPrice').text(totalOrderPriceNow);
+			selectRemoveTr.remove();
+		}
+		
 	</script>
 </head>
 <body>	
@@ -715,8 +734,8 @@
 															<button type="button" class="btn-minus topping" onclick="cheezeToppingQtyMinus(${status.index})"></button>
 															<input class="setNum" type="number" id="cheezeToppingQty${status.index }" value="0" readonly="">
 															<input class="setName" type="hidden" id="cheezeToppingName${status.index }" value="${cheezeToppingList.t_name}">
-															<input class="setCode" type="hidden" value="${cheezeToppingList.t_code}">
-															<input class="setPrice" type="hidden" value="${cheezeToppingList.t_price}">
+															<input class="setCode" type="hidden" id="cheezeToppingCode${status.index }" value="${cheezeToppingList.t_code}">
+															<input class="setPrice" type="hidden" id="cheezeToppingPrice${status.index }" value="${cheezeToppingList.t_price}">
 															<button type="button" class="btn-plus topping" onclick="cheezeToppingQtyPlus(${status.index})"></button>
 														</div>
 													</div>
@@ -747,8 +766,8 @@
 															<button type="button" class="btn-minus topping" onclick="afterToppingQtyMinus(${status.index})"></button>
 															<input class="setNum" type="number" id="afterToppingQty${status.index }" value="0" readonly="">
 															<input class="setName" type="hidden" id="afterToppingName${status.index }" value="${afterToppingList.t_name}">
-															<input class="setCode" type="hidden" value="${afterToppingList.t_code}">
-															<input class="setPrice" type="hidden" value="${afterToppingList.t_price}">
+															<input class="setCode" type="hidden" id="afterToppingCode${status.index }" value="${afterToppingList.t_code}">
+															<input class="setPrice" type="hidden" id="afterToppingPrice${status.index }" value="${afterToppingList.t_price}">
 															<button type="button" class="btn-plus topping" onclick="afterToppingQtyPlus(${status.index})"></button>
 														</div>
 													</div>
@@ -761,7 +780,7 @@
 									</div>
 								</div>
 								<div class="table-type3">
-									<table>
+									<table id="quickOrderList">
 										<caption>제품설정</caption>
 										<colgroup>
 											<col style="width:420px">
@@ -781,7 +800,7 @@
 											</tbody>
 										<tfoot>
 											<tr>
-												<td colspan="4">총 주문 금액 <em id="totalPrice">0</em>원</td>
+												<td colspan="4">총 주문 금액 <em id="totalOrderPrice">0</em>원</td>
 											</tr>
 										</tfoot>
 									</table>
