@@ -19,16 +19,23 @@
 <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 
 <script type="text/javascript">
-    function sendSMS(){
+/* 	var phoneList = [];
+    function sendSMS(idx){
         console.log("문자를 전송합니다.");
-        $("#smsForm").attr("action",  "sendSms.admdo"); //위에 있는 폼태그를 컨트롤러로 전송한다.
-        $("#smsForm").submit();
-    }
+        for(var i=0; i<=idx; i++){
+        	var phone = $('#to' + idx).val();
+        	phoneList.push(phone);
+        }
+        
+        for(var i=0; i<phoneList.length; i++){
+        	alert(phoneList[i]);
+        } */
+function sendSMS(){
+            console.log("문자를 전송합니다.");
+            $("#smsForm").attr("action",  "sendSms2.admdo"); //위에 있는 폼태그를 컨트롤러로 전송한다.
+            $("#smsForm").submit();
+        }   
 </script>
-
-
-
-
 
 <style type="text/css">
 body {
@@ -188,20 +195,13 @@ body {
 				<p class="text-center">SMS 발송하기</p>
 				<form method="post" id="smsForm">
 					<div class="form-row mb-2">
-					
-						<label for="to" class="col-2 col-sm-1 col-form-label"></label>
-						<div class="col-10 col-sm-11">
-						<c:forEach var="phone" items="${phone }">
-							<input type="text" class="form-control" id="to" name="from"
-								placeholder=${phone.phone }>
-						</c:forEach>
-						</div>
 					</div>
 					<div class="form-row mb-3">
 						<label for="to" class="col-2 col-sm-1 col-form-label">To:</label>
 						<div class="col-10 col-sm-11">
-							<input type="text" class="form-control" id="to" name="from"
-								placeholder="전화번호만 입력 ">
+							<c:forEach var="phone" items="${phones}" >-->
+							<input type="text" class="form-control" id="to" name="from" value="${phone}" }>
+							</c:forEach>
 						</div>
 					</div>
 				<div class="row">

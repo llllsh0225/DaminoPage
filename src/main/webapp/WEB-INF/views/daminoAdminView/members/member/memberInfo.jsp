@@ -206,7 +206,7 @@ $(document).ready(function(){
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-						<form id="form1" name="form1" method="post">
+						<form id="form1" name="form1" method="post" action="smsForm2.admdo">
 							<table class="table table-bordered" id="dataTable" width="100%"
 								cellspacing="0">
 								<thead>
@@ -227,8 +227,8 @@ $(document).ready(function(){
 										<th>Email수신</th>
 										<th>DM수신</th>
 										<th><a class="btn btn-secondary" href="emailForm.admdo"
-											role="button">메일발송</a> <a href="smsForm2.admdo" class="btn btn-secondary"
-											role="button">SMS발송</a></th>
+											role="button">메일발송</a> <input type=submit class="btn btn-secondary"
+											role="button" value="sms발송"></th>
 									</tr>
 								</thead>
 								<tbody>
