@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.member.login.AdminMemberLoginVO;
+
 
 @Controller
 public class AdminMemberController {
@@ -59,7 +61,7 @@ public class AdminMemberController {
 		System.out.println("-- 임시 비밀번호로 교체 --");
 		
 		String adminid = request.getParameter("adminid");
-		String changepw = request.getParameter("adminCode");
+		String changepw = request.getParameter("resetcode");
 		
 		System.out.println("==== id 확인 ==== : "+ adminid );
 		System.out.println("==== code(임시비번) ==== :" + changepw);

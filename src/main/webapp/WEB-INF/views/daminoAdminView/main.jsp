@@ -128,7 +128,7 @@
 							<a class="dropdown-item" href="login.admdo">Login</a>
 						</c:when>
 						<c:otherwise>
-							<a class="dropdown-item" href="#">정보수정</a>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="logout.admdo">Logout</a>
 						</c:otherwise>

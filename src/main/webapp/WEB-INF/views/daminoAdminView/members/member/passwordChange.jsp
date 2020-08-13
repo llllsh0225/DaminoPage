@@ -98,7 +98,7 @@
 										</div>
 										<div class="form-group">
 											<label class="small mb-1" for="inputAdminPassword">현재 Password</label>
-											<input class="form-control py-4" id="prePW" name="prepassword" type="password" value="" placeholder="Enter password" />
+											<input class="form-control py-4" id="prePW" name="prepassword" type="password" value="0000" placeholder="초기 비번 0000" />
 										</div>
 										<div class="form-group">
 											<label class="small mb-1" for="inputAdminPassword">수정 Password</label>

@@ -533,7 +533,7 @@ public class ViewTestController {
 	
 	@RequestMapping("/updateTempPW.admdo")
 	public ModelAndView getAdminPasswordTempPage() {
-		System.out.println("임시 비밀번호 변경 페이지 열기");
+		System.out.println("초기화 비밀번호 변경 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/members/member/updateTempPW");
