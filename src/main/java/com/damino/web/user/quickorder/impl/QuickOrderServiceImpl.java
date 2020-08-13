@@ -47,11 +47,19 @@ public class QuickOrderServiceImpl implements QuickOrderService {
 		return quickOrderDAO.getDoughPrice(dough);
 	}
 
-	/**
 	@Override
-	public Map<String, Integer> getToppingPrice(Map<String, Object> toppings) {
-		return quickOrderDAO.getToppingPrice(toppings);
+	public int getPizzaMPrice(String goodsName) {
+		return quickOrderDAO.getPizzaMPrice(goodsName);
 	}
-	*/
+
+	@Override
+	public int getSidePrice(String goodsName) {
+		return quickOrderDAO.getSidePrice(goodsName);
+	}
+
+	@Override
+	public int getDrinkEtcPrice(String goodsName) {
+		return quickOrderDAO.getDrinkEtcPrice(goodsName);
+	}
 
 }

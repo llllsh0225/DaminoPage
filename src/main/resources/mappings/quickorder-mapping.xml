@@ -32,12 +32,12 @@
 		SELECT price FROM dough WHERE dough_name = #{dough}
 	</select>
 	
-	<!--  
-	<select id="getToppingPrice" parameterMap="hashMap" resultType="hashMap">
-		SELECT t_price FROM topping
-		<foreach collection="toppings" item="topping">
-			WHERE t_name = #{topping.value}
-		</foreach>
+	<select id="getSidePrice" parameterType="String" resultType="Integer">
+		SELECT s_price FROM side WHERE s_name = #{goodsName}
 	</select>
-	-->
+	
+	<select id="getDrinkEtcPrice" parameterType="String" resultType="Integer">
+		SELECT d_price FROM drink_etc WHERE d_name = #{goodsName}
+	</select>
+
 </mapper>
