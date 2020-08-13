@@ -269,7 +269,7 @@ function searchRegion(callBackFunc){
                                                         <dt>
                                                             ${locationSearch.storeName } <span class="tel">${locationSearch.storePhone }</span>
                                                         </dt>
-                                                        <dd class="address">${locationSearch.storeAddress }</dd>
+                                                        <dd class="address" id="${locationSearch.storeAddress }">${locationSearch.storeAddress }</dd>
                                                     </dl>
                                                     <div class="promotion">
                                                         <div class="type">
@@ -293,7 +293,7 @@ function searchRegion(callBackFunc){
                                                         <dt>
                                                             ${nameSearch.storeName } <span class="tel">${nameSearch.storePhone }</span>
                                                         </dt>
-                                                        <dd class="address">${nameSearch.storeAddress }</dd>
+                                                        <dd class="address" id="${nameSearch.storeAddress }">${nameSearch.storeAddress }</dd>
                                                     </dl>
                                                     <div class="promotion">
                                                         <div class="type">
