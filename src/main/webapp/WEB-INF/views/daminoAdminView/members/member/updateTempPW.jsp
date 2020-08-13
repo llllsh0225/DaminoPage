@@ -36,11 +36,12 @@
 			$("#id_alert").hide();
 		}
 		
-		var code = "1234";
+		var code = "0000";
+		var reset = "reset";
 		
 		// -- code --
-		if ($("#adminCode").val() == code) {
-			alert(code + " 로 임시비밀번호로 설정되었습니다.\n 비밀번호를 수정해주세요. ");
+		if ($("#adminCode").val() == reset) {
+			alert(code + " 초기화 비번으로 설정되었습니다.\n 비밀번호를 수정해주세요. ");
 		} else {
 			$('#code_alert').text("코드가 일치하지 않습니다");
 			$('#code_alert').show();
@@ -49,7 +50,7 @@
 		}
 	}
 	
-	//code 난수 생성.
+	
 	
 	
 	
@@ -75,12 +76,12 @@
 									<form action="changeTempPw.admdo" method="POST" onsubmit="return ad_checks()">
 										<div class="form-group">
 											<label class="small mb-1" for="inputAdminID">ID</label> 
-											<input class="form-control py-4" id="adminid" type="text" placeholder="Enter ID" />
+											<input class="form-control py-4" id="adminid" name="adminid" type="text" placeholder="Enter ID" />
 											<div class="text-type4" id="id_alert" style="display: none;"></div>
 										</div>
 										<div class="form-group">
 											<label class="small mb-1" for="AdminCode">코드</label> 
-											<input class="form-control py-4" id="adminCode" type="text" placeholder="Code" maxlength="11" />
+											<input class="form-control py-4" id="adminCode" name="adminCode" type="text" placeholder="Code" maxlength="5" />
 											<div class="text-type4" id="code_alert" style="display: none;"></div>
 										</div>
 										<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">

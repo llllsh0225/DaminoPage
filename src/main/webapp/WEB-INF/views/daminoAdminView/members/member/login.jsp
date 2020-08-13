@@ -48,6 +48,11 @@
 											<label class="small mb-1" for="inputAdminPassword">Password</label>
 											<input class="form-control py-4" id="adminpassword" name="adminpassword" type="password" placeholder="Enter password" />
 										</div>
+										<c:if test="${msg=='change' }">
+											<script>
+												alert(" -- 비밀번호가 수정되었습니다. --");
+											</script>
+										</c:if>
 										<c:if test="${msg=='fail'}">
 											<script>
 												alert(" -- 관리자 로그인 실패 -- ");
@@ -68,7 +73,7 @@
 										-->
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="passwordChange.admdo">비밀번호 찾기</a> 
+											<a class="small" href="updateTempPW.admdo">비밀번호 찾기</a> 
 											<input type="submit" id="loginbtn" class="btn btn-primary" value="로그인" />
 											<!--  
 											<a class="btn btn-primary" href="login.admdo">Login</a>

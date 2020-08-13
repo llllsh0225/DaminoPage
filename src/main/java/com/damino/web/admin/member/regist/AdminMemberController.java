@@ -5,6 +5,7 @@ package com.damino.web.admin.member.regist;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,32 +52,49 @@ public class AdminMemberController {
 		return cnt_admin;
 	}
 	
-	//임시 비밀번호
-	/*
-	 * 	#service[admin] : AdminMemberVO [adminid=null, adminpassword=null]
-		#DAO[임시 비밀번호 발급] :AdminMemberVO [adminid=null, adminpassword=null] 받은 ㅅㄱ
-	 * 
-	 * 
-	 * */
-	
-	@RequestMapping("changeTempPw.admdo")
+
+	//임시 비번으로 교체
+	@RequestMapping(value= "/changeTempPw.admdo", method = RequestMethod.POST)
 	public ModelAndView changeTempPw(@ModelAttribute AdminMemberVO vo, ModelAndView mav, HttpServletRequest request) {
 		System.out.println("-- 임시 비밀번호로 교체 --");
+		
+		String adminid = request.getParameter("adminid");
+		String changepw = request.getParameter("adminCode");
+		
+		System.out.println("==== id 확인 ==== : "+ adminid );
+		System.out.println("==== code(임시비번) ==== :" + changepw);
+			
+		vo.setAdminpassword(changepw); //임시비번을 '비번'자리에 set
+		
 		adminMemberService.changeTempPW(vo);
 		
 		mav.setViewName("/members/member/login");
 		return mav;
 	}
 	
+	//임시비번을 현 비번(암호화)로 교체
+	@RequestMapping(value = "/changeNewPW.admdo", method = RequestMethod.POST)
+	public ModelAndView changeNewPW(@ModelAttribute AdminMemberVO vo,ModelAndView mav, HttpServletRequest request, HttpSession session) {
+		
+		//암호화
+		String pwd = vo.getAdminpassword();
+		System.out.println("==== pwed 확인 ==== : "+ pwd );
+		String adminpassword = pwdEncoder.encode(pwd);
+		vo.setAdminpassword(adminpassword);
+		
+		adminMemberService.changeNewPw(vo);
+	
+		System.out.println("대상 : " + session.getAttribute("adminid")); //session 'adminid'
+		session.invalidate(); //session 초기화
+		
+		mav.addObject("msg","change");
+		mav.setViewName("/members/member/login");
+		return mav;
+	}
+	
+	
+	
+	
 
 }
 
-/*
- * member/regForm 상황
- *
- * <section id="container">
- * <form action="registAdminMember.admdo" method="POST"> 
- * <button class="btn btn-primary btn-block" type="submit" id="submit">계정 만들기</button> 
- * </form> 
- * </section>
- */
