@@ -57,15 +57,13 @@ $(document).ready(function(){
 		} 
 		
 		
-		 /*  $("input[type='radio']").change(function () {
+		   $("input[type='radio']").change(function () {
 				
 					$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
 					$(this).parent().addClass('selected');
-					var a = $(this).prop('value');
-					a = a.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
-					$('.total-pizza').html($(this).prop('name') + '('+ a +'원)');
+					
 				}); 
-				 */
+				 
 		
 	}
 	
@@ -73,7 +71,132 @@ $(document).ready(function(){
 </script>
 <script>
 
+function sum(){
+	
+	//priceOriginal 은 도우 클래스명
+	var pizzaAmount = $(".priceOriginal").val().replace(',','');
+	
+//	var goodsSum = (parseInt(pizzaAmount) + toppingSum)* parseInt($("#pizzaSetNum").val())+ sideSum + etcSum;
+	var goodsCnt = Number($("#pizzaSetNum").val()) + sideCnt + etcCnt;//toppingCnt
+	var pizzaSum = Number(pizzaAmount) + toppingSum;
+	
+	$(".total-pizza").text($(".title.pizza").text() + "("+ Number(pizzaSum) +"원)" + "x" + Number($("#pizzaSetNum").val()));
+	//$(".total-count").text(goodsCnt);
+	//$(".total-price_sum").text(goodsSum.cvtNumber() + "원");
+}
+/* function objToString(obj){
+	var str = '';
+	for(var p in obj){
+		if(obj.hasOwnProperty(p)){
+			str += p + '::' + obj[p] + '\n';
+		}
+	}
+	alert("str : " + str);
+	console.log("str" + str);
+	return str;
+	
+} */
+function totalDoughValue(){
+	var price = 0;
+	var doughPrice = 0;
+	var doughInfo = "";	
+	 
+	price = Number($('.chk-box selected').prop('name'));
+	var strDough = ($(':radio[name="p_dough"]:checked').val(); 
+	
+	alert("strDough1 : " + strDough);
+	
+	/* //name=p_dough인 checkbox 정보 var에 저장
+	var chkBox1 = document.getElementsByName('p_dough');
+	//checkbox 길이 확인
+	var count = chkBox1.length;
+	var real = "";
+	 for(var i=0; i<strDough.length; i++){
+		console.log(strDough[i]);
+		 if(strDough[i] == chkBox1[i]){
+			 chkBox1[j].checked = true;
+			 
+			real += chkBox1[j];
+		 }
+	}  */
 
+	//var name = $(':radio[name="p_dough"]:checked').find('#dough').val();
+	var chkBox1 = document.getElementsByName('p_dough');
+    /* var a = $(this).prop('value');
+    a = a.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
+    $('.total-pizza').html($(this).prop('name') + '('+ a +'원)'); */
+	
+    alert("테스트1");
+	alert("strDough2 : " + strDough);
+	alert("real : " + real);
+    alert("price : " + price);
+    //alert("name : " + name);
+    
+    /*
+	if($(':radio[name="size"]:checked').val() == "L") {
+		if (strDough == "슈퍼시드 함유 도우"){
+			doughPrice = 2000;
+			doughInfo = "슈퍼시드 함유 도우";
+		} else if (strDough == "더블 치즈엣지") {
+			doughPrice = 5000;
+			doughInfo = "더블 치즈엣지";
+		} else if (strDough == "오리지널 도우") {
+			doughInfo = "오리지널 도우";
+		} else if (strDough == "나폴리 도우") {
+			doughInfo = "나폴리 도우";
+		} else if (strDough == "씬 도우") {
+			doughInfo = "씬 도우";
+		} else if (strDough == "더블 크러스트"){
+			doughInfo = "더블 크러스트";
+		} else if (strDough == "샌드"){
+			doughInfo = "샌드";
+		}
+		
+		price += doughPrice;
+	}else {
+		if (strDough == "슈퍼시드 함유 도우"){
+			doughPrice = 2000;
+			doughInfo = "슈퍼시드 함유 도우";
+		} else if (strDough == "더블 치즈엣지") {
+			doughPrice = 5000;
+			doughInfo = "더블 치즈엣지";
+		} else if (strDough == "오리지널 도우") {
+			doughInfo = "오리지널 도우";
+		} else if (strDough == "나폴리 도우") {
+			doughInfo = "나폴리 도우";
+		} else if (strDough == "씬 도우") {
+			doughInfo = "씬 도우";
+		} else if (strDough == "더블 크러스트"){
+			doughInfo = "더블 크러스트";
+		} else if (strDough == "샌드"){
+			doughInfo = "샌드";
+		}
+		
+		price += doughPrice;
+	}
+	
+	var pizzaAmt = price * Number($("#pizzaSetNum").val());
+	
+	var pizzaName = $('.chk-box2 selected').prop('name');
+	alert("pizzaName : " + pizzaName);
+	
+	$(".total-pizza").text( "피자이름" " + "("+ price +")" + "x" + (Number($("#pizzaSetNum").val())));
+	
+	if(doughPrice > 0 ){
+		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+			+"(+" + Number(doughPrice)+"원)/"+$(':radio[name="size"]:checked').val()
+			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+	}else {
+		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+			+"/"+$(':radio[name="size"]:checked').val()
+			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+	}
+	
+	$(".total-count").text((Number($("#pizzaSetNum").val())));
+	$(".total-price_sum").text(Number(pizzaAmt) + "원");
+	
+	sum(); */
+}
 //피자 카운트 - 최대 9판
 var drinkCnt = 0;
 var pizzaCnt = 1;
@@ -91,7 +214,7 @@ function plusPizza(){
 		Number($('#pizzaSetNum' ).val(setNum-1));
 		
 	}
-	console.log(pizzaCnt);
+	sum();
 }
 
 function minusPizza(){			
@@ -113,9 +236,9 @@ function minusPizza(){
 			setNum = Number($('#pizzaSetNum').val());
 			
 		}
-		console.log(pizzaCnt);
+		
 	}
-	
+	sum();
 }
  //--------음료-----------------------
  	//하단 선택목록에 추가할 내용을 담을 변수 
@@ -136,7 +259,6 @@ function minusPizza(){
 	
 	function totalEtcValue(){
 		etcStr = ""; //사이드 정보 초기화
-		alert("etcNameArr 길이 : " + etcNameArr.length);
 		
 		if(!etcNameArr){
 			etcNameArr = null;
@@ -405,21 +527,22 @@ function minusDrink(idx){
 											<div class="size-box">
 												<!-- checkbox 활성화 일 경우 -->
 												<div class="chk-box2 selected">
-													<input type="radio" id="size1" name="${goodsDetail.p_name}" value="${goodsDetail.p_price_l}" /> <label
+													<input type="radio" id="size1" name="${goodsDetail.p_name}"
+													value="${goodsDetail.p_price_l}" /> <label
 														class="checkbox" for="size1"></label>
 														<label for="size1">L
 														<fmt:formatNumber value="${goodsDetail.p_price_l}"
 															pattern="#,###" />원
-														</p>
+														
 													</label>
 												</div>
 												<!-- //checkbox 활성화 일 경우 -->
 												<div class="chk-box2">
-													<input type="radio" id="size2" name="${goodsDetail.p_name}" value="${goodsDetail.p_price_m}"
-														 /> <label class="checkbox"
+													<input type="radio" id="size2" name="${goodsDetail.p_name}"
+													value="${goodsDetail.p_price_m}" /> <label class="checkbox"
 														for="size2"></label> <label for="size2">M <fmt:formatNumber
 															value="${goodsDetail.p_price_m}" pattern="#,###" />원
-														</p>
+														
 													</label>
 												</div>
 											</div>
@@ -439,11 +562,10 @@ function minusDrink(idx){
 													varStatus="status">
 													<div class="chk-box">
 														<input type="radio" id="${status.index}" name="p_dough"
-															class="dough" name="dough"
-															value="${goodsDetail.p_dough }"
-															onclick="addToppingCheck()" /> <label class="checkbox"
+															class="dough" value="${goodsDetail.p_dough }"
+															onclick="totalDoughValue()" /> <label class="checkbox"
 															for="${status.index}" id="p_dough1"></label> <label
-															id="p_dough" for="${status.index}" class="p_dough">
+															id="p_dough" for="${status.index}" class="p_dough" name="">
 															${p_dough} <c:if test="${p_dough eq '더블 치즈 엣지' }">
 																<em>+5,000원</em>
 															</c:if> <c:if test="${p_dough eq '슈퍼 시드 함유 도우' }">
@@ -600,7 +722,6 @@ function minusDrink(idx){
 					sideCntArr.splice(sideNameIdx, 1, sideNomalSetNum);
 					
 				}
-				alert("plus sidName : " + sideNameArr);
 				totalSideValue();
 			}
 
