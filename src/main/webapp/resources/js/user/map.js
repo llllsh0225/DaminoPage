@@ -24,10 +24,21 @@ function initMap() {
 }
 //검색결과맵
 function searchMap(){
-	var location = {lat: 34,  lng: 126}
-	var map = new google.maps.Map(document.getElementById("map_canvas"), {zoom: 8, center: location});
+	var location = {lat: 37.504357,  lng: 127.087044}// 현위치
+	var map = new google.maps.Map(document.getElementById("map_canvas"), {zoom: 14, center: location});
 	
 	var geocoder = new google.maps.Geocoder();
+	geocodeAddress2(geocoder, map);
+	
+	document.getElementById("name_submit").addEventListener("click", () => {
+		if(document.getElementById("storeName").value != ""){
+	    	document.searchForm1.submit();
+	    	geocodeAddress(geocoder, map);
+    	}else{
+    		alert('매장명을 입력해주세요.');
+    	}
+		
+    });//매장명 검색
 	
     document.getElementById("location_submit").addEventListener("click", () => {
     	if(document.getElementById("storeRegion").value != "none"){
@@ -37,17 +48,6 @@ function searchMap(){
     		alert('구/군을 선택해주세요.');
     	}
     });//지역 검색
-    
-    document.getElementById("name_submit").addEventListener("click", () => {
-		if(document.getElementById("storeName").value != ""){
-	    	document.searchForm1.submit();
-	    	geocodeAddress(geocoder, map);
-    	}else{
-    		alert('매장명을 입력해주세요.');
-    	}
-		
-    });//매장명 검색
-    
 }
 
 //현재 위치
@@ -66,7 +66,7 @@ function current_position(position){
 						        '<strong>'+'내위치'+'</strong>' +
 						    '</div>'+
 						    '<h1 id="firstHeading" class="firstHeading">' + msg +'</h1>'+
-						      '<div id="bodyContent">'+' ' +'</div>'+
+						      '<div id="bodyContent">'+ ' ' +'</div>'+
 						'</div>';
     // 마커 이미지 주소
     var imageaddress = 'https://i.imgur.com/A6WeDcB.png';
@@ -100,9 +100,9 @@ function geocodeAddress(geocoder, resultsMap) {
           // 마커 클릭시 나오는 창 상세정보창
           var contentString2 = '<div id="content">'+ 
 							    '<div id="siteNotice" style="font-size:20px">'+
-							        '<strong>'+'~~구'+'</strong>' +
+							        '<strong>'+'${storeRegion}'+'</strong>' +
 							    '</div>'+
-							    '<h1 id="firstHeading" class="firstHeading">' + '매장명' +'</h1>'+
+							    '<h1 id="firstHeading" class="firstHeading">' + '${storeName}' +'</h1>'+
 							      '<div id="bodyContent">'+' ' +'</div>'+
 						      '</div>';
           var infowindow2 = new google.maps.InfoWindow({content: contentString2});
@@ -125,47 +125,61 @@ function geocodeAddress(geocoder, resultsMap) {
 
 // 지역검색
 function geocodeAddress2(geocoder, resultsMap) {
-    var storeRegion = document.getElementById("storeRegion").value;
-    
-    geocoder.geocode(
-      {
-    	  address: storeRegion
-      },
-      (results, status) => {
-        if (status === "OK") {
-          resultsMap.setCenter(results[0].geometry.location);
-          // 마커 이미지 주소
-          var imageaddress2 = "https://i.imgur.com/Cm6tqUL.png";
-          // 마커 이미지 설정
-          var markerIcon2 = new google.maps.MarkerImage(imageaddress2,null,null,null,new google.maps.Size(40,52));
-          // 마커 클릭시 나오는 창 상세정보창
-          var contentString2 = '<div id="content">'+ 
-							    '<div id="siteNotice" style="font-size:20px">'+
-							        '<strong>'+'~~구'+'</strong>' +
-							    '</div>'+
-							    '<h1 id="firstHeading" class="firstHeading">' + '매장명' +'</h1>'+
-							      '<div id="bodyContent">'+' ' +'</div>'+
-						      '</div>';
-          var infowindow2 = new google.maps.InfoWindow({content: contentString2});
-        
-          var marker2 = new google.maps.Marker({
-            map: resultsMap,
-            position: results[0].geometry.location,
-            icon: markerIcon2
-          });
-          
-          marker2.addListener('click', function() {infowindow2.open(resultsMap, marker2);});
-          
-        } else {
-          alert(
-            "매장명을 확인해주세요."
-          );
-        }
-        
-      }
-    );
+	
+	var lis = document.getElementsByTagName("dd");
+	for(var i=0; i<lis.length-1; i++){
+	
+	    var storeRegion = lis[i].id;
+	    
+	    geocoder.geocode(
+	      {
+	    	  address: storeRegion
+	      },
+	      (results, status) => {
+	        if (status === "OK") {
+	          resultsMap.setCenter(results[0].geometry.location);
+	          // 마커 이미지 주소
+	          var imageaddress2 = "https://i.imgur.com/Cm6tqUL.png";
+	          // 마커 이미지 설정
+	          var markerIcon2 = new google.maps.MarkerImage(imageaddress2,null,null,null,new google.maps.Size(40,52));
+	          // 마커 클릭시 나오는 창 상세정보창
+	         
+	          
+	          var contentString2 ='<div id="content">'+ 
+									    '<div id="siteNotice" style="font-size:20px">'+
+								        '<strong>'+ '' + '</strong>' +
+								    '</div>'+
+								    '<h1 id="firstHeading" class="firstHeading">' + '' +  '</h1>'+
+								      '<div id="bodyContent">'+' ' +'</div>'+
+							      '</div>';
+	          var infowindow2 = new google.maps.InfoWindow({content: contentString2});
+	        
+	          var marker2 = new google.maps.Marker({
+	            map: resultsMap,
+	            position: results[0].geometry.location,
+	            icon: markerIcon2
+	          });
+	          
+	          marker2.addListener('click', function() {infowindow2.open(resultsMap, marker2);});
+	          
+	        } else {
+	          alert(
+	            "매장명을 확인해주세요."
+	          );
+	        }
+	        
+	      }
+	    );
+	}
   } 
 
+function addressList(){
+	var lis=document.getElementsByTagName("dd");
+	for(var i=0; i<lis.length; i++){
+		console.log(lis[i].id);
+		alert(lis[i].id);
+	}
+}
 /*
  * 
  */

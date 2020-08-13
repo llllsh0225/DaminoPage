@@ -25,6 +25,7 @@
 <!-- 맵관련 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/map.js'/>"></script>
 <script type="text/javascript">
+
 /* 
 function searchRegion(callBackFunc){
 	var target = document.getElementById("searchStoreList");
@@ -261,15 +262,19 @@ function searchRegion(callBackFunc){
 									<!-- //매장명 -->
 									
 									<!-- 검색된 매장 리스트 -->
-									<div class="store-address-list" name="searchStoreList" id="searchStoreList" >
-										<ul id="ul_shop_list" id="storeName" name="storeName">
+									<div class="store-address-list" id="searchStoreList" >
+										<ul id="ul_shop_list" id="storeName">
                                             <c:forEach var="locationSearch" items="${locationSearchList }">
                                                 <li>
                                                     <dl>
                                                         <dt>
+                                                        	<input type="hidden" id="markerName" value=" ${locationSearch.storeName }">
                                                             ${locationSearch.storeName } <span class="tel">${locationSearch.storePhone }</span>
                                                         </dt>
-                                                        <dd class="address">${locationSearch.storeAddress }</dd>
+                                                        <dd class="address" id="${locationSearch.storeAddress }">
+                                                        ${locationSearch.storeAddress }
+                                                        <input type="hidden" id="markerAddress" value=" ${locationSearch.storeAddress }">
+                                                        </dd>
                                                     </dl>
                                                     <div class="promotion">
                                                         <div class="type">
@@ -293,7 +298,7 @@ function searchRegion(callBackFunc){
                                                         <dt>
                                                             ${nameSearch.storeName } <span class="tel">${nameSearch.storePhone }</span>
                                                         </dt>
-                                                        <dd class="address">${nameSearch.storeAddress }</dd>
+                                                        <dd class="address" id="${nameSearch.storeAddress }">${nameSearch.storeAddress }</dd>
                                                     </dl>
                                                     <div class="promotion">
                                                         <div class="type">
@@ -313,7 +318,11 @@ function searchRegion(callBackFunc){
                                             </c:forEach>
                                         </ul>
 									</div>
-									
+									<script type="text/javascript">
+										
+										geocodeAddress2(geocoder, map);
+										/* addressList(); */
+									</script>
 								</div>
 							</div>
 						</div>
@@ -349,51 +358,6 @@ function searchRegion(callBackFunc){
 					</div>
 					<div class="pop-content">
 						<div class="store-view">
-							<div class="store-info-box">
-								<ul>
-									<li>
-										<h3 id="detail_name">김포구래점</h3>
-										<p class="promotion">
-											<span class="type" id="detail_on_sale">온라인 방문포장 30%</span><span class="type2" id="detail_off_sale">오프라인 방문포장 30%</span>
-										</p>
-										<div class="btn-wrap">
-											<a href="#" class="btn-type v3" id="detail_basket_wrapp">포장주문</a>
-										</div>
-									</li>
-									<li>
-										<dl>
-											<dt>전화번호</dt>
-											<dd id="detail_tel">091-996-30525</dd>
-										</dl>
-										<dl>
-											<dt>주소</dt>
-											<dd id="detail_address">경기도 김포시 김포한강9로 12번길 97-10</dd>
-										</dl>
-										<dl>
-											<dt>영업시간</dt>
-											<dd id="detail_business_hours">11:00 ~ 22:00</dd>
-										</dl>
-										<dl>
-											<dt>위치정보</dt>
-											<dd id="detail_location_info">나비마을 나비초등학교 사거리 계롱리슈빌 203동 후문</dd>
-										</dl>
-										<dl>
-											<dt>주차정보</dt>
-											<dd id="detail_parking_info">매장 후면 1대</dd>
-										</dl>
-										<dl>
-											<dt>
-												Notice &amp;<br>Event
-											</dt>
-											<dd id="detail_notice"></dd>
-										</dl>
-										<dl>
-											<dt>특이사항</dt>
-											<dd id="detail_etc">-</dd>
-										</dl>
-									</li>
-								</ul>
-							</div>
 							<div class="store-map-area" id="map_detail_canvas">
 								<!-- MAP 영역 -->
 								<div class="store-map-wrap">
