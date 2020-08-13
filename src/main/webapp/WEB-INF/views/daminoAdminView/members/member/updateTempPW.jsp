@@ -82,6 +82,7 @@
 										<div class="form-group">
 											<label class="small mb-1" for="AdminCode">코드</label> 
 											<input class="form-control py-4" id="adminCode" name="adminCode" type="text" placeholder="Code" maxlength="5" />
+											<input type="hidden" name="resetcode" value="0000"/>
 											<div class="text-type4" id="code_alert" style="display: none;"></div>
 										</div>
 										<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
