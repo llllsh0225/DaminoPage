@@ -57,7 +57,7 @@ $(document).ready(function(){
 		} 
 		
 		
-		  $("input[type='radio']").change(function () {
+		 /*  $("input[type='radio']").change(function () {
 				
 					$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
 					$(this).parent().addClass('selected');
@@ -65,7 +65,7 @@ $(document).ready(function(){
 					a = a.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
 					$('.total-pizza').html($(this).prop('name') + '('+ a +'원)');
 				}); 
-				
+				 */
 		
 	}
 	
@@ -117,51 +117,107 @@ function minusPizza(){
 	}
 	
 }
-
+ //--------음료-----------------------
+ 	//하단 선택목록에 추가할 내용을 담을 변수 
+	var etcStr = "";
+	//사이드디시 총 개수
+	var etcTotalAmount = 0;
+	//사이드디시 가격
+	var etcPrice = 0;
+	//사이드디시 카운트
+	var etcCnt = 0;
+	//사이드디시 이름
+	var sideName = ""; 
+	
+	//사이드 정보 배열에 저장하여 반영
+	var etcCntArr = [];
+	var etcPriceArr = [];
+	var etcNameArr = [];
+	
+	function totalEtcValue(){
+		etcStr = ""; //사이드 정보 초기화
+		alert("etcNameArr 길이 : " + etcNameArr.length);
+		
+		if(!etcNameArr){
+			etcNameArr = null;
+		}else{
+			for(var i=0; i<etcNameArr.length; i++){
+				etcStr += "<p>"+ etcNameArr[i] +  "(" + etcPriceArr[i] + "원)" + "x"
+				+ "<span class='etcCnt'>" + etcCntArr[i] + "</span>"
+				+ "<input type='hidden' class='etcSum' value='" + Number(etcPriceArr[i])*Number(etcCntArr[i]) + "'></input>" + "</p>";
+			}
+			
+			if(etcStr != null){
+				$(".total-etc").html("<div></div>" + etcStr);
+			}
+		}
+		
+	}
+	
 //음료 카운트(피자와 1:2 비율)
 function plusDrink(idx){
-	var setNum = Number($('#drinkSetNum' + idx).val());
-	var pizzaNum = Number($('#pizzaSetNum').val());
-	
+	var drinkSetNum = Number($('#drinkSetNum' + idx).val());
+	var etcName = $('#etcName' + idx).val();
+	var etcPrice = Number($('#etcPrice' + idx).val());
+	var etcNameIdx = etcNameArr.indexOf(etcName);
+		
+	var pizzaNum = Number($('#pizzaSetNum').val());	
 	
 	if(drinkCnt > (Number($('#pizzaSetNum').val())*2)){
 		
 		alert("음료는 피자와 2:1 비율로 선택 가능합니다.");
 			//drinkCnt = 9;
-		Number($('#drinkSetNum' + idx).val(setNum-1));
+		Number($('#drinkSetNum' + idx).val(drinkSetNum-1));
 		
 		
 	}else if(drinkCnt == (pizzaNum*2)){
 		alert("음료는 피자와 2:1 비율로 선택 가능합니다.");
 		//drinkCnt = 9;
-		Number($('#drinkSetNum' + idx).val(setNum));
+		Number($('#drinkSetNum' + idx).val(drinkSetNum));
 	}
 	else{
-		setNum = Number($('#drinkSetNum' + idx).val());
-		setNum += 1;
+		drinkSetNum = Number($('#drinkSetNum' + idx).val());
+		drinkSetNum += 1;
 		drinkCnt += 1;
-		$('#drinkSetNum' + idx).val(setNum);
+		$('#drinkSetNum' + idx).val(drinkSetNum);
+		
+		if(!etcNameArr.includes(etcName)){
+			etcNameArr.push(etcName);
+			etcCntArr.push(drinkSetNum);
+			etcPriceArr.push(etcPrice);
+		}else{
+			
+			etcCntArr.splice(etcNameIdx, 1, drinkSetNum);
+		}
 	}
+	totalEtcValue();
 	console.log(drinkCnt);
 }
 
 function minusDrink(idx){			
+	var drinkSetNum = Number($('#drinkSetNum' + idx).val());
+	var etcName = $('#etcName' + idx).val();
+	var etcPrice = Number($('#etcPrice' + idx).val());
+	var etcNameIdx = etcNameArr.indexOf(etcName);
 	
-	var setNum = Number($('#drinkSetNum' + idx).val());
-	setNum -= 1;
+	drinkSetNum -= 1;
 	
-	$('#drinkSetNum' + idx).val(setNum);
+	$('#drinkSetNum' + idx).val(drinkSetNum);
 			
 	if(setNum <= 0){
 		$('#drinkSetNum' + idx).val(0);
-		setNum = Number($('#drinkSetNum' + idx).val());
+		drinkSetNum = Number($('#drinkSetNum' + idx).val());
 		
 		//drinkCnt -= 1;
 	}else{
-		
-		setNum = Number($('#drinkSetNum' + idx).val());
+		drinkSetNum = Number($('#drinkSetNum' + idx).val());
 		drinkCnt -= 1;
+		
+		etcCntArr.splice(etcNameIdx, 1);
+		etcNameArr.splice(etcNameIdx, 1);
+		etcPriceArr.splice(etcNameIdx, 1);
 	}
+	totalEtcValue();
 	console.log(drinkCnt);
 }
 
@@ -485,9 +541,9 @@ function minusDrink(idx){
 					sideNameArr = null;
 				}else{
 					for(var i=0; i<sideNameArr.length; i++){
-						sideStr += "<div>"+ sideNameArr[i] +  "(" + sidePriceArr[i] + "원)" + "x"
+						sideStr += "<p>"+ sideNameArr[i] +  "(" + sidePriceArr[i] + "원)" + "x"
 						+ "<span class='sideCnt'>" + sideCntArr[i] + "</span>"
-						+ "<input type='hidden' class='sideSum' value='" + Number(sidePriceArr[i])*Number(sideCntArr[i]) + "'></input>" + "</div>";
+						+ "<input type='hidden' class='sideSum' value='" + Number(sidePriceArr[i])*Number(sideCntArr[i]) + "'></input>" + "</p>";
 					}
 					
 					if(sideStr != null){
@@ -541,7 +597,7 @@ function minusDrink(idx){
 					sideCntArr.push(sideNomalSetNum);
 					sidePriceArr.push(sidePrice);
 				}else{
-					selectToppingCntArr.splice(sideNameIdx, 1, sideNomalSetNum);
+					sideCntArr.splice(sideNameIdx, 1, sideNomalSetNum);
 					
 				}
 				alert("plus sidName : " + sideNameArr);
@@ -995,10 +1051,10 @@ function minusDrink(idx){
 																		<div class="quantity-box">
 																			<button class="btn-minus etc" onclick="minusDrink(${status.index})"></button>
 																			<input class="setNum" id="drinkSetNum${status.index}" type="number" value="0"
-																				readonly> <input class="setName"
+																				readonly> <input class="setName" id="etcName${status.index}"
 																				type="hidden" value="${goodsDrinkEtcList.d_name}"> <input
 																				class="setCode" type="hidden" value="${goodsDrinkEtcList.d_code}">
-																			<input class="setPrice" type="hidden" value="${goodsDrinkEtcList.d_price}">
+																			<input class="setPrice" type="hidden" id="etcPrice${status.index}" value="${goodsDrinkEtcList.d_price}">
 																			<button class="btn-plus etc" onclick="plusDrink(${status.index})"></button>
 																		</div>
 																	</div>
