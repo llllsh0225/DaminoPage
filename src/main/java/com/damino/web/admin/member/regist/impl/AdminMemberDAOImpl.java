@@ -33,5 +33,12 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 		sqlSessionTemplate.update("AdminMemberDAO.changeTempPW", vo);		
 	}
 
+	@Override
+	public void changeNewPw(AdminMemberVO vo) {
+		System.out.println("#DAO[현 비밀번호로 저장] :" + vo);
+		sqlSessionTemplate.update("AdminMemberDAO.changeNewPW", vo);
+		
+	}
+
 
 }

@@ -21,11 +21,19 @@
 		WHERE adminid = #{adminid}
 	</select>
 	
-	<!-- 해당 아이디 임시비번으로 교체 -->
-	<update id="changeTempPW" parameterType="com.damino.web.admin.member.regist.AdminMemberVO">
+	<!-- 해당 아이디 초기화비번으로 교체 -->
+	<update id="changeTempPW">
 		UPDATE adminmember
 		SET adminpassword = #{adminpassword}
 		WHERE adminid = #{adminid}
 	</update>	
+	
+	<!-- 해당 아이디 초기화비번을 암호화비번으로 교체하기위해 -->
+	<update id="changeNewPW" parameterType="com.damino.web.admin.member.regist.AdminMemberVO">
+		UPDATE adminmember
+		SET adminpassword = #{adminpassword}
+		WHERE adminid = #{adminid}
+	</update>	
+	
 
 </mapper>

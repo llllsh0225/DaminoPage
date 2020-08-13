@@ -7,8 +7,10 @@ public interface AdminMemberDAO {
 	//관리자 id 중복체크
 	public int admincheck(String adminid);
 	
-	//관리자 pw 임시비밀번호
+	//관리자 pw 초기비밀번호
 	public void changeTempPW(AdminMemberVO vo);
+	
+	public void changeNewPw(AdminMemberVO vo); // (현) 비번으로 저장
 	
 	
 }
