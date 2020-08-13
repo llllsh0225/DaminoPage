@@ -159,4 +159,10 @@ public class QuickOrderController {
 		return goodsPrice;
 	}
 	
+	@RequestMapping("/openDetailAddr.do")
+	public ModelAndView openDetailAddr(ModelAndView mav) {
+		mav.setViewName("quickorder/detailAddr");
+		return mav;
+	}
+	
 }

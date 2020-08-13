@@ -20,6 +20,8 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	<!-- 다음 주소 api -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	
 	<script type="text/javascript">
 	var toppingCnt = 0; // 선택 토핑 전체 카운트
@@ -502,6 +504,65 @@
 			selectRemoveTr.remove();
 		}
 		
+		function openOrderLatelyWrap(){
+			$('#order_lately').show();
+		}
+		
+		function addDelivery(){
+			new daum.Postcode({
+	             oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	 
+	                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+	                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+	 
+	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraRoadAddr += data.bname;
+	                }
+	                // 건물명이 있고, 공동주택일 경우 추가한다.
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                if(extraRoadAddr !== ''){
+	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+	                }
+	                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+	                if(fullRoadAddr !== ''){
+	                    fullRoadAddr += extraRoadAddr;
+	                }
+	 
+	                // 주소 정보를 hidden에 저장
+	                $('#addrVal').val(fullRoadAddr);
+	                console.log("도로명 주소 : " + $('#addrVal').val());
+	                
+	                // 상세주소 입력 페이지 열기
+	                window.open("openDetailAddr.do", "상세주소 입력", "top=300, left=300, width=450, height=300, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+	            }
+	         }).open();
+		}
+		
+		function receiveDetailAddr(addr){
+			$('#detailAddrVal').val(addr);
+		}
+		
+		function addAddrRow(){
+			// 행을 추가할 tbody
+			var deliveryAddrList = document.getElementById("addr_list_o");
+			var addrInfo = deliveryAddrList.insertRow(deliveryAddrList.rows.length);
+			var addrCell = addrInfo.insertCell(0);
+			var storeCell = addrInfo.insertCell(1);
+			var btnCell = addrInfo.insertCell(2);
+			
+			addrCell.innerHTML = $('#addrVal').val() +'&nbsp;' + $('#detailAddrVal').val();
+			storeCell.innerHTML = '테스트점';
+			btnCell.innerHTML = '<div class="btn-wrap"><a href="javascript:setDelivery();" class="btn-type4-brd3">선택</a>' + 
+			'<a href="javascript:deleteDelivery();" class="btn-type4-brd2">삭제</a></div>';
+		}
 	</script>
 </head>
 <body>	
@@ -833,7 +894,7 @@
 															<dt>배달주소</dt>
 															<dd id="addr_O">배달주소를 선택해주세요.</dd>
 														</dl>
-														<a href="javascript:;" class="btn-toggle-close">
+														<a href="javascript:;" class="btn-toggle-close" onclick="openOrderLatelyWrap();">
 															배달주소 변경
 															<span class="hidden">열기</span>
 														</a>
@@ -847,7 +908,9 @@
 												<div class="table-type2">
 													<div class="order_lately_wrap">
 														<!--배달주문-->
-														<div class="order_lately lately_adr">
+														<div id="order_lately" class="order_lately lately_adr">
+															<input type="hidden" id="addrVal" value="" />
+															<input type="hidden" id="detailAddrVal" value="" />
 															<table>
 																<caption>배송방법 및 배송지/매장 설정</caption>
 																<colgroup>
@@ -863,17 +926,8 @@
 																	</tr>
 																</thead>
 																<tbody id="addr_list_o">
-																	<tr id="o_25315910">
-																			<td class="address">서울특별시 영등포구 여의동 84-0  빛의카페 앞 DOMINO SPOT</td>
-																			<td>여의도점</td>
-																			<td>
-																				<div class="btn-wrap">
-																					<a href="javascript:setDelivery('25315910', '86284', '여의도점', '02-780-2012');" class="btn-type4-brd3">선택</a>
-																					<a href="javascript:deleteDelivery('25315910');" class="btn-type4-brd2">삭제</a>
-																				</div>
-																			</td>
-																		</tr>
-																	</tbody>
+																	
+																</tbody>
 																<tfoot>
 																	<tr>
 																		<td colspan="3">
