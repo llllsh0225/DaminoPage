@@ -1,12 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<meta name="description" content="당신의 인생에 완벽한 한끼! Life Food, Domino's" />
+<meta name="title" content="다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's" />
+<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
+
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
+		$('.pop-layer').hide();
+	});
+});
+
+</script>
 <script>
 //토핑 가져오기
 var addToppingCheck = function() {
@@ -415,6 +446,9 @@ var getToppingCode = function() {
 	});
 	return toppingCode;
 };
+
 </script>
+</head>
+
 </body>
 </html>
