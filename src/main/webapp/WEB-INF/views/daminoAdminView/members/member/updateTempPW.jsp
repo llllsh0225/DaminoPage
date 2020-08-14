@@ -86,7 +86,7 @@
 											<div class="text-type4" id="code_alert" style="display: none;"></div>
 										</div>
 										<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="login.admdo">로그인 페이지 이동</a> 
+											<a class="small" href="login.admdo">로그인 페이지 이동</a>
 											<button class="btn btn-primary" type="submit" id="submit">비밀번호 수정</button>
 										</div>
 									</form>
