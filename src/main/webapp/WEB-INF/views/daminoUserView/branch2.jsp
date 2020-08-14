@@ -82,10 +82,29 @@ function searchRegion(callBackFunc){
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
-
-					<div class="util-nav">
-						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -267,7 +286,7 @@ function searchRegion(callBackFunc){
                                             <c:forEach var="locationSearch" items="${locationSearchList }">
                                                 <li>
                                                     <dl>
-                                                        <dt>
+                                                        <dt id=${locationSearch.storeName }>
                                                         	<input type="hidden" id="markerName" value=" ${locationSearch.storeName }">
                                                             ${locationSearch.storeName } <span class="tel">${locationSearch.storePhone }</span>
                                                         </dt>
@@ -295,7 +314,7 @@ function searchRegion(callBackFunc){
                                             <c:forEach var="nameSearch" items="${nameSearchList }">
                                                 <li>
                                                     <dl>
-                                                        <dt>
+                                                        <dt id=${nameSearch.storeName }>
                                                             ${nameSearch.storeName } <span class="tel">${nameSearch.storePhone }</span>
                                                         </dt>
                                                         <dd class="address" id="${nameSearch.storeAddress }">${nameSearch.storeAddress }</dd>
