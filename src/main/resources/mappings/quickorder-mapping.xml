@@ -3,7 +3,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="QuickOrderDAO">
-
+	<select id="getQuickOrderGoodsList" parameterType="String" resultType="com.damino.web.user.quickorder.QuickOrderGoodsVO">
+		SELECT * FROM quickorder_goods
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="getQuickOrderAddressList" parameterType="String" resultType="com.damino.web.user.quickorder.QuickOrderAddressVO">
+		SELECT * FROM quickorder_address
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="getGoodsNextRowSeq" parameterType="String" resultType="Integer">
+		SELECT MAX(rowseq) + 1 FROM quickorder_goods
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="getAddressNextRowSeq" parameterType="String" resultType="Integer">
+		SELECT MAX(rowseq) + 1 FROM quickorder_address
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="getDefaultDeliveryAddress" parameterType="String" resultType="com.damino.web.user.quickorder.QuickOrderAddressVO">
+		SELECT * FROM quickorder_address
+		WHERE default_yn = 'Y' AND userid = #{userid}
+	</select>
+	
 	<select id="getPizzaNames" resultType="com.damino.web.admin.menu.PizzaVO">
 		SELECT p_name FROM pizza
 	</select>
@@ -40,4 +64,38 @@
 		SELECT d_price FROM drink_etc WHERE d_name = #{goodsName}
 	</select>
 
+	<insert id="insertQuickOrderGoods" parameterType="com.damino.web.user.quickorder.QuickOrderGoodsVO">
+		INSERT INTO quickorder_goods (seq, quick_goods, quick_qty, quick_price, rowseq, userid)
+		VALUES (quickorder_goods_seq.nextval, #{quick_goods}, #{quick_qty}, #{quick_price}, #{rowseq}, #{userid})
+	</insert>
+	
+	<delete id="deleteQuickOrderGoods" parameterType="com.damino.web.user.quickorder.QuickOrderGoodsVO">
+		DELETE FROM quickorder_goods
+		WHERE userid = #{userid} AND rowseq = #{rowseq}
+	</delete>
+	
+	<select id="getStorePhone" parameterType="String" resultType="String">
+		SELECT storephone FROM daminostoreinfo WHERE storename = #{storeName}
+	</select>
+	
+	<insert id="insertQuickOrderAddress" parameterType="com.damino.web.user.quickorder.QuickOrderAddressVO">
+		INSERT INTO quickorder_address (seq, address, storename, storephone, rowseq, userid)
+		VALUES (quickorder_address_seq.nextval, #{address}, #{storename}, #{storephone}, #{rowseq}, #{userid})
+	</insert>
+	
+	<update id="setDefaultDeliveryAddress" parameterType="com.damino.web.user.quickorder.QuickOrderAddressVO">
+		UPDATE quickorder_address SET default_yn = 'Y'
+		WHERE userid = #{userid} AND rowseq = #{rowseq}
+	</update>
+	
+	<update id="releaseDefaultDeliveryAddress" parameterType="com.damino.web.user.quickorder.QuickOrderAddressVO">
+		UPDATE quickorder_address SET default_yn = 'N'
+		WHERE NOT rowseq IN #{rowseq} AND userid = #{userid}
+	</update>
+	
+	<delete id="deleteQuickOrderAddress" parameterType="com.damino.web.user.quickorder.QuickOrderAddressVO">
+		DELETE FROM quickorder_address
+		WHERE userid = #{userid} AND rowseq = #{rowseq}
+	</delete>
+	
 </mapper>

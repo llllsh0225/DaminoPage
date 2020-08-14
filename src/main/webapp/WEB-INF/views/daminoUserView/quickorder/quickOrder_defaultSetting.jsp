@@ -29,14 +29,33 @@
 	var selectToppingNameArr = []; // 선택된 토핑이름을 저장할 배열
 	var selectToppingCntArr = []; // 선택된 토핑 수량을 저장할 배열
 	var selectToppingPriceArr = []; // 선택된 토핑의 가격을 저장할 배열
+	var totalOrderPrice = 0; // 최종 주문 가격 초기화
+	var totalDBGoodsPrice = 0; // DB에서 불러온 제품 가격 총합을 저장하는 변수
+	var goodsNextRowSeq; // 메뉴 테이블 다음 rowseq 값
+	var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
 	
 		$(document).ready(function(){
+			goodsNextRowSeq = Number($('#goodsNextRowSeq').val()); // 제품 테이블 시퀀스 (제품 추가할 때 마다 +1)
+			addressNextRowSeq = Number($('#addressNextRowSeq').val()); // 주소 테이블 시퀀스 (주소 추가할 때 마다 +1)
+			
 			if($('#dsp_ctgr').val() == ""){
 				$('.pizza_option').hide();
 			}
 			
 			$('.topping-wrap').hide();
 			
+			// 총 가격 계산
+			$('#quickOrderList tbody tr').each(function(){
+				var goodsTotalPriceHTML = $(this).find('td').eq(2).html();
+				var goodsTotalPrice = Number(goodsTotalPriceHTML.slice(0,-1)); 
+				totalDBGoodsPrice += goodsTotalPrice;
+			});
+			
+			$('#totalOrderPrice').text(totalDBGoodsPrice);
+
+			if($('#deliveryAddress').val() != ""){
+				$('#addr_O').text($('#deliveryAddress').val());
+			}
 		});
 		function selectBoxControl(){
 			var optValue = $('#dsp_ctgr').val();
@@ -45,9 +64,15 @@
 				getPizzaName();
 			}else if(optValue == "SIDE"){
 				$('.pizza_option').hide();
+				selectToppingNameArr = [];
+				selectToppingCntArr = [];
+				selectToppingPriceArr = [];
 				getSideName();
 			}else if(optValue == "DRINK"){
 				$('.pizza_option').hide();
+				selectToppingNameArr = [];
+				selectToppingCntArr = [];
+				selectToppingPriceArr = [];
 				getDrinkName();
 			}
 		}
@@ -388,6 +413,9 @@
 		}
 		
 		function addGoods(){
+			++goodsNextRowSeq;
+			
+			alert(goodsNextRowSeq);
 			// 선택된 옵션 value
 			var selectCtgr = $('#dsp_ctgr').val();
 			var selectGoodsName = $('#goods_code').val();
@@ -398,7 +426,6 @@
 			var goodsPrice = 0; // 최종 선택된 제품가격 초기화
 			var doughPrice = 0; // 최종 선택된 도우가격 초기화
 			var totalPrice = 0; // 계산된 각 제품의 총가격 초기화
-			var totalOrderPrice = 0; // 최종 주문 가격 초기화
 			
 			var goods = ""; // 최종 선택된 제품정보 초기화
 			toppingStr = ""; // 토핑 정보 초기화
@@ -472,36 +499,92 @@
 				totalPrice += selectToppingPriceArr[i] * selectToppingCntArr[i];
 			}
 			
-			// 행을 추가할 tbody
+			// DB에 제품 정보 insert
 			var goodsList = document.getElementById("goods_list");
-			var orderInfo = goodsList.insertRow(goodsList.rows.length);
-			var goodsCell = orderInfo.insertCell(0);
-			var cntCell = orderInfo.insertCell(1);
-			var priceCell = orderInfo.insertCell(2);
-			var delCell = orderInfo.insertCell(3);
+			$('#quick_goods').val(goods); // hidden에 제품명 저장
+			$('#quick_qty').val(selectQty); // hidden에 제품수량 저장
+			$('#quick_price').val(totalPrice); // hidden에 제품가격 저장
 			
-			goodsCell.innerHTML = goods;
-			cntCell.innerHTML = selectQty;
-			priceCell.innerHTML = totalPrice + '원';
-			delCell.innerHTML = '<td><a href="javascript:removeGoods(' + goodsList.rows.length + ');" id="delBtn' + goodsList.rows.length + '" class="btn"><span class="btn-type4-brd2">삭제</span></a></td>';
+			var userid = $('#userid').val(); // 유저 아이디
+			var quick_goods = $('#quick_goods').val(); // 제품명
+			var quick_qty = $('#quick_qty').val(); // 제품 수량
+			var quick_price = $('#quick_price').val(); // 제품 가격
+			var rowseq = goodsNextRowSeq; // 제품목록 테이블 행 시퀀스
 			
-			$('#quickOrderList tbody tr').each(function(){
-				var goodsTotalPriceHTML = $(this).find('td').eq(2).html();
-				var goodsTotalPrice = Number(goodsTotalPriceHTML.slice(0,-1));
-				totalOrderPrice += goodsTotalPrice;
-			});
+			$.ajax({
+				url : 'insertQuickOrderGoods.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					quick_goods : quick_goods,
+					quick_qty : quick_qty,
+					quick_price : quick_price,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						// 행을 추가할 tbody
+						var orderInfo = goodsList.insertRow(goodsList.rows.length);
+						var goodsCell = orderInfo.insertCell(0);
+						var cntCell = orderInfo.insertCell(1);
+						var priceCell = orderInfo.insertCell(2);
+						var delCell = orderInfo.insertCell(3);
+						var goodsPriceSum = 0; // 총가격 계산을 위한 변수
+						
+						goodsCell.innerHTML = goods;
+						cntCell.innerHTML = selectQty;
+						priceCell.innerHTML = totalPrice + '원';
+						delCell.innerHTML = '<td><a href="javascript:removeGoods(' + goodsNextRowSeq + ');" id="delBtn' + goodsNextRowSeq + '" class="btn"><span class="btn-type4-brd2">삭제</span></a></td>';
+						
+						
+						$('#quickOrderList tbody tr').each(function(){
+							var goodsTotalPriceHTML = $(this).find('td').eq(2).html();
+							var goodsTotalPrice = Number(goodsTotalPriceHTML.slice(0,-1));
+							goodsPriceSum += goodsTotalPrice;
+						});
+						
+						$('#totalOrderPrice').text(goodsPriceSum);
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
 			
-			$('#totalOrderPrice').text(totalOrderPrice);
 		}
 		
 		function removeGoods(idx){
-			var selectRemoveTr = $('#delBtn' + idx).closest('tr');
-			var selectRemovePriceHTML = selectRemoveTr.find('td').eq(2).html();
-			var selectRemovePrice = Number(selectRemovePriceHTML.slice(0,-1));
-			var totalOrderPriceNow = Number($('#totalOrderPrice').text());
-			totalOrderPriceNow -= selectRemovePrice;
-			$('#totalOrderPrice').text(totalOrderPriceNow);
-			selectRemoveTr.remove();
+			// DB에 저장된 해당 row를 삭제
+			var rowseq = idx;
+			var userid = $('#userid').val(); // 유저 아이디
+			
+			$.ajax({
+				url : 'deleteQuickOrderGoods.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						// 제품 목록 테이블의 해당 row를 삭제
+						var selectRemoveTr = $('#delBtn' + idx).closest('tr');
+						var selectRemovePriceHTML = selectRemoveTr.find('td').eq(2).html();
+						var selectRemovePrice = Number(selectRemovePriceHTML.slice(0,-1));
+						var totalOrderPriceNow = Number($('#totalOrderPrice').text());
+						totalOrderPriceNow -= selectRemovePrice;
+						$('#totalOrderPrice').text(totalOrderPriceNow);
+						selectRemoveTr.remove();
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
 		}
 		
 		function openOrderLatelyWrap(){
@@ -536,32 +619,145 @@
 	                    fullRoadAddr += extraRoadAddr;
 	                }
 	 
-	                // 주소 정보를 hidden에 저장
+	                // 시,구,동까지의 주소 정보를 hidden에 저장
 	                $('#addrVal').val(fullRoadAddr);
-	                console.log("도로명 주소 : " + $('#addrVal').val());
+	                console.log("주소 : " + $('#addrVal').val());
 	                
-	                // 상세주소 입력 페이지 열기
-	                window.open("openDetailAddr.do", "상세주소 입력", "top=300, left=300, width=450, height=300, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+	                // 구 정보를 hidden에 저장
+	                var addrArr = fullRoadAddr.split(" "); // 스페이스바 구분자로 주소를 분리
+	                $('#guVal').val(addrArr[1]);
+	                var guName = $('#guVal').val();
+	                
+	                // '구'에 해당하는 매장명 목록을 받아오기
+	                $.ajax({
+	                	url : 'getGuStore.do',
+	    				contentType : "application/json; charset=UTF-8;",
+	    				type: 'post', 
+	    				data : JSON.stringify({
+	    					guName : guName,
+	    				}),
+	    				async : false,
+	    				success: function(data) {
+	    					if(data == 'success'){
+	    						console.log(data);
+	    						// 상세주소 입력 페이지 열기
+	    		                window.open("openDetailAddr.do", "상세주소 & 배달매장 입력", "top=50, left=60, width=450, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+	    					}else{
+	    						alert('배달 불가 주소입니다.');
+	    						return;
+	    					}
+	    				},
+	    				error: function() {
+	    					alert('처리도중 오류가 발생했습니다.');
+	    				}
+	                	
+	                })
 	            }
 	         }).open();
 		}
 		
-		function receiveDetailAddr(addr){
+		function receiveDetailAddr(addr, selectStore){
 			$('#detailAddrVal').val(addr);
+			$('#selectStore').val(selectStore);
 		}
 		
 		function addAddrRow(){
+			++addressNextRowSeq;
+			
+			alert(addressNextRowSeq);
+			
 			// 행을 추가할 tbody
 			var deliveryAddrList = document.getElementById("addr_list_o");
-			var addrInfo = deliveryAddrList.insertRow(deliveryAddrList.rows.length);
-			var addrCell = addrInfo.insertCell(0);
-			var storeCell = addrInfo.insertCell(1);
-			var btnCell = addrInfo.insertCell(2);
+			var rowseq = addressNextRowSeq; // 주소 테이블 행 번호
+			var address = $('#addrVal').val() + ' ' + $('#detailAddrVal').val(); // 배달 주소
+			var storeName = $('#selectStore').val(); // 배달 매장명
+			var userid = $('#userid').val(); // 유저 아이디
 			
-			addrCell.innerHTML = $('#addrVal').val() +'&nbsp;' + $('#detailAddrVal').val();
-			storeCell.innerHTML = '테스트점';
-			btnCell.innerHTML = '<div class="btn-wrap"><a href="javascript:setDelivery();" class="btn-type4-brd3">선택</a>' + 
-			'<a href="javascript:deleteDelivery();" class="btn-type4-brd2">삭제</a></div>';
+			// DB 테이블에 주소 정보 insert
+			$.ajax({
+				url : 'insertQuickOrderAddress.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					address : address,
+					storeName : storeName,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						// 행을 추가할 tbody
+						var addrInfo = deliveryAddrList.insertRow(deliveryAddrList.rows.length);
+						var addrCell = addrInfo.insertCell(0);
+						var storeCell = addrInfo.insertCell(1);
+						var btnCell = addrInfo.insertCell(2);
+						
+						addrCell.innerHTML = $('#addrVal').val() +' ' + $('#detailAddrVal').val();
+						storeCell.innerHTML = $('#selectStore').val();
+						btnCell.innerHTML = '<div class="btn-wrap"><a href="javascript:setDelivery(' + addressNextRowSeq + ');" id="selAddrBtn' + addressNextRowSeq + '" class="btn-type4-brd3">선택</a>' + 
+						'<a href="javascript:deleteDelivery(' + addressNextRowSeq + ');" id="delAddrBtn' + addressNextRowSeq + '" class="btn-type4-brd2">삭제</a></div>';
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
+		}
+		
+		function deleteDelivery(idx){
+			// DB에 저장된 해당 row를 삭제
+			var rowseq = idx;
+			var userid = $('#userid').val(); // 유저 아이디
+			
+			$.ajax({
+				url : 'deleteQuickOrderAddress.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						// 주소테이블의 해당 행을 삭제
+						var selectAddrTr = $('#delAddrBtn' + idx).closest('tr');
+						selectAddrTr.remove();
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
+		}
+		
+		function setDelivery(idx){
+			// 디폴트 배달 주소로 설정
+			var userid =$('#userid').val(); // 유저 아이디
+			var rowseq = idx; // 주소 테이블의 rowseq
+			
+			// DB에 디폴트 배달주소로 설정
+			$.ajax({
+				url : 'setDefaultDeliveryAddress.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						var selectAddrTr = $('#selAddrBtn' + idx).closest('tr'); // 선택한 주소 테이블 로우
+						var selAddrCell = selectAddrTr.find('td').eq(0).html(); // 배달지 주소
+						var selAddr = $('#addr_O').text(selAddrCell); // 선택된 주소를 세팅
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			});
 		}
 	</script>
 </head>
@@ -575,16 +771,31 @@
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
-					<div class="util-nav">
-						<!-- and AUTH.memberYn eq 'Y' -->
-								<a href="main.do">로그아웃</a>
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님  &nbsp;
+								<a href="logout.do">로그아웃</a>
 								<a href="mylevel.do">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
-									<i class="ico-cart"></i>
-									<span class="hidden ">장바구니</span>
-									<strong class="cart_count"></strong> <!-- count -->
-								</a>
-					</div>
+								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 				
@@ -841,6 +1052,14 @@
 									</div>
 								</div>
 								<div class="table-type3">
+									<input type="hidden" id="quick_goods" name="quick_goods" value=""/>
+									<input type="hidden" id="quick_qty" name="quick_qty" value=""/>
+									<input type="hidden" id="quick_price" name="quick_price" value="" />
+									<input type="hidden" id="rowseq" name="rowseq" value="" />
+									<input type="hidden" id="userid" name="userid" value="${userid}" />
+									<input type="hidden" id="totalDBGoodsPrice" value="0" />
+									<input type="hidden" id="goodsNextRowSeq" value="${goodsNextRowSeq }" />
+									
 									<table id="quickOrderList">
 										<caption>제품설정</caption>
 										<colgroup>
@@ -858,13 +1077,25 @@
 											</tr>
 										</thead>
 										<tbody id="goods_list">
-											</tbody>
+											<c:forEach var="goods" items="${quickOrderGoodsList }">
+											<tr>
+												<td>${goods.quick_goods }</td>
+												<td>${goods.quick_qty }</td>
+												<td>${goods.quick_price }원</td>
+												<td>
+													<a href="javascript:removeGoods(${goods.rowseq });" id="delBtn${goods.rowseq }" class="btn">
+													<span class="btn-type4-brd2">삭제</span></a>
+												</td>
+											</tr>
+											</c:forEach>
+										</tbody>
 										<tfoot>
 											<tr>
 												<td colspan="4">총 주문 금액 <em id="totalOrderPrice">0</em>원</td>
 											</tr>
 										</tfoot>
 									</table>
+								
 								</div>
 							</div>
 							<div class="step-wrap">
@@ -892,7 +1123,7 @@
 													<div class="menu-wrap close">
 														<dl>
 															<dt>배달주소</dt>
-															<dd id="addr_O">배달주소를 선택해주세요.</dd>
+																<dd id="addr_O">배달주소를 선택해주세요.</dd>
 														</dl>
 														<a href="javascript:;" class="btn-toggle-close" onclick="openOrderLatelyWrap();">
 															배달주소 변경
@@ -911,6 +1142,10 @@
 														<div id="order_lately" class="order_lately lately_adr">
 															<input type="hidden" id="addrVal" value="" />
 															<input type="hidden" id="detailAddrVal" value="" />
+															<input type="hidden" id="guVal" value="" />
+															<input type="hidden" id="selectStore" value="" />
+															<input type="hidden" id="addressNextRowSeq" value="${addressNextRowSeq }" />
+															<input type="hidden" id="deliveryAddress" value="${deliveryAddress.address }" />
 															<table>
 																<caption>배송방법 및 배송지/매장 설정</caption>
 																<colgroup>
@@ -926,7 +1161,17 @@
 																	</tr>
 																</thead>
 																<tbody id="addr_list_o">
-																	
+																<c:forEach var="address" items="${quickOrderAddressList }">
+																	<tr>
+																		<td>${address.address }</td>
+																		<td>${address.storename }</td>
+																		<td>
+																			<div class="btn-wrap">
+																			<a href="javascript:setDelivery(${address.rowseq });" id="selAddrBtn${address.rowseq }" class="btn-type4-brd3">선택</a>
+																			<a href="javascript:deleteDelivery(${address.rowseq });" id="delAddrBtn${address.rowseq }" class="btn-type4-brd2">삭제</a></div>
+																		</td>
+																	</tr>
+																</c:forEach>
 																</tbody>
 																<tfoot>
 																	<tr>

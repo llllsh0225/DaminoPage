@@ -29,14 +29,31 @@
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 
-					<div class="util-nav">
-						<!-- and AUTH.memberYn eq 'Y' -->
-						<a href="main.do">로그아웃</a> <a href="mylevel.do">나의정보</a>
-						<a href="javascript:goCart();" class="btn-cart"> <i
-							class="ico-cart"></i> <span class="hidden ">장바구니</span> <strong
-							class="cart_count"></strong> <!-- count -->
-						</a>
-					</div>
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님  &nbsp;
+								<a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a>
+								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
