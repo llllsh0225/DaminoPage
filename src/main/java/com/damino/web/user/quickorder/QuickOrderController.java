@@ -52,10 +52,10 @@ public class QuickOrderController {
 		
 		if(quickOrderAddressList.size() != 0) { // 퀵오더 주소 리스트가 null이 아닐 때 다음 rowseq값과 디폴트 배송지 정보를 가져옴
 			int addressNextRowSeq = quickOrderService.getAddressNexRowSeq(userid);
-			QuickOrderAddressVO defalutAddress = quickOrderService.getDefaultDeliveryAddress(userid);
+			QuickOrderAddressVO defaultAddress = quickOrderService.getDefaultDeliveryAddress(userid);
 			
-			System.out.println(defalutAddress.getAddress());
-			mav.addObject("defalutAddress", defalutAddress);
+			System.out.println(defaultAddress.getAddress());
+			mav.addObject("defaultAddress", defaultAddress);
 			mav.addObject("addressNextRowSeq", addressNextRowSeq);
 		}
 		

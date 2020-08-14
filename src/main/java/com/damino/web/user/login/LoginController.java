@@ -45,6 +45,9 @@ public class LoginController {
 				mav.addObject("userid", login.getUserid()); // session 객체에 userid라는 키에 로그인한 회원의 아이디를 값으로 저장
 				mav.addObject("userlevel", login.getUserlevel()); // session 객체에 userlevel 저장
 				mav.addObject("user", login); // session 객체의 "user"에 login 한 멤버 객체를 저장
+				
+				session.setAttribute("msg", "login"); // 로그인 확인용 메세지 세팅
+				
 				mav.setViewName("main");
 				return mav;
 			} else if(login != null && pwdMatch == false){//sql에서 존재하는 아이디의 정보들을 가져왔으나 비밀번호가 틀린경우
