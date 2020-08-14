@@ -142,6 +142,51 @@ public class GoodsListController {
 		return mav;
 	}
 	
+	@RequestMapping("/side.do")
+	public ModelAndView goSideView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsSideVO vo) {
+		System.out.println("사용자 선택 사이드디시 메뉴 열기");
+
+		String s_code = request.getParameter("s_code");
+		System.out.println("s_code : " + s_code);
+		String s_name = request.getParameter("s_name");
+		System.out.println("s_name : " + s_name);
+		//String p_image = request.getParameter("p_image");
+		
+		/*
+		 * vo.setS_code(s_code); vo.setS_name(s_name);
+		 */
+		
+		//사용자 선택 메뉴 정보 서비스 호출
+		GoodsSideVO goodsDetailSide = goodsListService.getUserSideGoods(vo);
+		
+		/*
+		 * //토핑 목록 서비스 호출 List<GoodsToppingVO> mainToppingList =
+		 * goodsListService.getMainTopping(); List<GoodsToppingVO> cheezeToppingList =
+		 * goodsListService.getCheezeTopping(); List<GoodsToppingVO> afterToppingList =
+		 * goodsListService.getAfterTopping();
+		 * 
+		 * //음료 목록 서비스 호출 List<GoodsDrinkEtcVO> goodsDrinkEtcList =
+		 * goodsListService.getDrinkEtcList();
+		 */
+	//-------사용자 선택 메뉴 정보 불러오기-------------------
+		/*
+		 * //토핑 타입별 목록 불러오기 mav.addObject("mainToppingList", mainToppingList);
+		 * mav.addObject("cheezeToppingList", cheezeToppingList);
+		 * mav.addObject("afterToppingList", afterToppingList);
+		 * 
+		 * //음료 목록 불러오기 mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
+		 */
+		//사이드디시 불러오기
+		mav.addObject("goodsDetailSide", goodsDetailSide);
+		
+		//request parameter에서 받은 피자 이름
+		//mav.addObject("s_name", s_name);
+		//mav.addObject("s_code", s_code);
+		mav.setViewName("/goods/detail_goods_side");
+
+		return mav;
+	}
+	
 	@RequestMapping("/usersDough.do")
 	public ModelAndView usersDough(ModelAndView mav, @ModelAttribute GoodsPizzaVO vo) {
 		

@@ -10,9 +10,13 @@ public interface GoodsListService {
 	public List<GoodsToppingVO> getCheezeTopping(); // 치즈 토핑 목록 불러오기 
 	public List<GoodsToppingVO> getAfterTopping(); // 애프터 토핑 목록 불러오기 
 	public List<GoodsDrinkEtcVO> getDrinkEtcList(); // 음료 및 기타 목록 불러오기 
-	
+
+
+//------------------사용자 선택 --------------------
 	//사용자 선택 피자 메뉴 불러오기
 	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
+	//사용자 선택 - 사이드디시 메뉴 불러오기
+	public GoodsSideVO getUserSideGoods(GoodsSideVO vo);
 	//사용자 선택 - 선택 가능 도우 불러오기
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);
 }

@@ -73,6 +73,12 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("GoodsListServiceImpl getAfterTopping()");
 		return goodsListDAO.getAfterTopping();
 	}
+
+	@Override
+	public GoodsSideVO getUserSideGoods(GoodsSideVO vo) {
+		System.out.println("GoodsListServiceImpl getUserSideGoods(GoodsSideVO vo)");
+		return goodsListDAO.getUserSideGoods(vo);
+	}
 	
 
 }

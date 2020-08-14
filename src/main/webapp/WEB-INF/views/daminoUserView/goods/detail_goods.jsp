@@ -519,8 +519,8 @@ function minusDrink(idx){
 									<div class="menu-nav">
 										<ul>
 											<li class="active"><a href="goodslist.do">피자</a></li>
-											<li><a href="#">사이드디시</a></li>
-											<li><a href="#">음료&기타</a></li>
+											<li><a href="goodsSideList.do">사이드디시</a></li>
+											<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
 										</ul>
 									</div>
 									<div class="sch-box">
