@@ -67,13 +67,7 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 					<c:choose>
-						<c:when test="${sessionScope.username eq null}">
-							<!-- 비로그인 -->
-							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
-							</div>
-						</c:when>
-						<c:when test="${msg=='logout' }">
+						<c:when test="${msg != 'login' }">
 							<!-- 비로그인 -->
 							<div class="util-nav">
 								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
@@ -176,7 +170,7 @@
 								</div>
 
 								<div class="item">
-									<a href="javascript:void(0)" onClick="orderMenuList('O')">
+									<a href="quickOrder.do" onClick="orderMenuList('O')">
 										<i class="ico-quick2"></i> <span class="text">퀵 오더</span> <span
 										class="arrow"></span>
 									</a>

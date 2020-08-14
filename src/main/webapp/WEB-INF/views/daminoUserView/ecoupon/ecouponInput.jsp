@@ -22,12 +22,10 @@
 function checkLogin(){ // 사용자의 로그인 여부를 체크
 	var sessionChk = $('#sessionChk').val();
 	
-	if(sessionChk == '' || sessionChk == 'undefined' || sessionChk == null){
-		alert(sessionChk);
+	if(sessionChk != "login"){
 		alert('다미노 회원전용 서비스입니다. 로그인해주세요.');
 		location.href="login.do";
 	}else{
-		alert(sessionChk);
 		return;
 	}
 }
@@ -172,7 +170,7 @@ function registEcoupon(){
 							</div>
 							<div class="search-form">
 								<form>
-								<input type="hidden" id="sessionChk" value="${user.username }" />
+								<input type="hidden" id="sessionChk" value="${sessionScope.msg }" />
 								<input type="text" name="couponCode" placeholder="쿠폰번호를 입력하세요."
 									id="couponCode" maxlength="16" onClick="checkLogin();">
 								<Button class="btn-search" onClick="registEcoupon();">검색</Button>

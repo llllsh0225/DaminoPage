@@ -19,6 +19,18 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
+	<script type="text/javascript">
+		function chkLogin(){
+			var chkSession = $('#chkSession').val(); // 세션에 저장된 'msg'값을 읽어옴
+			
+			if(chkSession != "login"){
+				alert("회원 전용 서비스입니다. 로그인해주세요.");
+				location.href="login.do";
+			}else{
+				location.href="quickOrderSetting.do";
+			}
+		}
+	</script>
 </head>
 <body>
 	<div id="wrap">
@@ -30,18 +42,10 @@
 					</a>
 
 					<c:choose>
-						<c:when test="${sessionScope.username eq null}">
+						<c:when test="${msg != 'login' }">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
-							</div>
-						</c:when>
-						<c:when test="${msg=='logout' }">
-							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
-							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -135,6 +139,7 @@
 							<div class="quick-order">
 								<!--퀵 오더-->
 								<div class="quick-guide">
+									<input type="hidden" id="chkSession" value="${sessionScope.msg }" />
 									<p>
 										자주 이용하시는 제품을 더 빨리 주문할 수 있는 다미노피자의 회원전용 서비스입니다.<br> 온라인 회원
 										로그인 후 아래 두가지 방법 중 하나로 퀵 오더를 설정하시고 이용하시기 바랍니다.
@@ -155,7 +160,7 @@
 							</div>
 
 							<div class="btn-wrap">
-								<a href="quickOrderSetting.do" class="btn-type v3">퀵 오더 설정하기</a>
+								<a href="javascript:chkLogin();" class="btn-type v3">퀵 오더 설정하기</a>
 							</div>
 							<div class="pop-layer" id="pop-quick-howto">
 								<div class="dim"></div>

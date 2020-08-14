@@ -53,9 +53,6 @@
 			
 			$('#totalOrderPrice').text(totalDBGoodsPrice);
 
-			if($('#deliveryAddress').val() != ""){
-				$('#addr_O').text($('#deliveryAddress').val());
-			}
 		});
 		function selectBoxControl(){
 			var optValue = $('#dsp_ctgr').val();
@@ -766,17 +763,16 @@
 	<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo">
+					<a href="main.do" class="btn-logo">
 						<i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
 					<c:choose>
-						<c:when test="${sessionScope.username eq null}">
+						<c:when test="${msg != 'login' }">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:when test="${msg=='logout' }">
@@ -1123,7 +1119,14 @@
 													<div class="menu-wrap close">
 														<dl>
 															<dt>배달주소</dt>
-																<dd id="addr_O">배달주소를 선택해주세요.</dd>
+															<c:choose>
+																<c:when test="${defaultAddress eq null }">
+																	<dd id="addr_O">배달주소를 선택해주세요.</dd>
+																</c:when>
+																<c:otherwise>
+																	<dd id="addr_O">${defaultAddress.address }</dd>
+																</c:otherwise>
+															</c:choose>
 														</dl>
 														<a href="javascript:;" class="btn-toggle-close" onclick="openOrderLatelyWrap();">
 															배달주소 변경
@@ -1145,7 +1148,6 @@
 															<input type="hidden" id="guVal" value="" />
 															<input type="hidden" id="selectStore" value="" />
 															<input type="hidden" id="addressNextRowSeq" value="${addressNextRowSeq }" />
-															<input type="hidden" id="deliveryAddress" value="${deliveryAddress.address }" />
 															<table>
 																<caption>배송방법 및 배송지/매장 설정</caption>
 																<colgroup>
