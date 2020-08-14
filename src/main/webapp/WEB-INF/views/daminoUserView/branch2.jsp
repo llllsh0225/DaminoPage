@@ -267,7 +267,7 @@ function searchRegion(callBackFunc){
                                             <c:forEach var="locationSearch" items="${locationSearchList }">
                                                 <li>
                                                     <dl>
-                                                        <dt>
+                                                        <dt id=${locationSearch.storeName }>
                                                         	<input type="hidden" id="markerName" value=" ${locationSearch.storeName }">
                                                             ${locationSearch.storeName } <span class="tel">${locationSearch.storePhone }</span>
                                                         </dt>
@@ -295,7 +295,7 @@ function searchRegion(callBackFunc){
                                             <c:forEach var="nameSearch" items="${nameSearchList }">
                                                 <li>
                                                     <dl>
-                                                        <dt>
+                                                        <dt id=${nameSearch.storeName }>
                                                             ${nameSearch.storeName } <span class="tel">${nameSearch.storePhone }</span>
                                                         </dt>
                                                         <dd class="address" id="${nameSearch.storeAddress }">${nameSearch.storeAddress }</dd>
