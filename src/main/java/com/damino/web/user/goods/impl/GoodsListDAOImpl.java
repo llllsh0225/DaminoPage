@@ -75,5 +75,11 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		System.out.println("GoodsListDAOImpl getAfterTopping()");
 		return sqlSessionTemplate.selectList("GoodsListDAO.getAfterTopping");
 	}
+
+	@Override
+	public GoodsSideVO getUserSideGoods(GoodsSideVO vo) {
+		System.out.println("GoodsListDAOImpl getUserSideGoods(GoodsSideVO vo)");
+		return sqlSessionTemplate.selectOne("GoodsListDAO.getUserSideGoods");
+	}
 	
 }

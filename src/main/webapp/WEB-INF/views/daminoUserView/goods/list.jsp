@@ -153,7 +153,8 @@ $(document).ready(function(){
 													<a href="detail.do?p_code=${goodsPremiumList.p_code}&p_name=${goodsPremiumList.p_name}">
 													<img class="lazyload" id="zommInOutImage"
 														src="<c:url value= '/resources/images/admin/goods/${goodsPremiumList.p_image}' />" />
-													</a> <a href="javascript:UI.layerPopUp({selId:'#pop-zoom'});" class="btn-detail"> <i class="ico-sch"></i>
+													</a> <a href="javascript:UI.layerPopUp({selId:'#pop-zoom'});"
+													class="btn-detail"> <i class="ico-sch"></i>
 														<span class="hidden">상세버튼</span>
 													</a>
 													
@@ -202,8 +203,10 @@ $(document).ready(function(){
 												</div>
 												<div class="prd-price">
 													<div class="price-box">
-														<span class="price"><span class="size_l">${goodsClassicList.p_size_l}</span>${goodsClassicList.p_price_l}~&nbsp;</span>
-														<span class="price"><span class="size_m">${goodsClassicList.p_size_m}</span>${goodsClassicList.p_price_m}~&nbsp;</span>
+														<span class="price"><span class="size_l">${goodsClassicList.p_size_l}</span>
+														<fmt:formatNumber value="${goodsClassicList.p_price_l}" pattern="#,###" />원~</span>
+														<span class="price"><span class="size_m">${goodsClassicList.p_size_m}</span>
+														<fmt:formatNumber value="${goodsClassicList.p_price_m}" pattern="#,###" />원~</span>
 													</div>
 												</div>
 												<div class="label-box"></div>

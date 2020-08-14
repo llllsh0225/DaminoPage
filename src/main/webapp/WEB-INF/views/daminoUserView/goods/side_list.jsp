@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,14 +142,11 @@
 									<c:forEach var="goodsSideList" items="${goodsSideList}">
 										<li>
 											<div class="prd-img">
-												<!-- <a href="detail?dsp_ctgr=C0201&code_01=RSD173M1&dough_gb="> -->
-												<a href="#">
+												<a href="side.do?s_code=${goodsSideList.s_code}&s_name=${goodsSideList.s_name}">
 													<img class="lazyload"
 													src="<c:url value= '/resources/images/admin/goods/${goodsSideList.s_image}' />"
 													alt="${goodsSideList.s_name}" />
-												</a> <a
-													href="#"
-													class="btn-detail"> <i class="ico-sch"></i> <span
+												</a> <a href="javascript:UI.layerPopUp({selId:'#pop-zoom'});" class="btn-detail"> <i class="ico-sch"></i> <span
 													class="hidden">상세버튼</span>
 												</a>
 											</div>
@@ -157,7 +155,8 @@
 											</div>
 											<div class="prd-price">
 												<div class="price-box">
-													<span class="price">${goodsSideList.s_price}</span>
+													<span class="price">
+													<fmt:formatNumber value="${goodsSideList.s_price}" pattern="#,###" /></span>
 												</div>
 											</div>
 											<div class="label-box">
