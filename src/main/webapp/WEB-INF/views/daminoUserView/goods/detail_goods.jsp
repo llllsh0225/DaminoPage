@@ -74,7 +74,8 @@ $(document).ready(function(){
 function sum(){
 	
 	//priceOriginal 은 도우 클래스명
-	var pizzaAmount = $(".priceOriginal").val().replace(',','');
+	//var pizzaAmount = $(".priceOriginal").val().replace(',','');
+	var pizzaAmount = $(".priceOriginal").val();
 	
 //	var goodsSum = (parseInt(pizzaAmount) + toppingSum)* parseInt($("#pizzaSetNum").val())+ sideSum + etcSum;
 	var goodsCnt = Number($("#pizzaSetNum").val()) + sideCnt + etcCnt;//toppingCnt
@@ -101,36 +102,42 @@ function totalDoughValue(){
 	var doughPrice = 0;
 	var doughInfo = "";	
 	
-	var price = $(':radio[name="size"]:checked').val();
-	//price = $('.chk-box selected').prop('value');
-	
+	var price = ($(':radio[name="size"]:checked').val());
 	
 	if(typeof price == "undefined"){
 		price = $('#size1').val();
 	}
+	
+	var priceNumber = Number(price);
 	var strDough = $(':radio[name="p_dough"]:checked').val(); 
 	
-	alert("strDough1 : " + strDough);
-	alert("price : " + price);
-	console.log(price);
+	//console.log(price);
+	//console.log("priceNumber : " + priceNumber);
 	//var name = $(':radio[name="p_dough"]:checked').find('#dough').val();
 	var chkBox1 = document.getElementsByName('p_dough');
     /* var a = $(this).prop('value');
     a = a.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
-    $('.total-pizza').html($(this).prop('name') + '('+ a +'원)'); */
-	
+    $('.total-pizza').html($(this).prop('name') + '('+ a +'원)'); */	
     
-	/* if($(':radio[name="p_dough"]:checked').val() != null) {
+    console.log("priceNumber1 : " + priceNumber); 
+    
+    var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val()); //원가 * 피자 선택 수량
+    
+	if($(':radio[name="p_dough"]:checked').val() != null) {
 		if (strDough == "슈퍼시드 함유 도우"){
 			doughPrice = 2000;
 			doughInfo = "슈퍼시드 함유 도우";
-		} else if (strDough == "더블 치즈엣지") {
+		} else if (strDough == "더블 치즈 엣지") {
 			doughPrice = 5000;
-			doughInfo = "더블 치즈엣지";
+			doughInfo = "더블 치즈 엣지";
 		} else if (strDough == "오리지널 도우") {
 			doughInfo = "오리지널 도우";
 		} else if (strDough == "나폴리 도우") {
 			doughInfo = "나폴리 도우";
+		}else if (strDough == "오리지널") {
+			doughInfo = "오리지널";
+		} else if (strDough == "나폴리") {
+			doughInfo = "나폴리";
 		} else if (strDough == "씬 도우") {
 			doughInfo = "씬 도우";
 		} else if (strDough == "더블 크러스트"){
@@ -139,12 +146,29 @@ function totalDoughValue(){
 			doughInfo = "샌드";
 		}
 		
-		price += doughPrice;
+		//priceNumber += doughPrice;
 	} 
-    
-	var pizzaAmt = price * Number($("#pizzaSetNum").val());
-	
-	var pizzaName = $('.chk-box2 selected').prop('name');
+   console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
+   
+   var pizzaName = $(".title.pizza").text();
+   console.log("pizzaName : " + pizzaName);
+   
+   $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
+   
+   if(doughPrice > 0 ){
+		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+			+"(+" + Number(doughPrice)+"원)/"+ price
+			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+	}else {
+		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+			+"/"+ price
+			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+	}
+   
+   $(".total-count").text((Number($("#pizzaSetNum").val())));
+   $(".total-price_sum").text(Number(pizzaAmt) + "원");
+  //$(".total-pizza").text($(".title.pizza").text() + "("+ Number(pizzaSum) +"원)" + "x" + Number($("#pizzaSetNum").val()));
+	/* var pizzaName = $('.title pizza').val();
 	alert("pizzaName : " + pizzaName);
 	
 	$(".total-pizza").text( "피자이름" " + "("+ price +")" + "x" + (Number($("#pizzaSetNum").val())));
@@ -162,7 +186,7 @@ function totalDoughValue(){
 	$(".total-count").text((Number($("#pizzaSetNum").val())));
 	$(".total-price_sum").text(Number(pizzaAmt) + "원");
 	
-	sum(); */
+	sum();  */
 }
 //피자 카운트 - 최대 9판
 var drinkCnt = 0;
@@ -625,7 +649,6 @@ function minusDrink(idx){
 	
 	function totalSideValue(){
 				sideStr = ""; //사이드 정보 초기화
-				alert("sideNameArr 길이 : " + sideNameArr.length);
 				
 				if(!sideNameArr){
 					sideNameArr = null;
@@ -766,7 +789,7 @@ function minusDrink(idx){
 						
 				if(mainToppingNum == 0){
 					$('#mainToppingNum' + idx).val(0);
-					setNum = Number($('#mainToppingNum' + idx).val());
+					mainToppingNum = Number($('#mainToppingNum' + idx).val());
 					
 					toppingCnt -= 1;
 					
@@ -774,12 +797,14 @@ function minusDrink(idx){
 					toppingNameArr.splice(selectToppingNameIdx, 1);
 					toppingPriceArr.splice(selectToppingNameIdx, 1);
 					
-				}else if(mainToppingQty < 0){
+				}else if(mainToppingNum < 0){
 					$('#mainToppingNum' + idx).val(0);
 				}else{
 					
 					mainToppingNum = Number($('#mainToppingNum' + idx).val());
 					toppingCnt -= 1;
+					
+					toppingCntArr.splice(selectToppingNameIdx, 1, mainToppingNum);
 				}		
 				
 				totalToppingValue();
