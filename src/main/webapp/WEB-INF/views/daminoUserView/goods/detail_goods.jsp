@@ -97,43 +97,30 @@ function sum(){
 	
 } */
 function totalDoughValue(){
-	var price = 0;
+	
 	var doughPrice = 0;
 	var doughInfo = "";	
-	 
-	price = Number($('.chk-box selected').prop('name'));
-	var strDough = ($(':radio[name="p_dough"]:checked').val(); 
+	
+	var price = $(':radio[name="size"]:checked').val();
+	//price = $('.chk-box selected').prop('value');
+	
+	
+	if(typeof price == "undefined"){
+		price = $('#size1').val();
+	}
+	var strDough = $(':radio[name="p_dough"]:checked').val(); 
 	
 	alert("strDough1 : " + strDough);
-	
-	/* //name=p_dough인 checkbox 정보 var에 저장
-	var chkBox1 = document.getElementsByName('p_dough');
-	//checkbox 길이 확인
-	var count = chkBox1.length;
-	var real = "";
-	 for(var i=0; i<strDough.length; i++){
-		console.log(strDough[i]);
-		 if(strDough[i] == chkBox1[i]){
-			 chkBox1[j].checked = true;
-			 
-			real += chkBox1[j];
-		 }
-	}  */
-
+	alert("price : " + price);
+	console.log(price);
 	//var name = $(':radio[name="p_dough"]:checked').find('#dough').val();
 	var chkBox1 = document.getElementsByName('p_dough');
     /* var a = $(this).prop('value');
     a = a.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
     $('.total-pizza').html($(this).prop('name') + '('+ a +'원)'); */
 	
-    alert("테스트1");
-	alert("strDough2 : " + strDough);
-	alert("real : " + real);
-    alert("price : " + price);
-    //alert("name : " + name);
     
-    /*
-	if($(':radio[name="size"]:checked').val() == "L") {
+	/* if($(':radio[name="p_dough"]:checked').val() != null) {
 		if (strDough == "슈퍼시드 함유 도우"){
 			doughPrice = 2000;
 			doughInfo = "슈퍼시드 함유 도우";
@@ -153,28 +140,8 @@ function totalDoughValue(){
 		}
 		
 		price += doughPrice;
-	}else {
-		if (strDough == "슈퍼시드 함유 도우"){
-			doughPrice = 2000;
-			doughInfo = "슈퍼시드 함유 도우";
-		} else if (strDough == "더블 치즈엣지") {
-			doughPrice = 5000;
-			doughInfo = "더블 치즈엣지";
-		} else if (strDough == "오리지널 도우") {
-			doughInfo = "오리지널 도우";
-		} else if (strDough == "나폴리 도우") {
-			doughInfo = "나폴리 도우";
-		} else if (strDough == "씬 도우") {
-			doughInfo = "씬 도우";
-		} else if (strDough == "더블 크러스트"){
-			doughInfo = "더블 크러스트";
-		} else if (strDough == "샌드"){
-			doughInfo = "샌드";
-		}
-		
-		price += doughPrice;
-	}
-	
+	} 
+    
 	var pizzaAmt = price * Number($("#pizzaSetNum").val());
 	
 	var pizzaName = $('.chk-box2 selected').prop('name');
@@ -527,21 +494,22 @@ function minusDrink(idx){
 											<div class="size-box">
 												<!-- checkbox 활성화 일 경우 -->
 												<div class="chk-box2 selected">
-													<input type="radio" id="size1" name="${goodsDetail.p_name}"
-													value="${goodsDetail.p_price_l}" /> <label
+													<input type="radio" id="size1" name="size"
+													value="${goodsDetail.p_price_l}" onclick="totalDoughValue()" /> <label
 														class="checkbox" for="size1"></label>
-														<label for="size1">L
-														<fmt:formatNumber value="${goodsDetail.p_price_l}"
-															pattern="#,###" />원
+														<label for="size1" class="size"><%-- ${goodsDetail.p_price_l} --%>
+														 <fmt:formatNumber value="${goodsDetail.p_price_l}"
+															pattern="#,###" />원 
 														
 													</label>
 												</div>
 												<!-- //checkbox 활성화 일 경우 -->
 												<div class="chk-box2">
-													<input type="radio" id="size2" name="${goodsDetail.p_name}"
-													value="${goodsDetail.p_price_m}" /> <label class="checkbox"
-														for="size2"></label> <label for="size2">M <fmt:formatNumber
-															value="${goodsDetail.p_price_m}" pattern="#,###" />원
+													<input type="radio" id="size2" name="size"
+													value="${goodsDetail.p_price_m}" onclick="totalDoughValue()" />
+													<label class="checkbox" for="size2"></label><%-- ${goodsDetail.p_price_m} --%>
+													 <label for="size2" class="size"> <fmt:formatNumber
+															value="${goodsDetail.p_price_m}" pattern="#,###" />원 
 														
 													</label>
 												</div>
@@ -562,10 +530,10 @@ function minusDrink(idx){
 													varStatus="status">
 													<div class="chk-box">
 														<input type="radio" id="${status.index}" name="p_dough"
-															class="dough" value="${goodsDetail.p_dough }"
+															class="dough" value="${p_dough}"
 															onclick="totalDoughValue()" /> <label class="checkbox"
 															for="${status.index}" id="p_dough1"></label> <label
-															id="p_dough" for="${status.index}" class="p_dough" name="">
+															id="p_dough" for="${status.index}" class="p_dough">
 															${p_dough} <c:if test="${p_dough eq '더블 치즈 엣지' }">
 																<em>+5,000원</em>
 															</c:if> <c:if test="${p_dough eq '슈퍼 시드 함유 도우' }">
