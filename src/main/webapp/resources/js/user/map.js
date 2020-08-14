@@ -82,7 +82,6 @@ function current_position(position){
     
 }
 
-// 매장명 검색
 function geocodeAddress(geocoder, resultsMap) {
     var storeName = document.getElementById("storeName").value;
     
@@ -126,48 +125,46 @@ function geocodeAddress(geocoder, resultsMap) {
 // 지역검색
 function geocodeAddress2(geocoder, resultsMap) {
 	
-	var lis = document.getElementsByTagName("dd");
-	for(var i=0; i<lis.length-1; i++){
+	var addressList = document.getElementsByTagName("dd");
+	var storenameList = document.getElementsByTagName("dt");
 	
-	    var storeRegion = lis[i].id;
-	    
+	for(var i=0; i<addressList.length-1; i++){
+	
+	    var address = addressList[i].id;
+	    var storename = storenameList[i].id;
+	   
 	    geocoder.geocode(
 	      {
-	    	  address: storeRegion
+	    	  address: address
 	      },
 	      (results, status) => {
 	        if (status === "OK") {
 	          resultsMap.setCenter(results[0].geometry.location);
 	          // 마커 이미지 주소
-	          var imageaddress2 = "https://i.imgur.com/Cm6tqUL.png";
+	          var imageaddress = "https://i.imgur.com/Cm6tqUL.png";
 	          // 마커 이미지 설정
-	          var markerIcon2 = new google.maps.MarkerImage(imageaddress2,null,null,null,new google.maps.Size(40,52));
-	          // 마커 클릭시 나오는 창 상세정보창
+	          var markerIcon = new google.maps.MarkerImage(imageaddress,null,null,null,new google.maps.Size(40,52));
 	         
-	          
-	          var contentString2 ='<div id="content">'+ 
-									    '<div id="siteNotice" style="font-size:20px">'+
-								        '<strong>'+ '' + '</strong>' +
-								    '</div>'+
-								    '<h1 id="firstHeading" class="firstHeading">' + '' +  '</h1>'+
-								      '<div id="bodyContent">'+' ' +'</div>'+
-							      '</div>';
-	          var infowindow2 = new google.maps.InfoWindow({content: contentString2});
-	        
-	          var marker2 = new google.maps.Marker({
+	          var marker = new google.maps.Marker({
 	            map: resultsMap,
 	            position: results[0].geometry.location,
-	            icon: markerIcon2
+	            icon: markerIcon
 	          });
-	          
-	          marker2.addListener('click', function() {infowindow2.open(resultsMap, marker2);});
-	          
 	        } else {
 	          alert(
 	            "매장명을 확인해주세요."
 	          );
 	        }
-	        
+	        var contentString = '<div id="content">'+ 
+								    '<div id="siteNotice" style="font-size:20px">'+
+							        '<strong>'+ '다미노피자' + '</strong>' +
+							    '</div>'+'<br>' + 
+							    '<h1 id="firstHeading" class="firstHeading">' + '주소  : ' + results[0].formatted_address +  '</h1>'+
+							      	'<div id="bodyContent">'+'위도 : ' + results[0].geometry.location.lat().toFixed(6) + ', 경도 : ' + results[0].geometry.location.lng().toFixed(6)  +'</div>'+
+						        '</div>';
+	        // 마커 클릭시 나오는 창 상세정보창
+			var infowindow = new google.maps.InfoWindow({content: contentString});
+			marker.addListener('click', function() {infowindow.open(resultsMap, marker);});
 	      }
 	    );
 	}
