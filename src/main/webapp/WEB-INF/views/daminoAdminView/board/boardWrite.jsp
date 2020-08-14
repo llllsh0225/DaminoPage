@@ -27,10 +27,18 @@
 			<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
 					class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="store-manager-login.html">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
