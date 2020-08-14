@@ -138,35 +138,13 @@ function sum(){
 	var pizzaAmount = $(".priceOriginal").val();
 	
 	//토핑가격 총합 = totalToppingSum
-	
-	//console.log("sum의 toppingSum : " + toppingSum);
-//	var goodsSum = (parseInt(pizzaAmount) + toppingSum)* parseInt($("#pizzaSetNum").val())+ sideSum + etcSum;
-	//var goodsCnt = Number($("#pizzaSetNum").val()) + sideCnt + etcCnt;//toppingCnt
 	etcSum += Number($('.etcSum').val());
 	
-	alert("etcSum : " + etcSum);
 	
-	/* if(toppingCntArr == 0){
-		
-		$(".total-price_sum").text(Number(pizzaAmt+doughPrice) + "원");
-	}
-	else{ */
 		
 	$(".total-price_sum").text(Number(pizzaAmt
 							+ doughPrice + totalToppingSum + totalEtcSum + totalSideSum) + "원");
-	//}
 	
-	
-	
-	
-	//pizzaSum이 잘못됐다....! 도우 선택시 가격 반영 안됨
-	//pizzaSum = Number(pizzaAmount) + Number(toppingSum);
-	
-	//$(".total-pizza").text($(".title.pizza").text() + "("+ Number(pizzaSum) +"원)" + "x" + Number($("#pizzaSetNum").val()));
-	
-	
-	//$(".total-count").text(goodsCnt);
-	//$(".total-price_sum").text(goodsSum.cvtNumber() + "원");
 	
 	
 }
@@ -191,8 +169,6 @@ function totalDoughValue(){
     /* var a = $(this).prop('value');
     a = a.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
     $('.total-pizza').html($(this).prop('name') + '('+ a +'원)'); */	
-    
-    console.log("priceNumber1 : " + priceNumber); 
     
     var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val()); //원가 * 피자 선택 수량
     
@@ -223,7 +199,6 @@ function totalDoughValue(){
    console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
    
    var pizzaName = $(".title.pizza").text();
-   console.log("pizzaName : " + pizzaName);
    
    $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
    
@@ -236,11 +211,6 @@ function totalDoughValue(){
 			+"/"+ price
 			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
 	}
-   
-  //var priceDiv = (priceNumber * Number($("#pizzaSetNum").val())+doughPrice);
-  // priceDiv = priceDiv.replace(new RegExp("^(\\d{" + (a.length%3?a.length%3:0) + "})(\\d{3})", "g"), "$1 $2").replace(/(\d{3})+?/gi, ",$1").trim();
-  // $('.total-pizza').html($(this).prop('name') + '('+ a +'원)');  
-   
    $(".total-count").text((Number($("#pizzaSetNum").val())));
    $(".total-price_sum").html(Number(pizzaAmt+doughPrice) + "원");
    
@@ -1196,41 +1166,6 @@ function minusDrink(idx){
 											<!-- 사이드 제한 알고리즘-->
 												
 											</script>
-
-													<!-- <div id="sidedish1" class="tab-content active sidedelete">
-														<div class="menu-list-v2">
-															<ul>
-
-																<li>
-																	<div class="prd-img">
-																		<img class="lazyload"
-																			src="../../newcdn.dominos.co.kr/domino/pc/images/bg.png"
-																			data-src="https://newcdn.dominos.co.kr/admin/upload/goods/20200429_PcX27IEN.jpg"
-																			alt="[반값]크리스피 핫 순살 치킨" />
-																	</div>
-
-																	<div class="prd-cont">
-																		<div class="subject">[반값]크리스피 핫 순살 치킨</div>
-																		<div class="price-box">
-																			<del>4800</del>
-																			<strong>2,400</strong>
-																		</div>
-
-																		<div class="quantity-box">
-																			<button class="btn-minus side"></button>
-																			<input class="setNum" type="number" value="0"
-																				readonly> <input class="setName"
-																				type="hidden" value="[반값]크리스피 핫 순살 치킨"> <input
-																				class="setCode" type="hidden" value="SST133A1_HP83">
-																			<input class="setPrice" type="hidden" value="2400">
-																			<button class="btn-plus side"></button>
-																		</div>
-																	</div>
-																</li>
-															</ul>
-															</div>
-															</div> -->
-															
 													
 												</div>
 												<div class="step-wrap">

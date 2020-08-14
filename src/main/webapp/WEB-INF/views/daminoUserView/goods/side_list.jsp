@@ -144,8 +144,7 @@
 											<div class="prd-img">
 												<a href="side.do?s_code=${goodsSideList.s_code}&s_name=${goodsSideList.s_name}">
 													<img class="lazyload"
-													src="<c:url value= '/resources/images/admin/goods/${goodsSideList.s_image}' />"
-													alt="${goodsSideList.s_name}" />
+													src="<c:url value= '/resources/images/admin/goods/${goodsSideList.s_image}' />" />
 												</a> <a href="javascript:UI.layerPopUp({selId:'#pop-zoom'});" class="btn-detail"> <i class="ico-sch"></i> <span
 													class="hidden">상세버튼</span>
 												</a>
@@ -156,7 +155,7 @@
 											<div class="prd-price">
 												<div class="price-box">
 													<span class="price">
-													<fmt:formatNumber value="${goodsSideList.s_price}" pattern="#,###" /></span>
+													<fmt:formatNumber value="${goodsSideList.s_price}" pattern="#,###" />원</span>
 												</div>
 											</div>
 											<div class="label-box">

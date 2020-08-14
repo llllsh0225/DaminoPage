@@ -447,6 +447,135 @@ var getToppingCode = function() {
 	return toppingCode;
 };
 
+
+function setsideTotalCnt(obj, action) {
+	
+	var sideTotalAmount = 0;
+	var sideTotalCnt = 0;
+	var sideStr = "";
+	sideTotalAmount = 0;
+	sideTotalCnt = 0;
+	var sideVanCnt = 0;
+	var cnt = 0;
+	var pzcode = "RPZ190SL";
+	
+	
+	if(action == ".btn-minus.side") {
+		cnt = parseInt( obj.siblings(".setNum").val()) -1;
+		if(cnt <= 0) cnt = 0;
+		obj.siblings(".setNum").val(cnt);
+	} else {
+		
+		if(obj.siblings(".setCode").val() == "SST748C1") {
+			if(pzcode != "RPZ192SL") {
+				alert("치킨팩은 토핑 탑 텐 피자를 주문하셔야 주문가능합니다. (1판당 1개 적용 가능)");
+				return;
+			} else {
+				cnt = parseInt( obj.siblings(".setNum").val()) +1;
+				obj.siblings(".setNum").val(cnt);
+			}
+		} else {
+			cnt = parseInt( obj.siblings(".setNum").val()) +1;
+			obj.siblings(".setNum").val(cnt);	
+		}
+		if (obj.siblings(".setCode").val() == "RSD173M1") {
+			if(parseInt( obj.siblings(".setNum").val()) >= 10) {
+				alert("해당 사이드디시는 9개 까지만 주문 가능합니다.");
+				obj.siblings(".setNum").val(9);
+				return;
+			}
+		}
+	} 
+	
+	$(action).each(function() {
+		// 리스트 토탈 카운트
+		if($(this).siblings(".setNum").val() != "0") {
+			sideTotalCnt += parseInt($(this).siblings(".setNum").val());
+		}
+		// 사이드 반값 카운트
+		if($(this).siblings(".setNum").val() != "0" && $(this).siblings(".setCode").val().substring(0, 8) == "SST133A1") {
+			sideVanCnt += parseInt($(this).siblings(".setNum").val());
+		} else if ($(this).siblings(".setNum").val() != "0" && $(this).siblings(".setCode").val().substring(0, 8) == "SST748C1") {
+			sideVanCnt += parseInt($(this).siblings(".setNum").val());
+		}
+	});
+	
+	if("false" == "true" && "false" == "false" && sideVanCnt > 0){
+		alert("특가제품의 경우 온라인 회원만 주문 가능합니다.");
+		cnt = parseInt( obj.siblings(".setNum").val()) -1;
+		if(cnt <= 0) cnt = 0;
+		obj.siblings(".setNum").val(cnt);
+		return;
+	}
+	
+	if(obj.siblings(".setCode").val().substring(0, 8) == "SST133A1" || obj.siblings(".setCode").val().substring(0, 8) == "SST748C1") {
+		
+		if(sideVanCnt > parseInt($(".opt_qty").val())){
+			alert("사이드 특가는 피자 1판당 1개 까지 주문 가능합니다. 장바구니를 확인 해주세요.");
+			cnt = parseInt( obj.siblings(".setNum").val()) -1;
+			
+			if(cnt <= 0) cnt = 0;
+			obj.siblings(".setNum").val(cnt);
+			sideTotalCnt -= 1;
+			sideVanCnt -= 1;
+			
+			$(action).each(function() {
+				if($(this).siblings(".setNum").val() != "0") {
+					sideTotalAmount = 0;
+					sideTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
+					if($(this).siblings(".setNum").val() != "0" && $(this).siblings(".setCode").val().substring(0, 8) == "SST133A1") {
+						sideStr += "<p>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x" 
+						+ "<span class='sideCnt'>"+$(this).siblings(".setNum").val()+"</span>"+"<input type='hidden' class='sideVan' value='"+$(this).siblings(".setNum").val()+"'></input>"
+						+"<input type='hidden' class='sideSum' value='"+sideTotalAmount+"'>"+"</input>"+"</p>";
+					}else {
+						sideStr += "<p>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x" 
+						+ "<span class='sideCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+						+"<input type='hidden' class='sideSum' value='"+sideTotalAmount+"'>"+"</input>"+"</p>";
+					}
+				}
+			});
+		} else {
+			$(action).each(function() {
+				if($(this).siblings(".setNum").val() != "0") {
+					sideTotalAmount = 0;
+					sideTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
+					if($(this).siblings(".setNum").val() != "0" && $(this).siblings(".setCode").val().substring(0, 8) == "SST133A1") {
+						sideStr += "<p>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x" 
+						+ "<span class='sideCnt'>"+$(this).siblings(".setNum").val()+"</span>"+"<input type='hidden' class='sideVan' value='"+$(this).siblings(".setNum").val()+"'></input>"
+						+"<input type='hidden' class='sideSum' value='"+sideTotalAmount+"'>"+"</input>"+"</p>";
+					}else {
+						sideStr += "<p>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x" 
+						+ "<span class='sideCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+						+"<input type='hidden' class='sideSum' value='"+sideTotalAmount+"'>"+"</input>"+"</p>";
+					}
+				}
+			});
+		}
+	} else {
+		$(action).each(function() {
+			if($(this).siblings(".setNum").val() != "0") {
+				sideTotalAmount = 0;
+				sideTotalAmount += parseInt($(this).siblings(".setNum").val()) * parseInt($(this).siblings(".setPrice").val());
+				if($(this).siblings(".setNum").val() != "0" && $(this).siblings(".setCode").val().substring(0, 8) == "SST133A1") {
+					sideStr += "<p>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x" 
+					+ "<span class='sideCnt'>"+$(this).siblings(".setNum").val()+"</span>"+"<input type='hidden' class='sideVan' value='"+$(this).siblings(".setNum").val()+"'></input>"
+					+"<input type='hidden' class='sideSum' value='"+sideTotalAmount+"'>"+"</input>"+"</p>";
+				}  else {
+					sideStr += "<p>"+$(this).siblings(".setName").val() + "(+"+$(this).siblings(".setPrice").val().cvtNumber()+"원)" + "x" 
+					+ "<span class='sideCnt'>"+$(this).siblings(".setNum").val()+"</span>"
+					+"<input type='hidden' class='sideSum' value='"+sideTotalAmount+"'>"+"</input>"+"</p>";
+				}
+			}
+		});
+	}
+	$(".total-side").html(sideStr);
+	
+	sum();
+	
+};
+
+
+
 </script>
 </head>
 

@@ -35,7 +35,7 @@ public class GoodsListController {
 		return mav;
 	}
 
-	@RequestMapping("/goodsSideList.do")
+	@RequestMapping(value="/goodsSideList.do")
 	public ModelAndView getSideList(ModelAndView mav) {
 		System.out.println("사이드디시 리스트 열기");
 
@@ -70,32 +70,30 @@ public class GoodsListController {
 	}
 
 	
-	@RequestMapping(value = "/detailSlide.do", method = RequestMethod.GET)
-	public String goodsDetail(@ModelAttribute GoodsPizzaVO vo) {
-		
-		// 서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
-		System.out.println("detailSlide.do");
-		System.out.println("[상품 상세보기 화면 진입 시도] :");
-		System.out.println("피자 코드 : " + vo.getP_code());
-		System.out.println("피자 이미지 : " + vo.getP_image());
-		
-		goodsListService.getUserPizzaGoods(vo);
-		
-		return "redirect:goodslist.do";
-	}
-
-	@RequestMapping(value = "/detailAjax.do", method = RequestMethod.GET)
-	public String goodsDetailAjax(@ModelAttribute GoodsPizzaVO vo) {
-
-		// 서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
-		System.out.println("[상품 상세보기 화면 진입 시도] :");
-		System.out.println("피자 코드 : " + vo.getP_code());
-		System.out.println("피자 이미지 : " + vo.getP_image());
-		
-		goodsListService.getUserPizzaGoods(vo);
-		
-		return "redirect:goodslist.do";
-	}
+	/*
+	 * @RequestMapping(value = "/detailSlide.do", method = RequestMethod.GET) public
+	 * String goodsDetail(@ModelAttribute GoodsPizzaVO vo) {
+	 * 
+	 * // 서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
+	 * System.out.println("detailSlide.do");
+	 * System.out.println("[상품 상세보기 화면 진입 시도] :"); System.out.println("피자 코드 : " +
+	 * vo.getP_code()); System.out.println("피자 이미지 : " + vo.getP_image());
+	 * 
+	 * goodsListService.getUserPizzaGoods(vo);
+	 * 
+	 * return "redirect:goodslist.do"; }
+	 * 
+	 * @RequestMapping(value = "/detailAjax.do", method = RequestMethod.GET) public
+	 * String goodsDetailAjax(@ModelAttribute GoodsPizzaVO vo) {
+	 * 
+	 * // 서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
+	 * System.out.println("[상품 상세보기 화면 진입 시도] :"); System.out.println("피자 코드 : " +
+	 * vo.getP_code()); System.out.println("피자 이미지 : " + vo.getP_image());
+	 * 
+	 * goodsListService.getUserPizzaGoods(vo);
+	 * 
+	 * return "redirect:goodslist.do"; }
+	 */
 	
 	@RequestMapping("/detail.do")
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo) {
@@ -148,34 +146,20 @@ public class GoodsListController {
 
 		String s_code = request.getParameter("s_code");
 		System.out.println("s_code : " + s_code);
-		String s_name = request.getParameter("s_name");
-		System.out.println("s_name : " + s_name);
-		//String p_image = request.getParameter("p_image");
+		String s_name = request.getParameter("s_name");		
 		
-		/*
-		 * vo.setS_code(s_code); vo.setS_name(s_name);
-		 */
+		System.out.println("s_name : " + s_name);
 		
 		//사용자 선택 메뉴 정보 서비스 호출
 		GoodsSideVO goodsDetailSide = goodsListService.getUserSideGoods(vo);
 		
-		/*
-		 * //토핑 목록 서비스 호출 List<GoodsToppingVO> mainToppingList =
-		 * goodsListService.getMainTopping(); List<GoodsToppingVO> cheezeToppingList =
-		 * goodsListService.getCheezeTopping(); List<GoodsToppingVO> afterToppingList =
-		 * goodsListService.getAfterTopping();
-		 * 
-		 * //음료 목록 서비스 호출 List<GoodsDrinkEtcVO> goodsDrinkEtcList =
-		 * goodsListService.getDrinkEtcList();
-		 */
+		//음료 목록 서비스 호출
+		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
+		
 	//-------사용자 선택 메뉴 정보 불러오기-------------------
-		/*
-		 * //토핑 타입별 목록 불러오기 mav.addObject("mainToppingList", mainToppingList);
-		 * mav.addObject("cheezeToppingList", cheezeToppingList);
-		 * mav.addObject("afterToppingList", afterToppingList);
-		 * 
-		 * //음료 목록 불러오기 mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
-		 */
+		
+		//음료 목록 불러오기
+		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
 		//사이드디시 불러오기
 		mav.addObject("goodsDetailSide", goodsDetailSide);
 		

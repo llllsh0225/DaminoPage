@@ -51,10 +51,7 @@
 	</select>	
 	
 	<!-- 사용자 선택 - 사이드디시 메뉴 불러오기 -->
-	<select id="getUserSideGoods" resultType="com.damino.web.user.goods.GoodsSideVO" parameterType="com.damino.web.user.goods.GoodsSideVO" >
-		SELECT * FROM side WHERE s_code = #{s_code} AND s_name = #{s_name}
+	<select id="getUserSideGoods" resultType="com.damino.web.user.goods.GoodsSideVO" parameterType="com.damino.web.user.goods.GoodsSideVO" >	
+		SELECT * FROM side WHERE s_code = #{s_code} AND s_name = #{s_name}	
 	</select>
-	
-	
-	
 </mapper>
