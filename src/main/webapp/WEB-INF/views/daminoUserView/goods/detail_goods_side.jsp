@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사이드 디시 - 다미노피자</title>
+<title>${goodsDetailSide.s_name} - 사이드 디시 - 다미노피자</title>
 
 <script type="text/javascript"
 	src="<c:url value='/resources/js/jquery1.11.1.js'/>"></script>
@@ -47,6 +47,7 @@ $("input[type='radio']").change(function () {
 	});
 } 
 
+</script>
 <script>
 //--------음료-----------------------
 //하단 선택목록에 추가할 내용을 담을 변수 
@@ -68,6 +69,7 @@ var etcPriceArr = [];
 var etcNameArr = [];
 var etcSumArr = []; //음료 총 합계 정보
 
+
 function sum(){
 	alert("sum() 입니다");
 	
@@ -75,22 +77,33 @@ function sum(){
 	
 	totalEtcSum = 0;
 	totalSideSum = 0;
-						
+	
+	 var price = ($(':radio[name="size"]:checked').val());
+	
+	 alert("price : " + price + "/ sideSetNum : " + Number($("#sideNomalSetNum").val()));
+	 
+	if(typeof price == "undefined"){
+		price = $('#sideNomalSetNum').val();
+	} 	
+	
 	//음료 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalEtcSum에 저장
 	for(var i=0; i<etcSumArr.length; i++){											
 		totalEtcSum += Number(etcSumArr[i]);
 	}
 	
-	/* //사이드디시 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalSideSum에 저장
+	 //사이드디시 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalSideSum에 저장
 	for(var i=0; i<sideSumArr.length; i++){											
 		totalSideSum += Number(sideSumArr[i]);
 	}
-	 */
 	
-	etcSum += Number($('.etcSum').val());
-		
+	
+	//etcSum += Number($('.etcSum').val());
+	var sideAmt = Number(price) * Number($("#sideNomalSetNum").val());
 	//$(".total-price_sum").text(Number(totalEtcSum + totalSideSum) + "원");
-	$(".total-price_sum").text(Number(totalEtcSum) + "원");
+	//var etcAmt = Number
+	
+		
+	$(".total-price_sum").text(Number(sideAmt + totalEtcSum) + "원");
 }
 
 function totalEtcValue(){
@@ -98,16 +111,19 @@ function totalEtcValue(){
 	
 	if(!etcNameArr){
 		etcNameArr = null;
-	}else{
+	}else if(etcCnt <= sideCnt){
+		
 		for(var i=0; i<etcNameArr.length; i++){
 			etcStr += "<p>"+ etcNameArr[i] +  "(" + etcPriceArr[i] + "원)" + "x"
 			+ "<span class='etcCnt'>" + etcCntArr[i] + "</span>"
 			+ "<input type='hidden' class='etcSum' value='" + Number(etcPriceArr[i])*Number(etcCntArr[i]) + "'></input>" + "</p>";
 		}
 		
-		if(etcStr != null){
-			$(".total-etc").html("<div></div>" + etcStr);
-		}
+		$(".total-etc").html("<div></div>" + etcStr);
+		
+	}else if(etcCnt > sideCnt){
+		alert("음료는 사이드디시와 1:1 비율로 선택 가능합니다");
+		
 	}
 	sum();
 }
@@ -118,26 +134,15 @@ var drinkSetNum = Number($('#drinkSetNum' + idx).val());
 var etcName = $('#etcName' + idx).val();
 var etcPrice = Number($('#etcPrice' + idx).val());
 var etcNameIdx = etcNameArr.indexOf(etcName);
-	
 
-/* if(drinkCnt > (Number($('#pizzaSetNum').val())*2)){
-	
-	alert("음료는 사이드디시와 1:1 비율로 선택 가능합니다.");
-		//drinkCnt = 9;
-	Number($('#drinkSetNum' + idx).val(drinkSetNum-1));
-	
-	
-}else if(drinkCnt == (pizzaNum*2)){
-	alert("음료는 사이드디시와 1:1 비율로 선택 가능합니다.");
-	//drinkCnt = 9;
-	Number($('#drinkSetNum' + idx).val(drinkSetNum));
-}
-else{ */
+if(drinkSetNum < Number($('#sideNomalSetNum').val())){
 	drinkSetNum = Number($('#drinkSetNum' + idx).val());
 	drinkSetNum += 1;
-	drinkCnt += 1;
+	etcCnt += 1;
 	$('#drinkSetNum' + idx).val(drinkSetNum);
-	
+}else if(drinkSetNum == Number($('#sideNomalSetNum').val())){
+	alert("음료는 사이드디시와 1:1 비율로 선택 가능합니다.");
+}
 	if(!etcNameArr.includes(etcName)){
 		etcNameArr.push(etcName);
 		etcCntArr.push(drinkSetNum);
@@ -146,9 +151,8 @@ else{ */
 	}else{		
 		etcCntArr.splice(etcNameIdx, 1, drinkSetNum);
 	}
-	}
+	
 	totalEtcValue();
-	console.log(drinkCnt);
 }
 
 function minusDrinkEtc(idx){			
@@ -164,26 +168,137 @@ $('#drinkSetNum' + idx).val(drinkSetNum);
 if(drinkSetNum == 0){
 	$('#drinkSetNum' + idx).val(0);
 	drinkSetNum = Number($('#drinkSetNum' + idx).val());
-	drinkCnt -= 1;
+	etcCnt -= 1;
 	
 	etcCntArr.splice(etcNameIdx, 1);
 	etcNameArr.splice(etcNameIdx, 1);
 	etcPriceArr.splice(etcNameIdx, 1);
 	etcSumArr.splice(etcNameIdx, 1);
-}else if(drinkSetNum < 0){
+	}else if(drinkSetNum < 0){
 	$('#drinkSetNum' + idx).val(0);	
 }else{	
 	drinkSetNum = Number($('#drinkSetNum' + idx).val());
 	
-	drinkCnt -= 1;
+	etcCnt -= 1;
 	
 	etcCntArr.splice(etcNameIdx, 1, drinkSetNum);
 	
 }
-totalEtcValue();
+	totalEtcValue();
 
 }
+
+//------------사이드------------------	
+//하단 선택목록에 추가할 내용을 담을 변수 
+var sideStr = "";
+var totalSideSum = 0; //사이드디시 합계 금액을 담을 변수
+//사이드디시 총 개수
+var sideTotalAmount = 0;
+//사이드디시 가격
+var sidePrice = 0;
+//사이드디시 카운트
+var sideCnt = 1;
+//사이드디시 이름
+var sideName = ""; 
+
+//사이드 정보 배열에 저장하여 반영
+var sideCntArr = [];
+var sidePriceArr = [];
+var sideNameArr = [];
+var sideSumArr = []; //이드디시 합계 금액을 담을 배열
+
+function totalSideValue(){
+	sideStr = ""; //사이드 정보 초기화
+	
+	if(!sideNameArr){
+		sideNameArr = null;
+	}
+	
+	else if(sideCntArr < 10 && sideCntArr > 1){
+		for(var i=0; i<sideNameArr.length; i++){
+			sideStr += "<p>"+ sideNameArr[i] +  "(" + sidePriceArr[i] + "원)" + "x"
+			+ "<span class='sideCnt'>" + sideCntArr[i] + "</span>"
+			+ "<input type='hidden' class='sideSum' value='" + Number(sidePriceArr[i])*Number(sideCntArr[i]) + "'></input>" + "</p>";
+		}
+		$(".total-side").html("<div></div>" + sideStr);
+		
+	}
+	else{
+		var sideName = $(".title.side").text();
+		var price = ($(':radio[name="size"]:checked').val());
+		
+		$(".total-side").text( sideName + "("
+					+ Number(price) +"원)" + "x1");
+	}
+	
+	sum();
+}
+
+
+ //사이드디시 일반 카운트
+
+function plusNomalSide(){
+	var sideNomalSetNum = Number($('#sideNomalSetNum').val());
+	var sideName = $('#sideName').val();
+	var sidePrice = Number($('#sidePrice').val());
+	var sideNameIdx = sideNameArr.indexOf(sideName);
+
+	sideNomalSetNum += 1;
+	sideCnt += 1;
+	$('#sideNomalSetNum').val(sideNomalSetNum);
+			
+	if(sideCnt > 9){
+		alert("사이드메뉴는 9개까지 선택 가능합니다.");
+		sideCnt = 9;
+		$('#sideNomalSetNum').val(sideNomalSetNum-1);
+		
+	}
+	
+	if(!sideNameArr.includes(sideName)){
+		sideNameArr.push(sideName);
+		sideCntArr.push(sideNomalSetNum);
+		sidePriceArr.push(sidePrice);
+		sideSumArr.push(sidePrice);
+	}else{
+		sideCntArr.splice(sideNameIdx, 1, sideNomalSetNum);
+		
+	}
+	totalSideValue();
+}
+
+function minusNomalSide(){			
+	
+	var sideNomalSetNum = Number($('#sideNomalSetNum').val());
+	var sideName = $('#sideName').val();
+	var sidePrice = Number($('#sidePrice').val());
+	var sideNameIdx = sideNameArr.indexOf(sideName);
+	
+	sideNomalSetNum -= 1;
+	
+	$('#sideNomalSetNum').val(sideNomalSetNum);
+			
+	if(sideNomalSetNum == 1){
+		$('#sideNomalSetNum').val(1);
+		sideNomalSetNum = Number($('#sideNomalSetNum').val());
+		sideCnt -= 1;
+		
+		sideCntArr.splice(sideNameIdx, 1);
+		sideNameArr.splice(sideNameIdx, 1);
+		sidePriceArr.splice(sideNameIdx, 1);
+		sideSumArr.splice(sideNameIdx, 1);
+	}else if(sideNomalSetNum < 1){
+		$('#sideNomalSetNum').val(1);
+	}else{
+		sideNomalSetNum = Number($('#sideNomalSetNum').val());
+		sideCnt -= 1;
+		
+		sideCntArr.splice(sideNameIdx, 1, sideNomalSetNum);
+	}
+	totalSideValue();
+}
 </script>
+</head>
+
 
 <style>
 #card_add .pop_wrap {
@@ -272,7 +387,6 @@ totalEtcValue();
 </style>
 <body>
 
-</script>
 
 	<div id="wrap">
 		<header id="header">
@@ -285,10 +399,7 @@ totalEtcValue();
 					<div class="util-nav">
 						<a href="login.do">로그인</a> <a href="login.do">회원가입</a> <a
 							href="javascript:void(0);" class="lang">
-							<div class="select-type2 language">
-								<select id="select-type2">
-								</select>
-							</div>
+							
 						</a>
 					</div>
 				</div>
@@ -444,7 +555,7 @@ totalEtcValue();
 									<div class="detail-wrap">
 										<div class="menu-box">
 											<div class="title-box">
-												<h3 class="title pizza">${goodsDetailSide.s_name}</h3>
+												<h3 class="title side">${goodsDetailSide.s_name}</h3>
 
 												<div class="hashtag"></div>
 											</div>
@@ -464,9 +575,9 @@ totalEtcValue();
 												</div>
 												<div class="option-box">
 													<div class="chk-box">
-														<input type="radio" id="hotdeal" class="checkboxC"
-															name="option" value="${goodsDetailSide.s_price}"
-															data-price="8800" data-code="RSD155M1" data-pidx=""
+														<input type="radio" id="hotdeal" name="size" class="checkboxC"
+															value="${goodsDetailSide.s_price}" onclick="totalSideValue()"
+															
 															checked /> <label class="checkbox" for="hotdeal"></label>
 														<label for="hotdeal"> <fmt:formatNumber
 																value="${goodsDetailSide.s_price}" pattern="#,###" />원
@@ -481,10 +592,19 @@ totalEtcValue();
 													<div class="title-type2">수량 선택</div>
 												</div>
 												<div class="quantity-box">
-													<button class="btn-minus goods"></button>
-													<input type="number" class="opt_qty" value="1" id="qty"
-														max="9" readonly>
-													<button class="btn-plus goods"></button>
+													<button class="btn-minus side"
+														onclick="minusNomalSide()"></button>
+													<input class="setNum" id="sideNomalSetNum"
+														type="number" value="1" readonly> <input
+														class="setName" type="hidden" id="sideName"
+														value="${goodsDetailSide.s_name}"> <input
+														class="setCode" type="hidden"
+														value="${goodsDetailSide.s_code}"> <input
+														class="setPrice" type="hidden"
+														id="sidePrice"
+														value="${goodsDetailSide.s_price}">
+													<button class="btn-plus side"
+														onclick="plusNomalSide()"></button>
 												</div>
 											</div>
 											<div class="step-wrap">
@@ -513,8 +633,8 @@ totalEtcValue();
 																			<button class="btn-minus etc"
 																				onclick="minusDrinkEtc(${status.index})"></button>
 																			<input class="setNum" id="drinkSetNum${status.index}"
-																				type="number" value="0" readonly> <input
-																				class="setName" id="etcName${status.index}"
+																				type="number" value="0" readonly>
+																				<input class="setName" id="etcName${status.index}"
 																				type="hidden" value="${goodsDrinkEtcList.d_name}">
 																			<input class="setCode" type="hidden"
 																				value="${goodsDrinkEtcList.d_code}"> <input
@@ -540,7 +660,8 @@ totalEtcValue();
 										<dl>
 											<dt>사이드디시</dt>
 											<dd>
-												<div class="total-side">없음</div>
+												<div class="total-side">
+												<p>${goodsDetailSide.s_name}(<fmt:formatNumber value="${goodsDetailSide.s_price}" pattern="#,###,###" />원)x1</p></div>
 											</dd>
 										</dl>
 										<dl>
