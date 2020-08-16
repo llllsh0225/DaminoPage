@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,52 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
+<script>
+var drinkCnt = 0;
 
+//음료 카운트
+function plusDrink(idx){
+	var drinkSetNum = Number($('#drinkSetNum' + idx).val());
+	var etcName = $('#etcName' + idx).val();
+	var etcPrice = Number($('#etcPrice' + idx).val());
+	
+		drinkSetNum = Number($('#drinkSetNum' + idx).val());
+		drinkSetNum += 1;
+		drinkCnt += 1;
+		$('#drinkSetNum' + idx).val(drinkSetNum);
+		
+	
+}
+
+function minusDrink(idx){			
+	var drinkSetNum = Number($('#drinkSetNum' + idx).val());
+	var etcName = $('#etcName' + idx).val();
+	var etcPrice = Number($('#etcPrice' + idx).val());
+		
+	drinkSetNum -= 1;
+	
+	$('#drinkSetNum' + idx).val(drinkSetNum);
+			
+	if(drinkSetNum == 0){
+		$('#drinkSetNum' + idx).val(0);
+		drinkSetNum = Number($('#drinkSetNum' + idx).val());
+		drinkCnt -= 1;
+		
+	}else if(drinkSetNum < 0){
+		$('#drinkSetNum' + idx).val(0);	
+	}else{	
+		drinkSetNum = Number($('#drinkSetNum' + idx).val());
+		
+		drinkCnt -= 1;
+		
+	}
+	
+}
+
+function addGoods(idx){
+	alert("음료는 피자 1판당 최대 2개까지, 사이드디시 1개당 최대 1개까지 주문이 가능합니다.");
+}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -139,12 +185,12 @@
 							</div>
 							<div class="menu-list inner-box">
 								<!-- 음료 시작-->
-									<ul>
-									<c:forEach var="goodsDrinkEtcList" items="${goodsDrinkEtcList}">
+								<ul>
+									<c:forEach var="goodsDrinkEtcList" items="${goodsDrinkEtcList}" varStatus="status">
 										<li>
 											<div class="prd-img">
 												<img class="lazyload"
-												src="<c:url value= '/resources/images/admin/goods/${goodsDrinkEtcList.d_image}' />"
+													src="<c:url value= '/resources/images/admin/goods/${goodsDrinkEtcList.d_image}' />"
 													alt="${goodsDrinkEtcList.d_name}" />
 											</div>
 
@@ -154,21 +200,29 @@
 
 											<div class="prd-price">
 												<div class="price-box">
-													<span class="price">${goodsDrinkEtcList.d_price}</span>
+													<span class="price">
+													<fmt:formatNumber value="${goodsDrinkEtcList.d_price}" pattern="#,###" />원</span>
 												</div>
 											</div>
-
-											<div class="quantity-group">
-												<div class="quantity-box type2">
-													<button type="button" class="btn-minus"></button>
-													<input type="number" value="1" id="RDK001L6_qty">
-													<button type="button" class="btn-plus"></button>
-												</div>
-												<a href="#" class="btn-cart">주문</a>
-											</div>
+										<div class="quantity-group">
+										<div class="quantity-box type2" style="width:144px">
+												<button class="btn-minus etc"
+													onclick="minusDrink(${status.index})"></button>
+												<input class="setNum" id="drinkSetNum${status.index}"
+													type="number" value="1" readonly> <input
+													class="setName" id="etcName${status.index}" type="hidden"
+													value="${goodsDrinkEtcList.d_name}">
+													<input
+													class="setPrice" type="hidden" id="etcPrice${status.index}"
+													value="${goodsDrinkEtcList.d_price}">
+												<button class="btn-plus etc"
+													onclick="plusDrink(${status.index})"></button>
+										</div>		
+										<a href="javascript:addGoods(${status.index});" class="btn-cart" style="margin:5px">주문</a>
+										</div>	
 										</li>
-										</c:forEach>
-									</ul>
+									</c:forEach>
+								</ul>
 							</div>
 							<!-- END 음료 -->
 
