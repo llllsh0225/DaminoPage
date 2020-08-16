@@ -30,6 +30,7 @@
 			var goodsQty = $('#goodsQty').val();
 			var goodsQtyArr = goodsQty.split(",");
 			
+			var toppingMenu = "";
 			var pizzaNameArr = []; // 피자제품명을 담는 배열
 			var toppingNameArr = []; // 토핑제품명을 담는 배열
 			var etcNameArr = []; // 사이드, 음료&기타 제품명을 담는 배열
@@ -42,11 +43,13 @@
 					goodsArr[i] = pizzaMenu[0];
 					console.log(pizzaNameArr[i]);
 					pizzaMenu.splice(0, 1);
-					var toppingMenu = "";
+					
 					for(var j=0; j<pizzaMenu.length; j++){
+						pizzaMenu[j] = pizzaMenu[j].replace("-","");
 						toppingMenu += pizzaMenu[j];
+						toppingMenu += "<br>&nbsp;&nbsp;&nbsp;&nbsp;";
+						toppingNameArr[i] = toppingMenu;
 					}
-					console.log(toppingMenu);
 				}else{
 					goodsArr[i] = goodsNameArr[i];
 				}
@@ -56,6 +59,16 @@
 				$('.goods_name').text(goodsArr[0] + " x " + goodsQty[0] + " 외 " + String(goodsArr.length - 1) + "건");
 			}else{
 				$('.goods_name').text(goodsArr[0]);
+			}
+			
+			toppingMenu = toppingMenu.replace("-","");
+			
+			for(var i=0; i<goodsArr.length; i++){
+				$('#goodsNameQty' + i).text(goodsArr[i] + " x " + goodsQtyArr[i]);
+				$('#goodsTotalPrice' + i).text(goodsPriceArr[i]);
+				if(pizzaNameArr[i] != null){
+					$('#pizzaTopping' + i).html(toppingNameArr[i]);
+				}
 			}
 		}
 	</script>
@@ -304,15 +317,16 @@
 											<span style="display:none;" id="goods_name_brief">30 치즈&뉴욕 스트립 스테이크+포테이토 더블치즈엣지오리지널 M x1</span>
 											
 											<div class="item">
-												<span>제품명&nbsp; x 제품수량</span>
-												/&nbsp;<span>제품가격</span>원
+											<c:forEach var="goods" items="${quickOrderGoodsList }" varStatus="status">
+												<span id="goodsNameQty${status.index }"></span>
+												/&nbsp;<span id="goodsTotalPrice${status.index }"></span>원
 												
 												<!-- 토핑 -->
 												<ul class="addition">
-													<li>토핑이름 (토핑수량 X 피자수량)</li>
-														
-													</ul>
+													<li id="pizzaTopping${status.index }"></li>
+												</ul>
 												<!-- //토핑 -->
+											</c:forEach>
 											</div>
 											</div>
 									</li>
