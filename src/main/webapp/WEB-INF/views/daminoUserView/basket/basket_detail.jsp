@@ -1,35 +1,133 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
-<link rel="shortcut icon" href="https://cdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon"
+	href="https://cdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
-<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/basket_w.js"></script>
+<script type="text/javascript"
+	src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
+<script type="text/javascript"
+	src="https://cdn.dominos.co.kr/renewal2018/w/js/basket_w.js"></script>
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/card_add.css' />">
 
-<script src="https://cdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
+<script
+	src="https://cdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
 
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
+<!-- 다음 주소 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script>
+var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
+
+	function addAddress() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+						var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraRoadAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraRoadAddr += (extraRoadAddr !== '' ? ', '
+									+ data.buildingName : data.buildingName);
+						}
+						// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if (extraRoadAddr !== '') {
+							extraRoadAddr = ' (' + extraRoadAddr + ')';
+						}
+						// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+						if (fullRoadAddr !== '') {
+							fullRoadAddr += extraRoadAddr;
+						}
+
+						// 시,구,동까지의 주소 정보를 hidden에 저장
+						$('#addrVal').val(fullRoadAddr);
+						console.log("주소 : " + $('#addrVal').val());
+
+						// 구 정보를 hidden에 저장
+						var addrArr = fullRoadAddr.split(" "); // 스페이스바 구분자로 주소를 분리
+						$('#guVal').val(addrArr[1]);
+						var guName = $('#guVal').val();
+
+						// '구'에 해당하는 매장명 목록을 받아오기
+						$.ajax({
+									url : 'getStoreRegion.do',
+									contentType : "application/json; charset=UTF-8;",
+									type : 'post',
+									data : JSON.stringify({
+										guName : guName,
+									}),
+									async : false,
+									success : function(data) {
+										if (data == 'success') {
+											console.log(data);
+											// 상세주소 입력 페이지 열기
+											
+											 window.open("openDetailAddress.do","상세주소 & 배달매장 입력",
+													"top=50, left=60, width=450, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'"); 
+										} else {
+											alert('배달 불가 주소입니다.');
+											return;
+										}
+									},
+									error : function() {
+										alert('처리도중 오류가 발생했습니다.');
+									}
+
+								})
+					}
+				}).open();
+	}
+	
+	function receiveDetailAddr(addr, selectStore){
+		$('#detailAddrVal').val(addr);
+		$('#selectStore').val(selectStore);
+	}
+	
+	function addAddrRow(){
+		++addressNextRowSeq;
+		
+		alert(addressNextRowSeq);
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -45,8 +143,7 @@
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -75,9 +172,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -252,12 +347,16 @@
 									</h3>
 								</div>
 								<div class="deli-info">
+									<input type="hidden" id="addrVal" value="" />
+									<input type="hidden" id="detailAddrVal" value="" />
+										<input type="hidden" id="guVal" value="" />
+										<input type="hidden" id="selectStore" value="" />
 									<div class="address">배송지 주소</div>
 									<div class="store">
 										<span>월계점</span>&nbsp;02-915-3082
 									</div>
 									<div class="btn-wrap">
-										<a href="javascript:goBranch();" class="btn-type4-brd">수정</a>
+										<a href="javascript:addAddress();" class="btn-type4-brd">수정</a>
 									</div>
 								</div>
 							</div>
@@ -345,9 +444,8 @@
 							<!-- 주문하기 버튼 -->
 
 							<div class="btn-wrap">
-								<a
-									href="goodslist.do"
-									class="btn-type-brd"><i class="ico-plus"></i>메뉴 추가하기</a> <a
+								<a href="goodslist.do" class="btn-type-brd"><i
+									class="ico-plus"></i>메뉴 추가하기</a> <a
 									href="javascript:myCouponDown('O', '36900');"
 									class="btn-type v3">주문하기</a>
 							</div>
@@ -394,8 +492,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -443,27 +540,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>
