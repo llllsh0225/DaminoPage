@@ -130,15 +130,58 @@ $(document).ready(function(){
 //사용자 선택 내용을 POST 방식으로 넘겨주기
 function saveBasket(){
 	alert("saveBasket 입니다");
+	
+// 선택된 옵션 value
+	var selectPrice = $(':radio[name="size"]:checked').val(); //사이즈에 따른 피자 가격
+	//피자 사이즈
+	var selectSize = $(':radio[name="size"]:checked').attr('p-size');
+	if(typeof selectSize == "undefined"){
+		selectSize = 'L';
+	}
+	
+	var selectGoodsName = $('#p_name').val();
+	var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
+	var selectPizzaSetNum = Number($('#pizzaSetNum').val()); // 선택 수량
+	
+	console.log("selectPrice : " + price);
+	console.log("selectGoodsName : " + selectGoodsName);
+	console.log("selectStrDough : " + selectStrDough);
+	console.log("selectPizzaSetNum : " + selectPizzaSetNum);
+	
+	$("#myBasket").submit();
+	/* $.ajax({
+    	type: "POST",
+    	url: "/detail/my_basket.do",
+    	data: {
+    		'goods_code': rpzCode, //피자 코드
+    		'topping': toppingList, //토핑 정보
+    		'side': sideList, //사이드디시 정보
+    		'etc_drink': etcList //음료및기타 정보
+    	},
+    	success:function(data) {
+    		if(data.resultData.result == "success") {
+    			
+    			addBasketListAll("addPZ", rpzCode, $("#qty").val(), toppingList, "", addBasketComplete, returnUrl, menuCode, "RPZ", sideList, etcList);
+    			
+    		} else {
+    			alert(data.resultData.result);
+    			return;
+    		}
+    	},
+    	error: function (error){
+    		alert("다시 시도해주세요.");
+    	}
+    }); */
 }	
 </script>
 <script>
 //도우의 추가 요금
 var doughPrice = 0;
+var price = $(':radio[name="size"]:checked').val();
 
 function sum(){
 	
-	var price = ($(':radio[name="size"]:checked').val());
+	price = $(':radio[name="size"]:checked').val();
 	doughPrice = 0;
 	var pizzaSum = 0;
 	var etcSum = 0;
@@ -211,7 +254,7 @@ function totalDoughValue(){
 	var doughInfo = "";	
 	
 	//피자 사이즈에 대한 가격
-	var price = ($(':radio[name="size"]:checked').val());
+	price = ($(':radio[name="size"]:checked').val());
 	
 	if(typeof price == "undefined"){
 		price = $('#size1').val();
@@ -426,266 +469,6 @@ function minusDrink(idx){
 }
 
 </script>
-
-</head>
-<body>
-	<div id="wrap">
-		<header id="header">
-			<div class="top-wrap">
-				<div class="inner-box" id="tip-box-top">
-					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
-						<h1 class="hidden">다미노피자</h1>
-					</a>
-
-					<div class="location active">
-						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
-					</div>
-
-					<div class="util-nav">
-						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
-					</div>
-				</div>
-			</div>
-
-			<div id="gnb" class="gnb-wrap">
-				<div class="gnb-inner">
-					<ul>
-						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
-						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
-						<li><a href="branch.do"><span>매장검색</span></a></li>
-					</ul>
-					<a href="#" class="snb-more">더보기</a>
-				</div>
-
-				<div class="snb-wrap">
-					<div class="inner-box">
-						<div class="mnu-wrap">
-							<div class="mnu-box">
-								<a href="mania.do">다미노 서비스</a>
-								<ul>
-									<li><a href="mania.do">매니아 혜택</a></li>
-									<li><a href="quickOrder.do">퀵 오더</a></li>
-									<li><a href="groupOrder.do">단체주문 서비스</a></li>
-								</ul>
-							</div>
-							<div class="mnu-box">
-								<a href="faqMain.do">고객센터</a>
-								<ul>
-									<li><a href="faqMain.do">자주하는 질문</a></li>
-									<li><a href="qnaForm.do">온라인 신문고</a></li>
-								</ul>
-							</div>
-							<div class="mnu-box">
-								<a href="overview.do">회사소개</a>
-								<ul>
-									<li><a href="overview.do">한국다미노피자</a></li>
-									<li><a href="chainstore1.do">가맹점 모집</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="notice-box">
-							<a href="noticeList.do">공지사항</a>
-							<ul>
-								<li><a href="noticeList.do">다미노뉴스</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
-		<!-- //header -->
-		<script>
-			// 상품 슬라이드
-
-			//전체보기
-
-			// 트래킹
-
-			// 토핑 가져오
-			//피자 코드 만들기
-			//토핑 코드 만들기
-			//사이드 코드 만들기
-			//음료 코드 만들기
-		</script>
-
-		<!-- container -->
-		<div id="container">
-			<input type="hidden" class="options" id="RPZ161DL"
-				data-ctgrnm="더블 크러스트 " data-options="L:" data-gubun="102"
-				data-price="34900" data-pricecomma="34,900" /> <input type="hidden"
-				class="options" id="RPZ161DM" data-ctgrnm="더블 크러스트 "
-				data-options="M:" data-gubun="102" data-price="29000"
-				data-pricecomma="29,000" />
-			<section id="content">
-				<div class="sub-type menu">
-					<div class="">
-						<!-- inner-box -->
-						<!-- 1depth 메뉴명 & 네비게이션 -->
-						<!-- //1depth 메뉴명 & 네비게이션 -->
-
-						<!-- 추후 공통화 예정 -->
-						<div class="page-title-wrap inner-box">
-							<h2 class="page-title">메뉴</h2>
-							<div class="depth-area">
-								<ol>
-									<li><a href="main.do">홈</a></li>
-									<li><a href="goodslist.do">메뉴</a></li>
-									<li><strong>${goodsDetail.p_name}</strong></li>
-								</ol>
-							</div>
-						</div>
-
-						<article class="menu-list-area menu-detail-area">
-							<!-- menu-list -->
-							<div class="inner-box">
-								<div class="menu-nav-wrap">
-									<div class="menu-nav">
-										<ul>
-											<li class="active"><a href="goodslist.do">피자</a></li>
-											<li><a href="goodsSideList.do">사이드디시</a></li>
-											<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
-										</ul>
-									</div>
-									<div class="sch-box">
-										<span>인기순</span>
-										<div class="sch-slider"></div>
-										<div class="sch-slider-nav"></div>
-										<a href="javascript:;" class="btn-open"> <span
-											class="hidden">열기</span><i></i>
-										</a>
-									</div>
-								</div>
-								<script>
-								<!-- 피자 제한 알고리즈 -->
-									
-								</script>
-							</div>
-							<!-- //menu-list -->
-
-							<div class="menu-info inner-box">
-								<div class="img-wrap">
-									<div class="view-box">
-										<!-- 대표 이미지 슬라이드 -->
-										<div class="menu-slider-view2">
-											<div>
-												<img
-													src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
-											</div>
-										</div>
-										<div class="menu-slider-viewdouble" style="display: none;"></div>
-
-										<!-- //대표 이미지 슬라이드 -->
-										<a
-											href="javascript:UI.layerPopUp({selId:'#pop-zoom'});" class="btn-detail"> <i class="ico-sch2"></i> <span
-											class="hidden">상세버튼</span>
-										</a>
-									</div>
-									<div class="guide-box2">모든 사진은 이미지컷으로 실제 제품과 다를 수 있습니다.</div>
-									<div class="guide-box2">원산지 정보는 사진 우측 하단 돋보기 메뉴를 통해 확인
-										가능합니다.</div>
-								</div>
-								<div class="detail-wrap">
-									<div class="menu-box">
-										<div class="label-box"></div>
-										<div class="title-box">
-											<h3 class="title pizza">${goodsDetail.p_name}</h3>
-
-											<div class="hashtag">
-												<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
-											</div>
-										</div>
-
-										<div class="btn-wrap2">
-											<a href="#" class="btn-type-left v2">영양성분 및 알레르기 유발성분</a>
-										</div>
-									</div>
-
-									<!-- 주문 옵션 선택 -->
-									<div class="select-box">
-										<div class="step-wrap">
-											<div class="title-wrap">
-												<div class="title-type2">사이즈 선택</div>
-											</div>
-											<div class="size-box">
-												<!-- checkbox 활성화 일 경우 -->
-												<div class="chk-box2 selected">
-													<input type="radio" id="size1" name="size"
-													value="${goodsDetail.p_price_l}" onclick="totalDoughValue()" /> <label
-														class="checkbox" for="size1"></label>
-														<label for="size1" class="size"><%-- ${goodsDetail.p_price_l} --%>
-														 <fmt:formatNumber value="${goodsDetail.p_price_l}"
-															pattern="#,###" />원 
-														
-													</label>
-												</div>
-												<!-- //checkbox 활성화 일 경우 -->
-												<div class="chk-box2">
-													<input type="radio" id="size2" name="size"
-													value="${goodsDetail.p_price_m}" onclick="totalDoughValue()" />
-													<label class="checkbox" for="size2"></label><%-- ${goodsDetail.p_price_m} --%>
-													 <label for="size2" class="size"> <fmt:formatNumber
-															value="${goodsDetail.p_price_m}" pattern="#,###" />원 
-														
-													</label>
-												</div>
-											</div>
-										</div>
-										<div class="step-wrap">
-											<div class="title-wrap">
-												<div class="title-type2">도우 선택</div>
-												<div class="notice-text side">
-													<a href="javascript:UI.layerPopUp({selId:'#pop-dough'})">도우의
-														특징</a>
-												</div>
-											</div>
-
-											<div class="option-box dough">
-												<input type="hidden" value="${goodsDetail.p_dough}" id="dough_db"/>
-												<c:forEach items="${goodsDetail.p_dough}" var="p_dough"
-													varStatus="status">
-													<div class="chk-box">
-														<input type="radio" id="${status.index}" name="p_dough"
-															class="dough" value="${p_dough}"
-															onclick="totalDoughValue()" /> <label class="checkbox"
-															for="${status.index}" id="p_dough1"></label> <label
-															id="p_dough" for="${status.index}" class="p_dough">
-															${p_dough} <c:if test="${p_dough eq '더블 치즈 엣지' }">
-																<em>+5,000원</em>
-															</c:if> <c:if test="${p_dough eq '슈퍼 시드 함유 도우' }">
-																<em>+2,000원</em>
-															</c:if>
-														</label>
-
-													</div>
-												</c:forEach>
-												<%-- --%>
-											</div>
-
-										</div>
-										<div class="step-wrap">
-											<div class="title-wrap topping">
-												<div class="title-type2">토핑추가</div>
-												<div class="notice-text side">
-													<a href="javascript:UI.layerPopUp({selId:'#pop-allergy2'})">토핑
-														알레르기 유발성분</a>
-												</div>
-												<a href="#" class="btn-toggle-close"> <span
-													class="hidden">열기</span>
-												</a>
-											</div>
-											<div class="js_toggle_box" style="">
-												<ul class="list-text-v4">
-													<li>토핑추가는 피자 한판 당 5개까지 추가 가능</li>
-												</ul>
-												<div class="tab-type js_tab">
-													<ul class="col-3 topping">
-														<li class="active"><a href="#topping1">메인</a></li>
-														<li class=""><a href="#topping2">치즈</a></li>
-														<li class=""><a href="#topping3">애프터</a></li>
-													</ul>
-												</div>
-
-												<div id="allToppingLayer">
 	<script>
 	
 	$(document).ready(function() {
@@ -1041,6 +824,270 @@ function minusDrink(idx){
 			}
 	
 	</script>
+</head>
+<body>
+	<div id="wrap">
+		<header id="header">
+			<div class="top-wrap">
+				<div class="inner-box" id="tip-box-top">
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
+						<h1 class="hidden">다미노피자</h1>
+					</a>
+
+					<div class="location active">
+						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
+					</div>
+
+					<div class="util-nav">
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+					</div>
+				</div>
+			</div>
+
+			<div id="gnb" class="gnb-wrap">
+				<div class="gnb-inner">
+					<ul>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
+					</ul>
+					<a href="#" class="snb-more">더보기</a>
+				</div>
+
+				<div class="snb-wrap">
+					<div class="inner-box">
+						<div class="mnu-wrap">
+							<div class="mnu-box">
+								<a href="mania.do">다미노 서비스</a>
+								<ul>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
+								</ul>
+							</div>
+							<div class="mnu-box">
+								<a href="faqMain.do">고객센터</a>
+								<ul>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
+								</ul>
+							</div>
+							<div class="mnu-box">
+								<a href="overview.do">회사소개</a>
+								<ul>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="notice-box">
+							<a href="noticeList.do">공지사항</a>
+							<ul>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- //header -->
+		<script>
+			// 상품 슬라이드
+
+			//전체보기
+
+			// 트래킹
+
+			// 토핑 가져오
+			//피자 코드 만들기
+			//토핑 코드 만들기
+			//사이드 코드 만들기
+			//음료 코드 만들기
+		</script>
+
+		<!-- container -->
+		<div id="container">
+			<input type="hidden" class="options" id="goods_l"
+				data-p_name="${goodsDetail.p_name} " data-size="${goodsDetail.p_size_l}" data-p_code="${goodsDetail.p_code}"
+				data-price_l="${goodsDetail.p_price_l}"  />
+			<input type="hidden" class="options" id="goods_m" data-p_name="${goodsDetail.p_name}"
+				data-size="${goodsDetail.p_size_m}" data-p_code="${goodsDetail.p_code}" data-price_m="${goodsDetail.p_price_m}"
+				 />
+			
+			<section id="content">
+				<div class="sub-type menu">
+					<div class="">
+						<!-- inner-box -->
+						<!-- 1depth 메뉴명 & 네비게이션 -->
+						<!-- //1depth 메뉴명 & 네비게이션 -->
+
+						<!-- 추후 공통화 예정 -->
+						<div class="page-title-wrap inner-box">
+							<h2 class="page-title">메뉴</h2>
+							<div class="depth-area">
+								<ol>
+									<li><a href="main.do">홈</a></li>
+									<li><a href="goodslist.do">메뉴</a></li>
+									<li><strong>${goodsDetail.p_name}</strong></li>
+								</ol>
+							</div>
+						</div>
+
+						<article class="menu-list-area menu-detail-area">
+							<!-- menu-list -->
+							<div class="inner-box">
+								<div class="menu-nav-wrap">
+									<div class="menu-nav">
+										<ul>
+											<li class="active"><a href="goodslist.do">피자</a></li>
+											<li><a href="goodsSideList.do">사이드디시</a></li>
+											<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
+										</ul>
+									</div>
+									<div class="sch-box">
+										<span>인기순</span>
+										<div class="sch-slider"></div>
+										<div class="sch-slider-nav"></div>
+										<a href="javascript:;" class="btn-open"> <span
+											class="hidden">열기</span><i></i>
+										</a>
+									</div>
+								</div>
+								<script>
+								<!-- 피자 제한 알고리즈 -->
+									
+								</script>
+							</div>
+							<!-- //menu-list -->
+
+							<div class="menu-info inner-box">
+								<div class="img-wrap">
+									<div class="view-box">
+										<!-- 대표 이미지 슬라이드 -->
+										<div class="menu-slider-view2">
+											<div>
+												<img
+													src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
+											</div>
+										</div>
+										<div class="menu-slider-viewdouble" style="display: none;"></div>
+
+										<!-- //대표 이미지 슬라이드 -->
+										<a
+											href="javascript:UI.layerPopUp({selId:'#pop-zoom'});" class="btn-detail"> <i class="ico-sch2"></i> <span
+											class="hidden">상세버튼</span>
+										</a>
+									</div>
+									<div class="guide-box2">모든 사진은 이미지컷으로 실제 제품과 다를 수 있습니다.</div>
+									<div class="guide-box2">원산지 정보는 사진 우측 하단 돋보기 메뉴를 통해 확인
+										가능합니다.</div>
+								</div>
+								<form action="/DaminoPage/my_basket.do" method="post" id="myBasket">
+								<div class="detail-wrap">
+									<div class="menu-box">
+										<div class="label-box"></div>
+										<div class="title-box">
+											<h3 class="title pizza">${goodsDetail.p_name}</h3>
+
+											<div class="hashtag">
+												<span>#주문 시 사이드디시 반값</span> <span>#세상에 없는 바삭, 고소한 맛</span>
+											</div>
+										</div>
+
+										<div class="btn-wrap2">
+											<a href="#" class="btn-type-left v2">영양성분 및 알레르기 유발성분</a>
+										</div>
+									</div>
+
+									<!-- 주문 옵션 선택 -->
+									<div class="select-box">
+										<div class="step-wrap">
+											<div class="title-wrap">
+												<div class="title-type2">사이즈 선택</div>
+											</div>
+											<div class="size-box">
+												<!-- checkbox 활성화 일 경우 -->
+												<div class="chk-box2 selected">
+												<%-- 
+												<c:if test="chk-box2 selected"> --%>
+													<input type="radio" id="size1" name="size" p-size="L"
+													value="${goodsDetail.p_price_l}" onclick="totalDoughValue()" />
+													<label class="checkbox" for="size1" id="size"></label>
+														<label for="size1" class="size">
+														 <fmt:formatNumber value="${goodsDetail.p_price_l}"
+															pattern="#,###" />원 
+														
+													</label>
+												</div>
+												<!-- //checkbox 활성화 일 경우 -->
+												<div class="chk-box2">
+													<input type="radio" id="size2" name="size" p-size="M"
+													value="${goodsDetail.p_price_m}" onclick="totalDoughValue()" />
+													<label class="checkbox" for="size2" id="size"></label>
+													 <label for="size2" class="size"> <fmt:formatNumber
+															value="${goodsDetail.p_price_m}" pattern="#,###" />원 
+														
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="step-wrap">
+											<div class="title-wrap">
+												<div class="title-type2">도우 선택</div>
+												<div class="notice-text side">
+													<a href="javascript:UI.layerPopUp({selId:'#pop-dough'})">도우의
+														특징</a>
+												</div>
+											</div>
+
+											<div class="option-box dough">
+												<input type="hidden" value="${goodsDetail.p_dough}" id="dough_db"/>
+												<c:forEach items="${goodsDetail.p_dough}" var="p_dough"
+													varStatus="status">
+													<div class="chk-box">
+														<input type="radio" id="${status.index}" name="p_dough"
+															class="dough" value="${p_dough}"
+															onclick="totalDoughValue()" /> <label class="checkbox"
+															for="${status.index}" id="p_dough1"></label> <label
+															id="p_dough" for="${status.index}" class="p_dough">
+															${p_dough} <c:if test="${p_dough eq '더블 치즈 엣지' }">
+																<em>+5,000원</em>
+															</c:if> <c:if test="${p_dough eq '슈퍼 시드 함유 도우' }">
+																<em>+2,000원</em>
+															</c:if>
+														</label>
+
+													</div>
+												</c:forEach>
+												<%-- --%>
+											</div>
+
+										</div>
+										<div class="step-wrap">
+											<div class="title-wrap topping">
+												<div class="title-type2">토핑추가</div>
+												<div class="notice-text side">
+													<a href="javascript:UI.layerPopUp({selId:'#pop-allergy2'})">토핑
+														알레르기 유발성분</a>
+												</div>
+												<a href="#" class="btn-toggle-close"> <span
+													class="hidden">열기</span>
+												</a>
+											</div>
+											<div class="js_toggle_box" style="">
+												<ul class="list-text-v4">
+													<li>토핑추가는 피자 한판 당 5개까지 추가 가능</li>
+												</ul>
+												<div class="tab-type js_tab">
+													<ul class="col-3 topping">
+														<li class="active"><a href="#topping1">메인</a></li>
+														<li class=""><a href="#topping2">치즈</a></li>
+														<li class=""><a href="#topping3">애프터</a></li>
+													</ul>
+												</div>
+
+												<div id="allToppingLayer">
+
 
 
 
@@ -1160,6 +1207,7 @@ function minusDrink(idx){
 													</div>
 													<div class="quantity-box">
 														<button class="btn-minus goods" onclick="minusPizza()"></button>
+														<input class="setCode" id="p_name" type="hidden" value="${goodsDetail.p_name}">
 														<input type="number" id="pizzaSetNum" class="opt_qty" value="1" 
 															max="9" readonly>
 														<button class="btn-plus goods" onclick="plusPizza()"></button>
@@ -1265,6 +1313,10 @@ function minusDrink(idx){
 												</div>
 											</div>
 											<!-- //주문 옵션 선택 -->
+											</form>
+											</div>
+											</div>
+											
 										</div>
 									</div>
 									<div class="step-wrap step-order">
@@ -1297,7 +1349,7 @@ function minusDrink(idx){
 												<div id="login_order_btn">
 													<span>총 금액</span> <strong class="total-price_sum">0원</strong>
 													<div class="btn-wrap">
-														<a id="btn_basket" href="javascript:;" class="btn-type">
+														<a id="btn_basket" href="javascript:();" class="btn-type">
 															주문하기 </a>
 													</div>
 												</div>

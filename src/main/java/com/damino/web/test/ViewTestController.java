@@ -91,14 +91,13 @@ public class ViewTestController {
 	
 
 	// ---- basket 폴더 ----
-	@RequestMapping("/basketdetail.do")
-	public ModelAndView getBasketDetailPage() {
-		System.out.println("장바구니 상세페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/basket/basket_detail");
-		return mav;
-	}
+	/*
+	 * @RequestMapping("/basketdetail.do") public ModelAndView getBasketDetailPage()
+	 * { System.out.println("장바구니 상세페이지 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView();
+	 * mav.setViewName("/basket/basket_detail"); return mav; }
+	 */
 	
 	@RequestMapping("/basketempty.do")
 	public ModelAndView getBasketEmptyPage() {

@@ -1,5 +1,6 @@
 package com.damino.web.user.goods;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,10 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
+import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
+
 @Controller
 public class GoodsListController {
 	@Autowired
 	private GoodsListService goodsListService;
+	@Autowired
+	private MarketAdminRegistService marketAdminRegistService;
+	
+	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
+		private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
+		
 
 	@RequestMapping("/goodslist.do")
 	public ModelAndView getPizzaList(ModelAndView mav) {
@@ -46,17 +56,7 @@ public class GoodsListController {
 
 		return mav;
 	}
-
-	/*
-	 * @RequestMapping("/goodsToppingList.do") public ModelAndView
-	 * getToppingList(ModelAndView mav) { System.out.println("토핑 리스트 열기");
-	 * 
-	 * List<GoodsToppingVO> goodsToppingList = goodsListService.getToppingList();
-	 * 
-	 * mav.addObject("goodsList", goodsToppingList); mav.setViewName("/goods/list");
-	 * 
-	 * return mav; }
-	 */
+	
 	@RequestMapping("/goodsDrinkEtcList.do")
 	public ModelAndView getDrinkEtcList(ModelAndView mav) {
 		System.out.println("음료&기타 메뉴 열기");
@@ -68,33 +68,8 @@ public class GoodsListController {
 
 		return mav;
 	}
-
 	
-	/*
-	 * @RequestMapping(value = "/detailSlide.do", method = RequestMethod.GET) public
-	 * String goodsDetail(@ModelAttribute GoodsPizzaVO vo) {
-	 * 
-	 * // 서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
-	 * System.out.println("detailSlide.do");
-	 * System.out.println("[상품 상세보기 화면 진입 시도] :"); System.out.println("피자 코드 : " +
-	 * vo.getP_code()); System.out.println("피자 이미지 : " + vo.getP_image());
-	 * 
-	 * goodsListService.getUserPizzaGoods(vo);
-	 * 
-	 * return "redirect:goodslist.do"; }
-	 * 
-	 * @RequestMapping(value = "/detailAjax.do", method = RequestMethod.GET) public
-	 * String goodsDetailAjax(@ModelAttribute GoodsPizzaVO vo) {
-	 * 
-	 * // 서비스에서 p_code, p_name 기준 조회하는 쿼리 제작해야함
-	 * System.out.println("[상품 상세보기 화면 진입 시도] :"); System.out.println("피자 코드 : " +
-	 * vo.getP_code()); System.out.println("피자 이미지 : " + vo.getP_image());
-	 * 
-	 * goodsListService.getUserPizzaGoods(vo);
-	 * 
-	 * return "redirect:goodslist.do"; }
-	 */
-	
+	/** 사용자 선택 피자 메뉴 */
 	@RequestMapping("/detail.do")
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo) {
 		System.out.println("사용자 선택 피자메뉴 열기");
@@ -102,7 +77,6 @@ public class GoodsListController {
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);
 		String p_name = request.getParameter("p_name");
-		//String p_image = request.getParameter("p_image");
 		
 		//사용자 선택 메뉴 정보 서비스 호출
 		GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
@@ -140,6 +114,40 @@ public class GoodsListController {
 		return mav;
 	}
 	
+	/** 사용자 선택 피자 메뉴 - 주문하기 */
+	@RequestMapping(value="my_basket.do", method = RequestMethod.POST)
+	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo) {
+		
+		
+		//basketdetail.do
+		
+		mav.setViewName("/basket/basket_detail");
+		return mav;
+	}
+	
+	@RequestMapping(value="/getStoreRegion.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String getStoreRegion(@RequestBody Map<String, Object> param) {
+		String guName = (String)param.get("guName");
+		System.out.println("구 : " + guName);
+		
+		storeNameList = marketAdminRegistService.searchStore(guName);
+		System.out.println(storeNameList);
+		
+		if(storeNameList.size() != 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping("/openDetailAddress.do")
+	public ModelAndView openDetailAddress(ModelAndView mav) {
+		mav.addObject("storeNameList", storeNameList);
+		mav.setViewName("/basket/detailAddr");
+		return mav;
+	}
+	
 	@RequestMapping("/side.do")
 	public ModelAndView goSideView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsSideVO vo) {
 		System.out.println("사용자 선택 사이드디시 메뉴 열기");
@@ -163,25 +171,11 @@ public class GoodsListController {
 		//사이드디시 불러오기
 		mav.addObject("goodsDetailSide", goodsDetailSide);
 		
-		//request parameter에서 받은 피자 이름
-		//mav.addObject("s_name", s_name);
-		//mav.addObject("s_code", s_code);
 		mav.setViewName("/goods/detail_goods_side");
 
 		return mav;
 	}
-	
-	@RequestMapping("/usersDough.do")
-	public ModelAndView usersDough(ModelAndView mav, @ModelAttribute GoodsPizzaVO vo) {
-		
-		  System.out.println("선택 가능 도우 : " + vo.getP_dough());
-		  
-		GoodsPizzaVO userDough = goodsListService.getUserDoughGoods(vo);
-		  
-		mav.addObject("userDough", userDough);
-		mav.setViewName("/goods/detail_goods");
-		return mav;
-	}
+
 	
 
 }
