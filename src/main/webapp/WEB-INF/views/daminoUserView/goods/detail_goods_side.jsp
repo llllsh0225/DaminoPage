@@ -71,8 +71,6 @@ var etcSumArr = []; //음료 총 합계 정보
 
 
 function sum(){
-	alert("sum() 입니다");
-	
 	var etcSum = 0;
 	
 	totalEtcSum = 0;
