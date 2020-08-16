@@ -47,40 +47,99 @@ $(document).ready(function(){
 		var chkBox = document.getElementsByName('p_dough');
 		//checkbox 길이 확인
 		var count = chkBox.length;
-		console.log('라디오버튼 갯수' , count);
 		
 		 for(var i=0; i<splitDoughCode.length; i++){
 			console.log(splitDoughCode[i]);
 			 if(splitDoughCode[i] == chkBox[i]){
-				 chkBox[j].checked = true;
+				 chkBox[i].checked = true;
+			 }else{
+				 chkBox[0].checked = true;
+				//도우의 추가 요금
+					var doughPrice = 0;
+					//도우 이름
+					var doughInfo = "";	
+					
+					//피자 사이즈에 대한 가격
+					var price = ($(':radio[name="size"]:checked').val());
+					
+					if(typeof price == "undefined"){
+						price = $('#size1').val();
+					}
+					
+					var priceNumber = Number(price);
+					var strDough = $(':radio[name="p_dough"]:checked').val(); 
+						
+				   var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val()); //원가 * 피자 선택 수량
+				    
+					if($(':radio[name="p_dough"]:checked').val() != null) {
+						if (strDough == "슈퍼 시드 함유 도우"){
+							doughPrice = 2000;
+							doughInfo = "슈퍼 시드 함유 도우";
+						} else if (strDough == "더블 치즈 엣지") {
+							doughPrice = 5000;
+							doughInfo = "더블 치즈 엣지";
+						} else if (strDough == "오리지널 도우") {
+							doughInfo = "오리지널 도우";
+						} else if (strDough == "나폴리 도우") {
+							doughInfo = "나폴리 도우";
+						}else if (strDough == "오리지널") {
+							doughInfo = "오리지널";
+						} else if (strDough == "나폴리") {
+							doughInfo = "나폴리";
+						} else if (strDough == "씬 도우") {
+							doughInfo = "씬 도우";
+						} else if (strDough == "더블 크러스트"){
+							doughInfo = "더블 크러스트";
+						} else if (strDough == "샌드"){
+							doughInfo = "샌드";
+						}		
+						//priceNumber += doughPrice;
+					} 
+				   console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
+				   var pizzaName = $(".title.pizza").text();
+				   
+				   $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
+				   
+				   if(doughPrice > 0 ){
+						$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+							+"(+" + Number(doughPrice)+"원)/"+ Number(priceNumber)
+							+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+					}else {
+						$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+							+"/"+ price
+							+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+					}
+				   $(".total-count").text((Number($("#pizzaSetNum").val())));
+				   $(".total-price_sum").text(Number(pizzaAmt)+Number(doughPrice) + "원");
+				
 			 }
-		} 
-		
-		
+		} 		
+			//라디오 버튼 선택시 선택된 내용 체크표시 및 기존 선택 내용 체크표시 해제
 		   $("input[type='radio']").change(function () {
 				
 					$('input:radio[name=' + $(this).attr('name') + ']').parent().removeClass('selected');
 					$(this).parent().addClass('selected');
 					
 				}); 
-				 
-		
-	}
-	
-	
+			//주문하기 버튼 클릭시 POST 방식으로 데이터 넘겨주기	 
+		   $("#btn_basket").click(function() {
+			   saveBasket();
+			});		
+}
+
+//사용자 선택 내용을 POST 방식으로 넘겨주기
+function saveBasket(){
+	alert("saveBasket 입니다");
+}	
 </script>
 <script>
-
+//도우의 추가 요금
+var doughPrice = 0;
 
 function sum(){
 	
-	//priceOriginal 은 도우 클래스명
-	//var pizzaAmount = $(".priceOriginal").val().replace(',','');
-	
-	
-	alert("sum() 입니다");
 	var price = ($(':radio[name="size"]:checked').val());
-	var doughPrice = 0;
+	doughPrice = 0;
 	var pizzaSum = 0;
 	var etcSum = 0;
 	totalToppingSum = 0;
@@ -136,16 +195,11 @@ function sum(){
 	
 	var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val());
 	var pizzaAmount = $(".priceOriginal").val();
-	
+	//console.log("pizzaAmt 2 : " + pizzaAmt);
 	//토핑가격 총합 = totalToppingSum
 	etcSum += Number($('.etcSum').val());
-	
-	
-		
-	$(".total-price_sum").text(Number(pizzaAmt
-							+ doughPrice + totalToppingSum + totalEtcSum + totalSideSum) + "원");
-	
-	
+	//console.log("합계금액 2 : " + Number(pizzaAmt+doughPrice));
+	$(".total-price_sum").text(Number(pizzaAmt+ doughPrice + totalToppingSum + totalEtcSum + totalSideSum) + "원");	
 	
 }
 
@@ -173,9 +227,9 @@ function totalDoughValue(){
     var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val()); //원가 * 피자 선택 수량
     
 	if($(':radio[name="p_dough"]:checked').val() != null) {
-		if (strDough == "슈퍼시드 함유 도우"){
+		if (strDough == "슈퍼 시드 함유 도우"){
 			doughPrice = 2000;
-			doughInfo = "슈퍼시드 함유 도우";
+			doughInfo = "슈퍼 시드 함유 도우";
 		} else if (strDough == "더블 치즈 엣지") {
 			doughPrice = 5000;
 			doughInfo = "더블 치즈 엣지";
@@ -197,14 +251,13 @@ function totalDoughValue(){
 		//priceNumber += doughPrice;
 	} 
    console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
-   
    var pizzaName = $(".title.pizza").text();
    
    $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
    
    if(doughPrice > 0 ){
 		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
-			+"(+" + Number(doughPrice)+"원)/"+ price
+			+"(+" + Number(doughPrice)+"원)/"+ Number(priceNumber)
 			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
 	}else {
 		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
@@ -212,7 +265,7 @@ function totalDoughValue(){
 			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
 	}
    $(".total-count").text((Number($("#pizzaSetNum").val())));
-   $(".total-price_sum").html(Number(pizzaAmt+doughPrice) + "원");
+   $(".total-price_sum").text(Number(pizzaAmt)+Number(doughPrice) + "원");
    
    	sum();
 }
@@ -1141,7 +1194,8 @@ function minusDrink(idx){
 																	<div class="prd-cont">
 																		<div class="subject">${goodsSideList.s_name}</div>
 																		<div class="price-box">
-																			<strong>${goodsSideList.s_price}</strong>
+																			<strong><fmt:formatNumber
+																						value="${goodsSideList.s_price}" pattern="#,###" />원</strong>
 																		</div>
 
 																		<div class="quantity-box">
@@ -1187,7 +1241,10 @@ function minusDrink(idx){
 																	<div class="prd-cont">
 																		<div class="subject">${goodsDrinkEtcList.d_name}</div>
 																		<div class="price-box">
-																			<strong>${goodsDrinkEtcList.d_price}</strong>
+																			<strong>
+																			<fmt:formatNumber
+																						value="${goodsDrinkEtcList.d_price}" pattern="#,###" />원
+																				</strong>
 																		</div>
 
 																		<div class="quantity-box">
