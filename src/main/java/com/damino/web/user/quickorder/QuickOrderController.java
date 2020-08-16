@@ -34,6 +34,33 @@ public class QuickOrderController {
 	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
 	
+	@RequestMapping("/quickOrder.do")
+	public ModelAndView getQuickOrderPage(ModelAndView mav, HttpSession session) {
+		System.out.println("퀵오더페이지 열기");
+		
+		String userid = (String) session.getAttribute("userid"); // 세션에 저장된 userid
+		
+		if(userid != null) {
+			// 유저의 저장된 퀵오더 정보 리스트 가져오기
+			List<QuickOrderGoodsVO> quickOrderGoodsList = quickOrderService.getQuickOrderGoodsList(userid);	
+			QuickOrderAddressVO defaultAddress = quickOrderService.getDefaultDeliveryAddress(userid);
+			int totalPrice = 0; // 저장된 제품의 총 가격
+			
+			for(int i=0; i<quickOrderGoodsList.size(); i++) {
+				totalPrice += quickOrderGoodsList.get(i).getQuick_price();
+				System.out.println("총 가격 : " + totalPrice);
+			}
+			
+			mav.addObject("totalPrice", totalPrice);
+			mav.addObject("quickOrderGoodsList", quickOrderGoodsList);
+			mav.addObject("defaultAddress", defaultAddress);
+		}
+		
+		mav.setViewName("/quickorder/quickOrder");
+		
+		return mav;
+	}
+	
 	@RequestMapping("/quickOrderSetting.do")
 	public ModelAndView quickOrderSetting(ModelAndView mav, HttpSession session) {
 		System.out.println("퀵오더 설정페이지 열기");
@@ -304,5 +331,43 @@ public class QuickOrderController {
 		quickOrderService.releaseDefaultDeliveryAddress(vo); // 이전 설정되었던 디폴트 배달주소를 해제
 		
 		return "success";
+	}
+	
+	@RequestMapping("/getQuickOrderPaymentPage.do")
+	public ModelAndView getQuickOrderPaymentPage(ModelAndView mav, HttpSession session) {
+		System.out.println("퀵오더 결제하기 페이지 열기");
+		
+		String userid = (String)session.getAttribute("userid");
+		
+		List<QuickOrderGoodsVO> quickOrderGoodsList = quickOrderService.getQuickOrderGoodsList(userid);	
+		QuickOrderAddressVO defaultAddress = quickOrderService.getDefaultDeliveryAddress(userid);
+		String goodsName = ""; // 저장된 제품명을 담을 문자열
+		String goodsPrice = ""; // 저장된 제품가격을 담을 문자열
+		String goodsQty = ""; // 저장된 제품수량을 담을 문자열
+		int totalPrice = 0; // 저장된 제품의 총 가격
+		
+		for(int i=0; i<quickOrderGoodsList.size(); i++) {
+			goodsName += quickOrderGoodsList.get(i).getQuick_goods();
+			goodsName += ",";
+			
+			goodsPrice += String.valueOf(quickOrderGoodsList.get(i).getQuick_price());
+			goodsPrice += ",";
+			
+			goodsQty += String.valueOf(quickOrderGoodsList.get(i).getQuick_qty());
+			goodsQty += ",";
+			
+			totalPrice += quickOrderGoodsList.get(i).getQuick_price();
+		}
+		
+		mav.addObject("goodsName", goodsName);
+		mav.addObject("goodsPrice", goodsPrice);
+		mav.addObject("goodsQty", goodsQty);
+		mav.addObject("totalPrice", totalPrice);
+		mav.addObject("quickOrderGoodsList", quickOrderGoodsList);
+		mav.addObject("defaultAddress", defaultAddress);
+		
+		mav.setViewName("/quickorder/quickOrder_payment");
+		
+		return mav;
 	}
 }

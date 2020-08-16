@@ -20,7 +20,7 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
 	<script type="text/javascript">
-		function chkLogin(){
+		function goEdit(){
 			var chkSession = $('#chkSession').val(); // 세션에 저장된 'msg'값을 읽어옴
 			
 			if(chkSession != "login"){
@@ -113,7 +113,7 @@
 		<!-- container -->
 		<div id="container">
 			<!-- content -->
-			<section id="content">
+			<div id="content">
 				<div class="sub-type quick">
 					<div class="inner-box">
 						<div class="page-title-wrap">
@@ -126,7 +126,7 @@
 								</ol>
 							</div>
 						</div>
-						<article class="quick-area">
+						<div class="quick-area">
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
@@ -157,11 +157,60 @@
 									</div>
 								</div>
 								<!--//퀵 오더-->
-							</div>
-
-							<div class="btn-wrap">
-								<a href="javascript:chkLogin();" class="btn-type v3">퀵 오더 설정하기</a>
-							</div>
+								<!--나의 퀵 오더-->
+								<c:choose>
+									<c:when test="${quickOrderGoodsList != null && defaultAddress != null }">
+										<div class="quick-list">
+											<h3 class="title-type">나의 퀵 오더</h3>
+											<div class="table-type3">
+												<table>
+													<caption>나의 퀵 오더</caption>
+													<colgroup>
+														<col style="width:388px">
+														<col style="width:216px">
+														<col style="width:384px;">
+													</colgroup>
+													<thead>
+														<tr>
+															<th>제품</th>
+															<th>주문방법</th>
+															<th>배송지/매장</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr class="txt_align_lft">
+															<td>
+															<c:forEach var="goods" items="${quickOrderGoodsList }">
+																<p>${goods.quick_goods }</p>
+															</c:forEach>
+																	<p class="total">합계  ${totalPrice }원</p>
+															</td>
+															<td style="text-align:center">배달주문</td>
+															<td>${defaultAddress.address }<br>(${defaultAddress.storename })</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="text-type2">
+												<p>- 할인은 주문하는 시점의 추천할인이 적용됩니다.</p>
+												<p>- 하프&하프, 마이키친, 마이키친 투토핑 등의 피자와 세트메뉴, 반값 사이드디시 등의 할인제품은 퀵오더 등록이 불가합니다.</p>
+											</div>
+										</div>
+									</div>
+		
+									<div class="btn-wrap">
+										<a href="javascript:goEdit();" class="btn-type-brd3">퀵 오더 설정하기</a>
+										<a href="getQuickOrderPaymentPage.do" class="btn-type v3">퀵 오더 진행하기</a>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+	
+								<div class="btn-wrap">
+									<a href="javascript:goEdit();" class="btn-type v3">퀵 오더 설정하기</a>
+								</div>
+							</c:otherwise>
+							</c:choose>
 							<div class="pop-layer" id="pop-quick-howto">
 								<div class="dim"></div>
 								<div class="pop-wrap">
@@ -228,10 +277,10 @@
 									<a href="#" class="btn-close"></a>
 								</div>
 							</div>
-						</article>
+						</div>
 					</div>
 				</div>
-			</section>
+			</div>
 			<!-- //content -->
 		</div>
 

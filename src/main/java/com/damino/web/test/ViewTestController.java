@@ -88,15 +88,7 @@ public class ViewTestController {
 	      return mav;
 	   
 	}
-	@RequestMapping("/quickOrder.do")
-	public ModelAndView getQuickOrderPage() {
-		System.out.println("퀵오더페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/quickorder/quickOrder");
-		
-		return mav;
-	}
+	
 
 	// ---- basket 폴더 ----
 	@RequestMapping("/basketdetail.do")
