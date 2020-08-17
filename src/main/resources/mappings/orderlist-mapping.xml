@@ -5,8 +5,11 @@
 <mapper namespace="OrderlistDAO">
 	<select id="getOrderlistInv"
 		resultType="com.damino.web.admin.orderlist.OrderlistVO">
-		SELECT orderseq, name, regdate, address, tel, orderli, price, take, store, paytool ,paystate
+		SELECT orderseq, name, regdate, address, tel, orderli, price, take, store, paytool ,paystate, status
 		FROM order_list
 	</select>
-
+	<select id="getMyOrderList" resultType="com.damino.web.user.orderlist.MyOrderListVO" parameterType="com.damino.web.user.orderlist.MyOrderListVO">
+		SELECT orderseq, name, regdate, address, tel, orderli, price, take, store, paytool ,paystate, status
+		FROM order_list WHERE name=#{name}
+	</select>
 </mapper>
