@@ -1,11 +1,11 @@
-package com.damino.web.admin.orderlist;
+package com.damino.web.user.orderlist;
 
 import java.util.Date;
 
-public class OrderlistVO {
+public class MyOrderListVO {
 	private int orderseq;
 	private String name;
-	private String regdate;
+	private Date regdate = new Date();
 	private String address;
 	private String tel;
 	private String orderli;
@@ -27,12 +27,6 @@ public class OrderlistVO {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
 	}
 	public String getAddress() {
 		return address;
@@ -90,11 +84,16 @@ public class OrderlistVO {
 	}
 	@Override
 	public String toString() {
-		return "OrderlistVO [orderseq=" + orderseq + ", name=" + name + ", regdate=" + regdate + ", address=" + address
-				+ ", tel=" + tel + ", orderli=" + orderli + ", price=" + price + ", take=" + take + ", store=" + store
-				+ ", paytool=" + paytool + ", paystate=" + paystate + ", status=" + status + "]";
+		return "MyOrderListVO [orderseq=" + orderseq + ", name=" + name + ", regdate=" + regdate + ", address="
+				+ address + ", tel=" + tel + ", orderli=" + orderli + ", price=" + price + ", take=" + take + ", store="
+				+ store + ", paytool=" + paytool + ", paystate=" + paystate + ", status=" + status + "]";
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	
-
 	
 }

@@ -250,6 +250,7 @@
 										<td>${orderlist.store }</td>
 										<td>${orderlist.paytool }</td>
 										<td>${orderlist.paystate }</td>
+										<td>${orderlist.status }</td>
 										<!--
 										<td>  
 										<select>
