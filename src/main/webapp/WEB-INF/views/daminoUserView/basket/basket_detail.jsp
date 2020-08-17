@@ -46,6 +46,25 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
+window.onload = function() {
+	var goodsName = sessionStorage.getItem("selectGoodsName");
+	var goodsDough = sessionStorage.getItem("selectStrDough");
+	var selectPrice = sessionStorage.getItem("price");
+	var selectPizzaSetNum = sessionStorage.getItem("selectPizzaSetNum");
+	var selectSize = sessionStorage.getItem("selectSize");
+	var toppingNameArr = JSON.parse(sessionStorage.getItem("toppingNameArr"));
+	
+	console.log("goodsName : " + goodsName);
+	console.log("goodsDough : " + goodsDough);
+	console.log("selectPrice : " + selectPrice);
+	console.log("selectPizzaSetNum : " + selectPizzaSetNum);
+	console.log("selectSize : " + selectSize);
+	console.log("toppingNameArr : " + toppingNameArr);
+	
+	$('.subject').text(goodsName);
+	$('.option').text(goodsDough + "/" + selectSize);
+}
+
 var addressSeq = 0; // 주소 테이블 seq 값
 
 	function addAddress() {
@@ -129,12 +148,10 @@ var addressSeq = 0; // 주소 테이블 seq 값
 		//var deliveryAddrList = document.getElementById("addr_list_o");
 		var address = $('#addrVal').val() + ' ' + $('#detailAddrVal').val(); // 배달 주소
 		$('#address').text(address);
-		console.log("address : " + address);
 		
 		var storeName = $('#selectStore').val(); // 배달 매장명
 		$('#store').html("<span>" + storeName + "</span>");
 		
-		console.log("storeName : " + storeName);
 		//var userid = $('#userid').val(); //컨트롤러에서 세션 아이디값을 추가해줘야함!
 		
 		
@@ -400,6 +417,8 @@ var addressSeq = 0; // 주소 테이블 seq 값
 													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
 													class="btn-type4-brd3">삭제</a>
 											</div>
+											
+											
 											<div class="prd-info">
 												<div class="prd-img">
 													<!-- 제품 이미-->

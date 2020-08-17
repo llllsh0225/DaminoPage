@@ -39,6 +39,9 @@ $(document).ready(function(){
 
 </script>
 <script>
+var price = 0;
+var doughPrice = 0;
+
 	window.onload = function() {
 		//쉼표로 저장된 리스트 split으로 자르기
 		var splitDoughCode = $("#dough_db").val().split(",");		
@@ -52,68 +55,16 @@ $(document).ready(function(){
 			console.log(splitDoughCode[i]);
 			 if(splitDoughCode[i] == chkBox[i]){
 				 chkBox[i].checked = true;
-			 }else{
+				 
+			 } else{
 				 chkBox[0].checked = true;
-				//도우의 추가 요금
-					var doughPrice = 0;
-					//도우 이름
-					var doughInfo = "";	
-					
-					//피자 사이즈에 대한 가격
-					var price = ($(':radio[name="size"]:checked').val());
-					
-					if(typeof price == "undefined"){
-						price = $('#size1').val();
-					}
-					
-					var priceNumber = Number(price);
-					var strDough = $(':radio[name="p_dough"]:checked').val(); 
-						
-				   var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val()); //원가 * 피자 선택 수량
-				    
-					if($(':radio[name="p_dough"]:checked').val() != null) {
-						if (strDough == "슈퍼 시드 함유 도우"){
-							doughPrice = 2000;
-							doughInfo = "슈퍼 시드 함유 도우";
-						} else if (strDough == "더블 치즈 엣지") {
-							doughPrice = 5000;
-							doughInfo = "더블 치즈 엣지";
-						} else if (strDough == "오리지널 도우") {
-							doughInfo = "오리지널 도우";
-						} else if (strDough == "나폴리 도우") {
-							doughInfo = "나폴리 도우";
-						}else if (strDough == "오리지널") {
-							doughInfo = "오리지널";
-						} else if (strDough == "나폴리") {
-							doughInfo = "나폴리";
-						} else if (strDough == "씬 도우") {
-							doughInfo = "씬 도우";
-						} else if (strDough == "더블 크러스트"){
-							doughInfo = "더블 크러스트";
-						} else if (strDough == "샌드"){
-							doughInfo = "샌드";
-						}		
-						//priceNumber += doughPrice;
-					} 
-				   console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
-				   var pizzaName = $(".title.pizza").text();
-				   
-				   $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
-				   
-				   if(doughPrice > 0 ){
-						$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
-							+"(+" + Number(doughPrice)+"원)/"+ Number(priceNumber)
-							+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
-					}else {
-						$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
-							+"/"+ price
-							+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
-					}
-				   $(".total-count").text((Number($("#pizzaSetNum").val())));
-				   $(".total-price_sum").text(Number(pizzaAmt)+Number(doughPrice) + "원");
-				
-			 }
-		} 		
+				 doughPrice = chkBox[0];
+				 alert("doughPrice : " + doughPrice);
+			 } 
+		
+		} 
+		sum(); 
+	 
 			//라디오 버튼 선택시 선택된 내용 체크표시 및 기존 선택 내용 체크표시 해제
 		   $("input[type='radio']").change(function () {
 				
@@ -131,8 +82,12 @@ $(document).ready(function(){
 function saveBasket(){
 	alert("saveBasket 입니다");
 	
+	if($(':radio[name="p_dough"]:checked').val() == null){
+		alert("도우를 선택해주세요");
+		return;
+	}
 // 선택된 옵션 value
-	var selectPrice = $(':radio[name="size"]:checked').val(); //사이즈에 따른 피자 가격
+	price = String($(':radio[name="size"]:checked').val()); //사이즈에 따른 피자 가격
 	//피자 사이즈
 	var selectSize = $(':radio[name="size"]:checked').attr('p-size');
 	if(typeof selectSize == "undefined"){
@@ -141,12 +96,20 @@ function saveBasket(){
 	
 	var selectGoodsName = $('#p_name').val();
 	var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
-	var selectPizzaSetNum = Number($('#pizzaSetNum').val()); // 선택 수량
+	var selectPizzaSetNum = String($('#pizzaSetNum').val()); // 선택 수량
 	
-	console.log("selectPrice : " + price);
-	console.log("selectGoodsName : " + selectGoodsName);
-	console.log("selectStrDough : " + selectStrDough);
-	console.log("selectPizzaSetNum : " + selectPizzaSetNum);
+	alert("price : " + price);
+	alert("selectGoodsName : " + selectGoodsName);
+	alert("selectStrDough : " + selectStrDough);
+	alert("selectPizzaSetNum : " + selectPizzaSetNum);
+	alert("toppingNameArr(토핑배열) : " + toppingNameArr);
+	
+	sessionStorage.setItem("selectGoodsName", selectGoodsName );
+	sessionStorage.setItem("selectStrDough", selectStrDough );
+	sessionStorage.setItem("price", price );
+	sessionStorage.setItem("selectPizzaSetNum", selectPizzaSetNum );
+	sessionStorage.setItem("selectSize", selectSize );
+	sessionStorage.setItem("toppingNameArr", JSON.stringify(toppingNameArr));
 	
 	$("#myBasket").submit();
 	/* $.ajax({
@@ -172,18 +135,100 @@ function saveBasket(){
     		alert("다시 시도해주세요.");
     	}
     }); */
-}	
+}
+
+/* $(document).ready(function() { 
+	//도우의 추가 요금
+	doughPrice = 0;
+	//도우 이름
+	var doughInfo = "";	
+	
+	//피자 사이즈에 대한 가격
+	price = ($(':radio[name="size"]:checked').val());
+	
+	if(typeof price == "undefined"){
+		price = $('#size1').val();
+	}
+	
+	var priceNumber = Number(price);
+	var strDough = $(':radio[name="p_dough"]:checked').val(); 
+		
+   var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val()); //원가 * 피자 선택 수량
+    
+  //토핑 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalToppingSum에 저장
+ if(toppingNameArr != null){
+	for(var i=0; i<toppingNameArr.length; i++){											
+		totalToppingSum += Number(toppingSumArr[i]);
+		//selectToppingName += toppingNameArr[i];
+	}					
+ }
+  if(etcSumArr != null){
+	//음료 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalEtcSum에 저장
+	for(var i=0; i<etcSumArr.length; i++){											
+		totalEtcSum += Number(etcSumArr[i]);
+	}
+  }	
+	//사이드디시 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalSideSum에 저장
+if(sideSumArr != null){
+	for(var i=0; i<sideSumArr.length; i++){											
+		totalSideSum += Number(sideSumArr[i]);
+	} 
+}	 
+	if($(':radio[name="p_dough"]:checked').val() != null) {
+		if (strDough == "슈퍼 시드 함유 도우"){
+			doughPrice = 2000;
+			doughInfo = "슈퍼 시드 함유 도우";
+		} else if (strDough == "더블 치즈 엣지") {
+			doughPrice = 5000;
+			doughInfo = "더블 치즈 엣지";
+		} else if (strDough == "오리지널 도우") {
+			doughInfo = "오리지널 도우";
+		} else if (strDough == "나폴리 도우") {
+			doughInfo = "나폴리 도우";
+		}else if (strDough == "오리지널") {
+			doughInfo = "오리지널";
+		} else if (strDough == "나폴리") {
+			doughInfo = "나폴리";
+		} else if (strDough == "씬 도우") {
+			doughInfo = "씬 도우";
+		} else if (strDough == "더블 크러스트"){
+			doughInfo = "더블 크러스트";
+		} else if (strDough == "샌드"){
+			doughInfo = "샌드";
+		}		
+		pizzaAmt += doughPrice;
+	} 
+   console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
+   var pizzaName = $(".title.pizza").text();
+   
+   $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
+   
+   if(doughPrice > 0 ){
+		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+			+"(+" + Number(doughPrice)+"원)/"+ Number(priceNumber)
+			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+	}else {
+		$(".total-dough").html("<div>도우/사이즈 : "+ doughInfo
+			+"/"+ price
+			+"<input type='hidden' class='priceOriginal' value='"+ Number(price)+"'></input>"+"</div>");
+	}
+   $(".total-count").text((Number($("#pizzaSetNum").val())));
+   //$(".total-price_sum").text(Number(pizzaAmt)+Number(doughPrice) + "원");
+   $(".total-price_sum").text(Number(pizzaAmt + totalToppingSum + totalEtcSum + totalSideSum) + "원");	
+
+}); */
 </script>
 <script>
 //도우의 추가 요금
-var doughPrice = 0;
+
 var price = $(':radio[name="size"]:checked').val();
+//var selectToppingName = "";
 
 function sum(){
 	
 	price = $(':radio[name="size"]:checked').val();
-	doughPrice = 0;
 	var pizzaSum = 0;
+	var doughPrice = 0;
 	var etcSum = 0;
 	totalToppingSum = 0;
 	totalEtcSum = 0;
@@ -192,6 +237,7 @@ function sum(){
 	//토핑 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalToppingSum에 저장
 	for(var i=0; i<toppingNameArr.length; i++){											
 		totalToppingSum += Number(toppingSumArr[i]);
+		//selectToppingName += toppingNameArr[i];
 	}					
  
 	//음료 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalEtcSum에 저장
@@ -212,11 +258,11 @@ function sum(){
 	var strDough = $(':radio[name="p_dough"]:checked').val(); 
 	
 	if($(':radio[name="p_dough"]:checked').val() != null) {
-		if (strDough == "슈퍼시드 함유 도우"){
-			doughPrice = 2000;
-			doughInfo = "슈퍼시드 함유 도우";
+		if (strDough == "슈퍼 시드 함유 도우"){
+			doughPrice += 2000;
+			doughInfo = "슈퍼 시드 함유 도우";
 		} else if (strDough == "더블 치즈 엣지") {
-			doughPrice = 5000;
+			doughPrice += 5000;
 			doughInfo = "더블 치즈 엣지";
 		} else if (strDough == "오리지널 도우") {
 			doughInfo = "오리지널 도우";
@@ -236,18 +282,19 @@ function sum(){
 		
 	} 
 	
+	alert("doughPrice2 : " + doughPrice);
 	var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val());
 	var pizzaAmount = $(".priceOriginal").val();
 	//console.log("pizzaAmt 2 : " + pizzaAmt);
 	//토핑가격 총합 = totalToppingSum
 	etcSum += Number($('.etcSum').val());
 	//console.log("합계금액 2 : " + Number(pizzaAmt+doughPrice));
-	$(".total-price_sum").text(Number(pizzaAmt+ doughPrice + totalToppingSum + totalEtcSum + totalSideSum) + "원");	
+	$(".total-price_sum").text(Number(pizzaAmt+ Number(doughPrice) + totalToppingSum + totalEtcSum + totalSideSum) + "원");	
 	
 }
 
 function totalDoughValue(){
-	
+	alert($(':radio[name="p_dough"]:checked').val());
 	//도우의 추가 요금
 	var doughPrice = 0;
 	//도우 이름
@@ -295,6 +342,8 @@ function totalDoughValue(){
 	} 
    console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
    var pizzaName = $(".title.pizza").text();
+   
+   alert("doughPrice1 : " + doughPrice);
    
    $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
    

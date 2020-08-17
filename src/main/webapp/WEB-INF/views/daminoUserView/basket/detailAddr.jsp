@@ -36,13 +36,11 @@
 		function sendDetailAddrInfo(){
 			var detailAddr = $('#detailAddr').val();
 			var selectStore = $('#selDeliveryStore').val();
-			alert("당근");
+			
 			opener.receiveDetailAddr(detailAddr, selectStore);
 			opener.addAddr();
 			close();
 			
-			console.log("당근2");
-			alert("당근2");
 		}
 		
 
