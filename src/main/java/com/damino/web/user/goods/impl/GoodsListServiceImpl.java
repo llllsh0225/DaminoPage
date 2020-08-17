@@ -80,5 +80,10 @@ public class GoodsListServiceImpl implements GoodsListService {
 		return goodsListDAO.getUserSideGoods(vo);
 	}
 	
+	@Override
+	public List<GoodsToppingVO> getUserTopping() {
+		System.out.println("GoodsListServiceImpl getUserTopping()");
+		return goodsListDAO.getUserTopping();
+	}
 
 }

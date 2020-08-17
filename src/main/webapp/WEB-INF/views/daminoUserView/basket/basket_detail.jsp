@@ -46,7 +46,57 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
-var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
+window.onload = function() {
+	var goodsName = sessionStorage.getItem("selectGoodsName");
+	var goodsDough = sessionStorage.getItem("selectStrDough");
+	var selectPrice = sessionStorage.getItem("price");
+	var selectPizzaSetNum = sessionStorage.getItem("selectPizzaSetNum");
+	var selectSize = sessionStorage.getItem("selectSize");
+	var t_name = [];
+	t_name.push(JSON.parse(sessionStorage.getItem("toppingNameArr")));
+	
+	console.log("goodsName : " + goodsName);
+	console.log("goodsDough : " + goodsDough);
+	console.log("selectPizzaSetNum : " + selectPizzaSetNum);
+	console.log("selectSize : " + selectSize);
+	console.log("toppingNameArr : " + t_name);
+	
+	$('.subject').text(goodsName);
+	$('.option').text(goodsDough + "/" + selectSize);
+	$('.price').text(selectPrice);
+	$('#pizza-total').html("<em>" + selectPrice + "</em>" + "원");
+
+	if(t_name != null){
+		$.ajax({
+			url: 'getToppingNames.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post',
+			dataType: 'json', 
+			//traditional :true,
+			data : JSON.stringify({
+				t_name : t_name, // 컨트롤러로 보낼 제품 카테고리 명
+			}),
+			success: function(data) {
+				if (data != null) {
+					//t_image_list 가 console에 찍히는가
+						console.log(data);
+						
+				}else if (typeof callbackFunc === 'function') {
+					callbackFunc();
+				}else {
+					alert("다시 시도해주세요");
+				}		 
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다.');
+			}
+		});
+	}
+
+
+}
+
+var addressSeq = 0; // 주소 테이블 seq 값
 
 	function addAddress() {
 		new daum.Postcode(
@@ -122,10 +172,20 @@ var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
 		$('#selectStore').val(selectStore);
 	}
 	
-	function addAddrRow(){
-		++addressNextRowSeq;
+	function addAddr(){
+		++addressSeq;
 		
-		alert(addressNextRowSeq);
+		alert(addressSeq);
+		//var deliveryAddrList = document.getElementById("addr_list_o");
+		var address = $('#addrVal').val() + ' ' + $('#detailAddrVal').val(); // 배달 주소
+		$('#address').text(address);
+		
+		var storeName = $('#selectStore').val(); // 배달 매장명
+		$('#store').html("<span>" + storeName + "</span>");
+		
+		//var userid = $('#userid').val(); //컨트롤러에서 세션 아이디값을 추가해줘야함!
+		
+		
 	}
 </script>
 </head>
@@ -351,8 +411,8 @@ var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
 									<input type="hidden" id="detailAddrVal" value="" />
 										<input type="hidden" id="guVal" value="" />
 										<input type="hidden" id="selectStore" value="" />
-									<div class="address">배송지 주소</div>
-									<div class="store">
+									<div class="address" id="address">배송지 주소</div>
+									<div class="store" id="store">
 										<span>월계점</span>&nbsp;02-915-3082
 									</div>
 									<div class="btn-wrap">
@@ -388,9 +448,11 @@ var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
 													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
 													class="btn-type4-brd3">삭제</a>
 											</div>
+											
+											
 											<div class="prd-info">
 												<div class="prd-img">
-													<!-- 제품 이미-->
+													<%-- <img src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"/> --%>
 												</div>
 												<div class="prd-cont">
 													<div class="subject">제품명</div>
@@ -411,8 +473,8 @@ var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
 														class="plus"><button class="btn-plus"></button></a>
 												</div>
 											</div>
-											<div class="prd-total">
-												<em>가격</em>원
+											<div class="prd-total" id="pizza-total">
+												<em>0</em>원
 											</div>
 											<div class="prd-delete">
 												<a

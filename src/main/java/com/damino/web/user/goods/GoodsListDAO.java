@@ -19,6 +19,8 @@ public interface GoodsListDAO {
 	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
 	//사용자 선택 - 사이드디시 메뉴 불러오기
 	public GoodsSideVO getUserSideGoods(GoodsSideVO vo);
+	//사용자 선택 - 토핑 메뉴 불러오기
+	public List<GoodsToppingVO> getUserTopping();
 	
 	//사용자 선택 - 선택 가능 도우 불러오기
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);

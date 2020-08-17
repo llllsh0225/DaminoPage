@@ -54,4 +54,10 @@
 	<select id="getUserSideGoods" resultType="com.damino.web.user.goods.GoodsSideVO" parameterType="com.damino.web.user.goods.GoodsSideVO" >	
 		SELECT * FROM side WHERE s_code = #{s_code} AND s_name = #{s_name}	
 	</select>
+	
+	<!-- 사용자 선택 - 토핑 메뉴 불러오기 -->
+	<select id="getUserTopping" resultType="com.damino.web.user.goods.GoodsToppingVO" parameterType="com.damino.web.user.goods.GoodsToppingVO" >	
+		SELECT * FROM topping WHERE t_name = #{t_name}	
+	</select>
+	
 </mapper>
