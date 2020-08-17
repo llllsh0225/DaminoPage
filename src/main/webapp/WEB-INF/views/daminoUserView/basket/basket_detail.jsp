@@ -46,7 +46,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
-var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
+var addressSeq = 0; // 주소 테이블 seq 값
 
 	function addAddress() {
 		new daum.Postcode(
@@ -122,10 +122,22 @@ var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
 		$('#selectStore').val(selectStore);
 	}
 	
-	function addAddrRow(){
-		++addressNextRowSeq;
+	function addAddr(){
+		++addressSeq;
 		
-		alert(addressNextRowSeq);
+		alert(addressSeq);
+		//var deliveryAddrList = document.getElementById("addr_list_o");
+		var address = $('#addrVal').val() + ' ' + $('#detailAddrVal').val(); // 배달 주소
+		$('#address').text(address);
+		console.log("address : " + address);
+		
+		var storeName = $('#selectStore').val(); // 배달 매장명
+		$('#store').html("<span>" + storeName + "</span>");
+		
+		console.log("storeName : " + storeName);
+		//var userid = $('#userid').val(); //컨트롤러에서 세션 아이디값을 추가해줘야함!
+		
+		
 	}
 </script>
 </head>
@@ -351,8 +363,8 @@ var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
 									<input type="hidden" id="detailAddrVal" value="" />
 										<input type="hidden" id="guVal" value="" />
 										<input type="hidden" id="selectStore" value="" />
-									<div class="address">배송지 주소</div>
-									<div class="store">
+									<div class="address" id="address">배송지 주소</div>
+									<div class="store" id="store">
 										<span>월계점</span>&nbsp;02-915-3082
 									</div>
 									<div class="btn-wrap">

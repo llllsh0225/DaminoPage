@@ -38,7 +38,7 @@
 			var selectStore = $('#selDeliveryStore').val();
 			alert("당근");
 			opener.receiveDetailAddr(detailAddr, selectStore);
-			opener.addAddrRow();
+			opener.addAddr();
 			close();
 			
 			console.log("당근2");
