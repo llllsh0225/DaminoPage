@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,10 +34,23 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${msg != 'login' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -118,7 +132,8 @@
 							</div>
 							<div class="info-wrap">
 								<div class="user">
-									<span>OOO</span>님이 주문하신 내역입니다.
+									<span>${user.username}</span>님이 주문하신 내역입니다.
+									
 								</div>
 								<div class="text-type">주문을 취소하시려면 해당 매장으로 전화하셔야 합니다.</div>
 								<a href="javascript:UI.layerPopUp({selId:'#pop-order-info'});"
@@ -132,125 +147,39 @@
 							</div>
 							<div class="order-list">
 								<ul>
-									<li>
-										<div class="order-top">
-											<span class="type">배달</span> <span class="date"> <span
-												class="tit">주문일시</span> 2020-07-17 18:15
-											</span> <span class="num"> <span class="tit">주문번호</span>
-												20200717863942990011
-											</span>
-											<div class="btn-wrap">
-												<a
-													href="javascript:myOrderReOrder('R','20200717863942990011');">+
-													재주문 하기</a> <a
-													href="javascript:myOrderReOrder('Q','20200717863942990011');">+
-													퀵오더 등록</a>
+									<c:forEach var="myorderlist" items="${myOrderList }">
+										<li>
+											<div class="order-top">
+												<span class="type">${myorderlist.take }</span> 
+												<span class="date"> 
+													<span class="tit">주문일시</span>${myorderlist.regdate }
+												</span> 
+												<span class="num"> 
+													<span class="tit">주문번호</span>${myorderlist.orderseq }
+												</span>
+												<div class="btn-wrap">
+													<a href="#">+재주문 하기</a>
+													<a href="#">+퀵오더 등록</a>
+												</div>
 											</div>
-										</div>
-										<div class="order-center">
-											<div class="state od-box">
-												<strong>수령완료</strong>
-												<div class="shop">세종로점&nbsp;02-723-3082</div>
+											<div class="order-center">
+												<div class="state od-box">
+													<strong>${myorderlist.status }</strong>
+													<div class="shop">${myorderlist.store }&nbsp;</div>
+												</div>
+												<div class="info od-box">
+													<a href="javascript:goView('20200717863942990011');">
+														<div class="menu">${myorderlist.orderli }&nbsp;
+															${myorderlist.price }원</div>
+													</a>
+												</div>
+												<div class="btn-detail od-box">
+													<a href="orderstatusCook.do"
+														class="detail">상세보기</a>
+												</div>
 											</div>
-											<div class="info od-box">
-												<a href="javascript:goView('20200717863942990011');">
-													<div class="menu">베스트 콰트로 슈퍼시드 함유 도우 외 1건&nbsp;
-														31,520원</div>
-												</a>
-											</div>
-											<div class="btn-detail od-box">
-												<a href="javascript:goView('20200717863942990011');"
-													class="detail">상세보기</a>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="order-top">
-											<span class="type">배달</span> <span class="date"> <span
-												class="tit">주문일시</span> 2020-07-17 18:10
-											</span> <span class="num"> <span class="tit">주문번호</span>
-												20200717863942990010
-											</span>
-										</div>
-										<div class="order-center">
-											<div class="state od-box">
-												<strong>주문취소</strong>
-												<div class="shop">세종로점&nbsp;02-723-3082</div>
-											</div>
-											<div class="info od-box">
-												<a href="javascript:goView('20200717863942990010');">
-													<div class="menu">베스트 콰트로 슈퍼시드 함유 도우 외 1건&nbsp;
-														29,670원</div>
-												</a>
-											</div>
-											<div class="btn-detail od-box">
-												<a href="javascript:goView('20200717863942990010');"
-													class="detail">상세보기</a>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="order-top">
-											<span class="type">배달</span> <span class="date"> <span
-												class="tit">주문일시</span> 2019-10-30 11:30
-											</span> <span class="num"> <span class="tit">주문번호</span>
-												20191030863769990002
-											</span>
-											<div class="btn-wrap">
-												<a
-													href="javascript:myOrderReOrder('R','20191030863769990002');">+
-													재주문 하기</a> <a
-													href="javascript:myOrderReOrder('Q','20191030863769990002');">+
-													퀵오더 등록</a>
-											</div>
-										</div>
-										<div class="order-center">
-											<div class="state od-box">
-												<strong>수령완료</strong>
-												<div class="shop">월계점&nbsp;02-915-3082</div>
-											</div>
-											<div class="info od-box">
-												<a href="javascript:goView('20191030863769990002');">
-													<div class="menu">페퍼로니(나) 외 1건&nbsp; 14,100원</div>
-												</a>
-											</div>
-											<div class="btn-detail od-box">
-												<a href="javascript:goView('20191030863769990002');"
-													class="detail">상세보기</a>
-											</div>
-										</div>
-									</li>
-									<li>
-										<div class="order-top">
-											<span class="type">배달</span> <span class="date"> <span
-												class="tit">주문일시</span> 2019-09-28 20:46
-											</span> <span class="num"> <span class="tit">주문번호</span>
-												20190928863769990047
-											</span>
-											<div class="btn-wrap">
-												<a
-													href="javascript:myOrderReOrder('R','20190928863769990047');">+
-													재주문 하기</a> <a
-													href="javascript:myOrderReOrder('Q','20190928863769990047');">+
-													퀵오더 등록</a>
-											</div>
-										</div>
-										<div class="order-center">
-											<div class="state od-box">
-												<strong>수령완료</strong>
-												<div class="shop">월계점&nbsp;02-915-3082</div>
-											</div>
-											<div class="info od-box">
-												<a href="javascript:goView('20190928863769990047');">
-													<div class="menu">치즈(씬)&nbsp; 12,000원</div>
-												</a>
-											</div>
-											<div class="btn-detail od-box">
-												<a href="javascript:goView('20190928863769990047');"
-													class="detail">상세보기</a>
-											</div>
-										</div>
-									</li>
+										</li>
+									</c:forEach>
 								</ul>
 								<div class="pager-wrap">
 									<div class="pager-inner">
