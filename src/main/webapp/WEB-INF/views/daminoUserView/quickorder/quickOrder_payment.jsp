@@ -30,46 +30,25 @@
 <script type="text/javascript">
 	// 현재 시각
 	var timeNow = new Date();
-	console.log('현재 시각: ' + timeNow.getMinutes());
 	
 	window.onload = function() {
+		if($('#sessionMsg').val() == 'login'){
+			$('#recipient').prop('checked', true);
+		}else{
+			$('#recipient').prop('checked', false);
+		}
+		
 		deliverTimeSet();
 		todayReserveSet();
 		tomorrowReserveSet();
+		setUserinfoForm();
+		changeReserveGubun(1);
+		setDeliveryTime(1);
 		
 		// 오늘예약, 익일예약 div 숨김
 		$('#orderTime2').hide();
 		$('#orderTime3').hide();
 		
-		var tel1 = $('#userphone').val().substring(0, 3);
-		var tel2 = $('#userphone').val().substring(3, 7);
-		var tel3 = $('#userphone').val().substring(7, 11);
-		
-		if($('#recipient').prop('checked')){ // '주문자와 동일'이 체크 되었을 때 세션의 사용자 정보를 세팅
-			$('#customerName').attr('disabled', true);
-			$('#customerName').val($('#username').val());
-			
-			$('#tel1').attr('disabled', true);
-			$('#tel1').val(tel1).prop("selected", true);
-			
-			$('#tel2').attr('disabled', true);
-			$('#tel2').val(tel2);
-			
-			$('#tel3').attr('disabled', true);
-			$('#tel3').val(tel3);
-		}else{
-			$('#customerName').attr('disabled', false);
-			$('#customerName').val("");
-			
-			$('#tel1').attr('disabled', false);
-			$('#tel1').val("010").prop("selected", true);
-			
-			$('#tel2').attr('disabled', false);
-			$('#tel2').val("");
-			
-			$('#tel3').attr('disabled', false);
-			$('#tel3').val("");
-		}
 		
 		var goodsName = $('#goodsName').val();
 		var goodsNameArr = goodsName.split(",");
@@ -152,6 +131,38 @@
 		// 총 결제금액 세팅
 		$('#totalPayment').text(Number($('#totalPrice').text()) - Number($('#totalDiscount').text()));
 		
+	}
+	
+	function setUserinfoForm(){
+		var tel1 = $('#userphone').val().substring(0, 3);
+		var tel2 = $('#userphone').val().substring(3, 7);
+		var tel3 = $('#userphone').val().substring(7, 11);
+		
+		if($('#recipient').prop('checked')){ // '주문자와 동일'이 체크 되었을 때 세션의 사용자 정보를 세팅
+			$('#customerName').attr('disabled', true);
+			$('#customerName').val($('#username').val());
+			
+			$('#tel1').attr('disabled', true);
+			$('#tel1').val(tel1).prop("selected", true);
+			
+			$('#tel2').attr('disabled', true);
+			$('#tel2').val(tel2);
+			
+			$('#tel3').attr('disabled', true);
+			$('#tel3').val(tel3);
+		}else{
+			$('#customerName').attr('disabled', false);
+			$('#customerName').val("");
+			
+			$('#tel1').attr('disabled', false);
+			$('#tel1').val("010").prop("selected", true);
+			
+			$('#tel2').attr('disabled', false);
+			$('#tel2').val("");
+			
+			$('#tel3').attr('disabled', false);
+			$('#tel3').val("");
+		}
 	}
 	
 	function directMessage(){ // 직접입력을 선택했을 때 텍스트박스가 나타남
@@ -356,15 +367,148 @@
 			$('#orderTime1').show();
 			$('#orderTime2').hide();
 			$('#orderTime3').hide();
+			
+			setDeliveryTime(1);
+			
 		}else if(idx == 2){
 			$('#orderTime2').show();
 			$('#orderTime1').hide();
 			$('#orderTime3').hide();
+			
+			setDeliveryTime(2);
+			
 		}else if(idx == 3){
 			$('#orderTime3').show();
 			$('#orderTime1').hide();
 			$('#orderTime2').hide();
+			
+			setDeliveryTime(3);
 		}
+	}
+	
+	function setDeliveryTime(idx){
+		if(idx == 1){
+			var month = String(timeNow.getMonth() + 1);
+			if(month.length < 2){
+				month = '0' + month;
+			}
+			var date = String(timeNow.getDate());
+			if(date.length < 2){
+				date = '0' + date;
+			}
+			
+			var hours = $('#deliverHour').text();
+			if(hours.length < 2){
+				hours = '0' + hours;
+			}
+			
+			var minutes = $('#deliverMinutes').text();
+			if(minutes.length < 2){
+				minutes = '0' + minutes;
+			}
+			
+			var seconds = String(timeNow.getSeconds());
+			if(seconds.length < 2){
+				seconds = '0' + seconds;
+			}
+			
+			$('#deliveryTime').val(timeNow.getFullYear() + month + date + hours + minutes + seconds);
+			console.log($('#deliveryTime').val());
+		}else if(idx == 2){
+			$('#deliveryTime').val($('#reserve_time11').val() + $('#reserve_time12').val());
+			console.log($('#deliveryTime').val());
+		}else if(idx == 3){
+			$('#deliveryTime').val($('#reserve_time21').val() + $('#reserve_time22').val());
+			console.log($('#deliveryTime').val());
+		}
+	}
+	
+	function doOrder(){
+		var orderTime = new Date();
+		var orderMonth = String(orderTime.getMonth() + 1);
+		if(orderMonth.length < 2){
+			orderMonth = '0' + orderMonth;
+		}
+		var orderDate = String(orderTime.getDate());
+		if(orderDate.length < 2){
+			orderDate = '0' + orderDate;
+		}
+		var orderHours = String(orderTime.getHours());
+		if(orderHours.length < 2){
+			orderHours = '0' + orderHours;
+		}
+		var orderMinutes = String(orderTime.getMinutes());
+		if(orderMinutes.length < 2){
+			orderMinutes = '0' + orderMinutes;
+		}
+		var orderSeconds = String(orderTime.getSeconds());
+		if(orderSeconds.length < 2){
+			orderSeconds = '0' + orderSeconds;
+		}
+		
+		var orderTimeStr = orderTime.getFullYear() + orderMonth + orderDate + orderHours + orderMinutes + orderSeconds;
+		var userid = $('#userid').val();
+		var username = $('#customerName').val();
+		var deliveryTime = $('#deliveryTime').val();
+		var deliverAddress = $('#deliverAddress').val();
+		var userphone = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
+		var goodsName = $('#goodsName').val();
+		var totalPayment = Number($('#totalPayment').text());
+		var take = '배달';
+		var storename = $('#deliverStore').val();
+		var storephone = $('#storePhone').val();
+		var paytool = "";
+		var paystatus = '결제완료'; // 결제 과정에서 변동이 있을 수 있음.
+		var status = '주문완료';
+		var requirement = "";
+		
+		// 결제수단 세팅
+		if($('#pay1').prop('checked')){
+			paytool = $('#pay1').val();
+			// ======== 카드결제 선택했을 때 ========
+			// 이 부분에 결제 function 들어가면 될 것 같습니다!
+		}else if($('#pay2').prop('checked')){
+			paytool = $('#pay2').val();
+		}else if($('#pay3').val()){
+			paytool = $('#pay3').val();
+		}
+		
+		// 요청사항 세팅
+		var selectReq = $('#more_req_box').val();
+		if(selectReq != "direct"){
+			requirement = selectReq;
+		}else{
+			requirement = $('#more_req').val();
+		}
+		
+		$.ajax({
+			url: 'doQuickOrder.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post',  
+			data : JSON.stringify({
+				orderTimeStr : orderTimeStr,
+				userid : userid,
+				username : username,
+				deliveryTime : deliveryTime,
+				deliverAddress : deliverAddress,
+				userphone : userphone,
+				goodsName : goodsName,
+				totalPayment : totalPayment,
+				take : take,
+				storename : storename,
+				storephone : storephone,
+				paytool : paytool,
+				paystatus : paystatus,
+				status : status,
+				requirement : requirement,
+			}),
+			success: function(data) {
+				location.href="getOrderResultPage.do";
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다.');
+			}
+		});
 	}
 </script>
 </head>
@@ -452,8 +596,13 @@
 				style="display: none; width: 0px; height: 0px;"></iframe>
 			<form id="orderFrm" name="orderFrm" action="" target="" method="post">
 				<div id="hidden_info">
+					<input type="hidden" id="sessionMsg" value="${msg }" />
+					<input type="hidden" id="userid" value="${user.userid }" />
 					<input type="hidden" id="username" value="${user.username }" />
 					<input type="hidden" id="userphone" value="${user.phone }" />
+					<input type="hidden" id="deliverAddress" value="${defaultAddress.address }" />
+					<input type="hidden" id="deliverStore" value="${defaultAddress.storename }" />
+					<input type="hidden" id="storePhone" value="${defaultAddress.storephone }" />
 					<input type="hidden" id="goodsName" value="${goodsName }" /> 
 					<input type="hidden" id="goodsPrice" value="${goodsPrice }" /> 
 					<input type="hidden" id="goodsQty" value="${goodsQty }" />
@@ -462,6 +611,7 @@
 					<input type="hidden" id="discountRate" value="${discountRate }" />
 					<input type="hidden" id="storeOpenTime" value="${hourInfo.opentime }" />
 					<input type="hidden" id="storeEndTime" value="${hourInfo.endtime }" />
+					<input type="hidden" id="deliveryTime" value="" />
 				</div>
 
 				<section id="content">
@@ -505,23 +655,11 @@
 												<div class="form-group">
 													<div class="form-item">
 														<div class="chk-box v3">
-															<input type="checkbox" name="order_type" id="recipient" checked> 
+															<input type="checkbox" name="order_type" id="recipient" onChange="setUserinfoForm();"> 
 															<label class="checkbox" for="recipient"></label> 
 															<label for="recipient">주문자와 동일</label>
 														</div>
 													</div>
-
-													<!-- 선물하기 -->
-													<div class="form-item  gift_msg_info gift_area"
-														style="display: none;">
-														<div class="chk-box v3 selected">
-															<input type="checkbox" id="present_case"
-																name="order_type" value="N" onchange="recipientChange()">
-															<label class="checkbox" for="present_case"></label> <label
-																for="present_case">해당 주문을 선물하시겠습니까?</label>
-														</div>
-													</div>
-													<!-- //선물하기 -->
 												</div>
 											</dd>
 										</dl>
@@ -689,17 +827,12 @@
 																			</select>
 																		</div>
 																		<div class="select-type2">
-																			<select class="select2" id="reserve_time12" name="reserve_time12">
+																			<select class="select2" id="reserve_time12" name="reserve_time12" onChange="setDeliveryTime(2);">
 																			</select>
 																		</div>
 																	</div>
 																	<p class="text2">* 매장 상황에 따라 배달시간이 상이할 수 있습니다.</p>
 																</div>
-																
-																<input type="hidden" id="reserve_yn" value="N">
-																<input type="hidden" id="prmt_s_hour" value="00">
-																<input type="hidden" id="prmt_e_hour" value="24">
-																<input type="hidden" id="prmt_idx" value="1317">
 															
 																<p class="text"></p>
 															</div>
@@ -715,7 +848,7 @@
 																			</select>
 																		</div>
 																		<div class="select-type2">
-																			<select class="select2" id="reserve_time22" name="reserve_time22">
+																			<select class="select2" id="reserve_time22" name="reserve_time22" onChange="setDeliveryTime(3);">
 																			</select>
 																		</div>
 																	</div>
@@ -738,15 +871,10 @@
 																<div class="title-type2">미리결제</div>
 																<div class="form">
 																	<div class="form-item">
-																		<div class="chk-box" id="pay_method_8" data-hidedefault="" data-mid="naver37601" data-value="N|8|Y" onclick="clickPayType('radio', this);">
-																			<input type="radio" id="pay12" name="pay" onclick="event.stopPropagation()">
-																			<label class="checkbox" for="pay12"></label>
-																			<label for="pay12">네이버페이</label>
-																		</div>
-																		<div class="chk-box" id="pay_method_5" data-hidedefault="" data-mid="C638820130" data-value="K|5|Y" onclick="clickPayType('radio', this);">
-																			<input type="radio" id="pay2" name="pay" onclick="event.stopPropagation()">
-																			<label class="checkbox" for="pay2"></label>
-																			<label for="pay2">카카오페이</label>
+																		<div class="chk-box" id="pay_method_1">
+																			<input type="radio" id="pay1" name="pay" value="카드결제">
+																			<label class="checkbox" for="pay1"></label>
+																			<label for="pay1">카드결제</label>
 																		</div>
 																	</div>
 																	
@@ -761,22 +889,15 @@
 																</div>
 																<div class="form">
 																	<div class="form-item">
-																		<div class="chk-box" id="pay_method_3"
-																			data-hidedefault="" data-value="2|3|Y"
-																			onclick="clickPayType('radio', this);">
-																			<input type="radio" id="pay9" name="pay"
-																				onclick="event.stopPropagation()"> <label
-																				class="checkbox" for="pay9"></label> <label
-																				for="pay9">현장카드결제</label>
+																		<div class="chk-box" id="pay_method_2">
+																			<input type="radio" id="pay2" name="pay" value="현장카드결제"> <label
+																				class="checkbox" for="pay2"></label> <label
+																				for="pay2">현장카드결제</label>
 																		</div>
-																		<div class="chk-box" id="pay_method_1"
-																			data-hidedefault="3" data-value="1|1|Y"
-																			onclick="clickPayType('radio', this);">
-																			<input type="radio" id="pay10" name="pay"
-																				value="cash">
-																			<!-- onclick="event.stopPropagation()" -->
-																			<label class="checkbox" for="pay10"></label> <label
-																				for="pay10">현장현금결제</label>
+																		<div class="chk-box" id="pay_method_3">
+																			<input type="radio" id="pay3" name="pay" value="현장현금결제">
+																			<label class="checkbox" for="pay3"></label> <label
+																				for="pay3">현장현금결제</label>
 																		</div>
 																	</div>
 																</div>
