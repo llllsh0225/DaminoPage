@@ -106,6 +106,7 @@ function saveBasket(){
 	sessionStorage.setItem("selectSize", selectSize );
 	sessionStorage.setItem("toppingNameArr", JSON.stringify(toppingNameArr));
 	
+	//console.log(('.menu-slider-view2').val());
 	$("#myBasket").submit();
 	
     
@@ -908,7 +909,7 @@ function minusDrink(idx){
 									<div class="view-box">
 										<!-- 대표 이미지 슬라이드 -->
 										<div class="menu-slider-view2">
-											<div>
+											<div id="pizza_image">
 												<img
 													src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
 											</div>
@@ -925,7 +926,7 @@ function minusDrink(idx){
 									<div class="guide-box2">원산지 정보는 사진 우측 하단 돋보기 메뉴를 통해 확인
 										가능합니다.</div>
 								</div>
-								<form action="/DaminoPage/my_basket.do" method="post" id="myBasket">
+								<form action="my_basket.do" method="post" id="myBasket">
 								<div class="detail-wrap">
 									<div class="menu-box">
 										<div class="label-box"></div>

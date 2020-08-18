@@ -115,6 +115,7 @@ $(document).ready(function(){
 									<li><a href="main.do">홈</a></li>
 									<li><a href="goodslist.do">메뉴</a></li>
 									<li><strong>피자 </strong></li>
+									
 								</ol>
 							</div>
 						</div>
