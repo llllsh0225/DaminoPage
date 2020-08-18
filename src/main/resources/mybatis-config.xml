@@ -25,5 +25,6 @@
 		<mapper resource="mappings/map-mapping.xml"/>
 		<mapper resource="mappings/quickorder-mapping.xml"/>
 		<mapper resource="mappings/test-mapping.xml"/>
+		<mapper resource="mappings/salesstauts-mapping.xml"/>
 	</mappers>
 </configuration>

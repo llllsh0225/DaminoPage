@@ -34,6 +34,16 @@ public class ViewTestController {
 		return mav;
 	}
 	
+	@RequestMapping("/testPrice.admdo")
+	public ModelAndView getTestPrice() {
+		System.out.println("결제 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/testPrice");
+		
+		return mav;
+	}
+	
 	// ---- user main end ----
 	
 	// ---- user branch ----
@@ -690,17 +700,17 @@ public class ViewTestController {
 //		return mav;
 //	}
 	
-	//store_sales 폴더 시작 -------
-
-	@RequestMapping("/salesStatus.admdo")
-	public ModelAndView getAdminSalesStatusPage() {
-		System.out.println("매출 현황 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/store_sales/salesStatus");
-		
-		return mav;
-	}
+//	//store_sales 폴더 시작 -------
+//
+//	@RequestMapping("/salesStatus.admdo")
+//	public ModelAndView getAdminSalesStatusPage() {
+//		System.out.println("매출 현황 페이지 열기");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("/store_sales/salesStatus");
+//		
+//		return mav;
+//	}
 	
 	//daminoManagerView 영역 시작 -------------------------
 	
