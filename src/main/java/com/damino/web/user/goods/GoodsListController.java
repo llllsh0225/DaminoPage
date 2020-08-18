@@ -6,14 +6,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -120,62 +121,88 @@ public class GoodsListController {
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo) {
 		// 사용자 선택 메뉴 정보 서비스 호출
 		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
-				
-		
 		//mav.addObject("goodsDetail", goodsDetail);
 		
 		mav.setViewName("/basket/basket_detail");
 		return mav;
 	}
 	
+	/*
+	 * @RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
+	 * 
+	 * @ResponseBody public List<GoodsToppingVO> getToppingNames(HttpServletRequest
+	 * request, @RequestBody Map<String, Object> params, GoodsToppingVO vo,
+	 * ModelAndView mav){ String toppingName = (String)params.get("t_name");
+	 * 
+	 * //String[] arrayParam = request.getParameterValues("test");
+	 * System.out.println(toppingName);
+	 * 
+	 * //GoodsToppingVO toppingVO = new GoodsToppingVO();
+	 * 
+	 * List<String> t_name_List = new ArrayList<String>(); String[] t_name_List2 =
+	 * toppingName.split(",");
+	 * 
+	 * List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
+	 * 
+	 * for(int i=0; i<t_name_List2.length; i++) { vo.setT_name(t_name_List2[i]);
+	 * 
+	 * GoodsToppingVO topping = goodsListService.getUserTopping(vo); //GoodsSideVO
+	 * goodsDetailSide = goodsListService.getUserSideGoods(vo);
+	 * toppingList.add(topping);
+	 * 
+	 * System.out.println(vo.getT_name()); }
+	 * 
+	 * 
+	 * return toppingList; }
+	 */
 	@RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<String> getToppingNames(HttpServletRequest request, @RequestParam(value="t_name[]") List<String> t_name ){
+	public List<GoodsToppingVO> getToppingNames(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsToppingVO vo){
+		String toppingName = (String)params.get("t_name");
+				
+		//String[] arrayParam = request.getParameterValues("test");
+		System.out.println(toppingName);
 		
+		//GoodsToppingVO toppingVO = new GoodsToppingVO();
 		
-		//System.out.println("제품 카테고리 : " + t_name);
+		List<String> t_name_List = new ArrayList<String>();		
+		String[] t_name_List2 = toppingName.split(",");
 		
-		List<String> t_name_List = new ArrayList<String>();
+		List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
 		
-		//List<GoodsToppingVO> toppingList = goodsListService.getUserTopping();
-		//System.out.println(t_name);
-		
-		GoodsToppingVO toppingVO = new GoodsToppingVO();
-		/*
-		 * GoodsToppingVO toppingVO = new GoodsToppingVO();
-		 * 
-		 * for(int i=0; i<t_name_List.size(); i++) { toppingVO = t_name.get(i); }
-		 */
-		//t_name의 길이만큼 배열을 돌려서 vo에 셋팅하고 서비스 호출?
-		
-		//List<String> t_nameArr = t_name;
-		/*
-		 * for(int j=0; j<param.size(); j++) { String t_name = param.get(j);
-		 * toppingVO.setT_name(t_name); System.out.println("vo가 받은 이름 : " +
-		 * toppingVO.getT_name());
-		 * 
-		 * t_name_List.add(t_name); System.out.println("리스트가 받은 이름 : " + t_name_List); }
-		 */
-		for(String toppingName : t_name) {
-            System.out.println(toppingName);
-        }
-		//List<GoodsToppingVO> toppingList = goodsListService.getUserTopping();
-		//System.out.println("toppingList : " + toppingList);
-		/*
-		 * List<GoodsToppingVO> toppingList = goodsListService.getUserTopping();
-		 * List<String> t_image_list = new ArrayList<String>();
-		 * 
-		 * GoodsToppingVO toppingVO = new GoodsToppingVO(); //JSONObject jsonObject =
-		 * new JSONObject();
-		 * 
-		 * for(int i=0; i<toppingList.size(); i++) { toppingVO = toppingList.get(i);
-		 * //toppingVO.setT_image(t_image); String toppingImage = vo.getT_image();
-		 * 
-		 * System.out.println(toppingImage); t_image_list.add(toppingImage); }
-		 */
-		
-		return t_name_List;
+			for(int i=0; i<t_name_List2.length; i++) {
+			vo.setT_name(t_name_List2[i]);
+			
+			GoodsToppingVO topping = goodsListService.getUserTopping(vo);
+			
+			toppingList.add(topping);
+			System.out.println(vo.getT_name());
+			}		
+		return toppingList;
 	}
+	@RequestMapping(value="/getPizzaName.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String getPizzaName(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsPizzaVO vo){
+		String p_name = (String)params.get("p_name");
+				
+		//String[] arrayParam = request.getParameterValues("test");
+		System.out.println(p_name);
+		
+		//GoodsToppingVO toppingVO = new GoodsToppingVO();
+		
+		//	List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
+		vo.setP_name(p_name);
+		GoodsPizzaVO goodsDetail1 = goodsListService.getUserPizza(vo);
+		/*
+		 * for(int i=0; i<t_name_List2.length; i++) { vo.setT_name(t_name_List2[i]);
+		 * 
+		 * GoodsToppingVO topping = goodsListService.getUserTopping(vo);
+		 * 
+		 * toppingList.add(topping); System.out.println(vo.getT_name()); }
+		 */	
+		String goodsDetail = goodsDetail1.getP_image();
+		return goodsDetail;
+	}	
 
 	@RequestMapping(value = "/getStoreRegion.do", method = RequestMethod.POST)
 	@ResponseBody

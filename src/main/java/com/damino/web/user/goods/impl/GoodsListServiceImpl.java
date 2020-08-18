@@ -79,11 +79,17 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("GoodsListServiceImpl getUserSideGoods(GoodsSideVO vo)");
 		return goodsListDAO.getUserSideGoods(vo);
 	}
-	
+
 	@Override
-	public List<GoodsToppingVO> getUserTopping() {
-		System.out.println("GoodsListServiceImpl getUserTopping()");
-		return goodsListDAO.getUserTopping();
+	public GoodsToppingVO getUserTopping(GoodsToppingVO vo) {
+		System.out.println("GoodsListServiceImpl getUserTopping(GoodsToppingVO vo)");
+		return goodsListDAO.getUserTopping(vo);
+	}
+
+	@Override
+	public GoodsPizzaVO getUserPizza(GoodsPizzaVO vo) {
+		System.out.println("GoodsListServiceImpl getUserPizza(GoodsPizzaVO vo)");
+		return goodsListDAO.getUserPizza(vo);
 	}
 
 }

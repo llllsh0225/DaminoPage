@@ -15,13 +15,15 @@ public interface GoodsListDAO {
 	public List<GoodsDrinkEtcVO> getDrinkEtcList(); // 음료 및 기타 목록 불러오기 
 	
 //------------------사용자 선택 --------------------
-	//사용자 선택 -피자 메뉴 불러오기
+	//사용자 선택 -피자 메뉴 불러오기(2번째는 이름만 비교)
 	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
+	public GoodsPizzaVO getUserPizza(GoodsPizzaVO vo);
 	//사용자 선택 - 사이드디시 메뉴 불러오기
 	public GoodsSideVO getUserSideGoods(GoodsSideVO vo);
 	//사용자 선택 - 토핑 메뉴 불러오기
-	public List<GoodsToppingVO> getUserTopping();
+	public GoodsToppingVO getUserTopping(GoodsToppingVO vo);
 	
 	//사용자 선택 - 선택 가능 도우 불러오기
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);
+	
 }
