@@ -28,7 +28,49 @@
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
 <script type="text/javascript">
+	// 현재 시각
+	var timeNow = new Date();
+	console.log('현재 시각: ' + timeNow.getMinutes());
+	
 	window.onload = function() {
+		deliverTimeSet();
+		todayReserveSet();
+		tomorrowReserveSet();
+		
+		// 오늘예약, 익일예약 div 숨김
+		$('#orderTime2').hide();
+		$('#orderTime3').hide();
+		
+		var tel1 = $('#userphone').val().substring(0, 3);
+		var tel2 = $('#userphone').val().substring(3, 7);
+		var tel3 = $('#userphone').val().substring(7, 11);
+		
+		if($('#recipient').prop('checked')){ // '주문자와 동일'이 체크 되었을 때 세션의 사용자 정보를 세팅
+			$('#customerName').attr('disabled', true);
+			$('#customerName').val($('#username').val());
+			
+			$('#tel1').attr('disabled', true);
+			$('#tel1').val(tel1).prop("selected", true);
+			
+			$('#tel2').attr('disabled', true);
+			$('#tel2').val(tel2);
+			
+			$('#tel3').attr('disabled', true);
+			$('#tel3').val(tel3);
+		}else{
+			$('#customerName').attr('disabled', false);
+			$('#customerName').val("");
+			
+			$('#tel1').attr('disabled', false);
+			$('#tel1').val("010").prop("selected", true);
+			
+			$('#tel2').attr('disabled', false);
+			$('#tel2').val("");
+			
+			$('#tel3').attr('disabled', false);
+			$('#tel3').val("");
+		}
+		
 		var goodsName = $('#goodsName').val();
 		var goodsNameArr = goodsName.split(",");
 
@@ -38,12 +80,22 @@
 		var goodsQty = $('#goodsQty').val();
 		var goodsQtyArr = goodsQty.split(",");
 
+		var couponName = $('#couponName').val();
+		var couponNameArr = couponName.split(",");
+		
+		
+		var discountRate = $('#discountRate').val();
+		var discountRateArr = discountRate.split(",");
+		
 		var toppingMenu = "";
-		var pizzaNameArr = []; // 피자제품명을 담는 배열
+		var pizzaNameArr = []; // 피자제품명만 담는 배열
 		var toppingNameArr = []; // 토핑제품명을 담는 배열
 		var etcNameArr = []; // 사이드, 음료&기타 제품명을 담는 배열
-		var goodsArr = [];
+		var goodsArr = []; // 제품명 (피자&사이드&음료) 배열
+		var couponArr = []; // 사용가능 쿠폰을 담는 배열
+		
 
+		// 제품명 배열, 피자메뉴 배열, 토핑 배열 세팅
 		for (var i = 0; i < goodsNameArr.length - 1; i++) {
 			if (goodsNameArr[i].includes("<br>")) {
 				var pizzaMenu = goodsNameArr[i].split("<br>");
@@ -65,6 +117,7 @@
 			}
 		}
 
+		// 주문내역 요약 세팅
 		if (goodsArr.length != 1) {
 			$('.goods_name').text(
 					goodsArr[0] + " x " + goodsQty[0] + " 외 "
@@ -75,12 +128,242 @@
 
 		toppingMenu = toppingMenu.replace("-", "");
 
+		// 주문 제품명 & 토핑이 있다면 토핑이름 세팅
 		for (var i = 0; i < goodsArr.length; i++) {
 			$('#goodsNameQty' + i).text(goodsArr[i] + " x " + goodsQtyArr[i]);
 			$('#goodsTotalPrice' + i).text(goodsPriceArr[i]);
 			if (pizzaNameArr[i] != null) {
 				$('#pizzaTopping' + i).html(toppingNameArr[i]);
 			}
+		}
+		
+		// 할인쿠폰 셀렉트박스 세팅
+		var target = document.getElementById("couponList");
+		target += ('<option value="">할인쿠폰 선택</option>');
+		for(var i=0; i<couponNameArr.length; i++){
+			target += ('<option value="' + discountRateArr[i] + '">' + couponNameArr[i] + '</option>');
+			console.log(discountRateArr[i]);
+		}
+		$('#couponList').html(target);
+		
+		// 총 상품금액 세팅
+		$('#totalPrice').text(Number($('#totalGoodsPrice').val()));
+		
+		// 총 결제금액 세팅
+		$('#totalPayment').text(Number($('#totalPrice').text()) - Number($('#totalDiscount').text()));
+		
+	}
+	
+	function directMessage(){ // 직접입력을 선택했을 때 텍스트박스가 나타남
+		if($('#more_req_box').val() == "direct"){
+			$('#more_req').show();
+		}else{
+			$('#more_req').hide();
+			$('#more_req').val("");
+		}
+	}
+	
+	function deliverTimeSet(){
+		var openTime = Number($('#storeOpenTime').val().substring(0,2));
+		var endTime = Number($('#storeEndTime').val().substring(0,2));
+		
+		if(timeNow.getHours() < openTime || timeNow.getHours() > endTime){
+			// 현재 시간이 매장의 오픈타임 이전이거나, 마감시간 이후일 때
+			$('#orderNow').text("현재는 주문 가능 시간이 아닙니다. 예약 시스템을 이용해주세요.");
+		}else{
+			// 주문 가능 시간일 때
+			timeNow.setMinutes(timeNow.getMinutes() + 30); // 현재 시간 + 30분
+			$('#deliverHour').text(timeNow.getHours());
+			$('#deliverMinutes').text(timeNow.getMinutes());	
+		}
+	}
+	
+	function todayReserveSet(){ // 오늘 예약 연월일 텍스트, 시간분 셀렉트박스 세팅
+		var year = String(timeNow.getFullYear());
+		$('#todayYear').text(year);
+		
+		var month = String(timeNow.getMonth() + 1);
+		if(month.length < 2){
+			month = '0' + month;
+		}
+		$('#todayMonth').text(month);
+		
+		var date = String(timeNow.getDate());
+		
+		if(date.length < 2){
+			date = '0' + date;
+		}
+		
+		$('#todayDay').text(date);
+		
+		var hour = String(timeNow.getHours());
+		
+		if(hour.length < 2){
+			hour = '0' + hour;
+		}
+		
+		var target1 = document.getElementById("reserve_time11");
+		var target2 = document.getElementById("reserve_time12");
+		
+		var openTime = Number($('#storeOpenTime').val().substring(0,2)); // 매장 오픈시간
+		var endTime = Number($('#storeEndTime').val().substring(0,2)); // 마감시간
+		
+		var calHour = Number(hour);
+		
+		target1 += ('<option value="">시간</option>');
+
+		target2 += ('<option value="">분</option>');
+		$('#reserve_time12').html(target2);
+		
+		for(var i=0; i<endTime - openTime; i++){
+			if(calHour <= endTime){
+				target1 += ('<option value="' + year + month + date + calHour + '">' + calHour +'시</option>');
+				$('#reserve_time11').html(target1);
+				++calHour;
+			}else{
+				return;
+			}
+		}
+		
+	}
+	
+	function setTodayReserveMinutes() {
+		var openTime = Number($('#storeOpenTime').val().substring(0,2)); // 매장 오픈시간
+		var endTime = Number($('#storeEndTime').val().substring(0,2)); // 마감시간(시간)
+		var endMinutes = Number($('#storeEndTime').val().substring(3,5)); // 마감시간(분)
+		var reserveHour = Number($('#reserve_time11').val().slice(-2)); // 선택한 예약 시간
+		var hour = String(timeNow.getHours()); // 현재 시간
+		var minutesArr = [ 00, 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55 ]; // 분 저장 배열
+		
+		var target2 = document.getElementById("reserve_time12");
+		
+		if(hour.length < 2){
+			hour = '0' + hour;
+		}
+		
+		var minutes = String(timeNow.getMinutes()); // 현재 분
+		
+		if(minutes.length < 2){
+			minutes = '0' + minutes;
+		}
+		
+		target2 += ('<option value="">분</option>');
+		
+		if(reserveHour == Number(hour)){
+			for(var i=0; i<minutesArr.length; i++){
+				if(minutesArr[i] > Number(minutes)){
+					target2 += ('<option value="' + minutesArr[i] + '00' + '">' + minutesArr[i] + '분</option>');
+				}
+			}
+		}else if(reserveHour == endTime){
+			for(var i=0; i<minutesArr.length; i++){
+				if(minutesArr[i] <= endMinutes){
+					target2 += ('<option value="' + minutesArr[i] + '00' + '">' + minutesArr[i] + '분</option>');
+				}
+			}
+		}else{
+			for(var i=0; i<minutesArr.length; i++){
+				target2 += ('<option value="' + minutesArr[i] + '00' + '">' + minutesArr[i] + '분</option>');
+			}
+		}
+		
+		$('#reserve_time12').html(target2);
+		
+	}
+	
+	function tomorrowReserveSet(){
+		var todayDate = new Date();
+		
+		var year = String(todayDate.getFullYear());
+		$('#t_year').text(year);
+		
+		var month = String(todayDate.getMonth() + 1);
+		if(month.length < 2){
+			month = '0' + month;
+		}
+		$('#t_month').text(month);
+		
+		todayDate.setDate(todayDate.getDate() + 1);
+		
+		var date = String(todayDate.getDate());
+		
+		if(date.length < 2){
+			date = '0' + date;
+		}
+		
+		$('#t_day').text(date);
+		
+		var hour = String(todayDate.getHours());
+		
+		if(hour.length < 2){
+			hour = '0' + hour;
+		}
+		
+		var target3 = document.getElementById("reserve_time21");
+		var target4 = document.getElementById("reserve_time22");
+		
+		var openTime = Number($('#storeOpenTime').val().substring(0,2)); // 매장 오픈시간
+		var endTime = Number($('#storeEndTime').val().substring(0,2)); // 마감시간
+		
+		target3 += ('<option value="">시간</option>');
+
+		target4 += ('<option value="">분</option>');
+		$('#reserve_time22').html(target4);
+		
+		var businessHour = endTime - openTime;
+		
+		for(var i=0; i<=businessHour; i++){
+			target3 += ('<option value="' + year + month + date + openTime + '">' + openTime +'시</option>');
+			$('#reserve_time21').html(target3);
+			++openTime;
+		}
+	}
+	
+	function setTomorrowReserveTime(){
+		var endTime = Number($('#storeEndTime').val().substring(0,2)); // 마감시간(시간)
+		var endMinutes = Number($('#storeEndTime').val().substring(3,5)); // 마감시간(분)
+		var reserveHour = Number($('#reserve_time21').val().slice(-2)); // 선택한 예약 시간
+		var minutesArr = [ 00, 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55 ]; // 분 저장 배열
+		
+		var target4 = document.getElementById("reserve_time22");
+		
+		target4 += ('<option value="">분</option>');
+		
+		if(reserveHour == endTime){
+			for(var i=0; i<minutesArr.length; i++){
+				if(minutesArr[i] <= endMinutes){
+					target4 += ('<option value="' + minutesArr[i] + '00' + '">' + minutesArr[i] + '분</option>');
+				}
+			}
+		}else{
+			for(var i=0; i<minutesArr.length; i++){
+				target4 += ('<option value="' + minutesArr[i] + '00' + '">' + minutesArr[i] + '분</option>');
+			}
+		}
+		
+		$('#reserve_time22').html(target4);
+	}
+	
+	function setDiscountRate(){
+		var selectDiscountRate = Number($('#couponList').val());
+		var totalDiscount = Math.floor(Number($('#totalPrice').text()) * (selectDiscountRate / 100));
+		$('#totalDiscount').text(totalDiscount);
+		$('#totalPayment').text(Number($('#totalPrice').text()) - Number($('#totalDiscount').text()));
+	}
+	
+	function changeReserveGubun(idx){ // 바로주문, 오늘예약, 내일예약 div show
+		if(idx == 1){
+			$('#orderTime1').show();
+			$('#orderTime2').hide();
+			$('#orderTime3').hide();
+		}else if(idx == 2){
+			$('#orderTime2').show();
+			$('#orderTime1').hide();
+			$('#orderTime3').hide();
+		}else if(idx == 3){
+			$('#orderTime3').show();
+			$('#orderTime1').hide();
+			$('#orderTime2').hide();
 		}
 	}
 </script>
@@ -169,9 +452,16 @@
 				style="display: none; width: 0px; height: 0px;"></iframe>
 			<form id="orderFrm" name="orderFrm" action="" target="" method="post">
 				<div id="hidden_info">
-					<input type="hidden" id="goodsName" value="${goodsName }" /> <input
-						type="hidden" id="goodsPrice" value="${goodsPrice }" /> <input
-						type="hidden" id="goodsQty" value="${goodsQty }" />
+					<input type="hidden" id="username" value="${user.username }" />
+					<input type="hidden" id="userphone" value="${user.phone }" />
+					<input type="hidden" id="goodsName" value="${goodsName }" /> 
+					<input type="hidden" id="goodsPrice" value="${goodsPrice }" /> 
+					<input type="hidden" id="goodsQty" value="${goodsQty }" />
+					<input type="hidden" id="totalGoodsPrice" value="${totalPrice }" />
+					<input type="hidden" id="couponName" value="${couponName }" />
+					<input type="hidden" id="discountRate" value="${discountRate }" />
+					<input type="hidden" id="storeOpenTime" value="${hourInfo.opentime }" />
+					<input type="hidden" id="storeEndTime" value="${hourInfo.endtime }" />
 				</div>
 
 				<section id="content">
@@ -215,10 +505,9 @@
 												<div class="form-group">
 													<div class="form-item">
 														<div class="chk-box v3">
-															<input type="checkbox" name="order_type" id="recipient"
-																onchange="recipientChange()" checked> <label
-																class="checkbox" for="recipient"></label> <label
-																for="recipient">주문자와 동일</label>
+															<input type="checkbox" name="order_type" id="recipient" checked> 
+															<label class="checkbox" for="recipient"></label> 
+															<label for="recipient">주문자와 동일</label>
 														</div>
 													</div>
 
@@ -290,7 +579,7 @@
 												<div class="form">
 													<div class="form-item">
 														<div class="select-type2">
-															<select name="more_req_box" onChange="directMessage()";>
+															<select id="more_req_box" name="more_req_box" onChange="directMessage()";>
 																<option value="">요청사항을 선택하세요.</option>
 																<option value="문 앞에 놓아 주세요.">문 앞에 놓아 주세요.</option>
 																<option value="피클은 빼주세요.">피클은 빼주세요.</option>
@@ -300,10 +589,10 @@
 														</div>
 													</div>
 													<!-- 직접 입력 -->
-													<div class="form-item form-text">
+													<div id="directTextForm" class="form-item form-text">
 														<input style="display: none;" name="more_req"
-															id="more_req" type="text" onkeyup="checkByte(this, 50)"
-															placeholder="주문시 요청사항을 입력하세요. (최대 25자까지 입력가능)">
+															id="more_req" type="text"
+															placeholder="주문시 요청사항을 입력하세요.">
 													</div>
 												</div>
 											</dd>
@@ -353,9 +642,8 @@
 													
 													<div class="discount-step">
 														<ul>
-															<li id="myCoupon"><a
-																href="javascript:changePrmt('myCoupon');"
-																class="btn-type-brd5">쿠폰선택 셀렉트박스 추가하기</a></li>
+															<select id="couponList" style="width:30%;" onChange="setDiscountRate();">
+															</select>
 														</ul>
 													</div>
 													<!-- //discount-step -->
@@ -371,34 +659,68 @@
 															<div class="tab-type2 js_tab" id="time_info_gubun_btn">
 
 																<ul class="col-free">
-																	<li class="active" onclick="changeReserveGubun(this);">
-																		<a href="javascript:;" id="reserve_gubun_30"
-																		data-value="30|N">바로주문</a>
+																	<li class="active">
+																		<a onclick="changeReserveGubun(1);" style="cursor:pointer;">바로주문</a>
 																	</li>
-																	<li onclick="changeReserveGubun(this);"><a
-																		href="#;" id="reserve_gubun_TD" data-value="TD|N">오늘예약</a></li>
-																	<li onclick="changeReserveGubun(this);"><a
-																		href="#;" id="reserve_gubun_TD" data-value="TM|N">내일예약</a></li>
+																	<li>
+																		<a onclick="changeReserveGubun(2);" style="cursor:pointer;">오늘예약</a>
+																	</li>
+																	<li>
+																		<a onclick="changeReserveGubun(3);" style="cursor:pointer;">내일예약</a>
+																	</li>
 																</ul>
 															</div>
 															<!-- 바로주문 -->
 															<div id="orderTime1" class="tab-content active" style="">
 																<div class="time-info">
-																	<p class="text">영업시간 이후 주문 30분 후로 세팅합니다.</p>
+																	<p class="text" id="orderNow"><span id="deliverHour">0</span>시 <span id="deliverMinutes">0</span>분 도착 예정입니다.</p>
+																
 																</div>
 															</div>
 															<!-- // 바로주문 -->
 															<!-- 오늘예약 -->
-															<div id="orderTime2" class="tab-content"
-																style="display: none;">
-																<p class="text">셀렉트박스 들어갈 부분</p>
+															<div id="orderTime2" class="tab-content" style="display: block;">
+			
+																<div class="time-select">
+																	<div class="select-box">
+																		<p><span id="todayYear">0</span>년 <span id="todayMonth">0</span>월 <span id="todayDay">0</span>일</p>
+																		<div class="select-type2">
+																			<select class="select2" id="reserve_time11" name="reserve_time11" onChange="setTodayReserveMinutes();">
+																			</select>
+																		</div>
+																		<div class="select-type2">
+																			<select class="select2" id="reserve_time12" name="reserve_time12">
+																			</select>
+																		</div>
+																	</div>
+																	<p class="text2">* 매장 상황에 따라 배달시간이 상이할 수 있습니다.</p>
+																</div>
+																
+																<input type="hidden" id="reserve_yn" value="N">
+																<input type="hidden" id="prmt_s_hour" value="00">
+																<input type="hidden" id="prmt_e_hour" value="24">
+																<input type="hidden" id="prmt_idx" value="1317">
+															
+																<p class="text"></p>
 															</div>
 															<!-- //오늘예약 -->
 
 															<!-- 내일예약 -->
-															<div id="orderTime3" class="tab-content"
-																style="display: none;">
-																<p class="text2">익일 예약 셀렉트박스 들어갈 부분</p>
+															<div id="orderTime3" class="tab-content" style="display: block;">
+																<div class="time-select">
+																	<div class="select-box">
+																		<p><span id="t_year">0</span>년 <span id="t_month">0</span>월 <span id="t_day">0</span>일</p>
+																		<div class="select-type2">
+																			<select class="select2" id="reserve_time21" name="reserve_time21" onChange="setTomorrowReserveTime();">
+																			</select>
+																		</div>
+																		<div class="select-type2">
+																			<select class="select2" id="reserve_time22" name="reserve_time22">
+																			</select>
+																		</div>
+																	</div>
+																	<p class="text2">* 매장 상황에 따라 배달시간이 상이할 수 있습니다.</p>
+																</div>
 															</div>
 															<!-- //내일예약 -->
 														</div>
@@ -474,19 +796,19 @@
 																	<li>
 																		<p class="tit">총 상품 금액</p>
 																		<p class="price">
-																			<em>0</em>원
+																			<em id="totalPrice">0</em>원
 																		</p>
 																	</li>
 																	<li class="discount">
 																		<p class="tit">총 할인 금액</p>
 																		<p class="price">
-																			<em>0</em>원
+																			<em id="totalDiscount">0</em>원
 																		</p>
 																	</li>
 																	<li class="total">
 																		<p class="tit">총 결제 금액</p>
 																		<p class="price">
-																			<em>0</em>원
+																			<em id="totalPayment">0</em>원
 																		</p>
 																	</li>
 																</ul>

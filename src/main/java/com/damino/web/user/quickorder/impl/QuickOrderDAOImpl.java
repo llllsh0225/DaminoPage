@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.menu.DrinkEtcVO;
 import com.damino.web.admin.menu.PizzaVO;
 import com.damino.web.admin.menu.SideVO;
@@ -142,6 +143,12 @@ public class QuickOrderDAOImpl implements QuickOrderDAO {
 	public void releaseDefaultDeliveryAddress(QuickOrderAddressVO vo) {
 		System.out.println("이전 설정된 디폴트 배달지 해제");
 		sqlSessionTemplate.update("QuickOrderDAO.releaseDefaultDeliveryAddress", vo);
+	}
+
+	@Override
+	public MarketVO getBusinessHour(String storename) {
+		System.out.println(storename + "점의 영업시간 가져오기");
+		return sqlSessionTemplate.selectOne("QuickOrderDAO.getBusinessHour", storename);
 	}
 
 	

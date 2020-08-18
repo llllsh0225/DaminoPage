@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
 import com.damino.web.admin.menu.DrinkEtcVO;
 import com.damino.web.admin.menu.PizzaVO;
 import com.damino.web.admin.menu.SideVO;
+import com.damino.web.user.coupon.CouponService;
+import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.goods.GoodsListService;
 import com.damino.web.user.goods.GoodsToppingVO;
 
@@ -30,6 +33,8 @@ public class QuickOrderController {
 	private GoodsListService goodsListService;
 	@Autowired
 	private MarketAdminRegistService marketAdminRegistService;
+	@Autowired
+	private CouponService couponService;
 	
 	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
@@ -341,10 +346,15 @@ public class QuickOrderController {
 		
 		List<QuickOrderGoodsVO> quickOrderGoodsList = quickOrderService.getQuickOrderGoodsList(userid);	
 		QuickOrderAddressVO defaultAddress = quickOrderService.getDefaultDeliveryAddress(userid);
+		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
+		MarketVO hourInfo = quickOrderService.getBusinessHour(defaultAddress.getStorename()); // 배달매장의 영업시간 정보 가져오기
+		
 		String goodsName = ""; // 저장된 제품명을 담을 문자열
 		String goodsPrice = ""; // 저장된 제품가격을 담을 문자열
 		String goodsQty = ""; // 저장된 제품수량을 담을 문자열
 		int totalPrice = 0; // 저장된 제품의 총 가격
+		String couponName = ""; // 쿠폰명을 저장할 문자열
+		String discountRate = ""; // 쿠폰별 할인율을 저장할 문자열
 		
 		for(int i=0; i<quickOrderGoodsList.size(); i++) {
 			goodsName += quickOrderGoodsList.get(i).getQuick_goods();
@@ -359,12 +369,24 @@ public class QuickOrderController {
 			totalPrice += quickOrderGoodsList.get(i).getQuick_price();
 		}
 		
+		for(int i=0; i<couponList.size(); i++) {
+			couponName += couponList.get(i).getCoupon_name();
+			discountRate += couponList.get(i).getDiscountrate();
+			if(i != couponList.size() - 1) {
+				couponName += ",";
+				discountRate += ",";
+			}
+		}
+		
+		mav.addObject("hourInfo", hourInfo);
 		mav.addObject("goodsName", goodsName);
 		mav.addObject("goodsPrice", goodsPrice);
 		mav.addObject("goodsQty", goodsQty);
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("quickOrderGoodsList", quickOrderGoodsList);
 		mav.addObject("defaultAddress", defaultAddress);
+		mav.addObject("couponName", couponName);
+		mav.addObject("discountRate", discountRate);
 		
 		mav.setViewName("/quickorder/quickOrder_payment");
 		
