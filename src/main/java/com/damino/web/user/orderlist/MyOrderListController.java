@@ -13,12 +13,11 @@ public class MyOrderListController {
 	@Autowired
 	private MyOrderListService myOrderListService;
 	
-	@RequestMapping("/myorderlist.do")
-	public ModelAndView getMyOrderList() {
+	@RequestMapping(value="/myorderlist.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView getMyOrderList(ModelAndView mav, MyOrderListVO vo) {
 		System.out.println("내 주문현황 열기");
-		List<MyOrderListVO> myOrderList = myOrderListService.getMyOrderList();
+		List<MyOrderListVO> myOrderList = myOrderListService.getMyOrderList(vo);
 		System.out.println(myOrderList);
-		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/mypage/myOrderList");
 		mav.addObject("myOrderList", myOrderList);
 		return mav;

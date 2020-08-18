@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,7 +153,7 @@
 											<div class="order-top">
 												<span class="type">${myorderlist.take }</span> 
 												<span class="date"> 
-													<span class="tit">주문일시</span>${myorderlist.regdate }
+													<span class="tit">주문일시</span><fmt:formatDate value="${myorderlist.orderdate }" pattern="yyyy-MM-dd HH:mm:ss" />
 												</span> 
 												<span class="num"> 
 													<span class="tit">주문번호</span>${myorderlist.orderseq }
@@ -168,8 +169,8 @@
 													<div class="shop">${myorderlist.store }&nbsp;</div>
 												</div>
 												<div class="info od-box">
-													<a href="javascript:goView('20200717863942990011');">
-														<div class="menu">${myorderlist.orderli }&nbsp;
+													<a href="#">
+														<div class="menu">${myorderlist.menus }&nbsp;
 															${myorderlist.price }원</div>
 													</a>
 												</div>

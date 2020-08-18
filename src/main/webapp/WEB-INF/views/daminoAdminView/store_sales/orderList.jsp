@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,45 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+<script
+	src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
+<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
 
+<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+
+<script type="text/javascript">
+var lang_kor = {
+        "emptyTable" : "데이터가 없습니다.",
+        "info" : "_START_ - _END_ (총 _TOTAL_ 건)",
+        "infoEmpty" : "0건",
+        "infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",
+        "lengthMenu" : "_MENU_ 개씩 보기",
+        "search" : "빠른 검색 : ",
+        "zeroRecords" : "검색된 데이터가 없습니다.",
+        "paginate" : {
+            "first" : "첫 페이지",
+            "last" : "마지막 페이지",
+            "next" : "다음",
+            "previous" : "이전"
+        }
+    };
+$(document).ready(function() {
+    $('#dataTable1').DataTable( {
+        order: [[ 0, 'desc' ]],
+        ordering:true,
+        language : lang_kor
+    } );
+} );
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -216,17 +255,19 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%"
+							<table class="table table-bordered" id="dataTable1" width="100%"
 								cellspacing="0">
 								<thead>
 									<tr>
-										<th>주문 번호</th>
-										<th>고 객 명</th>
+										<th>주문번호</th>
+										<th>ID</th>
+										<th>이름</th>
 										<th>주문 날짜</th>
-										<th>주 소</th>
+										<th>도착시간</th>
+										<th>주소</th>
 										<th>연락처</th>
-										<th>제 품</th>
-										<th>금 액</th>
+										<th>제품</th>
+										<th>금액</th>
 										<th>배달/포장</th>
 										<th>점포명</th>
 										<th>결제 방식</th>
@@ -240,16 +281,18 @@
 									<tr>
 										<!-- 예시 -->
 										<td>${orderlist.orderseq }</td>
-										<td>${orderlist.name }</td>
-										<td>${orderlist.regdate }</td>
+										<td>${orderlist.userid }</td>
+										<td>${orderlist.username }</td>
+										<td><fmt:formatDate value="${orderlist.orderdate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+										<td><fmt:formatDate value="${orderlist.deliverytime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 										<td>${orderlist.address }</td>
 										<td>${orderlist.tel }</td>
-										<td>${orderlist.orderli }</td>
+										<td>${orderlist.menus }</td>
 										<td>${orderlist.price }</td>
 										<td>${orderlist.take }</td>
 										<td>${orderlist.store }</td>
 										<td>${orderlist.paytool }</td>
-										<td>${orderlist.paystate }</td>
+										<td>${orderlist.paystatus }</td>
 										<td>${orderlist.status }</td>
 										<!--
 										<td>  
@@ -281,22 +324,5 @@
 			</footer>
 		</div>
 	</div>
-
-	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
-	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
-	
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
-
 </body>
 </html>

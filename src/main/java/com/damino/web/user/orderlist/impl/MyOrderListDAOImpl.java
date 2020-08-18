@@ -15,9 +15,9 @@ public class MyOrderListDAOImpl implements MyOrderListDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
-	public List<MyOrderListVO> getMyOrderList() {
+	public List<MyOrderListVO> getMyOrderList(MyOrderListVO vo) {
 		System.out.println("MyOrderListDAOImpl getMyOrderList()");
-		return sqlSessionTemplate.selectList("OrderlistDAO.getMyOrderList");
+		return sqlSessionTemplate.selectList("OrderlistDAO.getMyOrderList", vo);
 	}
 
 }
