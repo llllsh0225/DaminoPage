@@ -13,7 +13,7 @@ public class MyOrderListController {
 	@Autowired
 	private MyOrderListService myOrderListService;
 	
-	@RequestMapping(value="/myorderlist.do", method=RequestMethod.GET)
+	@RequestMapping("/myorderlist.do")
 	public ModelAndView getMyOrderList() {
 		System.out.println("내 주문현황 열기");
 		List<MyOrderListVO> myOrderList = myOrderListService.getMyOrderList();

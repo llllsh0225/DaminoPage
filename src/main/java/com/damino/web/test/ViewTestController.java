@@ -401,14 +401,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/myorderlist.do")
-	public ModelAndView getMyOrderList() {
-		System.out.println("내 주문현황 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mypage/myOrderList");
-		return mav;
-	}
 	
 	// --- end page 폴더 ---
 	
