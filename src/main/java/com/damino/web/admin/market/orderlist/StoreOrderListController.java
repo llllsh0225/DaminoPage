@@ -24,6 +24,7 @@ public class StoreOrderListController {
 		System.out.println("주문 목록 페이지 열기");
 		List<StoreOrderListVO> storeorderlist = storeOrderListService.getStoreOrderList();
 		
+		mav.addObject("storeorderlist", storeorderlist);
 		mav.setViewName("/order/storeOrderList");
 		
 		
@@ -49,7 +50,7 @@ public class StoreOrderListController {
 		String orderseq = (String)param.get("orderseq");
 		
 		vo.setStatus(status);
-		vo.setOrderseq(Integer.parseInt(orderseq));
+		vo.setOrderseq(orderseq);
 		
 		storeOrderListService.updateOrderList(vo);
 		return "success";
