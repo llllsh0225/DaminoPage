@@ -3,7 +3,7 @@ package com.damino.web.admin.market.orderlist;
 import java.util.Date;
 
 public class StoreOrderListVO {
-	private int orderseq;
+	private String orderseq;
 	private String userid;
 	private String username;
 	private Date orderdate = new Date();
@@ -25,10 +25,10 @@ public class StoreOrderListVO {
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
 	}
-	public int getOrderseq() {
+	public String getOrderseq() {
 		return orderseq;
 	}
-	public void setOrderseq(int orderseq) {
+	public void setOrderseq(String orderseq) {
 		this.orderseq = orderseq;
 	}
 	public String getUserid() {

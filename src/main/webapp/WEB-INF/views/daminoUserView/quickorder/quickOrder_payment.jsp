@@ -465,8 +465,10 @@
 		// 결제수단 세팅
 		if($('#pay1').prop('checked')){
 			paytool = $('#pay1').val();
+			
 			// ======== 카드결제 선택했을 때 ========
 			// 이 부분에 결제 function 들어가면 될 것 같습니다!
+			
 		}else if($('#pay2').prop('checked')){
 			paytool = $('#pay2').val();
 		}else if($('#pay3').val()){
