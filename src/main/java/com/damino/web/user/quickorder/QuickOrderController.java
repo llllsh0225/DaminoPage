@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -389,6 +390,54 @@ public class QuickOrderController {
 		mav.addObject("discountRate", discountRate);
 		
 		mav.setViewName("/quickorder/quickOrder_payment");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/doQuickOrder.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String doQuickOrder(@RequestBody Map<String, Object> param, QuickOrderVO vo) {
+		String userid = (String) param.get("userid");
+		String username = (String) param.get("username");
+		String orderdate = (String) param.get("orderTimeStr");
+		String deliverytime = (String) param.get("deliveryTime");
+		String address = (String) param.get("deliverAddress");
+		String tel = (String) param.get("userphone");
+		String menus = (String) param.get("goodsName");
+		int price = (Integer) param.get("totalPayment");
+		String take = (String) param.get("take");
+		String store = (String) param.get("storename");
+		String paytool = (String) param.get("paytool");
+		String paystatus = (String) param.get("paystatus");
+		String status = (String) param.get("status");
+		String requirement = (String) param.get("requirement");
+		
+		vo.setUserid(userid);
+		vo.setUsername(username);
+		vo.setOrderdate(orderdate);
+		vo.setDeliverytime(deliverytime);
+		vo.setOrderdate(orderdate);
+		vo.setAddress(address);
+		vo.setTel(tel);
+		vo.setMenus(menus);
+		vo.setPrice(price);
+		vo.setTake(take);
+		vo.setStore(store);
+		vo.setPaytool(paytool);
+		vo.setPaystatus(paystatus);
+		vo.setStatus(status);
+		vo.setRequirements(requirement);
+		
+		quickOrderService.doQuickOrder(vo);
+		
+		return "success";
+	}
+	
+	@RequestMapping("/getOrderResultPage.do")
+	public ModelAndView getOrderResultPage(ModelAndView mav) {
+		System.out.println("주문 결과 페이지 열기");
+		
+		mav.setViewName("quickorder/quickOrder_done");
 		
 		return mav;
 	}

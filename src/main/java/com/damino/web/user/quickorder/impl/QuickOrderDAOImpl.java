@@ -13,6 +13,7 @@ import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.quickorder.QuickOrderAddressVO;
 import com.damino.web.user.quickorder.QuickOrderDAO;
 import com.damino.web.user.quickorder.QuickOrderGoodsVO;
+import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Repository("quickOrderDAO")
 public class QuickOrderDAOImpl implements QuickOrderDAO {
@@ -149,6 +150,12 @@ public class QuickOrderDAOImpl implements QuickOrderDAO {
 	public MarketVO getBusinessHour(String storename) {
 		System.out.println(storename + "점의 영업시간 가져오기");
 		return sqlSessionTemplate.selectOne("QuickOrderDAO.getBusinessHour", storename);
+	}
+
+	@Override
+	public void doQuickOrder(QuickOrderVO vo) {
+		System.out.println("퀵오더 주문");
+		sqlSessionTemplate.insert("QuickOrderDAO.doQuickOrder", vo);
 	}
 
 	

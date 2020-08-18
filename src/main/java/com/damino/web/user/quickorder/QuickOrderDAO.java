@@ -35,4 +35,6 @@ public interface QuickOrderDAO {
 	
 	public void setDefaultDeliveryAddress(QuickOrderAddressVO vo); // 디폴트 배달지 설정
 	public void releaseDefaultDeliveryAddress(QuickOrderAddressVO vo); // 이전 설정된 디폴트 배달지 해제
+	
+	public void doQuickOrder(QuickOrderVO vo); // 퀵오더 주문
 }
