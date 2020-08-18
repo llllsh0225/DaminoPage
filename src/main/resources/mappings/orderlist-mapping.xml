@@ -3,13 +3,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="OrderlistDAO">
-	<select id="getOrderlistInv"
-		resultType="com.damino.web.admin.orderlist.OrderlistVO">
-		SELECT orderseq, name, regdate, address, tel, orderli, price, take, store, paytool ,paystate, status
+	<select id="getOrderlistInv" resultType="com.damino.web.admin.orderlist.OrderlistVO">
+		SELECT orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status
 		FROM order_list
 	</select>
 	<select id="getMyOrderList" resultType="com.damino.web.user.orderlist.MyOrderListVO" parameterType="com.damino.web.user.orderlist.MyOrderListVO">
-		SELECT orderseq, name, regdate, address, tel, orderli, price, take, store, paytool ,paystate, status
-		FROM order_list WHERE name=#{name}
+		SELECT orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status
+		FROM order_list WHERE userid=#{userid} ORDER BY orderdate DESC
 	</select>
 </mapper>

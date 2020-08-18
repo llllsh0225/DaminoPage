@@ -45,7 +45,10 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 		},
 	});
 }
-
+function orderlistSubmit(){
+	document.myinfoForm.action='myorderlist.do';
+	document.myinfoForm.submit();
+}
 </script>
 </head>
 <body>
@@ -112,9 +115,7 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -153,17 +154,20 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 							</div>
 						</div>
 						<article class="mypage-wrap mypage-grade">
-							<div class="menu-nav-wrap">
-								<div class="menu-nav">
-									<ul>
-										<li class="active"><a href="mylevel.do">매니아 등급</a></li>
-										<li><a href="myorderlist.do">주문내역</a></li>
-										<li><a href="mycoupon.do">쿠폰함</a></li>
-										<li><a href="myquestionlist.do">1:1문의</a></li>
-										<li><a href="myuserinfoconfirm.do">정보수정</a></li>
-									</ul>
+							<form name="myinfoForm" id="myinfoForm" method="post">
+								<input type="hidden" name="userid" value="${user.userid }"/>
+								<div class="menu-nav-wrap">
+									<div class="menu-nav">
+										<ul>
+											<li class="active"><a href="mylevel.do">매니아 등급</a></li>
+											<li><a href="#" onclick="orderlistSubmit()">주문내역</a></li>
+											<li><a href="mycoupon.do">쿠폰함</a></li>
+											<li><a href="myquestionlist.do">1:1문의</a></li>
+											<li><a href="myuserinfoconfirm.do">정보수정</a></li>
+										</ul>
+									</div>
 								</div>
-							</div>
+							</form>
 							<!-- 사용자 등급 -->
 							<!-- 사용자 혜택 -->
 							<!-- 다음 달 도달 가능 등급 계산 (현재 등급보다 한단계 높은 등급 노출) -->

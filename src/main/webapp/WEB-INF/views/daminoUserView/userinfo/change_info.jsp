@@ -217,13 +217,6 @@ function updateSubmit(){
 		document.changefrm.action='changecomplete.do';
 		document.changefrm.submit();
 	}
-	/* if(changechecks()==false){
-		alert('작성 내용을 다시 확인해주세요.');
-	}else{
-		alert('변경 완료');
-		document.changefrm.action='changecomplete.do';
-		document.changefrm.submit();
-	} */
 }
 </script>
 </head>
@@ -348,7 +341,7 @@ function updateSubmit(){
 								<div class="user">개인정보 입력 안내문</div>
 								<div class="text-type">회원정보를 정확히 기입하셔야 주문이나 이벤트에 대한 불이익이 없습니다.</div>
 							</div>
-							<form name="changefrm" id="changefrm" method="post" onsubmit="return changechecks()">
+							<form name="changefrm" id="changefrm" method="post">
 								<div class="myinfo-wrap">
 									<input type="hidden" name="userid" value="${sessionScope.userid }"/>
 									<div class="form">
