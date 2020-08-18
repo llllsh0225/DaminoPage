@@ -12,8 +12,10 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
 
-<script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<!-- chart js -->
+<script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" '/>" crossorigin="anonymous"></script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -259,6 +261,22 @@
 								<div class="card-body">
 									<canvas id="PieChart_mw" width="100%" height="50"></canvas>
 								</div>
+								<script>
+									var ctx = document.getElementById("PieChart_mw");
+									var myPieChart = new Chart(ctx, {
+									  type: 'pie',
+									  data: {
+									    labels: ["남성", "여성"],
+									    datasets: [{
+									      data: [
+									    	  "${maleCount}",
+									    	  "${femaleCount}"
+									    	  ],
+									      backgroundColor: ['#004098 ', '#FF2C2C'],
+									    }],
+									  },
+									});
+								</script>
 							</div>
 						</div>
 						<!-- 원그래프 -->
@@ -294,7 +312,7 @@
 	<!--  년차트   -->
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-year.js'/>"></script>
 	<!--  랭크차트   -->
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-pie-mw.js'/>"></script>
+	
 	<!--  남녀차트   -->
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-pie-sellrank.js'/>"></script>
 	<!-- end 차트 -->
