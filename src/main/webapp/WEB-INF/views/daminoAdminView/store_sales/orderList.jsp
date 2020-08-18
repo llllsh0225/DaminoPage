@@ -294,14 +294,6 @@ $(document).ready(function() {
 										<td>${orderlist.paytool }</td>
 										<td>${orderlist.paystatus }</td>
 										<td>${orderlist.status }</td>
-										<!--
-										<td>  
-										<select>
-												<option value="true">완료</option>
-												<option value="false" selected>미완료</option>
-										</select>
-										</td>
-										-->
 									</tr>
 									</c:forEach>
 								</tbody>

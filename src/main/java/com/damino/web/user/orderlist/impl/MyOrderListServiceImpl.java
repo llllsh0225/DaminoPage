@@ -15,9 +15,9 @@ public class MyOrderListServiceImpl implements MyOrderListService{
 	private MyOrderListDAO myOrderListDAO;
 	
 	@Override
-	public List<MyOrderListVO> getMyOrderList(MyOrderListVO vo) {
+	public List<MyOrderListVO> getMyOrderList(String userid) {
 		System.out.println("MyOrderListServiceImpl getMyOrderList()");
-		return myOrderListDAO.getMyOrderList(vo);
+		return myOrderListDAO.getMyOrderList(userid);
 	}
 
 }

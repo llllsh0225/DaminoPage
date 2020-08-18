@@ -316,42 +316,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/orderstatusCook.do")
-	public ModelAndView getOrderStatusCook() {
-		System.out.println("요리중->배달중->배달완료 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/order_status_cook");
-		return mav;
-	}
-	
-	@RequestMapping("/orderstatusDelivery.do")
-	public ModelAndView getOrderStatusDelivery() {
-		System.out.println("배달 위치 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/order_status_delivery");
-		return mav;
-	}
-	
-	@RequestMapping("/orderstatusdeliveryDone.do")
-	public ModelAndView getOrderStatusDeliveryDone() {
-		System.out.println("안전하게 전달하였습니다 페이지");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/order_status_deliveryDone");
-		return mav;
-	}
-	
-	@RequestMapping("/orderstatusReceive.do")
-	public ModelAndView getOrderStatusReceive() {
-		System.out.println("주문이 접수되었습니다 페이지");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/order_status_receive");
-		return mav;
-	}
-	
 	@RequestMapping("/groupOrder.do")
 	public ModelAndView getGroupOrder() {
 		System.out.println("단체주문 페이지");
@@ -794,24 +758,7 @@ public class ViewTestController {
 		}
 		
 	//order 폴더 시작 ---------
-		@RequestMapping("/orderList.smdo")
-		public ModelAndView getOrderListPage() {
-			System.out.println("주문 목록 페이지 열기");
-			
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/order/orderList");
-			
-			return mav;
-		}
-		@RequestMapping("/orderSearch.smdo")
-		public ModelAndView getOrderSearchPage() {
-			System.out.println("주문 검색 페이지 열기");
-			
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/order/orderSearch");
-			
-			return mav;
-		}
+		
 	//statistics 폴더 시작 ---------
 	@RequestMapping("/statistics_list.smdo")
 	public ModelAndView getStatistics_listPage() {
