@@ -231,7 +231,7 @@ $(document).ready(function() {
 						<i class="fas fa-table mr-1"></i> 매장관리
 						<!--새로고침 버튼-->
 						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							vonClick="window.location.reload()"
+							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
@@ -290,7 +290,9 @@ $(document).ready(function() {
 								</tbody>
 							</table>
 						</div>
-						</form>
+					</div>
+				</div>
+				</form>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">

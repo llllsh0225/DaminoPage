@@ -154,20 +154,17 @@ function orderlistSubmit(){
 							</div>
 						</div>
 						<article class="mypage-wrap mypage-grade">
-							<form name="myinfoForm" id="myinfoForm" method="post">
-								<input type="hidden" name="userid" value="${user.userid }"/>
-								<div class="menu-nav-wrap">
-									<div class="menu-nav">
-										<ul>
-											<li class="active"><a href="mylevel.do">매니아 등급</a></li>
-											<li><a href="#" onclick="orderlistSubmit()">주문내역</a></li>
-											<li><a href="mycoupon.do">쿠폰함</a></li>
-											<li><a href="myquestionlist.do">1:1문의</a></li>
-											<li><a href="myuserinfoconfirm.do">정보수정</a></li>
-										</ul>
-									</div>
+							<div class="menu-nav-wrap">
+								<div class="menu-nav">
+									<ul>
+										<li class="active"><a href="mylevel.do">매니아 등급</a></li>
+										<li><a href="myorderlist.do">주문내역</a></li>
+										<li><a href="mycoupon.do">쿠폰함</a></li>
+										<li><a href="myquestionlist.do">1:1문의</a></li>
+										<li><a href="myuserinfoconfirm.do">정보수정</a></li>
+									</ul>
 								</div>
-							</form>
+							</div>
 							<!-- 사용자 등급 -->
 							<!-- 사용자 혜택 -->
 							<!-- 다음 달 도달 가능 등급 계산 (현재 등급보다 한단계 높은 등급 노출) -->

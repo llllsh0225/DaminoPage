@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,48 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
+<script src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+	crossorigin="anonymous"></script>
+<script src="<c:url value='/resources/js/admin/chart-area-demo.js'/>"></script>
+<script src="<c:url value='/resources/js/admin/chart-bar-demo.js'/>"></script>
+<script
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
+	crossorigin="anonymous"></script>
+<script src="<c:url value='/resources/js/admin/datatables-demo.js'/>.js"></script>
+<script type="text/javascript">
+var lang_kor = {
+        "emptyTable" : "데이터가 없습니다.",
+        "info" : "_START_ - _END_ (총 _TOTAL_ 건)",
+        "infoEmpty" : "0건",
+        "infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",
+        "lengthMenu" : "_MENU_ 개씩 보기",
+        "search" : "빠른 검색 : ",
+        "zeroRecords" : "검색된 데이터가 없습니다.",
+        "paginate" : {
+            "first" : "첫 페이지",
+            "last" : "마지막 페이지",
+            "next" : "다음",
+            "previous" : "이전"
+        }
+    };
+$(document).ready(function() {
+    $('#dataTable1').DataTable( {
+        order: [[ 0, 'desc' ]],
+        ordering:true,
+        language : lang_kor
+    } );
+} );
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -140,68 +183,42 @@
 								</div>
 							</div>
 							<hr>
-							<table class="table table-bordered" id="dataTable" width="100%"
-								cellspacing="0">
+							<table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
 								<thead>
 									<tr>
 										<th>주문번호</th>
-										<th>주문일</th>
-										<th>배달/포장</th>
+										<th>이름</th>
+										<th>주문 날짜</th>
+										<th>도착시간</th>
 										<th>주소</th>
 										<th>연락처</th>
 										<th>제품</th>
 										<th>금액</th>
+										<th>배달/포장</th>
 										<th>결제방식</th>
 										<th>결제상태</th>
 										<th>확인상태</th>
+										<th>요청사항</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>0025678113</td>
-										<td>2020-05-05</td>
-										<td>배달</td>
-										<td>강남구 역삼동 21-13</td>
-										<td>010-5555-2323</td>
-										<td>피자 / 피자 / 콜라</td>
-										<td>30,000 원</td>
-										<td>카카오페이</td>
-										<td>O</td>
-										<td><select class="form-control">
-												<option value="O">완료</option>
-												<option value="X" selected>미완료</option>
-										</select></td>
-									</tr>
-									<tr>
-										<td>0025678113</td>
-										<td>2020-03-03</td>
-										<td>배달</td>
-										<td>종로구 묘동 111-1</td>
-										<td>010-1234-1234</td>
-										<td>피자<br>콜라<br>피자<br>콜라
-										<td>24,000 원</td>
-										<td>현장 결제</td>
-										<td>X</td>
-										<td><select class="form-control">
-												<option>완료</option>
-												<option selected>미완료</option>
-										</select></td>
-									</tr>
-									<tr>
-										<td>0025678113</td>
-										<td>2020-03-31</td>
-										<td>포장</td>
-										<td>-</td>
-										<td>010-2222-3333</td>
-										<td>피자 / 피자 / 콜라 / 콜라</td>
-										<td>51,000 원</td>
-										<td>방문 결제</td>
-										<td>X</td>
-										<td><select class="form-control">
-												<option>완료</option>
-												<option selected>미완료</option>
-										</select></td>
-									</tr>
+									<c:forEach var="storeorderlist" items="${storeorderlist }" varStatus="status">
+										<tr>
+											<td>${storeorderlist.orderseq }</td>
+											<td>${storeorderlist.username }</td>
+											<td><fmt:formatDate value="${storeorderlist.orderdate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+											<td><fmt:formatDate value="${storeorderlist.deliverytime }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+											<td>${storeorderlist.address }</td>
+											<td>${storeorderlist.tel }</td>
+											<td>${storeorderlist.menus }</td>
+											<td>${storeorderlist.price }</td>
+											<td>${storeorderlist.take }</td>
+											<td>${storeorderlist.paytool }</td>
+											<td>${storeorderlist.paystatus }</td>
+											<td>${storeorderlist.status}</td>
+											<td>${storeorderlist.requirement }</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -222,25 +239,5 @@
 			</footer>
 		</div>
 	</div>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
-		crossorigin="anonymous"></script>
-	<script src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-		crossorigin="anonymous"></script>
-	<script src="<c:url value='/resources/js/admin/chart-area-demo.js'/>"></script>
-	<script src="<c:url value='/resources/js/admin/chart-bar-demo.js'/>"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"
-		crossorigin="anonymous"></script>
-	<script src="<c:url value='/resources/js/admin/datatables-demo.js'/>.js"></script>
-
 </body>
 </html>
