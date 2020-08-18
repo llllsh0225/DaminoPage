@@ -99,4 +99,9 @@
 		WHERE userid = #{userid} AND rowseq = #{rowseq}
 	</delete>
 	
+	<select id="getBusinessHour" parameterType="String" resultType="com.damino.web.admin.market.MarketVO">
+		SELECT opentime, endtime FROM daminostoreinfo
+		WHERE storename = #{storename}
+	</select>
+	
 </mapper>
