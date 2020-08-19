@@ -49,7 +49,7 @@
 		$('#orderTime2').hide();
 		$('#orderTime3').hide();
 		
-		
+		// 컨트롤러에서 넘겨받은 값
 		var goodsName = $('#goodsName').val();
 		var goodsNameArr = goodsName.split(",");
 
@@ -61,7 +61,6 @@
 
 		var couponName = $('#couponName').val();
 		var couponNameArr = couponName.split(",");
-		
 		
 		var discountRate = $('#discountRate').val();
 		var discountRateArr = discountRate.split(",");
@@ -75,7 +74,7 @@
 		
 
 		// 제품명 배열, 피자메뉴 배열, 토핑 배열 세팅
-		for (var i = 0; i < goodsNameArr.length - 1; i++) {
+		for (var i = 0; i < goodsNameArr.length; i++) {
 			if (goodsNameArr[i].includes("<br>")) {
 				var pizzaMenu = goodsNameArr[i].split("<br>");
 				pizzaNameArr[i] = pizzaMenu[0];
@@ -462,6 +461,14 @@
 		var status = '주문완료';
 		var requirement = "";
 		
+		// 선택한 쿠폰 인덱스
+		var couponCode = $('#couponCode').val();
+		var couponCodeArr = couponCode.split(",");
+		
+		var couponIdx = $('#couponList option').index($('#couponList option:selected'));
+		var selectCouponCode = couponCodeArr[couponIdx - 1];
+		console.log(couponIdx + " : " + selectCouponCode);
+		
 		// 결제수단 세팅
 		if($('#pay1').prop('checked')){
 			paytool = $('#pay1').val();
@@ -503,8 +510,10 @@
 				paystatus : paystatus,
 				status : status,
 				requirement : requirement,
+				selectCouponCode : selectCouponCode,
 			}),
 			success: function(data) {
+				// 결과 페이지로 이동
 				location.href="getOrderResultPage.do";
 			},
 			error: function() {
@@ -610,6 +619,7 @@
 					<input type="hidden" id="goodsQty" value="${goodsQty }" />
 					<input type="hidden" id="totalGoodsPrice" value="${totalPrice }" />
 					<input type="hidden" id="couponName" value="${couponName }" />
+					<input type="hidden" id="couponCode" value="${couponCode }" />
 					<input type="hidden" id="discountRate" value="${discountRate }" />
 					<input type="hidden" id="storeOpenTime" value="${hourInfo.opentime }" />
 					<input type="hidden" id="storeEndTime" value="${hourInfo.endtime }" />

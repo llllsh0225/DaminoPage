@@ -111,4 +111,9 @@
 		UPDATE coupon SET chkusable = 'N'
 		WHERE to_char(sysdate, 'YYYYMMDD') > to_char(validity, 'YYYYMMDD')
 	</update>
+	
+	<update id="updateUsedCoupon" parameterType="String">
+		UPDATE coupon SET chkusable = 'N'
+		WHERE coupon_code = #{couponCode}
+	</update>
 </mapper>

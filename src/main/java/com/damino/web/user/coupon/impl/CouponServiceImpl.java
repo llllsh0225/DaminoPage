@@ -90,4 +90,9 @@ public class CouponServiceImpl implements CouponService {
 		couponDAO.updateChkusable();
 	}
 
+	@Override
+	public void updateUsedCoupon(String couponCode) {
+		couponDAO.updateUsedCoupon(couponCode);
+	}
+
 }
