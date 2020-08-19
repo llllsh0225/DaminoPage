@@ -11,6 +11,7 @@ import com.damino.web.user.goods.GoodsListDAO;
 import com.damino.web.user.goods.GoodsPizzaVO;
 import com.damino.web.user.goods.GoodsSideVO;
 import com.damino.web.user.goods.GoodsToppingVO;
+import com.damino.web.user.goods.UserBasketVO;
 
 @Service("goodsListDAO")
 public class GoodsListDAOImpl implements GoodsListDAO {
@@ -35,8 +36,6 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		System.out.println("GoodsListDAOImpl getSideList()");
 		return sqlSessionTemplate.selectList("GoodsListDAO.getSideList");
 	}
-
-	
 
 	@Override
 	public List<GoodsDrinkEtcVO> getDrinkEtcList() {
@@ -92,6 +91,11 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 	public GoodsPizzaVO getUserPizza(GoodsPizzaVO vo) {
 		System.out.println("GoodsListDAOImpl getUserPizza(GoodsPizzaVO vo)");
 		return sqlSessionTemplate.selectOne("GoodsListDAO.getUserPizza", vo);
+	}
+
+	public void insertBasket(UserBasketVO vo) {
+		System.out.println("장바구니 추가");
+		sqlSessionTemplate.insert("GoodsListDAO.insertBasket", vo);
 	}
 	
 }

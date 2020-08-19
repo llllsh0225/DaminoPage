@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -73,9 +74,11 @@ public class GoodsListController {
 
 	/** 사용자 선택 피자 메뉴 */
 	@RequestMapping("/detail.do")
-	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo) {
+	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo, HttpSession session) {
 		System.out.println("사용자 선택 피자메뉴 열기");
-
+		
+		String userid = (String) session.getAttribute("userid");
+		
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);
 		String p_name = request.getParameter("p_name");
@@ -118,43 +121,68 @@ public class GoodsListController {
 
 	/** 사용자 선택 피자 메뉴 - 주문하기 getToppingNames  */
 	@RequestMapping(value = "my_basket.do", method = RequestMethod.POST)
-	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo) {
+	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo, HttpSession session) {
+		
+		String p_code = request.getParameter("p_code");
+		String p_name = request.getParameter("p_name");
+		System.out.println("p_code1 : " + p_code);
+		System.out.println("p_name1 : " + p_name);
 		// 사용자 선택 메뉴 정보 서비스 호출
-		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
-		//mav.addObject("goodsDetail", goodsDetail);
+		GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
+		
+		String userid = (String) session.getAttribute("userid");
+		System.out.println("userid : " + userid);
+		
+		//로그인 되어 있지 않다면 비회원에서 user 정보 받아오게 리다이렉트
+		if(userid == null) {
+			mav.setViewName("/login/login");
+			return mav;
+		}else {		
+		//선택한 제품정보 insert	
+						
+		mav.addObject("goodsDetail", goodsDetail);
 		
 		mav.setViewName("/basket/basket_detail");
 		return mav;
+		}
+	}
+	@RequestMapping(value = "insert_my_basket.do", method = RequestMethod.POST)
+	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
+		
+		String userId = (String) param.get("userId");
+		int pizzaPrice = (Integer)param.get("pizzaPrice");
+		String pizzaSize = (String) param.get("pizzaSize");
+		String pizzaName = (String) param.get("pizzaName");
+		String pizzaDough = (String) param.get("pizzaDough");
+		
+		int pizzaCount = (Integer)param.get("pizzaCount");
+		System.out.println("피자수량 테스트1 : " + pizzaCount);
+		
+		String toppingPrice =  (String)param.get("toppingPrice");
+		
+		String toppingName = (String)param.get("toppingName");
+		String toppingCount =  (String)param.get("toppingCount");
+		
+		vo.setUserId(userId);
+		vo.setPizzaPrice(pizzaPrice);
+		vo.setPizzaSize(pizzaSize);	
+		vo.setPizzaName(pizzaName);
+		vo.setPizzaDough(pizzaDough);
+		vo.setPizzaCount(pizzaCount);
+		vo.setToppingPrice(toppingPrice);
+		vo.setToppingName(toppingName);
+		vo.setToppingCount(toppingCount);
+		
+		
+		goodsListService.insertBasket(vo);
+		
+		
+		
+		return "success";
+		
 	}
 	
-	/*
-	 * @RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
-	 * 
-	 * @ResponseBody public List<GoodsToppingVO> getToppingNames(HttpServletRequest
-	 * request, @RequestBody Map<String, Object> params, GoodsToppingVO vo,
-	 * ModelAndView mav){ String toppingName = (String)params.get("t_name");
-	 * 
-	 * //String[] arrayParam = request.getParameterValues("test");
-	 * System.out.println(toppingName);
-	 * 
-	 * //GoodsToppingVO toppingVO = new GoodsToppingVO();
-	 * 
-	 * List<String> t_name_List = new ArrayList<String>(); String[] t_name_List2 =
-	 * toppingName.split(",");
-	 * 
-	 * List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
-	 * 
-	 * for(int i=0; i<t_name_List2.length; i++) { vo.setT_name(t_name_List2[i]);
-	 * 
-	 * GoodsToppingVO topping = goodsListService.getUserTopping(vo); //GoodsSideVO
-	 * goodsDetailSide = goodsListService.getUserSideGoods(vo);
-	 * toppingList.add(topping);
-	 * 
-	 * System.out.println(vo.getT_name()); }
-	 * 
-	 * 
-	 * return toppingList; }
-	 */
+	
 	@RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<GoodsToppingVO> getToppingNames(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsToppingVO vo){
@@ -182,7 +210,7 @@ public class GoodsListController {
 	}
 	@RequestMapping(value="/getPizzaName.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String getPizzaName(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsPizzaVO vo){
+	public String getPizzaName(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsPizzaVO vo, Model model){
 		String p_name = (String)params.get("p_name");
 				
 		//String[] arrayParam = request.getParameterValues("test");
@@ -192,6 +220,7 @@ public class GoodsListController {
 		
 		//	List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
 		vo.setP_name(p_name);
+		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
 		GoodsPizzaVO goodsDetail1 = goodsListService.getUserPizza(vo);
 		/*
 		 * for(int i=0; i<t_name_List2.length; i++) { vo.setT_name(t_name_List2[i]);
@@ -200,8 +229,11 @@ public class GoodsListController {
 		 * 
 		 * toppingList.add(topping); System.out.println(vo.getT_name()); }
 		 */	
-		String goodsDetail = goodsDetail1.getP_image();
-		return goodsDetail;
+		//String pizzaImage = goodsDetail1.getP_image();
+	//	model.addAttribute(pizzaImage);
+		//return goodsDetail1;
+		return "success";
+		
 	}	
 
 	@RequestMapping(value = "/getStoreRegion.do", method = RequestMethod.POST)

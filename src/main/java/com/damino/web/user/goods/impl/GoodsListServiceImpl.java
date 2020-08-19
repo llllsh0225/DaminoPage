@@ -13,6 +13,8 @@ import com.damino.web.user.goods.GoodsListService;
 import com.damino.web.user.goods.GoodsPizzaVO;
 import com.damino.web.user.goods.GoodsSideVO;
 import com.damino.web.user.goods.GoodsToppingVO;
+import com.damino.web.user.goods.UserBasketVO;
+import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 
 @Service("goodsListService")
 public class GoodsListServiceImpl implements GoodsListService {
@@ -92,4 +94,10 @@ public class GoodsListServiceImpl implements GoodsListService {
 		return goodsListDAO.getUserPizza(vo);
 	}
 
+	@Override
+	public void insertBasket(UserBasketVO vo) {
+		System.out.println("장바구니 추가");
+		goodsListDAO.insertBasket(vo);
+	}
+	
 }
