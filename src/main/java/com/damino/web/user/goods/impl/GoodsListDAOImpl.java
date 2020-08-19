@@ -97,5 +97,13 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		System.out.println("장바구니 추가");
 		sqlSessionTemplate.insert("GoodsListDAO.insertBasket", vo);
 	}
+
+	@Override
+	public List<UserBasketVO> getBasketList(String userid) {
+		System.out.println("장바구니 목록");
+		return sqlSessionTemplate.selectList("GoodsListDAO.getBasketList", userid);
+	}
+
+	
 	
 }

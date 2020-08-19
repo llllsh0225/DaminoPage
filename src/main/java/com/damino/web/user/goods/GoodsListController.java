@@ -127,20 +127,23 @@ public class GoodsListController {
 		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
 		
 		String userid = (String) session.getAttribute("userid");
-		System.out.println("userid : " + userid);
+		System.out.println(" my_basket userid : " + userid);
 		
 		//로그인 되어 있지 않다면 비회원에서 user 정보 받아오게 리다이렉트
 		if(userid == null) {
 			mav.setViewName("/login/login");
 			return mav;
 		}else {		
-		//선택한 제품정보 insert	
+		
 		vo.setUserId(userid);
+		//userid 기준 장바구니 목록 호출
+		List<UserBasketVO> basketList = goodsListService.getBasketList(userid);
+		System.out.println(basketList);
 		
-		//정보호출
-		
+		mav.addObject("basketList", basketList);
 		
 		mav.setViewName("/basket/basket_detail");
+		
 		return mav;
 		}
 	}
@@ -152,12 +155,14 @@ public class GoodsListController {
 		String pizzaSize = (String) param.get("pizzaSize");
 		String pizzaName = (String) param.get("pizzaName");
 		String pizzaDough = (String) param.get("pizzaDough");
+		String pizzaImage = (String)param.get("pizzaImage");
 		
 		int pizzaCount = (Integer)param.get("pizzaCount");
 		System.out.println("피자수량 테스트1 : " + pizzaCount);
 		
 		String toppingPrice =  (String)param.get("toppingPrice");		
 		String toppingName = (String)param.get("toppingName");
+		System.out.println("toppingName : " + toppingName);
 		String toppingCount =  (String)param.get("toppingCount");
 		
 		String sidePrice =  (String)param.get("sidePrice");		
@@ -177,6 +182,8 @@ public class GoodsListController {
 		vo.setPizzaName(pizzaName);
 		vo.setPizzaDough(pizzaDough);
 		vo.setPizzaCount(pizzaCount);
+		vo.setPizzaImage(pizzaImage);
+		
 		vo.setToppingPrice(toppingPrice);
 		vo.setToppingName(toppingName);
 		vo.setToppingCount(toppingCount);
@@ -196,31 +203,30 @@ public class GoodsListController {
 	}
 	
 	
-	@RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
-	@ResponseBody
-	public List<GoodsToppingVO> getToppingNames(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsToppingVO vo){
-		String toppingName = (String)params.get("t_name");
-				
-		//String[] arrayParam = request.getParameterValues("test");
-		System.out.println(toppingName);
-		
-		//GoodsToppingVO toppingVO = new GoodsToppingVO();
-		
-		List<String> t_name_List = new ArrayList<String>();		
-		String[] t_name_List2 = toppingName.split(",");
-		
-		List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
-		
-			for(int i=0; i<t_name_List2.length; i++) {
-			vo.setT_name(t_name_List2[i]);
-			
-			GoodsToppingVO topping = goodsListService.getUserTopping(vo);
-			
-			toppingList.add(topping);
-			System.out.println(vo.getT_name());
-			}		
-		return toppingList;
-	}
+	/*
+	 * @RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
+	 * 
+	 * @ResponseBody public List<GoodsToppingVO> getToppingNames(HttpServletRequest
+	 * request, @RequestBody Map<String, Object> params, GoodsToppingVO vo){ String
+	 * toppingName = (String)params.get("t_name");
+	 * 
+	 * //String[] arrayParam = request.getParameterValues("test");
+	 * System.out.println(toppingName);
+	 * 
+	 * //GoodsToppingVO toppingVO = new GoodsToppingVO();
+	 * 
+	 * List<String> t_name_List = new ArrayList<String>(); String[] t_name_List2 =
+	 * toppingName.split(",");
+	 * 
+	 * List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
+	 * 
+	 * for(int i=0; i<t_name_List2.length; i++) { vo.setT_name(t_name_List2[i]);
+	 * 
+	 * GoodsToppingVO topping = goodsListService.getUserTopping(vo);
+	 * 
+	 * toppingList.add(topping); System.out.println(vo.getT_name()); } return
+	 * toppingList; }
+	 */
 	
 	@RequestMapping(value="/getPizzaName.do", method=RequestMethod.POST)
 	@ResponseBody
