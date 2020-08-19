@@ -352,14 +352,7 @@ public class ViewTestController {
 	
 	// --- mypage 폴더 ---
 	
-	@RequestMapping("/mylevel.do")
-	public ModelAndView getMyLevel() {
-		System.out.println("내 등급 열기");
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mypage/myLevel");
-		return mav;
-	}
+	
 	
 	/*
 	 * @RequestMapping(value="/user/mylevel.do") public String getMyLevel() throws

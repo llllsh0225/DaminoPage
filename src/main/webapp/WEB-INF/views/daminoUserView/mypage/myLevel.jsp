@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,23 +25,23 @@ window.onload = function(){
 	// 오늘 날짜 객체
 	var today = new Date();
 	
-	// 3달 전
-	var threeMonthAgo = String(today.getMonth() - 2);
-	if(threeMonthAgo.length < 2){
-		threeMonthAgo = '0' + threeMonthAgo;
+	// 두 달 전
+	var twoMonthAgo = String(today.getMonth() - 1);
+	if(twoMonthAgo.length < 2){
+		twoMonthAgo = '0' + twoMonthAgo;
 	}
 	
-	// 1달 전
-	var oneMonthAgo = String(today.getMonth());
-	if(oneMonthAgo.length < 2){
-		oneMonthAgo = '0' + oneMonthAgo;
+	// 현재 달
+	var thisMonth = String(today.getMonth() + 1);
+	if(thisMonth.length < 2){
+		thisMonth = '0' + thisMonth;
 	}
 	
 	// 주문 건수 계산 기준 월
-	$('#orderCntDate').text('(' + today.getFullYear() + '-' + threeMonthAgo + '~' + today.getFullYear() + "-" + oneMonthAgo + ")");
+	$('#orderCntDate').text('(' + today.getFullYear() + '-' + twoMonthAgo + '~' + today.getFullYear() + "-" + thisMonth + ")");
 	
 	// 주문 액수 계산 기준 월
-	$('#payCntDate').text('(' + today.getFullYear() + '-01~' + today.getFullYear() + "-" + (today.getMonth() + 1) + ")");
+	$('#payCntDate').text('(' + today.getFullYear() + '-01~' + today.getFullYear() + "-" + thisMonth + ")");
 }
 
 function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확인 한 후, 중복발급이 아닐 경우에만 쿠폰을 지급한다.
@@ -208,7 +209,7 @@ function orderlistSubmit(){
 										</dt>
 										<dd>
 											<p>
-												<strong>추후에 주문 건수 받을 부분</strong>
+												<strong>${orderCnt }건</strong>
 											</p>
 										</dd>
 									</dl>
@@ -218,7 +219,7 @@ function orderlistSubmit(){
 										</dt>
 										<dd>
 											<p>
-												<strong>추후에 주문 금액 받을 부분</strong>
+												<strong><fmt:formatNumber type="number" maxFractionDigits="3" value="${payCnt }" />원</strong>
 											</p>
 										</dd>
 									</dl>
