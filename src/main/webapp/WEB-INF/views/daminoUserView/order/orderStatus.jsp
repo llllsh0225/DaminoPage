@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -33,16 +34,23 @@
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
-					<div class="util-nav">
-						<!-- and AUTH.memberYn eq 'Y' -->
-								<a href="main.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
+					<c:choose>
+						<c:when test="${msg != 'login' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
 									<i class="ico-cart"></i>
-									<span class="hidden ">장바구니</span>
-									<strong class="cart_count"></strong> <!-- count -->
 								</a>
-					</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 				
@@ -123,69 +131,111 @@
 						</div>
 					<div class="order-view">
 						<div class="order-top">
-							<span class="type">배달</span>
+							<span class="type">${orderview.take }</span>
 							<span class="date">
 								<span class="tit">주문일시</span>
-								2020-07-17 18:15</span>
+								<fmt:formatDate value="${orderview.orderdate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 							<span class="num">
 								<span class="tit">주문번호</span>
-								20200717863942990011</span>
+								${orderview.orderseq }</span>
 							</div>
 						<div class="order-center">
 							<div class="state">
-								<strong>
-									
-													접수완료
-													</strong>
+								<strong>${orderview.status }</strong>
 							</div>
 							<div class="graph-wrap">
+								<c:choose>
+									<c:when test="${orderview.status eq '주문완료' }">
 										<div class="graph-text">
-											<div><span>접수완료</span></div>
+											<div><span>주문완료</span></div>
 											<div><span>요리중</span></div>
 											<div><span>배달중</span></div>
-													<div><span>배달완료</span></div>
-												</div>
+											<div><span>배달완료</span></div>
+										</div>
 										<div class="graph v2">
 											<span class="graph-inner" style="width:12%">
 												<span class="icon"></span>
 											</span>
-											<!--
-											접수완료 12%
-											요리중 38%
-											배달중 63%
-											배달완료 100%
-											-->
 										</div>
 										<div class="tip-box2 tip-center">
-												<p>고객님의 피자 주문이 접수되었습니다.</p>
-											</div>
+											<p>고객님의 피자 주문이 접수되었습니다.</p>
 										</div>
-								</div>
+									</c:when>
+									<c:when test="${orderview.status eq '요리중' }">
+										<div class="graph-text">
+											<div><span>접수완료</span></div>
+											<div><span>요리중</span></div>
+											<div><span>배달중</span></div>
+											<div><span>배달완료</span></div>
+										</div>
+										<div class="graph v2">
+											<span class="graph-inner" style="width:38%">
+												<span class="icon"></span>
+											</span>
+										</div>
+										<div class="tip-box2 tip-center">
+											<p>고객님의 피자를 맛있게 요리중입니다.</p>
+										</div>
+									</c:when>
+									<c:when test="${orderview.status eq '배달중' }">
+										<div class="graph-text">
+											<div><span>접수완료</span></div>
+											<div><span>요리중</span></div>
+											<div><span>배달중</span></div>
+											<div><span>배달완료</span></div>
+										</div>
+										<div class="graph v2">
+											<span class="graph-inner" style="width:63%">
+												<span class="icon"></span>
+											</span>
+										</div>
+										<div class="tip-box2 tip-center">
+											<p>고객님께 열심히 가고 있어요.</p>
+										</div>
+									</c:when>
+									<c:when test="${orderview.status eq '배달완료' }">
+										<div class="graph-text">
+											<div><span>접수완료</span></div>
+											<div><span>요리중</span></div>
+											<div><span>배달중</span></div>
+											<div><span>배달완료</span></div>
+										</div>
+										<div class="graph v2">
+											<span class="graph-inner" style="width:100%">
+												<span class="icon"></span>
+											</span>
+										</div>
+										<div class="tip-box2 tip-center">
+											<p>고객님께 안전하게 전달하였습니다.</p>
+										</div>
+									</c:when>
+									<c:when test="${orderview.status eq '주문취소' }">
+									</c:when>			
+								</c:choose>	
+							</div>
+						</div>
 						<div class="menu-info-wrap">
 							<div class="menu-info">
 								<div class="info-box">
 									<div class="title-type2">주문내역</div>
-									<p>베스트 콰트로 슈퍼시드 함유 도우L x 1  /  36,900원</p>
-										
-										<p>코카콜라 1.25L x 1  /  2,000원</p>
-										
-										</div>
+									<p>${orderview.menus }</p>
+								</div>
 							</div>
 							<div class="pay-info">
 								<dl>
 									<dt>주문금액</dt>
-									<dd><em>38,900</em>원</dd>
+									<dd><em>${orderview.price }</em>원</dd>
 								</dl>
 								<dl class="discount">
 									<dt>할인 금액</dt>
-									<dd><em>-7,380</em>원</dd>
+									<dd><em>-</em>원</dd>
 								</dl>
 								<ul class="apply">
 	                                    <li>MANIA_R20 20%</li>
 	                                </ul>
                                 <dl class="total">
 									<dt>결제금액</dt>
-									<dd><em>31,520</em>원</dd>
+									<dd><em>${orderview.price }</em>원</dd>
 								</dl>
 							</div>
 						</div>
@@ -194,17 +244,17 @@
 							<dl>
 								<dt>결제방법</dt>
 								<dd>
-									신용카드(선결제)&nbsp;31,520원
+									${orderview.paytool }(${orderview.paystatus }) &nbsp; ${orderview.price } 원
 									<a href="javascript:show_receipt('StdpayCARDdomin3940220200717181520234596');" class="btn-type4-brd">영수증 출력</a>
-									</dd>
+								</dd>
 							</dl>
 							<dl>
 								<dt>수령인</dt>
-								<dd>수령인 이름</dd>
+								<dd>${orderview.username }</dd>
 							</dl>
 							<dl>
 								<dt>수령인 연락처</dt>
-								<dd>010-1234-5678</dd>
+								<dd>${orderview.tel }</dd>
 							</dl>
 							<dl>
 								<dt>배달요청시간</dt>
@@ -212,26 +262,26 @@
 							</dl>
 							<dl>
 								<dt>배달주소</dt>
-									<dd>서울특별시 종로구 돈화문로 26 단성사 4층</dd>
+									<dd>${orderview.address }</dd>
 							</dl>
 							<dl>
 								<dt>매장정보</dt>
-								<dd>세종로점&nbsp;<a href="tel:02-723-3082" class="tel">02-723-3082</a></dd>
+								<dd>${orderview.store }</dd>
 							</dl>
 							<dl>
 								<dt>추가요청</dt>
-								<dd></dd>
+								<dd>${orderview.requirement }</dd>
 							</dl>
 						</div>
 						<div class="btn-wrap">
 							<div class="t-l">
-										<a href="javascript:goList();" class="btn-type v5">목록</a>
-									</div>
-									<div class="t-r">
-										<a href="javascript:profileOrder('R');" class="btn-type v3">재주문</a>
-										<a href="javascript:profileOrder('Q');" class="btn-type v4">퀵오더 등록</a>
-									</div>
+									<a href="myorderlist.do" class="btn-type v5">목록</a>
 								</div>
+								<div class="t-r">
+									<a href="javascript:profileOrder('R');" class="btn-type v3">재주문</a>
+									<a href="javascript:profileOrder('Q');" class="btn-type v4">퀵오더 등록</a>
+								</div>
+							</div>
 					</div>
 				</article>
 			</div>

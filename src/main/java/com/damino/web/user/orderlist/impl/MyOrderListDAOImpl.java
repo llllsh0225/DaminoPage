@@ -20,4 +20,10 @@ public class MyOrderListDAOImpl implements MyOrderListDAO{
 		return sqlSessionTemplate.selectList("OrderlistDAO.getMyOrderList", userid);
 	}
 
+	@Override
+	public MyOrderListVO getOrderView(MyOrderListVO vo) {
+		System.out.println("MyOrderListDAOImpl getOrderView(vo)");
+		return sqlSessionTemplate.selectOne("OrderlistDAO.getOrderView", vo);
+	}
+
 }

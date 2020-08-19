@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface MyOrderListDAO {
 	public List<MyOrderListVO> getMyOrderList(String userid);
+	public MyOrderListVO getOrderView(MyOrderListVO vo);
 }

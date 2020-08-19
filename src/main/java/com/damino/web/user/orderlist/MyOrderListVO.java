@@ -3,7 +3,7 @@ package com.damino.web.user.orderlist;
 import java.util.Date;
 
 public class MyOrderListVO {
-	private int orderseq;
+	private String orderseq;
 	private String userid;
 	private String username;
 	private Date orderdate = new Date();
@@ -17,10 +17,12 @@ public class MyOrderListVO {
 	private String paytool;
 	private String paystatus;
 	private String status;
-	public int getOrderseq() {
+	private String requirement;
+	
+	public String getOrderseq() {
 		return orderseq;
 	}
-	public void setOrderseq(int orderseq) {
+	public void setOrderseq(String orderseq) {
 		this.orderseq = orderseq;
 	}
 	public String getUserid() {
@@ -101,12 +103,18 @@ public class MyOrderListVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getRequirement() {
+		return requirement;
+	}
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
+	}
 	@Override
 	public String toString() {
 		return "MyOrderListVO [orderseq=" + orderseq + ", userid=" + userid + ", username=" + username + ", orderdate="
 				+ orderdate + ", deliverytime=" + deliverytime + ", address=" + address + ", tel=" + tel + ", menus="
 				+ menus + ", price=" + price + ", take=" + take + ", store=" + store + ", paytool=" + paytool
-				+ ", paystatus=" + paystatus + ", status=" + status + "]";
+				+ ", paystatus=" + paystatus + ", status=" + status + ", requirement=" + requirement + "]";
 	}
 	
 	
