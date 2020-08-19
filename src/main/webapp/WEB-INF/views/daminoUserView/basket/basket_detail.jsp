@@ -75,8 +75,8 @@
 		$('.option').text(goodsDough + "/" + selectSize);
 		$('.price').text(selectPrice);
 		$('#pizza-total').html("<em>" + selectPrice + "</em>" + "원");
-
-		$.ajax({
+	//
+		 $.ajax({ 
 			url : 'getPizzaName.do',
 			contentType : "application/json; charset=UTF-8;",
 			type : 'post',
@@ -92,14 +92,6 @@
 					
 						pizzaImage = data;
 						$('#pizzaImage').append(pizzaImage);
-						
-						//alert($('#pizzaImage').val());
-				//var url = "src='<c:url value= '/resources/images/admin/goods/' />'/>"		
-						//$("#img_form_url").attr("src", imgurl);
-//"'/resources/images/admin/goods/'" + 
-					//	var img = (document.getElementById('pizzaImage');
-					//	alert(img);
-					//	$('$pizzaI').append(url + String(img) );
 				}
 
 				else if (typeof callbackFunc === 'function') {
@@ -111,7 +103,7 @@
 			error : function() {
 				alert('처리도중 오류가 발생했습니다.');
 			}
-		});
+		}); 
 		
 		if (t_name != null) {
 			$.ajax({
@@ -514,7 +506,7 @@
 
 											<div class="prd-info">
 												<div class="prd-img">
-												 <img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/' />"/> 
+												 <img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"/>
 												 <input type="hidden" id="pizzaImage" value="" />
 												</div>
 												<div class="prd-cont">

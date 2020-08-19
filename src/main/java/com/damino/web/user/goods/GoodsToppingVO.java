@@ -3,7 +3,6 @@ package com.damino.web.user.goods;
 public class GoodsToppingVO {
 	private String t_code;
 	private String t_name;
-	private String[] t_name2;
 	private String t_type;
 	private int t_price;
 	private String t_image;
@@ -50,13 +49,6 @@ public class GoodsToppingVO {
 	public String toString() {
 		return "GoodsToppingVO [t_code=" + t_code + ", t_name=" + t_name + ", t_type=" + t_type + ", t_price=" + t_price
 				+ ", t_image=" + t_image + ", seq=" + seq + "]";
-	}
-	
-	public String[] getT_name2() {
-		return t_name2;
-	}
-	public void setT_name2(String[] t_name2) {
-		this.t_name2 = t_name2;
 	}
 	
 	

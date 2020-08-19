@@ -3,6 +3,7 @@ package com.damino.web.user.goods;
 import java.util.List;
 
 import com.damino.web.user.board.QnaBoardVO;
+import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 
 public interface GoodsListDAO {
 	public List<GoodsPizzaVO> getPizzaList(); // 피자 목록 불러오기
@@ -25,5 +26,9 @@ public interface GoodsListDAO {
 	
 	//사용자 선택 - 선택 가능 도우 불러오기
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);
+	
+	//장바구니 - 선택된 메뉴 삽입
+	public void insertBasket(UserBasketVO vo);
+		
 	
 }

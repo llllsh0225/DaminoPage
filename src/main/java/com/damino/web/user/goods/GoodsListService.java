@@ -22,4 +22,7 @@ public interface GoodsListService {
 	public GoodsToppingVO getUserTopping(GoodsToppingVO vo);
 	//사용자 선택 - 선택 가능 도우 불러오기
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);
+	
+	//장바구니 - 선택된 메뉴 삽입
+	public void insertBasket(UserBasketVO vo);
 }

@@ -77,6 +77,10 @@ var doughPrice = 0;
 			});		
 }
 
+var toppingName;
+var toppingCounts;
+var toppingPrice;
+
 //사용자 선택 내용을 POST 방식으로 넘겨주기
 function saveBasket(){
 	alert("saveBasket 입니다");
@@ -91,11 +95,7 @@ function saveBasket(){
 	var selectSize = $(':radio[name="size"]:checked').attr('p-size');
 	if(typeof selectSize == "undefined"){
 		selectSize = 'L';
-	}
-	
-	var selectGoodsName = $('#p_name').val();
-	var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
-	var selectPizzaSetNum = String($('#pizzaSetNum').val()); // 선택 수량
+	}	
 	
 	price += doughPrice;
 	
@@ -105,6 +105,104 @@ function saveBasket(){
 	sessionStorage.setItem("selectPizzaSetNum", selectPizzaSetNum );
 	sessionStorage.setItem("selectSize", selectSize );
 	sessionStorage.setItem("toppingNameArr", JSON.stringify(toppingNameArr));
+	
+	alert("selectSize: " + selectSize);
+	// DB에 제품 정보 insert
+	/* var goodsList = document.getElementById("goods_list");
+	$('#quick_goods').val(goods); // hidden에 제품명 저장
+	$('#quick_qty').val(selectQty); // hidden에 제품수량 저장
+	$('#quick_price').val(totalPrice); // hidden에 제품가격 저장
+	
+	var userid = $('#userid').val(); // 유저 아이디
+	var quick_goods = $('#quick_goods').val(); // 제품명
+	var quick_qty = $('#quick_qty').val(); // 제품 수량
+	var quick_price = $('#quick_price').val(); // 제품 가격
+	//var rowseq = goodsNextRowSeq; // 제품목록 테이블 행 시퀀스 */
+	
+	//피자
+	 var selectGoodsName = $('#p_name').val();
+	 var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
+	 var selectPizzaSetNum = Number($('#pizzaSetNum').val()); // 선택 수량
+	 var userid = $('#userid').val();
+	alert("selectPizzaSetNum : " + selectPizzaSetNum);
+	
+	alert(toppingPriceArr.length);
+	alert(toppingNameArr.length);
+	alert(toppingCntArr.length);
+	
+	var toppingPrices="";
+	if(toppingPriceArr != 0){
+		for (var i = 0; i < toppingPriceArr.length; i++) {
+			
+			if (i != toppingPriceArr.length-1) {
+				toppingPriceArr[i] += ",";
+			}
+			toppingPrices += toppingPriceArr[i];
+			alert("토핑가격 :  " + toppingPrices);
+		}
+	}
+	 //토핑 (배열 정보는 잘라서 넣어야함)
+	var toppingName = "";
+	if(toppingNameArr != 0){
+		for (var i = 0; i < toppingNameArr.length; i++) {
+			
+			if (i != toppingNameArr.length-1) {
+			toppingName[i] += ",";
+			}
+			toppingName += toppingNameArr[i];
+			console.log(toppingName);
+		}
+	}
+	var toppingCounts = "";
+	if(toppingCntArr != 0){
+		for (var i = 0; i < toppingCntArr.length; i++) {
+			
+			if (i != toppingCntArr.length-1) {
+				toppingCntArr[i] += ",";
+			}
+			toppingCounts += toppingCntArr[i];
+			console.log(toppingCounts);
+		}
+	}
+	
+	
+	/* //사이드 (이미지는..?)
+	var sideCntArr = [];
+	var sidePriceArr = [];
+	var sideNameArr = [];
+	
+	//음료(이미지는..?)
+	var etcCntArr = [];
+	var etcPriceArr = [];
+	var etcNameArr = []; */	
+	
+	$.ajax({
+		url : 'insert_my_basket.do',
+		contentType : "application/json; charset=UTF-8;",
+		type: 'post', 
+		data : JSON.stringify({
+			userId : userid,
+			pizzaPrice : price, 
+			pizzaSize : selectSize, 
+			pizzaName : selectGoodsName,
+			pizzaDough : selectStrDough,
+			pizzaCount : selectPizzaSetNum,
+			
+			toppingPrice : toppingPrices, 
+			toppingName : toppingName,
+			toppingCount : toppingCounts
+			
+		}),
+		async : false,
+		success: function(data) {
+			
+				alert('success');
+			
+		},
+		error: function() {
+			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+		}
+	})
 	
 	//console.log(('.menu-slider-view2').val());
 	$("#myBasket").submit();
@@ -177,7 +275,6 @@ function sum(){
 		
 	} 
 	
-	alert("doughPrice2 : " + doughPrice);
 	var pizzaAmt = priceNumber * Number($("#pizzaSetNum").val());
 	var pizzaAmount = $(".priceOriginal").val();
 	//console.log("pizzaAmt 2 : " + pizzaAmt);
@@ -186,10 +283,33 @@ function sum(){
 	//console.log("합계금액 2 : " + Number(pizzaAmt+doughPrice));
 	$(".total-price_sum").text(Number(pizzaAmt+ Number(doughPrice) + totalToppingSum + totalEtcSum + totalSideSum) + "원");	
 	
+	
+	/* //토핑 (배열 정보는 잘라서 넣어야함)
+	for (var i = 0; i < toppingNameArr.length; i++) {
+		toppingName += toppingNameArr[i];
+		if (i != toppingNameArr.length - 1) {
+			toppingName += ",";
+		}
+		console.log(toppingName);
+	}
+	for (var i = 0; i < toppingCntArr.length; i++) {
+		toppingCounts += toppingCntArr[i];
+		if (i != toppingCntArr.length - 1) {
+			toppingCntArr += ",";
+		}
+		console.log(toppingCounts);
+	}
+	
+	for (var i = 0; i < toppingPriceArr.length; i++) {
+		toppingPrices += toppingPriceArr[i];
+		if (i != toppingPriceArr.length - 1) {
+			toppingPriceArr += ",";
+		}
+		console.log(toppingPrices);
+	} */
 }
 
 function totalDoughValue(){
-	alert($(':radio[name="p_dough"]:checked').val());
 	//도우의 추가 요금
 	var doughPrice = 0;
 	//도우 이름
@@ -238,7 +358,6 @@ function totalDoughValue(){
    console.log("최종 피자 가격 : " + Number(pizzaAmt+doughPrice)); 
    var pizzaName = $(".title.pizza").text();
    
-   alert("doughPrice1 : " + doughPrice);
    
    $(".total-pizza").text( pizzaName + "("+ priceNumber +"원)" + "x" + Number($("#pizzaSetNum").val()));
    
@@ -857,7 +976,7 @@ function minusDrink(idx){
 			<input type="hidden" class="options" id="goods_m" data-p_name="${goodsDetail.p_name}"
 				data-size="${goodsDetail.p_size_m}" data-p_code="${goodsDetail.p_code}" data-price_m="${goodsDetail.p_price_m}"
 				 />
-			
+			<input type="hidden" id="userid" name="userid" value="${userid}" />
 			<section id="content">
 				<div class="sub-type menu">
 					<div class="">
@@ -926,7 +1045,7 @@ function minusDrink(idx){
 									<div class="guide-box2">원산지 정보는 사진 우측 하단 돋보기 메뉴를 통해 확인
 										가능합니다.</div>
 								</div>
-								<form action="my_basket.do" method="post" id="myBasket">
+								<form action="my_basket.do?p_code=${goodsDetail.p_code}&p_name=${goodsDetail.p_name}" method="post" id="myBasket">
 								<div class="detail-wrap">
 									<div class="menu-box">
 										<div class="label-box"></div>
