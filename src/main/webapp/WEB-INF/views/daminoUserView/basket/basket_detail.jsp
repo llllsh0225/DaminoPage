@@ -48,13 +48,13 @@
 <script>
 	window.onload = function() {
 		var pizzaImage = "";
-		var goodsName = sessionStorage.getItem("selectGoodsName");
+		/* var goodsName = sessionStorage.getItem("selectGoodsName");
 		var goodsDough = sessionStorage.getItem("selectStrDough");
 		var selectPrice = sessionStorage.getItem("price");
 		var selectPizzaSetNum = sessionStorage.getItem("selectPizzaSetNum");
-		var selectSize = sessionStorage.getItem("selectSize");
+		var selectSize = sessionStorage.getItem("selectSize"); */
 
-		var t_name = [];
+		/* var t_name = [];
 		t_name.push(JSON.parse(sessionStorage.getItem("toppingNameArr")));
 
 		var test = "";
@@ -145,7 +145,7 @@
 		}
 
 	}
-
+ */
 	var addressSeq = 0; // 주소 테이블 seq 값
 
 	function addAddress() {
@@ -257,6 +257,11 @@
 
 					<div class="util-nav">
 						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+						<a href="javascript:goCart();" class="btn-cart">
+							<i class="ico-cart"></i>
+							<span class="hidden ">장바구니</span>
+								<strong class="cart_count cart-count"></strong> <!-- count -->
+						</a>
 					</div>
 				</div>
 			</div>

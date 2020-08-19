@@ -121,14 +121,10 @@ public class GoodsListController {
 
 	/** 사용자 선택 피자 메뉴 - 주문하기 getToppingNames  */
 	@RequestMapping(value = "my_basket.do", method = RequestMethod.POST)
-	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo, HttpSession session) {
+	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
-		String p_code = request.getParameter("p_code");
-		String p_name = request.getParameter("p_name");
-		System.out.println("p_code1 : " + p_code);
-		System.out.println("p_name1 : " + p_name);
 		// 사용자 선택 메뉴 정보 서비스 호출
-		GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
+		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println("userid : " + userid);
@@ -139,14 +135,16 @@ public class GoodsListController {
 			return mav;
 		}else {		
 		//선택한 제품정보 insert	
-						
-		mav.addObject("goodsDetail", goodsDetail);
+		vo.setUserId(userid);
+		
+		//정보호출
+		
 		
 		mav.setViewName("/basket/basket_detail");
 		return mav;
 		}
 	}
-	@RequestMapping(value = "insert_my_basket.do", method = RequestMethod.POST)
+	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
 		String userId = (String) param.get("userId");
@@ -158,10 +156,20 @@ public class GoodsListController {
 		int pizzaCount = (Integer)param.get("pizzaCount");
 		System.out.println("피자수량 테스트1 : " + pizzaCount);
 		
-		String toppingPrice =  (String)param.get("toppingPrice");
-		
+		String toppingPrice =  (String)param.get("toppingPrice");		
 		String toppingName = (String)param.get("toppingName");
 		String toppingCount =  (String)param.get("toppingCount");
+		
+		String sidePrice =  (String)param.get("sidePrice");		
+		System.out.println("sidePrice: " + sidePrice);
+		String sideName = (String)param.get("sideName");
+		System.out.println("sideName: " + sideName);
+		String sideCount =  (String)param.get("sideCount");
+		
+		String etcPrice =  (String)param.get("etcPrice");		
+		String etcName = (String)param.get("etcName");
+		System.out.println("etcName: " + etcName);
+		String etcCount =  (String)param.get("etcCount");
 		
 		vo.setUserId(userId);
 		vo.setPizzaPrice(pizzaPrice);
@@ -173,10 +181,15 @@ public class GoodsListController {
 		vo.setToppingName(toppingName);
 		vo.setToppingCount(toppingCount);
 		
+		vo.setSidePrice(sidePrice);
+		vo.setSideName(sideName);
+		vo.setSideCount(sideCount);
 		
-		goodsListService.insertBasket(vo);
+		vo.setEtcPrice(etcPrice);
+		vo.setEtcName(etcName);
+		vo.setEtcCount(etcCount);
 		
-		
+		goodsListService.insertBasket(vo);		
 		
 		return "success";
 		
@@ -208,6 +221,7 @@ public class GoodsListController {
 			}		
 		return toppingList;
 	}
+	
 	@RequestMapping(value="/getPizzaName.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String getPizzaName(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsPizzaVO vo, Model model){
