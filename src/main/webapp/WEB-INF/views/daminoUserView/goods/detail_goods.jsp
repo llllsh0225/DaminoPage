@@ -106,15 +106,12 @@ function saveBasket(){
 	 var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
 	 var selectPizzaSetNum = Number($('#pizzaSetNum').val()); // 선택 수량
 	 var userid = $('#userid').val();
-	alert("selectPizzaSetNum : " + selectPizzaSetNum);
-	
-	alert(toppingPriceArr.length);
-	alert(toppingNameArr.length);
-	alert(toppingCntArr.length);
 	
 	var toppingName;
 	var toppingCounts;
 	var toppingPrice;
+	
+	var p_image = $('#p_image').val();
 
 	//토핑 정보 String에 넣기
 	var toppingPrices="";
@@ -125,7 +122,6 @@ function saveBasket(){
 				toppingPriceArr[i] += ",";
 			}
 			toppingPrices += toppingPriceArr[i];
-			alert("토핑가격 :  " + toppingPrices);
 		}
 	}
 
@@ -134,7 +130,7 @@ function saveBasket(){
 		for (var i = 0; i < toppingNameArr.length; i++) {
 			
 			if (i != toppingNameArr.length-1) {
-			toppingName[i] += ",";
+				toppingName[i] += ",";
 			}
 			toppingName += toppingNameArr[i];
 			console.log(toppingName);
@@ -160,7 +156,6 @@ function saveBasket(){
 				sideCntArr[i] += ",";
 			}
 			sideCounts += sideCntArr[i];
-			console.log(toppingCounts);
 		}
 	}
 	var sideName = "";
@@ -170,7 +165,6 @@ function saveBasket(){
 				sideNameArr[i] += ",";
 			}
 			sideName += sideNameArr[i];
-			console.log(sideName);
 		}
 	}
 	var sidePrices="";
@@ -214,8 +208,6 @@ function saveBasket(){
 		}
 	}
 	
-	alert("sideName : " + sideName);
-	alert("etcName : " + etcName);
 	
 	$.ajax({
 		url : 'insert_basket.do',
@@ -228,6 +220,7 @@ function saveBasket(){
 			pizzaName : selectGoodsName,
 			pizzaDough : selectStrDough,
 			pizzaCount : selectPizzaSetNum,
+			pizzaImage : p_image,
 			
 			toppingPrice : toppingPrices, 
 			toppingName : toppingName,
@@ -878,6 +871,7 @@ function minusDrink(idx){
 												<img
 													src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
 											</div>
+											<input type="hidden" id="p_image" value="${goodsDetail.p_image}" />
 										</div>
 										<div class="menu-slider-viewdouble" style="display: none;"></div>
 

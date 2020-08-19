@@ -67,9 +67,9 @@
 	
 	<!--  장바구니 정보 삽입 -->
 	<insert id="insertBasket" parameterType="com.damino.web.user.goods.UserBasketVO">
-		INSERT INTO userBasket (seq, pizzaPrice, pizzaSize, pizzaName, pizzaDough, pizzaCount, toppingPrice, toppingName, toppingCount, sideName, sideCount, sidePrice,
+		INSERT INTO userBasket (seq, pizzaPrice, pizzaSize, pizzaName, pizzaDough, pizzaCount, pizzaImage, toppingPrice, toppingName, toppingCount, sideName, sideCount, sidePrice,
 		etcName, etcCount, etcPrice, userid)
-		VALUES ((select nvl(max(seq), 0)+1 from userBasket), #{pizzaPrice}, #{pizzaSize}, #{pizzaName},#{pizzaDough}, #{pizzaCount}, #{toppingPrice},
+		VALUES ((select nvl(max(seq), 0)+1 from userBasket), #{pizzaPrice}, #{pizzaSize}, #{pizzaName},#{pizzaDough}, #{pizzaCount}, #{pizzaImage}, #{toppingPrice},
 		#{toppingName}, #{toppingCount}, #{sideName}, #{sideCount}, #{sidePrice}, #{etcName}, #{etcCount}, #{etcPrice}, #{userid})
 	</insert>
 	

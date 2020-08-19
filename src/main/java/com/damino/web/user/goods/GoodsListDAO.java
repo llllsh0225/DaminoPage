@@ -29,6 +29,8 @@ public interface GoodsListDAO {
 	
 	//장바구니 - 선택된 메뉴 삽입
 	public void insertBasket(UserBasketVO vo);
-		
+	//장바구니 메뉴 불러오기
+	public List<UserBasketVO> getBasketList(String userid);
+	
 	
 }
