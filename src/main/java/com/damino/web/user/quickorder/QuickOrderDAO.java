@@ -2,6 +2,7 @@ package com.damino.web.user.quickorder;
 
 import java.util.List;
 
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.menu.DrinkEtcVO;
 import com.damino.web.admin.menu.PizzaVO;
 import com.damino.web.admin.menu.SideVO;
@@ -12,7 +13,8 @@ public interface QuickOrderDAO {
 	public int getGoodsNexRowSeq(String userid); // userid에 해당하는 퀵오더 제품 rowseq 중 가장 큰 값에서 +1
 	public int getAddressNexRowSeq(String userid); // userid에 해당하는 퀵오더 주소 rowseq 중 가장 큰 값에서 +1
 	public QuickOrderAddressVO getDefaultDeliveryAddress(String userid); // 디폴트로 설정된 배달주소 가져오기
-
+	public MarketVO getBusinessHour(String storename); // 배달매장의 영업시간 정보 가져오기
+	
 	public List<PizzaVO> getPizzaNames(); // 퀵오더 셀렉트박스 피자제품명 리스트 가져오기
 	public List<SideVO> getSideNames(); // 퀵오더 셀렉트박스 사이드제품명 리스트 가져오기
 	public List<DrinkEtcVO> getDrinkNames(); // 퀵오더 셀렉트박스 음료&기타 제품명 리스트 가져오기
@@ -33,4 +35,6 @@ public interface QuickOrderDAO {
 	
 	public void setDefaultDeliveryAddress(QuickOrderAddressVO vo); // 디폴트 배달지 설정
 	public void releaseDefaultDeliveryAddress(QuickOrderAddressVO vo); // 이전 설정된 디폴트 배달지 해제
+	
+	public void doQuickOrder(QuickOrderVO vo); // 퀵오더 주문
 }

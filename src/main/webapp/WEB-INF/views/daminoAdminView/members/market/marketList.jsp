@@ -15,8 +15,45 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 
 <script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+<script
+	src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
+<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
+<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
 
+<script type="text/javascript">
+var lang_kor = {
+        "emptyTable" : "데이터가 없습니다.",
+        "info" : "_START_ - _END_ (총 _TOTAL_ 건)",
+        "infoEmpty" : "0건",
+        "infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",
+        "lengthMenu" : "_MENU_ 건씩 보기",
+        "search" : "빠른 검색 : ",
+        "zeroRecords" : "검색된 데이터가 없습니다.",
+        "paginate" : {
+            "first" : "첫 페이지",
+            "last" : "마지막 페이지",
+            "next" : "다음",
+            "previous" : "이전"
+        }
+    };
+$(document).ready(function() {
+    $('#dataTable1').DataTable( {
+        order: [[ 1, 'asc' ]],
+        ordering:true,
+        language : lang_kor
+    } );
+} );
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -191,7 +228,7 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%"
+							<table class="table table-bordered" id="dataTable1" width="100%"
 								cellspacing="0">
 								<thead>
 									<tr>
@@ -254,20 +291,5 @@
 			</footer>
 		</div>
 	</div>
-
-	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
-	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
 </body>
 </html>

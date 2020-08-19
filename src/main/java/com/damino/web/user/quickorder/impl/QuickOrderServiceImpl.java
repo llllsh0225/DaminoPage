@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.menu.DrinkEtcVO;
 import com.damino.web.admin.menu.PizzaVO;
 import com.damino.web.admin.menu.SideVO;
@@ -12,6 +13,7 @@ import com.damino.web.user.quickorder.QuickOrderAddressVO;
 import com.damino.web.user.quickorder.QuickOrderDAO;
 import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 import com.damino.web.user.quickorder.QuickOrderService;
+import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Service("quickOrderService")
 public class QuickOrderServiceImpl implements QuickOrderService {
@@ -121,6 +123,16 @@ public class QuickOrderServiceImpl implements QuickOrderService {
 	@Override
 	public void releaseDefaultDeliveryAddress(QuickOrderAddressVO vo) {
 		quickOrderDAO.releaseDefaultDeliveryAddress(vo);
+	}
+
+	@Override
+	public MarketVO getBusinessHour(String storename) {
+		return quickOrderDAO.getBusinessHour(storename);
+	}
+
+	@Override
+	public void doQuickOrder(QuickOrderVO vo) {
+		quickOrderDAO.doQuickOrder(vo);
 	}
 
 

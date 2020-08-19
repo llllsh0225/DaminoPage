@@ -3,36 +3,49 @@ package com.damino.web.admin.orderlist;
 import java.util.Date;
 
 public class OrderlistVO {
-	private int orderseq;
-	private String name;
-	private String regdate;
+	private String orderseq;
+	private String userid;
+	private String username;
+	private Date orderdate = new Date();
+	private Date deliverytime = new Date();
 	private String address;
 	private String tel;
-	private String orderli;
+	private String menus;
 	private int price;
 	private String take;
 	private String store;
 	private String paytool;
-	private String paystate;
+	private String paystatus;
 	private String status;
-	
-	public int getOrderseq() {
+	public String getOrderseq() {
 		return orderseq;
 	}
-	public void setOrderseq(int orderseq) {
+	public void setOrderseq(String orderseq) {
 		this.orderseq = orderseq;
 	}
-	public String getName() {
-		return name;
+	public String getUserid() {
+		return userid;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
-	public String getRegdate() {
-		return regdate;
+	public String getUsername() {
+		return username;
 	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public Date getOrderdate() {
+		return orderdate;
+	}
+	public void setOrderdate(Date orderdate) {
+		this.orderdate = orderdate;
+	}
+	public Date getDeliverytime() {
+		return deliverytime;
+	}
+	public void setDeliverytime(Date deliverytime) {
+		this.deliverytime = deliverytime;
 	}
 	public String getAddress() {
 		return address;
@@ -46,11 +59,11 @@ public class OrderlistVO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getOrderli() {
-		return orderli;
+	public String getMenus() {
+		return menus;
 	}
-	public void setOrderli(String orderli) {
-		this.orderli = orderli;
+	public void setMenus(String menus) {
+		this.menus = menus;
 	}
 	public int getPrice() {
 		return price;
@@ -76,11 +89,11 @@ public class OrderlistVO {
 	public void setPaytool(String paytool) {
 		this.paytool = paytool;
 	}
-	public String getPaystate() {
-		return paystate;
+	public String getPaystatus() {
+		return paystatus;
 	}
-	public void setPaystate(String paystate) {
-		this.paystate = paystate;
+	public void setPaystatus(String paystatus) {
+		this.paystatus = paystatus;
 	}
 	public String getStatus() {
 		return status;
@@ -90,11 +103,11 @@ public class OrderlistVO {
 	}
 	@Override
 	public String toString() {
-		return "OrderlistVO [orderseq=" + orderseq + ", name=" + name + ", regdate=" + regdate + ", address=" + address
-				+ ", tel=" + tel + ", orderli=" + orderli + ", price=" + price + ", take=" + take + ", store=" + store
-				+ ", paytool=" + paytool + ", paystate=" + paystate + ", status=" + status + "]";
+		return "MyOrderListVO [orderseq=" + orderseq + ", userid=" + userid + ", username=" + username + ", orderdate="
+				+ orderdate + ", deliverytime=" + deliverytime + ", address=" + address + ", tel=" + tel + ", menus="
+				+ menus + ", price=" + price + ", take=" + take + ", store=" + store + ", paytool=" + paytool
+				+ ", paystatus=" + paystatus + ", status=" + status + "]";
 	}
-	
 
 	
 }

@@ -19,6 +19,30 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
 <script>
+
+window.onload = function(){
+	// 오늘 날짜 객체
+	var today = new Date();
+	
+	// 3달 전
+	var threeMonthAgo = String(today.getMonth() - 2);
+	if(threeMonthAgo.length < 2){
+		threeMonthAgo = '0' + threeMonthAgo;
+	}
+	
+	// 1달 전
+	var oneMonthAgo = String(today.getMonth());
+	if(oneMonthAgo.length < 2){
+		oneMonthAgo = '0' + oneMonthAgo;
+	}
+	
+	// 주문 건수 계산 기준 월
+	$('#orderCntDate').text('(' + today.getFullYear() + '-' + threeMonthAgo + '~' + today.getFullYear() + "-" + oneMonthAgo + ")");
+	
+	// 주문 액수 계산 기준 월
+	$('#payCntDate').text('(' + today.getFullYear() + '-01~' + today.getFullYear() + "-" + (today.getMonth() + 1) + ")");
+}
+
 function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확인 한 후, 중복발급이 아닐 경우에만 쿠폰을 지급한다.
 	var userid = '<%=session.getAttribute("userid")%>';
 	var userlevel = '<%=session.getAttribute("userlevel")%>';
@@ -45,7 +69,10 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 		},
 	});
 }
-
+function orderlistSubmit(){
+	document.myinfoForm.action='myorderlist.do';
+	document.myinfoForm.submit();
+}
 </script>
 </head>
 <body>
@@ -112,9 +139,7 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -179,7 +204,7 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 								<div class="order">
 									<dl>
 										<dt>
-											주문 <span class="date">(2020.04~2020.06)</span>
+											주문 <span class="date" id="orderCntDate"></span>
 										</dt>
 										<dd>
 											<p>
@@ -189,7 +214,7 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 									</dl>
 									<dl>
 										<dt>
-											주문금액 <span class="date">(2020-01 ~ 2020-07)</span>
+											주문금액 <span class="date" id="payCntDate"></span>
 										</dt>
 										<dd>
 											<p>
@@ -253,8 +278,6 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 							<div class="coupon-wrap">
 								<div class="title-wrap2">
 									<div class="title-type">나의 매니아 혜택</div>
-									<a href="javascript:UI.layerPopUp({selId:'#pop-coupon-info'});"
-										class="side notice-text"> 유의사항 </a>
 								</div>
 								<div class="coupon-list">
 									<style>
@@ -297,33 +320,6 @@ function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확�
 				</div>
 			</section>
 		</div>
-
-		<!--팝업-나의 쿠폰 혜택 유의사항 -->
-		<div class="pop-layer" id="pop-coupon-info">
-			<div class="dim"></div>
-			<div class="pop-wrap">
-				<div class="pop-title-wrap">
-					<h2 class="pop-title v2">나의 쿠폰 혜택 유의사항</h2>
-				</div>
-				<div class="pop-content">
-					<div class="pop-text">
-						<div class="title-type2">나의 쿠폰 혜택 유의사항</div>
-						<ul class="list-text-v2">
-							<li>제공된 쿠폰은 온라인 주문(홈페이지, 모바일 웹, 앱)시에 만 사용 가능합니다.<br />(전화주문
-								불가)
-							</li>
-							<li>쿠폰은 나의 정보 > 쿠폰 페이지에서 확인 가능합니다. (쿠폰 유효기간은 매월 말일까지입니다.)</li>
-							<li>매니아 등급 및 혜택은 매월 변경될 수 있습니다.</li>
-							<li>ROYAL 및 VIP 등급에게만 발급되는 생일 50%쿠폰은 당월 생일자 에게만 발급되며, 방문포장
-								주문 시 사용 가능합니다. (50% 할인은 피자 1판에만 적용됩니다.)</li>
-							<li>매니아 쿠폰은 1회 주문 시 최대 4판까지 할인 적용됩니다.</li>
-						</ul>
-					</div>
-				</div>
-				<a href="#" class="btn-close"></a>
-			</div>
-		</div>
-		<!--//팝업-나의 쿠폰 혜택 유의사항 -->
 
 		<script type="text/javascript">
 			_TRK_PI = "WP_24_1";

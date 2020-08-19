@@ -1,26 +1,25 @@
-package com.damino.web.user.orderlist;
+package com.damino.web.user.quickorder;
 
-import java.util.Date;
-
-public class MyOrderListVO {
-	private int orderseq;
+public class QuickOrderVO {
+	private String orderseq; // 주문번호
 	private String userid;
 	private String username;
-	private Date orderdate = new Date();
-	private Date deliverytime = new Date();
-	private String address;
-	private String tel;
-	private String menus;
-	private int price;
-	private String take;
-	private String store;
-	private String paytool;
-	private String paystatus;
-	private String status;
-	public int getOrderseq() {
+	private String orderdate; // 주문일자 -> DB에 넣을 때 DATE로 형변환
+	private String deliverytime; // 배달예정시간 -> DB에 넣을 때 DATE로 형변환
+	private String address; // 배송지 주소
+	private String tel; // 수령인 전화번호
+	private String menus; // 주문 메뉴
+	private int price; // 총 결제가격
+	private String take; // 배달or포장
+	private String store; // 배달매장
+	private String paytool; // 결제수단
+	private String paystatus; // 결제상태
+	private String status; // 주문상태
+	private String requirements; // 고객 요청사항
+	public String getOrderseq() {
 		return orderseq;
 	}
-	public void setOrderseq(int orderseq) {
+	public void setOrderseq(String orderseq) {
 		this.orderseq = orderseq;
 	}
 	public String getUserid() {
@@ -35,16 +34,16 @@ public class MyOrderListVO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public Date getOrderdate() {
+	public String getOrderdate() {
 		return orderdate;
 	}
-	public void setOrderdate(Date orderdate) {
+	public void setOrderdate(String orderdate) {
 		this.orderdate = orderdate;
 	}
-	public Date getDeliverytime() {
+	public String getDeliverytime() {
 		return deliverytime;
 	}
-	public void setDeliverytime(Date deliverytime) {
+	public void setDeliverytime(String deliverytime) {
 		this.deliverytime = deliverytime;
 	}
 	public String getAddress() {
@@ -101,13 +100,11 @@ public class MyOrderListVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	@Override
-	public String toString() {
-		return "MyOrderListVO [orderseq=" + orderseq + ", userid=" + userid + ", username=" + username + ", orderdate="
-				+ orderdate + ", deliverytime=" + deliverytime + ", address=" + address + ", tel=" + tel + ", menus="
-				+ menus + ", price=" + price + ", take=" + take + ", store=" + store + ", paytool=" + paytool
-				+ ", paystatus=" + paystatus + ", status=" + status + "]";
+	public String getRequirements() {
+		return requirements;
 	}
-	
+	public void setRequirements(String requirements) {
+		this.requirements = requirements;
+	}
 	
 }

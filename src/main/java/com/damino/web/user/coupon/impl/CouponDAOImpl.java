@@ -65,4 +65,10 @@ public class CouponDAOImpl implements CouponDAO {
 		sqlSessionTemplate.update("CouponDAO.updateChkusable");
 	}
 
+	@Override
+	public void updateUsedCoupon(String couponCode) {
+		System.out.println("사용한 쿠폰을 사용불가 처리함.");
+		sqlSessionTemplate.update("CouponDAO.updateUsedCoupon", couponCode);
+	}
+
 }

@@ -384,8 +384,8 @@
 					<h2 class="page-title">나의정보</h2>
 					<div class="depth-area">
 						<ol>
-							<li><a href="/main">홈</a></li>
-							<li><a href="/mypage/myOrderList">나의 정보</a></li>
+							<li><a href="main.do">홈</a></li>
+							<li><a href="mylevel.do">나의정보</a></li>
 							<li><strong>1:1문의</strong></li>
 						</ol>
 					</div>
@@ -394,11 +394,11 @@
 					<div class="menu-nav-wrap">
 							<div class="menu-nav">
 								<ul>
-									<li><a href="/mypage/myLevel">매니아 등급</a></li>
-									<li><a href="/mypage/myOrderList">주문내역</a></li>
-									<li><a href="/mypage/myCoupon">쿠폰함</a></li>
+									<li><a href="mylevel.do">매니아 등급</a></li>
+									<li><a href="myorderlist.do">주문내역</a></li>
+									<li><a href="mycoupon.do">쿠폰함</a></li>
 									<li class="active"><a href="myquestionlist.do">1:1문의</a></li>
-									<li><a href="/member/userinfoConfirm">정보수정</a></li>
+									<li><a href="myuserinfoconfirm.do">정보수정</a></li>
 								</ul>
 							</div>
 						</div>
