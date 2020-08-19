@@ -355,26 +355,32 @@ public class QuickOrderController {
 		String goodsQty = ""; // 저장된 제품수량을 담을 문자열
 		int totalPrice = 0; // 저장된 제품의 총 가격
 		String couponName = ""; // 쿠폰명을 저장할 문자열
+		String couponCode = ""; // 쿠폰코드를 저장할 문자열
 		String discountRate = ""; // 쿠폰별 할인율을 저장할 문자열
 		
 		for(int i=0; i<quickOrderGoodsList.size(); i++) {
 			goodsName += quickOrderGoodsList.get(i).getQuick_goods();
-			goodsName += ",";
 			
 			goodsPrice += String.valueOf(quickOrderGoodsList.get(i).getQuick_price());
-			goodsPrice += ",";
 			
 			goodsQty += String.valueOf(quickOrderGoodsList.get(i).getQuick_qty());
-			goodsQty += ",";
 			
 			totalPrice += quickOrderGoodsList.get(i).getQuick_price();
+			
+			if(i != quickOrderGoodsList.size() - 1) {
+				goodsName += ",";
+				goodsPrice += ",";
+				goodsQty += ",";
+			}
 		}
 		
 		for(int i=0; i<couponList.size(); i++) {
 			couponName += couponList.get(i).getCoupon_name();
+			couponCode += couponList.get(i).getCoupon_code();
 			discountRate += couponList.get(i).getDiscountrate();
 			if(i != couponList.size() - 1) {
 				couponName += ",";
+				couponCode += ",";
 				discountRate += ",";
 			}
 		}
@@ -387,6 +393,7 @@ public class QuickOrderController {
 		mav.addObject("quickOrderGoodsList", quickOrderGoodsList);
 		mav.addObject("defaultAddress", defaultAddress);
 		mav.addObject("couponName", couponName);
+		mav.addObject("couponCode", couponCode);
 		mav.addObject("discountRate", discountRate);
 		
 		mav.setViewName("/quickorder/quickOrder_payment");
@@ -411,6 +418,7 @@ public class QuickOrderController {
 		String paystatus = (String) param.get("paystatus");
 		String status = (String) param.get("status");
 		String requirement = (String) param.get("requirement");
+		String couponCode = (String) param.get("selectCouponCode");
 		
 		vo.setUserid(userid);
 		vo.setUsername(username);
@@ -429,6 +437,7 @@ public class QuickOrderController {
 		vo.setRequirements(requirement);
 		
 		quickOrderService.doQuickOrder(vo);
+		couponService.updateUsedCoupon(couponCode);
 		
 		return "success";
 	}
