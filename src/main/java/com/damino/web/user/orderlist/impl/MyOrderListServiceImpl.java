@@ -20,4 +20,10 @@ public class MyOrderListServiceImpl implements MyOrderListService{
 		return myOrderListDAO.getMyOrderList(userid);
 	}
 
+	@Override
+	public MyOrderListVO getOrderView(MyOrderListVO vo) {
+		System.out.println("MyOrderListServiceImpl getOrderView");
+		return myOrderListDAO.getOrderView(vo);
+	}
+
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,4 +27,16 @@ public class MyOrderListController {
 		
 		return mav;
 	}
+
+	@RequestMapping(value="/orderStatus.do", method=RequestMethod.GET)
+	public ModelAndView getOrderStatusReceive(ModelAndView mav, MyOrderListVO vo) {
+		System.out.println("주문 상태 페이지");
+		MyOrderListVO orderview = myOrderListService.getOrderView(vo);
+		System.out.println(orderview);
+		mav.setViewName("/order/orderStatus");
+		mav.addObject("orderview", orderview);
+		return mav;
+	}
+	
+	
 }

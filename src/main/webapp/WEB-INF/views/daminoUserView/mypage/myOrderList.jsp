@@ -19,8 +19,6 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
-	
 </head>
 <body>
 	<div id="wrap">
@@ -174,10 +172,11 @@
 															${myorderlist.price }원</div>
 													</a>
 												</div>
-												<div class="btn-detail od-box">
-													<a href="orderstatusCook.do"
-														class="detail">상세보기</a>
-												</div>
+												<form name="orderView" method="post">
+													<div class="btn-detail od-box">
+														<a href="orderStatus.do?orderseq=${myorderlist.orderseq }" class="detail">상세보기</a>
+													</div>
+												</form>
 											</div>
 										</li>
 									</c:forEach>

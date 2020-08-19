@@ -366,14 +366,6 @@ public class ViewTestController {
 	 * Exception { System.out.println("내 등급 열기"); return "/mypage/myLevel"; }
 	 */
 	
-	@RequestMapping("/myorderlistcancle.do")
-	public ModelAndView getMyOrderListcancle() {
-		System.out.println("내 주문 취소 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/mypage/myOrderList_cancle");
-		return mav;
-	}
 	
 	
 	// --- end page 폴더 ---
