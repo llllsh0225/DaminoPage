@@ -39,4 +39,7 @@ public interface GoodsListDAO {
 	public void deletePizzaInfo(UserBasketVO vo);
 	//장바구니 - 사이드디시 삭제
 	public void deleteSideInfo(UserBasketVO vo);
+	//장바구니 - 음료 삭제
+	public void deleteEtcInfo(UserBasketVO vo);
+	
 }

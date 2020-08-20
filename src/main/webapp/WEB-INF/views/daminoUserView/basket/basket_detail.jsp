@@ -62,18 +62,36 @@
 		
 		//토핑 합계 계산
 		var toppingPrice = 0;
-		if(t_price != null){
+	if(t_price != null){
+			//피자금액에 토핑 금액 합산
 			var t_priceArr = t_price.split(",");
 			for (var i = 0; i < t_priceArr.length; i++){
 				toppingPrice += parseInt(t_priceArr[i], 10);
 			 }
 			var totalPizzaPrice = toppingPrice + Number(pizzaP);
-			 console.log("totalPizzaPrice : " + totalPizzaPrice);
 			$('#pizza-total').html(totalPizzaPrice);
-			var a = $('#pizza-total').text();
+			
+			var p_total = $('#pizza-total').text();
 			//천단위 구분 - 정규표현식
-		    a = a.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		  	 $('#pizza-total').html( a );
+		    p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		  	 $('#pizza-total').html(p_total);
+		  	 
+		  	//토핑이 있을경우 li 영역에 추가 
+		  	var t_name = $('#toppingName').val();
+			var t_nameArr = t_name.split(",");
+			
+			var t_priceArr = toppingP.split(",");
+			
+			var t_count = $('#toppingCount').val();
+			var t_countArr = t_count.split(","); 
+			
+		    var index = $('#toppingIdx').val();
+			 for(i=0; i<t_nameArr.length; i++ ){
+				$('#topping').append('<li>' + t_nameArr[i] + "(" + t_priceArr[i] 
+				 + "원)"+ "x" + t_countArr[i]
+				 + '<a href="javascript:toppingDelete(\"' + t_nameArr[i]+ ',' + t_countArr[i] + ',' + index
+					+ '\");" class="close"><span class="hidden">삭제</span></a></li>');
+			} 
 		}
 		
 	
@@ -87,25 +105,7 @@
 		} */
 		
 	var pizzaImage = "";
-	if(t_price != null){
-		var t_name = $('#toppingName').val();
-		var t_nameArr = t_name.split(",");
-		
-		var t_priceArr = toppingP.split(",");
-		
-		var t_count = $('#toppingCount').val();
-		var t_countArr = t_count.split(","); 
-		
-	    var index = $('#toppingIdx').val();
-		 for(i=0; i<t_nameArr.length; i++ ){
-			$('#topping').append('<li>' + t_nameArr[i] + "(" + t_priceArr[i] 
-			 + "원)"+ "x" + t_countArr[i]
-			 + '<a href="javascript:toppingDelete(' + t_nameArr[i]+ ',' + t_countArr[i] + ',' + index
-				+ ');" class="close"><span class="hidden">삭제</span></a></li>');
-		} 
-	}
-		
-		
+	
 		/* id="delBtn' + goodsNextRowSeq + '" */
 		
 		
@@ -129,32 +129,37 @@
 		sidePrice *= 1;
 		
 		
-		 if(totalPizzaPrice>0 && etcPrice>0 && sidePrice>0){
+		 if(totalPizzaPrice > 0 && etcPrice > 0 && sidePrice > 0){
 			$('#total-price').text(Number(totalPizzaPrice + etcPrice + sidePrice));	 
 			var total = $('#total-price').text();
 			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#total-price').html(total);
-		}else if(totalPizzaPrice>0 && etcPrice>0){
+			
+		}else if(totalPizzaPrice > 0 && etcPrice > 0){
 			$('#total-price').text(Number(totalPizzaPrice + etcPrice));	 
 			var total = $('#total-price').text();
 			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#total-price').html(total);
-		}else if(totalPizzaPrice>0 && sidePrice>0){
+			
+		}else if(totalPizzaPrice > 0 && sidePrice > 0){
 			$('#total-price').text(Number(totalPizzaPrice + sidePrice));	 
 			var total = $('#total-price').text();
 			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#total-price').html(total);
-		}else if(sidePrice>0){
+			
+		}else if(sidePrice > 0){
 			$('#total-price').text(Number(sidePrice));	 
 			var total = $('#total-price').text();
 			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#total-price').html(total);
-		}else if(etcPrice>0){
+			
+		}else if(etcPrice > 0){
 			$('#total-price').text(Number(etcPrice));	 
 			var total = $('#total-price').text();
 			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#total-price').html(total);
-		}else if(totalPizzaPrice>0){
+			
+		}else if(totalPizzaPrice > 0){
 			$('#total-price').text(Number(totalPizzaPrice));	 
 			var total = $('#total-price').text();
 			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -300,14 +305,17 @@ function pizzaDelete(idx){
 			async : false, 
 			success: function(data) {
 				alert("삭제 성공");
-				//var selectRemoveTr = $('#row' + idx).closest('li');
-				var selectRemoveTr = $('#row' + idx).style.visibility = "hidden";
+				/* var selectRemoveTr = $('#row' + idx).style.visibility = "hidden";
 				
 				var parent = document.getElementById("cart-list");
 			    var delRow = document.getElementById("row" + idx);
 			 
-			    parent.removeChild(delRow);
-				//document.getElementById("row" + idx).style.visibility = "hidden";
+			    parent.removeChild(delRow); */
+			    
+				location.reload(true);
+				location.href = location.href;
+
+				history.go(0);
 			 },
 			error: function() {
 				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -323,9 +331,6 @@ function sideDelete(idx){
 	var con_test = confirm("해당 정보를 삭제하시겠습니까?");
 	if(con_test == true){
 		var userid = $('#userid').val();
-		/* var toppingName = $(this).toppingName;
-		var toppingCount = $(this).toppingCount;
-		var idx = $(this).idx; */
 		var goodsName = $('#sideName' + idx).val();
 		
 		alert("goodsName : " + goodsName);
@@ -336,27 +341,53 @@ function sideDelete(idx){
 			data : JSON.stringify({
 				userid : userid,
 				goodsName : goodsName,
-				toppingCount : toppingCount,
 				seq : idx
 			}),
 			async : false, 
 			success: function(data) {
 				alert("삭제 성공");
-				//var selectRemoveTr = $('#row' + idx).closest('li');
-				//var selectRemoveTr = $('#row' + idx).style.visibility = "hidden";
-				
-				//var parent = document.getElementById("cart-list");
-			   // var delRow = document.getElementById("row" + idx);
-			    //$('#row' + idx).('li').remove();
-			    //var selectRemove = $(this).closest('li');
-			   // var selectRemovePriceHTML = selectRemoveTr.find('li').eq(idx).html();
-			    
-			    document.getElementById("row" + idx).innerHTML = '';
-			   // $('#row' + idx).empty();
-			   // selectRemovePriceHTML.empty();
-			    
-			  //  parent.removeChild(delRow);
-				//document.getElementById("row" + idx).style.visibility = "hidden";
+				/* 	    
+			    document.getElementById("row" + idx).innerHTML = ''; */
+				location.reload(true);
+				location.href = location.href;
+
+				history.go(0);
+			 },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		})
+	}
+	else if(con_test == false){
+	  alert("취소되었습니다");
+	}
+} 
+function etcDelete(idx){
+	
+	var con_test = confirm("해당 정보를 삭제하시겠습니까?");
+	if(con_test == true){
+		var userid = $('#userid').val();
+		var goodsName = $('#etcName' + idx).val();
+		
+		alert("goodsName : " + goodsName);
+		$.ajax({
+			url : 'etcDelete.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				goodsName : goodsName,
+				seq : idx
+			}),
+			async : false, 
+			success: function(data) {
+				alert("삭제 성공");
+				/* 	    
+			    document.getElementById("row" + idx).innerHTML = ''; */
+				location.reload(true);
+				location.href = location.href;
+
+				history.go(0);
 			 },
 			error: function() {
 				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -873,6 +904,7 @@ function sideDelete(idx){
 												</div>
 												<div class="prd-cont">
 													<div class="subject">${pizza.etcName}</div>
+													<input class="setName" id="etcName${status.index}" type="hidden" value="${pizza.etcName}">
 													<div class="option"></div>
 													<div class="price"><fmt:formatNumber value="${pizza.etcPrice}" pattern="#,###" />원</div>
 												</div>
@@ -915,6 +947,7 @@ function sideDelete(idx){
 														<!-- //메뉴 추가 버튼 -->
 													</div>
 												</article>
+												<br></br>
 											</c:if>
 										</c:forEach>
 

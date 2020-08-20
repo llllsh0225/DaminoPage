@@ -32,8 +32,11 @@ public interface GoodsListService {
 	public void deleteToppingName(UserBasketVO vo); 
 	//장바구니 - 특정 토핑수량 삭제
 	public void deleteToppingCount(UserBasketVO vo);
+	
 	//장바구니 - 피자 삭제
 	public void deletePizzaInfo(UserBasketVO vo);
 	//장바구니 - 사이드디시 삭제
 	public void deleteSideInfo(UserBasketVO vo);
+	//장바구니 - 음료 삭제
+	public void deleteEtcInfo(UserBasketVO vo);
 }

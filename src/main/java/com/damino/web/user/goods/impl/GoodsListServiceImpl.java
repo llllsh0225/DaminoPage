@@ -132,5 +132,11 @@ public class GoodsListServiceImpl implements GoodsListService {
 		goodsListDAO.deleteSideInfo(vo);
 	}
 
+	@Override
+	public void deleteEtcInfo(UserBasketVO vo) {
+		System.out.println("음료 정보 삭제");
+		goodsListDAO.deleteEtcInfo(vo);
+	}
+
 	
 }

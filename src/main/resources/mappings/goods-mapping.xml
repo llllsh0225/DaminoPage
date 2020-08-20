@@ -95,13 +95,20 @@
 	
 	<!-- 장바구니 피자정보 삭제 -->
 	<update id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
-		UPDATE userBasket SET pizzaName = null, pizzaCount = null, pizzaImage = null		
+		UPDATE userBasket SET pizzaName = null, pizzaCount = null, pizzaImage = null, pizzaPrice = null, pizzaDough = null
+		toppingName = null, toppingCount = null, toppingPrice = null		
 		WHERE userid = #{userid} AND seq = #{seq} AND pizzaName = #{pizzaName}
 	</update>
 	
 	<!-- 장바구니 사이드디시 정보 삭제 -->
 	<update id="deleteSideInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
-		UPDATE userBasket SET sideName = null, sideCount = null		
+		UPDATE userBasket SET sideName = null, sideCount = null, sidePrice = null	
 		WHERE userid = #{userid} AND seq = #{seq} AND sideName = #{sideName}
+	</update>
+	
+	<!-- 장바구니 음료 정보 삭제 -->
+	<update id="deleteEtcInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE userBasket SET etcName = null, etcCount = null, etcPrice = null	
+		WHERE userid = #{userid} AND seq = #{seq} AND etcName = #{etcName}
 	</update>
 </mapper>
