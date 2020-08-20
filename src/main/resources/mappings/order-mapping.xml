@@ -15,5 +15,11 @@
 		INSERT INTO delivery_address (seq, address, storename, storephone, userid)
 		VALUES (delivery_address_seq.nextval, #{address}, #{storename}, #{storephone}, #{userid})
 	</insert>
+	
+	<!-- 배달지 주소 delete -->
+	<delete id="deleteDeliveryAddress" parameterType="com.damino.web.user.order.DeliveryAddressVO">
+		DELETE FROM delivery_address
+		WHERE seq = (SELECT MAX(seq) FROM delivery_address WHERE address = #{address} AND userid = #{userid})
+	</delete>
 
 </mapper>
