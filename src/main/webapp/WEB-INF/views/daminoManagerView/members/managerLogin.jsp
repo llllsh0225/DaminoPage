@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,21 +27,20 @@
 						<div class="col-lg-5">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
 								<div class="card-header">
-									<h3 class="text-center font-weight-light my-4">Store
-										Manager Login</h3>
+									<h3 class="text-center font-weight-light my-4">Store Manager Login</h3>
 								</div>
 								<div class="card-body">
-									<form action="managerLogin.smdo" method=POST>
+									<form action="managerLoginCheck.smdo" method="post">
 										<div class="form-group">
 											<label class="small mb-1" for="inputStoreManagerId">ID</label>
-											<input class="form-control py-4" id="inputStoreManagerId"
-												type="text" placeholder="Enter ID" name="id"/>
+											<input class="form-control py-4" id="managerid"
+												type="text" placeholder="Enter ID" name="managerid"/>
 										</div>
 										<div class="form-group">
 											<label class="small mb-1" for="inputStoreManagerPassword">Password</label>
 											<input class="form-control py-4"
-												id="inputStoreManagerPassword" type="password"
-												placeholder="Enter password" name="pw"/>
+												id="managerpasswd" type="password"
+												placeholder="Enter password" name="managerpasswd"/>
 										</div>
 										<div class="form-group">
 											<div class="custom-control custom-checkbox">
@@ -52,7 +53,7 @@
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 											<a class="small" href="passwordChange.smdo">비밀번호 찾기</a> 
-											<input type="submit" value="로그인">
+											<input type="submit" id="loginbtn" class="btn btn-primary" value="로그인" />
 										</div>
 									</form>
 								</div>

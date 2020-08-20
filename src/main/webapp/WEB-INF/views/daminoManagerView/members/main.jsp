@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>도미노피자 테스트점 관리페이지</title>
+<title>다미노피자 ${storename } 관리페이지</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
 
@@ -18,7 +18,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="main.smdo">도미노피자 테스트점</a>
+		<a class="navbar-brand" href="main.smdo">다미노피자 ${storename }</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -35,7 +35,7 @@
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="managerLogin.smdo">Login</a>
+					<a class="dropdown-item" href="logout.smdo">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -57,11 +57,9 @@
 						</a>
 						<div class="collapse" id="orderPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="orderList.smdo"> 주문목록 </a>
-								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색
-								</a>
+							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+								<a class="nav-link collapsed" href="orderList.smdo?store=${storename }"> 주문목록 </a>
+								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색 </a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -93,8 +91,8 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					Start Bootstrap
+					<div class="small">로그인 : &nbsp; ${managername }님</div>
+					 ${storeregion } / ${storename }
 				</div>
 			</nav>
 		</div>

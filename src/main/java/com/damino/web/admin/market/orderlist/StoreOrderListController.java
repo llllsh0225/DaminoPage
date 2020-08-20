@@ -3,16 +3,15 @@ package com.damino.web.admin.market.orderlist;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.damino.web.admin.board.BoardVO;
 
 @Controller
 public class StoreOrderListController {
@@ -20,9 +19,11 @@ public class StoreOrderListController {
 	private StoreOrderListService storeOrderListService;
 	
 	@RequestMapping("/orderList.smdo")
-	public ModelAndView getOrderListPage(ModelAndView mav) {
+	public ModelAndView getOrderListPage(ModelAndView mav, HttpSession session) {
 		System.out.println("주문 목록 페이지 열기");
-		List<StoreOrderListVO> storeorderlist = storeOrderListService.getStoreOrderList();
+		String storename = (String)session.getAttribute("storename");
+		System.out.println(storename);
+		List<StoreOrderListVO> storeorderlist = storeOrderListService.getStoreOrderList(storename);
 		
 		mav.addObject("storeorderlist", storeorderlist);
 		mav.setViewName("/order/storeOrderList");
@@ -32,9 +33,10 @@ public class StoreOrderListController {
 	}
 	
 	@RequestMapping("/orderSearch.smdo")
-	public ModelAndView getOrderSearchPage(ModelAndView mav) {
+	public ModelAndView getOrderSearchPage(ModelAndView mav, HttpSession session) {
 		System.out.println("주문 검색 페이지 열기");
-		List<StoreOrderListVO> storeorderlist = storeOrderListService.getStoreOrderList();
+		String storename = (String)session.getAttribute("storename");
+		List<StoreOrderListVO> storeorderlist = storeOrderListService.getStoreOrderList(storename);
 		mav.addObject("storeorderlist", storeorderlist);
 		mav.setViewName("/order/storeOrderSearch");
 		

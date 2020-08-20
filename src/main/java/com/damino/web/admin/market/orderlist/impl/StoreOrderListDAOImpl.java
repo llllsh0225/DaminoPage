@@ -15,9 +15,9 @@ public class StoreOrderListDAOImpl implements StoreOrderListDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
-	public List<StoreOrderListVO> getStoreOrderList() {
+	public List<StoreOrderListVO> getStoreOrderList(String storename) {
 		System.out.println("StoreOrderListDAO getStoreOrderList()");
-		return sqlSessionTemplate.selectList("OrderlistDAO.getStoreOrderList");
+		return sqlSessionTemplate.selectList("OrderlistDAO.getStoreOrderList", storename);
 	}
 
 	@Override

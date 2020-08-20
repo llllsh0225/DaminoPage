@@ -15,9 +15,9 @@ public class StoreOrderListServiceImpl implements StoreOrderListService{
 	private StoreOrderListDAO storeOrderListDAO;
 	
 	@Override
-	public List<StoreOrderListVO> getStoreOrderList() {
+	public List<StoreOrderListVO> getStoreOrderList(String storename) {
 		System.out.println("StoreOrderListService getStoreOrderList()");
-		return storeOrderListDAO.getStoreOrderList();
+		return storeOrderListDAO.getStoreOrderList(storename);
 	}
 
 	@Override

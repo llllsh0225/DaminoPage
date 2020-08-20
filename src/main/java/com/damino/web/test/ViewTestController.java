@@ -337,15 +337,7 @@ public class ViewTestController {
 	
 	// --- end goods 폴더 ---
 	
-	// --- login 폴더 ---
-	@RequestMapping("/login.do")
-	public ModelAndView getLogin() {
-		System.out.println("내 쿠폰함 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/login/login");
-		return mav;
-	}
+	
 	
 	// --- end login 폴더 ---
 	

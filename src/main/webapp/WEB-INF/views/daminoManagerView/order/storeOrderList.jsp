@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<title>다미노피자 테스트점 주문목록</title>
+<title>다미노피자 ${storename } 주문목록</title>
 <link href="<c:url value='/resources/css/admin/styles.css' />" rel="stylesheet" />
 <link
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
@@ -88,7 +88,7 @@ function updateOrderList(idx){
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="main.smdo">다미노피자 테스트점</a>
+		<a class="navbar-brand" href="main.smdo">다미노피자 ${storename }</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -105,7 +105,7 @@ function updateOrderList(idx){
 					aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">정보수정</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="managerLogin.smdo">Logout</a>
+					<a class="dropdown-item" href="logout.smdo">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -163,8 +163,8 @@ function updateOrderList(idx){
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					Start Bootstrap
+					<div class="small">로그인 : &nbsp; ${managername }님</div>
+					 ${storeregion } / ${storename }
 				</div>
 			</nav>
 		</div>

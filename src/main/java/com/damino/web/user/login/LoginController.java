@@ -24,6 +24,15 @@ public class LoginController {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
 
+
+	@RequestMapping("/login.do")
+	public ModelAndView getLogin() {
+		System.out.println("사용자 로그인 페이지");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/login/login");
+		return mav;
+	}
 	
 	@RequestMapping(value = "/loginCheck.do", method = RequestMethod.POST)
 	private ModelAndView loginCheck(@ModelAttribute UserVO vo, Authentication auth, ModelAndView mav, HttpServletRequest request){
@@ -78,6 +87,5 @@ public class LoginController {
 		mav.setViewName("main");
 		return mav;
 	}
-	
 	
 }

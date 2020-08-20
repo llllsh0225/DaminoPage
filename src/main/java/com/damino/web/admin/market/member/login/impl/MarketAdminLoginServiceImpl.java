@@ -13,16 +13,13 @@ public class MarketAdminLoginServiceImpl implements MarketAdminLoginService{
 	@Autowired
 	private MarketAdminDAO marketAdminDAO;
 	
-//	@Override
-//	public MarketAdminVO getMember(MarketAdminVO vo) {
-//		System.out.println("MarketAdminLoginServiceImpl getMember(MarketAdminVO vo)");
-//		return marketAdminDAO.getMember(vo);
-//	}
 
 	@Override
-	public MarketAdminVO checkMemberId(String id) {
-		return marketAdminDAO.checkMemberId(id);
+	public MarketAdminVO managerLogin(MarketAdminVO vo) {
+		System.out.println("MarketAdminloginServiceImpl managerLogin(vo)");
+		return marketAdminDAO.managerLogin(vo);
 	}
+
 
 	@Override
 	public void updateMember(MarketAdminVO vo) {

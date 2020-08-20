@@ -2,49 +2,49 @@ package com.damino.web.admin.market.member.login;
 
 public class MarketAdminVO {
 
-	private String managerName;
-	private String managerId;
-	private String managerPasswd;
-	private String storeRegion; //매장 지역
-	private String storeName; //매장명
+	private String managername;
+	private String managerid;
+	private String managerpasswd;
+	private String storeregion; //매장 지역
+	private String storename; //매장명
 	
-	
-	public String getManagerName() {
-		return managerName;
+	public String getManagername() {
+		return managername;
 	}
-	public void setManagerName(String managerName) {
-		this.managerName = managerName;
+	public void setManagername(String managername) {
+		this.managername = managername;
 	}
-	public String getManagerId() {
-		return managerId;
+	public String getManagerid() {
+		return managerid;
 	}
-	public void setManagerId(String managerId) {
-		this.managerId = managerId;
+	public void setManagerid(String managerid) {
+		this.managerid = managerid;
 	}
-	public String getManagerPasswd() {
-		return managerPasswd;
+	public String getManagerpasswd() {
+		return managerpasswd;
 	}
-	public void setManagerPasswd(String managerPasswd) {
-		this.managerPasswd = managerPasswd;
+	public void setManagepasswd(String managepasswd) {
+		this.managerpasswd = managerpasswd;
 	}
-	public String getStoreRegion() {
-		return storeRegion;
+	public String getStoreregion() {
+		return storeregion;
 	}
-	public void setStoreRegion(String storeRegion) {
-		this.storeRegion = storeRegion;
+	public void setStoreregion(String storeregion) {
+		this.storeregion = storeregion;
 	}
-	public String getStoreName() {
-		return storeName;
+	public String getStorename() {
+		return storename;
 	}
-	public void setStoreName(String storeName) {
-		this.storeName = storeName;
+	public void setStorename(String storename) {
+		this.storename = storename;
 	}
-	
 	@Override
 	public String toString() {
-		return "MarketAdminMemVO [managerName=" + managerName + ", managerId=" + managerId + ", managerPasswd="
-				+ managerPasswd + ", storeRegion=" + storeRegion + ", storeName=" + storeName + "]";
+		return "MarketAdminVO [managername=" + managername + ", managerid=" + managerid + ", managerpasswd="
+				+ managerpasswd + ", storeregion=" + storeregion + ", storename=" + storename + "]";
 	}
+	
+
 	
 	
 }
