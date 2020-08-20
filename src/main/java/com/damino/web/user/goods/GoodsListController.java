@@ -121,7 +121,7 @@ public class GoodsListController {
 	}
 
 	/** 사용자 선택 피자 메뉴 - 주문하기 getToppingNames  */
-	@RequestMapping(value = "my_basket.do", method = RequestMethod.POST)
+	@RequestMapping(value = "my_basket.do")
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
 		// 사용자 선택 메뉴 정보 서비스 호출
