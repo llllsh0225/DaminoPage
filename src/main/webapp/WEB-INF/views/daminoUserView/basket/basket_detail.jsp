@@ -97,9 +97,12 @@
 		var t_countArr = t_count.split(","); 
 		
 		 for(i=0; i<t_nameArr.length; i++ ){
-			$('#topping').append("<div>" + t_nameArr[i] + "(" + t_priceArr[i] 
-			 + "원)"+ "x" + t_countArr[i] + "</div>");
+			$('#topping').append('<li>' + t_nameArr[i] + "(" + t_priceArr[i] 
+			 + "원)"+ "x" + t_countArr[i]
+			 + '<a href="javascript:toppingDelete(' + t_nameArr[i]
+				+ ', ' + t_countArr[i] + $('#toppingIdx').val() + ');" class="close"><span class="hidden">삭제</span></a></li>');
 		}
+		//console.log("토핑 인덱스 : " + $('#toppingIdx').val());
 		   
 		var p_name = $('#p_name').val();
 		
@@ -206,7 +209,30 @@
 		} */
 
 	} 
- 
+	function toppingDelete(toppingName, toppingCount, idx){
+		
+		var userid = $('#userid').val();
+		
+		$.ajax({
+			url : 'deleteTopping.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				toppingName : toppingName,
+				toppingCount : toppingCount,
+				seq : idx
+			}),
+			async : false,
+			success: function(data) {
+				alert("삭제 성공");
+			 },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		})
+			
+	}
 	var addressSeq = 0; // 주소 테이블 seq 값
 
 	function addAddress() {
@@ -565,9 +591,11 @@
 									<div class="hidden-info">
 									<input type="hidden" id="toppingName" value="${pizza.toppingName}"/>
 									<input type="hidden" id="toppingCount" value="${pizza.toppingCount}"/>
-									<input type="hidden" id="toppingPrice" value="${pizza.toppingPrice}"/>
+									<input type="hidden" id="toppingPrice" value="${pizza.toppingPrice}"/>	
+									<input type="hidden" id="userid" value="${userid}"/>								
 									</div>
-										<li class="row" id="sold-out0">
+										<li class="row" id="row${status.index}">
+										<input type="hidden" id="toppingIdx" value="row${status.index}"/>
 											<div class="sold-out-btn" id="sold-out-btn0"
 												style="display: none">
 												<p>Sold Out</p>
@@ -588,12 +616,10 @@
 												</div>
 											</div>
 										
-											<div class="prd-option">
+											<div class="prd-option" style="width=300">
 												<ul>
-													<li><span id="topping">
-													<a href="javascript:toppingDelete('RPZ196GL', 1, 'RTP216GL');"
-															class="close"> <span class="hidden">삭제</span>
-														</a> </span></li>
+													<li id="topping">
+													 </li>
 
 												</ul>
 

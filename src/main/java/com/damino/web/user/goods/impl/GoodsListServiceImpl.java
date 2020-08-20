@@ -105,5 +105,20 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("장바구니 목록");
 		return goodsListDAO.getBasketList(userid);
 	}
+
+	@Override
+	public void deleteToppingName(UserBasketVO vo) {
+		System.out.println("특정 토핑 이름 삭제");
+		goodsListDAO.deleteToppingName(vo);
+		
+	}
+
+	@Override
+	public void deleteToppingCount(UserBasketVO vo) {
+		System.out.println("특정 토핑 수량 삭제");
+		goodsListDAO.deleteToppingCount(vo);
+		
+	}
+
 	
 }

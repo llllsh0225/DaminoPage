@@ -77,7 +77,7 @@
 							<!-- 로그인 -->
 							<div class="util-nav">
 								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
 									<i class="ico-cart"></i>
 								</a>
 							</div>

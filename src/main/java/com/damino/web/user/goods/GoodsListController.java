@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
+import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 
 @Controller
 public class GoodsListController {
@@ -158,24 +159,20 @@ public class GoodsListController {
 		String pizzaImage = (String)param.get("pizzaImage");
 		
 		int pizzaCount = (Integer)param.get("pizzaCount");
-		System.out.println("피자수량 테스트1 : " + pizzaCount);
-		
+		//토핑
 		String toppingPrice =  (String)param.get("toppingPrice");		
 		String toppingName = (String)param.get("toppingName");
-		System.out.println("toppingName : " + toppingName);
 		String toppingCount =  (String)param.get("toppingCount");
-		
+		//사이드
 		String sidePrice =  (String)param.get("sidePrice");		
-		System.out.println("sidePrice: " + sidePrice);
 		String sideName = (String)param.get("sideName");
-		System.out.println("sideName: " + sideName);
 		String sideCount =  (String)param.get("sideCount");
-		
+		//음료 및 기타
 		String etcPrice =  (String)param.get("etcPrice");		
 		String etcName = (String)param.get("etcName");
-		System.out.println("etcName: " + etcName);
 		String etcCount =  (String)param.get("etcCount");
 		
+		//vo에 값 셋팅
 		vo.setUserId(userId);
 		vo.setPizzaPrice(pizzaPrice);
 		vo.setPizzaSize(pizzaSize);	
@@ -202,6 +199,31 @@ public class GoodsListController {
 		
 	}
 	
+	@RequestMapping(value="/deleteTopping.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteTopping(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		String toppingName = (String) param.get("toppingName");
+		String toppingCount = (String) param.get("toppingCount");
+		int seq = (Integer)param.get("seq");
+		
+		vo.setUserId(userid);
+		vo.setSeq(seq);
+		vo.setToppingName(toppingName);
+		vo.setToppingCount(toppingCount);
+		
+		System.out.println("del : " + userid);
+		System.out.println("del toppingName : " + toppingName);
+		System.out.println("del toppingCount : " + toppingCount);
+		System.out.println("del seq : " + seq);
+		
+		/*
+		 * goodsListService.deleteToppingName(vo);
+		 * goodsListService.deleteToppingCount(vo);
+		 */
+		
+		return "success";
+	}
 	
 	/*
 	 * @RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
