@@ -126,6 +126,11 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 	public void deleteSideInfo(UserBasketVO vo) {
 		sqlSessionTemplate.update("GoodsListDAO.deleteSideInfo", vo);
 	}
+
+	@Override
+	public void deleteEtcInfo(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.deleteEtcInfo", vo);
+	}
 	
 	
 }

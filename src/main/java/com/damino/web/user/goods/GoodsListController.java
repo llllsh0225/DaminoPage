@@ -34,7 +34,13 @@ public class GoodsListController {
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
 
 	@RequestMapping("/goodslist.do")
-	public ModelAndView getPizzaList(ModelAndView mav) {
+	public ModelAndView getPizzaList(ModelAndView mav, HttpSession session) {
+		String userid = (String) session.getAttribute("userid");
+		if(userid == null) {
+			
+		}else {
+			session.setAttribute("msg", "login");
+		}
 		System.out.println("제품 목록 열기");
 
 		List<GoodsPizzaVO> goodsPremiumList = goodsListService.getPizzaList();
@@ -50,7 +56,14 @@ public class GoodsListController {
 	}
 
 	@RequestMapping(value = "/goodsSideList.do")
-	public ModelAndView getSideList(ModelAndView mav) {
+	public ModelAndView getSideList(ModelAndView mav, HttpSession session) {
+		String userid = (String) session.getAttribute("userid");
+		if(userid == null) {
+			
+		}else {
+			session.setAttribute("msg", "login");
+		}
+		
 		System.out.println("사이드디시 리스트 열기");
 
 		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
@@ -62,7 +75,14 @@ public class GoodsListController {
 	}
 
 	@RequestMapping("/goodsDrinkEtcList.do")
-	public ModelAndView getDrinkEtcList(ModelAndView mav) {
+	public ModelAndView getDrinkEtcList(ModelAndView mav, HttpSession session) {
+		String userid = (String) session.getAttribute("userid");
+		if(userid == null) {
+			
+		}else {
+			session.setAttribute("msg", "login");
+		}
+		
 		System.out.println("음료&기타 메뉴 열기");
 
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
@@ -266,6 +286,26 @@ public class GoodsListController {
 		
 		return "success";
 	}
+	@RequestMapping(value="/etcDelete.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String etcDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		String etcName = (String) param.get("goodsName");
+		int seq = (Integer)param.get("seq")+1;
+		
+		vo.setUserId(userid);
+		vo.setSeq(seq);
+		vo.setEtcName(etcName);
+		//vo.setToppingCount(toppingCount);
+		
+		System.out.println("del : " + userid);
+		System.out.println("del sideName : " + etcName);
+		System.out.println("del seq : " + seq);
+		
+		 goodsListService.deleteEtcInfo(vo);
+		
+		return "success";
+	}
 	
 	/*
 	 * @RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
@@ -291,34 +331,6 @@ public class GoodsListController {
 	 * toppingList.add(topping); System.out.println(vo.getT_name()); } return
 	 * toppingList; }
 	 */
-	
-	@RequestMapping(value="/getPizzaName.do", method=RequestMethod.POST)
-	@ResponseBody
-	public String getPizzaName(HttpServletRequest request, @RequestBody Map<String, Object> params, GoodsPizzaVO vo, Model model){
-		String p_name = (String)params.get("p_name");
-				
-		//String[] arrayParam = request.getParameterValues("test");
-		System.out.println(p_name);
-		
-		//GoodsToppingVO toppingVO = new GoodsToppingVO();
-		
-		//	List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
-		vo.setP_name(p_name);
-		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
-		GoodsPizzaVO goodsDetail1 = goodsListService.getUserPizza(vo);
-		/*
-		 * for(int i=0; i<t_name_List2.length; i++) { vo.setT_name(t_name_List2[i]);
-		 * 
-		 * GoodsToppingVO topping = goodsListService.getUserTopping(vo);
-		 * 
-		 * toppingList.add(topping); System.out.println(vo.getT_name()); }
-		 */	
-		//String pizzaImage = goodsDetail1.getP_image();
-	//	model.addAttribute(pizzaImage);
-		//return goodsDetail1;
-		return "success";
-		
-	}	
 
 	@RequestMapping(value = "/getStoreRegion.do", method = RequestMethod.POST)
 	@ResponseBody
