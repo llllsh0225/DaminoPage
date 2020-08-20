@@ -27,5 +27,6 @@
 		<mapper resource="mappings/test-mapping.xml"/>
 		<mapper resource="mappings/salesstauts-mapping.xml"/>
 		<mapper resource="mappings/userlevel-mapping.xml"/>
+		<mapper resource="mappings/order-mapping.xml"/>
 	</mappers>
 </configuration>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,9 +32,13 @@
 <!-- slick 배너용 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/slick.min.js' />"></script>
+<!-- 다음 주소 api -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	
 <script>
+
 	window.onload = function(){
+		var addressListSize = Number($('#addressListSize').val()); // 저장된 배달주소 리스트 사이즈
 		if($('#gubun').val() == 'D'){
 			$('#delivery').show();
 			$('#takeout').hide();
@@ -41,8 +46,11 @@
 			$('#takeout').show();
 			$('#delivery').hide();
 		}
+		console.log(addressListSize);
 	}
 	
+
+	// 포장주문 or 배달주문 선택 함수	
 	function selectOG(gubun){
 		if(gubun == 'D'){
 			$('#delivery').show();
@@ -51,6 +59,140 @@
 			$('#takeout').show();
 			$('#delivery').hide();
 		}
+	}
+	
+	// ------------------ 배달주문 관련 함수 -------------------
+	
+	// 주소 선택 창 (다음 API & 상세주소 자식창 open)
+	function deliveryAddressPop(){
+		var addressListSize = Number($('#addressListSize').val()); // 저장된 배달주소 리스트 사이즈
+		
+		if(addressListSize >= 10){
+			alert("배달주소는 10개까지 등록 가능합니다.");
+			return;
+		}
+		
+		new daum.Postcode({
+            oncomplete: function(data) {
+               // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+               // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+               var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+               var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+               // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+               // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+               if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                   extraRoadAddr += data.bname;
+               }
+               // 건물명이 있고, 공동주택일 경우 추가한다.
+               if(data.buildingName !== '' && data.apartment === 'Y'){
+                  extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+               }
+               // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+               if(extraRoadAddr !== ''){
+                   extraRoadAddr = ' (' + extraRoadAddr + ')';
+               }
+               // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+               if(fullRoadAddr !== ''){
+                   fullRoadAddr += extraRoadAddr;
+               }
+
+               // 시,구,동까지의 주소 정보를 hidden에 저장
+               $('#addrVal').val(fullRoadAddr);
+               console.log("주소 : " + $('#addrVal').val());
+               
+               // 구 정보를 hidden에 저장
+               var addrArr = fullRoadAddr.split(" "); // 스페이스바 구분자로 주소를 분리
+               $('#guVal').val(addrArr[1]);
+               var guName = $('#guVal').val();
+               
+               // '구'에 해당하는 매장명 목록을 받아오기
+               $.ajax({
+               	url : 'getGuStore.do',
+   				contentType : "application/json; charset=UTF-8;",
+   				type: 'post', 
+   				data : JSON.stringify({
+   					guName : guName,
+   				}),
+   				async : false,
+   				success: function(data) {
+   					if(data == 'success'){
+   						console.log(data);
+   						// 상세주소 입력 페이지 열기
+   		                window.open("openDetailAddr.do", "상세주소 & 배달매장 입력", "top=50, left=60, width=450, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+   					}else{
+   						alert('배달 불가 주소입니다.');
+   						return;
+   					}
+   				},
+   				error: function() {
+   					alert('처리도중 오류가 발생했습니다.');
+   				}
+               	
+               })
+           }
+        }).open();
+	}
+	
+	// 상세주소 & 배달매장 선택창에서 값 넘겨받기
+	function receiveDetailAddr(addr, selectStore){
+		$('#detailAddrVal').val(addr);
+		$('#selectStore').val(selectStore);
+	}
+	
+	// 배달주소지 추가
+	function addAddrRow(){
+		var addressListSize = Number($('#addressListSize').val()); // 저장된 배달주소 리스트 사이즈
+		
+		var userid = $('#userid').val();
+		var address = $('#addrVal').val() + " " + $('#detailAddrVal').val();
+		var storeName = $('#selectStore').val();
+		$.ajax({
+			url : 'insertDeliveryAddress.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				address : address,
+				storeName : storeName,
+			}),
+			async : false,
+			success: function(data) {
+				// <li>를 추가
+				$('#deladdress_list').append('<li id="addressli'+ addressListSize+'"><div class="chk-box selected" id="chk-box'+ addressListSize +'">'
+				+ '<input type="radio" id="addressradio'+ addressListSize +'" name="addressradio" checked="">'
+				+ '<label class="checkbox" for="addressradio'+ addressListSize +'"></label></div>'
+				+ '<dl><dt><label for="addressradio'+ addressListSize +'">'+ address +'</label></dt>'
+				+ '<dd><em>'+ storeName +'</em><span class="tel">'+ data +'</span></dd>'
+				+ '<dd class="hash"><br></dd></dl>'
+				+ '<a href="javascript:deleteAddress('+ addressListSize +');" class="btn-del"><span class="hidden">삭제</span></a></li>');
+				
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		});
+		
+		$('#addressListSize').val(addressListSize + 1);
+		
+		if(Number($('#addressListSize').val()) == 1){
+			location.reload();
+		}
+	}
+	
+	// 배달주소지 삭제
+	function deleteAddress(idx){
+		var addressListSize = Number($('#addressListSize').val()); // 저장된 배달주소 리스트 사이즈
+		$('#addressli' + idx).remove();
+		
+		$('#addressListSize').val(addressListSize - 1);
+		
+		if(Number($('#addressListSize').val()) == 0){
+			location.reload();
+		}
+		
 	}
 	
 </script>
@@ -149,7 +291,12 @@
 				<article class="sel-order-area">
 					<div class="menu-nav-wrap">
 						<div class="menu-nav js_tab">
-						<input type="hidden" id="gubun" value="${param.gubun }">
+						<input type="hidden" id="userid" value="${userid }" /> 
+						<input type="hidden" id="gubun" value="${param.gubun }"> <!-- 주문타입 구분 -->
+						<input type="hidden" id="addrVal" value="" /> <!-- 상세주소 앞까지 저장 -->
+						<input type="hidden" id="guVal" value="" /> <!-- 구 이름 저장 -->
+						<input type="hidden" id="detailAddrVal" value="" /> <!-- 상세주소 저장 -->
+						<input type="hidden" id="selectStore" value="" /><!-- 선택한 배달매장명 -->
 							<ul>
 							<c:choose>
 								<c:when test="${param.gubun == 'D' }">
@@ -176,34 +323,50 @@
 					<div class="text-link-area v2">
 					</div>
 						<div class="address-list">
-							<ul>
+						<!-- 컨트롤러에서 넘겨받은 주소 리스트의 크기 저장 -->
+						<input type="hidden" id="addressListSize" value="${fn:length(deliveryAddressList)}">
+							<ul id="deladdress_list">
+							<c:if test="${fn:length(deliveryAddressList) == 0}"> <!-- 저장된 주소가 없을 때 -->
 								<li>
-									<div class="chk-box selected" id="chk-box1">
-										<input type="radio" id="addressradio1" name="addressradio" checked=""> 
-										<label class="checkbox" for="addressradio1"></label>
+									<div class="nostore">
+										<p class="title-type">
+											<i class="ico-noti"></i>배달주소를 등록해주세요.
+										</p>
+										<a href="javascript:deliveryAddressPop();" class="btn-type-brd2"><i class="ico-plus"></i>배달주소 등록</a>
+									</div>
+								</li>
+							</c:if>
+							<c:forEach var="deladdress" items="${deliveryAddressList }" varStatus="status">
+								<li id="addressli${status.index }">
+									<div class="chk-box selected" id="chk-box${status.index }">
+										<input type="radio" id="addressradio${status.index }" name="addressradio" checked=""> 
+										<label class="checkbox" for="addressradio${status.index }"></label>
 									</div>
 										<dl>
 											<dt>
-												<label for="addressradio1">배송지 주소</label>
+												<label for="addressradio${status.index }">${deladdress.address }</label>
 											</dt>
 												<dd>
-													<em>테스트점</em><span class="tel">02-123-3082</span>
+													<em>${deladdress.storename }</em><span class="tel">${deladdress.storephone }</span>
 												</dd>
 												<dd class="hash">
 													<br>
 												</dd>
 										</dl> 
-									<a href="javascript:deleteAddress();" class="btn-del"><span class="hidden">삭제</span></a>
+									<a href="javascript:deleteAddress(${status.index });" class="btn-del"><span class="hidden">삭제</span></a>
 								</li>
+								</c:forEach>
 							</ul>
+							<c:if test="${fn:length(deliveryAddressList) != 0 }">
 								<div class="address-enter">
-									<a href="javascript:addDeliveryPop('O');" class="btn-type-brd2"><i class="ico-plus"></i>배달주소 등록</a>
+									<a href="javascript:deliveryAddressPop();" class="btn-type-brd2"><i class="ico-plus"></i>배달주소 등록</a>
 										<div class="side guide-box">배달주소는 최대 10개까지만 등록 가능합니다.</div>
 								</div>
 								<div class="address-btn">
 									<p class="title-type4">해당 배달주소로 주문을 진행하시겠습니까?</p>
 									<a href="javascript:setAddress();" class="btn-type v3"> 선택 </a>
 								</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="tab-content" id="takeout">
