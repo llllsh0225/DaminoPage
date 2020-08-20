@@ -83,16 +83,23 @@
 		var tel1 = $('#sel_hand_tel1').val();
 		var tel2 = $('#hand_tel2').val();
 		var tel3 = $('#hand_tel3').val();
-		
+		var auth = $('#auth_num').val();
+		var chk = document.nonf.agree1.checked;
 		if(name==""){
 			alert("이름을 입력하세요");
 			return false;
 		}
-		if(!$('#agree1').val() == "Y"){
-		alert("필수 약관에 동의해주세요");
+		if(tel1=="" || tel2=="" || tel3=="" || auth==""){
+			alert("번호를 입력하세요");
+			return false;
+		}
+		
+		if(!chk){
+			alert("필수 약관에 동의해주세요");
+			return false;
 		}else{
 			
-		alert("주문정보로 이동");
+		alert("비회원으로 로그인 하였습니다.");
 		document.nonf.action="NonLogin.do";
 		document.nonf.submit();
 		}
@@ -265,8 +272,8 @@
                            </div>
                            <div class="chk-item">
                               <div class="chk-box v4">
-                                 <input type="checkbox" id="agree1" name="agree" value="N"
-                                    checked="checked"> <label class="checkbox"
+                                 <input type="checkbox" id="agree1" name="agree1" 
+                                 value="N"> <label class="checkbox"
                                     for="agree1"></label> <label for="agree1">개인정보 수집 및
                                     이용 동의(필수)</label>
                               </div>
