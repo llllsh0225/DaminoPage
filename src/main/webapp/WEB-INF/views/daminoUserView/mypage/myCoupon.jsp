@@ -242,9 +242,9 @@ function presentCoupon(){
 							<div class="form-group">
 								<div class="form-item">
 									
-									<div class="title-type2" style="width:200px;">선물할 쿠폰 선택</div>
-									<div class="select-type2">
-										<select id="select_coupon" style="width:375px;">
+									<div class="title-type2" style="width:150px;">선물할 쿠폰 선택</div>
+									<div style="display:block;">
+										<select id="select_coupon" style="width:350px; margin-right: 10px">
 											<c:forEach var="coupon" items="${myCouponList }">
 												<option value="${coupon.coupon_code }">
 												${coupon.coupon_name }(
@@ -263,7 +263,7 @@ function presentCoupon(){
 								</div>
 								<div class="form-item">
 									<a href="javascript:;" onclick="presentCoupon();"
-										class="btn-type v4">쿠폰 선물하기</a>
+										class="btn-type v4" style="width:100%; height:68%; text-align:center; font-size:16px;">쿠폰 선물</a>
 								</div>
 							</div>
 						</div>

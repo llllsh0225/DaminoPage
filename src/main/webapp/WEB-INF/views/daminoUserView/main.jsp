@@ -154,7 +154,7 @@
 						<div class="inner-box">
 							<div class="item-wrap v2">
 								<div class="item">
-									<a href="javascript:void(0)" onClick="orderMenuList('O')">
+									<a href="javascript:void(0)">
 										<i class="ico-delivery"></i> <span class="text">배달 주문</span> <span
 										class="arrow"></span>
 									</a>
@@ -162,7 +162,7 @@
 								</div>
 
 								<div class="item">
-									<a href="javascript:void(0)" onClick="orderMenuList('W')">
+									<a href="javascript:void(0)">
 										<i class="ico-takeout"></i> <span class="text">포장 주문</span> <span
 										class="arrow"></span>
 									</a>
@@ -170,7 +170,7 @@
 								</div>
 
 								<div class="item">
-									<a href="quickOrder.do" onClick="orderMenuList('O')">
+									<a href="quickOrder.do">
 										<i class="ico-quick2"></i> <span class="text">퀵 오더</span> <span
 										class="arrow"></span>
 									</a>
@@ -182,7 +182,7 @@
 					</article>
 					<article class="article grade-area">
 						<div class="inner-box">
-
+						<c:if test="${msg != 'login' }"> <!-- 비로그인 시 -->
 							<div class="grade-info">
 								<div class="login-before">
 									<div class="title-wrap">
@@ -195,30 +195,46 @@
 									</div>
 								</div>
 							</div>
-							<div class="grade-slider" style="display: none;">
-								<div>
-									<a href="#"><img
-										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card1.jpg" /></a>
+							<div class="grade-slider slick-initialized slick-slider" style="">
+								<div aria-live="polite" class="slick-list draggable">
+									<div class="slick-track" style="opacity: 1; width: 1080px; transform: translate3d(0px, 0px, 0px);" role="listbox">
+										<div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide10">
+											<a href="regForm.do" tabindex="0"><img src="<c:url value='/resources/images/user/main_card1.png' />"></a>
+										</div>
+										<div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide11">
+											<a href="mania.do" tabindex="0"><img src="<c:url value='/resources/images/user/main_card2.gif' />"></a>
+										</div>
+									</div>
 								</div>
-								<div>
-									<a href="mania.do"><img
-										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card2.gif" /></a>
-								</div>
-								<div id="getTodayPrmt">
-									<a href="event/view023e.do?seq=1161&amp;gubun=E0200"><img
-										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card4-1.gif" /></a>
-								</div>
-								<div>
-									<a href="event/viewHtml21cb.do?seq=1149&amp;gubun=E0200"><img
-										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card3.png" /></a>
-								</div>
-
-								<div>
-									<a href="goods/dominosMoment.do"><img
-										src="../newcdn.dominos.co.kr/domino/pc/images/main/main_card5.png" /></a>
-								</div>
-
 							</div>
+						</c:if>
+						<c:if test="${msg == 'login' }"> <!-- 로그인 시 -->
+							<div class="grade-info">
+								<div class="user-info">
+									<p><span>${user.username }</span>님 현재 등급</p>
+									<p class="grade">
+										<span>${user.userlevel }</span>
+									</p>
+									<div class="btn-wrap">
+										<a href="mylevel.do" class="btn-type5">혜택보기</a>
+										<a href="myorderlist.do" class="btn-type5">주문내역</a>
+									</div>
+									
+								</div>
+							</div>
+							<div class="grade-slider slick-initialized slick-slider" style="">
+								<div aria-live="polite" class="slick-list draggable">
+									<div class="slick-track" style="opacity: 1; width: 1080px; transform: translate3d(0px, 0px, 0px);" role="listbox">
+										<div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide10">
+											<a href="regForm.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_coupon.png' />"></a>
+										</div>
+										<div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide11">
+											<a href="mania.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_level.png' />"></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:if>
 						</div>
 					</article>
 
