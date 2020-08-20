@@ -34,8 +34,25 @@
 	
 <script>
 	window.onload = function(){
-		selectOG(gubun);
+		if($('#gubun').val() == 'D'){
+			$('#delivery').show();
+			$('#takeout').hide();
+		}else{
+			$('#takeout').show();
+			$('#delivery').hide();
+		}
 	}
+	
+	function selectOG(gubun){
+		if(gubun == 'D'){
+			$('#delivery').show();
+			$('#takeout').hide();
+		}else{
+			$('#takeout').show();
+			$('#delivery').hide();
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -132,13 +149,26 @@
 				<article class="sel-order-area">
 					<div class="menu-nav-wrap">
 						<div class="menu-nav js_tab">
+						<input type="hidden" id="gubun" value="${param.gubun }">
 							<ul>
-								<li class="active">
-									<a href="#delivery" onclick="selectOG('D');">배달 주문</a>
-								</li>
-								<li>
-									<a href="#tabkeout" onclick="selectOG('W')">포장주문</a>
-								</li>
+							<c:choose>
+								<c:when test="${param.gubun == 'D' }">
+									<li class="active">
+										<a href="#delivery" onclick="selectOG('D');">배달 주문</a>
+									</li>
+									<li>
+										<a href="#takeout" onclick="selectOG('W')">포장주문</a>
+									</li>
+								</c:when>
+								<c:when test="${param.gubun == 'W' }">
+									<li>
+										<a href="#delivery" onclick="selectOG('D');">배달 주문</a>
+									</li>
+									<li class="active">
+										<a href="#takeout" onclick="selectOG('W')">포장주문</a>
+									</li>
+								</c:when>
+							</c:choose>
 							</ul>
 						</div>
 					</div>
@@ -149,13 +179,12 @@
 							<ul>
 								<li>
 									<div class="chk-box selected" id="chk-box1">
-										<input type="radio" id="addressradio1" name="addressradio" value="1" value3="25527235" checked=""> 
+										<input type="radio" id="addressradio1" name="addressradio" checked=""> 
 										<label class="checkbox" for="addressradio1"></label>
 									</div>
 										<dl>
 											<dt>
-												<label for="addressradio1">
-													배송지 주소</label>
+												<label for="addressradio1">배송지 주소</label>
 											</dt>
 												<dd>
 													<em>테스트점</em><span class="tel">02-123-3082</span>
@@ -164,7 +193,7 @@
 													<br>
 												</dd>
 										</dl> 
-										<a href="javascript:deleteAddress('25527235');" class="btn-del"><span class="hidden">삭제</span></a>
+									<a href="javascript:deleteAddress();" class="btn-del"><span class="hidden">삭제</span></a>
 								</li>
 							</ul>
 								<div class="address-enter">
@@ -177,7 +206,7 @@
 								</div>
 						</div>
 					</div>
-					<div class="tab-content" id="tabkeout">
+					<div class="tab-content" id="takeout">
 					<div class="text-link-area v2">
 					</div>
 						<div class="address-list">
@@ -185,7 +214,7 @@
 							<ul>
 								<li>
 									<div class="chk-box selected" id="chk-box1">
-										<input type="radio" class="address" id="addressradio1" name="addressradio" value="1" value2="N" value3="11178162" value4="86412" onclick="javascript:drivePickupBranch('N');" checked="">
+										<input type="radio" class="address" checked="">
 										<label class="checkbox" for="addressradio1"></label>
 									</div>
 									<dl>
