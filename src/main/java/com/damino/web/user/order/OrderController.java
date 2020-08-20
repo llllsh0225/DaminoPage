@@ -59,4 +59,22 @@ public class OrderController {
 		orderService.insertDeliveryAddress(vo);
 		return storephone;
 	}
+	
+	@RequestMapping(value="/deleteDeliveryAddress.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteDeliveryAddress(@RequestBody Map<String, Object> param, DeliveryAddressVO vo) {
+		String userid = (String) param.get("userid");
+		String address = (String) param.get("address");
+		
+		System.out.println(userid);
+		System.out.println(address);
+		
+		// ¹è¼ÛÁö delete
+		vo.setUserid(userid);
+		vo.setAddress(address);
+		
+		orderService.deleteDeliveryAddress(vo);
+		
+		return "success";
+	}
 }
