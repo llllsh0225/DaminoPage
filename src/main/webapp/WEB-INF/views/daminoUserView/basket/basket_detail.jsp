@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -47,25 +48,76 @@
 
 <script>
 	window.onload = function() {
+		//토핑 가격
+		var toppingP = $('#totalT').val();
+		//피자 가격
+		var pizzaP = $('#totalP').val();
+		console.log("toppingP : " + toppingP);
+		console.log("pizzaP : " + pizzaP);
+		
+		var toppingPrice = 0;
+		
+		var t_price = $('#totalT').val();
+		var t_priceArr = t_price.split(",");
+		console.log("t_priceArr : " + t_priceArr);
+		
+		//토핑 합계 계산
+		var toppingPrice = 0;
+		for (var i = 0; i < t_priceArr.length; i++){
+			toppingPrice += parseInt(t_priceArr[i], 10);
+		 }
+			console.log("toppingPrice : " + toppingPrice);
+			
+		var totalPizzaPrice = toppingPrice + Number(pizzaP);
+		 console.log("totalPizzaPrice : " + totalPizzaPrice);
+		$('#pizza-total').html(totalPizzaPrice);
+		var a = $('#pizza-total').text();
+		//천단위 구분 - 정규표현식
+	    a = a.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	  	 $('#pizza-total').html( a );
+	  	 console.log("a : " + a);
+	
+		/* for(i=0; i<t_priceArr.length; i++){
+			toppingPrice += Number(t_priceArr[i]);
+			if (i != t_priceArr.length - 1) {
+				toppingPrice += "+";
+			}
+			//toppingPrice += Number(t_priceArr[i]);
+			console.log("toppingPrice : " + toppingPrice);
+		} */
 		
 		var pizzaImage = "";
 
 		var t_name = $('#toppingName').val();
 		var t_nameArr = t_name.split(",");
 		
-		var t_price = $('#toppingPrice').val();
-		var t_priceArr = t_price.split(",");
+		var t_priceArr = toppingP.split(",");
 		
 		var t_count = $('#toppingCount').val();
-		var t_countArr = t_count.split(","); */
+		var t_countArr = t_count.split(","); 
 		
 		 for(i=0; i<t_nameArr.length; i++ ){
-			var toppingList = t_nameArr[i];
 			$('#topping').append("<div>" + t_nameArr[i] + "(" + t_priceArr[i] 
 			 + "원)"+ "x" + t_countArr[i] + "</div>");
 		}
-		 
+		   
 		var p_name = $('#p_name').val();
+		
+		//총 합계 금액 구하기
+		var etcPrice = $('#etcPrice').val();
+		etcPrice *= 1;
+		var sidePrice = $('#sidePrice').val();
+		sidePrice *= 1;
+		
+		$('#total-price').text(Number(totalPizzaPrice + etcPrice + sidePrice));	 
+		var total = $('#total-price').text();
+		total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		
+		console.log("total : " + total);
+		$('#total-price').html(total);
+		
+  	 
+		//console.log("b : " + b);
 		/* var test = "";
 		for (var i = 0; i < t_name.length; i++) {
 			test += t_name[i];
@@ -114,7 +166,7 @@
 			}
 		);}  */
 		
-		 if (t_name != null) {
+		 /* if (t_name != null) {
 			$.ajax({
 				url : 'getToppingNames.do',
 				contentType : "application/json; charset=UTF-8;",
@@ -151,7 +203,7 @@
 					alert('처리도중 오류가 발생했습니다.');
 				}
 			});
-		}
+		} */
 
 	} 
  
@@ -510,6 +562,11 @@
 										</li>
 										
 									<c:forEach var="pizza" items="${basketList}" varStatus="status">
+									<div class="hidden-info">
+									<input type="hidden" id="toppingName" value="${pizza.toppingName}"/>
+									<input type="hidden" id="toppingCount" value="${pizza.toppingCount}"/>
+									<input type="hidden" id="toppingPrice" value="${pizza.toppingPrice}"/>
+									</div>
 										<li class="row" id="sold-out0">
 											<div class="sold-out-btn" id="sold-out-btn0"
 												style="display: none">
@@ -523,19 +580,18 @@
 											<div class="prd-info">
 												<div class="prd-img">
 												  <img src="<c:url value= '/resources/images/admin/goods/${pizza.pizzaImage}' />"/>
-												 <input type="hidden" id="pizzaImage" value="${pizza.pizzaImage}" />
 												</div>
 												<div class="prd-cont">
-													<div class="subject"></div>
+													<div class="subject">${pizza.pizzaName}</div>
 													<div class="option">${pizza.pizzaDough}/${pizza.pizzaSize}</div>
-													<div class="price">${pizza.pizzaPrice}</div>
+													<div class="price"><fmt:formatNumber value="${pizza.pizzaPrice}" pattern="#,###"/>원</div>
 												</div>
 											</div>
 										
 											<div class="prd-option">
 												<ul>
-													<li><span id="topping">${pizza.toppingName}(${pizza.toppingPrice}원)x${pizza.toppingCount}<a
-															href="javascript:toppingDelete('RPZ196GL', 1, 'RTP216GL');"
+													<li><span id="topping">
+													<a href="javascript:toppingDelete('RPZ196GL', 1, 'RTP216GL');"
 															class="close"> <span class="hidden">삭제</span>
 														</a> </span></li>
 
@@ -547,14 +603,16 @@
 													<a href="javascript:void(0);"
 														onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
 														class="minus"><button class="btn-minus"></button></a> <input
-														type="number" class="qty0" id="qty0" value="1" readonly />
+														type="number" class="qty0" id="qty0" value="${pizza.pizzaCount}" readonly />
 													<a href="javascript:void(0);"
 														onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
 														class="plus"><button class="btn-plus"></button></a>
 												</div>
 											</div>
-											<div class="prd-total" id="pizza-total">
-												<em>0</em>원
+											<input type="hidden" id="totalP" value="${pizza.pizzaPrice}">
+											<input type="hidden" id="totalT" value="${pizza.toppingPrice}">
+											<div class="prd-total" >
+												<fmt:formatNumber value="" pattern="#,###"/><em id="pizza-total"></em>원
 											</div>
 											<div class="prd-delete">
 												<a
@@ -563,6 +621,7 @@
 												</a>
 											</div>
 										</li>
+										<!-- end 피자 -->
 										<li class="row" id="sold-out0">
 											<div class="sold-out-btn" id="sold-out-btn0"
 												style="display: none">
@@ -571,7 +630,53 @@
 													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
 													class="btn-type4-brd3">삭제</a>
 											</div>
-
+		
+										
+											<div class="prd-info">
+												<div class="prd-img">
+												 <%-- <img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"/> --%>
+												 <input type="hidden" id="pizzaImage" value="" />
+												</div>
+												<div class="prd-cont">
+													<div class="subject">${pizza.sideName}</div>
+													<div class="option"></div>
+													<div class="price"><fmt:formatNumber value="${pizza.sidePrice}" pattern="#,###" />원</div>
+												</div>
+											</div>
+											<div class="prd-option">
+											</div>
+											<div class="prd-quantity">
+												<div class="quantity-box v2">
+													<a href="javascript:void(0);"
+														onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
+														class="minus"><button class="btn-minus"></button></a> <input
+														type="number" class="qty0" id="qty0" value="${pizza.sideCount}" readonly />
+													<a href="javascript:void(0);"
+														onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
+														class="plus"><button class="btn-plus"></button></a>
+												</div>
+											</div>
+											<div class="prd-total">
+												<em id="side-total"><fmt:formatNumber value="${pizza.sidePrice}" pattern="#,###" /></em>원
+												<input type="hidden" id="sidePrice" value="${pizza.sidePrice}"/>
+											</div>
+											<div class="prd-delete">
+												<a
+													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
+													class="btn-close"> <span class="hidden">삭제</span>
+												</a>
+											</div>
+										</li>
+										
+										<li class="row" id="sold-out0">
+											<div class="sold-out-btn" id="sold-out-btn0"
+												style="display: none">
+												<p>Sold Out</p>
+												<a
+													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
+													class="btn-type4-brd3">삭제</a>
+											</div>
+		
 										
 											<div class="prd-info">
 												<div class="prd-img">
@@ -581,26 +686,25 @@
 												<div class="prd-cont">
 													<div class="subject">${pizza.etcName}</div>
 													<div class="option"></div>
-													<div class="price">${pizza.etcPrice}</div>
+													<div class="price"><fmt:formatNumber value="${pizza.etcPrice}" pattern="#,###" />원</div>
 												</div>
 											</div>
 											<div class="prd-option">
-												
-
 											</div>
 											<div class="prd-quantity">
 												<div class="quantity-box v2">
 													<a href="javascript:void(0);"
 														onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
 														class="minus"><button class="btn-minus"></button></a> <input
-														type="number" class="qty0" id="qty0" value="1" readonly />
+														type="number" class="qty0" id="qty0" value="${pizza.etcCount}" readonly />
 													<a href="javascript:void(0);"
 														onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
 														class="plus"><button class="btn-plus"></button></a>
 												</div>
 											</div>
-											<div class="prd-total" id="pizza-total">
-												<em>0</em>원
+											<div class="prd-total">
+												<em id="etc-total"><fmt:formatNumber value="${pizza.etcPrice}" pattern="#,###" /></em>원
+												<input type="hidden" id="etcPrice" value="${pizza.etcPrice}"/>
 											</div>
 											<div class="prd-delete">
 												<a
@@ -678,7 +782,7 @@
 								</div>
 								<div class="total-price2 side">
 									<p>
-										총 금액 <em>36,900원</em>
+										총 금액 <em id="total-price"></em>원
 									</p>
 								</div>
 							</div>

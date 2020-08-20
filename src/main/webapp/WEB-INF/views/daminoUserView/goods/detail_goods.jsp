@@ -106,11 +106,7 @@ function saveBasket(){
 	 var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
 	 var selectPizzaSetNum = Number($('#pizzaSetNum').val()); // 선택 수량
 	 var userid = $('#userid').val();
-	
-	var toppingName;
-	var toppingCounts;
-	var toppingPrice;
-	
+		
 	var p_image = $('#p_image').val();
 
 	//토핑 정보 String에 넣기
@@ -130,10 +126,9 @@ function saveBasket(){
 		for (var i = 0; i < toppingNameArr.length; i++) {
 			
 			if (i != toppingNameArr.length-1) {
-				toppingName[i] += ",";
+				toppingNameArr[i] += ",";
 			}
 			toppingName += toppingNameArr[i];
-			console.log(toppingName);
 		}
 	}
 	var toppingCounts = "";
@@ -161,10 +156,11 @@ function saveBasket(){
 	var sideName = "";
 	if(sideNameArr != 0){
 		for (var i = 0; i < sideNameArr.length; i++) {
+			sideName += sideNameArr[i];
 			if (i != sideNameArr.length-1) {
 				sideNameArr[i] += ",";
 			}
-			sideName += sideNameArr[i];
+			
 		}
 	}
 	var sidePrices="";
