@@ -437,7 +437,10 @@ public class QuickOrderController {
 		vo.setRequirements(requirement);
 		
 		quickOrderService.doQuickOrder(vo);
-		couponService.updateUsedCoupon(couponCode);
+		
+		if(couponCode != null) {
+			couponService.updateUsedCoupon(couponCode);
+		}
 		
 		return "success";
 	}

@@ -238,16 +238,32 @@ function orderlistSubmit(){
 											<div class="title-type4">
 												<span class="t-l"> 주문건수 </span> <span class="t-r">목표등급</span>
 											</div>
+											<!-- 주문 건수가 2건 이상일 때 -->
+											<c:if test="${((orderCnt/2) * 100) >= 100}">
 											<div class="grade-wrap">
 												<div class="graph">
-													<span class="graph-inner" style="width: 50.0%">50.0%</span>
+													<span class="graph-inner" style="width: 100%">100%</span>
+												</div>
+												<span class="grade">PREMIUM</span>
+											</div>
+											<div class="tip-box2 tip-center" style="left: 887.737px;">
+												<p>목표달성</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+											<!-- 주문 건수가 2건 미만일 때 -->
+											<c:if test="${((orderCnt/2) * 100) < 100}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: ${(orderCnt/2) * 100}%">${(orderCnt/2) * 100}%</span>
 												</div>
 												<span class="grade">PREMIUM</span>
 											</div>
 											<div class="tip-box2 tip-center">
-												<p>1건 더 구매</p>
+												<p>${2 - orderCnt} 건 더 구매</p>
 												<span class="arrow"></span>
 											</div>
+											</c:if>
 										</div>
 									</div>
 								</c:when>
@@ -262,16 +278,68 @@ function orderlistSubmit(){
 											<div class="title-type4">
 												<span class="t-l"> 주문건수 </span> <span class="t-r">목표등급</span>
 											</div>
+											<!-- 주문 건수가 6건 이상일 때 -->
+											<c:if test="${((orderCnt/6) * 100) >= 100}">
 											<div class="grade-wrap">
 												<div class="graph">
-													<span class="graph-inner" style="width: 33.3%">33.3%</span>
+													<span class="graph-inner" style="width: 100%">100%</span>
+												</div>
+												<span class="grade">VIP</span>
+											</div>
+											<div class="tip-box2 tip-center" style="left: 887.737px;">
+												<p>목표달성</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+											<!-- 주문 건수가 6건 미만일 때 -->
+											<c:if test="${((orderCnt/6) * 100) < 100}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: ${(orderCnt/6) * 100}%">${(orderCnt/6) * 100}%</span>
 												</div>
 												<span class="grade">VIP</span>
 											</div>
 											<div class="tip-box2 tip-center">
-												<p>4건 더 구매</p>
+												<p>${6 - orderCnt} 건 더 구매</p>
 												<span class="arrow"></span>
 											</div>
+											</c:if>
+										</div>
+									</div>
+								</c:when>
+								<c:when test="${mylevel eq 'VIP'}">
+									<div class="upgrade-wrap">
+										<div class="title-wrap2">
+											<div class="title-type2">ROYAL 등급으로 업그레이드 하려면?</div>
+											<div class="side">*올해 1년간 주문 완료된 주문 총액을 기준으로 내년 1월 1일
+												매니아 등급에 반영됩니다.</div>
+										</div>
+										<div class="box">
+											<div class="title-type4">
+												<span class="t-l"> 주문총액 </span> <span class="t-r">목표등급</span>
+											</div>
+											<!-- 주문 총액이 70만원 이상일 때 -->
+											<c:if test="${payCnt >= 700000}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: 100%">100%</span>
+												</div>
+												<span class="grade">ROYAL</span>
+											</div>
+											<div class="tip-box2 tip-center" style="left: 887.737px;">
+												<p>목표달성</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+											<!-- 주문 총액이 70만원 미만일 때 -->
+											<c:if test="${payCnt < 700000}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: ${(payCnt/700000) * 100}%">${(payCnt/700000) * 100}%</span>
+												</div>
+												<span class="grade">ROYAL</span>
+											</div>
+											</c:if>
 										</div>
 									</div>
 								</c:when>

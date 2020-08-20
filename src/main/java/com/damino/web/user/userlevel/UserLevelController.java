@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,12 +20,21 @@ public class UserLevelController {
 		// 3개월 간의 주문 건수
 		int orderCnt = userLevelService.getUsersOrderCnt(userid);
 		
+		if(orderCnt != 0) {
+			mav.addObject("orderCnt", orderCnt);
+		}else {
+			mav.addObject("orderCnt", 0);
+		}
 		
 		// 1월 1일부터 현재까지의 총 주문액
 		int payCnt = userLevelService.getUsersPayCnt(userid);
 		
-		mav.addObject("payCnt", payCnt);
-		mav.addObject("orderCnt", orderCnt);
+		if(payCnt != 0) {
+			mav.addObject("payCnt", payCnt);
+		}else {
+			mav.addObject("payCnt", 0);
+		}
+
 		mav.setViewName("/mypage/myLevel");
 		
 		return mav;
