@@ -25,8 +25,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/css/user/card_add.css' />">
 
-<script
-	src="https://cdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
+
 <script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
@@ -58,24 +57,25 @@
 		var toppingPrice = 0;
 		
 		var t_price = $('#totalT').val();
-		var t_priceArr = t_price.split(",");
+		
 		console.log("t_priceArr : " + t_priceArr);
 		
 		//토핑 합계 계산
 		var toppingPrice = 0;
-		for (var i = 0; i < t_priceArr.length; i++){
-			toppingPrice += parseInt(t_priceArr[i], 10);
-		 }
-			console.log("toppingPrice : " + toppingPrice);
-			
-		var totalPizzaPrice = toppingPrice + Number(pizzaP);
-		 console.log("totalPizzaPrice : " + totalPizzaPrice);
-		$('#pizza-total').html(totalPizzaPrice);
-		var a = $('#pizza-total').text();
-		//천단위 구분 - 정규표현식
-	    a = a.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	  	 $('#pizza-total').html( a );
-	  	 console.log("a : " + a);
+		if(t_price != null){
+			var t_priceArr = t_price.split(",");
+			for (var i = 0; i < t_priceArr.length; i++){
+				toppingPrice += parseInt(t_priceArr[i], 10);
+			 }
+			var totalPizzaPrice = toppingPrice + Number(pizzaP);
+			 console.log("totalPizzaPrice : " + totalPizzaPrice);
+			$('#pizza-total').html(totalPizzaPrice);
+			var a = $('#pizza-total').text();
+			//천단위 구분 - 정규표현식
+		    a = a.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		  	 $('#pizza-total').html( a );
+		}
+		
 	
 		/* for(i=0; i<t_priceArr.length; i++){
 			toppingPrice += Number(t_priceArr[i]);
@@ -86,8 +86,8 @@
 			console.log("toppingPrice : " + toppingPrice);
 		} */
 		
-		var pizzaImage = "";
-
+	var pizzaImage = "";
+	if(t_price != null){
 		var t_name = $('#toppingName').val();
 		var t_nameArr = t_name.split(",");
 		
@@ -96,12 +96,28 @@
 		var t_count = $('#toppingCount').val();
 		var t_countArr = t_count.split(","); 
 		
+	    var index = $('#toppingIdx').val();
 		 for(i=0; i<t_nameArr.length; i++ ){
 			$('#topping').append('<li>' + t_nameArr[i] + "(" + t_priceArr[i] 
 			 + "원)"+ "x" + t_countArr[i]
-			 + '<a href="javascript:toppingDelete(' + t_nameArr[i]
-				+ ', ' + t_countArr[i] + $('#toppingIdx').val() + ');" class="close"><span class="hidden">삭제</span></a></li>');
-		}
+			 + '<a href="javascript:toppingDelete(' + t_nameArr[i]+ ',' + t_countArr[i] + ',' + index
+				+ ');" class="close"><span class="hidden">삭제</span></a></li>');
+		} 
+	}
+		
+		
+		/* id="delBtn' + goodsNextRowSeq + '" */
+		
+		
+		 /* var index = $('#toppingIdx').val();
+		 var t_name = $('#t_name').val();
+		 console.log("t_name : " + t_name);
+		 for(i=0; i<t_nameArr.length; i++ ){
+			$('#topping').append('<li id="delBtn">' + t_nameArr[i] +"(" + t_priceArr[i] 
+			 + "원)"+ "x" + t_countArr[i]
+			 + '<a href="javascript:toppingDelete(' + index
+				+ ');" class="close"><span class="hidden">삭제</span></a></li>');
+		} */
 		//console.log("토핑 인덱스 : " + $('#toppingIdx').val());
 		   
 		var p_name = $('#p_name').val();
@@ -112,12 +128,42 @@
 		var sidePrice = $('#sidePrice').val();
 		sidePrice *= 1;
 		
-		$('#total-price').text(Number(totalPizzaPrice + etcPrice + sidePrice));	 
-		var total = $('#total-price').text();
-		total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		
+		 if(totalPizzaPrice>0 && etcPrice>0 && sidePrice>0){
+			$('#total-price').text(Number(totalPizzaPrice + etcPrice + sidePrice));	 
+			var total = $('#total-price').text();
+			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#total-price').html(total);
+		}else if(totalPizzaPrice>0 && etcPrice>0){
+			$('#total-price').text(Number(totalPizzaPrice + etcPrice));	 
+			var total = $('#total-price').text();
+			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#total-price').html(total);
+		}else if(totalPizzaPrice>0 && sidePrice>0){
+			$('#total-price').text(Number(totalPizzaPrice + sidePrice));	 
+			var total = $('#total-price').text();
+			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#total-price').html(total);
+		}else if(sidePrice>0){
+			$('#total-price').text(Number(sidePrice));	 
+			var total = $('#total-price').text();
+			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#total-price').html(total);
+		}else if(etcPrice>0){
+			$('#total-price').text(Number(etcPrice));	 
+			var total = $('#total-price').text();
+			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#total-price').html(total);
+		}else if(totalPizzaPrice>0){
+			$('#total-price').text(Number(totalPizzaPrice));	 
+			var total = $('#total-price').text();
+			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#total-price').html(total);
+		} 
+		
 		
 		console.log("total : " + total);
-		$('#total-price').html(total);
+		//$('#total-price').html(total);
 		
   	 
 		//console.log("b : " + b);
@@ -129,12 +175,7 @@
 			}
 		} 
 		/*
-		console.log("goodsName : " + goodsName);
-		console.log("goodsDough : " + goodsDough);
-		console.log("selectPizzaSetNum : " + selectPizzaSetNum);
-		console.log("selectSize : " + selectSize);
-		console.log("toppingNameArr : " + t_name);
-
+		
 		$('.subject').text(goodsName);
 		$('.option').text(goodsDough + "/" + selectSize);
 		$('.price').text(selectPrice);
@@ -207,11 +248,13 @@
 				}
 			});
 		} */
-
-	} 
-	function toppingDelete(toppingName, toppingCount, idx){
+} 
+function toppingDelete(toppingName, toppingCount, idx){
 		
 		var userid = $('#userid').val();
+		/* var toppingName = $(this).toppingName;
+		var toppingCount = $(this).toppingCount;
+		var idx = $(this).idx; */
 		
 		$.ajax({
 			url : 'deleteTopping.do',
@@ -223,7 +266,7 @@
 				toppingCount : toppingCount,
 				seq : idx
 			}),
-			async : false,
+			async : false, 
 			success: function(data) {
 				alert("삭제 성공");
 			 },
@@ -232,7 +275,123 @@
 			}
 		})
 			
+} 
+
+function pizzaDelete(idx){
+	
+	var con_test = confirm("해당 정보를 삭제하시겠습니까?");
+	if(con_test == true){
+		var userid = $('#userid').val();
+		/* var toppingName = $(this).toppingName;
+		var toppingCount = $(this).toppingCount;
+		var idx = $(this).idx; */
+		var goodsName = $('#pizzaName').val();
+		alert("goodsName : " + goodsName);
+		$.ajax({
+			url : 'pizzaDelete.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				goodsName : goodsName,
+				toppingCount : toppingCount,
+				seq : idx
+			}),
+			async : false, 
+			success: function(data) {
+				alert("삭제 성공");
+				//var selectRemoveTr = $('#row' + idx).closest('li');
+				var selectRemoveTr = $('#row' + idx).style.visibility = "hidden";
+				
+				var parent = document.getElementById("cart-list");
+			    var delRow = document.getElementById("row" + idx);
+			 
+			    parent.removeChild(delRow);
+				//document.getElementById("row" + idx).style.visibility = "hidden";
+			 },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		})
 	}
+	else if(con_test == false){
+	  alert("취소되었습니다");
+	}
+} 
+function sideDelete(idx){
+	
+	var con_test = confirm("해당 정보를 삭제하시겠습니까?");
+	if(con_test == true){
+		var userid = $('#userid').val();
+		/* var toppingName = $(this).toppingName;
+		var toppingCount = $(this).toppingCount;
+		var idx = $(this).idx; */
+		var goodsName = $('#sideName' + idx).val();
+		
+		alert("goodsName : " + goodsName);
+		$.ajax({
+			url : 'sideDelete.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				goodsName : goodsName,
+				toppingCount : toppingCount,
+				seq : idx
+			}),
+			async : false, 
+			success: function(data) {
+				alert("삭제 성공");
+				//var selectRemoveTr = $('#row' + idx).closest('li');
+				//var selectRemoveTr = $('#row' + idx).style.visibility = "hidden";
+				
+				//var parent = document.getElementById("cart-list");
+			   // var delRow = document.getElementById("row" + idx);
+			    //$('#row' + idx).('li').remove();
+			    //var selectRemove = $(this).closest('li');
+			   // var selectRemovePriceHTML = selectRemoveTr.find('li').eq(idx).html();
+			    
+			    document.getElementById("row" + idx).innerHTML = '';
+			   // $('#row' + idx).empty();
+			   // selectRemovePriceHTML.empty();
+			    
+			  //  parent.removeChild(delRow);
+				//document.getElementById("row" + idx).style.visibility = "hidden";
+			 },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		})
+	}
+	else if(con_test == false){
+	  alert("취소되었습니다");
+	}
+} 
+/* function toppingDelete(index){
+	
+	var userid = $('#userid').val();
+	var idx = $(this).idx;
+	
+	$.ajax({
+		url : 'deleteTopping.do',
+		contentType : "application/json; charset=UTF-8;",
+		type: 'post', 
+		data : JSON.stringify({
+			userid : userid,
+			toppingName : toppingName,
+			toppingCount : toppingCount,
+			seq : idx
+		}),
+		
+		success: function(data) {
+			alert("삭제 성공");
+		 },
+		error: function() {
+			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+		}
+	})
+		
+}	 */
 	var addressSeq = 0; // 주소 테이블 seq 값
 
 	function addAddress() {
@@ -576,7 +735,7 @@
 										href="javascript:allDelete();">전체 삭제</a>
 									</span>
 								</div>
-								<div class="cart-list">
+								<div class="cart-list" id="cart-list">
 									<ul>
 								
 										<li class="category">
@@ -587,24 +746,24 @@
 											<div></div>
 										</li>
 										
-									<c:forEach var="pizza" items="${basketList}" varStatus="status">
+								<c:forEach var="pizza" items="${basketList}" varStatus="status">
 									<div class="hidden-info">
 									<input type="hidden" id="toppingName" value="${pizza.toppingName}"/>
 									<input type="hidden" id="toppingCount" value="${pizza.toppingCount}"/>
 									<input type="hidden" id="toppingPrice" value="${pizza.toppingPrice}"/>	
-									<input type="hidden" id="userid" value="${userid}"/>								
+									<input type="hidden" id="pizzaName" value="${pizza.pizzaName}"/>
+									<input type="hidden" id="userid" value="${userid}"/>	
+									<input type="hidden" id="toppingIdx" value="row${status.index}"/>							
 									</div>
+										<c:if test="${pizza.pizzaName != null }">
 										<li class="row" id="row${status.index}">
-										<input type="hidden" id="toppingIdx" value="row${status.index}"/>
+										
 											<div class="sold-out-btn" id="sold-out-btn0"
 												style="display: none">
 												<p>Sold Out</p>
-												<a
-													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
+												<a href="javascript:pizzaDelete(${status.index});"
 													class="btn-type4-brd3">삭제</a>
-											</div>
-
-										
+											</div>									
 											<div class="prd-info">
 												<div class="prd-img">
 												  <img src="<c:url value= '/resources/images/admin/goods/${pizza.pizzaImage}' />"/>
@@ -641,14 +800,15 @@
 												<fmt:formatNumber value="" pattern="#,###"/><em id="pizza-total"></em>원
 											</div>
 											<div class="prd-delete">
-												<a
-													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
+												<a href="javascript:pizzaDelete(${status.index});" id="delPizza"
 													class="btn-close"> <span class="hidden">삭제</span>
 												</a>
 											</div>
 										</li>
+										</c:if>
 										<!-- end 피자 -->
-										<li class="row" id="sold-out0">
+										<c:if test="${pizza.sideName != null }">
+										<li class="row" id="row${status.index+1}">
 											<div class="sold-out-btn" id="sold-out-btn0"
 												style="display: none">
 												<p>Sold Out</p>
@@ -664,7 +824,8 @@
 												 <input type="hidden" id="pizzaImage" value="" />
 												</div>
 												<div class="prd-cont">
-													<div class="subject">${pizza.sideName}</div>
+													<div class="subject" >${pizza.sideName}</div>
+													<input class="setName" id="sideName${status.index}" type="hidden" value="${pizza.sideName}">
 													<div class="option"></div>
 													<div class="price"><fmt:formatNumber value="${pizza.sidePrice}" pattern="#,###" />원</div>
 												</div>
@@ -688,12 +849,13 @@
 											</div>
 											<div class="prd-delete">
 												<a
-													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
+													href="javascript:sideDelete(${status.index});"
 													class="btn-close"> <span class="hidden">삭제</span>
 												</a>
 											</div>
 										</li>
-										
+										</c:if>
+										<c:if test="${pizza.etcName != null }">
 										<li class="row" id="sold-out0">
 											<div class="sold-out-btn" id="sold-out-btn0"
 												style="display: none">
@@ -733,66 +895,29 @@
 												<input type="hidden" id="etcPrice" value="${pizza.etcPrice}"/>
 											</div>
 											<div class="prd-delete">
-												<a
-													href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
+												<a href="javascript:etcDelete(${status.index});"
 													class="btn-close"> <span class="hidden">삭제</span>
 												</a>
 											</div>
 										</li>
-								</c:forEach>
-								
-<%-- 
-									
-											<li class="row" id="sold-out0">
-												<div class="sold-out-btn" id="sold-out-btn0"
-													style="display: none">
-													<p>Sold Out</p>
-													<a
-														href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
-														class="btn-type4-brd3">삭제</a>
-												</div>
-
-
-												<div class="prd-info">
-													<div class="prd-img">
-														<img
-															src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />" />
+										</c:if>
+											<c:if test="${pizza.etcName eq null && pizza.sideName eq null && pizza.pizzaName eq null}">
+												<article class="cart-area pay">
+													<div class="step-wrap"></div>
+													<div class="no-data">
+														장바구니가 비어 있습니다.
+														<p class="text-type">다미노피자의 맛있는 메뉴를 마음껏 골라 담으세요</p>
+														<!-- 메뉴 추가 버튼 -->
+														<div class="btn-wrap">
+															<a href="goodslist.do" class="btn-type-brd"><i
+																class="ico-plus"></i>메뉴 추가하기</a>
+														</div>
+														<!-- //메뉴 추가 버튼 -->
 													</div>
-													<div class="prd-cont">
-														<div class="subject"></div>
-														<div class="prd-option"></div>
-														<input type="hidden" id="toppingName" value="" /> <input
-															type="hidden" id="toppingName1" value="" /> <input
-															type="hidden" id="toppingName2" value="" /> <input
-															type="hidden" id="toppingName3" value="" /> <input
-															type="hidden" id="toppingName4" value="" />
-														<div class="price"></div>
-													</div>
-												</div>
+												</article>
+											</c:if>
+										</c:forEach>
 
-												<div class="prd-option">${toppingList.t_name}</div>
-												<div class="prd-quantity">
-													<div class="quantity-box v2">
-														<a href="javascript:void(0);"
-															onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
-															class="minus"><button class="btn-minus"></button></a> <input
-															type="number" class="qty0" id="qty0" value="1" readonly />
-														<a href="javascript:void(0);"
-															onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
-															class="plus"><button class="btn-plus"></button></a>
-													</div>
-												</div>
-												<div class="prd-total" id="pizza-total">
-													<em>0</em>원
-												</div>
-												<div class="prd-delete">
-													<a
-														href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
-														class="btn-close"> <span class="hidden">삭제</span>
-													</a>
-												</div>
-											</li> --%>
-										
 									</ul>
 								</div>
 							</div>

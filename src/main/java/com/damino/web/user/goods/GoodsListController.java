@@ -225,6 +225,48 @@ public class GoodsListController {
 		return "success";
 	}
 	
+	@RequestMapping(value="/pizzaDelete.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String pizzaDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		String pizzaName = (String) param.get("goodsName");
+		int seq = (Integer)param.get("seq")+1;
+		
+		vo.setUserId(userid);
+		vo.setSeq(seq);
+		vo.setPizzaName(pizzaName);
+		//vo.setToppingCount(toppingCount);
+		
+		System.out.println("del : " + userid);
+		System.out.println("del pizzaName : " + pizzaName);
+		System.out.println("del seq : " + seq);
+		
+		
+		 goodsListService.deletePizzaInfo(vo);
+		
+		return "success";
+	}
+	@RequestMapping(value="/sideDelete.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String sideDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		String sideName = (String) param.get("goodsName");
+		int seq = (Integer)param.get("seq")+1;
+		
+		vo.setUserId(userid);
+		vo.setSeq(seq);
+		vo.setSideName(sideName);
+		//vo.setToppingCount(toppingCount);
+		
+		System.out.println("del : " + userid);
+		System.out.println("del sideName : " + sideName);
+		System.out.println("del seq : " + seq);
+		
+		 goodsListService.deleteSideInfo(vo);
+		
+		return "success";
+	}
+	
 	/*
 	 * @RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
 	 * 

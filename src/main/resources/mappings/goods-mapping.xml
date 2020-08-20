@@ -93,4 +93,15 @@
 		WHERE userid = #{userid} AND seq = #{seq} 
 	</update>
 	
+	<!-- 장바구니 피자정보 삭제 -->
+	<update id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE userBasket SET pizzaName = null, pizzaCount = null, pizzaImage = null		
+		WHERE userid = #{userid} AND seq = #{seq} AND pizzaName = #{pizzaName}
+	</update>
+	
+	<!-- 장바구니 사이드디시 정보 삭제 -->
+	<update id="deleteSideInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE userBasket SET sideName = null, sideCount = null		
+		WHERE userid = #{userid} AND seq = #{seq} AND sideName = #{sideName}
+	</update>
 </mapper>
