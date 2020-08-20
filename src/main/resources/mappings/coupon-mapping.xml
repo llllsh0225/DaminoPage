@@ -14,31 +14,31 @@
 		<choose>
 			<when test="userlevel=='REGULAR'">
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MRD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'),(select nvl(max(seq),0)+1 from coupon), '배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MRD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'),(select nvl(max(seq),0)+1 from coupon), '[REGULAR]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MRD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MRD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[REGULAR]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 			</when>
 			<when test="userlevel=='PREMIUM'">
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MPD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MPD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '[PREMIUM]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MPD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '배달주문 25% 할인쿠폰', '배달', 25, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MPD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[PREMIUM]배달주문 25% 할인쿠폰', '배달', 25, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 			</when>
 			<when test="userlevel=='VIP'">
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MVD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MVD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '[VIP]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MVD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MVD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[VIP]배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MVW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '포장주문 35% 할인쿠폰', '포장', 35, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MVW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '[VIP]포장주문 35% 할인쿠폰', '포장', 35, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 			</when>
 			<when test="userlevel=='ROYAL'">
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MLD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MLD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '[ROYAL]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MLD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MLD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[ROYAL]배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
-				VALUES('MLW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '포장주문 40% 할인쿠폰', '포장', 40, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				VALUES('MLW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '[ROYAL]포장주문 40% 할인쿠폰', '포장', 40, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
 			</when>
 		</choose>
 		SELECT * FROM DUAL
