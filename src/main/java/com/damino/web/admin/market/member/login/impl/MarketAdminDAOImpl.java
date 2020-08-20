@@ -13,22 +13,18 @@ public class MarketAdminDAOImpl implements MarketAdminDAO{
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-
-//	@Override
-//	public MarketAdminVO getMember(MarketAdminVO vo) {
-//		System.out.println("MarketAdminDAOImpl getMember(MarketAdminMemVO vo)");
-//		return sqlSessionTemplate.selectOne("marketAdminMemberDAO.getMember", vo);
-//	}
-
+	
 	@Override
-	public MarketAdminVO checkMemberId(String id) {
-		System.out.println("MarketAdminDAOImpl checkMemberId(String id)");
-		return sqlSessionTemplate.selectOne("marketAdminDAO.checkMemberId", id);
+	public MarketAdminVO managerLogin(MarketAdminVO vo) {
+		System.out.println("MarketAdminDAOImpl managerLogin(vo)");
+		return sqlSessionTemplate.selectOne("marketAdminDAO.managerLogin", vo);
 	}
 
 	@Override
 	public void updateMember(MarketAdminVO vo) {
 		sqlSessionTemplate.update("marketAdminDAO.updateMember", vo);
 	}
+
+	
 	
 }

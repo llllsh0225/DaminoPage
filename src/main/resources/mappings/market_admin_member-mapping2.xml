@@ -5,8 +5,8 @@
 <mapper namespace="marketAdminDAO">
 
 	<!-- 매장관리자 아이디 값 파라미터로 받기 -->
-	<select id="checkMemberId" parameterType="string" resultType="com.damino.web.admin.market.member.login.MarketAdminVO">
-	SELECT * FROM MarketAdminMember WHERE managerId=#{managerId}
+	<select id="managerLogin" resultType="com.damino.web.admin.market.member.login.MarketAdminVO">
+	SELECT * FROM MarketAdminMember WHERE managerid=#{managerid}
 	</select>
 	
 	

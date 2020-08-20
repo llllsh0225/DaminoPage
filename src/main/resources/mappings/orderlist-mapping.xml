@@ -13,9 +13,9 @@
 	</select>
 	
 	<!-- 매장 관리자 주문내역 가져오는 쿼리 (세션에 매장명 가져가서 조건문에 넣어줘야함) -->
-	<select id="getStoreOrderList" resultType="com.damino.web.admin.market.orderlist.StoreOrderListVO" parameterType="com.damino.web.admin.market.orderlist.StoreOrderListVO">
+	<select id="getStoreOrderList" resultType="com.damino.web.admin.market.orderlist.StoreOrderListVO">
 		SELECT orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status, requirement
-		FROM order_list <!-- WHERE store=#{store} -->
+		FROM order_list WHERE store=#{storename}
 	</select>
 	
 	<update id="updateOrderList" parameterType="com.damino.web.admin.market.orderlist.StoreOrderListVO">
