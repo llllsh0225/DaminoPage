@@ -31,32 +31,16 @@
 <!-- slick 배너용 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/slick.min.js' />"></script>
-
-
-<!-- 배너 실험실 -->
-<style>
-</style>
-
+	
 <script>
-	// 이미지 슬라이더
-	// css는 common.css 1153줄~
-	$(document).ready(function() {
-		$(".banner-slider").slick({
-			dots : true,
-			autoplay : true,
-			autoplaySpeed : 3000,
-			arrows : true
-
-		});
-
-	});
+	window.onload = function(){
+		selectOG(gubun);
+	}
 </script>
-<!-- //배너 실험실 -->
-
 </head>
 <body>
-	<div id="wrap">
-		<header id="header">
+<div id="wrap">
+	<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
@@ -132,205 +116,209 @@
 				</div>
 			</div>
 		</header>
-
-		<div id="container">
-			<section id="content">
-				<div class="main">
-					<!-- 메인 배너 -->
-					<article class="article visual-area">
-						<!--  -->
-						<div class="banner-slider" id="#">
-							<c:forEach var="bannerList" items="${bannerList }">
-								<div>
-									<img class="banner_img"
-										src="<c:url value='/resources/images/user/banner/${bannerList.banner_image }'/>"
-										alt="${bannerList.banner_alt }">
-								</div>
-							</c:forEach>
-						</div>
-					</article>
-					<!-- //메인 배너 영역 -->
-					<article class="article delivery-area">
-						<div class="inner-box">
-							<div class="item-wrap v2">
-								<div class="item">
-									<a href="getOrderPage.do?gubun=D">
-										<i class="ico-delivery"></i> <span class="text">배달 주문</span> <span
-										class="arrow"></span>
-									</a>
-									<p class="delivery_box">등급별 최대 30%</p>
-								</div>
-
-								<div class="item">
-									<a href="getOrderPage.do?gubun=W">
-										<i class="ico-takeout"></i> <span class="text">포장 주문</span> <span
-										class="arrow"></span>
-									</a>
-									<p class="wrap_box">포장 주문</p>
-								</div>
-
-								<div class="item">
-									<a href="quickOrder.do">
-										<i class="ico-quick2"></i> <span class="text">퀵 오더</span> <span
-										class="arrow"></span>
-									</a>
-									<p class="quickorder_box">퀵 오더</p>
-								</div>
-
-							</div>
-						</div>
-					</article>
-					<article class="article grade-area">
-						<div class="inner-box">
-						<c:if test="${msg != 'login' }"> <!-- 비로그인 시 -->
-							<div class="grade-info">
-								<div class="login-before">
-									<div class="title-wrap">
-										<div class="title-type2">
-											다미노피자의<br> <strong>특별한 매니아 혜택</strong><br>누려보세요!
-										</div>
-									</div>
-									<div class="btn-wrap">
-										<a href="login.do" class="btn-type5">로그인</a>
-									</div>
-								</div>
-							</div>
-							<div class="grade-slider slick-initialized slick-slider" style="">
-								<div aria-live="polite" class="slick-list draggable">
-									<div class="slick-track" style="opacity: 1; width: 1080px; transform: translate3d(0px, 0px, 0px);" role="listbox">
-										<div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide10">
-											<a href="regForm.do" tabindex="0"><img src="<c:url value='/resources/images/user/main_card1.png' />"></a>
-										</div>
-										<div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide11">
-											<a href="mania.do" tabindex="0"><img src="<c:url value='/resources/images/user/main_card2.gif' />"></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</c:if>
-						<c:if test="${msg == 'login' }"> <!-- 로그인 시 -->
-							<div class="grade-info">
-								<div class="user-info">
-									<p><span>${user.username }</span>님 현재 등급</p>
-									<p class="grade">
-										<span>${user.userlevel }</span>
-									</p>
-									<div class="btn-wrap">
-										<a href="mylevel.do" class="btn-type5">혜택보기</a>
-										<a href="myorderlist.do" class="btn-type5">주문내역</a>
-									</div>
-									
-								</div>
-							</div>
-							<div class="grade-slider slick-initialized slick-slider" style="">
-								<div aria-live="polite" class="slick-list draggable">
-									<div class="slick-track" style="opacity: 1; width: 1080px; transform: translate3d(0px, 0px, 0px);" role="listbox">
-										<div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide10">
-											<a href="mycoupon.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_coupon.png' />"></a>
-										</div>
-										<div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide11">
-											<a href="mylevel.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_level.png' />"></a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</c:if>
-						</div>
-					</article>
-
-					<!-- banner -->
-					<article class="article banner-area"></article>
-					<!-- //banner -->
-
-				</div>
-				<!-- //main -->
-			</section>
-
-			<div class="pop-layer type2" id="pop-pw2">
-				<div class="dim"></div>
-				<div class="pop-wrap">
-					<div class="pop-title-wrap">
-						<h2 class="pop-title">비밀번호 변경 권유</h2>
+<div id="container">
+	<section id="content">
+		<div class="sub-type order">
+			<div class="inner-box">
+				<div class="page-title-wrap">
+					<h2 class="page-title">주문방법 선택</h2>
+					<div class="depth-area">
+						<ol>
+							<li><a href="/main">홈</a></li>
+							<li><strong>주문방법 선택 </strong></li>
+						</ol>
 					</div>
-					<div class="pop-content">
-						<div class="title-wrap">
-							<p class="title-type">
-								고객님의 회원정보 보호를 위해 다미노피자는 <em>6개월마다<br>비밀번호 변경을 권유
-								</em>하고 있습니다.
-							</p>
-							<p class="text-type">비밀번호 변경을 원하지 않을 경우 '다음에 변경하기' 버튼을 눌러 1개월
-								동안 안내를 받지 않을 수 있습니다. 기존 비밀번호와 신규 비밀번호를 입력 해 주세요.</p>
-						</div>
-						<div class="form info-form">
-							<dl>
-								<dt>현재 비밀번호</dt>
-								<dd>
-									<input type="password" name="old_passwd" id="old_passwd"
-										maxlength="16" placeholder="">
-									<div class="text-type4" id="old_passwd_alert"
-										style="display: none;"></div>
-								</dd>
-							</dl>
-							<dl>
-								<dt>비밀번호</dt>
-								<dd>
-									<input type="password" name="passwd" id="passwd" maxlength="16"
-										placeholder=" 8~16자 영문대소문자,숫자, 특수문자 사용가능">
-									<div class="text-type4" id="passwd_alert"
-										style="display: none;"></div>
-								</dd>
-							</dl>
-							<dl>
-								<dt>비밀번호 확인</dt>
-								<dd>
-									<input type="password" name="confirmpw" id="confirmpw"
-										maxlength="16" placeholder="">
-									<div class="text-type4" id="confirmpw_alert"
-										style="display: none;"></div>
-								</dd>
-							</dl>
-						</div>
-						<div class="btn-wrap">
-							<a href="javascript:updateChangePasswd();" class="btn-type v4">수정하기</a>
-							<a href="javascript:goDelay();" class="btn-type v5">1개월 후
-								변경하기</a>
+				</div>
+				<article class="sel-order-area">
+					<div class="menu-nav-wrap">
+						<div class="menu-nav js_tab">
+							<ul>
+								<li class="active">
+									<a href="#delivery" onclick="selectOG('D');">배달 주문</a>
+								</li>
+								<li>
+									<a href="#tabkeout" onclick="selectOG('W')">포장주문</a>
+								</li>
+							</ul>
 						</div>
 					</div>
-					<a href="#" class="btn-close"></a>
+					<div class="tab-content active" id="delivery">
+					<div class="text-link-area v2">
+					</div>
+						<div class="address-list">
+							<ul>
+								<li>
+									<div class="chk-box selected" id="chk-box1">
+										<input type="radio" id="addressradio1" name="addressradio" value="1" value3="25527235" checked=""> 
+										<label class="checkbox" for="addressradio1"></label>
+									</div>
+										<dl>
+											<dt>
+												<label for="addressradio1">
+													배송지 주소</label>
+											</dt>
+												<dd>
+													<em>테스트점</em><span class="tel">02-123-3082</span>
+												</dd>
+												<dd class="hash">
+													<br>
+												</dd>
+										</dl> 
+										<a href="javascript:deleteAddress('25527235');" class="btn-del"><span class="hidden">삭제</span></a>
+								</li>
+							</ul>
+								<div class="address-enter">
+									<a href="javascript:addDeliveryPop('O');" class="btn-type-brd2"><i class="ico-plus"></i>배달주소 등록</a>
+										<div class="side guide-box">배달주소는 최대 10개까지만 등록 가능합니다.</div>
+								</div>
+								<div class="address-btn">
+									<p class="title-type4">해당 배달주소로 주문을 진행하시겠습니까?</p>
+									<a href="javascript:setAddress();" class="btn-type v3"> 선택 </a>
+								</div>
+						</div>
+					</div>
+					<div class="tab-content" id="tabkeout">
+					<div class="text-link-area v2">
+					</div>
+						<div class="address-list">
+							<div class="address-list">
+							<ul>
+								<li>
+									<div class="chk-box selected" id="chk-box1">
+										<input type="radio" class="address" id="addressradio1" name="addressradio" value="1" value2="N" value3="11178162" value4="86412" onclick="javascript:drivePickupBranch('N');" checked="">
+										<label class="checkbox" for="addressradio1"></label>
+									</div>
+									<dl>
+										<dt>
+											<label for="addressradio1">
+												<em>테스트점</em>
+													<span class="tel">02-123-3082</span>
+											</label>
+										</dt>
+											<dd>
+												<span class="adr">포장매장 주소</span>
+											</dd>
+												<a href="javascript:deleteAddress('11178162');" class="btn-del"><span class="hidden">삭제</span></a>
+									</dl>
+								</li>
+							</ul>
+								<div class="address-enter">
+									<a href="javascript:addBranch();" class="btn-type-brd2"><i class="ico-plus"></i>포장매장 등록</a>
+										<div class="side guide-box">포장매장은 최대 10개까지만 등록 가능합니다.</div>
+								</div>
+								<div class="address-btn">
+									<p class="title-type4">해당 매장으로 주문을 진행하시겠습니까?</p>
+										<a href="javascript:setAddress();" class="btn-type v3"> 선택 </a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+	</div></section>
+	
+	<!-- 팝업 배달주소등록 -->
+	<div class="pop-layer" id="pop-address"></div>
+	<!-- 팝업 배달주소선택 -->
+	<div class="pop-layer" id="pop-address3"></div>
+	<!--//팝업 배달주소선택 -->
+	
+	<div class="pop-layer type2" id="pop-spot">
+	</div>
+	
+	<!-- //팝업 배달주소등록 -->
+	<!-- 팝업 포장매장등록   -->
+	<div class="pop-layer" id="pop-store-takeout"></div>
+	<!-- //팝업 포장매장등록   -->
+	
+	<div class="pop-layer pop-full" id="pop-store">
+		<div class="dim"></div>
+		<div class="pop-wrap">
+			<div class="pop-title-wrap">
+				<h2 class="pop-title">매장 상세정보</h2>
+			</div>
+			<div class="pop-content">
+				<div class="store-view">
+					<div class="store-info-box">
+					<input type="hidden" id="branch_code" value="">
+					<input type="hidden" id="detail_branch_name" value="">
+					<input type="hidden" id="detail_branch_tel" value="">
+						<ul>
+							<li>
+								<h3 id="detail_name">김포구래점</h3>
+								<p class="promotion"><span class="type" id="detail_on_sale">온라인 방문포장 30%</span><span class="type2" id="detail_off_sale">오프라인 방문포장 30%</span></p>
+								<div class="btn-wrap">
+									<a href="javascript:setBranch($('#branch_code').val(), $('#detail_branch_name').val(), $('#detail_branch_tel').val());" class="btn-type v3">선택</a>
+								</div>
+							</li>
+							<li>
+								<dl>
+									<dt>전화번호</dt>
+									<dd id="detail_tel">091-996-30525</dd>
+								</dl>
+								<dl>
+									<dt>주소</dt>
+									<dd id="detail_address">경기도 김포시 김포한강9로 12번길 97-10</dd>
+								</dl>
+								<dl>
+									<dt>영업시간</dt>
+									<dd id="detail_business_hours">11:00 ~ 22:00</dd>
+								</dl>
+								<dl>
+									<dt>위치정보</dt>
+									<dd id="detail_location_info">나비마을 나비초등학교 사거리 계롱리슈빌 203동 후문</dd>
+								</dl>
+								<dl>
+									<dt>주차정보</dt>
+									<dd id="detail_parking_info">매장 후면 1대</dd>
+								</dl>
+								<dl>
+									<dt>특이사항</dt>
+									<dd id="detail_etc">-</dd>
+								</dl>
+							</li>
+						</ul>
+					</div>
+					<div class="store-map-area" id="map_detail_canvas">
+
+					</div>
+					<div class="store-slider" id="detail_photos">
+						
+					</div>
 				</div>
 			</div>
-
+			<a href="#" class="btn-close"></a>
 		</div>
-		<div class="pop-layer pop-lsm" id="pop-lsm"></div>
-		<div class="pop-layer" id="pop-address3"></div>
-
-		<!-- 로딩 이미지 -->
-		<!-- 장바구니 담기 토스트 팝업(s) -->
-		<div class="pop_toast" id="card_add" style="display: none;">
-			<div class="bg"></div>
-			<div class="pop_wrap">
-				<div class="pop_content">
-					<p>장바구니에 담았습니다.</p>
-				</div>
+	</div>
+	<!-- //팝업 포장매장등록   -->
+	
+</div>
+	<!-- 장바구니 담기 토스트 팝업(s) -->
+	<div class="pop_toast" id="card_add" style="display: none;">
+		<div class="bg"></div>
+		<div class="pop_wrap">
+			<div class="pop_content">
+				<p>장바구니에 담았습니다.</p>
 			</div>
 		</div>
+	</div>
 
-		<!-- //장바구니 담기 토스트 팝업(e) -->
+	<!-- //장바구니 담기 토스트 팝업(e) -->
 
-		<!-- 장바구니(s) -->
-		<div class="pop_layer pop_type" id="cart_pop" style="display: none;">
-			<div class="bg"></div>
-			<div class="pop_wrap">
-				<div class="pop_header">
-					<h2>장바구니</h2>
-				</div>
-				<a href="javascript:;" onclick="setBasketCnt();"
-					class="btn_ico btn_close">닫기</a>
+	<!-- 장바구니(s) -->
+	<div class="pop_layer pop_type" id="cart_pop" style="display: none;">
+		<div class="bg"></div>
+		<div class="pop_wrap">
+			<div class="pop_header">
+				<h2>장바구니</h2>
 			</div>
+			
+			<a href="javascript:;" onclick="setBasketCnt();" class="btn_ico btn_close">닫기</a>
 		</div>
-		<!-- //장바구니(e) -->
+	</div>
+	<!-- //장바구니(e) -->
 
-		<footer id="footer">
+	<footer id="footer">
 			<div class="footer-area">
 				<div class="inner-box">
 					<div class="footer-order">
