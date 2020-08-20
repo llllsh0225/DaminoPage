@@ -78,4 +78,19 @@
 		SELECT * FROM userBasket
 		WHERE userid = #{userid}
 	</select>
+	
+	<!-- 장바구니 특정 토핑 이름, 토핑개수 삭제 -->
+	<!-- update 테이블명 set 컬럼명 = replace(컬럼명, '대상문자', '치환될문자'); -->
+	<update id="deleteToppingName" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE userBasket SET toppingName
+		REPLACE (toppingName, #{toppingName}, null)
+		WHERE userid = #{userid} AND seq = #{seq} 
+	</update>
+	
+	<update id="deleteToppingCount" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE userBasket SET toppingCount
+		REPLACE (toppingCount, #{toppingCount}, null)
+		WHERE userid = #{userid} AND seq = #{seq} 
+	</update>
+	
 </mapper>

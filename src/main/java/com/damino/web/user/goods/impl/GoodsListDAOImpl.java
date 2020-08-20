@@ -104,6 +104,17 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		return sqlSessionTemplate.selectList("GoodsListDAO.getBasketList", userid);
 	}
 
+	@Override
+	public void deleteToppingName(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.deleteToppingName", vo);
+		
+	}
+
+	@Override
+	public void deleteToppingCount(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.deleteToppingCount", vo);
+		
+	}
 	
 	
 }

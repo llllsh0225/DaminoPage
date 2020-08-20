@@ -31,6 +31,8 @@ public interface GoodsListDAO {
 	public void insertBasket(UserBasketVO vo);
 	//장바구니 메뉴 불러오기
 	public List<UserBasketVO> getBasketList(String userid);
-	
-	
+	//장바구니 - 특정 토핑명 삭제
+	public void deleteToppingName(UserBasketVO vo); 
+	//장바구니 - 특정 토핑수량 삭제
+	public void deleteToppingCount(UserBasketVO vo); 
 }
