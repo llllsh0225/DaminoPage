@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrderDAO">
+
+	<!-- 사용자가 지정한 배달주소 리스트 조회 -->
+	<select id="getDeliveryAddressList" parameterType="String" resultType="com.damino.web.user.order.DeliveryAddressVO">
+		SELECT * FROM delivery_address
+		WHERE userid = #{userid}
+	</select>
+	
+	<!-- 배달지 주소 insert -->
+	<insert id="insertDeliveryAddress" parameterType="com.damino.web.user.order.DeliveryAddressVO">
+		INSERT INTO delivery_address (seq, address, storename, storephone, userid)
+		VALUES (delivery_address_seq.nextval, #{address}, #{storename}, #{storephone}, #{userid})
+	</insert>
+
+</mapper>

@@ -50,6 +50,22 @@
 		});
 
 	});
+	
+	// 배달주문 , 포장주문 선택 시 로그인 여부 확인
+	function openOrderPage(gubun){
+		var sessionChk = $('#sessionChk').val();
+		
+		if(sessionChk != 'login'){
+			alert("다미노 회원 전용 서비스입니다. 로그인 해주세요.");
+			location.href="login.do";
+		}else{
+			if(gubun == 'D'){
+				location.href="getOrderPage.do?gubun=D";
+			}else{
+				location.href="getOrderPage.do?gubun=W";
+			}
+		}
+	}
 </script>
 <!-- //배너 실험실 -->
 
@@ -59,6 +75,8 @@
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
+					<!-- 세션 체크 -->
+					<input type="hidden" id="sessionChk" value="${msg }"> 
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
@@ -154,7 +172,7 @@
 						<div class="inner-box">
 							<div class="item-wrap v2">
 								<div class="item">
-									<a href="getOrderPage.do?gubun=D">
+									<a href="javascript:openOrderPage('D');">
 										<i class="ico-delivery"></i> <span class="text">배달 주문</span> <span
 										class="arrow"></span>
 									</a>
@@ -162,7 +180,7 @@
 								</div>
 
 								<div class="item">
-									<a href="getOrderPage.do?gubun=W">
+									<a href="javascript:openOrderPage('W');">
 										<i class="ico-takeout"></i> <span class="text">포장 주문</span> <span
 										class="arrow"></span>
 									</a>
