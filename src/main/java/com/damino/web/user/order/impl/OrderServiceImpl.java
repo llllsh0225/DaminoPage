@@ -25,4 +25,9 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.insertDeliveryAddress(vo);
 	}
 
+	@Override
+	public void deleteDeliveryAddress(DeliveryAddressVO vo) {
+		orderDAO.deleteDeliveryAddress(vo);
+	}
+
 }

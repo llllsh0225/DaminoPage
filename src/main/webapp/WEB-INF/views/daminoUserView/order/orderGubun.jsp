@@ -164,7 +164,7 @@
 				$('#deladdress_list').append('<li id="addressli'+ addressListSize+'"><div class="chk-box selected" id="chk-box'+ addressListSize +'">'
 				+ '<input type="radio" id="addressradio'+ addressListSize +'" name="addressradio" checked="">'
 				+ '<label class="checkbox" for="addressradio'+ addressListSize +'"></label></div>'
-				+ '<dl><dt><label for="addressradio'+ addressListSize +'">'+ address +'</label></dt>'
+				+ '<dl><dt><label for="addressradio'+ addressListSize +'" id="addresslb'+ addressListSize +'">'+ address +'</label></dt>'
 				+ '<dd><em>'+ storeName +'</em><span class="tel">'+ data +'</span></dd>'
 				+ '<dd class="hash"><br></dd></dl>'
 				+ '<a href="javascript:deleteAddress('+ addressListSize +');" class="btn-del"><span class="hidden">삭제</span></a></li>');
@@ -185,13 +185,35 @@
 	// 배달주소지 삭제
 	function deleteAddress(idx){
 		var addressListSize = Number($('#addressListSize').val()); // 저장된 배달주소 리스트 사이즈
-		$('#addressli' + idx).remove();
 		
-		$('#addressListSize').val(addressListSize - 1);
+		var userid = $('#userid').val();
+		var address = $('#addresslb' + idx).text();
 		
-		if(Number($('#addressListSize').val()) == 0){
-			location.reload();
-		}
+		$.ajax({
+			url : 'deleteDeliveryAddress.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				address : address,
+			}),
+			async : false,
+			success: function(data) {
+				if(data == 'success'){
+					$('#addressli' + idx).remove();
+					
+					$('#addressListSize').val(addressListSize - 1);
+					
+					if(Number($('#addressListSize').val()) == 0){
+						location.reload();
+					}
+				}
+				
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		});
 		
 	}
 	
@@ -344,7 +366,7 @@
 									</div>
 										<dl>
 											<dt>
-												<label for="addressradio${status.index }">${deladdress.address }</label>
+												<label for="addressradio${status.index }" id="addresslb${status.index }">${deladdress.address }</label>
 											</dt>
 												<dd>
 													<em>${deladdress.storename }</em><span class="tel">${deladdress.storephone }</span>
