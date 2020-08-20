@@ -120,5 +120,17 @@ public class GoodsListServiceImpl implements GoodsListService {
 		
 	}
 
+	@Override
+	public void deletePizzaInfo(UserBasketVO vo) {
+		System.out.println("피자 정보 삭제");
+		goodsListDAO.deletePizzaInfo(vo);
+	}
+
+	@Override
+	public void deleteSideInfo(UserBasketVO vo) {
+		System.out.println("사이드디시 정보 삭제");
+		goodsListDAO.deleteSideInfo(vo);
+	}
+
 	
 }
