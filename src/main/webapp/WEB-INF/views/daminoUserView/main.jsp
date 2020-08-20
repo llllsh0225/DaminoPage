@@ -226,10 +226,10 @@
 								<div aria-live="polite" class="slick-list draggable">
 									<div class="slick-track" style="opacity: 1; width: 1080px; transform: translate3d(0px, 0px, 0px);" role="listbox">
 										<div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide10">
-											<a href="regForm.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_coupon.png' />"></a>
+											<a href="mycoupon.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_coupon.png' />"></a>
 										</div>
 										<div class="slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 210px;" tabindex="-1" role="option" aria-describedby="slick-slide11">
-											<a href="mania.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_level.png' />"></a>
+											<a href="mylevel.do" tabindex="0"><img src="<c:url value='/resources/images/user/my_level.png' />"></a>
 										</div>
 									</div>
 								</div>
