@@ -73,8 +73,9 @@ public class MarketAdminLoginController {
 	}	
 	
 	@RequestMapping(value="/logout.smdo")
-	public String logout(HttpSession session, Model model) {
+	public String logout(HttpSession session, HttpServletRequest request) {
 		//로그아웃 로직을 작성, 로그인 페이지로 가도록 작성
+		session=request.getSession();
 		session.invalidate();
 		return "members/managerLogin";
 	}

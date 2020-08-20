@@ -58,7 +58,7 @@
 						<div class="collapse" id="orderPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="orderList.smdo?store=${storename }"> 주문목록 </a>
+								<a class="nav-link collapsed" href="orderList.smdo"> 주문목록 </a>
 								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색 </a>
 							</nav>
 						</div>
