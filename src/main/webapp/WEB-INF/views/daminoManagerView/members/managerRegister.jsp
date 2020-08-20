@@ -183,45 +183,40 @@ function getRegionList(callBackFunc) {
 									<h3 class="text-center font-weight-light my-4">매장관리자 계정 등록</h3>
 								</div>
 								<div class="card-body" style="height:500px">
-									<form name="regManager" id="regManager" action="registMarketAdminMember.smdo" 
-										method="post" >
+									<form name="regManager" id="regManager" action="registMarketAdminMember.smdo" method="post" >
 										<!--수정1-->
 										
 										<div class="form-row">
 											<div class="col-md-6">
 											<label class="small mb-1">이름</label>
-											<input class="form-control py-4" id="managerName"
-												name="managerName" placeholder="Name" />
-												<div id="name_alert" style="display: none;"></div>
+											<input class="form-control py-3" id="managerName" name="managerName" placeholder="Name" />
+											<div id="name_alert" style="display: none;"></div>
 											</div>
-											</div>
+										</div>
 										<div class="form-row">
 											<div class="col-md-6">
 												<label class="small mb-1">아이디</label>
-												<input class="form-control py-4" type="text" id="managerId"
-												name="managerId" placeholder="Id" maxlength="16">
-												<div id="id_alert" style="display: none;"></div>
+												<input class="form-control py-3" type="text" id="managerId" name="managerId" placeholder="Id" maxlength="16">
+												<div id="id_alert" style="display: none; color:red;"></div>
 											</div>
-											<div class="col-md-2" style="padding: 15px">
+											<div class="col-md-6" style="padding: 15px">
 												<a href="javascript:idCheck();" class="btn btn-primary" id="checkId"
-													style="margin: 2px">중복확인</a>
+													style="margin-top:10px; width:100px;">중복확인</a>
 											</div>
 										</div>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" >비밀번호</label>
-													<input type="password" class="form-control py-4" id="managerPasswd"
-													name="managerPasswd" placeholder="Password" />
+													<input type="password" class="form-control py-3" id="managerPasswd" name="managerPasswd" placeholder="Password" />
 													<div id="pwd_alert" style="display: none;"></div>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" >비밀번호
-														확인</label> <input type="password" class="form-control py-4"
-														id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" />
-														<div id="pwdChk_alert" style="display: none;"></div>
+													<label class="small mb-1" >비밀번호 확인</label> 
+													<input type="password" class="form-control py-3" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" />
+													<div id="pwdChk_alert" style="display: none;"></div>
 												</div>
 											</div>
 										</div>
@@ -272,8 +267,7 @@ function getRegionList(callBackFunc) {
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<input type="button" class="btn btn-primary btn-block"
-											value="승인 신청" id="btnConfirm" disabled="disabled" onClick="btnConfirms();"/>
+											<input type="submit" class="btn btn-primary btn-block" value="승인 신청" id="btnConfirm" onClick="btnConfirms();"/>
 											<input type="reset" class="btn-delete"
 											style="display: block; width: 100%" value="다시 입력"/>
 										</div>
