@@ -77,4 +77,12 @@ public class OrderController {
 		
 		return "success";
 	}
+	
+	@RequestMapping("/orderCategory.do")
+	public ModelAndView getOrderCategory(ModelAndView mav) {
+		System.out.println("메뉴 카테고리 선택페이지 열기");
+		
+		mav.setViewName("/order/orderCategory");
+		return mav;
+	}
 }
