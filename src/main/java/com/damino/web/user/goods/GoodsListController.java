@@ -173,8 +173,6 @@ public class GoodsListController {
 	@RequestMapping(value = "my_baskets.do", method = RequestMethod.POST)
 	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
-		// 사용자 선택 메뉴 정보 서비스 호출
-		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
