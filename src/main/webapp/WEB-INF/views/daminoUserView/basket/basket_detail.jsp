@@ -77,7 +77,7 @@
 			$('#pizza-total').html(p_total);
 
 			//토핑이 있을경우 li 영역에 추가 
-			/* var t_name = $('#toppingName').val();
+			 var t_name = $('#toppingName').val();
 			var t_nameArr = t_name.split(",");
 
 			var t_priceArr = toppingP.split(",");
@@ -91,10 +91,10 @@
 			for (i = 0; i < t_nameArr.length; i++) {
 				index++;
 				
-				$('#topping' + idxNum).append('<li id="delBtn' + index + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
+				$('#topping' + index + idxNum).append('<li id="delBtn' + index + idxNum + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
 			         + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
 			            + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
-			} */
+			} 
 			/*  var t_name = $('#toppingName').val();
 			var t_nameArr = t_name.split(",");
 
@@ -298,7 +298,7 @@
 		});
 		} */
 	}
-	function toppingDelete(toppingName, pizzaName, idx) {
+	function toppingDelete(toppingName, toppingCount, price, idx) {
 
 		var userid = $('#userid').val();
 		/* var toppingName = $(this).toppingName;
@@ -832,8 +832,7 @@
 											<div></div>
 										</li>
 
-										<c:forEach var="pizza" items="${basketList}">
-											varStatus="status">
+										<c:forEach var="pizza" items="${basketList}" varStatus="status">
 											<div class="hidden-info">
 												<input type="hidden" id="toppingName" value="${pizza.toppingName}" />
 												<input type="hidden" id="toppingCount" value="${pizza.toppingCount}" />
@@ -873,18 +872,16 @@
 
 													<div class="prd-option" style="">
 														<ul>
-														<c:forTokens items="${pizza.toppingName}" delims="," var="topping">
-														<%-- <c:forTokens items="${pizza.toppingCount}" delims="," var="t_count"></c:forTokens> --%>
-														<%-- <c:forTokens items="${pizza.toppingPrice}" delims="," var="t_price"> --%>
-															<li id="topping${status.index}">
-   																${topping}<span id="t_price"></span>
+														<%-- <c:forTokens items="${pizza.toppingName}" delims="," var="topping" varStatus="status"> --%>
+															<li id="topping${pizza.seq}${status.index}">
+   															<%-- 	${topping}<span id="t_price"></span>
    															<div class="prd-delete">
 															<a href="javascript:toppingDelete(${pizza.seq});" id="delTopping" class="btn-close"> <span class="hidden">삭제</span>
 															</a>
-															</div>
+															</div> --%>
 															</li>
 														 
-														</c:forTokens>
+														<%-- </c:forTokens> --%>
 													    </ul>
 
 													</div>
