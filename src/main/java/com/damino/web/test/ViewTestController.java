@@ -270,14 +270,7 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/orderpage2.do")
-	public ModelAndView getOrderPageTwo() {
-		System.out.println("결제하기 페이지2 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/order_page2");
-		return mav;
-	}
+	
 	
 	@RequestMapping("/findidpw.do")
 	public ModelAndView getFindIdPw() {

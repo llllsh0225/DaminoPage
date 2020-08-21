@@ -19,6 +19,30 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
+	<script>
+	window.onload = function(){
+		var gubun = sessionStorage.getItem("gubun");
+		var address = sessionStorage.getItem("address");
+		var storename = sessionStorage.getItem("storename");
+		var storephone = sessionStorage.getItem("storephone");
+	
+		if(gubun == 'D'){ // 배달주문으로 들어왔을 때
+			$('#gubunD').show();
+			$('#gubunW').hide();
+			
+			$('#d_address').text(address);
+			
+		}else if(gubun == 'W'){ // 포장주문으로 들어왔을 때
+			$('#gubunW').show();
+			$('#gubunD').hide();
+		}
+		
+		console.log(gubun);
+		console.log(address);
+		console.log(storename);
+		console.log(storephone);
+	}
+	</script>
 	
 </head>
 <body>
@@ -31,17 +55,23 @@
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					
-					<div class="util-nav">
-						<!-- and AUTH.memberYn eq 'Y' -->
-								<a href="main.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
+					<c:choose>
+						<c:when test="${msg != 'login' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
 									<i class="ico-cart"></i>
-									<span class="hidden ">장바구니</span>
-									<strong class="cart_count"></strong> <!-- count -->
 								</a>
-		                <!--2020-03-17 추가(e)-->
-					</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 				
@@ -115,21 +145,38 @@
                     </div>
                 </div>
                 <article class="menu-category-area">
-                	<div class="order-info type2">
-								<div class="case">배달 주소</div>
-									<div class="order-address">
-									<strong>서울특별시 종로구 돈화문로 26 단성사 4층</strong>
-									<a href="javascript:void(0)" onClick="go_chseAddr('O')" class="btn-type4">변경</a>
-									<div class="tip-box center">
-									<p>배달 받으실 주소를 확인해주세요!</p>
-										</div>
+                <input type="hidden" id="gubun" value="" /> <!-- 주문 구분 -->
+                	<!-- 배달 주문으로 들어왔을 때 -->
+                	<div id="gubunD" class="order-info type2">
+						<div class="case">배달 주소</div>
+							<div class="order-address">
+								<strong id="d_address"></strong>
+								<a href="getOrderPage.do?gubun=D" class="btn-type4">변경</a>
+								<div class="tip-box center">
+								<p>배달 받으실 주소를 확인해주세요!</p>
+							</div>
+						</div>
+					</div>
+					<!-- 포장 주문으로 들어왔을 때 -->
+					<div id="gubunW" class="order-info type2">
+						<div class="case">포장 매장</div>
+							<div class="order-address">
+								<strong>테스트점</strong>
+								<span class="tel">02-123-4567</span>
+								<a href="getOrderPage.do?gubun=W" class="btn-type4">변경</a>
+								<div class="tip-box center" style="display: none;">
+									<p>방문하실 매장을 확인해주세요!</p>
 								</div>
-							</div>								
+								<div class="adr-box">
+									<p class="address">매장주소</p>
+								</div>															
+							</div>
+					</div>								
 						<!-- category -->
                     <div class="category-list">
                         <ul>
                             <li>
-                                <a href="javascript:void(0)" onClick="#">
+                                <a href="goodslist.do">
                                     <div>
                                         <figure><i class="ico-pizza3"></i></figure>
                                         <span>피자</span>
@@ -137,7 +184,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" onClick="#">
+                                <a href="goodsSideList.do">
                                     <div>
                                         <figure><i class="ico-sidedish"></i></figure>
                                         <span>사이드디시</span>
@@ -145,18 +192,10 @@
                                 </a>
                             </li>
 							<li>
-                                <a href="javascript:void(0)" onClick="#">
+                                <a href="goodsDrinkEtcList.do">
                                     <div>
                                         <figure><i class="ico-drink"></i></figure>
                                         <span>음료&기타</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" onClick="#">
-                                    <div>
-                                        <figure><i class="ico-coupon"></i></figure>
-                                        <span>e-쿠폰</span>
                                     </div>
                                 </a>
                             </li>
