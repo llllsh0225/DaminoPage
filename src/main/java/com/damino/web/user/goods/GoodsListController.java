@@ -191,6 +191,11 @@ public class GoodsListController {
 		List<UserBasketVO> basketList = goodsListService.getBasketList(userid);
 		System.out.println(basketList);
 		
+		List<String> toppingList = new ArrayList<String>();
+		toppingList.add(vo.getToppingName());
+		
+		System.out.println("toppingList : " + toppingList);
+		
 		mav.addObject("basketList", basketList);
 		
 		mav.setViewName("/basket/basket_detail");

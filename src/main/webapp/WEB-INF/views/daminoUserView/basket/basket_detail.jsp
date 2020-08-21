@@ -77,7 +77,7 @@
 			$('#pizza-total').html(p_total);
 
 			//토핑이 있을경우 li 영역에 추가 
-			var t_name = $('#toppingName').val();
+			/* var t_name = $('#toppingName').val();
 			var t_nameArr = t_name.split(",");
 
 			var t_priceArr = toppingP.split(",");
@@ -85,14 +85,30 @@
 			var t_count = $('#toppingCount').val();
 			var t_countArr = t_count.split(",");
 
-			var index = $('#toppingIdx').val();
-			for (i = 0; i < t_nameArr.length; i++) {
-				$('#topping').append('<li id="delBtn' + index + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
-			         + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
-			            + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');		
-						
-			}
 			
+			var idxNum = Number($('#idxNum').val());
+			var index = Number($('#toppingIdx').val());
+			for (i = 0; i < t_nameArr.length; i++) {
+				index++;
+				
+				$('#topping' + idxNum).append('<li id="delBtn' + index + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
+			         + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
+			            + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
+			} */
+			/*  var t_name = $('#toppingName').val();
+			var t_nameArr = t_name.split(",");
+
+			var t_priceArr = toppingP.split(",");
+
+			var t_count = $('#toppingCount').val();
+			var t_countArr = t_count.split(",");
+
+			var idxNum = Number($('#idxNum').val());
+			var index = Number($('#toppingIdx').val());
+			
+			for (i = 0; i < t_nameArr.length; i++) {
+				$('#t_price').text(t_priceArr[i]);
+			} */
 		} else {
 			$('#pizza-total').html(Number(pizzaP));
 			var p_total = $('#pizza-total').text();
@@ -282,7 +298,7 @@
 		});
 		} */
 	}
-	function toppingDelete(toppingName, toppingCount, price, idx) {
+	function toppingDelete(toppingName, pizzaName, idx) {
 
 		var userid = $('#userid').val();
 		/* var toppingName = $(this).toppingName;
@@ -816,7 +832,7 @@
 											<div></div>
 										</li>
 
-										<c:forEach var="pizza" items="${basketList}"
+										<c:forEach var="pizza" items="${basketList}">
 											varStatus="status">
 											<div class="hidden-info">
 												<input type="hidden" id="toppingName" value="${pizza.toppingName}" />
@@ -827,8 +843,9 @@
 												<input type="hidden" id="toppingIdx" value="${pizza.seq}" />
 												<input type="hidden" id="sideName" value="${pizza.sideName}" />
 												<input type="hidden" id="sideCount" value="${pizza.sideCount}" />
-												<input type="hidden" id="sidePrice" value="${pizza.sidePrice}">
-												<input type="hidden" id="toppingSize" value="${fn:length(basketList)}">
+												<input type="hidden" id="sidePrice" value="${pizza.sidePrice}"/>
+												<input type="hidden" id="toppingSize" value="${fn:length(basketList)}"/>
+												<input type="hidden" id="idxNum" value="${status.index}"/>
 											</div>
 											<c:if test="${pizza.pizzaName != null }">
 												<li class="row" id="row${status.index}">
@@ -856,9 +873,19 @@
 
 													<div class="prd-option" style="">
 														<ul>
-															<li id="topping"></li>
-
-														</ul>
+														<c:forTokens items="${pizza.toppingName}" delims="," var="topping">
+														<%-- <c:forTokens items="${pizza.toppingCount}" delims="," var="t_count"></c:forTokens> --%>
+														<%-- <c:forTokens items="${pizza.toppingPrice}" delims="," var="t_price"> --%>
+															<li id="topping${status.index}">
+   																${topping}<span id="t_price"></span>
+   															<div class="prd-delete">
+															<a href="javascript:toppingDelete(${pizza.seq});" id="delTopping" class="btn-close"> <span class="hidden">삭제</span>
+															</a>
+															</div>
+															</li>
+														 
+														</c:forTokens>
+													    </ul>
 
 													</div>
 													<div class="prd-quantity">

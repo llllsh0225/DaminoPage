@@ -60,11 +60,6 @@
 		SELECT * FROM topping WHERE t_name = #{t_name}	
 	</select>
 	
-	<!-- 사용자 선택 - 피자이름 기준 피자 정보 불러오기 -->
-	<select id="getUserPizza" resultType="com.damino.web.user.goods.GoodsPizzaVO" parameterType="com.damino.web.user.goods.GoodsPizzaVO" >	
-		SELECT p_image FROM pizza WHERE p_name = #{p_name}	
-	</select>
-	
 	<!--  장바구니 정보 삽입 -->
 	<insert id="insertBasket" parameterType="com.damino.web.user.goods.UserBasketVO">
 		INSERT INTO userBasket (seq, pizzaPrice, pizzaSize, pizzaName, pizzaDough, pizzaCount, pizzaImage, toppingPrice, toppingName, toppingCount, sideName, sideCount, sidePrice,
