@@ -26,7 +26,6 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/css/user/card_add.css' />">
 
-
 <script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
@@ -151,7 +150,6 @@
 		 + '<a href="javascript:toppingDelete(' + index
 			+ ');" class="close"><span class="hidden">삭제</span></a></li>');
 		} */
-		//console.log("토핑 인덱스 : " + $('#toppingIdx').val());
 		var p_name = $('#p_name').val();
 
 		//총 합계 금액 구하기
