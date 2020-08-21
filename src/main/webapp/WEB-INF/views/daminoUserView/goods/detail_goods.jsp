@@ -146,31 +146,31 @@ function saveBasket(){
 	var sideCounts = "";
 	if(sideCntArr != 0){
 		for (var i = 0; i < sideCntArr.length; i++) {
-			sideCounts += sideCntArr[i];
+			
 			if (i != sideCntArr.length-1) {
 				sideCntArr[i] += ",";
 			}
-			
+			sideCounts += sideCntArr[i];
 		}
 	}
 	var sideName = "";
 	if(sideNameArr != 0){
 		for (var i = 0; i < sideNameArr.length; i++) {
-			sideName += sideNameArr[i];
+			
 			if (i != sideNameArr.length-1) {
 				sideNameArr[i] += ",";
 			}
-			
+			sideName += sideNameArr[i];
 		}
 	}
 	var sidePrices="";
 	if(sidePriceArr != 0){
 		for (var i = 0; i < sidePriceArr.length; i++) {
-			 sidePrices += sidePriceArr[i];
+			 
 			if (i != sidePriceArr.length-1) {
 				sidePriceArr[i] += ",";
 			}
-			
+			sidePrices += sidePriceArr[i];
 		}
 	}
 	//음료 정보 String에 넣기

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -87,23 +88,12 @@
 
 			var index = $('#toppingIdx').val();
 			for (i = 0; i < t_nameArr.length; i++) {
-				$('#topping')
-						.append(
-								'<li>'
-										+ t_nameArr[i]
-										+ "("
-										+ t_priceArr[i]
-										+ "원)"
-										+ "x"
-										+ t_countArr[i]
-										+ '<a href="javascript:toppingDelete(\"'
-										+ t_nameArr[i]
-										+ '\",'
-										+ t_countArr[i]
-										+ ',\"'
-										+ index
-										+ '\");" class="close"><span class="hidden">삭제</span></a></li>');
+				$('#topping').append('<li id="delBtn' + index + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
+			         + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
+			            + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');		
+						
 			}
+			
 		} else {
 			$('#pizza-total').html(Number(pizzaP));
 			var p_total = $('#pizza-total').text();
@@ -111,7 +101,34 @@
 			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#pizza-total').html(p_total);
 		}
-
+		
+		var s_price = $('#sidePrice').val();
+		
+		if (s_price != null) {
+			var s_name = $('#sideName').val();
+			var s_nameArr = s_name.split(",");
+			
+			var s_price = $('#sidePrice').val();
+			console.log("s_price : " + s_price);
+			
+			var s_priceArr = s_price.split(",");
+			console.log("s_priceArr : " + s_priceArr);
+			
+			var s_count = $('#sideCount').val();
+			var s_countArr = s_count.split(",");
+			
+			var index = $('#toppingIdx').val();
+			for (i = 0; i < s_nameArr.length; i++) {
+				$('#sideRow').append('<div class="prd-info"><div class="prd-img"></div><div class="prd-cont"><div class="subject">' + s_nameArr[i] + '</div>'
+					+ '<input class="setName" id="sideName${status.index}" type="hidden" value="' + s_nameArr[i] + '/>'
+						+ '<div class="option"></div><div class="price">' + s_priceArr[i] + '원</div></div></div>'
+						+ '<div class="prd-option"></div><div class="prd-quantity"><div class="quantity-box v2"></div></div>'
+						+ '<div class="prd-total"></div><div class="prd-delete">'
+						+ '<a href="javascript:sideDelete(' + index +')" class="btn-close"><span class="hidden">삭제</span></a></div></div>');
+				
+				}
+			
+		}
 		/* for(i=0; i<t_priceArr.length; i++){
 			toppingPrice += Number(t_priceArr[i]);
 			if (i != t_priceArr.length - 1) {
@@ -267,13 +284,14 @@
 		});
 		} */
 	}
-	function toppingDelete(toppingName, toppingCount, idx) {
+	function toppingDelete(toppingName, toppingCount, price, idx) {
 
 		var userid = $('#userid').val();
 		/* var toppingName = $(this).toppingName;
 		var toppingCount = $(this).toppingCount;
 		var idx = $(this).idx; */
-
+		//var toppingPrice = $('#t_price').val();
+	
 		$.ajax({
 			url : 'deleteTopping.do',
 			contentType : "application/json; charset=UTF-8;",
@@ -282,12 +300,15 @@
 				userid : userid,
 				toppingName : toppingName,
 				toppingCount : toppingCount,
+				toppingPrice : price,
 				seq : idx
 			}),
 			async : false,
 			success : function(data) {
 				alert("삭제 성공");
-
+				$('#delBtn' + idx).remove();
+				$('#toppingSize').val(toppingSize - 1);
+				
 				location.reload();
 			},
 			error : function() {
@@ -325,8 +346,11 @@
 					var parent = document.getElementById("cart-list");
 					var delRow = document.getElementById("row" + idx);
 					
-					parent.removeChild(delRow); */
+					parent.removeChild(delRow);
+					*/
 					$('#row' + idx).remove();
+					
+					
 					location.reload();
 				},
 				error : function() {
@@ -342,7 +366,7 @@
 		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
 		if (con_test == true) {
 			var userid = $('#userid').val();
-			var goodsName = $('#sideName' + idx).val();
+			var goodsName = $('#sideName').val();
 
 			alert("goodsName : " + goodsName);
 			$.ajax({
@@ -372,7 +396,7 @@
 			alert("취소되었습니다");
 		}
 	}
-	function etcDelete(idx) {
+	function etcDelete(idx, seq) {
 
 		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
 		if (con_test == true) {
@@ -387,14 +411,14 @@
 				data : JSON.stringify({
 					userid : userid,
 					goodsName : goodsName,
-					seq : idx
+					seq : seq
 				}),
 				async : false,
 				success : function(data) {
 					alert("삭제 성공");
 					/* 	    
 					document.getElementById("row" + idx).innerHTML = ''; */
-					$('#row' + idx).remove();
+					$('#etcRow' + idx).remove();
 					location.reload();
 				},
 				error : function() {
@@ -539,13 +563,24 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> <a href="login.do">회원가입</a> <a
-							href="javascript:goCart();" class="btn-cart"> <i
-							class="ico-cart"></i> <span class="hidden ">장바구니</span> <strong
-							class="cart_count cart-count"></strong> <!-- count -->
-						</a>
-					</div>
+						<c:choose>
+						<c:when test="${msg != 'login' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i><span class="hidden">장바구니</span><strong
+							class="cart_count cart-count"></strong>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose> 
 				</div>
 			</div>
 
@@ -786,18 +821,19 @@
 										<c:forEach var="pizza" items="${basketList}"
 											varStatus="status">
 											<div class="hidden-info">
-												<input type="hidden" id="toppingName"
-													value="${pizza.toppingName}" /> <input type="hidden"
-													id="toppingCount" value="${pizza.toppingCount}" /> <input
-													type="hidden" id="toppingPrice"
-													value="${pizza.toppingPrice}" /> <input type="hidden"
-													id="pizzaName" value="${pizza.pizzaName}" /> <input
-													type="hidden" id="userid" value="${userid}" /> <input
-													type="hidden" id="toppingIdx" value="row${status.index}" />
+												<input type="hidden" id="toppingName" value="${pizza.toppingName}" />
+												<input type="hidden" id="toppingCount" value="${pizza.toppingCount}" />
+												<input type="hidden" id="toppingPrice" value="${pizza.toppingPrice}" />
+												<input type="hidden" id="pizzaName" value="${pizza.pizzaName}" />
+												<input type="hidden" id="userid" value="${userid}" />
+												<input type="hidden" id="toppingIdx" value="${pizza.seq}" />
+												<input type="hidden" id="sideName" value="${pizza.sideName}" />
+												<input type="hidden" id="sideCount" value="${pizza.sideCount}" />
+												<input type="hidden" id="sidePrice" value="${pizza.sidePrice}">
+												<input type="hidden" id="toppingSize" value="${fn:length(basketList)}">
 											</div>
 											<c:if test="${pizza.pizzaName != null }">
 												<li class="row" id="row${status.index}">
-
 													<div class="sold-out-btn" id="sold-out-btn0"
 														style="display: none">
 														<p>Sold Out</p>
@@ -840,21 +876,22 @@
 														</div>
 													</div> <input type="hidden" id="totalP"
 													value="${pizza.pizzaPrice}"> <input type="hidden"
-													id="totalT" value="${pizza.toppingPrice}">
+													id="totalT" value="${pizza.toppingPrice}"> 
 													<div class="prd-total">
 														<em id="pizza-total"></em>원
 													</div>
 													<div class="prd-delete">
-														<a href="javascript:pizzaDelete(${status.index});"
+														<a href="javascript:pizzaDelete(${pizza.seq});"
 															id="delPizza" class="btn-close"> <span class="hidden">삭제</span>
 														</a>
+														
 													</div>
 												</li>
 											</c:if>
 											<!-- end 피자 -->
 											<c:if test="${pizza.sideName != null }">
-												<li class="row" id="row${status.index}">
-													<div class="sold-out-btn" id="sold-out-btn0"
+												<li class="row" id="sideRow" >
+													<%-- <div class="sold-out-btn" id="sold-out-btn0"
 														style="display: none">
 														<p>Sold Out</p>
 														<a
@@ -865,7 +902,7 @@
 
 													<div class="prd-info">
 														<div class="prd-img">
-															<%-- <img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"/> --%>
+															<img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"/>
 															<input type="hidden" id="pizzaImage" value="" />
 														</div>
 														<div class="prd-cont">
@@ -897,11 +934,11 @@
 														<a href="javascript:sideDelete(${status.index});"
 															class="btn-close"> <span class="hidden">삭제</span>
 														</a>
-													</div>
+													</div> --%>
 												</li>
 											</c:if>
 											<c:if test="${pizza.etcName != null }">
-												<li class="row" id="row${status.index}">
+												<li class="row" id="etcRow${status.index}">
 													<div class="sold-out-btn" id="sold-out-btn0"
 														style="display: none">
 														<p>Sold Out</p>
@@ -942,7 +979,7 @@
 															type="hidden" id="etcPrice" value="${pizza.etcPrice}" />
 													</div>
 													<div class="prd-delete">
-														<a href="javascript:etcDelete(${status.index});"
+														<a href="javascript:etcDelete(${status.index}, ${pizza.seq});"
 															class="btn-close"> <span class="hidden">삭제</span>
 														</a>
 													</div>
@@ -950,7 +987,6 @@
 											</c:if>
 
 										</c:forEach>
-										<%-- <c:if test="${pizza.etcName eq null && pizza.sideName eq null && pizza.pizzaName eq null && pizza.userId ne sessionScope.userid}"> --%>
 											<c:if test="${empty basketList}">
 											<article class="cart-area pay">
 												<div class="step-wrap"></div>
