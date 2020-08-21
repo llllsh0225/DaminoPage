@@ -162,10 +162,10 @@
 			success: function(data) {
 				// <li>를 추가
 				$('#deladdress_list').append('<li id="addressli'+ addressListSize+'"><div class="chk-box selected" id="chk-box'+ addressListSize +'">'
-				+ '<input type="radio" id="addressradio'+ addressListSize +'" name="addressradio" checked="">'
+				+ '<input type="radio" id="addressradio'+ addressListSize +'" name="addressradio" value="'+ address +'" checked="">'
 				+ '<label class="checkbox" for="addressradio'+ addressListSize +'"></label></div>'
 				+ '<dl><dt><label for="addressradio'+ addressListSize +'" id="addresslb'+ addressListSize +'">'+ address +'</label></dt>'
-				+ '<dd><em>'+ storeName +'</em><span class="tel">'+ data +'</span></dd>'
+				+ '<dd><em id="storename'+ addressListSize +'">'+ storeName +'</em><span class="tel" id="storephone'+ addressListSize +'">'+ data +'</span></dd>'
 				+ '<dd class="hash"><br></dd></dl>'
 				+ '<a href="javascript:deleteAddress('+ addressListSize +');" class="btn-del"><span class="hidden">삭제</span></a></li>');
 				
@@ -215,6 +215,24 @@
 			}
 		});
 		
+	}
+	
+	// 메뉴 카테고리 선택 페이지로 주소 정보 넘기기
+	function setAddress(){
+		var address = $('input[type="radio"][name="addressradio"]:checked').val();
+		var sel_id = $('input[type="radio"][name="addressradio"]:checked').attr('id'); // 선택한 라디오버튼 id
+		var sel_idx = Number(sel_id.replace('addressradio', '')); // 선택 index 값 얻어옴
+		
+		var storename = $('#storename' + sel_idx).text();
+		var storephone = $('#storephone' + sel_idx).text();
+		
+		// 세션에 선택 정보들을 세팅
+		sessionStorage.setItem("address", address);
+		sessionStorage.setItem("storename", storename);
+		sessionStorage.setItem("storephone", storephone);
+		sessionStorage.setItem("gubun", "D"); // 주문 구분 'D' --> 배달주문
+		
+		location.href="orderCategory.do";
 	}
 	
 </script>
@@ -361,7 +379,7 @@
 							<c:forEach var="deladdress" items="${deliveryAddressList }" varStatus="status">
 								<li id="addressli${status.index }">
 									<div class="chk-box selected" id="chk-box${status.index }">
-										<input type="radio" id="addressradio${status.index }" name="addressradio" checked=""> 
+										<input type="radio" id="addressradio${status.index }" name="addressradio" value="${deladdress.address}" checked=""> 
 										<label class="checkbox" for="addressradio${status.index }"></label>
 									</div>
 										<dl>
@@ -369,7 +387,7 @@
 												<label for="addressradio${status.index }" id="addresslb${status.index }">${deladdress.address }</label>
 											</dt>
 												<dd>
-													<em>${deladdress.storename }</em><span class="tel">${deladdress.storephone }</span>
+													<em id="storename${status.index }">${deladdress.storename }</em><span class="tel" id="storephone${status.index }">${deladdress.storephone }</span>
 												</dd>
 												<dd class="hash">
 													<br>
