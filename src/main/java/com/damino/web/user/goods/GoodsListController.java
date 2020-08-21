@@ -173,8 +173,6 @@ public class GoodsListController {
 	@RequestMapping(value = "my_baskets.do", method = RequestMethod.POST)
 	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
-		// 사용자 선택 메뉴 정보 서비스 호출
-		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
@@ -190,6 +188,11 @@ public class GoodsListController {
 		//userid 기준 장바구니 목록 호출
 		List<UserBasketVO> basketList = goodsListService.getBasketList(userid);
 		System.out.println(basketList);
+		
+		List<String> toppingList = new ArrayList<String>();
+		toppingList.add(vo.getToppingName());
+		
+		System.out.println("toppingList : " + toppingList);
 		
 		mav.addObject("basketList", basketList);
 		
