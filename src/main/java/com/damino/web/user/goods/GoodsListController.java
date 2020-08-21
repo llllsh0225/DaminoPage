@@ -140,7 +140,7 @@ public class GoodsListController {
 		return mav;
 	}
 
-	/** 사용자 선택 피자 메뉴 - 주문하기 getToppingNames  */
+	/** 사용자 선택 피자 메뉴 - 장바구니 클릭 경로로 들어올 때  */
 	@RequestMapping(value = "my_basket.do")
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
@@ -155,7 +155,37 @@ public class GoodsListController {
 			mav.setViewName("/login/login");
 			return mav;
 		}else {		
+			
+		session.setAttribute("msg", "login");
+		vo.setUserId(userid);
+		//userid 기준 장바구니 목록 호출
+		List<UserBasketVO> basketList = goodsListService.getBasketList(userid);
+		System.out.println(basketList);
 		
+		mav.addObject("basketList", basketList);
+		
+		mav.setViewName("/basket/basket_detail");
+		
+		return mav;
+		}
+	}
+	/** 사용자 선택 피자 메뉴 - 주문하기 경로로 들어올 때  */
+	@RequestMapping(value = "my_baskets.do", method = RequestMethod.POST)
+	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
+		
+		// 사용자 선택 메뉴 정보 서비스 호출
+		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
+		
+		String userid = (String) session.getAttribute("userid");
+		System.out.println(" my_basket userid : " + userid);
+		
+		//로그인 되어 있지 않다면 비회원에서 user 정보 받아오게 리다이렉트
+		if(userid == null) {
+			mav.setViewName("/login/login");
+			return mav;
+		}else {	
+			
+		session.setAttribute("msg", "login");
 		vo.setUserId(userid);
 		//userid 기준 장바구니 목록 호출
 		List<UserBasketVO> basketList = goodsListService.getBasketList(userid);
@@ -170,7 +200,8 @@ public class GoodsListController {
 	}
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
-		
+		String userid = (String) session.getAttribute("userid");
+				
 		String userId = (String) param.get("userId");
 		int pizzaPrice = (Integer)param.get("pizzaPrice");
 		String pizzaSize = (String) param.get("pizzaSize");
@@ -224,23 +255,30 @@ public class GoodsListController {
 	public String deleteTopping(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
 		String toppingName = (String) param.get("toppingName");
-		String toppingCount = (String) param.get("toppingCount");
-		int seq = (Integer)param.get("seq");
 		
+		String toppingCount = String.valueOf(param.get("toppingCount"));
+		System.out.println("toppingCount : " + toppingCount);
+		String toppingPrice = (String)param.get("toppingPrice");
+		System.out.println("toppingPrice : " + toppingPrice);
+		
+		//String seq = (String)param.get("seq");
+		int seq = (Integer)param.get("seq");
+		System.out.println("seq : " + seq);
 		vo.setUserId(userid);
 		vo.setSeq(seq);
 		vo.setToppingName(toppingName);
 		vo.setToppingCount(toppingCount);
+		vo.setToppingPrice(toppingPrice);
 		
 		System.out.println("del : " + userid);
 		System.out.println("del toppingName : " + toppingName);
 		System.out.println("del toppingCount : " + toppingCount);
 		System.out.println("del seq : " + seq);
 		
-		/*
-		 * goodsListService.deleteToppingName(vo);
-		 * goodsListService.deleteToppingCount(vo);
-		 */
+		
+		 goodsListService.deleteToppingName(vo);
+		 //goodsListService.deleteToppingCount(vo);
+		 
 		
 		return "success";
 	}
@@ -250,7 +288,7 @@ public class GoodsListController {
 	public String pizzaDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
 		String pizzaName = (String) param.get("goodsName");
-		int seq = (Integer)param.get("seq")+1;
+		int seq = (Integer)param.get("seq");
 		
 		vo.setUserId(userid);
 		vo.setSeq(seq);
@@ -271,7 +309,7 @@ public class GoodsListController {
 	public String sideDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
 		String sideName = (String) param.get("goodsName");
-		int seq = (Integer)param.get("seq")+1;
+		int seq = (Integer)param.get("seq");
 		
 		vo.setUserId(userid);
 		vo.setSeq(seq);
@@ -291,7 +329,7 @@ public class GoodsListController {
 	public String etcDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
 		String etcName = (String) param.get("goodsName");
-		int seq = (Integer)param.get("seq")+1;
+		int seq = (Integer)param.get("seq");
 		
 		vo.setUserId(userid);
 		vo.setSeq(seq);
@@ -299,7 +337,7 @@ public class GoodsListController {
 		//vo.setToppingCount(toppingCount);
 		
 		System.out.println("del : " + userid);
-		System.out.println("del sideName : " + etcName);
+		System.out.println("del etcName : " + etcName);
 		System.out.println("del seq : " + seq);
 		
 		 goodsListService.deleteEtcInfo(vo);
