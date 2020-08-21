@@ -95,7 +95,7 @@
 	
 	<!-- 장바구니 피자정보 삭제 -->
 	<update id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
-		UPDATE userBasket SET pizzaName = null, pizzaCount = null, pizzaImage = null, pizzaPrice = null, pizzaDough = null
+		UPDATE userBasket SET pizzaName = null, pizzaCount = null, pizzaImage = null, pizzaPrice = null, pizzaDough = null,
 		toppingName = null, toppingCount = null, toppingPrice = null		
 		WHERE userid = #{userid} AND seq = #{seq} AND pizzaName = #{pizzaName}
 	</update>

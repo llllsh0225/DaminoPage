@@ -146,11 +146,11 @@ function saveBasket(){
 	var sideCounts = "";
 	if(sideCntArr != 0){
 		for (var i = 0; i < sideCntArr.length; i++) {
-			
+			sideCounts += sideCntArr[i];
 			if (i != sideCntArr.length-1) {
 				sideCntArr[i] += ",";
 			}
-			sideCounts += sideCntArr[i];
+			
 		}
 	}
 	var sideName = "";
@@ -166,11 +166,11 @@ function saveBasket(){
 	var sidePrices="";
 	if(sidePriceArr != 0){
 		for (var i = 0; i < sidePriceArr.length; i++) {
-			
+			 sidePrices += sidePriceArr[i];
 			if (i != sidePriceArr.length-1) {
 				sidePriceArr[i] += ",";
 			}
-			sidePrices += sidePriceArr[i];
+			
 		}
 	}
 	//음료 정보 String에 넣기
@@ -812,7 +812,7 @@ function minusDrink(idx){
 				 />
 			<input type="hidden" id="userid" name="userid" value="${userid}" />
 			<section id="content">
-				<form name="myBasket" id="myBasket" method="post" action="my_basket.do" >
+				<form name="myBasket" id="myBasket" method="post" action="my_baskets.do" >
 				<div class="sub-type menu">
 					<div class="">
 						<!-- inner-box -->
@@ -1428,9 +1428,8 @@ afterSetNum -= 1;
 												<div id="login_order_btn">
 													<span>총 금액</span> <strong class="total-price_sum">0원</strong>
 													<div class="btn-wrap">
-														<!-- <a id="btn_basket" href="javascript:saveBasket();" class="btn-type">
-															주문하기 </a> -->
-														<input type="button" id="btn_basket" onclick="javascript:saveBasket();" class="btn-type" value="주문하기"/>
+														<a id="btn_basket" href="javascript:saveBasket();" class="btn-type">
+															주문하기 </a>
 														
 													</div>
 												

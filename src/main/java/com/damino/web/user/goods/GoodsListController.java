@@ -140,7 +140,7 @@ public class GoodsListController {
 		return mav;
 	}
 
-	/** 사용자 선택 피자 메뉴 - 주문하기 getToppingNames  */
+	/** 사용자 선택 피자 메뉴 - 장바구니 클릭 경로로 들어올 때  */
 	@RequestMapping(value = "my_basket.do")
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
@@ -168,9 +168,38 @@ public class GoodsListController {
 		return mav;
 		}
 	}
+	/** 사용자 선택 피자 메뉴 - 주문하기 경로로 들어올 때  */
+	@RequestMapping(value = "my_baskets.do", method = RequestMethod.POST)
+	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
+		
+		// 사용자 선택 메뉴 정보 서비스 호출
+		//GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
+		
+		String userid = (String) session.getAttribute("userid");
+		System.out.println(" my_basket userid : " + userid);
+		
+		//로그인 되어 있지 않다면 비회원에서 user 정보 받아오게 리다이렉트
+		if(userid == null) {
+			mav.setViewName("/login/login");
+			return mav;
+		}else {		
+		
+		vo.setUserId(userid);
+		//userid 기준 장바구니 목록 호출
+		List<UserBasketVO> basketList = goodsListService.getBasketList(userid);
+		System.out.println(basketList);
+		
+		mav.addObject("basketList", basketList);
+		
+		mav.setViewName("/basket/basket_detail");
+		
+		return mav;
+		}
+	}
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
-		
+		String userid = (String) session.getAttribute("userid");
+				
 		String userId = (String) param.get("userId");
 		int pizzaPrice = (Integer)param.get("pizzaPrice");
 		String pizzaSize = (String) param.get("pizzaSize");
