@@ -44,9 +44,91 @@
 
 <!-- 다음 주소 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script language=JavaScript>
+	var arr = new Array();
+	<c:forEach var="topping" items="${basketList}">
+	arr.push({
+		name : "${topping.toppingName}",
+		/* price : "${topping.toppingPrice}",
+		 count : "${topping.toppingCount}" */
+	});
+	//alert("arr : " + arr);
+	</c:forEach>
+	jQuery.ajaxSettings.traditional = true;
 
-<script>
+	$.ajax({
+		url : 'selectTopping.do',
+		type : 'post',
+		dataType : 'json',
+		data : {
+			"toppingArr" : arr,
+		},
+		success : function(data) {
+			console.log("성공");
+		}
+	});
+
+	/* for (var i = 0; i < arr.length; i++) {
+	 console.log("이름 : " + arr[i].name + " 가격 : " + arr[i].price + " 수량 : " + arr[i].count);
+	 $('#test').val(arr[i].name);
+	 $('#topping' + index + idxNum).html('<li id="delBtn' + index + idxNum + '">'+ arr[i].name + "(" + '<div id="t_price">' + arr[i].price +  "</div>원)"
+	 + "x" + arr[i].count + '<a href="javascript:toppingDelete(\''
+	 + arr[i].name + '\','+ arr[i].count + ',\'' + arr[i].price + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
+	 */
+
+	/* var t_name = $('#toppingName').val();
+	 var t_nameArr = t_name.split(",");
+
+	 var t_priceArr = toppingP.split(",");
+
+	 var t_count = $('#toppingCount').val();
+	 var t_countArr = t_count.split(",");
+
+
+	 var idxNum = Number($('#idxNum').val());
+	 var index = Number($('#toppingIdx').val());
+	 for (i = 0; i < t_nameArr.length; i++) {
+	 index++;
+	
+	 $('#topping' + index + idxNum).append('<li id="delBtn' + index + idxNum + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
+	 + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
+	 + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
+	 }  */
+</script>
+<script language=JavaScript>
 	window.onload = function() {
+		console.log("arr:" + arr[0].name);
+		console.log("arr:" + arr[1].name);
+		console.log("배열 길이" + arr.length);
+
+		var num = 0;
+
+		/* $('#topping' + index + idxNum).find('li').each(function(i, e){
+		    console.log($(this).text());
+		}); */
+
+		var idxNum = Number($('#idxNum').val());
+		var index = Number($('#toppingIdx').val());
+
+		for (i = 0; i < arr.length; i++) {
+			num++;
+			console.log("제발 이름 : " + arr[i].name);
+			console.log("반복숫자 : " + num);
+			console.log("idxNum : " + idxNum);
+			console.log("index : " + index);
+			// $('#topping' + index + idxNum).text(arr[i].name);
+			//$('#test').text(arr[i].name);
+			//<c:forEach var="topping" items="${basketList}">	
+			$('#topping' + index + idxNum).append("<li>" + arr[i].name + "</li>");
+			//$('#topping').text(arr[i].name);
+
+			//$('#test').append(arr[i].name);
+			//</c:forEach>
+		}
+		
+		
+		
+
 		//토핑 가격
 		var toppingP = $('#totalT').val();
 		//피자 가격
@@ -77,7 +159,7 @@
 			$('#pizza-total').html(p_total);
 
 			//토핑이 있을경우 li 영역에 추가 
-			 var t_name = $('#toppingName').val();
+			/*  var t_name = $('#toppingName').val();
 			var t_nameArr = t_name.split(",");
 
 			var t_priceArr = toppingP.split(",");
@@ -94,7 +176,7 @@
 				$('#topping' + index + idxNum).append('<li id="delBtn' + index + idxNum + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
 			         + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
 			            + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
-			} 
+			}  */
 			/*  var t_name = $('#toppingName').val();
 			var t_nameArr = t_name.split(",");
 
@@ -116,33 +198,41 @@
 			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#pizza-total').html(p_total);
 		}
-		
+
 		var s_price = $('#sidePrice').val();
-		
+
 		if (s_price != null) {
 			var s_name = $('#sideName').val();
 			var s_nameArr = s_name.split(",");
-			
+
 			var s_price = $('#sidePrice').val();
 			console.log("s_price : " + s_price);
-			
+
 			var s_priceArr = s_price.split(",");
 			console.log("s_priceArr : " + s_priceArr);
-			
+
 			var s_count = $('#sideCount').val();
 			var s_countArr = s_count.split(",");
-			
+
 			var index = $('#toppingIdx').val();
 			for (i = 0; i < s_nameArr.length; i++) {
-				$('#sideRow').append('<div class="prd-info"><div class="prd-img"></div><div class="prd-cont"><div class="subject">' + s_nameArr[i] + '</div>'
-					+ '<input class="setName" id="sideName${status.index}" type="hidden" value="' + s_nameArr[i] + '/>'
-						+ '<div class="option"></div><div class="price">' + s_priceArr[i] + '원</div></div></div>'
-						+ '<div class="prd-option"></div><div class="prd-quantity"><div class="quantity-box v2"></div></div>'
-						+ '<div class="prd-total"></div><div class="prd-delete">'
-						+ '<a href="javascript:sideDelete(' + index +')" class="btn-close"><span class="hidden">삭제</span></a></div></div>');
-				
-				}
-			
+				$('#sideRow')
+						.append(
+								'<div class="prd-info"><div class="prd-img"></div><div class="prd-cont"><div class="subject">'
+										+ s_nameArr[i]
+										+ '</div>'
+										+ '<input class="setName" id="sideName${status.index}" type="hidden" value="' + s_nameArr[i] + '/>'
+										+ '<div class="option"></div><div class="price">'
+										+ s_priceArr[i]
+										+ '원</div></div></div>'
+										+ '<div class="prd-option"></div><div class="prd-quantity"><div class="quantity-box v2"></div></div>'
+										+ '<div class="prd-total"></div><div class="prd-delete">'
+										+ '<a href="javascript:sideDelete('
+										+ index
+										+ ')" class="btn-close"><span class="hidden">삭제</span></a></div></div>');
+
+			}
+
 		}
 		/* for(i=0; i<t_priceArr.length; i++){
 			toppingPrice += Number(t_priceArr[i]);
@@ -305,7 +395,6 @@
 		var toppingCount = $(this).toppingCount;
 		var idx = $(this).idx; */
 		//var toppingPrice = $('#t_price').val();
-	
 		$.ajax({
 			url : 'deleteTopping.do',
 			contentType : "application/json; charset=UTF-8;",
@@ -322,7 +411,7 @@
 				alert("삭제 성공");
 				$('#delBtn' + idx).remove();
 				$('#toppingSize').val(toppingSize - 1);
-				
+
 				location.reload();
 			},
 			error : function() {
@@ -361,10 +450,9 @@
 					var delRow = document.getElementById("row" + idx);
 					
 					parent.removeChild(delRow);
-					*/
+					 */
 					$('#row' + idx).remove();
-					
-					
+
 					location.reload();
 				},
 				error : function() {
@@ -577,7 +665,7 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-						<c:choose>
+					<c:choose>
 						<c:when test="${msg != 'login' }">
 							<!-- 비로그인 -->
 							<div class="util-nav">
@@ -588,13 +676,13 @@
 							<!-- 로그인 -->
 							<div class="util-nav">
 								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
-									<i class="ico-cart"></i><span class="hidden">장바구니</span><strong
-							class="cart_count cart-count"></strong>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do"
+									class="btn-cart"> <i class="ico-cart"></i><span
+									class="hidden">장바구니</span><strong class="cart_count cart-count"></strong>
 								</a>
 							</div>
 						</c:otherwise>
-					</c:choose> 
+					</c:choose>
 				</div>
 			</div>
 
@@ -820,6 +908,7 @@
 									<span class="summary side"> <a
 										href="javascript:allDelete();">전체 삭제</a>
 									</span>
+									<input type="hidden" id="test" value="" />
 								</div>
 								<div class="cart-list" id="cart-list">
 									<ul>
@@ -831,20 +920,25 @@
 											<div>금액</div>
 											<div></div>
 										</li>
-
-										<c:forEach var="pizza" items="${basketList}" varStatus="status">
+										
+										<c:forEach var="pizza" items="${basketList}"
+											varStatus="status">
 											<div class="hidden-info">
-												<input type="hidden" id="toppingName" value="${pizza.toppingName}" />
-												<input type="hidden" id="toppingCount" value="${pizza.toppingCount}" />
-												<input type="hidden" id="toppingPrice" value="${pizza.toppingPrice}" />
-												<input type="hidden" id="pizzaName" value="${pizza.pizzaName}" />
-												<input type="hidden" id="userid" value="${userid}" />
-												<input type="hidden" id="toppingIdx" value="${pizza.seq}" />
-												<input type="hidden" id="sideName" value="${pizza.sideName}" />
-												<input type="hidden" id="sideCount" value="${pizza.sideCount}" />
-												<input type="hidden" id="sidePrice" value="${pizza.sidePrice}"/>
-												<input type="hidden" id="toppingSize" value="${fn:length(basketList)}"/>
-												<input type="hidden" id="idxNum" value="${status.index}"/>
+												<input type="hidden" id="toppingName"
+													value="${pizza.toppingName}" /> <input type="hidden"
+													id="toppingCount" value="${pizza.toppingCount}" /> <input
+													type="hidden" id="toppingPrice"
+													value="${pizza.toppingPrice}" /> <input type="hidden"
+													id="pizzaName" value="${pizza.pizzaName}" /> <input
+													type="hidden" id="userid" value="${userid}" />
+													 <input
+													type="hidden" id="sideName" value="${pizza.sideName}" /> <input
+													type="hidden" id="sideCount" value="${pizza.sideCount}" />
+												<input type="hidden" id="sidePrice"
+													value="${pizza.sidePrice}" /> <input type="hidden"
+													id="toppingSize" value="${fn:length(basketList)}" />
+													<input type="hidden" id="idxNum" value="${status.index}" />
+													<input type="hidden" id="toppingIdx" value="${pizza.seq}" />
 											</div>
 											<c:if test="${pizza.pizzaName != null }">
 												<li class="row" id="row${status.index}">
@@ -872,17 +966,17 @@
 
 													<div class="prd-option" style="">
 														<ul>
-														<%-- <c:forTokens items="${pizza.toppingName}" delims="," var="topping" varStatus="status"> --%>
+															<%-- <c:forTokens items="${pizza.toppingName}" delims="," var="topping" varStatus="status"> --%>
 															<li id="topping${pizza.seq}${status.index}">
-   															<%-- 	${topping}<span id="t_price"></span>
+																<%-- 	${topping}<span id="t_price"></span>
    															<div class="prd-delete">
 															<a href="javascript:toppingDelete(${pizza.seq});" id="delTopping" class="btn-close"> <span class="hidden">삭제</span>
 															</a>
 															</div> --%>
 															</li>
-														 
-														<%-- </c:forTokens> --%>
-													    </ul>
+
+															<%-- </c:forTokens> --%>
+														</ul>
 
 													</div>
 													<div class="prd-quantity">
@@ -898,7 +992,7 @@
 														</div>
 													</div> <input type="hidden" id="totalP"
 													value="${pizza.pizzaPrice}"> <input type="hidden"
-													id="totalT" value="${pizza.toppingPrice}"> 
+													id="totalT" value="${pizza.toppingPrice}">
 													<div class="prd-total">
 														<em id="pizza-total"></em>원
 													</div>
@@ -906,13 +1000,13 @@
 														<a href="javascript:pizzaDelete(${pizza.seq});"
 															id="delPizza" class="btn-close"> <span class="hidden">삭제</span>
 														</a>
-														
+
 													</div>
 												</li>
 											</c:if>
 											<!-- end 피자 -->
 											<c:if test="${pizza.sideName != null }">
-												<li class="row" id="sideRow" >
+												<li class="row" id="sideRow">
 													<%-- <div class="sold-out-btn" id="sold-out-btn0"
 														style="display: none">
 														<p>Sold Out</p>
@@ -1001,7 +1095,8 @@
 															type="hidden" id="etcPrice" value="${pizza.etcPrice}" />
 													</div>
 													<div class="prd-delete">
-														<a href="javascript:etcDelete(${status.index}, ${pizza.seq});"
+														<a
+															href="javascript:etcDelete(${status.index}, ${pizza.seq});"
 															class="btn-close"> <span class="hidden">삭제</span>
 														</a>
 													</div>
@@ -1009,7 +1104,7 @@
 											</c:if>
 
 										</c:forEach>
-											<c:if test="${empty basketList}">
+										<c:if test="${empty basketList}">
 											<article class="cart-area pay">
 												<div class="step-wrap"></div>
 												<div class="no-data">
