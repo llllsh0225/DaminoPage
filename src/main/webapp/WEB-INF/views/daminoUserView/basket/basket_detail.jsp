@@ -51,7 +51,9 @@
 		name : "${topping.toppingName}",
 		price : "${topping.toppingPrice}",
 		count : "${topping.toppingCount}",
-		p_price : "${topping.pizzaPrice}"
+		p_price : "${topping.pizzaPrice}",
+		p_name : "${topping.pizzaName}",
+		indexs : "${topping.seq}"
 	});
 	//alert("arr : " + arr);
 	</c:forEach>
@@ -101,16 +103,15 @@
 		console.log("배열 길이" + arr.length);
 
 
-		/* $('#topping' + index + idxNum).find('li').each(function(i, e){
-		    console.log($(this).text());
-		}); */
-
 		var idxNum = Number($('#idxNum').val());
+		
 		var index = Number($('#toppingIdx').val());
-
+		
+		
 		for (var i = 0; i < arr.length; i++) {
 				// HTML 984행 ---> div영역 id 세팅하는 부분 참고해주세요.
-			
+		
+				console.log("index : " + index);
 			// 토핑 div 영역에 추가 될 <ul> 태그 생성
 			var newul = document.createElement("ul");
 			
@@ -119,20 +120,46 @@
 			var priceArr = arr[i].price.split(",");
 			var countArr = arr[i].count.split(",");
 			var p_priceArr = arr[i].p_price.split(",");
+			var indexArr = arr[i].indexs.split(",");
+			
+			var p_nameArr = arr[i].p_name.split(",");
+			
+			console.log("p_nameArr : " + p_nameArr);
+			console.log("p_priceArr : " + p_priceArr);
+			console.log("indexArr : " + indexArr);
 			// <ul>태그 안에 들어갈 innerHTML
 			var innerTag = '';
-		    /* for (var i = 0; i < arr.length; i++) {
-		     $('#topping' + index + idxNum).html('<li id="delBtn' + index + idxNum + '">'+ arr[i].name + "(" + '<div id="t_price">' + arr[i].price +  "</div>원)"
-		     + "x" + arr[i].count + '<a href="javascript:toppingDelete(\''
-		     + arr[i].name + '\','+ arr[i].count + ',\'' + arr[i].price + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');                            
-		     */
-		     
-			for(var j=0; j<toppingArr.length; j++){
-				innerTag += '<li><span>' + toppingArr[j] + '(+' + priceArr[j] + '원) x ' + countArr[j] +
-				'<a href="javascript:toppingDelete();" class="close"><span class="hidden">삭제</span></a>'
-				+ '</span></li>';
+			
+			  for(var j=0; j<toppingArr.length; j++){
+				 
+				 //배열의 요소가 비어있을 때 이전 값 호출
+				if(typeof indexArr[j] == "undefined"){
+					indexArr[j] = indexArr.reduce(function (pre, value) {
+					    return pre;
+					});
+				}				
+				
+					innerTag += '<li id="delBtn' + index + idxNum + '"><span>' + toppingArr[j] + '(+' + priceArr[j] + '원) x ' + countArr[j] +
+					'<a href="javascript:toppingDelete(\'' + toppingArr[j] + '\','+ countArr[j]
+					+ ',\'' + priceArr[j] + '\',' + indexArr[j] + ');" class="close"><span class="hidden">삭제</span></a>'
+					+ '</span></li>';
+					
+					if(innerTag == '(+원) x'){
+						toppingArr[j] = toppingArr.reduce(function (pre, value) {
+						    return value;
+						});
+						return;
+					}
 				console.log(toppingArr[j]);
-			}
+			}  
+		     /* for(var j=0; j<toppingArr.length; j++){
+				
+				innerTag += '<li id="delBtn' + index + idxNum + '"><span>' + toppingArr[j] + '(+' + priceArr[j] + '원) x ' + countArr[j] +
+				'</li>';
+				idxNum++;
+				console.log(toppingArr[j]);
+			} */
+			
 			newul.innerHTML = innerTag;
 			
 			console.log(newdiv);
@@ -142,6 +169,7 @@
 			
 			var newuls = document.createElement("ul");
 			
+			//피자 가격과 토핑 가격 합산을 위한 변수
 			var innerT_price = 0;
 			
 			for(var j=0; j<toppingArr.length; j++){
@@ -149,9 +177,10 @@
 				var t_price = Number(priceArr[j]);
 				var t_count = Number(countArr[j]);
 				var p_prices = Number(p_priceArr[j]);
-				if(isNaN(p_prices)){
+				 if(isNaN(p_prices)){
 					p_prices = 0;
-				}
+				} 
+				
 				console.log("p_prices : " + p_prices);
 				innerT_price += Number(t_price)*Number(t_count) + Number(p_prices);
 				
@@ -388,7 +417,10 @@
 		} */
 	}
 	function toppingDelete(toppingName, toppingCount, price, idx) {
-
+		
+		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
+		if (con_test == true) {
+		var index = Number($('#toppingIdx').val());
 		var userid = $('#userid').val();
 		/* var toppingName = $(this).toppingName;
 		var toppingCount = $(this).toppingCount;
@@ -408,16 +440,21 @@
 			async : false,
 			success : function(data) {
 				alert("삭제 성공");
-				$('#delBtn' + idx).remove();
-				$('#toppingSize').val(toppingSize - 1);
-
-				location.reload();
+				$('#delBtn' + index + idx).remove();
+				var delDiv = document.getElementId("delBtn" + index + idx);
+				var newdiv = document.getElementById("prd-option" + i); // 태그 추가할 div 영역
+				newdiv.removeChild(delDiv);
+				//var idxNum = Number($('#idxNum').val());
+				
+				location.reload(true);
 			},
 			error : function() {
 				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
 			}
 		})
-
+		} else if (con_test == false) {
+			alert("취소되었습니다");
+		}
 	}
 
 	function pizzaDelete(idx) {
@@ -437,7 +474,6 @@
 				data : JSON.stringify({
 					userid : userid,
 					goodsName : goodsName,
-					toppingCount : toppingCount,
 					seq : idx
 				}),
 				async : false,
@@ -452,7 +488,7 @@
 					 */
 					$('#row' + idx).remove();
 
-					location.reload();
+					location.reload(true);
 				},
 				error : function() {
 					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -487,7 +523,7 @@
 
 					var i = idx.parentNode.parentNode.rowIndex;
 					document.getElementById("cart-list").deleteRow(i);
-					location.reload();
+					location.reload(true);
 				},
 				error : function() {
 					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -520,7 +556,7 @@
 					/* 	    
 					document.getElementById("row" + idx).innerHTML = ''; */
 					$('#etcRow' + idx).remove();
-					location.reload();
+					location.reload(true);
 				},
 				error : function() {
 					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -962,10 +998,16 @@
 														</div>
 													</div>
 
-													<div class="prd-option" id="prd-option${status.index }" style="">
-														
-
+													<div class="prd-option"  id="prd-option${status.index }"  style="">
+														<%--<div id="prd-option${status.index }"></div>
+														 <a href="javascript:toppingDelete(${pizza.seq});"
+															id="delPizza" class="btn-close"> <span class="hidden">삭제</span>
+													</a> --%>
 													</div>
+													
+													<%-- <a href="javascript:toppingDelete(${pizza.seq});"
+															id="delPizza" class="btn-close"> <span class="hidden">삭제</span>
+													</a> --%>
 													<div class="prd-quantity">
 														<div class="quantity-box v2">
 															<a href="javascript:void(0);"
