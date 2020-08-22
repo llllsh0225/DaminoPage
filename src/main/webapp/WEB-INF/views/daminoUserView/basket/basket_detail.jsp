@@ -49,8 +49,9 @@
 	<c:forEach var="topping" items="${basketList}">
 	arr.push({
 		name : "${topping.toppingName}",
-		/* price : "${topping.toppingPrice}",
-		 count : "${topping.toppingCount}" */
+		price : "${topping.toppingPrice}",
+		count : "${topping.toppingCount}",
+		p_price : "${topping.pizzaPrice}"
 	});
 	//alert("arr : " + arr);
 	</c:forEach>
@@ -97,11 +98,8 @@
 </script>
 <script language=JavaScript>
 	window.onload = function() {
-		console.log("arr:" + arr[0].name);
-		console.log("arr:" + arr[1].name);
 		console.log("배열 길이" + arr.length);
 
-		var num = 0;
 
 		/* $('#topping' + index + idxNum).find('li').each(function(i, e){
 		    console.log($(this).text());
@@ -110,45 +108,80 @@
 		var idxNum = Number($('#idxNum').val());
 		var index = Number($('#toppingIdx').val());
 
-		for (i = 0; i < arr.length; i++) {
-			num++;
-			console.log("제발 이름 : " + arr[i].name);
-			console.log("반복숫자 : " + num);
-			console.log("idxNum : " + idxNum);
-			console.log("index : " + index);
-			// $('#topping' + index + idxNum).text(arr[i].name);
-			//$('#test').text(arr[i].name);
-			//<c:forEach var="topping" items="${basketList}">	
-			$('#topping' + index + idxNum).append("<li>" + arr[i].name + "</li>");
-			//$('#topping').text(arr[i].name);
-
-			//$('#test').append(arr[i].name);
-			//</c:forEach>
+		for (var i = 0; i < arr.length; i++) {
+				// HTML 984행 ---> div영역 id 세팅하는 부분 참고해주세요.
+			
+			// 토핑 div 영역에 추가 될 <ul> 태그 생성
+			var newul = document.createElement("ul");
+			
+			// 토핑 이름, 가격, 수량 split으로 잘라서 배열에 저장
+			var toppingArr = arr[i].name.split(",");
+			var priceArr = arr[i].price.split(",");
+			var countArr = arr[i].count.split(",");
+			var p_priceArr = arr[i].p_price.split(",");
+			// <ul>태그 안에 들어갈 innerHTML
+			var innerTag = '';
+		    /* for (var i = 0; i < arr.length; i++) {
+		     $('#topping' + index + idxNum).html('<li id="delBtn' + index + idxNum + '">'+ arr[i].name + "(" + '<div id="t_price">' + arr[i].price +  "</div>원)"
+		     + "x" + arr[i].count + '<a href="javascript:toppingDelete(\''
+		     + arr[i].name + '\','+ arr[i].count + ',\'' + arr[i].price + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');                            
+		     */
+		     
+			for(var j=0; j<toppingArr.length; j++){
+				innerTag += '<li><span>' + toppingArr[j] + '(+' + priceArr[j] + '원) x ' + countArr[j] +
+				'<a href="javascript:toppingDelete();" class="close"><span class="hidden">삭제</span></a>'
+				+ '</span></li>';
+				console.log(toppingArr[j]);
+			}
+			newul.innerHTML = innerTag;
+			
+			console.log(newdiv);
+				
+			var newdiv = document.getElementById("prd-option" + i); // 태그 추가할 div 영역
+			newdiv.appendChild(newul);
+			
+			var newuls = document.createElement("ul");
+			
+			var innerT_price = 0;
+			
+			for(var j=0; j<toppingArr.length; j++){
+				
+				var t_price = Number(priceArr[j]);
+				var t_count = Number(countArr[j]);
+				var p_prices = Number(p_priceArr[j]);
+				if(isNaN(p_prices)){
+					p_prices = 0;
+				}
+				console.log("p_prices : " + p_prices);
+				innerT_price += Number(t_price)*Number(t_count) + Number(p_prices);
+				
+				console.log(toppingArr[j]);
+			}
+			innerT_price = innerT_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			console.log("innerT_price : " + innerT_price);
+			newuls.innerHTML = '<em>' + innerT_price + '</em>원';
+			
+			var newdivTotal = document.getElementById("prd-total" + i); // 태그 추가할 div 영역
+			newdivTotal.appendChild(newuls);
+	
 		}
-		
-		
 		
 
 		//토핑 가격
-		var toppingP = $('#totalT').val();
+		var priceArr = arr[i].price.split(",");
 		//피자 가격
 		var pizzaP = $('#totalP').val();
-		console.log("toppingP : " + toppingP);
 		console.log("pizzaP : " + pizzaP);
 
-		var toppingPrice = 0;
-
-		var t_price = $('#totalT').val();
-
-		console.log("t_priceArr : " + t_priceArr);
-
+		
+		console.log("priceArr : " + priceArr);
 		//토핑 합계 계산
 		var toppingPrice = 0;
-		if (t_price != null) {
+		if (priceArr != null) {
 			//피자금액에 토핑 금액 합산
-			var t_priceArr = t_price.split(",");
-			for (var i = 0; i < t_priceArr.length; i++) {
-				toppingPrice += parseInt(t_priceArr[i], 10);
+			for (var i = 0; i < priceArr.length; i++) {
+				toppingPrice += parseInt(priceArr[i], 10);
+				console.log("toppingPrice : " + toppingPrice);
 			}
 			var totalPizzaPrice = toppingPrice + Number(pizzaP);
 			$('#pizza-total').html(totalPizzaPrice);
@@ -158,39 +191,7 @@
 			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#pizza-total').html(p_total);
 
-			//토핑이 있을경우 li 영역에 추가 
-			/*  var t_name = $('#toppingName').val();
-			var t_nameArr = t_name.split(",");
-
-			var t_priceArr = toppingP.split(",");
-
-			var t_count = $('#toppingCount').val();
-			var t_countArr = t_count.split(",");
-
 			
-			var idxNum = Number($('#idxNum').val());
-			var index = Number($('#toppingIdx').val());
-			for (i = 0; i < t_nameArr.length; i++) {
-				index++;
-				
-				$('#topping' + index + idxNum).append('<li id="delBtn' + index + idxNum + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
-			         + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
-			            + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
-			}  */
-			/*  var t_name = $('#toppingName').val();
-			var t_nameArr = t_name.split(",");
-
-			var t_priceArr = toppingP.split(",");
-
-			var t_count = $('#toppingCount').val();
-			var t_countArr = t_count.split(",");
-
-			var idxNum = Number($('#idxNum').val());
-			var index = Number($('#toppingIdx').val());
-			
-			for (i = 0; i < t_nameArr.length; i++) {
-				$('#t_price').text(t_priceArr[i]);
-			} */
 		} else {
 			$('#pizza-total').html(Number(pizzaP));
 			var p_total = $('#pizza-total').text();
@@ -216,8 +217,7 @@
 
 			var index = $('#toppingIdx').val();
 			for (i = 0; i < s_nameArr.length; i++) {
-				$('#sideRow')
-						.append(
+				$('#sideRow').append(
 								'<div class="prd-info"><div class="prd-img"></div><div class="prd-cont"><div class="subject">'
 										+ s_nameArr[i]
 										+ '</div>'
@@ -245,9 +245,8 @@
 
 		var pizzaImage = "";
 
-		/* id="delBtn' + goodsNextRowSeq + '" */
-
-		/* var index = $('#toppingIdx').val();
+		
+	/* var index = $('#toppingIdx').val();
 		var t_name = $('#t_name').val();
 		console.log("t_name : " + t_name);
 		for(i=0; i<t_nameArr.length; i++ ){
@@ -939,6 +938,7 @@
 													id="toppingSize" value="${fn:length(basketList)}" />
 													<input type="hidden" id="idxNum" value="${status.index}" />
 													<input type="hidden" id="toppingIdx" value="${pizza.seq}" />
+													<input type="hidden" id="pizzaPrice" value="${pizza.pizzaPrice}"/>
 											</div>
 											<c:if test="${pizza.pizzaName != null }">
 												<li class="row" id="row${status.index}">
@@ -948,7 +948,7 @@
 														<a href="javascript:pizzaDelete(${status.index});"
 															class="btn-type4-brd3">삭제</a>
 													</div>
-													<div class="prd-info">
+													<div class="prd-info" id="prd-info${status.index }">
 														<div class="prd-img">
 															<img
 																src="<c:url value= '/resources/images/admin/goods/${pizza.pizzaImage}' />" />
@@ -956,27 +956,14 @@
 														<div class="prd-cont">
 															<div class="subject">${pizza.pizzaName}</div>
 															<div class="option">${pizza.pizzaDough}/${pizza.pizzaSize}</div>
-															<div class="price">
-																<fmt:formatNumber value="${pizza.pizzaPrice}"
-																	pattern="#,###" />
-																원
+															<div class="pizzaPrice">
+																<fmt:formatNumber value="${pizza.pizzaPrice}" pattern="#,###" />원
 															</div>
 														</div>
 													</div>
 
-													<div class="prd-option" style="">
-														<ul>
-															<%-- <c:forTokens items="${pizza.toppingName}" delims="," var="topping" varStatus="status"> --%>
-															<li id="topping${pizza.seq}${status.index}">
-																<%-- 	${topping}<span id="t_price"></span>
-   															<div class="prd-delete">
-															<a href="javascript:toppingDelete(${pizza.seq});" id="delTopping" class="btn-close"> <span class="hidden">삭제</span>
-															</a>
-															</div> --%>
-															</li>
-
-															<%-- </c:forTokens> --%>
-														</ul>
+													<div class="prd-option" id="prd-option${status.index }" style="">
+														
 
 													</div>
 													<div class="prd-quantity">
@@ -993,8 +980,8 @@
 													</div> <input type="hidden" id="totalP"
 													value="${pizza.pizzaPrice}"> <input type="hidden"
 													id="totalT" value="${pizza.toppingPrice}">
-													<div class="prd-total">
-														<em id="pizza-total"></em>원
+													<div class="prd-total" id="prd-total${status.index }">
+														
 													</div>
 													<div class="prd-delete">
 														<a href="javascript:pizzaDelete(${pizza.seq});"
