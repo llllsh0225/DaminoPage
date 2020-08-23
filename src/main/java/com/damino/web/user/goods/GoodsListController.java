@@ -207,12 +207,12 @@ public class GoodsListController {
 	}
 
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
-	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request,
-			@ModelAttribute UserBasketVO vo, HttpSession session) {
-		//String userid = (String) session.getAttribute("userid");
+	@ResponseBody
+	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
-		int gubun = 0;
-		
+		int gubunDB = 0;// DB 삽입 정보 구별을 위한 변수	
+		String gubun = ""; //세션 정보 확인을 구한 변수
+	
 		String userId = (String) param.get("userId");
 		int p_price = (Integer) param.get("pizzaPrice");
 		String p_size = (String) param.get("pizzaSize");
@@ -238,21 +238,10 @@ public class GoodsListController {
 			vo.setT_price(Integer.parseInt(t_priceArr[i]));
 			//vo.setT_image(t_image);
 			vo.setT_count(Integer.parseInt(t_countArr[i]));
-			vo.setGubun(gubun);
+			vo.setGubun(gubunDB);
 			goodsListService.insertToppingBasket(vo);
 		}
 				
-		/*
-		 * String toppingPrice = (String)param.get("toppingPrice"); String toppingName =
-		 * (String)param.get("toppingName"); String toppingCount =
-		 * (String)param.get("toppingCount"); //사이드 String sidePrice =
-		 * (String)param.get("sidePrice"); String sideName =
-		 * (String)param.get("sideName"); String sideCount =
-		 * (String)param.get("sideCount"); //음료 및 기타 String etcPrice =
-		 * (String)param.get("etcPrice"); String etcName = (String)param.get("etcName");
-		 * String etcCount = (String)param.get("etcCount");
-		 */
-
 		// vo에 값 셋팅
 		vo.setUserid(userId);
 		vo.setP_price(p_price);
@@ -261,23 +250,17 @@ public class GoodsListController {
 		vo.setP_dough(p_dough);
 		vo.setP_count(p_count);
 		vo.setP_image(p_image);
-		vo.setGubun(gubun);
+		vo.setGubun(gubunDB);
 		
-		//vo.setT_price(t_price);
-		/*
-		 * vo.setToppingPrice(toppingPrice); vo.setToppingName(toppingName);
-		 * vo.setToppingCount(toppingCount);
-		 * 
-		 * vo.setSidePrice(sidePrice); vo.setSideName(sideName);
-		 * vo.setSideCount(sideCount);
-		 * 
-		 * vo.setEtcPrice(etcPrice); vo.setEtcName(etcName); vo.setEtcCount(etcCount);
-		 */
-
+		
 		goodsListService.insertPizzaBasket(vo);
-		gubun++;
+		gubunDB++;
 		
-		return "success";
+		if(gubun != null) {
+			return "success";
+		}else {
+			return "noSession";
+		}			
 		
 	}
 	
