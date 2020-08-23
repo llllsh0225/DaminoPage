@@ -31,12 +31,20 @@ public interface GoodsListDAO {
 	public void insertPizzaBasket(UserBasketVO vo);
 	//장바구니 - 토핑 삽입
 	public void insertToppingBasket(UserBasketVO vo);
+	//장바구니 - 사이드디시 삽입
+	public void insertSideBasket(UserBasketVO vo);
+	//장바구니 - 음료 및 기타 삽입
+	public void insertEtcBasket(UserBasketVO vo);
 		
 	//장바구니 피자 메뉴 불러오기
 	public List<UserBasketVO> getBasketPizza(String userid);
 	//장바구니 토핑 메뉴 불러오기
 	public List<UserBasketVO> getBasketTopping(String userid);
-		
+	//장바구니 사이드디시 메뉴 불러오기
+	public List<UserBasketVO> getBasketSide(String userid);
+	//장바구니 음료 및 기타 메뉴 불러오기
+	public List<UserBasketVO> getBasketEtc(String userid);	
+	
 	//장바구니 - 토핑 삭제
 	public void deleteTopping(UserBasketVO vo);		
 	

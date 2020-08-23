@@ -96,10 +96,28 @@ public class GoodsListServiceImpl implements GoodsListService {
 
 	@Override
 	public void insertPizzaBasket(UserBasketVO vo) {
-		System.out.println("장바구니 추가");
+		System.out.println("장바구니 피자 추가");
 		goodsListDAO.insertPizzaBasket(vo);
 	}
-
+	
+	@Override
+	public void insertToppingBasket(UserBasketVO vo) {
+		System.out.println("장바구니 토핑 추가");
+		goodsListDAO.insertToppingBasket(vo);
+	}
+	
+	@Override
+	public void insertSideBasket(UserBasketVO vo) {
+		System.out.println("장바구니 사이드디시 추가");
+		goodsListDAO.insertSideBasket(vo);
+	}
+	
+	@Override
+	public void insertEtcBasket(UserBasketVO vo) {
+		System.out.println("장바구니 음료 및 기타 추가");
+		goodsListDAO.insertEtcBasket(vo);
+	}
+	
 	@Override
 	public List<UserBasketVO> getBasketPizza(String userid) {
 		System.out.println("장바구니 피자 목록");
@@ -119,17 +137,20 @@ public class GoodsListServiceImpl implements GoodsListService {
 	}
 
 	@Override
-	public void insertToppingBasket(UserBasketVO vo) {
-		System.out.println("장바구니 토핑 추가");
-		goodsListDAO.insertToppingBasket(vo);
-	}
-
-	@Override
 	public List<UserBasketVO> getBasketTopping(String userid) {
 		System.out.println("장바구니 토핑 목록");
 		return goodsListDAO.getBasketTopping(userid);
 	}
+	
+	@Override
+	public List<UserBasketVO> getBasketSide(String userid) {
+		return goodsListDAO.getBasketSide(userid);
+	}
 
+	@Override
+	public List<UserBasketVO> getBasketEtc(String userid) {
+		return goodsListDAO.getBasketEtc(userid);
+	}
 	@Override
 	public void deleteTopping(UserBasketVO vo) {
 		System.out.println("토핑 삭제");
@@ -147,6 +168,9 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("피자의 토핑 정보 삭제");
 		goodsListDAO.deletePizzasTopping(vo);
 	}
+
+
+
 
 	
 }

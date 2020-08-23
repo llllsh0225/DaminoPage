@@ -7,11 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
-import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 
 @Controller
 public class GoodsListController {
@@ -164,12 +160,17 @@ public class GoodsListController {
 			// userid 기준 장바구니 목록 호출
 			List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
 			List<UserBasketVO> toppingList = goodsListService.getBasketTopping(userid);
-			System.out.println(basketList);
+			List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
+			List<UserBasketVO> etcList = goodsListService.getBasketEtc(userid);
 
 			mav.addObject("basketList", basketList);
 			mav.addObject("toppingList", toppingList);
+			mav.addObject("sideList", sideList);
+			mav.addObject("etcList", etcList);
+			
 			System.out.println("toppingList : " + toppingList);
-			mav.setViewName("/basket/basket_detail");
+			System.out.println("sideList : " + sideList);
+			System.out.println("etcList : " + etcList);
 
 			return mav;
 		}
@@ -177,8 +178,8 @@ public class GoodsListController {
 
 	/** 사용자 선택 피자 메뉴 - 주문하기 경로로 들어올 때 */
 	@RequestMapping(value = "my_baskets.do", method = RequestMethod.POST)
-	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
-			HttpSession session) {
+	@ResponseBody
+	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
@@ -194,11 +195,17 @@ public class GoodsListController {
 			// userid 기준 장바구니 목록 호출
 			List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
 			List<UserBasketVO> toppingList = goodsListService.getBasketTopping(userid);
-			System.out.println(basketList);
+			List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
+			List<UserBasketVO> etcList = goodsListService.getBasketEtc(userid);
 
 			mav.addObject("basketList", basketList);
 			mav.addObject("toppingList", toppingList);
+			mav.addObject("sideList", sideList);
+			mav.addObject("etcList", etcList);
+			
 			System.out.println("toppingList : " + toppingList);
+			System.out.println("sideList : " + sideList);
+			System.out.println("etcList : " + etcList);
 			
 			mav.setViewName("/basket/basket_detail");
 
@@ -212,7 +219,8 @@ public class GoodsListController {
 		
 		int gubunDB = 0;// DB 삽입 정보 구별을 위한 변수	
 		String gubun = ""; //세션 정보 확인을 구한 변수
-	
+		
+	//--------------피자---------------------------
 		String userId = (String) param.get("userId");
 		int p_price = (Integer) param.get("pizzaPrice");
 		String p_size = (String) param.get("pizzaSize");
@@ -221,7 +229,19 @@ public class GoodsListController {
 		String p_image = (String) param.get("pizzaImage");
 		int p_count = (Integer) param.get("pizzaCount");
 		
-		// 토핑
+		// vo에 피자 관련 값 셋팅
+		vo.setUserid(userId);
+		vo.setP_price(p_price);
+		vo.setP_size(p_size);
+		vo.setP_name(p_name);
+		vo.setP_dough(p_dough);
+		vo.setP_count(p_count);
+		vo.setP_image(p_image);
+		vo.setGubun(gubunDB);
+		
+		goodsListService.insertPizzaBasket(vo);
+		
+	//--------------토핑--------------------------------
 		String t_prices = (String)param.get("toppingPrice");
 		String t_names = (String)param.get("toppingName");
 		String t_counts = (String)param.get("toppingCount");
@@ -239,21 +259,49 @@ public class GoodsListController {
 			//vo.setT_image(t_image);
 			vo.setT_count(Integer.parseInt(t_countArr[i]));
 			vo.setGubun(gubunDB);
+			
 			goodsListService.insertToppingBasket(vo);
 		}
-				
-		// vo에 값 셋팅
-		vo.setUserid(userId);
-		vo.setP_price(p_price);
-		vo.setP_size(p_size);
-		vo.setP_name(p_name);
-		vo.setP_dough(p_dough);
-		vo.setP_count(p_count);
-		vo.setP_image(p_image);
-		vo.setGubun(gubunDB);
 		
+	//--------------사이드---------------------------------
+		String s_prices =  (String)param.get("sidePrice");		
+		String s_names = (String)param.get("sideName");
+		String s_counts =  (String)param.get("sideCount");
 		
-		goodsListService.insertPizzaBasket(vo);
+		String s_priceArr[] = s_prices.split(",");
+		String s_nameArr[] = s_names.split(",");
+		String s_countArr[] = s_counts.split(",");
+		
+		for(int i=0; i<s_nameArr.length; i++) {
+			vo.setUserid(userId);
+			vo.setS_name(s_nameArr[i]);
+			vo.setS_price(Integer.parseInt(s_priceArr[i]));
+			//vo.setT_image(t_image);
+			vo.setS_count(Integer.parseInt(s_countArr[i]));
+			vo.setGubun(gubunDB);
+			
+			goodsListService.insertSideBasket(vo);
+		}
+	// ------------음료 및 기타-------------------------
+		String d_prices = (String) param.get("etcPrice");
+		String d_names = (String) param.get("etcName");
+		String d_counts = (String) param.get("etcCount");
+		
+		String d_priceArr[] = d_prices.split(",");
+		String d_nameArr[] = d_names.split(",");
+		String d_countArr[] = d_counts.split(",");
+		
+		for(int i=0; i<d_nameArr.length; i++) {
+			vo.setUserid(userId);
+			vo.setD_name(d_nameArr[i]);
+			vo.setD_price(Integer.parseInt(d_priceArr[i]));
+			//vo.setT_image(t_image);
+			vo.setD_count(Integer.parseInt(d_countArr[i]));
+			vo.setGubun(gubunDB);
+			
+			goodsListService.insertEtcBasket(vo);
+		}
+		
 		gubunDB++;
 		
 		if(gubun != null) {
