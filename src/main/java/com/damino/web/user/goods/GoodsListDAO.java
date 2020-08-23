@@ -27,10 +27,16 @@ public interface GoodsListDAO {
 	//사용자 선택 - 선택 가능 도우 불러오기
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);
 	
-	//장바구니 - 선택된 메뉴 삽입
-	public void insertBasket(UserBasketVO vo);
-	//장바구니 메뉴 불러오기
-	public List<UserBasketVO> getBasketList(String userid);
+	//장바구니 - 피자 메뉴 삽입
+	public void insertPizzaBasket(UserBasketVO vo);
+	//장바구니 - 토핑 삽입
+	public void insertToppingBasket(UserBasketVO vo);
+		
+	//장바구니 피자 메뉴 불러오기
+	public List<UserBasketVO> getBasketPizza(String userid);
+	//장바구니 토핑 메뉴 불러오기
+	public List<UserBasketVO> getBasketTopping(String userid);
+		
 	//장바구니 - 특정 토핑명 삭제
 	public void deleteToppingName(UserBasketVO vo); 
 	//장바구니 - 특정 토핑수량 삭제

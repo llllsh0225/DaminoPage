@@ -95,15 +95,15 @@ public class GoodsListServiceImpl implements GoodsListService {
 	}
 
 	@Override
-	public void insertBasket(UserBasketVO vo) {
+	public void insertPizzaBasket(UserBasketVO vo) {
 		System.out.println("장바구니 추가");
-		goodsListDAO.insertBasket(vo);
+		goodsListDAO.insertPizzaBasket(vo);
 	}
 
 	@Override
-	public List<UserBasketVO> getBasketList(String userid) {
-		System.out.println("장바구니 목록");
-		return goodsListDAO.getBasketList(userid);
+	public List<UserBasketVO> getBasketPizza(String userid) {
+		System.out.println("장바구니 피자 목록");
+		return goodsListDAO.getBasketPizza(userid);
 	}
 
 	@Override
@@ -136,6 +136,18 @@ public class GoodsListServiceImpl implements GoodsListService {
 	public void deleteEtcInfo(UserBasketVO vo) {
 		System.out.println("음료 정보 삭제");
 		goodsListDAO.deleteEtcInfo(vo);
+	}
+
+	@Override
+	public void insertToppingBasket(UserBasketVO vo) {
+		System.out.println("장바구니 토핑 추가");
+		goodsListDAO.insertToppingBasket(vo);
+	}
+
+	@Override
+	public List<UserBasketVO> getBasketTopping(String userid) {
+		System.out.println("장바구니 토핑 목록");
+		return goodsListDAO.getBasketTopping(userid);
 	}
 
 	
