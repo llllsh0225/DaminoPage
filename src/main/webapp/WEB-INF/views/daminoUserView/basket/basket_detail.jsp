@@ -201,14 +201,16 @@
 			$('#prd-total').html("<em>" + p_total + "</em>" + "원");
 
 			
-		} else {
-			$('#pizza-total').html(Number(pizzaP));
-			var p_total = $('#pizza-total').text();
+		}
+		$('#total-price').html(p_total);
+		/* else {
+			$('#prd-total').html(Number(pizzaP));
+			var p_total = $('#prd-total').text();
 			//천단위 구분 - 정규표현식
 			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			$('#pizza-total').html(p_total);
+			$('#prd-total').html(p_total);
 		}
-
+ */
 		var s_price = $('#sidePrice').val();
 
 		if (s_price != null) {
@@ -349,88 +351,9 @@
 		});
 		} 
 	}*/
-	/*function toppingDelete(toppingName, toppingCount, price, idx) {
-		
-		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
-		if (con_test == true) {
-		var index = Number($('#toppingIdx').val());
-		var userid = $('#userid').val();
-		/* var toppingName = $(this).toppingName;
-		var toppingCount = $(this).toppingCount;
-		var idx = $(this).idx; */
-		//var toppingPrice = $('#t_price').val();
-		/*$.ajax({
-			url : 'deleteTopping.do',
-			contentType : "application/json; charset=UTF-8;",
-			type : 'post',
-			data : JSON.stringify({
-				userid : userid,
-				toppingName : toppingName,
-				toppingCount : toppingCount,
-				toppingPrice : price,
-				seq : idx
-			}),
-			async : false,
-			success : function(data) {
-				alert("삭제 성공");
-				$('#delBtn' + index + idx).remove();
-				var delDiv = document.getElementId("delBtn" + index + idx);
-				var newdiv = document.getElementById("prd-option" + i); // 태그 추가할 div 영역
-				newdiv.removeChild(delDiv);
-				//var idxNum = Number($('#idxNum').val());
-				
-				location.reload(true);
-			},
-			error : function() {
-				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-			}
-		})
-		} else if (con_test == false) {
-			alert("취소되었습니다");
-		}
-	}
 
-	function pizzaDelete(idx) {
 
-		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
-		if (con_test == true) {
-			var userid = $('#userid').val();
-			/* var toppingName = $(this).toppingName;
-			var toppingCount = $(this).toppingCount;
-			var idx = $(this).idx; 
-			var goodsName = $('#pizzaName').val();
-			alert("goodsName : " + goodsName);
-			$.ajax({
-				url : 'pizzaDelete.do',
-				contentType : "application/json; charset=UTF-8;",
-				type : 'post',
-				data : JSON.stringify({
-					userid : userid,
-					goodsName : goodsName,
-					seq : idx
-				}),
-				async : false,
-				success : function(data) {
-					alert("삭제 성공");
-					/* var selectRemoveTr = $('#row' + idx).style.visibility = "hidden";
-					
-					var parent = document.getElementById("cart-list");
-					var delRow = document.getElementById("row" + idx);
-					
-					parent.removeChild(delRow);
-					 */
-					/*$('#row' + idx).remove();
 
-					location.reload(true);
-				},
-				error : function() {
-					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-				}
-			})
-		} else if (con_test == false) {
-			alert("취소되었습니다");
-		}
-	}*/
 	function sideDelete(idx) {
 
 		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
@@ -499,31 +422,8 @@
 			alert("취소되었습니다");
 		}
 	}
-	 function toppingDelete(index){
-	
-	 var userid = $('#userid').val();
-	 var idx = $(this).idx;
-	
-	 $.ajax({
-	 url : 'deleteTopping.do',
-	 contentType : "application/json; charset=UTF-8;",
-	 type: 'post', 
-	 data : JSON.stringify({
-	 userid : userid,
-	 toppingName : toppingName,
-	 toppingCount : toppingCount,
-	 seq : idx
-	 }),
-	
-	 success: function(data) {
-	 alert("삭제 성공");
-	 },
-	 error: function() {
-	 alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-	 }
-	 })
-	
-	 }	
+ /* 	 */
+
 	var addressSeq = 0; // 주소 테이블 seq 값
 
 	function addAddress() {
@@ -617,6 +517,65 @@
 
 		//var userid = $('#userid').val(); //컨트롤러에서 세션 아이디값을 추가해줘야함!
 	}
+}//END window.onload
+
+
+function toppingDelete(index){
+	 var rowseq = index;
+	 
+	 if(confirm("선택하신 토핑을 삭제하시겠습니까?")) {
+	 var userid = $('#userid').val();
+	 
+	 $.ajax({
+	 url : 'deleteTopping.do',
+	 contentType : "application/json; charset=UTF-8;",
+	 type: 'post', 
+	 data : JSON.stringify({
+	 	userid : userid,
+	 	seq : index
+	 }),
+	
+	 	success: function(data) {
+			 alert("삭제 성공");
+			 location.reload(true);
+	 		},
+		 error: function() {
+	 		alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+	 		}
+	 	})
+		}else  {
+			return;
+		}
+}
+function pizzaDelete(idx, gubun) {
+	 var rowseq = idx;
+	 var gubun = gubun;
+	 if(confirm("해당 정보를 삭제하시겠습니까?")){
+			
+			var userid = $('#userid').val();
+			
+			$.ajax({
+				url : 'pizzaDelete.do',
+				contentType : "application/json; charset=UTF-8;",
+				type : 'post',
+				data : JSON.stringify({
+					userid : userid,
+					seq : rowseq,
+					gubun : gubun
+				}),
+				async : false,
+				success : function(data) {
+					alert("삭제 성공");
+
+					location.reload(true);
+				},
+				error : function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
+		} else {
+			return;
+		}
 	}
 </script>
 </head>
@@ -891,16 +850,11 @@
 										
 										<c:forEach var="pizza" items="${basketList}" varStatus="status">
 											<div class="hidden-info">
-												
+											<input type="hidden" id="userid" value="${userid}" />	
 											</div>
 											<c:if test="${pizza.p_name != null }">
 												<li class="row" id="row${status.index}">
-													<div class="sold-out-btn" id="sold-out-btn0"
-														style="display: none">
-														<p>Sold Out</p>
-														<a href="javascript:pizzaDelete(${status.index});"
-															class="btn-type4-brd3">삭제</a>
-													</div>
+													
 													<div class="prd-info" id="prd-info${status.index }">
 														<div class="prd-img">
 															<img
@@ -920,9 +874,9 @@
 														<ul>
 														<li>
 														<span>${toppingList.t_name}(<fmt:formatNumber value="${toppingList.t_price}" pattern="#,###" />원)x${toppingList.t_count}
-														<a href="javascript:toppingDelete(${toppingList.seq});"
+														 <a href="javascript:toppingDelete(${toppingList.seq});"
 															id="delPizza" class="close"> <span class="hidden">삭제</span>
-															</a>
+															</a> 
 														
 														</span>
 														</li>
@@ -956,7 +910,7 @@
 														<em><fmt:formatNumber value="${pizza.p_price}" pattern="#,###" /></em>원
 													</div>
 													<div class="prd-delete">
-														<a href="javascript:pizzaDelete(${pizza.seq});"
+														<a href="javascript:pizzaDelete(${pizza.seq},${pizza.gubun});"
 															id="delPizza" class="btn-close"> <span class="hidden">삭제</span>
 														</a>
 

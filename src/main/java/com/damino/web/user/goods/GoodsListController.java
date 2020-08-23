@@ -280,53 +280,56 @@ public class GoodsListController {
 		return "success";
 		
 	}
+	
+	@RequestMapping(value = "/deleteTopping.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteTopping(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		System.out.println("userid : " + userid);
+		
+		int seq = (Integer)param.get("seq");
+		System.out.println("seq : " + seq);
+		vo.setUserid(userid);
+		vo.setSeq(seq);
+		
+		System.out.println("del : " + userid);
+		System.out.println("del seq : " + seq);
 
+		goodsListService.deleteTopping(vo);
+		return "success";
+		
+	}
+	
+	@RequestMapping(value = "/pizzaDelete.do", method = RequestMethod.POST)
+
+	@ResponseBody
+	public String pizzaDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		String p_name = (String) param.get("goodsName");
+		int seq = (Integer) param.get("seq");
+		int gubun = (Integer) param.get("gubun");
+
+		vo.setUserid(userid);
+		vo.setSeq(seq);
+		vo.setP_name(p_name);
+		vo.setGubun(gubun);
+		// vo.setToppingCount(toppingCount);
+
+		System.out.println("del : " + userid);
+		System.out.println("del pizzaName : " + p_name);
+		System.out.println("del seq : " + seq);
+		System.out.println("del gubun : " + gubun);
+		
+		goodsListService.deletePizzaInfo(vo);
+		goodsListService.deletePizzasTopping(vo);
+		
+		return "success";
+	}
+	
 	/*
-	 * @RequestMapping(value="/deleteTopping.do", method=RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String deleteTopping(@RequestBody Map<String, Object>
-	 * param, UserBasketVO vo) { String userid = (String) param.get("userid");
-	 * String toppingName = (String) param.get("toppingName");
-	 * 
-	 * String toppingCount = String.valueOf(param.get("toppingCount"));
-	 * System.out.println("toppingCount : " + toppingCount); String toppingPrice =
-	 * (String)param.get("toppingPrice"); System.out.println("toppingPrice : " +
-	 * toppingPrice);
-	 * 
-	 * //String seq = (String)param.get("seq"); int seq = (Integer)param.get("seq");
-	 * System.out.println("seq : " + seq); vo.setUserid(userid); vo.setSeq(seq);
-	 * vo.setToppingName(toppingName); vo.setToppingCount(toppingCount);
-	 * vo.setToppingPrice(toppingPrice);
-	 * 
-	 * System.out.println("del : " + userid);
-	 * System.out.println("del toppingName : " + toppingName);
-	 * System.out.println("del toppingCount : " + toppingCount);
-	 * System.out.println("del seq : " + seq);
+	 *
 	 * 
 	 * 
-	 * goodsListService.deleteToppingName(vo);
-	 * //goodsListService.deleteToppingCount(vo);
-	 * 
-	 * 
-	 * return "success"; }
-	 * 
-	 * @RequestMapping(value="/pizzaDelete.do", method=RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String pizzaDelete(@RequestBody Map<String, Object>
-	 * param, UserBasketVO vo) { String userid = (String) param.get("userid");
-	 * String pizzaName = (String) param.get("goodsName"); int seq =
-	 * (Integer)param.get("seq");
-	 * 
-	 * vo.setUserid(userid); vo.setSeq(seq); vo.setPizzaName(pizzaName);
-	 * //vo.setToppingCount(toppingCount);
-	 * 
-	 * System.out.println("del : " + userid); System.out.println("del pizzaName : "
-	 * + pizzaName); System.out.println("del seq : " + seq);
-	 * 
-	 * 
-	 * goodsListService.deletePizzaInfo(vo);
-	 * 
-	 * return "success"; }
 	 * 
 	 * @RequestMapping(value="/sideDelete.do", method=RequestMethod.POST)
 	 * 

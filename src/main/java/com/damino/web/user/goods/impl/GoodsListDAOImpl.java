@@ -105,24 +105,6 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 	}
 
 	@Override
-	public void deleteToppingName(UserBasketVO vo) {
-		sqlSessionTemplate.update("GoodsListDAO.deleteToppingName", vo);
-		
-	}
-
-	@Override
-	public void deleteToppingCount(UserBasketVO vo) {
-		sqlSessionTemplate.update("GoodsListDAO.deleteToppingCount", vo);
-		
-	}
-
-	@Override
-	public void deletePizzaInfo(UserBasketVO vo) {
-		sqlSessionTemplate.update("GoodsListDAO.deletePizzaInfo", vo);
-		
-	}
-
-	@Override
 	public void deleteSideInfo(UserBasketVO vo) {
 		sqlSessionTemplate.update("GoodsListDAO.deleteSideInfo", vo);
 	}
@@ -142,6 +124,22 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 	public List<UserBasketVO> getBasketTopping(String userid) {
 		System.out.println("토핑 목록 불러오기");
 		return sqlSessionTemplate.selectList("GoodsListDAO.getBasketTopping", userid);
+	}
+
+	@Override
+	public void deleteTopping(UserBasketVO vo) {
+		System.out.println("토핑 삭제");
+		sqlSessionTemplate.delete("GoodsListDAO.deleteTopping", vo);
+	}
+
+	@Override
+	public void deletePizzaInfo(UserBasketVO vo) {
+		sqlSessionTemplate.delete("GoodsListDAO.deletePizzaInfo", vo);
+	}
+	
+	@Override
+	public void deletePizzasTopping(UserBasketVO vo) {
+		sqlSessionTemplate.delete("GoodsListDAO.deletePizzasTopping", vo);
 	}
 	
 	

@@ -94,9 +94,15 @@
 		WHERE userid = #{userid}
 	</select>
 	
+	<!-- 장바구니 토핑 삭제하기 -->
+	<delete id="deleteTopping" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersTopping
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
+	
 	<!-- 장바구니 특정 토핑 이름, 토핑개수 삭제 -->
 	<!-- update 테이블명 set 컬럼명 = replace(컬럼명, '대상문자', '치환될문자'); -->
-	<update id="deleteToppingName" parameterType="com.damino.web.user.goods.UserBasketVO">
+	<!-- <update id="deleteTopping" parameterType="com.damino.web.user.goods.UserBasketVO">
 		UPDATE userBasket SET
 		toppingName = REPLACE (toppingName, #{toppingName}, null),
 		toppingCount = REPLACE (toppingCount, #{toppingCount}, null),
@@ -107,14 +113,18 @@
 	<update id="deleteToppingCount" parameterType="com.damino.web.user.goods.UserBasketVO">
 		UPDATE userBasket SET 
 		WHERE userid = #{userid} AND seq = #{seq} 
-	</update>
+	</update> -->
 	
 	<!-- 장바구니 피자정보 삭제 -->
-	<update id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
-		UPDATE userBasket SET pizzaName = null, pizzaCount = null, pizzaImage = null, pizzaPrice = null, pizzaDough = null,
-		toppingName = null, toppingCount = null, toppingPrice = null		
-		WHERE userid = #{userid} AND seq = #{seq} AND pizzaName = #{pizzaName}
-	</update>
+	<delete id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersPizza
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
+	<!-- 장바구니 피자 삭제시 연관된 토핑 삭제 -->
+	<delete id="deletePizzasTopping" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersTopping
+		WHERE userid = #{userid} AND gubun = #{gubun}
+	</delete>
 	
 	<!-- 장바구니 사이드디시 정보 삭제 -->
 	<update id="deleteSideInfo" parameterType="com.damino.web.user.goods.UserBasketVO">

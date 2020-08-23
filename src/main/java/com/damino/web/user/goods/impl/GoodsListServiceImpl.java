@@ -107,26 +107,6 @@ public class GoodsListServiceImpl implements GoodsListService {
 	}
 
 	@Override
-	public void deleteToppingName(UserBasketVO vo) {
-		System.out.println("특정 토핑 이름 삭제");
-		goodsListDAO.deleteToppingName(vo);
-		
-	}
-
-	@Override
-	public void deleteToppingCount(UserBasketVO vo) {
-		System.out.println("특정 토핑 수량 삭제");
-		goodsListDAO.deleteToppingCount(vo);
-		
-	}
-
-	@Override
-	public void deletePizzaInfo(UserBasketVO vo) {
-		System.out.println("피자 정보 삭제");
-		goodsListDAO.deletePizzaInfo(vo);
-	}
-
-	@Override
 	public void deleteSideInfo(UserBasketVO vo) {
 		System.out.println("사이드디시 정보 삭제");
 		goodsListDAO.deleteSideInfo(vo);
@@ -148,6 +128,24 @@ public class GoodsListServiceImpl implements GoodsListService {
 	public List<UserBasketVO> getBasketTopping(String userid) {
 		System.out.println("장바구니 토핑 목록");
 		return goodsListDAO.getBasketTopping(userid);
+	}
+
+	@Override
+	public void deleteTopping(UserBasketVO vo) {
+		System.out.println("토핑 삭제");
+		goodsListDAO.deleteTopping(vo);
+	}
+	
+	@Override
+	public void deletePizzaInfo(UserBasketVO vo) {
+		System.out.println("피자 정보 삭제");
+		goodsListDAO.deletePizzaInfo(vo);
+	}
+	
+	@Override
+	public void deletePizzasTopping(UserBasketVO vo) {
+		System.out.println("피자의 토핑 정보 삭제");
+		goodsListDAO.deletePizzasTopping(vo);
 	}
 
 	
