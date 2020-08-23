@@ -172,6 +172,8 @@ public class GoodsListController {
 			System.out.println("sideList : " + sideList);
 			System.out.println("etcList : " + etcList);
 
+			mav.setViewName("/basket/basket_detail");
+			
 			return mav;
 		}
 	}
@@ -217,7 +219,7 @@ public class GoodsListController {
 	@ResponseBody
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
-		int gubunDB = 0;// DB 삽입 정보 구별을 위한 변수	
+		int gubunDB = 0;// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
 		String gubun = ""; //세션 정보 확인을 구한 변수
 		
 	//--------------피자---------------------------
@@ -302,7 +304,7 @@ public class GoodsListController {
 			goodsListService.insertEtcBasket(vo);
 		}
 		
-		gubunDB++;
+		
 		
 		if(gubun != null) {
 			return "success";
@@ -357,69 +359,68 @@ public class GoodsListController {
 		return "success";
 	}
 	
+	  
+	@RequestMapping(value = "/sideDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String sideDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		int seq = (Integer) param.get("seq");
+
+		vo.setUserid(userid);
+		vo.setSeq(seq);
+		// vo.setToppingCount(toppingCount);
+
+		System.out.println("del : " + userid);
+		System.out.println("del seq : " + seq);
+
+		goodsListService.deleteSideInfo(vo);
+
+		return "success";
+	}
+
+	@RequestMapping(value = "/etcDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String etcDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+		int seq = (Integer) param.get("seq");
+
+		vo.setUserid(userid);
+		vo.setSeq(seq);
+		// vo.setToppingCount(toppingCount);
+
+		System.out.println("del : " + userid);
+		System.out.println("del seq : " + seq);
+
+		goodsListService.deleteEtcInfo(vo);
+
+		return "success";
+	}
+
 	/*
-	 *
-	 * 
-	 * 
-	 * 
-	 * @RequestMapping(value="/sideDelete.do", method=RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String sideDelete(@RequestBody Map<String, Object>
-	 * param, UserBasketVO vo) { String userid = (String) param.get("userid");
-	 * String sideName = (String) param.get("goodsName"); int seq =
-	 * (Integer)param.get("seq");
-	 * 
-	 * vo.setUserid(userid); vo.setSeq(seq); vo.setSideName(sideName);
-	 * //vo.setToppingCount(toppingCount);
-	 * 
-	 * System.out.println("del : " + userid); System.out.println("del sideName : " +
-	 * sideName); System.out.println("del seq : " + seq);
-	 * 
-	 * goodsListService.deleteSideInfo(vo);
-	 * 
-	 * return "success"; }
-	 * 
-	 * @RequestMapping(value="/etcDelete.do", method=RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String etcDelete(@RequestBody Map<String, Object> param,
-	 * UserBasketVO vo) { String userid = (String) param.get("userid"); String
-	 * etcName = (String) param.get("goodsName"); int seq =
-	 * (Integer)param.get("seq");
-	 * 
-	 * vo.setUserid(userid); vo.setSeq(seq); vo.setEtcName(etcName);
-	 * //vo.setToppingCount(toppingCount);
-	 * 
-	 * System.out.println("del : " + userid); System.out.println("del etcName : " +
-	 * etcName); System.out.println("del seq : " + seq);
-	 * 
-	 * goodsListService.deleteEtcInfo(vo);
-	 * 
-	 * return "success"; }
-	 * 
-	 * 
-	 * @RequestMapping(value="/getToppingNames.do", method=RequestMethod.POST)
+	 * @RequestMapping(value = "/getToppingNames.do", method = RequestMethod.POST)
 	 * 
 	 * @ResponseBody public List<GoodsToppingVO> getToppingNames(HttpServletRequest
-	 * request, @RequestBody Map<String, Object> params, GoodsToppingVO vo){ String
-	 * toppingName = (String)params.get("t_name");
+	 * request, @RequestBody Map<String, Object> params, GoodsToppingVO vo) { String
+	 * toppingName = (String) params.get("t_name");
 	 * 
-	 * //String[] arrayParam = request.getParameterValues("test");
+	 * // String[] arrayParam = request.getParameterValues("test");
 	 * System.out.println(toppingName);
 	 * 
-	 * //GoodsToppingVO toppingVO = new GoodsToppingVO();
+	 * // GoodsToppingVO toppingVO = new GoodsToppingVO();
 	 * 
 	 * List<String> t_name_List = new ArrayList<String>(); String[] t_name_List2 =
 	 * toppingName.split(",");
 	 * 
 	 * List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
 	 * 
-	 * for(int i=0; i<t_name_List2.length; i++) { vo.setT_name(t_name_List2[i]);
+	 * for (int i = 0; i < t_name_List2.length; i++) {
+	 * vo.setT_name(t_name_List2[i]);
 	 * 
 	 * GoodsToppingVO topping = goodsListService.getUserTopping(vo);
 	 * 
 	 * toppingList.add(topping); System.out.println(vo.getT_name()); } return
 	 * toppingList; }
-	*/
+	 */
 
 	@RequestMapping(value = "/getStoreRegion.do", method = RequestMethod.POST)
 	@ResponseBody

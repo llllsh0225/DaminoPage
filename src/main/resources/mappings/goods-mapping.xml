@@ -153,14 +153,14 @@
 	</delete>
 	
 	<!-- 장바구니 사이드디시 정보 삭제 -->
-	<update id="deleteSideInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
-		UPDATE userBasket SET sideName = null, sideCount = null, sidePrice = null	
-		WHERE userid = #{userid} AND seq = #{seq} AND sideName = #{sideName}
-	</update>
+	<delete id="deleteSideInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersSide
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
 	
 	<!-- 장바구니 음료 정보 삭제 -->
-	<update id="deleteEtcInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
-		UPDATE userBasket SET etcName = null, etcCount = null, etcPrice = null	
-		WHERE userid = #{userid} AND seq = #{seq} AND etcName = #{etcName}
-	</update>
+	<delete id="deleteEtcInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersEtc
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
 </mapper>

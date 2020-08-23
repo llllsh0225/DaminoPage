@@ -46,11 +46,20 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script language=JavaScript>
 	var arr = new Array();
+	var sideArr = new Array();
+	
 <c:forEach var="topping" items="${toppingList}">
 	arr.push({
 		t_price : "${topping.t_price}",
 		t_count : "${topping.t_count}"
 	}); 										
+</c:forEach>
+	
+<c:forEach var="side" items="${sideList}">
+	sideArr.push({
+		s_price : "${side.s_price}",
+		s_count : "${side.s_count}"
+	}); 
 </c:forEach>
 /* for (var i = 0; i < arr.length; i++) {
 	 console.log("이름 : " + arr[i].name + " 가격 : " + arr[i].price + " 수량 : " + arr[i].count);
@@ -80,13 +89,7 @@
 			console.log(arr[i].t_price);
 		}
 
-		/* console.log("배열 길이" + arr.length);
-
-		var idxNum = Number($('#idxNum').val());
-		
-		var index = Number($('#toppingIdx').val());
-		
-		
+		/* 
 		for (var i = 0; i < arr.length; i++) {
 				// HTML 984행 ---> div영역 id 세팅하는 부분 참고해주세요.
 		
@@ -199,52 +202,26 @@
 			//천단위 구분 - 정규표현식
 			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#prd-total').html("<em>" + p_total + "</em>" + "원");
-
 			
 		}
-		$('#total-price').html(p_total);
-		/* else {
-			$('#prd-total').html(Number(pizzaP));
-			var p_total = $('#prd-total').text();
-			//천단위 구분 - 정규표현식
-			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			$('#prd-total').html(p_total);
-		}
- */
-		var s_price = $('#sidePrice').val();
-
-		if (s_price != null) {
-			var s_name = $('#sideName').val();
-			var s_nameArr = s_name.split(",");
-
-			var s_price = $('#sidePrice').val();
-			console.log("s_price : " + s_price);
-
-			var s_priceArr = s_price.split(",");
-			console.log("s_priceArr : " + s_priceArr);
-
-			var s_count = $('#sideCount').val();
-			var s_countArr = s_count.split(",");
-
-			var index = $('#toppingIdx').val();
-			for (i = 0; i < s_nameArr.length; i++) {
-				$('#sideRow').append(
-								'<div class="prd-info"><div class="prd-img"></div><div class="prd-cont"><div class="subject">'
-										+ s_nameArr[i]
-										+ '</div>'
-										+ '<input class="setName" id="sideName${status.index}" type="hidden" value="' + s_nameArr[i] + '/>'
-										+ '<div class="option"></div><div class="price">'
-										+ s_priceArr[i]
-										+ '원</div></div></div>'
-										+ '<div class="prd-option"></div><div class="prd-quantity"><div class="quantity-box v2"></div></div>'
-										+ '<div class="prd-total"></div><div class="prd-delete">'
-										+ '<a href="javascript:sideDelete('
-										+ index
-										+ ')" class="btn-close"><span class="hidden">삭제</span></a></div></div>');
-
+		
+		var sidePrice = 0;
+		if (sideArr != null) {
+			for (var i = 0; i < sideArr.length; i++) {
+				sidePrice = (parseInt(sideArr[i].s_price, 10) * parseInt(sideArr[i].s_count));
+				console.log("sidePrice : " + sidePrice);
+				
+				$('#side-total' + i).html(sidePrice);
+				
+				var s_total = $('#side-total' + i).text();
+				s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#side-total' + i).html(s_total);
 			}
- 
+			
 		}
+		
+		$('#total-price').html(p_total+s_total);
+
 		/* for(i=0; i<t_priceArr.length; i++){
 			toppingPrice += Number(t_priceArr[i]);
 			if (i != t_priceArr.length - 1) {
@@ -351,78 +328,6 @@
 		});
 		} 
 	}*/
-
-
-
-	function sideDelete(idx) {
-
-		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
-		if (con_test == true) {
-			var userid = $('#userid').val();
-			var goodsName = $('#sideName').val();
-
-			alert("goodsName : " + goodsName);
-			$.ajax({
-				url : 'sideDelete.do',
-				contentType : "application/json; charset=UTF-8;",
-				type : 'post',
-				data : JSON.stringify({
-					userid : userid,
-					goodsName : goodsName,
-					seq : idx
-				}),
-				async : false,
-				success : function(data) {
-					alert("삭제 성공");
-
-					$('#row' + idx).remove();
-
-					var i = idx.parentNode.parentNode.rowIndex;
-					document.getElementById("cart-list").deleteRow(i);
-					location.reload(true);
-				},
-				error : function() {
-					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-				}
-			})
-		} else if (con_test == false) {
-			alert("취소되었습니다");
-		}
-	}
-	function etcDelete(idx, seq) {
-
-		var con_test = confirm("해당 정보를 삭제하시겠습니까?");
-		if (con_test == true) {
-			var userid = $('#userid').val();
-			var goodsName = $('#etcName' + idx).val();
-
-			alert("goodsName : " + goodsName);
-			$.ajax({
-				url : 'etcDelete.do',
-				contentType : "application/json; charset=UTF-8;",
-				type : 'post',
-				data : JSON.stringify({
-					userid : userid,
-					goodsName : goodsName,
-					seq : seq
-				}),
-				async : false,
-				success : function(data) {
-					alert("삭제 성공");
-					/* 	    
-					document.getElementById("row" + idx).innerHTML = ''; */
-					$('#etcRow' + idx).remove();
-					location.reload(true);
-				},
-				error : function() {
-					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-				}
-			})
-		} else if (con_test == false) {
-			alert("취소되었습니다");
-		}
-	}
- /* 	 */
 
 	var addressSeq = 0; // 주소 테이블 seq 값
 
@@ -577,6 +482,62 @@ function pizzaDelete(idx, gubun) {
 			return;
 		}
 	}
+	
+	
+function etcDelete(idx) {
+
+	if(confirm("해당 정보를 삭제하시겠습니까?")){
+		var userid = $('#userid').val();
+		
+		$.ajax({
+			url : 'etcDelete.do',
+			contentType : "application/json; charset=UTF-8;",
+			type : 'post',
+			data : JSON.stringify({
+				userid : userid,
+				seq : idx
+			}),
+			async : false,
+			success : function(data) {
+				alert("삭제 성공");
+				
+				location.reload(true);
+			},
+			error : function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		})
+	} else {
+		return;
+	}
+}
+
+function sideDelete(idx) {
+
+	if(confirm("해당 정보를 삭제하시겠습니까?")){
+		var userid = $('#userid').val();
+
+		$.ajax({
+			url : 'sideDelete.do',
+			contentType : "application/json; charset=UTF-8;",
+			type : 'post',
+			data : JSON.stringify({
+				userid : userid,
+				seq : idx
+			}),
+			async : false,
+			success : function(data) {
+				alert("삭제 성공");
+				location.reload(true);
+			},
+			error : function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		})
+	} else {
+		return;
+	}
+}
 </script>
 </head>
 <body>
@@ -863,7 +824,7 @@ function pizzaDelete(idx, gubun) {
 														<div class="prd-cont">
 															<div class="subject">${pizza.p_name}</div>
 															<div class="option">${pizza.p_dough}/${pizza.p_size}</div>
-															<div class="pizzaPrice">
+															<div class="price">
 																<fmt:formatNumber value="${pizza.p_price}" pattern="#,###" />원
 															</div>
 														</div>
@@ -917,29 +878,29 @@ function pizzaDelete(idx, gubun) {
 													</div>
 												</li>
 											</c:if>
+										</c:forEach>
 											<!-- end 피자 -->
-											<%-- <c:if test="${pizza.s_name != null }">
-												<li class="row" id="sideRow"> --%>
-													<%-- <div class="sold-out-btn" id="sold-out-btn0"
+										<c:forEach var="side" items="${sideList}" varStatus="status">
+										 <c:if test="${side.s_name != null }">
+												<li class="row" id="sideRow"> 
+												 <div class="sold-out-btn" id="sold-out-btn0"
 														style="display: none">
 														<p>Sold Out</p>
 														<a
 															href="javascript:changeGoodsCnt('delete',0,'RPZ190GL', '1', 1, 0);"
 															class="btn-type4-brd3">삭제</a>
 													</div>
-
-
 													<div class="prd-info">
 														<div class="prd-img">
 															<img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"/>
 															<input type="hidden" id="pizzaImage" value="" />
 														</div>
 														<div class="prd-cont">
-															<div class="subject">${pizza.sideName}</div>
+															<div class="subject">${side.s_name}</div>
 															<input class="setName" id="sideName${status.index}"
-																type="hidden" value="${pizza.sideName}">
+																type="hidden" value="${side.s_name}">
 															<div class="option"></div>
-															<div class="price">${pizza.sidePrice}원</div>
+															<div class="price"><fmt:formatNumber value="${side.s_price}" pattern="#,###" />원</div>
 														</div>
 													</div>
 													<div class="prd-option"></div>
@@ -947,26 +908,28 @@ function pizzaDelete(idx, gubun) {
 														<div class="quantity-box v2">
 															<a href="javascript:void(0);"
 																onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
-																class="minus"><button class="btn-minus"></button></a> <input
-																type="number" class="qty0" id="qty0"
-																value="${pizza.sideCount}" readonly /> <a
-																href="javascript:void(0);"
+																class="minus"><button class="btn-minus"></button></a>
+																<input type="number" class="qty0" id="sideNomalSetNum${status.index}"
+																value="${side.s_count}" readonly />
+																<a href="javascript:void(0);"
 																onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
 																class="plus"><button class="btn-plus"></button></a>
 														</div>
 													</div>
 													<div class="prd-total">
-														<em id="side-total">${pizza.sidePrice}</em>원 <input
-															type="hidden" id="sidePrice" value="${pizza.sidePrice}" />
+														<em id="side-total${status.index}">
+														<fmt:formatNumber value="${side.s_price}" pattern="#,###" /></em>원 <input
+															type="hidden" id="sidePrice" value="${side.s_price}" />
 													</div>
 													<div class="prd-delete">
-														<a href="javascript:sideDelete(${status.index});"
+														<a href="javascript:sideDelete(${side.seq});"
 															class="btn-close"> <span class="hidden">삭제</span>
 														</a>
-													</div> --%>
+													</div> 
 												</li>
-											<%-- </c:if>
-											<c:if test="${pizza.etcName != null }">
+										  </c:if>
+										  </c:forEach>
+											<c:forEach var="etc" items="${etcList}" varStatus="status">
 												<li class="row" id="etcRow${status.index}">
 													<div class="sold-out-btn" id="sold-out-btn0"
 														style="display: none">
@@ -976,18 +939,19 @@ function pizzaDelete(idx, gubun) {
 															class="btn-type4-brd3">삭제</a>
 													</div>
 
-
 													<div class="prd-info">
 														<div class="prd-img">
-															<img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/${goodsDetail.p_image}' />"/>
+															<img id="pizzaI" src="<c:url value= '/resources/images/admin/goods/' />"/>
 															<input type="hidden" id="pizzaImage" value="" />
 														</div>
 														<div class="prd-cont">
-															<div class="subject">${pizza.etcName}</div>
+															<div class="subject">${etc.d_name}</div>
 															<input class="setName" id="etcName${status.index}"
-																type="hidden" value="${pizza.etcName}">
+																type="hidden" value="${etc.d_name}">
 															<div class="option"></div>
-															<div class="price">${pizza.etcPrice}원</div>
+															<div class="price">
+															<em>
+															<fmt:formatNumber value="${etc.d_price}" pattern="#,###" /></em>원</div>
 														</div>
 													</div>
 													<div class="prd-option"></div>
@@ -997,27 +961,25 @@ function pizzaDelete(idx, gubun) {
 																onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
 																class="minus"><button class="btn-minus"></button></a> <input
 																type="number" class="qty0" id="qty0"
-																value="${pizza.etcCount}" readonly /> <a
+																value="${etc.d_count}" readonly /> <a
 																href="javascript:void(0);"
 																onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
 																class="plus"><button class="btn-plus"></button></a>
 														</div>
 													</div>
 													<div class="prd-total">
-														<em id="etc-total">${pizza.etcPrice}</em>원 <input
-															type="hidden" id="etcPrice" value="${pizza.etcPrice}" />
+														<em id="etc-total">
+														<fmt:formatNumber value="${etc.d_price}" pattern="#,###" /></em>원
 													</div>
 													<div class="prd-delete">
 														<a
-															href="javascript:etcDelete(${status.index}, ${pizza.seq});"
+															href="javascript:etcDelete(${etc.seq});"
 															class="btn-close"> <span class="hidden">삭제</span>
 														</a>
 													</div>
 												</li>
-											</c:if> --%>
-
 										</c:forEach>
-										<c:if test="${empty basketList && empty toppingList}">
+										<c:if test="${empty basketList && empty toppingList && empty sideList && empty etcList}">
 											<article class="cart-area pay">
 												<div class="step-wrap"></div>
 												<div class="no-data">
