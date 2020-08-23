@@ -119,13 +119,35 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		System.out.println("장바구니 토핑 추가");
 		sqlSessionTemplate.insert("GoodsListDAO.insertToppingBasket", vo);
 	}
-
+	
+	@Override
+	public void insertSideBasket(UserBasketVO vo) {
+		System.out.println("장바구니 사이드디시 추가");
+		sqlSessionTemplate.insert("GoodsListDAO.insertSideBasket", vo);
+	}
+	
+	@Override
+	public void insertEtcBasket(UserBasketVO vo) {
+		System.out.println("장바구니 음료 및 기타 추가");
+		sqlSessionTemplate.insert("GoodsListDAO.insertEtcBasket", vo);
+	}
+	
 	@Override
 	public List<UserBasketVO> getBasketTopping(String userid) {
 		System.out.println("토핑 목록 불러오기");
 		return sqlSessionTemplate.selectList("GoodsListDAO.getBasketTopping", userid);
 	}
+	
+	@Override
+	public List<UserBasketVO> getBasketSide(String userid) {
+		return sqlSessionTemplate.selectList("GoodsListDAO.getBasketSide", userid);
+	}
 
+	@Override
+	public List<UserBasketVO> getBasketEtc(String userid) {
+		return sqlSessionTemplate.selectList("GoodsListDAO.getBasketEtc", userid);
+	}
+	
 	@Override
 	public void deleteTopping(UserBasketVO vo) {
 		System.out.println("토핑 삭제");
@@ -141,6 +163,12 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 	public void deletePizzasTopping(UserBasketVO vo) {
 		sqlSessionTemplate.delete("GoodsListDAO.deletePizzasTopping", vo);
 	}
+
+
+
+	
+
+	
 	
 	
 }
