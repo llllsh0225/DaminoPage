@@ -35,6 +35,7 @@ $(document).ready(function(){
 	$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
 		$('.pop-layer').hide();
 	});
+	
 });
 
 </script>
@@ -43,6 +44,7 @@ var price = 0;
 var doughPrice = 0;
 
 	window.onload = function() {
+		
 		//쉼표로 저장된 리스트 split으로 자르기
 		var splitDoughCode = $("#dough_db").val().split(",");		
 		
@@ -80,6 +82,13 @@ var doughPrice = 0;
 function saveBasket(){
 	alert("saveBasket 입니다");
 	
+	// 세션 정보 확인
+	var userid = $('#userid').val(); // 유저 아이디
+	var gubun = sessionStorage.getItem("gubun"); // 주문 구분 (D=배달, W=포장)
+	var address = sessionStorage.getItem("address"); // 배달지 주소
+	var storename = sessionStorage.getItem("storename"); // 배달매장명
+	var storephone = sessionStorage.getItem("storephone"); // 배달매장 전화번호
+
 	sum();
 // 선택된 옵션 value
 	price = $(':radio[name="size"]:checked').val(); //사이즈에 따른 피자 가격
@@ -228,12 +237,20 @@ function saveBasket(){
 			
 			etcPrice : etcPrices, 
 			etcName : etcName,
-			etcCount : etcCounts
+			etcCount : etcCounts,
+			
+			gubun : gubun
 		}),
 		async : false,
 		success: function(data) {
 			
-				alert('success');
+				if(data == 'success'){
+					alert('success');
+					$("#myBasket").submit();
+				}else if(data == 'noSession'){
+					location.href = "getOrderPage.do?gubun=D";
+				}
+				
 				
 		},
 		error: function() {
@@ -242,8 +259,6 @@ function saveBasket(){
 		
 		
 	})
-	
-	$("#myBasket").submit();
 	
 
 }
