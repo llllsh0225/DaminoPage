@@ -202,6 +202,7 @@ public class GoodsListController {
 		}
 	}
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
+	@ResponseBody
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		String userid = (String) session.getAttribute("userid");
 				
@@ -226,6 +227,9 @@ public class GoodsListController {
 		String etcName = (String)param.get("etcName");
 		String etcCount =  (String)param.get("etcCount");
 		
+		// 세션정보
+		String gubun = (String) param.get("gubun");
+		
 		//vo에 값 셋팅
 		vo.setUserId(userId);
 		vo.setPizzaPrice(pizzaPrice);
@@ -247,9 +251,14 @@ public class GoodsListController {
 		vo.setEtcName(etcName);
 		vo.setEtcCount(etcCount);
 		
-		goodsListService.insertBasket(vo);		
+		goodsListService.insertBasket(vo);	
 		
-		return "success";
+		if(gubun != null) {
+			return "success";
+		}else {
+			return "noSession";
+		}
+	
 		
 	}
 	
