@@ -194,25 +194,29 @@
 		//토핑 합계 계산
 		var toppingPrice = [];
 	
-		 
-				
+		
+	
+	
 		if (arr != null) {
 			//피자금액에 토핑 금액 합산
-		for (var i = 0; i < arr.length; i++) {		
+		for (var i = 0; i < arr.length; i++) {	
+			
+			console.log("토핑가격 : " + $('#t_price' + i).val());
+			
 			console.log("토핑구분 : " + arr[i].t_gubun);
 			var t_price = $('#t_price' + i).val();
 			console.log("가격 : " + t_price);
 			var toppingArr = Number(arr[i].t_name.split(","));
 			
 			for (var i = 0 ; i < 5 ; i++ ){
-				if (arr[i].t_gubun == arr[i+1].t_gubun){
-					console.log("배열의 내용이 일치합니다");
+				//if (arr[i].t_gubun == arr[i+1].t_gubun){
+				/* 	console.log("배열의 내용이 일치합니다");
 					console.log("토핑구분 : " + arr[i].t_gubun);
-			}
-			else{
-				console.log("배열의 내용이 일치하지 않습니다.");
+			//}
+			//else{
+				console.log("배열의 내용이 일치하지 않습니다."); */
 				console.log("토핑구분 : " + arr[i].t_gubun);
-				}
+			//	}
 			}
 				
 			 for(var j=0; j<toppingArr.length; j++){
@@ -861,7 +865,7 @@ function sideDelete(idx) {
 													</div>
 												
 													<div class="prd-option"  id="prd-option${status.index }"  style="">
-													<c:forEach var="toppingList" items="${toppingList}">
+													<c:forEach var="toppingList" items="${toppingList}" varStatus="idx">
 													<c:if test="${pizza.gubun eq toppingList.gubun}">
 														<ul>
 														<li>
@@ -869,11 +873,11 @@ function sideDelete(idx) {
 														 <a href="javascript:toppingDelete(${toppingList.seq});"
 															id="delPizza" class="close"> <span class="hidden">삭제</span>
 															</a> 
-														
+														<input type="hidden" id="t_price${idx.index}${status.index}" value="${toppingList.t_price}"/>
 														</span>
 														</li>
 														</ul>
-														<input type="hidden" id="t_price${status.index}" value="${toppingList.t_price}"/>
+														
 														<%-- <div id="prd-option${status.index }"></div>
 														 <a href="javascript:toppingDelete(${pizza.seq});"
 															id="delPizza" class="btn-close"> <span class="hidden">삭제</span> 
