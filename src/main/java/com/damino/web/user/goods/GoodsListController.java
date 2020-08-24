@@ -262,7 +262,6 @@ public class GoodsListController {
 		String t_countArr[] = t_counts.split(",");
 			
 		if(!t_names.isEmpty()) {		
-			System.out.println("t_names : " + t_names);
 			
 			for(int i=0; i<t_nameArr.length; i++) {
 				vo.setUserid(userId);
@@ -281,15 +280,11 @@ public class GoodsListController {
 		String s_names = (String)param.get("sideName");
 		String s_counts =  (String)param.get("sideCount");
 		
-		System.out.println("s_names : " + s_names);
-		
-			
 		String s_priceArr[] = s_prices.split(",");
 		String s_nameArr[] = s_names.split(",");
 		String s_countArr[] = s_counts.split(",");
-		System.out.println("s_nameArr : " + s_nameArr.length);	
-		if(!s_names.isEmpty()) {	
-				System.out.println("Å×½ºÆ®");
+		
+		if(!s_names.isEmpty()) {					
 			for(int i=0; i<s_nameArr.length; i++) {
 				vo.setUserid(userId);
 				vo.setS_name(s_nameArr[i]);

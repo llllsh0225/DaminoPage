@@ -45,13 +45,24 @@
 <!-- 다음 주소 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script language=JavaScript>
+	var pizzaArr = new Array();
 	var arr = new Array();
 	var sideArr = new Array();
-	
+
+<c:forEach var="pizza" items="${basketList}">
+	pizzaArr.push({
+		p_price : "${pizza.p_price}",
+		p_count : "${pizza.p_count}",
+		p_gubun : "${pizza.gubun}"
+	}); 
+</c:forEach>
+
 <c:forEach var="topping" items="${toppingList}">
 	arr.push({
 		t_price : "${topping.t_price}",
-		t_count : "${topping.t_count}"
+		t_count : "${topping.t_count}",
+		t_name : "${topping.t_name}",
+		t_gubun : "${topping.gubun}"
 	}); 										
 </c:forEach>
 	
@@ -179,30 +190,48 @@
 		
 	*/
 		//토핑 가격
-		//var price = $('#t_price').val();
-		//피자 가격
-		var pizzaP = $('#totalP').val();
-		console.log("pizzaP : " + pizzaP);
-
-		/* for (var i = 0; i < arr.length; i++) {
-			var priceArr = arr[i].price; */
-		//console.log("price : " + price);
+		
 		//토핑 합계 계산
-		var toppingPrice = 0;
+		var toppingPrice = [];
+	
+		 
+				
 		if (arr != null) {
 			//피자금액에 토핑 금액 합산
-			for (var i = 0; i < arr.length; i++) {
-				toppingPrice += (parseInt(arr[i].t_price, 10) * parseInt(arr[i].t_count, 10));
-				console.log("toppingPrice : " + toppingPrice);
-			}
-			var totalPizzaPrice = Number(toppingPrice) + Number(pizzaP);
-			$('#prd-total').html(totalPizzaPrice);
-
-			var p_total = $('#prd-total').text();
-			//천단위 구분 - 정규표현식
-			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			$('#prd-total').html("<em>" + p_total + "</em>" + "원");
+		for (var i = 0; i < arr.length; i++) {		
+			console.log("토핑구분 : " + arr[i].t_gubun);
+			var t_price = $('#t_price' + i).val();
+			console.log("가격 : " + t_price);
+			var toppingArr = Number(arr[i].t_name.split(","));
 			
+			for (var i = 0 ; i < 5 ; i++ ){
+				if (arr[i].t_gubun == arr[i+1].t_gubun){
+					console.log("배열의 내용이 일치합니다");
+					console.log("토핑구분 : " + arr[i].t_gubun);
+			}
+			else{
+				console.log("배열의 내용이 일치하지 않습니다.");
+				console.log("토핑구분 : " + arr[i].t_gubun);
+				}
+			}
+				
+			 for(var j=0; j<toppingArr.length; j++){
+				//var toppingPrice = 0;
+				toppingPrice += parseInt(arr[i].t_price, 10) * parseInt(arr[i].t_count, 10);
+				console.log("toppingPrice : " + toppingPrice);
+				
+				}
+			
+
+			 var totalPizzaPrice = Number(toppingPrice) + (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
+				console.log("totalPizzaPrice : " + totalPizzaPrice);
+				$('#prd-total' + i).html(totalPizzaPrice);
+				
+				 var p_total = $('#prd-total' + i).text();
+				//천단위 구분 - 정규표현식
+				p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원"); 
+			}
 		}
 		
 		var sidePrice = 0;
@@ -832,7 +861,7 @@ function sideDelete(idx) {
 													</div>
 												
 													<div class="prd-option"  id="prd-option${status.index }"  style="">
-													<c:forEach var="toppingList" items="${toppingList}" varStatus="status">
+													<c:forEach var="toppingList" items="${toppingList}">
 													<c:if test="${pizza.gubun eq toppingList.gubun}">
 														<ul>
 														<li>
@@ -844,7 +873,7 @@ function sideDelete(idx) {
 														</span>
 														</li>
 														</ul>
-														<input type="hidden" id="t_price" value="${toppingList.t_price}"/>
+														<input type="hidden" id="t_price${status.index}" value="${toppingList.t_price}"/>
 														<%-- <div id="prd-option${status.index }"></div>
 														 <a href="javascript:toppingDelete(${pizza.seq});"
 															id="delPizza" class="btn-close"> <span class="hidden">삭제</span> 
@@ -864,9 +893,9 @@ function sideDelete(idx) {
 																onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
 																class="plus"><button class="btn-plus"></button></a>
 														</div>
-													</div> <input type="hidden" id="totalP"
-													value="${pizza.p_price}">
-													<div class="prd-total" id="prd-total${status.index }">
+													</div> 
+													<input type="hidden" id="index" value="${status.index}"/>
+													<div class="prd-total" id="prd-total${status.index}">
 														<em><fmt:formatNumber value="${pizza.p_price}" pattern="#,###" /></em>원
 													</div>
 													<div class="prd-delete">

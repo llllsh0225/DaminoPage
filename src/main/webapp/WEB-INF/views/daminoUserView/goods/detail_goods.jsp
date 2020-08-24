@@ -106,9 +106,9 @@ function saveBasket(){
 	//피자
 	 var selectGoodsName = $('#p_name').val();
 	 var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
-	 if(typeof selectStrDough == "undefined"){
+	/*  if(typeof selectStrDough == "undefined"){
 		 alert("도우없음");
-	 }
+	 } */
 	 
 	 var selectPizzaSetNum = Number($('#pizzaSetNum').val()); // 선택 수량
 	 var userid = $('#userid').val();
