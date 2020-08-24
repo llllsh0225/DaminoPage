@@ -71,4 +71,10 @@ public class CouponDAOImpl implements CouponDAO {
 		sqlSessionTemplate.update("CouponDAO.updateUsedCoupon", couponCode);
 	}
 
+	@Override
+	public void deleteExpirations() {
+		System.out.println("유효기간 만료 쿠폰 일괄 삭제처리");
+		sqlSessionTemplate.delete("CouponDAO.deleteExpirations");
+	}
+
 }

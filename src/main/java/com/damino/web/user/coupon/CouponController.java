@@ -139,5 +139,16 @@ public class CouponController {
 		mav.setViewName("/ecoupon/ecouponResult");
 		return mav;
 	}
+	
+	@RequestMapping("/deleteExpirations.admdo")
+	@ResponseBody
+	public String deleteExpirations() {
+		
+		System.out.println("유효기간 만료쿠폰 일괄 삭제");
+		
+		couponService.deleteExpirations();
+		
+		return "success";
+	}
 
 }

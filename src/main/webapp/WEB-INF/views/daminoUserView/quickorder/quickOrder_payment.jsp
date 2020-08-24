@@ -85,7 +85,10 @@
 				for (var j = 0; j < pizzaMenu.length; j++) {
 					pizzaMenu[j] = pizzaMenu[j].replace("-", "");
 					toppingMenu += pizzaMenu[j];
-					toppingMenu += "<br>&nbsp;&nbsp;&nbsp;&nbsp;";
+					if(j != pizzaMenu.length - 1){
+						toppingMenu += "<br>&nbsp;&nbsp;&nbsp;&nbsp;";
+					}
+					
 					toppingNameArr[i] = toppingMenu;
 					console.log(toppingNameArr[i]);
 				}
@@ -109,10 +112,15 @@
 		// 주문 제품명 & 토핑이 있다면 토핑이름 세팅
 		for (var i = 0; i < goodsArr.length; i++) {
 			$('#goodsNameQty' + i).text(goodsArr[i] + " x " + goodsQtyArr[i]);
-			$('#goodsTotalPrice' + i).text(goodsPriceArr[i]);
+			$('#goodsTotalPrice' + i).text(goodsPriceArr[i].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 			if (pizzaNameArr[i] != null) {
-				$('#pizzaTopping' + i).html(toppingNameArr[i]);
+				var newli = document.createElement("li");
+				newli.innerHTML = toppingNameArr[i];
+				var toppingul = document.getElementById("topping" + i);
+				toppingul.appendChild(newli);
+				//$('#pizzaTopping' + i).html(toppingNameArr[i]);
 			}
+			
 		}
 		
 		// 할인쿠폰 셀렉트박스 세팅
@@ -125,10 +133,11 @@
 		$('#couponList').html(target);
 		
 		// 총 상품금액 세팅
-		$('#totalPrice').text(Number($('#totalGoodsPrice').val()));
+		var totalPrice = Number($('#totalGoodsPrice').val());
+		$('#totalPrice').text(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 		
 		// 총 결제금액 세팅
-		$('#totalPayment').text(Number($('#totalPrice').text()) - Number($('#totalDiscount').text()));
+		$('#totalPayment').text((totalPrice - Number($('#totalDiscount').text())).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 		
 	}
 	
@@ -356,9 +365,14 @@
 	
 	function setDiscountRate(){
 		var selectDiscountRate = Number($('#couponList').val());
-		var totalDiscount = Math.floor(Number($('#totalPrice').text()) * (selectDiscountRate / 100));
-		$('#totalDiscount').text(totalDiscount);
-		$('#totalPayment').text(Number($('#totalPrice').text()) - Number($('#totalDiscount').text()));
+		var totalPrice = $('#totalPrice').text().replace(",","");
+		var totalDiscount = Math.floor(Number(totalPrice) * (selectDiscountRate / 100));
+		
+		console.log(totalPrice);
+		console.log(totalDiscount);
+		
+		$('#totalDiscount').text(totalDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+		$('#totalPayment').text((Number(totalPrice) - totalDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 	}
 	
 	function changeReserveGubun(idx){ // 바로주문, 오늘예약, 내일예약 div show
@@ -775,8 +789,7 @@
 												/&nbsp;<span id="goodsTotalPrice${status.index }"></span>원
 												
 															<!-- 토핑 -->
-															<ul class="addition">
-																<li id="pizzaTopping${status.index }"></li>
+															<ul class="addition" id="topping${status.index }">
 															</ul>
 															<!-- //토핑 -->
 														</c:forEach>
