@@ -45,6 +45,8 @@ $("input[type='radio']").change(function () {
 	$(this).parent().addClass('selected');
 	
 	});
+	
+	sum();
 } 
 
 </script>
@@ -78,7 +80,6 @@ function sum(){
 	
 	 var price = ($(':radio[name="size"]:checked').val());
 	
-	 alert("price : " + price + "/ sideSetNum : " + Number($("#sideNomalSetNum").val()));
 	 
 	if(typeof price == "undefined"){
 		price = $('#sideNomalSetNum').val();
@@ -86,12 +87,12 @@ function sum(){
 	
 	//음료 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalEtcSum에 저장
 	for(var i=0; i<etcSumArr.length; i++){											
-		totalEtcSum += Number(etcSumArr[i]);
+		totalEtcSum += Number(etcSumArr[i]) * Number(etcCntArr[i]) ;
 	}
 	
 	 //사이드디시 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalSideSum에 저장
 	for(var i=0; i<sideSumArr.length; i++){											
-		totalSideSum += Number(sideSumArr[i]);
+		totalSideSum += Number(sideSumArr[i]) * Number(sideCntArr[i]);
 	}
 	
 	
@@ -102,6 +103,11 @@ function sum(){
 	
 		
 	$(".total-price_sum").text(Number(sideAmt + totalEtcSum) + "원");
+
+	var s_total = $(".total-price_sum").text();
+	s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$(".total-price_sum").html(s_total);
+
 }
 
 function totalEtcValue(){
@@ -456,32 +462,7 @@ function minusNomalSide(){
 			<!-- //main 1dep menu -->
 		</header>
 		<!-- //header -->
-		<script>
-			/* $(document).ready(function() {
 
-				$(".btn-minus.goods").click(function() {
-					var cnt = parseInt($("#qty").val()) - 1;
-					if (cnt <= 0)
-					cnt = 1;
-
-					$(".opt_qty").val(cnt);
-					setTotalAmt();
-				});
-
-				$(".btn-plus.goods").click(function() {
-					var cnt = parseInt($("#qty").val()) + 1;
-
-					if (cnt > 9) {
-						cnt = 9;
-						alert("사이드 디시는 9개 까지만 주문 가능합니다.");
-					}
-
-						$(".opt_qty").val(cnt);
-						setTotalAmt();
-
-					});
-			}); */
-		</script>
 
 		<!-- container -->
 		<div id="container">
@@ -624,7 +605,9 @@ function minusNomalSide(){
 																	<div class="prd-cont">
 																		<div class="subject">${goodsDrinkEtcList.d_name}</div>
 																		<div class="price-box">
-																			<strong>${goodsDrinkEtcList.d_price}</strong>
+																			<%-- <strong>${goodsDrinkEtcList.d_price}</strong> --%>
+																			<strong><fmt:formatNumber value="${goodsDrinkEtcList.d_price}" pattern="#,###" />원												
+																		</strong>
 																		</div>
 
 																		<div class="quantity-box">
