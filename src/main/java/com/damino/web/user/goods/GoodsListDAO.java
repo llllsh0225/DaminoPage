@@ -35,7 +35,10 @@ public interface GoodsListDAO {
 	public void insertSideBasket(UserBasketVO vo);
 	//장바구니 - 음료 및 기타 삽입
 	public void insertEtcBasket(UserBasketVO vo);
-		
+	
+	//장바구니 - 테이블 구분자 불러오기
+	public int getNextGubun(String userid);
+	
 	//장바구니 피자 메뉴 불러오기
 	public List<UserBasketVO> getBasketPizza(String userid);
 	//장바구니 토핑 메뉴 불러오기

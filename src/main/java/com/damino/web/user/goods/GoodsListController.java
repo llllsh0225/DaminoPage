@@ -93,10 +93,13 @@ public class GoodsListController {
 	@RequestMapping("/detail.do")
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo,
 			HttpSession session) {
-		System.out.println("사용자 선택 피자메뉴 열기");
-
+		System.out.println("사용자 선택 피자메뉴 열기");		
+		
 		String userid = (String) session.getAttribute("userid");
-
+		//DB에 있는 구별자 조회
+		int gubunDB = goodsListService.getNextGubun(userid);
+		System.out.println("gubunDB : " + gubunDB);
+		
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);
 		String p_name = request.getParameter("p_name");
@@ -116,11 +119,12 @@ public class GoodsListController {
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
 		// -------사용자 선택 메뉴 정보 불러오기-------------------
+		mav.addObject("gubunDB", gubunDB);
 		// 토핑 타입별 목록 불러오기
 		mav.addObject("mainToppingList", mainToppingList);
 		mav.addObject("cheezeToppingList", cheezeToppingList);
 		mav.addObject("afterToppingList", afterToppingList);
-
+		
 		// 사이드디시 목록 불러오기
 		mav.addObject("goodsSideList", goodsSideList);
 
@@ -215,21 +219,24 @@ public class GoodsListController {
 		}
 	}
 
-	@SuppressWarnings("null")
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
+		String test = (String)param.get("gubunDB");
+		System.out.println("test : " + test);
+		int gubunDB = Integer.parseInt(test);// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
+		System.out.println("gubunDB : " + gubunDB);
 		
-		int gubunDB = 1;// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
 		String gubun = (String)param.get("gubun"); //세션 정보 확인을 구한 변수
-		
-		gubunDB++;
+
 	//--------------피자---------------------------
 		String userId = (String) param.get("userId");
 		int p_price = (Integer) param.get("pizzaPrice");
 		String p_size = (String) param.get("pizzaSize");
 		String p_name = (String) param.get("pizzaName");
 		String p_dough = (String) param.get("pizzaDough");
+		System.out.println("p_dough : " + p_dough);
+		
 		String p_image = (String) param.get("pizzaImage");
 		int p_count = (Integer) param.get("pizzaCount");
 		
@@ -250,12 +257,11 @@ public class GoodsListController {
 		String t_names = (String)param.get("toppingName");
 		String t_counts = (String)param.get("toppingCount");
 		
-		
-			String t_priceArr[] = t_prices.split(",");
-			String t_nameArr[] = t_names.split(",");
-			String t_countArr[] = t_counts.split(",");
+		String t_priceArr[] = t_prices.split(",");
+		String t_nameArr[] = t_names.split(",");
+		String t_countArr[] = t_counts.split(",");
 			
-		if(t_nameArr.length > 1) {		
+		if(!t_names.isEmpty()) {		
 			System.out.println("t_names : " + t_names);
 			
 			for(int i=0; i<t_nameArr.length; i++) {
@@ -278,11 +284,11 @@ public class GoodsListController {
 		System.out.println("s_names : " + s_names);
 		
 			
-			String s_priceArr[] = s_prices.split(",");
-			String s_nameArr[] = s_names.split(",");
-			String s_countArr[] = s_counts.split(",");
+		String s_priceArr[] = s_prices.split(",");
+		String s_nameArr[] = s_names.split(",");
+		String s_countArr[] = s_counts.split(",");
 		System.out.println("s_nameArr : " + s_nameArr.length);	
-		if(s_nameArr.length > 1) {	
+		if(!s_names.isEmpty()) {	
 				System.out.println("테스트");
 			for(int i=0; i<s_nameArr.length; i++) {
 				vo.setUserid(userId);
@@ -307,7 +313,7 @@ public class GoodsListController {
 		String d_nameArr[] = d_names.split(",");
 		String d_countArr[] = d_counts.split(",");
 		
-		if(d_nameArr.length > 1) {	
+		if(!d_names.isEmpty()) {	
 			System.out.println("테스트2");
 		for(int i=0; i<d_nameArr.length; i++) {
 			vo.setUserid(userId);

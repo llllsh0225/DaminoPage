@@ -169,6 +169,11 @@ public class GoodsListServiceImpl implements GoodsListService {
 		goodsListDAO.deletePizzasTopping(vo);
 	}
 
+	@Override
+	public int getNextGubun(String userid) {
+		return goodsListDAO.getNextGubun(userid);
+	}
+
 
 
 
