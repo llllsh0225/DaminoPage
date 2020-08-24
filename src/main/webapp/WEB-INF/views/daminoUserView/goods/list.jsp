@@ -206,7 +206,7 @@ $(document).ready(function(){
 										<c:forEach var="goodsClassicList" items="${goodsClassicList}">
 											<li>
 												<div class="prd-img">
-													<a href="제품상세페이지"> <img class="lazyload"
+													<a href="detail.do?p_code=${goodsClassicList.p_code}&p_name=${goodsClassicList.p_name}"> <img class="lazyload"
 														src="<c:url value= '/resources/images/admin/goods/${goodsClassicList.p_image}' />"
 														alt="${goodsClassicList.p_name}" />
 													</a> <a href="#" class="btn-detail"> <i class="ico-sch"></i>

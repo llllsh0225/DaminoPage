@@ -63,8 +63,9 @@ public class GoodsListController {
 		System.out.println("사이드디시 리스트 열기");
 
 		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
-
+		
 		mav.addObject("goodsSideList", goodsSideList);
+		
 		mav.setViewName("/goods/side_list");
 
 		return mav;
@@ -240,6 +241,7 @@ public class GoodsListController {
 		String p_image = (String) param.get("pizzaImage");
 		int p_count = (Integer) param.get("pizzaCount");
 		
+		if(!p_name.isEmpty()) {	
 		// vo에 피자 관련 값 셋팅
 		vo.setUserid(userId);
 		vo.setP_price(p_price);
@@ -251,7 +253,7 @@ public class GoodsListController {
 		vo.setGubun(gubunDB);
 		
 		goodsListService.insertPizzaBasket(vo);
-		
+	}
 	//--------------토핑--------------------------------
 		String t_prices = (String)param.get("toppingPrice");
 		String t_names = (String)param.get("toppingName");
