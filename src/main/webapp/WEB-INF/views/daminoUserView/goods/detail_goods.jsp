@@ -103,16 +103,13 @@ function saveBasket(){
 	
 	price += doughPrice;
 	
-	/* sessionStorage.setItem("selectGoodsName", selectGoodsName );
-	sessionStorage.setItem("selectStrDough", selectStrDough );
-	sessionStorage.setItem("price", price );
-	sessionStorage.setItem("selectPizzaSetNum", selectPizzaSetNum );
-	sessionStorage.setItem("selectSize", selectSize );
-	sessionStorage.setItem("toppingNameArr", JSON.stringify(toppingNameArr)); */
-		
 	//피자
 	 var selectGoodsName = $('#p_name').val();
 	 var selectStrDough = $(':radio[name="p_dough"]:checked').val(); //도우 이름
+	 if(typeof selectStrDough == "undefined"){
+		 alert("도우없음");
+	 }
+	 
 	 var selectPizzaSetNum = Number($('#pizzaSetNum').val()); // 선택 수량
 	 var userid = $('#userid').val();
 		
@@ -212,7 +209,11 @@ function saveBasket(){
 			etcPrices += etcPriceArr[i];
 		}
 	}
-	
+	var gubunDB = $('#gubunDB').val();
+	if(!gubunDB){
+		gubunDB = 0;
+	}
+	alert("gubunDB : " + gubunDB);
 	
 	$.ajax({
 		url : 'insert_basket.do',
@@ -239,7 +240,8 @@ function saveBasket(){
 			etcName : etcName,
 			etcCount : etcCounts,
 			
-			gubun : gubun
+			gubun : gubun,
+			gubunDB : gubunDB
 		}),
 		async : false,
 		success: function(data) {
@@ -269,7 +271,8 @@ function saveBasket(){
 
 var price = $(':radio[name="size"]:checked').val();
 //var selectToppingName = "";
-
+var strDough;
+	
 function sum(){
 	
 	price = $(':radio[name="size"]:checked').val();
@@ -301,7 +304,7 @@ function sum(){
 	}	
 	
 	var priceNumber = Number(price);
-	var strDough = $(':radio[name="p_dough"]:checked').val(); 
+	strDough = $(':radio[name="p_dough"]:checked').val(); 
 	
 	if($(':radio[name="p_dough"]:checked').val() != null) {
 		if (strDough == "슈퍼 시드 함유 도우"){
@@ -833,6 +836,7 @@ function minusDrink(idx){
 				data-size="${goodsDetail.p_size_m}" data-p_code="${goodsDetail.p_code}" data-price_m="${goodsDetail.p_price_m}"
 				 />
 			<input type="hidden" id="userid" name="userid" value="${userid}" />
+			<input type="hidden" id="gubunDB" value="${gubunDB}" />
 			<section id="content">
 				<form name="myBasket" id="myBasket" method="post" action="my_baskets.do" >
 				<div class="sub-type menu">

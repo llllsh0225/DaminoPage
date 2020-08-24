@@ -141,6 +141,11 @@
 		WHERE userid = #{userid} AND seq = #{seq} 
 	</update> -->
 	
+	<select id="getNextGubun" parameterType="String" resultType="Integer">
+		SELECT MAX(gubun) + 1 FROM usersPizza
+		WHERE userid = #{userid}
+	</select>
+	
 	<!-- 장바구니 피자정보 삭제 -->
 	<delete id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
 		DELETE FROM usersPizza

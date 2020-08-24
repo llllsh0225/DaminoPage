@@ -164,6 +164,11 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		sqlSessionTemplate.delete("GoodsListDAO.deletePizzasTopping", vo);
 	}
 
+	@Override
+	public int getNextGubun(String userid) {
+		return sqlSessionTemplate.selectOne("GoodsListDAO.getNextGubun", userid);
+	}
+
 
 
 	
