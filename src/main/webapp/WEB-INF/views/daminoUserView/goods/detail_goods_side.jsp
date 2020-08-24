@@ -396,16 +396,27 @@ function minusNomalSide(){
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo"> <i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> <a href="login.do">회원가입</a> <a
-							href="javascript:void(0);" class="lang">
-							
-						</a>
-					</div>
+					<c:choose>
+						<c:when test="${msg != 'login' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -413,7 +424,7 @@ function minusNomalSide(){
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active"><a href="/goods/list?dsp_ctgr=C0101"><span>메뉴</span></a>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a>
 						</li>
 						<li><a href="/ecoupon/index"><span>e-쿠폰</span></a></li>
 						<li><a href="/voucher/list?gubun=M"><span>상품권 선물</span></a></li>
@@ -606,8 +617,7 @@ function minusNomalSide(){
 																		<div class="subject">${goodsDrinkEtcList.d_name}</div>
 																		<div class="price-box">
 																			<%-- <strong>${goodsDrinkEtcList.d_price}</strong> --%>
-																			<strong><fmt:formatNumber value="${goodsDrinkEtcList.d_price}" pattern="#,###" />원												
-																		</strong>
+																			<strong><fmt:formatNumber value="${goodsDrinkEtcList.d_price}" pattern="#,###" />원</strong>
 																		</div>
 
 																		<div class="quantity-box">
