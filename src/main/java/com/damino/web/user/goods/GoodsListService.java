@@ -14,8 +14,8 @@ public interface GoodsListService {
 
 //------------------사용자 선택 --------------------
 	//사용자 선택 -피자 메뉴 불러오기(2번째는 이름만 비교)
-		public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
-		public GoodsPizzaVO getUserPizza(GoodsPizzaVO vo);
+	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
+	public GoodsPizzaVO getUserPizza(GoodsPizzaVO vo);
 	//사용자 선택 - 사이드디시 메뉴 불러오기
 	public GoodsSideVO getUserSideGoods(GoodsSideVO vo);
 	//사용자 선택 - 토핑 메뉴 불러오기
