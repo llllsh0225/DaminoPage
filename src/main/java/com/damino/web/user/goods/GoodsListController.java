@@ -94,13 +94,22 @@ public class GoodsListController {
 	@RequestMapping("/detail.do")
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo,
 			HttpSession session) {
-		System.out.println("사용자 선택 피자메뉴 열기");		
-		
+		System.out.println("사용자 선택 피자메뉴 열기");	
 		String userid = (String) session.getAttribute("userid");
-		//DB에 있는 구별자 조회
-		int gubunDB = goodsListService.getNextGubun(userid);
-		System.out.println("gubunDB : " + gubunDB);
 		
+		if (userid == null) {
+
+		} else {
+			session.setAttribute("msg", "login");
+		}
+		List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
+		//DB에 있는 구별자 조회
+		
+		if(basketList.size() != 0) {
+			int gubunDB = goodsListService.getNextGubun(userid);
+			System.out.println("gubunDB : " + gubunDB);
+			mav.addObject("gubunDB", gubunDB);
+		}
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);
 		String p_name = request.getParameter("p_name");
@@ -120,7 +129,7 @@ public class GoodsListController {
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
 		// -------사용자 선택 메뉴 정보 불러오기-------------------
-		mav.addObject("gubunDB", gubunDB);
+		
 		// 토핑 타입별 목록 불러오기
 		mav.addObject("mainToppingList", mainToppingList);
 		mav.addObject("cheezeToppingList", cheezeToppingList);
@@ -223,9 +232,9 @@ public class GoodsListController {
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
-		String test = (String)param.get("gubunDB");
-		System.out.println("test : " + test);
-		int gubunDB = Integer.parseInt(test);// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
+		//String test = (String)param.get("gubunDB");
+		//System.out.println("test : " + test);
+		int gubunDB = (Integer)param.get("gubunDB");// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
 		System.out.println("gubunDB : " + gubunDB);
 		
 		String gubun = (String)param.get("gubun"); //세션 정보 확인을 구한 변수
