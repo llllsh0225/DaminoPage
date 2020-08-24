@@ -282,18 +282,18 @@ function sum(){
 	
 	//토핑 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalToppingSum에 저장
 	for(var i=0; i<toppingNameArr.length; i++){											
-		totalToppingSum += Number(toppingSumArr[i]);
+		totalToppingSum += Number(toppingSumArr[i]) * Number(toppingCntArr[i]);
 		//selectToppingName += toppingNameArr[i];
 	}					
  
 	//음료 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalEtcSum에 저장
 	for(var i=0; i<etcSumArr.length; i++){											
-		totalEtcSum += Number(etcSumArr[i]);
+		totalEtcSum += Number(etcSumArr[i]) * Number(etcCntArr[i]);
 	}
 	
 	//사이드디시 합계 가격 배열 정보를 Number로 변환하여 전역변수 totalSideSum에 저장
 	for(var i=0; i<sideSumArr.length; i++){											
-		totalSideSum += Number(sideSumArr[i]);
+		totalSideSum += Number(sideSumArr[i]) * Number(sideCntArr[i]);
 	}
 	
 	if(typeof price == "undefined"){
@@ -335,7 +335,10 @@ function sum(){
 	etcSum += Number($('.etcSum').val());
 	//console.log("합계금액 2 : " + Number(pizzaAmt+doughPrice));
 	$(".total-price_sum").text(Number(pizzaAmt+ Number(doughPrice) + totalToppingSum + totalEtcSum + totalSideSum) + "원");	
-		
+	
+	var s_total = $(".total-price_sum").text();
+	s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$(".total-price_sum").html(s_total);	
 	
 }
 
@@ -402,6 +405,10 @@ function totalDoughValue(){
 	}
    $(".total-count").text((Number($("#pizzaSetNum").val())));
    $(".total-price_sum").text(Number(pizzaAmt)+Number(doughPrice) + "원");
+   
+   var s_total = $(".total-price_sum").text();
+	s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$(".total-price_sum").html(s_total);
    
    	sum();
 }

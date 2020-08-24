@@ -812,6 +812,7 @@ function sideDelete(idx) {
 										<c:forEach var="pizza" items="${basketList}" varStatus="status">
 											<div class="hidden-info">
 											<input type="hidden" id="userid" value="${userid}" />	
+											<input type="hidden" id="gubun" value="${pizza.gubun}"/>
 											</div>
 											<c:if test="${pizza.p_name != null }">
 												<li class="row" id="row${status.index}">
@@ -832,6 +833,7 @@ function sideDelete(idx) {
 												
 													<div class="prd-option"  id="prd-option${status.index }"  style="">
 													<c:forEach var="toppingList" items="${toppingList}" varStatus="status">
+													<c:if test="${pizza.gubun eq toppingList.gubun}">
 														<ul>
 														<li>
 														<span>${toppingList.t_name}(<fmt:formatNumber value="${toppingList.t_price}" pattern="#,###" />원)x${toppingList.t_count}
@@ -848,12 +850,9 @@ function sideDelete(idx) {
 															id="delPizza" class="btn-close"> <span class="hidden">삭제</span> 
 													</a>
 													<input type="hidden" id="t_name" value="${topping.t_name}"/>--%>
+													</c:if>
 													</c:forEach> 
 													</div>
-												
-													<%-- <a href="javascript:toppingDelete(${pizza.seq});"
-															id="delPizza" class="btn-close"> <span class="hidden">삭제</span>
-													</a> --%>
 													<div class="prd-quantity">
 														<div class="quantity-box v2">
 															<a href="javascript:void(0);"

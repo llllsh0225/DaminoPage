@@ -215,13 +215,15 @@ public class GoodsListController {
 		}
 	}
 
+	@SuppressWarnings("null")
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
 		
-		int gubunDB = 0;// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
-		String gubun = ""; //세션 정보 확인을 구한 변수
+		int gubunDB = 1;// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
+		String gubun = (String)param.get("gubun"); //세션 정보 확인을 구한 변수
 		
+		gubunDB++;
 	//--------------피자---------------------------
 		String userId = (String) param.get("userId");
 		int p_price = (Integer) param.get("pizzaPrice");
@@ -248,21 +250,24 @@ public class GoodsListController {
 		String t_names = (String)param.get("toppingName");
 		String t_counts = (String)param.get("toppingCount");
 		
-		String t_priceArr[] = t_prices.split(",");
-		String t_nameArr[] = t_names.split(",");
-		String t_countArr[] = t_counts.split(",");
 		
-		System.out.println("t_names : " + t_names);
-		
-		for(int i=0; i<t_nameArr.length; i++) {
-			vo.setUserid(userId);
-			vo.setT_name(t_nameArr[i]);
-			vo.setT_price(Integer.parseInt(t_priceArr[i]));
-			//vo.setT_image(t_image);
-			vo.setT_count(Integer.parseInt(t_countArr[i]));
-			vo.setGubun(gubunDB);
+			String t_priceArr[] = t_prices.split(",");
+			String t_nameArr[] = t_names.split(",");
+			String t_countArr[] = t_counts.split(",");
 			
-			goodsListService.insertToppingBasket(vo);
+		if(t_nameArr.length > 1) {		
+			System.out.println("t_names : " + t_names);
+			
+			for(int i=0; i<t_nameArr.length; i++) {
+				vo.setUserid(userId);
+				vo.setT_name(t_nameArr[i]);
+				vo.setT_price(Integer.parseInt(t_priceArr[i]));
+				//vo.setT_image(t_image);
+				vo.setT_count(Integer.parseInt(t_countArr[i]));
+				vo.setGubun(gubunDB);
+				
+				goodsListService.insertToppingBasket(vo);
+			}
 		}
 		
 	//--------------사이드---------------------------------
@@ -270,29 +275,40 @@ public class GoodsListController {
 		String s_names = (String)param.get("sideName");
 		String s_counts =  (String)param.get("sideCount");
 		
-		String s_priceArr[] = s_prices.split(",");
-		String s_nameArr[] = s_names.split(",");
-		String s_countArr[] = s_counts.split(",");
+		System.out.println("s_names : " + s_names);
 		
-		for(int i=0; i<s_nameArr.length; i++) {
-			vo.setUserid(userId);
-			vo.setS_name(s_nameArr[i]);
-			vo.setS_price(Integer.parseInt(s_priceArr[i]));
-			//vo.setT_image(t_image);
-			vo.setS_count(Integer.parseInt(s_countArr[i]));
-			vo.setGubun(gubunDB);
 			
-			goodsListService.insertSideBasket(vo);
+			String s_priceArr[] = s_prices.split(",");
+			String s_nameArr[] = s_names.split(",");
+			String s_countArr[] = s_counts.split(",");
+		System.out.println("s_nameArr : " + s_nameArr.length);	
+		if(s_nameArr.length > 1) {	
+				System.out.println("테스트");
+			for(int i=0; i<s_nameArr.length; i++) {
+				vo.setUserid(userId);
+				vo.setS_name(s_nameArr[i]);
+				vo.setS_price(Integer.parseInt(s_priceArr[i]));
+				//vo.setT_image(t_image);
+				vo.setS_count(Integer.parseInt(s_countArr[i]));
+				vo.setGubun(gubunDB);
+				
+				goodsListService.insertSideBasket(vo);
+			}
 		}
+		
 	// ------------음료 및 기타-------------------------
 		String d_prices = (String) param.get("etcPrice");
 		String d_names = (String) param.get("etcName");
 		String d_counts = (String) param.get("etcCount");
+		System.out.println("d_names : " + d_names);
+		
 		
 		String d_priceArr[] = d_prices.split(",");
 		String d_nameArr[] = d_names.split(",");
 		String d_countArr[] = d_counts.split(",");
 		
+		if(d_nameArr.length > 1) {	
+			System.out.println("테스트2");
 		for(int i=0; i<d_nameArr.length; i++) {
 			vo.setUserid(userId);
 			vo.setD_name(d_nameArr[i]);
@@ -302,9 +318,8 @@ public class GoodsListController {
 			vo.setGubun(gubunDB);
 			
 			goodsListService.insertEtcBasket(vo);
-		}
-		
-		
+			}
+		}		
 		
 		if(gubun != null) {
 			return "success";
