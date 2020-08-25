@@ -9,6 +9,7 @@ import com.damino.web.admin.board.BoardDAO;
 import com.damino.web.admin.board.BoardService;
 import com.damino.web.admin.board.BoardVO;
 
+
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
 	@Autowired
@@ -42,6 +43,12 @@ public class BoardServiceImpl implements BoardService {
 	public BoardVO getBoard(BoardVO vo) {
 		System.out.println("BoardServiceImpl getBoard(vo)");
 		return boardDAO.getBoard(vo);
+	}
+
+	@Override
+	public List<BoardVO> BoardListMain() {
+		System.out.println(" BoardListmain [service] ");
+		return boardDAO.BoardListMain();
 	}
 
 

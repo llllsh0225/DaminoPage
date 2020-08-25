@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.board.BoardService;
+import com.damino.web.admin.board.BoardVO;
 import com.damino.web.admin.orderlist.OrderlistService;
 import com.damino.web.user.banner.UserBannerService;
 import com.damino.web.user.banner.UserBannerVO;
@@ -352,15 +354,21 @@ public class ViewTestController {
 	//-----daminoAdminView 영역 시작--------------------------
 	@Autowired
 	private OrderlistService orderlistService;
+	@Autowired
+	private BoardService boardService;
 	
 	@RequestMapping(value= "/main.admdo" , method=RequestMethod.GET)
 	   public ModelAndView getAdminMainPage(ModelAndView mav) {
 	      System.out.println("메인페이지 열기");
 	      
+	      List<BoardVO> boardListMain = boardService.BoardListMain();
+	      System.out.println(boardListMain.toString());
+	      System.out.println("---------------------- 구 분 선 ----------------------------");
+	      
 	      int orderCount = orderlistService.orderCount();
 	      System.out.println(" 총 주문건수 : " + orderCount);
 	      
-	      
+	      mav.addObject("boardListMain",boardListMain);
 	      mav.addObject("orderCount", orderCount );	
 	      mav.setViewName("/main");
 	      
