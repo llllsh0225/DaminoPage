@@ -44,7 +44,8 @@ var price = 0;
 var doughPrice = 0;
 
 	window.onload = function() {
-		
+		var session = sessionStorage.getItem("gubun");
+		console.log("세션 : " + session);
 		//쉼표로 저장된 리스트 split으로 자르기
 		var splitDoughCode = $("#dough_db").val().split(",");		
 		
@@ -250,6 +251,7 @@ function saveBasket(){
 					alert('success');
 					$("#myBasket").submit();
 				}else if(data == 'noSession'){
+					sessionStorage.setItem("addBasket", "Y"); // 장바구니 추가 여부
 					location.href = "getOrderPage.do?gubun=D";
 				}
 				

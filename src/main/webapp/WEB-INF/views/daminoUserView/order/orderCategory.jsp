@@ -20,12 +20,16 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
 	<script>
+	var basketChk = sessionStorage.getItem("addBasket");
+	
 	window.onload = function(){
 		var gubun = sessionStorage.getItem("gubun");
 		var address = sessionStorage.getItem("address");
 		var storename = sessionStorage.getItem("storename");
 		var storephone = sessionStorage.getItem("storephone");
-	
+		var storeaddr = sessionStorage.getItem("storeaddr");
+		
+		
 		if(gubun == 'D'){ // 배달주문으로 들어왔을 때
 			$('#gubunD').show();
 			$('#gubunW').hide();
@@ -35,12 +39,18 @@
 		}else if(gubun == 'W'){ // 포장주문으로 들어왔을 때
 			$('#gubunW').show();
 			$('#gubunD').hide();
+			
+			$('#w_storename').text(storename);
+			$('#w_storephone').text(storephone);
+			$('#w_storeaddr').text(storeaddr);
 		}
 		
-		console.log(gubun);
-		console.log(address);
-		console.log(storename);
-		console.log(storephone);
+		console.log("주문 구분  : " + gubun);
+		console.log("배달지 주소 : " + address);
+		console.log("매장명 : " + storename);
+		console.log("매장 전화 : " + storephone);
+		console.log("(포장)매장 주소 : " + storeaddr);
+		console.log("장바구니 추가 여부 : " + basketChk);
 	}
 	</script>
 	
@@ -161,14 +171,14 @@
 					<div id="gubunW" class="order-info type2">
 						<div class="case">포장 매장</div>
 							<div class="order-address">
-								<strong>테스트점</strong>
-								<span class="tel">02-123-4567</span>
+								<strong id="w_storename">테스트점</strong>
+								<span class="tel" id="w_storephone"></span>
 								<a href="getOrderPage.do?gubun=W" class="btn-type4">변경</a>
 								<div class="tip-box center" style="display: none;">
 									<p>방문하실 매장을 확인해주세요!</p>
 								</div>
 								<div class="adr-box">
-									<p class="address">매장주소</p>
+									<p class="address" id="w_storeaddr"></p>
 								</div>															
 							</div>
 					</div>								

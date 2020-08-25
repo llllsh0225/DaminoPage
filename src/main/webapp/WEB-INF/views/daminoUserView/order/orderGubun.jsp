@@ -36,8 +36,13 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	
 <script>
+	var basketChk = sessionStorage.getItem("addBasket"); // 장바구니 추가 후 넘어온 상태인지 확인
+
 	window.onload = function(){
 		var addressListSize = Number($('#addressListSize').val()); // 저장된 배달주소 리스트 사이즈
+		var storeListSize = Number($('#storeListSize').val()); // 저장된 포장매장 리스트 사이즈
+		
+		
 		if($('#gubun').val() == 'D'){
 			$('#delivery').show();
 			$('#takeout').hide();
@@ -45,7 +50,9 @@
 			$('#takeout').show();
 			$('#delivery').hide();
 		}
-		console.log(addressListSize);
+		console.log("배달주소 리스트 수 : " + addressListSize);
+		console.log("포장매장 리스트 수 : " + storeListSize);
+		console.log("장바구니 추가 여부 : " + basketChk);
 	}
 	
 
@@ -61,7 +68,15 @@
 	}
 	// ------------------ 포장주문 관련 함수 -------------------
 	function storeAddressPop(){
-		window.open("openStoreAddr.do", "포장매장 선택", "top=50, left=60, width=420, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+		var storeListSize = Number($('#storeListSize').val());
+		
+		if(storeListSize >= 10){
+			alert("포장매장은 10개까지 등록 가능합니다.");
+			return;
+		}else{
+			window.open("openStoreAddr.do", "포장매장 선택", "top=50, left=60, width=420, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+		}
+		
 	}
 	// ------------------ 배달주문 관련 함수 -------------------
 	
@@ -230,6 +245,7 @@
 		var userid = $('#userid').val();
 		var storename = $('#selStoreName').val();
 		
+		
 		$.ajax({
 			url : 'insertStoreAddress.do',
 			contentType : "application/json; charset=UTF-8;",
@@ -241,7 +257,6 @@
 			async : false,
 			success: function(data) {
 				alert('insert 성공');
-				
 			},
 			error: function() {
 				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -280,6 +295,8 @@
 	
 	// 메뉴 카테고리 선택 페이지로 주소 정보 넘기기
 	function setAddress(){
+		sessionStorage.clear(); // 세션에 저장된 정보 초기화
+		
 		var address = $('input[type="radio"][name="addressradio"]:checked').val();
 		var sel_id = $('input[type="radio"][name="addressradio"]:checked').attr('id'); // 선택한 라디오버튼 id
 		var sel_idx = Number(sel_id.replace('addressradio', '')); // 선택 index 값 얻어옴
@@ -293,9 +310,38 @@
 		sessionStorage.setItem("storephone", storephone);
 		sessionStorage.setItem("gubun", "D"); // 주문 구분 'D' --> 배달주문
 		
-		location.href="orderCategory.do";
+		if(basketChk == 'Y'){
+			location.href="my_basket.do";
+		}else{
+			location.href="orderCategory.do";
+		}
+		
 	}
 	
+	// 메뉴 카테고리 선택페이지로 포장매장 정보 넘기기
+	function setStore(){
+		sessionStorage.clear(); // 세션에 저장된 정보 초기화
+		
+		var storename = $('input[type="radio"][name="storeRadio"]:checked').val();
+		var sel_id = $('input[type="radio"][name="storeRadio"]:checked').attr('id'); // 선택한 라디오버튼 id
+		var sel_idx = Number(sel_id.replace('storeaddressradio', '')); // 선택 index 값 얻어옴
+		
+		var storephone = $('#wrapstorephone' + sel_idx).text();
+		var storeaddr = $('#wrapstoreaddr' + sel_idx).text();
+		
+		
+		// 세션에 선택 정보들을 세팅
+		sessionStorage.setItem("storename", storename);
+		sessionStorage.setItem("storephone", storephone);
+		sessionStorage.setItem("storeaddr", storeaddr);
+		sessionStorage.setItem("gubun", "W");; // 주문 구분 'W' --> 포장주문
+		
+		if(basketChk == 'Y'){
+			location.href="my_basket.do";
+		}else{
+			location.href="orderCategory.do";
+		}
+	}
 </script>
 </head>
 <body>
@@ -474,6 +520,8 @@
 					<div class="tab-content" id="takeout">
 						<div class="text-link-area v2"></div>
 						<div class="address-list">
+						<!-- 컨트롤러에서 넘겨받은 매장주소 리스트의 크기 저장 -->
+						<input type="hidden" id="storeListSize" value="${fn:length(storeAddressList) }" />
 							<ul id="straddress_list">
 								<c:if test="${fn:length(storeAddressList) == 0}"> <!-- 저장된 주소가 없을 때 -->
 									<li>
@@ -495,11 +543,11 @@
 											<dt>
 												<label for="storeaddressradio${status.index }" id="storenamelb${status.index }">
 													<em>${storeAddressList.storename }</em>
-														<span class="tel">${storeAddressList.storephone }</span>
+														<span class="tel" id="wrapstorephone${status.index }">${storeAddressList.storephone }</span>
 												</label>
 											</dt>
 											<dd>
-												<span class="adr">${storeAddressList.storeaddress }</span>
+												<span class="adr" id="wrapstoreaddr${status.index }">${storeAddressList.storeaddress }</span>
 											</dd>
 											<a href="javascript:deleteStoreAddress(${status.index });" class="btn-del"><span class="hidden">삭제</span></a>
 										</dl>
@@ -513,7 +561,7 @@
 								</div>
 								<div class="address-btn">
 									<p class="title-type4">해당 매장으로 주문을 진행하시겠습니까?</p>
-									<a href="javascript:#;" class="btn-type v3"> 선택 </a>
+									<a href="javascript:setStore();" class="btn-type v3"> 선택 </a>
 								</div>
 							</c:if>
 						</div>
