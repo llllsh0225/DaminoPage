@@ -116,4 +116,12 @@
 		UPDATE coupon SET chkusable = 'N'
 		WHERE coupon_code = #{couponCode}
 	</update>
+	
+	<!-- 유효기간 만료 쿠폰 삭제 -->
+	<delete id="deleteExpirations">
+		<![CDATA[
+			DELETE FROM coupon
+			WHERE validity < sysdate
+		]]>
+	</delete>
 </mapper>

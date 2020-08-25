@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
@@ -183,7 +184,9 @@
 															<c:forEach var="goods" items="${quickOrderGoodsList }">
 																<p>${goods.quick_goods }</p>
 															</c:forEach>
-																	<p class="total">합계  ${totalPrice }원</p>
+																	<p class="total">합계
+																	<fmt:formatNumber value="${totalPrice }" pattern="#,###" />
+																	원</p>
 															</td>
 															<td style="text-align:center">배달주문</td>
 															<td>${defaultAddress.address }<br>(${defaultAddress.storename })</td>

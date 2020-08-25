@@ -1,5 +1,6 @@
 package com.damino.web.user.order;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,12 +8,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.board.BoardVO;
+import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.user.quickorder.QuickOrderAddressVO;
 import com.damino.web.user.quickorder.QuickOrderService;
 
@@ -25,6 +29,8 @@ public class OrderController {
 	@Autowired
 	private QuickOrderService quickOrderService;
 	
+	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
+	
 	@RequestMapping("/getOrderPage.do")
 	public ModelAndView getOrderPage(ModelAndView mav, HttpSession session) {
 		System.out.println("배달/포장주문 페이지 열기");
@@ -32,8 +38,10 @@ public class OrderController {
 		String userid = (String) session.getAttribute("userid");
 		
 		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
+		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
 		
 		mav.addObject("deliveryAddressList", deliveryAddressList);
+		mav.addObject("storeAddressList", storeAddressList);
 		mav.setViewName("order/orderGubun");
 		
 		return mav;
@@ -84,5 +92,21 @@ public class OrderController {
 		
 		mav.setViewName("/order/orderCategory");
 		return mav;
+	}
+	
+	@RequestMapping("/openStoreAddr.do")
+	public ModelAndView openStoreAddr(ModelAndView mav) {
+		mav.addObject("storeNameList", storeNameList);
+		mav.setViewName("quickorder/storeAddr");
+		return mav;
+	}
+	
+	@RequestMapping(value="/insertStoreAddress.do", method=RequestMethod.POST)
+	public String insertBoard(@ModelAttribute StoreAddressVO vo, HttpSession session) {
+		System.out.println("포장 매장 추가");
+		String userid = (String) session.getAttribute("userid");
+		
+		orderService.insertStoreAddress(vo);
+		return "redirect:getOrderPage.do?gubun=W";
 	}
 }

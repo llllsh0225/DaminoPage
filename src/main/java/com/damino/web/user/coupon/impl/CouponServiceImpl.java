@@ -94,4 +94,9 @@ public class CouponServiceImpl implements CouponService {
 		couponDAO.updateUsedCoupon(couponCode);
 	}
 
+	@Override
+	public void deleteExpirations() {
+		couponDAO.deleteExpirations();
+	}
+
 }

@@ -28,6 +28,19 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+function deleteExpirations(){
+	$.ajax({
+		url : 'deleteExpirations.admdo',
+		success : function(data){
+			location.reload();
+		},
+		error : function(err){
+			alert("처리 도중 오류가 발생하였습니다.");
+		}
+	});
+}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -209,7 +222,7 @@
 										onClick="location.href='insertCouponForm.admdo'" />
 								</div>
 								<div id="qna-select-btn">
-									<input type="button" class="btn btn-danger" value="만료쿠폰 일괄삭제" onClick="#"/>
+									<input type="button" class="btn btn-danger" value="만료쿠폰 일괄삭제" onClick="deleteExpirations();"/>
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>

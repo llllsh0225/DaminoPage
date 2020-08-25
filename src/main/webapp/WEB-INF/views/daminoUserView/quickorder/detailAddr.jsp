@@ -42,7 +42,7 @@
 	</script>
 </head>
 <body>
-	<div id="wrap">
+	<div id="wrap" style="width:400px; height:600;">
 		<form>
 			<input type="hidden" id="storeNameList" value="${storeNameList }" />
 			<h3 class="title-type2" style="text-align:center; margin-top:50px; margin-bottom:20px;">1. 상세주소를 입력해주세요.</h3>
