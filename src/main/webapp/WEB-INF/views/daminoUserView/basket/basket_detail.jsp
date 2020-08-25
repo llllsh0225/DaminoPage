@@ -108,7 +108,31 @@
 </script>
 <script language=JavaScript>
 	window.onload = function() {
+	// 배달주문 or 포장주문 세팅
 	
+	var gubun = sessionStorage.getItem("gubun");
+	var address = sessionStorage.getItem("address");
+	var storename = sessionStorage.getItem("storename");
+	var storephone = sessionStorage.getItem("storephone");
+	var storeaddr = sessionStorage.getItem("storeaddr");
+	
+		if(gubun == 'D'){
+			$('#orderGubun').text("배달주문");
+			
+			$('#d_order').show();
+			$('#w_order').hide();
+			
+			$('#address').text(address);
+			$('#store').html('<span>' + storename + '</span>&nbsp;' + storephone);
+		}else if(gubun == 'W'){
+			$('#orderGubun').text("포장주문");
+			
+			$('#w_order').show();
+			$('#d_order').hide();
+			
+			$('#storeinfo').text(storename + " (" + storephone + ")");
+			$('#storeaddr').text(storeaddr);
+		}
 //총 합계 구하기
 	//피자 row
 	var p_length = pizzaArr.length;
@@ -979,22 +1003,33 @@ function toppingDelete(index) {
 							<div class="step-wrap">
 								<div class="title-wrap">
 									<h3 class="title-type">
-										<strong>배달주문</strong>
+										<strong id="orderGubun"></strong>
 									</h3>
 								</div>
-								<div class="deli-info">
+								<!-- 배달주문 div -->
+								<div class="deli-info" id="d_order">
 									<input type="hidden" id="addrVal" value="" /> <input
 										type="hidden" id="detailAddrVal" value="" /> <input
 										type="hidden" id="guVal" value="" /> <input type="hidden"
 										id="selectStore" value="" />
-									<div class="address" id="address">배송지 주소</div>
+									<div class="address" id="address"></div>
 									<div class="store" id="store">
-										<span>월계점</span>&nbsp;02-915-3082
+										<span id="d_storename"></span>&nbsp;
 									</div>
 									<div class="btn-wrap">
-										<a href="javascript:addAddress();" class="btn-type4-brd">수정</a>
+										<a href="getOrderPage.do?gubun=D" class="btn-type4-brd">수정</a>
 									</div>
 								</div>
+								
+								<!-- 포장주문 div -->
+								<div class="deli-info" id="w_order">
+							 	<div class="address" id="storeinfo">
+								</div>
+                                <p class="sub-address" id="storeaddr"></p>
+                                <div class="btn-wrap">
+                                    <a href="getOrderPage.do?gubun=W" class="btn-type4-brd">수정</a>
+                                </div>
+                            </div>
 							</div>
 							<!-- //주소 -->
 							<!-- 주문 내역 -->
