@@ -37,6 +37,6 @@
 	<!-- 포장매장  delete -->
 	<delete id="deleteStoreAddress" parameterType="com.damino.web.user.order.StoreAddressVO">
 		DELETE FROM wrap_store
-		WHERE storename=#{storename} AND userid=#{userid}
+		WHERE seq = (SELECT MAX(seq) FROM wrap_store WHERE storename=#{storename} AND userid=#{userid})
 	</delete>
 </mapper>
