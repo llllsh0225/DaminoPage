@@ -120,7 +120,6 @@
 	var total_length = Number(p_length + s_length + e_length);
 	console.log("row 길이 : " + total_length);
 	
-	
 //	for (var j = 0; j < total_length; j++) {
 		
 		//토핑 합계 계산
@@ -174,8 +173,10 @@ var etcPrice = 0;
 		}
 			
 }		
-		
-if (pizzaArr != null) {		
+
+
+if (pizzaArr != null) {	
+	
 	if (t_arr != null) {
 		//피자금액에 토핑 금액 합산
 		for (var i = 0; i < t_arr.length; i++) {	
@@ -258,7 +259,7 @@ function sideSum(){
 
 }
 function etcSum(){
-	alert("etcSum");
+	//alert("etcSum");
 	
 	//천단위 구분 - 정규표현식
 	var e_total = $('#etc-total' + i).text();
@@ -330,8 +331,7 @@ function etcSum(){
 												console.log(data);
 												// 상세주소 입력 페이지 열기
 
-												window
-														.open(
+												window.open(
 																"openDetailAddress.do",
 																"상세주소 & 배달매장 입력",
 																"top=50, left=60, width=450, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
@@ -367,9 +367,276 @@ function etcSum(){
 
 			//var userid = $('#userid').val(); //컨트롤러에서 세션 아이디값을 추가해줘야함!
 		}
-	}//END window.onload
+}//END window.onload
+	
+//피자 카운트 - 최대 9판
+//피자정보 배열에 저장하여 반영
+	var pizzaCntArr = [];
+	var pizzaPriceArr = [];
+	var pizzaNameArr = [];
+	var pizzaSumArr = []; //피자 합계 금액을 담을 배열
+	
+	
+	//피자 합계 변수
+	var pizzaCnt = 0;
+	if(pizzaArr != null){
+		for(var i=0; i<pizzaArr.length; i++){
+			pizzaCnt += Number(pizzaArr[i].p_count);
+			console.log("pizzaCnt : " + pizzaCnt);
+		}
+	}
+	
+function plusPizza(idx){
+		var setNum = Number($('#pizzaSetNum' + idx).val());
+		var pizzaName = $('#pizzaName' + idx).val();
+		var pizzaPrice = Number($('#pizzaPrice' + idx).val());
+		var pizzaNameIdx = pizzaNameArr.indexOf(pizzaName);
+		
+		setNum += 1;
+		pizzaCnt += 1;
+		$('#pizzaSetNum' + idx).val(setNum);		
+		
+		if(pizzaCnt > 9){
+			alert("피자는 최대 9판까지 선택 가능합니다.");
+			//drinkCnt = 9;
+			Number($('#pizzaSetNum' + idx).val(setNum-1));
+			
+		}
+		if(!pizzaNameArr.includes(pizzaName)){
+			pizzaNameArr.push(pizzaName);
+			pizzaCntArr.push(setNum);
+			pizzaPriceArr.push(pizzaPrice);
+			pizzaSumArr.push(pizzaPrice);
+		}else{
+			pizzaCntArr.splice(pizzaNameIdx, 1, setNum);
+			
+		}
+		//totalPizzaValue();
+		//sum();
+	}
 
-	function toppingDelete(index) {
+function minusPizza(idx){
+	 var setNum = Number($('#pizzaSetNum' + idx).val());
+		if(setNum <= 1){
+			$('#pizzaSetNum' + idx).val(1);
+		}
+		else{
+			var setNum = Number($('#pizzaSetNum' + idx).val());
+			setNum -= 1;
+			pizzaCnt -= 1;
+			$('#pizzaSetNum' + idx).val(setNum);
+					
+			if(setNum == 0){
+				$('#pizzaSetNum' + idx).val(0);
+				setNum = Number($('#pizzaSetNum' + idx).val());
+				
+			}else{
+				
+				setNum = Number($('#pizzaSetNum' + idx).val());
+				
+			}
+			
+		}
+		//sum();
+}
+
+//사이드디시 카운트
+
+	var totalSideSum = 0; //사이드디시 합계 금액을 담을 변수
+	//사이드디시 총 개수
+	var sideTotalAmount = 0;
+	//사이드디시 가격
+	var sidePrice = 0;
+	
+	//사이드디시 카운트
+	var sideCnt = 0;
+	if(sideArr != null){
+		for(var i=0; i<sideArr.length; i++){
+			sideCnt += Number(sideArr[i].s_count);
+			console.log("sideCnt : " + sideCnt);
+		}
+	}
+	
+	//사이드디시 이름
+	var sideName = ""; 
+	
+	//사이드 정보 배열에 저장하여 반영
+	var sideCntArr = [];
+	var sidePriceArr = [];
+	var sideNameArr = [];
+	var sideSumArr = []; //사이드디시 합계 금액을 담을 배열
+
+function plusNomalSide(idx){
+		var sideNomalSetNum = Number($('#sideNomalSetNum' + idx).val());
+		var sideName = $('#sideName' + idx).val();
+		var sidePrice = Number($('#sidePrice' + idx).val());
+		var sideNameIdx = sideNameArr.indexOf(sideName);
+		
+		sideNomalSetNum += 1;
+		sideCnt += 1;
+		$('#sideNomalSetNum' + idx).val(sideNomalSetNum);
+				
+		if(sideCnt > 9){
+			alert("사이드메뉴는 9개까지 선택 가능합니다.");
+			sideCnt = 9;
+			$('#sideNomalSetNum' + idx).val(sideNomalSetNum-1);
+			
+		}
+		
+		if(!sideNameArr.includes(sideName)){
+			sideNameArr.push(sideName);
+			sideCntArr.push(sideNomalSetNum);
+			sidePriceArr.push(sidePrice);
+			sideSumArr.push(sidePrice);
+		}else{
+			sideCntArr.splice(sideNameIdx, 1, sideNomalSetNum);
+			
+		}
+		//totalSideValue();
+	}
+
+function minusNomalSide(idx){			
+		
+		var sideNomalSetNum = Number($('#sideNomalSetNum' + idx).val());
+		var sideName = $('#sideName' + idx).val();
+		var sidePrice = Number($('#sidePrice' + idx).val());
+		var sideNameIdx = sideNameArr.indexOf(sideName);
+		
+		if(sideNomalSetNum <= 1){
+			$('#sideNomalSetNum' + idx).val(1);
+		}
+		else{
+			sideNomalSetNum = Number($('#sideNomalSetNum' + idx).val());
+			sideNomalSetNum -= 1;
+			sideCnt -= 1;
+			$('#sideNomalSetNum' + idx).val(sideNomalSetNum);
+			
+			sideCntArr.splice(sideNameIdx, 1);
+			sideNameArr.splice(sideNameIdx, 1);
+			sidePriceArr.splice(sideNameIdx, 1);
+			sideSumArr.splice(sideNameIdx, 1);
+			
+			selectSideCntArr.splice(sideNameIdx, 1, sideNomalSetNum);
+			/* if(sideNomalSetNum == 0){
+				$('#sideNomalSetNum' + idx).val(0);
+				sideNomalSetNum = Number($('#sideNomalSetNum' + idx).val());
+				
+			}else{ */
+				
+			//	sideNomalSetNum = Number($('#sideNomalSetNum' + idx).val());
+				
+			//}
+			
+		}
+		
+}
+function minusPizza(idx){
+	 var setNum = Number($('#pizzaSetNum' + idx).val());
+		if(setNum <= 1){
+			$('#pizzaSetNum' + idx).val(1);
+		}
+		else{
+			var setNum = Number($('#pizzaSetNum' + idx).val());
+			setNum -= 1;
+			pizzaCnt -= 1;
+			$('#pizzaSetNum' + idx).val(setNum);
+					
+			if(setNum == 0){
+				$('#pizzaSetNum' + idx).val(0);
+				setNum = Number($('#pizzaSetNum' + idx).val());
+				
+			}else{
+				
+				setNum = Number($('#pizzaSetNum' + idx).val());
+				
+			}
+			
+		}
+		//sum();
+}
+//음료 카운트(피자와 1:2 비율)
+
+	//음료 합계정보 내용을 담을 변수
+ 	var totalEtcSum = 0; 
+	//음료 총 개수
+	var etcTotalAmount = 0;
+	//음료 가격
+	var etcPrice = 0;
+	//음료 카운트
+	var etcCnt = 0;
+	
+	if(etcArr != null){
+		for(var i=0; i<etcArr.length; i++){
+			etcCnt += Number(etcArr[i].d_count);
+			console.log("etcCnt : " + etcCnt);
+		}
+	}
+	
+	//음료 정보 배열에 저장하여 반영
+	var etcCntArr = [];
+	var etcPriceArr = [];
+	var etcNameArr = [];
+	var etcSumArr = []; //음료 총 합계 정보
+	
+function plusDrink(idx){
+	var drinkSetNum = Number($('#drinkSetNum' + idx).val());
+	var etcName = $('#etcName' + idx).val();
+	var etcPrice = Number($('#etcPrice' + idx).val());
+	var etcNameIdx = etcNameArr.indexOf(etcName);
+		
+	if(etcCnt == (pizzaCnt*2)){
+		alert("음료는 피자와 2:1 비율로 선택 가능합니다.");		
+		Number($('#drinkSetNum' + idx).val(drinkSetNum));
+	}
+	else{
+		drinkSetNum = Number($('#drinkSetNum' + idx).val());
+		drinkSetNum += 1;
+		etcCnt += 1;
+		$('#drinkSetNum' + idx).val(drinkSetNum);
+		
+		if(!etcNameArr.includes(etcName)){
+			etcNameArr.push(etcName);
+			etcCntArr.push(drinkSetNum);
+			etcPriceArr.push(etcPrice);
+			etcSumArr.push(etcPrice);
+		}else{		
+			etcCntArr.splice(etcNameIdx, 1, drinkSetNum);
+		}
+	}
+	//totalEtcValue();
+	console.log(drinkCnt);
+}
+
+function minusDrink(idx){		
+	var drinkSetNum = Number($('#drinkSetNum' + idx).val());
+	var etcName = $('#etcName' + idx).val();
+	var etcPrice = Number($('#etcPrice' + idx).val());
+	var etcNameIdx = etcNameArr.indexOf(etcName);
+	
+	if(drinkSetNum <= 1){
+		$('#drinkSetNum' + idx).val(1);
+	}
+	else{
+		var drinkSetNum = Number($('#drinkSetNum' + idx).val());
+		drinkSetNum -= 1;
+		etcCnt -= 1;
+		$('#drinkSetNum' + idx).val(drinkSetNum);
+		
+		etcCntArr.splice(etcNameIdx, 1);
+		etcNameArr.splice(etcNameIdx, 1);
+		etcPriceArr.splice(etcNameIdx, 1);
+		etcSumArr.splice(etcNameIdx, 1);
+		
+		//etcCntArr.splice(etcNameIdx, 1, drinkSetNum);
+		}
+		
+}	
+	
+	//totalEtcValue();
+	
+
+
+function toppingDelete(index) {
 		var rowseq = index;
 
 		if (confirm("선택하신 토핑을 삭제하시겠습니까?")) {
@@ -800,13 +1067,13 @@ function etcSum(){
 													<div class="prd-quantity">
 														<div class="quantity-box v2">
 															<a href="javascript:void(0);"
-																onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
-																class="minus"><button class="btn-minus"></button></a> <input
-																type="number" class="qty0" id="qty0"
-																value="${pizza.p_count}" readonly /> <a
-																href="javascript:void(0);"
-																onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
-																class="plus"><button class="btn-plus"></button></a>
+																onclick="minusPizza(${status.index});"
+																class="minus"><button class="btn-minus goods"></button></a>
+																<input type="number" class="qty0" id="pizzaSetNum${status.index}" value="${pizza.p_count}" readonly />
+															<a href="javascript:void(0);" onclick="plusPizza(${status.index});"
+																class="plus"><button class="btn-plus goods"></button></a>
+														<input type="hidden" id="pizzaName${status.index}" value="${pizza.p_name}">
+														<input type="hidden" id="pizzaPrice${status.index}" value="${pizza.p_price}">
 														</div>
 													</div> 
 													<input type="hidden" id="index" value="${status.index}"/>
@@ -840,8 +1107,6 @@ function etcSum(){
 														</div>
 														<div class="prd-cont">
 															<div class="subject">${side.s_name}</div>
-															<input class="setName" id="sideName${status.index}"
-																type="hidden" value="${side.s_name}">
 															<div class="option"></div>
 															<div class="price"><fmt:formatNumber value="${side.s_price}" pattern="#,###" />원</div>
 														</div>
@@ -850,13 +1115,15 @@ function etcSum(){
 													<div class="prd-quantity">
 														<div class="quantity-box v2">
 															<a href="javascript:void(0);"
-																onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
-																class="minus"><button class="btn-minus"></button></a>
+																onclick="minusNomalSide(${status.index})">
+																class="minus"><button class="btn-minus side"></button></a>
 																<input type="number" class="qty0" id="sideNomalSetNum${status.index}"
 																value="${side.s_count}" readonly />
+																<input id="sideName${status.index}" type="hidden" value="${side.s_name}">
+																<input id="sidePrice${status.index}" type="hidden" value="${side.s_price}">
 																<a href="javascript:void(0);"
-																onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
-																class="plus"><button class="btn-plus"></button></a>
+																onclick="plusNomalSide(${status.index})">
+																class="plus"><button class="btn-plus side"></button></a>
 														</div>
 													</div>
 													<div class="prd-total">
@@ -889,8 +1156,6 @@ function etcSum(){
 														</div>
 														<div class="prd-cont">
 															<div class="subject">${etc.d_name}</div>
-															<input class="setName" id="etcName${status.index}"
-																type="hidden" value="${etc.d_name}">
 															<div class="option"></div>
 															<div class="price">
 															<em>
@@ -901,13 +1166,15 @@ function etcSum(){
 													<div class="prd-quantity">
 														<div class="quantity-box v2">
 															<a href="javascript:void(0);"
-																onclick="changeGoodsCnt('minus',0,'RPZ190GL', '1', 1, -1);"
-																class="minus"><button class="btn-minus"></button></a> <input
-																type="number" class="qty0" id="qty0"
+																onclick="minusDrink(${status.index})"
+																class="minus"><button class="btn-minus etc"></button></a> <input
+																type="number" class="qty0" id="drinkSetNum${status.index}"
 																value="${etc.d_count}" readonly /> <a
 																href="javascript:void(0);"
-																onclick="changeGoodsCnt('plus',0,'RPZ190GL', '1', 1, 1);"
-																class="plus"><button class="btn-plus"></button></a>
+																onclick="plusDrink(${status.index})"
+																class="plus"><button class="btn-plus etc"></button></a>
+															<input id="etcName${status.index}" type="hidden" value="${etc.d_name}">
+															<input id="etcPrice${status.index}" type="hidden" value="${etc.d_price}">
 														</div>
 													</div>
 													<div class="prd-total">
