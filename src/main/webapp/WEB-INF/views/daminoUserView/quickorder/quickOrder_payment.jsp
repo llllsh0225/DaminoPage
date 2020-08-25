@@ -466,7 +466,7 @@
 		var deliverAddress = $('#deliverAddress').val();
 		var userphone = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
 		var goodsName = $('#goodsName').val();
-		var totalPayment = Number($('#totalPayment').text());
+		var totalPayment = Number($('#totalPayment').text().replace(',', ''));
 		var take = '배달';
 		var storename = $('#deliverStore').val();
 		var storephone = $('#storePhone').val();
