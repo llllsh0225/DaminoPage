@@ -219,6 +219,65 @@
 		
 	}
 	
+	//포장매장 선택창에서 값 넘겨받기
+	function receiveStoreAddr(selectStoreName){
+		$('#selStoreName').val(selectStoreName);
+		alert('받은 값 : ' + document.getElementById('selStoreName').value);
+	}
+	
+	//포장매장 추가
+	function addStoreAddrRow(){
+		var userid = $('#userid').val();
+		var storename = $('#selStoreName').val();
+		
+		$.ajax({
+			url : 'insertStoreAddress.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				storename : storename,
+			}),
+			async : false,
+			success: function(data) {
+				alert('insert 성공');
+				
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		});
+		location.reload();
+	}
+	
+	// 포장주소지 삭제
+	function deleteStoreAddress(idx){
+		var userid = $('#userid').val();
+		var storename = $('#storeaddressradio' + idx).val();
+		
+		$.ajax({
+			url : 'deleteStoreAddress.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				storename : storename,
+			}),
+			async : false,
+			success: function(data) {
+				if(data == 'success'){
+					$('#storeaddressli' + idx).remove();
+					
+				}
+				
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		});
+		location.reload();
+	}
+	
 	// 메뉴 카테고리 선택 페이지로 주소 정보 넘기기
 	function setAddress(){
 		var address = $('input[type="radio"][name="addressradio"]:checked').val();
@@ -339,6 +398,7 @@
 						<input type="hidden" id="guVal" value="" /> <!-- 구 이름 저장 -->
 						<input type="hidden" id="detailAddrVal" value="" /> <!-- 상세주소 저장 -->
 						<input type="hidden" id="selectStore" value="" /><!-- 선택한 배달매장명 -->
+						<input type="hidden" id="selStoreName" value=""/><!-- 선택한 포장매장명 -->
 							<ul>
 							<c:choose>
 								<c:when test="${param.gubun == 'D' }">
@@ -378,25 +438,25 @@
 									</div>
 								</li>
 							</c:if>
-							<c:forEach var="deladdress" items="${deliveryAddressList }" varStatus="status">
-								<li id="addressli${status.index }">
-									<div class="chk-box selected" id="chk-box${status.index }">
-										<input type="radio" id="addressradio${status.index }" name="addressradio" value="${deladdress.address}" checked=""> 
-										<label class="checkbox" for="addressradio${status.index }"></label>
-									</div>
-										<dl>
-											<dt>
-												<label for="addressradio${status.index }" id="addresslb${status.index }">${deladdress.address }</label>
-											</dt>
-												<dd>
-													<em id="storename${status.index }">${deladdress.storename }</em><span class="tel" id="storephone${status.index }">${deladdress.storephone }</span>
-												</dd>
-												<dd class="hash">
-													<br>
-												</dd>
-										</dl> 
-									<a href="javascript:deleteAddress(${status.index });" class="btn-del"><span class="hidden">삭제</span></a>
-								</li>
+								<c:forEach var="deladdress" items="${deliveryAddressList }" varStatus="status">
+									<li id="addressli${status.index }">
+										<div class="chk-box selected" id="chk-box${status.index }">
+											<input type="radio" id="addressradio${status.index }" name="addressradio" value="${deladdress.address}" checked=""> 
+											<label class="checkbox" for="addressradio${status.index }"></label>
+										</div>
+											<dl>
+												<dt>
+													<label for="addressradio${status.index }" id="addresslb${status.index }">${deladdress.address }</label>
+												</dt>
+													<dd>
+														<em id="storename${status.index }">${deladdress.storename }</em><span class="tel" id="storephone${status.index }">${deladdress.storephone }</span>
+													</dd>
+													<dd class="hash">
+														<br>
+													</dd>
+											</dl> 
+										<a href="javascript:deleteAddress(${status.index });" class="btn-del"><span class="hidden">삭제</span></a>
+									</li>
 								</c:forEach>
 							</ul>
 							<c:if test="${fn:length(deliveryAddressList) != 0 }">
@@ -412,46 +472,56 @@
 						</div>
 					</div>
 					<div class="tab-content" id="takeout">
-					<div class="text-link-area v2">
-					</div>
+						<div class="text-link-area v2"></div>
 						<div class="address-list">
-							<div class="address-list">
-							<ul>
-								<c:forEach var="storeAddressList" items="${storeAddressList }">
+							<ul id="straddress_list">
+								<c:if test="${fn:length(storeAddressList) == 0}"> <!-- 저장된 주소가 없을 때 -->
 									<li>
-										<div class="chk-box selected" id="chk-box1">
-											<input type="radio" class="address" checked="">
-											<label class="checkbox" for="addressradio1"></label>
+										<div class="nostore">
+											<p class="title-type">
+												<i class="ico-noti"></i>포장매장을 등록해주세요.
+											</p>
+											<a href="javascript:storeAddressPop();" class="btn-type-brd2"><i class="ico-plus"></i>포장매장 등록</a>
+										</div>
+									</li>
+								</c:if>
+								<c:forEach var="storeAddressList" items="${storeAddressList }" varStatus="status">
+									<li id="storeaddressli${status.index }">
+										<div class="chk-box selected" id="store-chk-box${status.index }">
+											<input type="radio" id="storeaddressradio${status.index }" name="storeRadio" class="address" value="${storeAddressList.storename }" checked="">
+											<label class="checkbox" for="storeaddressradio${status.index }"></label>
 										</div>
 										<dl>
 											<dt>
-												<label for="addressradio1">
+												<label for="storeaddressradio${status.index }" id="storenamelb${status.index }">
 													<em>${storeAddressList.storename }</em>
 														<span class="tel">${storeAddressList.storephone }</span>
 												</label>
 											</dt>
-												<dd>
-													<span class="adr">${storeAddressList.storeaddress }</span>
-												</dd>
-													<a href="javascript:deleteAddress('11178162');" class="btn-del"><span class="hidden">삭제</span></a>
+											<dd>
+												<span class="adr">${storeAddressList.storeaddress }</span>
+											</dd>
+											<a href="javascript:deleteStoreAddress(${status.index });" class="btn-del"><span class="hidden">삭제</span></a>
 										</dl>
 									</li>
 								</c:forEach>
 							</ul>
+							<c:if test="${fn:length(storeAddressList) != 0 }">
 								<div class="address-enter">
 									<a href="javascript:storeAddressPop();" class="btn-type-brd2"><i class="ico-plus"></i>포장매장 등록</a>
-										<div class="side guide-box">포장매장은 최대 10개까지만 등록 가능합니다.</div>
+									<div class="side guide-box">포장매장은 최대 10개까지만 등록 가능합니다.</div>
 								</div>
 								<div class="address-btn">
 									<p class="title-type4">해당 매장으로 주문을 진행하시겠습니까?</p>
-										<a href="javascript:setAddress();" class="btn-type v3"> 선택 </a>
+									<a href="javascript:#;" class="btn-type v3"> 선택 </a>
 								</div>
-							</div>
+							</c:if>
 						</div>
 					</div>
 				</article>
 			</div>
-	</div></section>
+		</div>
+	</section>
 	
 	<!-- 팝업 배달주소등록 -->
 	<div class="pop-layer" id="pop-address"></div>

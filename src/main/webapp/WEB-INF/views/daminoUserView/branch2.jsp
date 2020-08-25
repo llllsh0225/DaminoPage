@@ -78,10 +78,34 @@ function searchRegion(callBackFunc){
 			if(gubun == 'D'){
 				location.href="getOrderPage.do?gubun=D";
 			}else{
-				location.href="getOrderPage.do?gubun=W";
+				location.href="javascript:addStoreAddrRow(${status.index })";
 			}
 		}
 	}
+//포장매장 추가
+function addStoreAddrRow(idx){
+	var userid = $('#userid').val();
+	var storename = $('#markerName' + idx).val();
+	alert(userid + storename);
+	$.ajax({
+		url : 'insertStoreAddress.do',
+		contentType : "application/json; charset=UTF-8;",
+		type: 'post', 
+		data : JSON.stringify({
+			userid : userid,
+			storename : storename,
+		}),
+		async : false,
+		success: function(data) {
+			alert('insert 성공');
+			
+		},
+		error: function() {
+			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+		}
+	});
+	location.href="getOrderPage.do?gubun=W";
+}
 </script>
 </head>
 <body>
@@ -93,6 +117,7 @@ function searchRegion(callBackFunc){
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					<input type="hidden" id="sessionChk" value="${msg }"> 
+					<input type="hidden" id="userid" value="${userid }" /> 
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
@@ -297,11 +322,11 @@ function searchRegion(callBackFunc){
 									<!-- 검색된 매장 리스트 -->
 									<div class="store-address-list" id="searchStoreList" >
 										<ul id="ul_shop_list" id="storeName">
-                                            <c:forEach var="locationSearch" items="${locationSearchList }">
-                                                <li>
+                                            <c:forEach var="locationSearch" items="${locationSearchList }" varStatus="status">
+                                                <li id="storeli${status.index }">
                                                     <dl>
                                                         <dt id=${locationSearch.storeName }>
-                                                        	<input type="hidden" id="markerName" value=" ${locationSearch.storeName }">
+                                                        	<input type="hidden" id="markerName${status.index }" value="${locationSearch.storeName }"/>
                                                             ${locationSearch.storeName } <span class="tel">${locationSearch.storePhone }</span>
                                                         </dt>
                                                         <dd class="address" id="${locationSearch.storeAddress }">
@@ -321,14 +346,15 @@ function searchRegion(callBackFunc){
                                                     </div>
                                                     <div class="btn-wrap">
                                                         <a href="#" onclick="">상세보기</a>
-                                                        <a href="javascript:openOrderPage('W')" class="type2">방문포장</a>
+                                                        <a href="javascript:addStoreAddrRow(${status.index })" class="type2">방문포장</a>
                                                     </div>
                                                 </li>
                                             </c:forEach>
-                                            <c:forEach var="nameSearch" items="${nameSearchList }">
+                                            <c:forEach var="nameSearch" items="${nameSearchList }" varStatus="status">
                                                 <li>
                                                     <dl>
                                                         <dt id=${nameSearch.storeName }>
+                                                      	  <input type="hidden" id="markerName${status.index }" value="${nameSearch.storeName }"/>
                                                             ${nameSearch.storeName } <span class="tel">${nameSearch.storePhone }</span>
                                                         </dt>
                                                         <dd class="address" id="${nameSearch.storeAddress }">${nameSearch.storeAddress }</dd>
@@ -345,7 +371,7 @@ function searchRegion(callBackFunc){
                                                     </div>
                                                     <div class="btn-wrap">
                                                         <a href="#" onclick="">상세보기</a>
-                                                        <a href="javascript:openOrderPage('W')" class="type2">방문포장</a>
+                                                        <a href=""javascript:addStoreAddrRow(${status.index })" class="type2">방문포장</a>
                                                     </div>
                                                 </li>
                                             </c:forEach>

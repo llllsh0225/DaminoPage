@@ -33,4 +33,10 @@
 		INSERT INTO wrap_store
 		VALUES ((select nvl(max(seq), 0)+1 from wrap_store), (select storeregion from daminostoreinfo WHERE storename=#{storename}), #{storename}, (select storeaddress from daminostoreinfo WHERE storename=#{storename}), (select storephone from daminostoreinfo WHERE storename=#{storename}), #{userid})
 	</insert>
+	
+	<!-- 포장매장  delete -->
+	<delete id="deleteStoreAddress" parameterType="com.damino.web.user.order.StoreAddressVO">
+		DELETE FROM wrap_store
+		WHERE storename=#{storename} AND userid=#{userid}
+	</delete>
 </mapper>
