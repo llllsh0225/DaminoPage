@@ -57,13 +57,17 @@
 		}
 		
 		function sendStoreAddrInfo(){
-			document.selectStore.submit();
+			var selectStoreName = $('#storeName').val();
+			opener.receiveStoreAddr(selectStoreName);
+			opener.addStoreAddrRow();
+			close();
 		}
+		
 	</script>
 </head>
 <body>
 	<div id="wrap" style="width:400px; height:600;">
-		<form name="selectStore" action="insertStoreAddress.do" method="post">
+		<form>
 			<input type="hidden" id="storeNameList" value="${storeNameList }" />
 			<input type="hidden" id="userid" name="userid" value="${sessionScope.userid }"/>
 			<h3 class="title-type2" style="text-align:center; margin-top:50px; margin-bottom:20px;">1. 구를 선택해주세요.</h3>

@@ -323,20 +323,14 @@
 							<div class="card mb-4">
 								<div class="card-header bg-dark text-white">공지사항</div>
 								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-									</ul>
+									<c:forEach var="board" items="${boardListMain }">
+										<ul style="margin-bottom: 0px;">
+											<li class="small">
+												<span><a href="#"><b>[${board.flag }]</b></a></span>
+												<span><a href="boardView.admdo?seq=${board.seq }" class="text-muted">&nbsp;${board.title }</a></span>
+											</li>
+										</ul>
+									</c:forEach>
 									<div align="right">
 										<a href="boardList.admdo" class=small>공지사항로 이동</a>
 									</div>
@@ -371,7 +365,7 @@
 								<div class="card-header bg-dark text-white">주문건수</div>
 								<div class="card-body">
 									<div>
-										<span><h1>91</h1></span> <span><h3 class=small>건수</h3></span>
+										<span><h1>${orderCount}</h1></span> <span><h3 class=small>건수</h3></span>
 									</div>
 								</div>
 							</div>

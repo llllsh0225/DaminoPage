@@ -68,6 +68,20 @@ public class OrderController {
 		return storephone;
 	}
 	
+	@RequestMapping(value="/insertStoreAddress.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String insertStoreAddress(@RequestBody Map<String, Object> param, StoreAddressVO vo) {
+		System.out.println("포장 매장 추가");
+		String userid = (String) param.get("userid");
+		String storename = (String) param.get("storename");
+		
+		vo.setUserid(userid);
+		vo.setStorename(storename);
+		
+		orderService.insertStoreAddress(vo);
+		return storename;
+	}
+	
 	@RequestMapping(value="/deleteDeliveryAddress.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String deleteDeliveryAddress(@RequestBody Map<String, Object> param, DeliveryAddressVO vo) {
@@ -86,6 +100,24 @@ public class OrderController {
 		return "success";
 	}
 	
+	@RequestMapping(value="/deleteStoreAddress.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteStoreAddress(@RequestBody Map<String, Object> param, StoreAddressVO vo) {
+		String userid = (String) param.get("userid");
+		String storename = (String) param.get("storename");
+		
+		System.out.println(userid);
+		System.out.println(storename);
+		
+		// 배송지 delete
+		vo.setUserid(userid);
+		vo.setStorename(storename);
+		
+		orderService.deleteStoreAddress(vo);
+		
+		return storename;
+	}
+	
 	@RequestMapping("/orderCategory.do")
 	public ModelAndView getOrderCategory(ModelAndView mav) {
 		System.out.println("메뉴 카테고리 선택페이지 열기");
@@ -101,12 +133,5 @@ public class OrderController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/insertStoreAddress.do", method=RequestMethod.POST)
-	public String insertBoard(@ModelAttribute StoreAddressVO vo, HttpSession session) {
-		System.out.println("포장 매장 추가");
-		String userid = (String) session.getAttribute("userid");
-		
-		orderService.insertStoreAddress(vo);
-		return "redirect:getOrderPage.do?gubun=W";
-	}
+	
 }

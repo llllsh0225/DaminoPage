@@ -46,4 +46,10 @@ public class OrderDAOImpl implements OrderDAO {
 		sqlSessionTemplate.insert("OrderDAO.insertStoreAddress", vo);
 	}
 
+	@Override
+	public void deleteStoreAddress(StoreAddressVO vo) {
+		System.out.println("포장매장 삭제");
+		sqlSessionTemplate.delete("OrderDAO.deleteStoreAddress", vo);
+	}
+
 }
