@@ -23,5 +23,12 @@ public class OrderlistServiceImpl implements OrderlistService {
 		return orderlistDAO.getOrderlistInv(); //DAO객체의 메소드 수행
 	}
 
+
+	@Override
+	public int orderCount() {
+		System.out.println(" -- 총 주문건수 -- [service] ");
+		return orderlistDAO.orderCount();
+	}
+
 }
 
