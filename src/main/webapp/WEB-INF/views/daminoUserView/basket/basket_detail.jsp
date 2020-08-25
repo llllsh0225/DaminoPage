@@ -84,55 +84,10 @@
 		d_count : "${etc.d_count}"
 }); 
 </c:forEach>
-/* for (var i = 0; i < arr.length; i++) {
-	 console.log("이름 : " + arr[i].name + " 가격 : " + arr[i].price + " 수량 : " + arr[i].count);
-	 $('#test').val(arr[i].name);
-	 $('#topping' + index + idxNum).html('<li id="delBtn' + index + idxNum + '">'+ arr[i].name + "(" + '<div id="t_price">' + arr[i].price +  "</div>원)"
-	 + "x" + arr[i].count + '<a href="javascript:toppingDelete(\''
-	 + arr[i].name + '\','+ arr[i].count + ',\'' + arr[i].price + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
-	 */
 
-	/* var t_name = $('#toppingName').val();
-	 var t_nameArr = t_name.split(",");
-
-	 var t_priceArr = toppingP.split(",");
-
-	 var t_count = $('#toppingCount').val();
-	 var t_countArr = t_count.split(",");
-
-
-	 $('#topping' + index + idxNum).append('<li id="delBtn' + index + idxNum + '">'+ t_nameArr[i] + "(" + '<div id="t_price">' + t_priceArr[i] +  "</div>원)"
-	 + "x" + t_countArr[i] + '<a href="javascript:toppingDelete(\''
-	 + t_nameArr[i]+ '\','+ t_countArr[i] + ',\'' + t_priceArr[i] + '\',' + index + ')" class="close"><span class="hidden">삭제</span></a></li>');							
-	 }  */
 </script>
 <script language=JavaScript>
-	window.onload = function() {
-	// 배달주문 or 포장주문 세팅
 	
-	var gubun = sessionStorage.getItem("gubun");
-	var address = sessionStorage.getItem("address");
-	var storename = sessionStorage.getItem("storename");
-	var storephone = sessionStorage.getItem("storephone");
-	var storeaddr = sessionStorage.getItem("storeaddr");
-	
-		if(gubun == 'D'){
-			$('#orderGubun').text("배달주문");
-			
-			$('#d_order').show();
-			$('#w_order').hide();
-			
-			$('#address').text(address);
-			$('#store').html('<span>' + storename + '</span>&nbsp;' + storephone);
-		}else if(gubun == 'W'){
-			$('#orderGubun').text("포장주문");
-			
-			$('#w_order').show();
-			$('#d_order').hide();
-			
-			$('#storeinfo').text(storename + " (" + storephone + ")");
-			$('#storeaddr').text(storeaddr);
-		}
 //총 합계 구하기
 	//피자 row
 	var p_length = pizzaArr.length;
@@ -148,8 +103,7 @@
 		
 		//토핑 합계 계산
 		var toppingPrice = 0;
-		var toppingNum = Number($('#toppingNum').val());
-		console.log("토핑 개수 = " + toppingNum);
+		var toppingNum = Number($('#toppingNum').val());		
 		
 		//각 메뉴별 합계 계산을 위한 변수
 		var pizza_total = 0;
@@ -157,7 +111,7 @@
 		var etc_total = 0;
 		var totalPizzaPrice = 0;
 
-var sidePrice = 0;
+		var sidePrice = 0;
 		if (sideArr != null) {
 			for (var s = 0; s < sideArr.length; s++) {
 			//alert("테스트");
@@ -196,66 +150,7 @@ var etcPrice = 0;
 					etcSum();
 		}
 			
-}		
-
-
-if (pizzaArr != null) {	
-	
-	if (t_arr != null) {
-		//피자금액에 토핑 금액 합산
-		for (var i = 0; i < t_arr.length; i++) {	
-				
-		//i가 마지막일 때
-		if(i == t_arr.length-1){
-			toppingPrice -= parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);
-			totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-			pizza_total += totalPizzaPrice;
-			
-			sum();
-			return;
-			
-		}
-		//현재 토핑 구분자가 다음 토핑 구분자와 일치할 때
-		else if(t_arr[i].t_gubun == t_arr[i+1].t_gubun){
-				toppingPrice += parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10) + parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
-				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-				
-		}
-		//현재 토핑 구분자가 다음 토핑 구분자와 일치하지 않을 때
-		else if (t_arr[i].t_gubun != t_arr[i+1].t_gubun){
-				toppingPrice = 0;
-				toppingPrice += parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
-				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-		}
-			
-			pizza_total += totalPizzaPrice;
-			
-			$('#prd-total' + i).html(totalPizzaPrice);
-			p_total = $('#prd-total' + i).text();
-			
-			//천단위 구분 - 정규표현식
-			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
-			
-			sum(); 
-		}
-	}
-	else{//토핑이 없을 경우
-		toppingPrice = 0;
-			var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-			pizza_total += totalPizzaPrice;
-			
-			$('#prd-total' + i).html(totalPizzaPrice);
-			p_total = $('#prd-total' + i).text();
-			
-			//천단위 구분 - 정규표현식
-			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
-			
-			sum();
-	}
-}
-				
+}						
 	
 function sum(){
 	//alert("sum");
@@ -283,7 +178,6 @@ function sideSum(){
 
 }
 function etcSum(){
-	//alert("etcSum");
 	
 	//천단위 구분 - 정규표현식
 	var e_total = $('#etc-total' + i).text();
@@ -297,6 +191,99 @@ function etcSum(){
 	
 	sum();
 }
+
+window.onload = function() {
+// 배달주문 or 포장주문 세팅
+	
+	var gubun = sessionStorage.getItem("gubun");
+	var address = sessionStorage.getItem("address");
+	var storename = sessionStorage.getItem("storename");
+	var storephone = sessionStorage.getItem("storephone");
+	var storeaddr = sessionStorage.getItem("storeaddr");
+	
+		if(gubun == 'D'){
+			$('#orderGubun').text("배달주문");
+			
+			$('#d_order').show();
+			$('#w_order').hide();
+			
+			$('#address').text(address);
+			$('#store').html('<span>' + storename + '</span>&nbsp;' + storephone);
+		}else if(gubun == 'W'){
+			$('#orderGubun').text("포장주문");
+			
+			$('#w_order').show();
+			$('#d_order').hide();
+			
+			$('#storeinfo').text(storename + " (" + storephone + ")");
+			$('#storeaddr').text(storeaddr);
+		}
+		
+//사용자 선택 정보 합계 계산
+	sideSum();
+	etcSum();
+	sum();
+	var toppingNum = Number($('#toppingNum').val());
+	console.log("토핑 개수 = " + toppingNum);
+	if (pizzaArr != null) {	
+		
+		if (t_arr != null) {
+			//피자금액에 토핑 금액 합산
+			for (var i = 0; i < t_arr.length; i++) {	
+					
+			//i가 마지막일 때
+			if(i == t_arr.length-1){
+				toppingPrice -= parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);
+				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
+				pizza_total += totalPizzaPrice;
+				
+				sum();
+				return;
+				
+			}
+			//현재 토핑 구분자가 다음 토핑 구분자와 일치할 때
+			else if(t_arr[i].t_gubun == t_arr[i+1].t_gubun){
+					toppingPrice += parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10) + parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
+					totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
+					
+			}
+			//현재 토핑 구분자가 다음 토핑 구분자와 일치하지 않을 때
+			else if (t_arr[i].t_gubun != t_arr[i+1].t_gubun){
+					toppingPrice = 0;
+					toppingPrice += parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
+					totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
+			}
+				
+				pizza_total += totalPizzaPrice;
+				
+				$('#prd-total' + i).html(totalPizzaPrice);
+				p_total = $('#prd-total' + i).text();
+				
+				//천단위 구분 - 정규표현식
+				p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
+				
+				sum(); 
+			}
+		}
+		else{//토핑이 없을 경우
+			toppingPrice = 0;
+				var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
+				pizza_total += totalPizzaPrice;
+				
+				$('#prd-total' + i).html(totalPizzaPrice);
+				p_total = $('#prd-total' + i).text();
+				
+				//천단위 구분 - 정규표현식
+				p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
+				
+				sum();
+		}
+	}
+	
+//사용자 주소 추가
+
 		var addressSeq = 0; // 주소 테이블 seq 값
 
 		function addAddress() {
@@ -341,8 +328,7 @@ function etcSum(){
 							var guName = $('#guVal').val();
 
 							// '구'에 해당하는 매장명 목록을 받아오기
-							$
-									.ajax({
+							$.ajax({
 										url : 'getStoreRegion.do',
 										contentType : "application/json; charset=UTF-8;",
 										type : 'post',
@@ -609,7 +595,8 @@ function plusDrink(idx){
 	var etcNameIdx = etcNameArr.indexOf(etcName);
 		
 	if(etcCnt == (pizzaCnt*2)){
-		alert("음료는 피자와 2:1 비율로 선택 가능합니다.");		
+		alert("음료는 피자와 2:1 비율로 선택 가능합니다.");
+		//drinkCnt = 9;
 		Number($('#drinkSetNum' + idx).val(drinkSetNum));
 	}
 	else{
@@ -626,8 +613,7 @@ function plusDrink(idx){
 		}else{		
 			etcCntArr.splice(etcNameIdx, 1, drinkSetNum);
 		}
-	}
-	//totalEtcValue();
+	}	
 	console.log(drinkCnt);
 }
 
@@ -654,10 +640,7 @@ function minusDrink(idx){
 		//etcCntArr.splice(etcNameIdx, 1, drinkSetNum);
 		}
 		
-}	
-	
-	//totalEtcValue();
-	
+}		
 
 
 function toppingDelete(index) {
