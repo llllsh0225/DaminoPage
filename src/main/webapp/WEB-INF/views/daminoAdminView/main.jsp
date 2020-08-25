@@ -327,7 +327,7 @@
 										<ul style="margin-bottom: 0px;">
 											<li class="small">
 												<span><a href="#"><b>[${board.flag }]</b></a></span>
-												<span><a href="boardView.admdo?seq=${board.seq }" class="text-muted">${board.title }</a></span>
+												<span><a href="boardView.admdo?seq=${board.seq }" class="text-muted">&nbsp;${board.title }</a></span>
 											</li>
 										</ul>
 									</c:forEach>
