@@ -87,24 +87,31 @@ function addStoreAddrRow(idx){
 	var userid = $('#userid').val();
 	var storename = $('#markerName' + idx).val();
 	alert(userid + storename);
-	$.ajax({
-		url : 'insertStoreAddress.do',
-		contentType : "application/json; charset=UTF-8;",
-		type: 'post', 
-		data : JSON.stringify({
-			userid : userid,
-			storename : storename,
-		}),
-		async : false,
-		success: function(data) {
-			alert('insert 성공');
-			
-		},
-		error: function() {
-			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-		}
-	});
-	location.href="getOrderPage.do?gubun=W";
+	
+	var sessionChk = $('#sessionChk').val();
+	
+	if(sessionChk != 'login'){
+		alert("다미노 회원 전용 서비스입니다. 로그인 해주세요.");
+		location.href="login.do";
+	}else{
+		$.ajax({
+			url : 'insertStoreAddress.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				userid : userid,
+				storename : storename,
+			}),
+			async : false,
+			success: function(data) {
+				
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		});
+		location.href="getOrderPage.do?gubun=W";
+	}
 }
 </script>
 </head>
