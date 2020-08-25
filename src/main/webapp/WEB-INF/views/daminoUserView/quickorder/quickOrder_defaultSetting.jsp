@@ -47,11 +47,11 @@
 			// 총 가격 계산
 			$('#quickOrderList tbody tr').each(function(){
 				var goodsTotalPriceHTML = $(this).find('td').eq(2).html();
-				var goodsTotalPrice = Number(goodsTotalPriceHTML.slice(0,-1)); 
+				var goodsTotalPrice = Number((goodsTotalPriceHTML.slice(0,-1)).replace(',', '')); 
 				totalDBGoodsPrice += goodsTotalPrice;
 			});
 			
-			$('#totalOrderPrice').text(totalDBGoodsPrice);
+			$('#totalOrderPrice').text(totalDBGoodsPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
 		});
 		function selectBoxControl(){
@@ -532,17 +532,17 @@
 						
 						goodsCell.innerHTML = goods;
 						cntCell.innerHTML = selectQty;
-						priceCell.innerHTML = totalPrice + '원';
+						priceCell.innerHTML = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원';
 						delCell.innerHTML = '<td><a href="javascript:removeGoods(' + goodsNextRowSeq + ');" id="delBtn' + goodsNextRowSeq + '" class="btn"><span class="btn-type4-brd2">삭제</span></a></td>';
 						
 						
 						$('#quickOrderList tbody tr').each(function(){
 							var goodsTotalPriceHTML = $(this).find('td').eq(2).html();
-							var goodsTotalPrice = Number(goodsTotalPriceHTML.slice(0,-1));
+							var goodsTotalPrice = Number(goodsTotalPriceHTML.slice(0,-1).replace(',',''));
 							goodsPriceSum += goodsTotalPrice;
 						});
 						
-						$('#totalOrderPrice').text(goodsPriceSum);
+						$('#totalOrderPrice').text(goodsPriceSum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 					}
 				},
 				error: function() {
@@ -571,10 +571,10 @@
 						// 제품 목록 테이블의 해당 row를 삭제
 						var selectRemoveTr = $('#delBtn' + idx).closest('tr');
 						var selectRemovePriceHTML = selectRemoveTr.find('td').eq(2).html();
-						var selectRemovePrice = Number(selectRemovePriceHTML.slice(0,-1));
-						var totalOrderPriceNow = Number($('#totalOrderPrice').text());
+						var selectRemovePrice = Number(selectRemovePriceHTML.slice(0,-1).replace(',',''));
+						var totalOrderPriceNow = Number($('#totalOrderPrice').text().replace(',',''));
 						totalOrderPriceNow -= selectRemovePrice;
-						$('#totalOrderPrice').text(totalOrderPriceNow);
+						$('#totalOrderPrice').text(totalOrderPriceNow.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 						selectRemoveTr.remove();
 					}
 				},
@@ -1082,7 +1082,7 @@
 											<tr>
 												<td>${goods.quick_goods }</td>
 												<td>${goods.quick_qty }</td>
-												<td>${goods.quick_price }원</td>
+												<td><fmt:formatNumber value="${goods.quick_price }" pattern="#,###" />원</td>
 												<td>
 													<a href="javascript:removeGoods(${goods.rowseq });" id="delBtn${goods.rowseq }" class="btn">
 													<span class="btn-type4-brd2">삭제</span></a>
