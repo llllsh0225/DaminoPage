@@ -224,27 +224,23 @@
 		var etc_total = 0;
 		var totalPizzaPrice = 0;
 		
-		if (t_arr != null) {
+	if (t_arr != null) {
 		//피자금액에 토핑 금액 합산
 		for (var i = 0; i < t_arr.length; i++) {	
-			toppingPrice = 0;
-			toppingPrice = parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);			
-			totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-			
+				
 		//i가 마지막일 때
 		if(i == t_arr.length-1){
-			toppingPrice = 0;
-			toppingPrice = parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);
+			toppingPrice -= parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);
 			totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 			pizza_total += totalPizzaPrice;
-			//sum();
 			
-			//toppingPrice = 0;
+			sum();
 			return;
+			
 		}
 		//현재 토핑 구분자가 다음 토핑 구분자와 일치할 때
 		else if(t_arr[i].t_gubun == t_arr[i+1].t_gubun){
-				toppingPrice += parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
+				toppingPrice += parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10) + parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
 				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 				
 		}
@@ -253,9 +249,8 @@
 				toppingPrice = 0;
 				toppingPrice += parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
 				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-
 		}
-			 toppingPrice = 0;	
+			
 			pizza_total += totalPizzaPrice;
 			
 			$('#prd-total' + i).html(totalPizzaPrice);
@@ -264,10 +259,12 @@
 			//천단위 구분 - 정규표현식
 			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
+			
 			sum(); 
 		}
-			
+		
 	}else{//토핑이 없을 경우
+		toppingPrice = 0;
 			var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 			pizza_total += totalPizzaPrice;
 			
@@ -279,7 +276,7 @@
 			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
 			
 			sum();
-		}
+	}
 
 		var sidePrice = 0;
 		if (sideArr != null) {
@@ -319,27 +316,10 @@
 			sum();
 		}
 	
-		/* var index = $('#toppingIdx').val();
-			var t_name = $('#t_name').val();
-			console.log("t_name : " + t_name);
-			for(i=0; i<t_nameArr.length; i++ ){
-			$('#topping').append('<li id="delBtn">' + t_nameArr[i] +"(" + t_priceArr[i] 
-			 + "원)"+ "x" + t_countArr[i]
-			 + '<a href="javascript:toppingDelete(' + index
-				+ ');" class="close"><span class="hidden">삭제</span></a></li>');
-			} */
-		//$('#total-price').html(total);
-		//console.log("b : " + b);
-		/* var test = "";
-		for (var i = 0; i < t_name.length; i++) {
-			test += t_name[i];
-			if (i != t_name.length - 1) {
-				test += ",";
-			}
-		} */
 function sum(){
 		
-		$('#total-price').html(Number(pizza_total + side_total + etc_total));
+		//$('#total-price').html(Number(pizza_total + side_total + etc_total));
+		$('#total-price').html(Number(pizza_total));
 		var total = $('#total-price').text();
 		total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		$('#total-price').html(total);
