@@ -214,8 +214,8 @@ if (pizzaArr != null) {
 			
 			sum(); 
 		}
-		}
-	}else{//토핑이 없을 경우
+	}
+	else{//토핑이 없을 경우
 		toppingPrice = 0;
 			var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 			pizza_total += totalPizzaPrice;
@@ -228,6 +228,7 @@ if (pizzaArr != null) {
 			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
 			
 			sum();
+	}
 }
 				
 	

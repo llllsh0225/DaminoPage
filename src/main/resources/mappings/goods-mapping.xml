@@ -100,24 +100,28 @@
 	<select id="getBasketPizza" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
 		SELECT * FROM usersPizza 
 		WHERE userid = #{userid}
+		ORDER BY seq
 	</select>
 	
 	<!-- 장바구니 토핑 정보 불러오기 -->
 	<select id="getBasketTopping" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
 		SELECT * FROM usersTopping
 		WHERE userid = #{userid}
+		ORDER BY seq
 	</select>
 	
 	<!-- 장바구니 사이드디시 정보 불러오기 -->
 	<select id="getBasketSide" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
 		SELECT * FROM usersSide
 		WHERE userid = #{userid}
+		ORDER BY seq
 	</select>
 	
 	<!-- 장바구니 음료 및 기타 정보 불러오기 -->
 	<select id="getBasketEtc" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
 		SELECT * FROM usersEtc
 		WHERE userid = #{userid}
+		ORDER BY seq
 	</select>
 	
 	<!-- 장바구니 토핑 삭제하기 -->
