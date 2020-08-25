@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.damino.web.user.order.DeliveryAddressVO;
 import com.damino.web.user.order.OrderDAO;
 import com.damino.web.user.order.OrderService;
+import com.damino.web.user.order.StoreAddressVO;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
@@ -28,6 +29,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void deleteDeliveryAddress(DeliveryAddressVO vo) {
 		orderDAO.deleteDeliveryAddress(vo);
+	}
+
+	@Override
+	public List<StoreAddressVO> getStoreAddressList(String userid) {
+		return orderDAO.getStoreAddressList(userid);
+	}
+
+	@Override
+	public void insertStoreAddress(StoreAddressVO vo) {
+		orderDAO.insertStoreAddress(vo);
 	}
 
 }

@@ -36,7 +36,6 @@
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	
 <script>
-
 	window.onload = function(){
 		var addressListSize = Number($('#addressListSize').val()); // 저장된 배달주소 리스트 사이즈
 		if($('#gubun').val() == 'D'){
@@ -60,7 +59,10 @@
 			$('#delivery').hide();
 		}
 	}
-	
+	// ------------------ 포장주문 관련 함수 -------------------
+	function storeAddressPop(){
+		window.open("openStoreAddr.do", "포장매장 선택", "top=50, left=60, width=420, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+	}
 	// ------------------ 배달주문 관련 함수 -------------------
 	
 	// 주소 선택 창 (다음 API & 상세주소 자식창 open)
@@ -415,27 +417,29 @@
 						<div class="address-list">
 							<div class="address-list">
 							<ul>
-								<li>
-									<div class="chk-box selected" id="chk-box1">
-										<input type="radio" class="address" checked="">
-										<label class="checkbox" for="addressradio1"></label>
-									</div>
-									<dl>
-										<dt>
-											<label for="addressradio1">
-												<em>테스트점</em>
-													<span class="tel">02-123-3082</span>
-											</label>
-										</dt>
-											<dd>
-												<span class="adr">포장매장 주소</span>
-											</dd>
-												<a href="javascript:deleteAddress('11178162');" class="btn-del"><span class="hidden">삭제</span></a>
-									</dl>
-								</li>
+								<c:forEach var="storeAddressList" items="${storeAddressList }">
+									<li>
+										<div class="chk-box selected" id="chk-box1">
+											<input type="radio" class="address" checked="">
+											<label class="checkbox" for="addressradio1"></label>
+										</div>
+										<dl>
+											<dt>
+												<label for="addressradio1">
+													<em>${storeAddressList.storename }</em>
+														<span class="tel">${storeAddressList.storephone }</span>
+												</label>
+											</dt>
+												<dd>
+													<span class="adr">${storeAddressList.storeaddress }</span>
+												</dd>
+													<a href="javascript:deleteAddress('11178162');" class="btn-del"><span class="hidden">삭제</span></a>
+										</dl>
+									</li>
+								</c:forEach>
 							</ul>
 								<div class="address-enter">
-									<a href="javascript:addBranch();" class="btn-type-brd2"><i class="ico-plus"></i>포장매장 등록</a>
+									<a href="javascript:storeAddressPop();" class="btn-type-brd2"><i class="ico-plus"></i>포장매장 등록</a>
 										<div class="side guide-box">포장매장은 최대 10개까지만 등록 가능합니다.</div>
 								</div>
 								<div class="address-btn">
