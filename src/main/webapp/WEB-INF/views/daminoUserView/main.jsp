@@ -41,6 +41,8 @@
 	// 이미지 슬라이더
 	// css는 common.css 1153줄~
 	$(document).ready(function() {
+		sessionStorage.clear();
+		
 		$(".banner-slider").slick({
 			dots : true,
 			autoplay : true,
