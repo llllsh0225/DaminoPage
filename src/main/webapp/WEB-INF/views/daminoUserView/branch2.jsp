@@ -68,6 +68,20 @@ function searchRegion(callBackFunc){
 				}
 			});
 } */
+	function openOrderPage(gubun){
+		var sessionChk = $('#sessionChk').val();
+		
+		if(sessionChk != 'login'){
+			alert("다미노 회원 전용 서비스입니다. 로그인 해주세요.");
+			location.href="login.do";
+		}else{
+			if(gubun == 'D'){
+				location.href="getOrderPage.do?gubun=D";
+			}else{
+				location.href="getOrderPage.do?gubun=W";
+			}
+		}
+	}
 </script>
 </head>
 <body>
@@ -78,7 +92,7 @@ function searchRegion(callBackFunc){
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+					<input type="hidden" id="sessionChk" value="${msg }"> 
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
@@ -307,7 +321,7 @@ function searchRegion(callBackFunc){
                                                     </div>
                                                     <div class="btn-wrap">
                                                         <a href="#" onclick="">상세보기</a>
-                                                        <a href="#" class="type2">방문포장</a>
+                                                        <a href="javascript:openOrderPage('W')" class="type2">방문포장</a>
                                                     </div>
                                                 </li>
                                             </c:forEach>
@@ -331,7 +345,7 @@ function searchRegion(callBackFunc){
                                                     </div>
                                                     <div class="btn-wrap">
                                                         <a href="#" onclick="">상세보기</a>
-                                                        <a href="#" class="type2">방문포장</a>
+                                                        <a href="javascript:openOrderPage('W')" class="type2">방문포장</a>
                                                     </div>
                                                 </li>
                                             </c:forEach>

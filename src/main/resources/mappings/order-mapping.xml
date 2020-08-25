@@ -21,5 +21,16 @@
 		DELETE FROM delivery_address
 		WHERE seq = (SELECT MAX(seq) FROM delivery_address WHERE address = #{address} AND userid = #{userid})
 	</delete>
-
+	
+	<!-- 매장주소 리스트 가져오기 -->
+	<select id="getStoreAddressList" parameterType="String" resultType="com.damino.web.user.order.StoreAddressVO">
+		SELECT * FROM wrap_store
+		WHERE userid = #{userid}
+	</select>
+	
+	<!-- 포장매장 insert -->
+	<insert id="insertStoreAddress" parameterType="com.damino.web.user.order.StoreAddressVO">
+		INSERT INTO wrap_store
+		VALUES ((select nvl(max(seq), 0)+1 from wrap_store), (select storeregion from daminostoreinfo WHERE storename=#{storename}), #{storename}, (select storeaddress from daminostoreinfo WHERE storename=#{storename}), (select storephone from daminostoreinfo WHERE storename=#{storename}), #{userid})
+	</insert>
 </mapper>
