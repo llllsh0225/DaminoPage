@@ -371,7 +371,7 @@
 								<div class="card-header bg-dark text-white">주문건수</div>
 								<div class="card-body">
 									<div>
-										<span><h1>91</h1></span> <span><h3 class=small>건수</h3></span>
+										<span><h1>${orderCount}</h1></span> <span><h3 class=small>건수</h3></span>
 									</div>
 								</div>
 							</div>

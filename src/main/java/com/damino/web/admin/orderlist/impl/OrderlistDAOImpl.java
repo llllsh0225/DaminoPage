@@ -22,4 +22,10 @@ public class OrderlistDAOImpl implements OrderlistDAO {
 		return sqlSessionTemplate.selectList("OrderlistDAO.getOrderlistInv");
 	}
 
+	@Override
+	public int orderCount() {
+		System.out.println("-- ÃÑ ÁÖ¹®°Ç¼ö -- [dao]");
+		return sqlSessionTemplate.selectOne("OrderlistDAO.getOrderCount");
+	}
+
 }

@@ -25,4 +25,8 @@
 	<select id="getOrderView" resultType="com.damino.web.user.orderlist.MyOrderListVO">
 		SELECT * FROM order_list WHERE orderseq=#{orderseq}
 	</select>
+	<!-- 총 주문량  -->
+	<select id="getOrderCount" resultType="Integer">
+		select count(*) from order_list
+	</select>
 </mapper>
