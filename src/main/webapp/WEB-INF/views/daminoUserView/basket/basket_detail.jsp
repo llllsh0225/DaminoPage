@@ -108,96 +108,6 @@
 </script>
 <script language=JavaScript>
 	window.onload = function() {
-
-		/* 
-		for (var i = 0; i < arr.length; i++) {
-				// HTML 984행 ---> div영역 id 세팅하는 부분 참고해주세요.
-		
-				console.log("index : " + index);
-			// 토핑 div 영역에 추가 될 <ul> 태그 생성
-			var newul = document.createElement("ul");
-			
-			// 토핑 이름, 가격, 수량 split으로 잘라서 배열에 저장
-			var toppingArr = arr[i].name.split(",");
-			var priceArr = arr[i].price.split(",");
-			var countArr = arr[i].count.split(",");
-			var p_priceArr = arr[i].p_price.split(",");
-			var indexArr = arr[i].indexs.split(",");
-			
-			var p_nameArr = arr[i].p_name.split(",");
-			
-			console.log("p_nameArr : " + p_nameArr);
-			console.log("p_priceArr : " + p_priceArr);
-			console.log("indexArr : " + indexArr);
-			// <ul>태그 안에 들어갈 innerHTML
-			var innerTag = '';
-			
-			  for(var j=0; j<toppingArr.length; j++){
-				 
-				 //배열의 요소가 비어있을 때 이전 값 호출
-				if(typeof indexArr[j] == "undefined"){
-					indexArr[j] = indexArr.reduce(function (pre, value) {
-					    return pre;
-					});
-				}				
-				
-					innerTag += '<li id="delBtn' + index + idxNum + '"><span>' + toppingArr[j] + '(+' + priceArr[j] + '원) x ' + countArr[j] +
-					'<a href="javascript:toppingDelete(\'' + toppingArr[j] + '\','+ countArr[j]
-					+ ',\'' + priceArr[j] + '\',' + indexArr[j] + ');" class="close"><span class="hidden">삭제</span></a>'
-					+ '</span></li>';
-					
-					if(innerTag == '(+원) x'){
-						toppingArr[j] = toppingArr.reduce(function (pre, value) {
-						    return value;
-						});
-						return;
-					}
-				console.log(toppingArr[j]);
-			}  
-		     /* for(var j=0; j<toppingArr.length; j++){
-				
-				innerTag += '<li id="delBtn' + index + idxNum + '"><span>' + toppingArr[j] + '(+' + priceArr[j] + '원) x ' + countArr[j] +
-				'</li>';
-				idxNum++;
-				console.log(toppingArr[j]);
-			} 
-			
-			newul.innerHTML = innerTag;
-			
-			console.log(newdiv);
-				
-			var newdiv = document.getElementById("prd-option" + i); // 태그 추가할 div 영역
-			newdiv.appendChild(newul);
-			
-			var newuls = document.createElement("ul");
-			
-			//피자 가격과 토핑 가격 합산을 위한 변수
-			var innerT_price = 0;
-			
-			for(var j=0; j<toppingArr.length; j++){
-				
-				var t_price = Number(priceArr[j]);
-				var t_count = Number(countArr[j]);
-				var p_prices = Number(p_priceArr[j]);
-				 if(isNaN(p_prices)){
-					p_prices = 0;
-				} 
-				
-				console.log("p_prices : " + p_prices);
-				innerT_price += Number(t_price)*Number(t_count) + Number(p_prices);
-				
-				console.log(toppingArr[j]);
-			}
-			innerT_price = innerT_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			console.log("innerT_price : " + innerT_price);
-			newuls.innerHTML = '<em>' + innerT_price + '</em>원';
-			
-			var newdivTotal = document.getElementById("prd-total" + i); // 태그 추가할 div 영역
-			newdivTotal.appendChild(newuls);
-	
-		}
-		
-	*/
 	
 //총 합계 구하기
 	//피자 row
@@ -223,7 +133,49 @@
 		var side_total = 0;		
 		var etc_total = 0;
 		var totalPizzaPrice = 0;
+
+var sidePrice = 0;
+		if (sideArr != null) {
+			for (var s = 0; s < sideArr.length; s++) {
+			//alert("테스트");
+				sidePrice = (parseInt(sideArr[s].s_price, 10) * parseInt(sideArr[s].s_count));
+				console.log("sidePrice : " + sidePrice);
+				
+				side_total += sidePrice;
+				
+				$('#side-total' + s).html(sidePrice);
+				
+				//천단위 구분 - 정규표현식
+				var s_total = $('#side-total' + s).text();
+				s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#side-total' + s).html(s_total);
+				
+				sideSum();
+				
+			}
 		
+}		
+var etcPrice = 0;
+		if (etcArr != null) {
+			for (var i = 0; i < etcArr.length; i++) {
+					etcPrice = (parseInt(etcArr[i].d_price, 10) * parseInt(etcArr[i].d_count));
+					console.log("etcPrice : " + etcPrice);
+					
+					etc_total += etcPrice;
+					
+					$('#etc-total' + i).html(etcPrice);
+					
+					//천단위 구분 - 정규표현식
+					var e_total = $('#etc-total' + i).text();
+					e_total = e_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					$('#etc-total' + i).html(e_total);
+					
+					etcSum();
+		}
+			
+}		
+		
+if (pizzaArr != null) {		
 	if (t_arr != null) {
 		//피자금액에 토핑 금액 합산
 		for (var i = 0; i < t_arr.length; i++) {	
@@ -262,7 +214,7 @@
 			
 			sum(); 
 		}
-		
+		}
 	}else{//토핑이 없을 경우
 		toppingPrice = 0;
 			var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
@@ -276,56 +228,49 @@
 			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
 			
 			sum();
-	}
-
-		var sidePrice = 0;
-		if (sideArr != null) {
-			for (var i = 0; i < sideArr.length; i++) {
-				sidePrice = (parseInt(sideArr[i].s_price, 10) * parseInt(sideArr[i].s_count));
-				console.log("sidePrice : " + sidePrice);
+}
 				
-				side_total += sidePrice;
-				
-				$('#side-total' + i).html(sidePrice);
-				
-				//천단위 구분 - 정규표현식
-				var s_total = $('#side-total' + i).text();
-				s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				$('#side-total' + i).html(s_total);
-				
-			}
-			sum();
-		}
-		
-		var etcPrice = 0;
-		if (etcArr != null) {
-			for (var i = 0; i < etcArr.length; i++) {
-				etcPrice = (parseInt(etcArr[i].d_price, 10) * parseInt(etcArr[i].d_count));
-				console.log("etcPrice : " + etcPrice);
-				
-				etc_total += etcPrice;
-				
-				$('#etc-total' + i).html(etcPrice);
-				
-				//천단위 구분 - 정규표현식
-				var e_total = $('#etc-total' + i).text();
-				e_total = e_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				$('#etc-total' + i).html(e_total);
-				
-			}
-			sum();
-		}
 	
 function sum(){
-		
+	//alert("sum");
+
 		//$('#total-price').html(Number(pizza_total + side_total + etc_total));
-		$('#total-price').html(Number(pizza_total));
+		$('#total-price').html(Number(pizza_total + side_total + etc_total));
 		var total = $('#total-price').text();
 		total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		$('#total-price').html(total);
-}
-		
+} 
+function sideSum(){
+	//alert("sideSum");	
+			//천단위 구분 - 정규표현식
+			var s_total = $('#side-total' + s).text();
+			s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#side-total' + s).html(s_total);
+			//sideSum();
+			
+			$('#total-price').html(Number(side_total));
+			var total = $('#total-price').text();
+			total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#total-price').html(total);
+			
+			sum();
 
+}
+function etcSum(){
+	alert("etcSum");
+	
+	//천단위 구분 - 정규표현식
+	var e_total = $('#etc-total' + i).text();
+	e_total = e_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$('#etc-total' + i).html(e_total);
+	
+	$('#total-price').html(Number(etc_total));
+	var total = $('#total-price').text();
+	total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$('#total-price').html(total);
+	
+	sum();
+}
 		var addressSeq = 0; // 주소 테이블 seq 값
 
 		function addAddress() {
