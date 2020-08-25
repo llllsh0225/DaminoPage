@@ -46,31 +46,43 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script language=JavaScript>
 	var pizzaArr = new Array();
-	var arr = new Array();
+	//var arr = new Array();
+	var t_arr = new Array();
 	var sideArr = new Array();
+	var etcArr = new Array();
 
 <c:forEach var="pizza" items="${basketList}">
 	pizzaArr.push({
 		p_price : "${pizza.p_price}",
 		p_count : "${pizza.p_count}",
+		p_name : "${pizza.p_name}",
 		p_gubun : "${pizza.gubun}"
 	}); 
 </c:forEach>
 
 <c:forEach var="topping" items="${toppingList}">
-	arr.push({
+	t_arr.push({
+		t_name : "${topping.t_name}",
 		t_price : "${topping.t_price}",
 		t_count : "${topping.t_count}",
-		t_name : "${topping.t_name}",
 		t_gubun : "${topping.gubun}"
-	}); 										
+	});
 </c:forEach>
 	
 <c:forEach var="side" items="${sideList}">
 	sideArr.push({
+		s_name : "${side.s_name}",
 		s_price : "${side.s_price}",
 		s_count : "${side.s_count}"
 	}); 
+</c:forEach>
+
+<c:forEach var="etc" items="${etcList}">
+	etcArr.push({
+		d_name : "${etc.d_name}",
+		d_price : "${etc.d_price}",
+		d_count : "${etc.d_count}"
+}); 
 </c:forEach>
 /* for (var i = 0; i < arr.length; i++) {
 	 console.log("이름 : " + arr[i].name + " 가격 : " + arr[i].price + " 수량 : " + arr[i].count);
@@ -96,9 +108,6 @@
 </script>
 <script language=JavaScript>
 	window.onload = function() {
-		for(var i=0; i<arr.length; i++){
-			console.log(arr[i].t_price);
-		}
 
 		/* 
 		for (var i = 0; i < arr.length; i++) {
@@ -189,71 +198,110 @@
 		}
 		
 	*/
-		//토핑 가격
+	
+//총 합계 구하기
+	//피자 row
+	var p_length = pizzaArr.length;
+	//사이드 row
+	var s_length = sideArr.length;
+	//음료및기타 row
+	var e_length = etcArr.length;
+	
+	var total_length = Number(p_length + s_length + e_length);
+	console.log("row 길이 : " + total_length);
+	
+	
+//	for (var j = 0; j < total_length; j++) {
 		
 		//토핑 합계 계산
-		var toppingPrice = [];
-	
+		var toppingPrice = 0;
+		var toppingNum = Number($('#toppingNum').val());
+		console.log("토핑 개수 = " + toppingNum);
 		
-	
-	
-		if (arr != null) {
-			//피자금액에 토핑 금액 합산
-		for (var i = 0; i < arr.length; i++) {	
+		//각 메뉴별 합계 계산을 위한 변수
+		var pizza_total = 0;
+		var side_total = 0;		
+		var etc_total = 0;
+		
+		if (t_arr != null) {
+		//피자금액에 토핑 금액 합산
+		for (var i = 0; i < t_arr.length; i++) {	
+			toppingPrice = 0;
+			toppingPrice = parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);			
+		
+		//i가 마지막일 때
+		if(i == t_arr.length-1){
+			toppingPrice += parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);
 			
-			console.log("토핑가격 : " + $('#t_price' + i).val());
+		//현재 토핑 구분자가 다음 토핑 구분자와 일치할 때
+		}else if (t_arr[i].t_gubun == t_arr[i+1].t_gubun){
+				toppingPrice += parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
+		
+		}//현재 토핑 구분자가 다음 토핑 구분자와 일치하지 않을 때
+		else if (t_arr[i].t_gubun != t_arr[i+1].t_gubun){
+				toppingPrice = 0;
+				toppingPrice += parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
+		}		
+		
+		var totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 			
-			console.log("토핑구분 : " + arr[i].t_gubun);
-			var t_price = $('#t_price' + i).val();
-			console.log("가격 : " + t_price);
-			var toppingArr = Number(arr[i].t_name.split(","));
+			pizza_total += totalPizzaPrice;
 			
-			for (var i = 0 ; i < 5 ; i++ ){
-				//if (arr[i].t_gubun == arr[i+1].t_gubun){
-				/* 	console.log("배열의 내용이 일치합니다");
-					console.log("토핑구분 : " + arr[i].t_gubun);
-			//}
-			//else{
-				console.log("배열의 내용이 일치하지 않습니다."); */
-				console.log("토핑구분 : " + arr[i].t_gubun);
-			//	}
+			$('#prd-total' + i).html(totalPizzaPrice);
+			p_total = $('#prd-total' + i).text();
+			
+			//천단위 구분 - 정규표현식
+			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
+			
 			}
-				
-			 for(var j=0; j<toppingArr.length; j++){
-				//var toppingPrice = 0;
-				toppingPrice += parseInt(arr[i].t_price, 10) * parseInt(arr[i].t_count, 10);
-				console.log("toppingPrice : " + toppingPrice);
-				
-				}
-			
-
-			 var totalPizzaPrice = Number(toppingPrice) + (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-				console.log("totalPizzaPrice : " + totalPizzaPrice);
-				$('#prd-total' + i).html(totalPizzaPrice);
-				
-				 var p_total = $('#prd-total' + i).text();
-				//천단위 구분 - 정규표현식
-				p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원"); 
-			}
+			sum();
 		}
-		
+
 		var sidePrice = 0;
 		if (sideArr != null) {
 			for (var i = 0; i < sideArr.length; i++) {
 				sidePrice = (parseInt(sideArr[i].s_price, 10) * parseInt(sideArr[i].s_count));
 				console.log("sidePrice : " + sidePrice);
 				
+				side_total += sidePrice;
+				
 				$('#side-total' + i).html(sidePrice);
 				
+				//천단위 구분 - 정규표현식
 				var s_total = $('#side-total' + i).text();
 				s_total = s_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				$('#side-total' + i).html(s_total);
+				
 			}
-			
+			sum();
 		}
 		
-		$('#total-price').html(p_total+s_total);
+		var etcPrice = 0;
+		if (etcArr != null) {
+			for (var i = 0; i < etcArr.length; i++) {
+				etcPrice = (parseInt(etcArr[i].d_price, 10) * parseInt(etcArr[i].d_count));
+				console.log("etcPrice : " + etcPrice);
+				
+				etc_total += etcPrice;
+				
+				$('#etc-total' + i).html(etcPrice);
+				
+				//천단위 구분 - 정규표현식
+				var e_total = $('#etc-total' + i).text();
+				e_total = e_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#etc-total' + i).html(e_total);
+				
+			}
+			sum();
+		}
+		
+	//	$('#prd-total' + i).val();
+		//$('#total-price').html(p_total + s_total);
+	
+//	}
+		
+		
 
 		/* for(i=0; i<t_priceArr.length; i++){
 			toppingPrice += Number(t_priceArr[i]);
@@ -266,18 +314,16 @@
 
 		var pizzaImage = "";
 
-		
-	/* var index = $('#toppingIdx').val();
-		var t_name = $('#t_name').val();
-		console.log("t_name : " + t_name);
-		for(i=0; i<t_nameArr.length; i++ ){
-		$('#topping').append('<li id="delBtn">' + t_nameArr[i] +"(" + t_priceArr[i] 
-		 + "원)"+ "x" + t_countArr[i]
-		 + '<a href="javascript:toppingDelete(' + index
-			+ ');" class="close"><span class="hidden">삭제</span></a></li>');
-		} */
+		/* var index = $('#toppingIdx').val();
+			var t_name = $('#t_name').val();
+			console.log("t_name : " + t_name);
+			for(i=0; i<t_nameArr.length; i++ ){
+			$('#topping').append('<li id="delBtn">' + t_nameArr[i] +"(" + t_priceArr[i] 
+			 + "원)"+ "x" + t_countArr[i]
+			 + '<a href="javascript:toppingDelete(' + index
+				+ ');" class="close"><span class="hidden">삭제</span></a></li>');
+			} */
 		//$('#total-price').html(total);
-
 		//console.log("b : " + b);
 		/* var test = "";
 		for (var i = 0; i < t_name.length; i++) {
@@ -285,213 +331,146 @@
 			if (i != t_name.length - 1) {
 				test += ",";
 			}
-		} 
-		/*
+		} */
+function sum(){
+		$('#total-price').html(Number(pizza_total + side_total + etc_total));
+		var total = $('#total-price').text();
+		total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		$('#total-price').html(total);
+}
 		
-		$('.subject').text(goodsName);
-		$('.option').text(goodsDough + "/" + selectSize);
-		$('.price').text(selectPrice);
-		$('#pizza-total').html("<em>" + selectPrice + "</em>" + "원");
-		
-		  $.ajax({ 
-			url : 'getPizzaName.do',
-			contentType : "application/json; charset=UTF-8;",
-			type : 'post',
-			traditional : true,
-			data : JSON.stringify({
-				p_name : goodsName
-			// 컨트롤러로 보낼 제품 카테고리 명
-			}),
-			async : false,
-			success : function(data) {
-				if (data != null) {
-						console.log(data);
-					
-						pizzaImage = data;
-						$('#pizzaImage').append(pizzaImage);
-				}
 
-				else if (typeof callbackFunc === 'function') {
-					callbackFunc();
-				} else {
-					alert("다시 시도해주세요");
-				}
-			},
-			error : function() {
-				alert('처리도중 오류가 발생했습니다.');
-			}
-		);}  */
+		var addressSeq = 0; // 주소 테이블 seq 값
 
-		/* if (t_name != null) {
-		$.ajax({
-			url : 'getToppingNames.do',
-			contentType : "application/json; charset=UTF-8;",
-			type : 'post',
-			traditional : true,
-			data : JSON.stringify({
-				t_name : test
-			// 컨트롤러로 보낼 제품 카테고리 명
-			}),
-			success : function(data) {
-				if (data != null) {
-					//t_image_list 가 console에 찍히는가
-					//alert("${toppingList}");
-					console.log(data);
-					
-					 for (i = 0; i < data.length; i++) {
-						var toppingList = data[i].t_name;
-						$('#topping').append("<div>" + data[i].t_name + "("
-						+ data[i].t_price + "원)"+ "</div>");
-						console.log("toppingList : " + toppingList);
-							
-				}
+		function addAddress() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-					
-				}
+							// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+							var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
-				else if (typeof callbackFunc === 'function') {
-					callbackFunc();
-				} else {
-					alert("다시 시도해주세요");
-				}
-			},
-			error : function() {
-				alert('처리도중 오류가 발생했습니다.');
-			}
-		});
-		} 
-	}*/
+							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+							if (data.bname !== ''
+									&& /[동|로|가]$/g.test(data.bname)) {
+								extraRoadAddr += data.bname;
+							}
+							// 건물명이 있고, 공동주택일 경우 추가한다.
+							if (data.buildingName !== ''
+									&& data.apartment === 'Y') {
+								extraRoadAddr += (extraRoadAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+							if (extraRoadAddr !== '') {
+								extraRoadAddr = ' (' + extraRoadAddr + ')';
+							}
+							// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+							if (fullRoadAddr !== '') {
+								fullRoadAddr += extraRoadAddr;
+							}
 
-	var addressSeq = 0; // 주소 테이블 seq 값
+							// 시,구,동까지의 주소 정보를 hidden에 저장
+							$('#addrVal').val(fullRoadAddr);
+							console.log("주소 : " + $('#addrVal').val());
 
-	function addAddress() {
-		new daum.Postcode(
-				{
-					oncomplete : function(data) {
-						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+							// 구 정보를 hidden에 저장
+							var addrArr = fullRoadAddr.split(" "); // 스페이스바 구분자로 주소를 분리
+							$('#guVal').val(addrArr[1]);
+							var guName = $('#guVal').val();
 
-						// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-						var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-						var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+							// '구'에 해당하는 매장명 목록을 받아오기
+							$
+									.ajax({
+										url : 'getStoreRegion.do',
+										contentType : "application/json; charset=UTF-8;",
+										type : 'post',
+										data : JSON.stringify({
+											guName : guName,
+										}),
+										async : false,
+										success : function(data) {
+											if (data == 'success') {
+												console.log(data);
+												// 상세주소 입력 페이지 열기
 
-						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-							extraRoadAddr += data.bname;
-						}
-						// 건물명이 있고, 공동주택일 경우 추가한다.
-						if (data.buildingName !== '' && data.apartment === 'Y') {
-							extraRoadAddr += (extraRoadAddr !== '' ? ', '
-									+ data.buildingName : data.buildingName);
-						}
-						// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-						if (extraRoadAddr !== '') {
-							extraRoadAddr = ' (' + extraRoadAddr + ')';
-						}
-						// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-						if (fullRoadAddr !== '') {
-							fullRoadAddr += extraRoadAddr;
-						}
-
-						// 시,구,동까지의 주소 정보를 hidden에 저장
-						$('#addrVal').val(fullRoadAddr);
-						console.log("주소 : " + $('#addrVal').val());
-
-						// 구 정보를 hidden에 저장
-						var addrArr = fullRoadAddr.split(" "); // 스페이스바 구분자로 주소를 분리
-						$('#guVal').val(addrArr[1]);
-						var guName = $('#guVal').val();
-
-						// '구'에 해당하는 매장명 목록을 받아오기
-						$
-								.ajax({
-									url : 'getStoreRegion.do',
-									contentType : "application/json; charset=UTF-8;",
-									type : 'post',
-									data : JSON.stringify({
-										guName : guName,
-									}),
-									async : false,
-									success : function(data) {
-										if (data == 'success') {
-											console.log(data);
-											// 상세주소 입력 페이지 열기
-
-											window
-													.open(
-															"openDetailAddress.do",
-															"상세주소 & 배달매장 입력",
-															"top=50, left=60, width=450, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
-										} else {
-											alert('배달 불가 주소입니다.');
-											return;
+												window
+														.open(
+																"openDetailAddress.do",
+																"상세주소 & 배달매장 입력",
+																"top=50, left=60, width=450, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+											} else {
+												alert('배달 불가 주소입니다.');
+												return;
+											}
+										},
+										error : function() {
+											alert('처리도중 오류가 발생했습니다.');
 										}
-									},
-									error : function() {
-										alert('처리도중 오류가 발생했습니다.');
-									}
 
-								})
-					}
-				}).open();
-	}
+									})
+						}
+					}).open();
+		}
 
-	function receiveDetailAddr(addr, selectStore) {
-		$('#detailAddrVal').val(addr);
-		$('#selectStore').val(selectStore);
-	}
+		function receiveDetailAddr(addr, selectStore) {
+			$('#detailAddrVal').val(addr);
+			$('#selectStore').val(selectStore);
+		}
 
-	function addAddr() {
-		++addressSeq;
+		function addAddr() {
+			++addressSeq;
 
-		alert(addressSeq);
-		//var deliveryAddrList = document.getElementById("addr_list_o");
-		var address = $('#addrVal').val() + ' ' + $('#detailAddrVal').val(); // 배달 주소
-		$('#address').text(address);
+			alert(addressSeq);
+			//var deliveryAddrList = document.getElementById("addr_list_o");
+			var address = $('#addrVal').val() + ' ' + $('#detailAddrVal').val(); // 배달 주소
+			$('#address').text(address);
 
-		var storeName = $('#selectStore').val(); // 배달 매장명
-		$('#store').html("<span>" + storeName + "</span>");
+			var storeName = $('#selectStore').val(); // 배달 매장명
+			$('#store').html("<span>" + storeName + "</span>");
 
-		//var userid = $('#userid').val(); //컨트롤러에서 세션 아이디값을 추가해줘야함!
-	}
-}//END window.onload
+			//var userid = $('#userid').val(); //컨트롤러에서 세션 아이디값을 추가해줘야함!
+		}
+	}//END window.onload
 
+	function toppingDelete(index) {
+		var rowseq = index;
 
-function toppingDelete(index){
-	 var rowseq = index;
-	 
-	 if(confirm("선택하신 토핑을 삭제하시겠습니까?")) {
-	 var userid = $('#userid').val();
-	 
-	 $.ajax({
-	 url : 'deleteTopping.do',
-	 contentType : "application/json; charset=UTF-8;",
-	 type: 'post', 
-	 data : JSON.stringify({
-	 	userid : userid,
-	 	seq : index
-	 }),
-	
-	 	success: function(data) {
-			 alert("삭제 성공");
-			 location.reload(true);
-	 		},
-		 error: function() {
-	 		alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-	 		}
-	 	})
-		}else  {
+		if (confirm("선택하신 토핑을 삭제하시겠습니까?")) {
+			var userid = $('#userid').val();
+
+			$.ajax({
+				url : 'deleteTopping.do',
+				contentType : "application/json; charset=UTF-8;",
+				type : 'post',
+				data : JSON.stringify({
+					userid : userid,
+					seq : index
+				}),
+
+				success : function(data) {
+					alert("삭제 성공");
+					location.reload(true);
+				},
+				error : function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
+		} else {
 			return;
 		}
-}
-function pizzaDelete(idx, gubun) {
-	 var rowseq = idx;
-	 var gubun = gubun;
-	 if(confirm("해당 정보를 삭제하시겠습니까?")){
-			
+	}
+	function pizzaDelete(idx, gubun) {
+		var rowseq = idx;
+		var gubun = gubun;
+		if (confirm("해당 정보를 삭제하시겠습니까?")) {
+
 			var userid = $('#userid').val();
-			
+
 			$.ajax({
 				url : 'pizzaDelete.do',
 				contentType : "application/json; charset=UTF-8;",
@@ -515,62 +494,61 @@ function pizzaDelete(idx, gubun) {
 			return;
 		}
 	}
-	
-	
-function etcDelete(idx) {
 
-	if(confirm("해당 정보를 삭제하시겠습니까?")){
-		var userid = $('#userid').val();
-		
-		$.ajax({
-			url : 'etcDelete.do',
-			contentType : "application/json; charset=UTF-8;",
-			type : 'post',
-			data : JSON.stringify({
-				userid : userid,
-				seq : idx
-			}),
-			async : false,
-			success : function(data) {
-				alert("삭제 성공");
-				
-				location.reload(true);
-			},
-			error : function() {
-				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-			}
-		})
-	} else {
-		return;
+	function etcDelete(idx) {
+
+		if (confirm("해당 정보를 삭제하시겠습니까?")) {
+			var userid = $('#userid').val();
+
+			$.ajax({
+				url : 'etcDelete.do',
+				contentType : "application/json; charset=UTF-8;",
+				type : 'post',
+				data : JSON.stringify({
+					userid : userid,
+					seq : idx
+				}),
+				async : false,
+				success : function(data) {
+					alert("삭제 성공");
+
+					location.reload(true);
+				},
+				error : function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
+		} else {
+			return;
+		}
 	}
-}
 
-function sideDelete(idx) {
+	function sideDelete(idx) {
 
-	if(confirm("해당 정보를 삭제하시겠습니까?")){
-		var userid = $('#userid').val();
+		if (confirm("해당 정보를 삭제하시겠습니까?")) {
+			var userid = $('#userid').val();
 
-		$.ajax({
-			url : 'sideDelete.do',
-			contentType : "application/json; charset=UTF-8;",
-			type : 'post',
-			data : JSON.stringify({
-				userid : userid,
-				seq : idx
-			}),
-			async : false,
-			success : function(data) {
-				alert("삭제 성공");
-				location.reload(true);
-			},
-			error : function() {
-				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-			}
-		})
-	} else {
-		return;
+			$.ajax({
+				url : 'sideDelete.do',
+				contentType : "application/json; charset=UTF-8;",
+				type : 'post',
+				data : JSON.stringify({
+					userid : userid,
+					seq : idx
+				}),
+				async : false,
+				success : function(data) {
+					alert("삭제 성공");
+					location.reload(true);
+				},
+				error : function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
+		} else {
+			return;
+		}
 	}
-}
 </script>
 </head>
 <body>
@@ -830,6 +808,7 @@ function sideDelete(idx) {
 										href="javascript:allDelete();">전체 삭제</a>
 									</span>
 									<input type="hidden" id="test" value="" />
+									<input type="hidden" id="toppingNum" value="${fn:length(toppingList)}" />
 								</div>
 								<div class="cart-list" id="cart-list">
 									<ul>
@@ -873,7 +852,7 @@ function sideDelete(idx) {
 														 <a href="javascript:toppingDelete(${toppingList.seq});"
 															id="delPizza" class="close"> <span class="hidden">삭제</span>
 															</a> 
-														<input type="hidden" id="t_price${idx.index}${status.index}" value="${toppingList.t_price}"/>
+														<input type="hidden" id="t_price${toppingList.gubun}" value="${toppingList.t_price}"/>
 														</span>
 														</li>
 														</ul>
@@ -1000,7 +979,7 @@ function sideDelete(idx) {
 														</div>
 													</div>
 													<div class="prd-total">
-														<em id="etc-total">
+														<em id="etc-total${status.index}">
 														<fmt:formatNumber value="${etc.d_price}" pattern="#,###" /></em>원
 													</div>
 													<div class="prd-delete">
