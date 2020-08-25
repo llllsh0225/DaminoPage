@@ -41,4 +41,9 @@ public class OrderServiceImpl implements OrderService {
 		orderDAO.insertStoreAddress(vo);
 	}
 
+	@Override
+	public void deleteStoreAddress(StoreAddressVO vo) {
+		orderDAO.deleteStoreAddress(vo);
+	}
+
 }
