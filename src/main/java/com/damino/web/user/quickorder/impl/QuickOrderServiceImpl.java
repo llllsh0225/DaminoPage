@@ -13,6 +13,7 @@ import com.damino.web.user.quickorder.QuickOrderAddressVO;
 import com.damino.web.user.quickorder.QuickOrderDAO;
 import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 import com.damino.web.user.quickorder.QuickOrderService;
+import com.damino.web.user.quickorder.QuickOrderStoreVO;
 import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Service("quickOrderService")
@@ -31,6 +32,11 @@ public class QuickOrderServiceImpl implements QuickOrderService {
 	}
 	
 	@Override
+	public List<QuickOrderStoreVO> getQuickOrderStoreList(String userid) {
+		return quickOrderDAO.getQuickOrderStoreList(userid);
+	}
+	
+	@Override
 	public int getGoodsNexRowSeq(String userid) {
 		return quickOrderDAO.getGoodsNexRowSeq(userid);
 	}
@@ -39,12 +45,22 @@ public class QuickOrderServiceImpl implements QuickOrderService {
 	public int getAddressNexRowSeq(String userid) {
 		return quickOrderDAO.getAddressNexRowSeq(userid);
 	}
+
+	@Override
+	public int getStoreNextRowSeq(String userid) {
+		return quickOrderDAO.getStoreNextRowSeq(userid);
+	}
 	
 	@Override
 	public QuickOrderAddressVO getDefaultDeliveryAddress(String userid) {
 		return quickOrderDAO.getDefaultDeliveryAddress(userid);
 	}
 
+	@Override
+	public QuickOrderStoreVO getDefaultWrapStore(String userid) {
+		return quickOrderDAO.getDefaultWrapStore(userid);
+	}
+	
 	@Override
 	public List<PizzaVO> getPizzaNames() {
 		return quickOrderDAO.getPizzaNames();
@@ -131,10 +147,34 @@ public class QuickOrderServiceImpl implements QuickOrderService {
 	}
 
 	@Override
+	public MarketVO getWrapStoreInfo(String storename) {
+		return quickOrderDAO.getWrapStoreInfo(storename);
+	}
+	
+	@Override
+	public void insertQuickOrderStore(QuickOrderStoreVO vo) {
+		quickOrderDAO.insertQuickOrderStore(vo);
+	}
+	
+	@Override
+	public void deleteQuickOrderStore(QuickOrderStoreVO vo) {
+		quickOrderDAO.deleteQuickOrderStore(vo);
+	}
+	
+	@Override
+	public void setDefaultWrapStore(QuickOrderStoreVO vo) {
+		quickOrderDAO.setDefaultWrapStore(vo);
+	}
+	
+	@Override
+	public void releaseDefaultWrapStore(QuickOrderStoreVO vo) {
+		quickOrderDAO.releaseDefaultWrapStore(vo);
+	}
+	
+	@Override
 	public void doQuickOrder(QuickOrderVO vo) {
 		quickOrderDAO.doQuickOrder(vo);
 	}
-
 
 
 }

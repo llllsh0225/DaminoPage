@@ -33,10 +33,13 @@
 	var totalDBGoodsPrice = 0; // DB에서 불러온 제품 가격 총합을 저장하는 변수
 	var goodsNextRowSeq; // 메뉴 테이블 다음 rowseq 값
 	var addressNextRowSeq; // 주소 테이블 다음 rowseq 값
+	var storeNextRowSeq; // 포장매장 테이블 다음 rowseq 값
 	
 		$(document).ready(function(){
 			goodsNextRowSeq = Number($('#goodsNextRowSeq').val()); // 제품 테이블 시퀀스 (제품 추가할 때 마다 +1)
 			addressNextRowSeq = Number($('#addressNextRowSeq').val()); // 주소 테이블 시퀀스 (주소 추가할 때 마다 +1)
+			storeNextRowSeq = Number($('#storeNextRowSeq').val()); // 포장매장 테이블 시퀀스 (매장 추가 할 때 마다 +1)
+			
 			
 			if($('#dsp_ctgr').val() == ""){
 				$('.pizza_option').hide();
@@ -584,8 +587,28 @@
 			})
 		}
 		
-		function openOrderLatelyWrap(){
-			$('#order_lately').show();
+		// 배달주문 or 포장주문 선택
+		function select_dw(param){
+			if(param == 'D'){ // 배달주문을 선택했을 때
+				$('#d_orderinfo').show();
+				
+				$('#w_orderinfo').hide();
+				$('#wrap_lately').hide();
+			}else if(param == 'W'){ // 포장주문을 선택했을 때
+				$('#w_orderinfo').show();
+				
+				$('#d_orderinfo').hide();
+				$('#order_lately').hide();
+			}
+		}
+		
+		function openOrderLatelyWrap(param){
+			if(param == 'D'){ // 배달주소 변경 클릭 시
+				$('#order_lately').toggle();
+			}else if(param == 'W'){ // 포장매장 변경 클릭 시
+				$('#wrap_lately').toggle();
+			}
+			
 		}
 		
 		function addDelivery(){
@@ -720,6 +743,12 @@
 					if(data == 'success'){
 						// 주소테이블의 해당 행을 삭제
 						var selectAddrTr = $('#delAddrBtn' + idx).closest('tr');
+						var selAddrCell = selectAddrTr.find('td').eq(0).html(); // 선택한 배송지 주소
+						var selAddr = selAddrCell; // 선택된 매장정보
+						
+						if(selAddr == $('#addr_O').text()){
+							$('#addr_O').text('배달주소를 선택해주세요.');
+						}
 						selectAddrTr.remove();
 					}
 				},
@@ -755,6 +784,147 @@
 					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
 				}
 			});
+		}
+		
+		// 포장주문 관련 함수
+		function storeAddressPop(){
+			window.open("openStoreAddr.do", "포장매장 선택", "top=50, left=60, width=420, height=580, directories='no', location='no', menubar='no', resizable='no', status='yes', toolbar='no'");
+		}
+		
+		//포장매장 선택창에서 값 넘겨받기
+		function receiveStoreAddr(selectStoreName){
+			$('#wrapStoreName').val(selectStoreName);
+			var storename = $('#wrapStoreName').val();
+			
+			$.ajax({
+				url : 'getWrapStoreInfo.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					storename : storename,
+				}),
+				async : false,
+				success : function(data){
+					var storeInfoArr = data.split(",");
+					$('#wrapStoreAddr').val(storeInfoArr[0]);
+					$('#wrapStorePhone').val(storeInfoArr[1]);
+					
+					console.log("포장매장 주소 : " + $('#wrapStoreAddr').val());
+					console.log("포장매장 전화번호 : " + $('#wrapStorePhone').val());
+				},
+				error : function(err){
+					alert("오류");
+				}
+			})
+		}
+		
+		// 포장매장 추가
+		function addStoreAddrRow(){
+			
+			// 행을 추가할 tbody
+			var storeList = document.getElementById("store_list_o");
+			var rowseq = storeNextRowSeq; // 주소 테이블 행 번호
+			var storename = $('#wrapStoreName').val(); // 포장 매장명
+			var address = $('#wrapStoreAddr').val(); // 포장매장 주소
+			var storephone = $('#wrapStorePhone').val(); // 포장매장 전화번호
+			var userid = $('#userid').val(); // 유저 아이디
+			
+			// DB 테이블에 주소 정보 insert
+			$.ajax({
+				url : 'insertQuickOrderStore.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					address : address,
+					storename : storename,
+					storephone : storephone,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						// 행을 추가할 tbody
+						var storeInfo = storeList.insertRow(storeList.rows.length);
+						var storenameCell = storeInfo.insertCell(0);
+						var storeaddrCell = storeInfo.insertCell(1);
+						var btnCell = storeInfo.insertCell(2);
+						
+						storenameCell.innerHTML = $('#wrapStoreName').val() +' (' + $('#wrapStorePhone').val() + ')';
+						storeaddrCell.innerHTML = $('#wrapStoreAddr').val();
+						btnCell.innerHTML = '<div class="btn-wrap"><a href="javascript:setStore(' + storeNextRowSeq + ');" id="selStoreBtn' + storeNextRowSeq + '" class="btn-type4-brd3">선택</a>' + 
+						'<a href="javascript:deleteStore(' + storeNextRowSeq + ');" id="delStoreBtn' + storeNextRowSeq + '" class="btn-type4-brd2">삭제</a></div>';
+						
+						++storeNextRowSeq;
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
+		}
+		
+		// 디폴트 포장매장 주소로 설정
+		function setStore(idx){
+			
+			var userid =$('#userid').val(); // 유저 아이디
+			var rowseq = idx; // 주소 테이블의 rowseq
+			
+			// DB에 디폴트 배달주소로 설정
+			$.ajax({
+				url : 'setDefaultWrapStore.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						var selectStoreTr = $('#selStoreBtn' + idx).closest('tr'); // 선택한 매장 테이블 로우
+						var selStoreCell = selectStoreTr.find('td').eq(0).html(); // 선택한 매장명+전화번호
+						var selStore = $('#store_O').text(selStoreCell.replace('&nbsp;',' ')); // 선택된 매장정보를 세팅
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			});
+		}
+		
+		// 포장매장 row 삭제
+		function deleteStore(idx){
+			// DB에 저장된 해당 row를 삭제
+			var rowseq = idx;
+			var userid = $('#userid').val(); // 유저 아이디
+			
+			$.ajax({
+				url : 'deleteQuickOrderStore.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					userid : userid,
+					rowseq : rowseq,
+				}),
+				async : false,
+				success: function(data) {
+					if(data == 'success'){
+						// 주소테이블의 해당 행을 삭제
+						var selectStoreTr = $('#delStoreBtn' + idx).closest('tr');
+						var selStoreCell = selectStoreTr.find('td').eq(0).html(); // 선택한 매장명+전화번호
+						var selStore = selStoreCell.replace('&nbsp;',' '); // 선택된 매장정보
+						
+						if(selStore == $('#store_O').text()){
+							$('#store_O').text('포장매장을 선택해주세요.');
+						}
+						selectStoreTr.remove();
+					}
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				}
+			})
 		}
 		
 		function goSave(){
@@ -1106,12 +1276,12 @@
 								
 								<div class="form">
 									<div class="chk-box">
-										<input type="radio" name="order_gubun" value="O" id="order_deli" checked>
+										<input type="radio" name="order_gubun" value="O" id="order_deli" onclick="select_dw('D');" checked>
 										<label class="checkbox" for="order_deli"></label>
 										<label for="order_deli">배달주문</label>
 									</div>
 									<div class="chk-box">
-										<input type="radio" name="order_gubun" value="W" id="order_visit" >
+										<input type="radio" name="order_gubun" value="W" id="order_visit" onclick="select_dw('W');">
 										<label class="checkbox" for="order_visit"></label>
 										<label for="order_visit">방문포장</label>
 									</div>
@@ -1120,7 +1290,7 @@
 								<div class="toggle-wrap">
 									<div class="toggle-menu">
 										<div class="order_adr_wrap">
-											<div class="order_adr open">
+											<div id="d_orderinfo" class="order_adr open">
 													<div class="menu-wrap close">
 														<dl>
 															<dt>배달주소</dt>
@@ -1133,15 +1303,30 @@
 																</c:otherwise>
 															</c:choose>
 														</dl>
-														<a href="javascript:;" class="btn-toggle-close" onclick="openOrderLatelyWrap();">
+														<a href="javascript:;" class="btn-toggle-close" onclick="openOrderLatelyWrap('D');">
 															배달주소 변경
 															<span class="hidden">열기</span>
 														</a>
 													</div>
 												</div>
-												<div class="order_adr order_adr_none">
-													<p>포장매장을 선택해주세요.</p>
-													<a href="javascript:addBranch();" class="btn"><span class="btn_txt">신규 매장 등록</span></a>
+												<div id="w_orderinfo" class="order_adr order_adr_none">
+													<div class="menu-wrap close">
+														<dl>
+															<dt>포장매장</dt>
+															<c:choose>
+																<c:when test="${defaultStore eq null }">
+																	<dd id="store_O">포장매장을 선택해주세요.</dd>
+																</c:when>
+																<c:otherwise>
+																	<dd id="store_O">${defaultStore.storename }&nbsp;&#40;${defaultStore.storephone }&#41;</dd>
+																</c:otherwise>
+															</c:choose>
+														</dl>
+														<a href="javascript:;" class="btn-toggle-close" onclick="openOrderLatelyWrap('W');">
+															포장매장 변경
+															<span class="hidden">열기</span>
+														</a>
+													</div>
 												</div>
 												<div class="js_toggle_box1 close">
 												<div class="table-type2">
@@ -1194,7 +1379,12 @@
 														<!--//배달주문-->
 															
 														<!--방문포장-->
-														<div class="order_lately lately_adr">
+														<div id="wrap_lately" class="order_lately lately_adr">
+															<!-- hidden 영역 -->
+															<input type="hidden" id="wrapStoreName" value="" />
+															<input type="hidden" id="wrapStoreAddr" value="" />
+															<input type="hidden" id="wrapStorePhone" value="" />
+															<input type="hidden" id="storeNextRowSeq" value="${storeNextRowSeq }" />
 															<table>
 																<caption>배송방법 및 배송지/매장 설정</caption>
 																<colgroup>
@@ -1209,12 +1399,23 @@
 																		<th></th>
 																	</tr>
 																</thead>
-																<tbody id="addr_list_w">
-																	</tbody>
+																<tbody id="store_list_o">
+																<c:forEach var="store" items="${quickOrderStoreList }">
+																	<tr>
+																		<td>${store.storename }&nbsp;&#40;${store.storephone }&#41;</td>
+																		<td>${store.storeaddr }</td>
+																		<td>
+																			<div class="btn-wrap">
+																			<a href="javascript:setStore(${store.rowseq });" id="selStoreBtn${store.rowseq }" class="btn-type4-brd3">선택</a>
+																			<a href="javascript:deleteStore(${store.rowseq });" id="delStoreBtn${store.rowseq }" class="btn-type4-brd2">삭제</a></div>
+																		</td>
+																	</tr>
+																</c:forEach>
+																</tbody>
 																<tfoot>
 																	<tr>
 																		<td colspan="3">
-																			<a href="javascript:addBranch();" class="btn-type-brd">
+																			<a href="javascript:storeAddressPop();" class="btn-type-brd">
 																				<i class="ico-plus"></i>포장매장 등록
 																			</a>
 																		</td>

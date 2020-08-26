@@ -76,6 +76,7 @@ public class QuickOrderController {
 		// 유저의 퀵오더 정보 리스트 가져오기
 		List<QuickOrderGoodsVO> quickOrderGoodsList = quickOrderService.getQuickOrderGoodsList(userid);
 		List<QuickOrderAddressVO> quickOrderAddressList = quickOrderService.getQuickOrderAddressList(userid);
+		List<QuickOrderStoreVO> quickOrderStoreList = quickOrderService.getQuickOrderStoreList(userid);
 		
 		if(quickOrderGoodsList.size() != 0) { // 퀵오더 메뉴 리스트가 null이 아닐 때 다음 rowseq값을 가져옴
 			int goodsNextRowSeq = quickOrderService.getGoodsNexRowSeq(userid);
@@ -87,9 +88,16 @@ public class QuickOrderController {
 			int addressNextRowSeq = quickOrderService.getAddressNexRowSeq(userid);
 			QuickOrderAddressVO defaultAddress = quickOrderService.getDefaultDeliveryAddress(userid);
 			
-			System.out.println(defaultAddress.getAddress());
 			mav.addObject("defaultAddress", defaultAddress);
 			mav.addObject("addressNextRowSeq", addressNextRowSeq);
+		}
+		
+		if(quickOrderStoreList.size() != 0) { // 퀵오더 포장매장 리스트가 null이 아닐 때 다음 rowseq 값과 디폴트 매장 정보를 가져옴
+			int storeNextRowSeq = quickOrderService.getStoreNextRowSeq(userid);
+			QuickOrderStoreVO defaultStore = quickOrderService.getDefaultWrapStore(userid);
+			
+			mav.addObject("defaultStore", defaultStore);
+			mav.addObject("storeNextRowSeq", storeNextRowSeq);
 		}
 		
 		// 저장된 토핑리스트 가져오기
@@ -99,6 +107,7 @@ public class QuickOrderController {
 		
 		mav.addObject("quickOrderGoodsList", quickOrderGoodsList);
 		mav.addObject("quickOrderAddressList", quickOrderAddressList);
+		mav.addObject("quickOrderStoreList", quickOrderStoreList);
 		
 		mav.addObject("mainToppingList", mainToppingList);
 		mav.addObject("cheezeToppingList", cheezeToppingList);
@@ -335,6 +344,70 @@ public class QuickOrderController {
 		
 		quickOrderService.setDefaultDeliveryAddress(vo); // 해당 주소지를 디폴트 배달주소로 설정
 		quickOrderService.releaseDefaultDeliveryAddress(vo); // 이전 설정되었던 디폴트 배달주소를 해제
+		
+		return "success";
+	}
+	
+	@RequestMapping(value="/getWrapStoreInfo.do", method=RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String getWrapStoreInfo(@RequestBody Map<String, Object> param) {
+		String storename = (String) param.get("storename");
+		String storeInfo = ""; // 매장 주소와 매장 전화번호를 저장할 문자열
+		
+		// 매장명을 매개변수로 하여 매장 주소와, 전화번호를 얻어옴
+		MarketVO market = quickOrderService.getWrapStoreInfo(storename);
+		
+		storeInfo += market.getStoreaddress() + "," + market.getStorephone();
+		System.out.println(storeInfo);
+		
+		return storeInfo;
+	}
+	
+	@RequestMapping(value="/insertQuickOrderStore.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String insertQuickOrderStore(@RequestBody Map<String, Object> param, QuickOrderStoreVO vo) {
+		String userid = (String) param.get("userid");
+		String address = (String) param.get("address");
+		String storename = (String) param.get("storename");
+		String storephone = (String) param.get("storephone");
+		int rowseq = (Integer) param.get("rowseq");
+		
+		vo.setStoreaddr(address);
+		vo.setStorename(storename);
+		vo.setStorephone(storephone);
+		vo.setRowseq(rowseq);
+		vo.setUserid(userid);
+		
+		quickOrderService.insertQuickOrderStore(vo);
+		
+		return "success";
+	}
+	
+	@RequestMapping(value="/deleteQuickOrderStore.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteQuickOrderStore(@RequestBody Map<String, Object> param, QuickOrderStoreVO vo) {
+		String userid = (String) param.get("userid");
+		int rowseq = (Integer) param.get("rowseq");
+		
+		vo.setUserid(userid);
+		vo.setRowseq(rowseq);
+		
+		quickOrderService.deleteQuickOrderStore(vo);
+		
+		return "success";
+	}
+	
+	@RequestMapping(value="/setDefaultWrapStore.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String setDefaultWrapStore(@RequestBody Map<String, Object> param, QuickOrderStoreVO vo) {
+		String userid = (String) param.get("userid");
+		int rowseq = (Integer) param.get("rowseq");
+		
+		vo.setUserid(userid);
+		vo.setRowseq(rowseq);
+		
+		quickOrderService.setDefaultWrapStore(vo);
+		quickOrderService.releaseDefaultWrapStore(vo);
 		
 		return "success";
 	}

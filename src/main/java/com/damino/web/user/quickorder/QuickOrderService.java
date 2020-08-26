@@ -10,9 +10,14 @@ import com.damino.web.admin.menu.SideVO;
 public interface QuickOrderService {
 	public List<QuickOrderGoodsVO> getQuickOrderGoodsList(String userid); // userid에 해당하는 퀵오더 제품 리스트 가져오기
 	public List<QuickOrderAddressVO> getQuickOrderAddressList(String userid); // userid에 해당하는 퀵오더 주소 리스트 가져오기
+	public List<QuickOrderStoreVO> getQuickOrderStoreList(String userid); // userid에 해당하는 퀵오더 포장매장 리스트 가져오기
+	
 	public int getGoodsNexRowSeq(String userid); // userid에 해당하는 퀵오더 rowseq 중 가장 큰 값에서 +1
 	public int getAddressNexRowSeq(String userid); // userid에 해당하는 퀵오더 주소 rowseq 중 가장 큰 값에서 +1
+	public int getStoreNextRowSeq(String userid); // userid에 해당하는 퀵오더 포장매장 rowseq 중 가장 큰 값에서 +1
+	
 	public QuickOrderAddressVO getDefaultDeliveryAddress(String userid); // 디폴트로 설정된 배달주소 가져오기
+	public QuickOrderStoreVO getDefaultWrapStore(String userid); // 디폴트로 설정된 포장매장 가져오기
 	public MarketVO getBusinessHour(String storename); // 배달매장의 영업시간 정보 가져오기
 	
 	public List<PizzaVO> getPizzaNames(); // 퀵오더 셀렉트박스 피자제품명 리스트 가져오기
@@ -35,6 +40,14 @@ public interface QuickOrderService {
 	
 	public void setDefaultDeliveryAddress(QuickOrderAddressVO vo); // 디폴트 배달지 설정
 	public void releaseDefaultDeliveryAddress(QuickOrderAddressVO vo); // 이전 설정된 디폴트 배달지 해제
+	
+	public MarketVO getWrapStoreInfo(String storename); // 매장 주소&전화번호 가져오기
+	
+	public void insertQuickOrderStore(QuickOrderStoreVO vo); // 퀵오더 배달매장 정보 insert
+	public void deleteQuickOrderStore(QuickOrderStoreVO vo); // 퀵오더 배달매장 정보 delete
+	
+	public void setDefaultWrapStore(QuickOrderStoreVO vo); // 디폴트 포장매장 설정
+	public void releaseDefaultWrapStore(QuickOrderStoreVO vo); // 이전 설정된 디폴트 배달지 해제
 	
 	public void doQuickOrder(QuickOrderVO vo); // 퀵오더 주문
 }
