@@ -124,6 +124,27 @@
 		ORDER BY seq
 	</select>
 	
+	<!-- 장바구니 - 음료및기타 수량 변경 -->
+	<update id="changeEtcCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersEtc SET
+		d_count = #{d_count}
+		WHERE userid = #{userid} AND seq = #{seq}
+	</update> 
+	
+	<!-- 장바구니 - 사이드디시 수량 변경 -->
+	<update id="changeSideCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersSide SET
+		s_count = #{s_count}
+		WHERE userid = #{userid} AND seq = #{seq}
+	</update>
+
+	<!-- 장바구니 - 피자 수량 변경 -->
+	<update id="changePizzaCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersPizza SET
+		p_count = #{p_count}
+		WHERE userid = #{userid} AND seq = #{seq}
+	</update>
+			
 	<!-- 장바구니 토핑 삭제하기 -->
 	<delete id="deleteTopping" parameterType="com.damino.web.user.goods.UserBasketVO">
 		DELETE FROM usersTopping

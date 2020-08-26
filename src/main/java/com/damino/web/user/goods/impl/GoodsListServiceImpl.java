@@ -174,8 +174,23 @@ public class GoodsListServiceImpl implements GoodsListService {
 		return goodsListDAO.getNextGubun(userid);
 	}
 
+	@Override
+	public void changeEtcCnt(UserBasketVO vo) {
+		System.out.println("음료및기타 수량 변경");
+		goodsListDAO.changeEtcCnt(vo);
+		
+	}
 
+	@Override
+	public void changeSideCnt(UserBasketVO vo) {
+		System.out.println("사이드디시 수량 변경");
+		goodsListDAO.changeSideCnt(vo);		
+	}
 
-
+	@Override
+	public void changePizzaCnt(UserBasketVO vo) {
+		System.out.println("피자 수량 변경");
+		goodsListDAO.changePizzaCnt(vo);		
+	}
 	
 }

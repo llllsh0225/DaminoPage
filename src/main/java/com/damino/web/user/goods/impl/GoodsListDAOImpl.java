@@ -169,11 +169,21 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		return sqlSessionTemplate.selectOne("GoodsListDAO.getNextGubun", userid);
 	}
 
+	@Override
+	public void changeEtcCnt(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.changeEtcCnt", vo);
+	}
 
+	@Override
+	public void changeSideCnt(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.changeSideCnt", vo);		
+	}
 
-	
+	@Override
+	public void changePizzaCnt(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.changePizzaCnt", vo);		
+	}
 
-	
 	
 	
 }
