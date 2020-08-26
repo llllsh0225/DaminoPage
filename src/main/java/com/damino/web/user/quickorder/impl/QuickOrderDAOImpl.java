@@ -13,6 +13,7 @@ import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.quickorder.QuickOrderAddressVO;
 import com.damino.web.user.quickorder.QuickOrderDAO;
 import com.damino.web.user.quickorder.QuickOrderGoodsVO;
+import com.damino.web.user.quickorder.QuickOrderStoreVO;
 import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Repository("quickOrderDAO")
@@ -33,6 +34,12 @@ public class QuickOrderDAOImpl implements QuickOrderDAO {
 	}
 	
 	@Override
+	public List<QuickOrderStoreVO> getQuickOrderStoreList(String userid) {
+		System.out.println(userid + "회원의 퀵오더 포장매장 리스트 가져오기");
+		return sqlSessionTemplate.selectList("QuickOrderDAO.getQuickOrderStoreList", userid);
+	}
+	
+	@Override
 	public int getGoodsNexRowSeq(String userid) {
 		System.out.println(userid + "의 퀵어도 제품테이블 rowseq 중 가장 큰 값 + 1");
 		return sqlSessionTemplate.selectOne("QuickOrderDAO.getGoodsNextRowSeq", userid);
@@ -45,9 +52,21 @@ public class QuickOrderDAOImpl implements QuickOrderDAO {
 	}
 	
 	@Override
+	public int getStoreNextRowSeq(String userid) {
+		System.out.println(userid + "의 퀵오더 포장매장테이블 rowseq 중 가장 큰 값 + 1");
+		return sqlSessionTemplate.selectOne("QuickOrderDAO.getStoreNextRowSeq", userid);
+	}
+	
+	@Override
 	public QuickOrderAddressVO getDefaultDeliveryAddress(String userid) {
 		System.out.println("디폴트로 설정된 배달주소 가져오기");
 		return sqlSessionTemplate.selectOne("QuickOrderDAO.getDefaultDeliveryAddress", userid);
+	}
+	
+	@Override
+	public QuickOrderStoreVO getDefaultWrapStore(String userid) {
+		System.out.println("디폴트로 설정된 포장매장 가져오기");
+		return sqlSessionTemplate.selectOne("QuickOrderDAO.getDefaultWrapStore", userid);
 	}
 	
 	@Override
@@ -153,11 +172,40 @@ public class QuickOrderDAOImpl implements QuickOrderDAO {
 	}
 
 	@Override
+	public MarketVO getWrapStoreInfo(String storename) {
+		System.out.println(storename +"의 주소 / 전화번호");
+		return sqlSessionTemplate.selectOne("QuickOrderDAO.getWrapStoreInfo", storename);
+	}
+	
+	@Override
+	public void insertQuickOrderStore(QuickOrderStoreVO vo) {
+		System.out.println("퀵오더 포장매장 추가");
+		sqlSessionTemplate.insert("QuickOrderDAO.insertQuickOrderStore", vo);
+	}
+	
+	@Override
+	public void deleteQuickOrderStore(QuickOrderStoreVO vo) {
+		System.out.println("퀵오더 포장매장 삭제");
+		sqlSessionTemplate.delete("QuickOrderDAO.deleteQuickOrderStore", vo);
+	}
+	
+	@Override
+	public void setDefaultWrapStore(QuickOrderStoreVO vo) {
+		System.out.println("디폴트 포장매장 설정");
+		sqlSessionTemplate.update("QuickOrderDAO.setDefaultWrapStore", vo);
+	}
+	
+	@Override
+	public void releaseDefaultWrapStore(QuickOrderStoreVO vo) {
+		System.out.println("이전 설정된 디폴트 포장매장 해제");
+		sqlSessionTemplate.update("QuickOrderDAO.releaseDefaultWrapStore", vo);
+	}
+	
+	@Override
 	public void doQuickOrder(QuickOrderVO vo) {
 		System.out.println("퀵오더 주문");
 		sqlSessionTemplate.insert("QuickOrderDAO.doQuickOrder", vo);
 	}
 
-	
 
 }

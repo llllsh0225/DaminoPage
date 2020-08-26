@@ -14,6 +14,11 @@
 		WHERE userid = #{userid}
 	</select>
 	
+	<select id="getQuickOrderStoreList" parameterType="String" resultType="com.damino.web.user.quickorder.QuickOrderStoreVO">
+		SELECT * FROM quickorder_store
+		WHERE userid = #{userid}
+	</select>
+	
 	<select id="getGoodsNextRowSeq" parameterType="String" resultType="Integer">
 		SELECT MAX(rowseq) + 1 FROM quickorder_goods
 		WHERE userid = #{userid}
@@ -24,8 +29,18 @@
 		WHERE userid = #{userid}
 	</select>
 	
+	<select id="getStoreNextRowSeq" parameterType="String" resultType="Integer">
+		SELECT MAX(rowseq) + 1 FROM quickorder_store
+		WHERE userid = #{userid}
+	</select>
+	
 	<select id="getDefaultDeliveryAddress" parameterType="String" resultType="com.damino.web.user.quickorder.QuickOrderAddressVO">
 		SELECT * FROM quickorder_address
+		WHERE default_yn = 'Y' AND userid = #{userid}
+	</select>
+	
+	<select id="getDefaultWrapStore" parameterType="String" resultType="com.damino.web.user.quickorder.QuickOrderStoreVO">
+		SELECT * FROM quickorder_store
 		WHERE default_yn = 'Y' AND userid = #{userid}
 	</select>
 	
@@ -98,6 +113,30 @@
 		DELETE FROM quickorder_address
 		WHERE userid = #{userid} AND rowseq = #{rowseq}
 	</delete>
+	
+	<select id="getWrapStoreInfo" parameterType="String" resultType="com.damino.web.admin.market.MarketVO">
+		SELECT storeaddress, storephone FROM daminostoreinfo WHERE storename = #{storename}
+	</select>
+	
+	<insert id="insertQuickOrderStore" parameterType="com.damino.web.user.quickorder.QuickOrderStoreVO">
+		INSERT INTO quickorder_store (seq, storename, storephone, storeaddr, rowseq, userid, default_yn)
+		VALUES (quickorder_store_seq.nextval, #{storename}, #{storephone}, #{storeaddr}, #{rowseq}, #{userid}, 'N')
+	</insert>
+	
+	<delete id="deleteQuickOrderStore" parameterType="com.damino.web.user.quickorder.QuickOrderStoreVO">
+		DELETE FROM quickorder_store
+		WHERE userid = #{userid} AND rowseq = #{rowseq}
+	</delete>
+	
+	<update id="setDefaultWrapStore" parameterType="com.damino.web.user.quickorder.QuickOrderStoreVO">
+		UPDATE quickorder_store SET default_yn = 'Y'
+		WHERE userid = #{userid} AND rowseq = #{rowseq}
+	</update>
+	
+	<update id="releaseDefaultWrapStore" parameterType="com.damino.web.user.quickorder.QuickOrderStoreVO">
+		UPDATE quickorder_store SET default_yn = 'N'
+		WHERE NOT rowseq IN #{rowseq} AND userid = #{userid}
+	</update>
 	
 	<select id="getBusinessHour" parameterType="String" resultType="com.damino.web.admin.market.MarketVO">
 		SELECT opentime, endtime FROM daminostoreinfo
