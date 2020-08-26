@@ -1,10 +1,13 @@
 package com.damino.web.admin.salesstatus.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.damino.web.admin.salesstatus.SalesStatusDAO;
 import com.damino.web.admin.salesstatus.SalesStatusService;
+import com.damino.web.admin.salesstatus.SalesVO;
 
 @Service("salesStatusService")
 public class SalesStatusServiceImpl implements SalesStatusService {
@@ -22,6 +25,21 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 	public int getCountF() {
 		System.out.println("## Chart ¿©¼º Service..");
 		return salesStatusDAO.getCountF();
+	}
+
+	@Override
+	public int getOrderPrice() {
+		return salesStatusDAO.getOrderPrice();
+	}
+
+	@Override
+	public List<SalesVO> getMonthly() {
+		return salesStatusDAO.getMonthly();
+	}
+
+	@Override
+	public List<SalesVO> getMonthlySales() {
+		return salesStatusDAO.getMonthlySales();
 	}
 
 }
