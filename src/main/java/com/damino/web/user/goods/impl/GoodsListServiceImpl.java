@@ -216,5 +216,23 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("장바구니 전체삭제(음료및기타)");
 		goodsListDAO.allDeleteE(vo);			
 	}
+
+	@Override
+	public void defaultEtcCnt(UserBasketVO vo) {
+		System.out.println("음료및기타 수량 초기화");
+		goodsListDAO.defaultEtcCnt(vo);	
+	}
+
+	@Override
+	public void defaultSideCnt(UserBasketVO vo) {
+		System.out.println("사이드디시 수량 초기화");
+		goodsListDAO.defaultSideCnt(vo);		
+	}
+
+	@Override
+	public void defaultPizzaCnt(UserBasketVO vo) {
+		System.out.println("피자 수량 초기화");
+		goodsListDAO.defaultPizzaCnt(vo);		
+	}
 	
 }

@@ -50,7 +50,15 @@ public interface GoodsListService {
 	public void changeSideCnt(UserBasketVO vo);	
 	//장바구니 - 피자 변경
 	public void changePizzaCnt(UserBasketVO vo);
-	
+
+//-----수량 초기화-------------------------------
+	//장바구니 - 음료 및 기타 초기화
+	public void defaultEtcCnt(UserBasketVO vo);
+	//장바구니 - 사이드디시 초기화
+	public void defaultSideCnt(UserBasketVO vo);
+	//장바구니 - 피자 초기화
+	public void defaultPizzaCnt(UserBasketVO vo);
+
 //------삭제-----------------------------------
 	//장바구니 - 전체 삭제(피자)
 	public void allDeleteP(UserBasketVO vo);

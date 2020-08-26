@@ -203,6 +203,21 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 	public void allDeleteE(UserBasketVO vo) {
 		sqlSessionTemplate.delete("GoodsListDAO.allDeleteE", vo);		
 	}
+
+	@Override
+	public void defaultEtcCnt(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.defaultEtcCnt", vo);				
+	}
+
+	@Override
+	public void defaultSideCnt(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.defaultSideCnt", vo);		
+	}
+
+	@Override
+	public void defaultPizzaCnt(UserBasketVO vo) {
+		sqlSessionTemplate.update("GoodsListDAO.defaultPizzaCnt", vo);		
+	}
 	
 	
 }

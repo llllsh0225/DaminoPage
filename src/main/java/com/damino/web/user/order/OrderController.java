@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.damino.web.admin.board.BoardVO;
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
+import com.damino.web.user.coupon.CouponService;
+import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.quickorder.QuickOrderAddressVO;
 import com.damino.web.user.quickorder.QuickOrderService;
 
@@ -25,7 +28,8 @@ public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
-	
+	@Autowired
+	private CouponService couponService;
 	@Autowired
 	private QuickOrderService quickOrderService;
 	
@@ -40,6 +44,25 @@ public class OrderController {
 		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
 		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
 		
+		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
+		MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
+		
+		String couponName = ""; // 쿠폰명을 저장할 문자열
+		String couponCode = ""; // 쿠폰코드를 저장할 문자열
+		String discountRate = ""; // 쿠폰별 할인율을 저장할 문자열
+		
+		for(int i=0; i<couponList.size(); i++) {
+			couponName += couponList.get(i).getCoupon_name();
+			couponCode += couponList.get(i).getCoupon_code();
+			discountRate += couponList.get(i).getDiscountrate();
+			if(i != couponList.size() - 1) {
+				couponName += ",";
+				couponCode += ",";
+				discountRate += ",";
+			}
+		}
+		
+		mav.addObject("hourInfo", hourInfo);
 		mav.addObject("deliveryAddressList", deliveryAddressList);
 		mav.addObject("storeAddressList", storeAddressList);
 		mav.setViewName("order/orderGubun");
