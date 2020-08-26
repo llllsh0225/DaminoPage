@@ -16,6 +16,9 @@
 <script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <!-- chart js -->
 <script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" '/>" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	
+</script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -197,19 +200,21 @@
 						<div class="card mb-4">
 							<div class="card-header">
 								<div>
-									<b>년 / 월 매출</b> <select>
-										<option>년별</option>
-										<option>월별</option>
+									<select id="selectYM">
+										<option value="m" selected>월별</option>
+										<option value="y">년별</option>
 									</select>
+									<b> 매출</b> 
 								</div>
 							</div>
 							<div class="card-body">
-								<!-- 월별 -->
-								<!--  
-								<canvas id="AreaChart_month" width="100%" height="30"></canvas>
-								-->
-								<!-- 년별 -->
-								<canvas id="AreaChart_year" width="100%" height="30"></canvas>
+								<c:forEach var="monthly" items="${monthly}" varStatus="status">
+									<input type="hidden" id="monthly${status.index }" value="${monthly}"/>
+								</c:forEach>
+								<c:forEach var="monthlySales" items="${monthlySales }" varStatus="status">
+									<input type="hidden" id="monthlySales${status.index }" value="${monthlySales }"/>
+								</c:forEach>
+								<canvas id="AreaChart_YM" width="100%" height="30"></canvas>
 							</div>
 						</div>
 						<!--년 / 월 매출-->
@@ -227,7 +232,7 @@
 											<p>총 매출액</p>
 											<hr>
 											<div class="card-body">
-												<h3>9,999.9 (만)원</h3>
+												<h3>${orderPrice } 원</h3>
 											</div>
 										</div>
 									</div>
@@ -304,14 +309,10 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
 	<!-- 차트 -->
 	<!--  월차트   -->
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-month.js'/>"></script>
-	<!--  년차트   -->
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-year.js'/>"></script>
-	<!--  랭크차트   -->
 	
 	<!--  남녀차트   -->
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-pie-sellrank.js'/>"></script>

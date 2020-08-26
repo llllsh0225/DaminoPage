@@ -12,5 +12,25 @@
 		select count(*) from usermember where sex='F'
 	</select>
 	
-
+	<select id="getOrderPrice" resultType="Integer">
+		SELECT SUM(price) FROM order_list
+	</select>
+	
+	<select id="getMonthly" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy-mm') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+		]]>
+	</select>
+	
+	<select id="getMonthlySales" resultType="String">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+		]]>
+	</select>
 </mapper>
