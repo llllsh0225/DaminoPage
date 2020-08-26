@@ -392,7 +392,29 @@ public class GoodsListController {
 		return "success";
 
 	}
+	// 장바구니 - 피자 수량 초기화
+		@RequestMapping(value = "/defaultPizzaCnt.do", method = RequestMethod.POST)
+		@ResponseBody
+		public String defaultPizzaCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+			String userid = (String) param.get("userid");
 
+			int seq = (Integer) param.get("seq");
+			// 변경된 수량
+			int changeCnt = (Integer) param.get("changeCnt");
+			System.out.println("changeCnt : " + changeCnt);
+
+			vo.setUserid(userid);
+			vo.setSeq(seq);
+			vo.setP_count(changeCnt);
+
+			System.out.println("update : " + userid);
+			System.out.println("update seq : " + seq);
+
+			goodsListService.defaultPizzaCnt(vo);
+
+			return "success";
+
+		}
 	// 장바구니 - 사이드디시 수량 변경
 	@RequestMapping(value = "/changeSideCnt.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -416,6 +438,29 @@ public class GoodsListController {
 		return "success";
 
 	}
+	// 장바구니 - 사이드디시 수량 초기화
+		@RequestMapping(value = "/defaultSideCnt.do", method = RequestMethod.POST)
+		@ResponseBody
+		public String defaultSideCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+			String userid = (String) param.get("userid");
+
+			int seq = (Integer) param.get("seq");
+			// 변경된 수량
+			int changeCnt = (Integer) param.get("changeCnt");
+			System.out.println("changeCnt : " + changeCnt);
+
+			vo.setUserid(userid);
+			vo.setSeq(seq);
+			vo.setS_count(changeCnt);
+
+			System.out.println("update : " + userid);
+			System.out.println("update seq : " + seq);
+
+			goodsListService.defaultSideCnt(vo);
+
+			return "success";
+
+		}
 
 	// 장바구니 - 음료및기타 수량 변경
 	@RequestMapping(value = "/changeEtcCnt.do", method = RequestMethod.POST)
@@ -440,6 +485,29 @@ public class GoodsListController {
 		return "success";
 
 	}
+	// 장바구니 - 음료및기타 수량 초기화
+		@RequestMapping(value = "/defaultEtcCnt.do", method = RequestMethod.POST)
+		@ResponseBody
+		public String defaultEtcCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+			String userid = (String) param.get("userid");
+
+			int seq = (Integer) param.get("seq");
+			// 변경된 수량
+			int changeCnt = (Integer) param.get("changeCnt");
+			System.out.println("changeCnt : " + changeCnt);
+
+			vo.setUserid(userid);
+			vo.setSeq(seq);
+			vo.setD_count(changeCnt);
+
+			System.out.println("update : " + userid);
+			System.out.println("update seq : " + seq);
+
+			goodsListService.defaultEtcCnt(vo);
+
+			return "success";
+
+		}
 	//장바구니 - 전체 삭제
 	@RequestMapping(value = "/allDelete.do", method = RequestMethod.POST)
 	@ResponseBody
