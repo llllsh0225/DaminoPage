@@ -199,22 +199,29 @@ function pizzaSum(){
 		if (t_arr != null) {
 		//피자금액에 토핑 금액 합산
 		
-		//토핑이 1개만 있는 경우
-		if(t_arr.length == 1){
+		//토핑 개수가 피자 개수보다 작을 경우
+		if(t_arr.length < pizzaArr.length){
 			for (var i = 0; i < pizzaArr.length; i++) {	
-			toppingPrice = parseInt(t_arr[0].t_price, 10) * parseInt(t_arr[0].t_count, 10);
-			totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
-			pizza_total += totalPizzaPrice;
-			
-			$('#prd-total' + i).html(totalPizzaPrice);
-			p_total = $('#prd-total' + i).text();
-			
-			//천단위 구분 - 정규표현식
-			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
+			if(i == 0){
+				toppingPrice = parseInt(t_arr[0].t_price, 10) * parseInt(t_arr[0].t_count, 10);
+				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[0].p_price, 10) * parseInt(pizzaArr[0].p_count, 10));
+				pizza_total += totalPizzaPrice;
+				
+				$('#prd-total' + 0).html(totalPizzaPrice);
+				p_total = $('#prd-total' + 0).text();
+				
+				//천단위 구분 - 정규표현식
+				p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#prd-total' + 0).html("<em>" + p_total + "</em>" + "원");
+				sum();
 			}
-			sum();
-			return;
+			else if(i != 0){
+				var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
+				pizza_total += totalPizzaPrice;				
+				
+				sum();
+				}
+			}
 		}else{
 			
 		for (var i = 0; i < t_arr.length; i++) {	
@@ -1163,7 +1170,7 @@ function toppingDelete(index) {
 
 							<div class="btn-wrap">
 								<!-- <a href="goodslist.do" class="btn-type-brd"> -->
-								<a href="getToppingNames.do" class="btn-type-brd"><i
+								<a href="goodslist.do" class="btn-type-brd"><i
 									class="ico-plus"></i>메뉴 추가하기</a> <a
 									href="javascript:myCouponDown('O', '36900');"
 									class="btn-type v3">주문하기</a>
