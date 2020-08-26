@@ -4,6 +4,7 @@ public class UserBasketVO {
 	private String userid;
 	private int seq; //장바구니 시퀀스
 	private int gubun; //제품 삽입 단위 구분
+	
 	private String p_name; //피자 이름
 	private int p_count; //피자 수량
 	private String p_image; //피자 이미지
@@ -162,5 +163,5 @@ public class UserBasketVO {
 				+ ", s_count=" + s_count + ", d_name=" + d_name + ", d_image=" + d_image + ", d_price=" + d_price
 				+ ", d_count=" + d_count + "]";
 	}
-
+	
 }

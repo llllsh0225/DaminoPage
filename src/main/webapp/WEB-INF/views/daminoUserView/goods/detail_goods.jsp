@@ -222,7 +222,8 @@ function saveBasket(){
 		type: 'post', 
 		data : JSON.stringify({
 			userId : userid,
-			pizzaPrice : price, 
+			pizzaPrice : price,
+			//p_t_price : p_t_price,
 			pizzaSize : selectSize, 
 			pizzaName : selectGoodsName,
 			pizzaDough : selectStrDough,

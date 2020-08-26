@@ -63,9 +63,9 @@ public class GoodsListController {
 		System.out.println("사이드디시 리스트 열기");
 
 		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
-		
+
 		mav.addObject("goodsSideList", goodsSideList);
-		
+
 		mav.setViewName("/goods/side_list");
 
 		return mav;
@@ -94,18 +94,18 @@ public class GoodsListController {
 	@RequestMapping("/detail.do")
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo,
 			HttpSession session) {
-		System.out.println("사용자 선택 피자메뉴 열기");	
+		System.out.println("사용자 선택 피자메뉴 열기");
 		String userid = (String) session.getAttribute("userid");
-		
+
 		if (userid == null) {
 
 		} else {
 			session.setAttribute("msg", "login");
 		}
 		List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
-		//DB에 있는 구별자 조회
-		
-		if(basketList.size() != 0) {
+		// DB에 있는 구별자 조회
+
+		if (basketList.size() != 0) {
 			int gubunDB = goodsListService.getNextGubun(userid);
 			System.out.println("gubunDB : " + gubunDB);
 			mav.addObject("gubunDB", gubunDB);
@@ -129,12 +129,12 @@ public class GoodsListController {
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
 		// -------사용자 선택 메뉴 정보 불러오기-------------------
-		
+
 		// 토핑 타입별 목록 불러오기
 		mav.addObject("mainToppingList", mainToppingList);
 		mav.addObject("cheezeToppingList", cheezeToppingList);
 		mav.addObject("afterToppingList", afterToppingList);
-		
+
 		// 사이드디시 목록 불러오기
 		mav.addObject("goodsSideList", goodsSideList);
 
@@ -170,7 +170,7 @@ public class GoodsListController {
 
 			session.setAttribute("msg", "login");
 			vo.setUserid(userid);
-			
+
 			// userid 기준 장바구니 목록 호출
 			List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
 			List<UserBasketVO> toppingList = goodsListService.getBasketTopping(userid);
@@ -181,13 +181,13 @@ public class GoodsListController {
 			mav.addObject("toppingList", toppingList);
 			mav.addObject("sideList", sideList);
 			mav.addObject("etcList", etcList);
-			
+
 			System.out.println("toppingList : " + toppingList);
 			System.out.println("sideList : " + sideList);
 			System.out.println("etcList : " + etcList);
 
 			mav.setViewName("/basket/basket_detail");
-			
+
 			return mav;
 		}
 	}
@@ -195,7 +195,8 @@ public class GoodsListController {
 	/** 사용자 선택 피자 메뉴 - 주문하기 경로로 들어올 때 */
 	@RequestMapping(value = "my_baskets.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
+	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
+			HttpSession session) {
 
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
@@ -218,11 +219,11 @@ public class GoodsListController {
 			mav.addObject("toppingList", toppingList);
 			mav.addObject("sideList", sideList);
 			mav.addObject("etcList", etcList);
-			
+
 			System.out.println("toppingList : " + toppingList);
 			System.out.println("sideList : " + sideList);
 			System.out.println("etcList : " + etcList);
-			
+
 			mav.setViewName("/basket/basket_detail");
 
 			return mav;
@@ -231,135 +232,207 @@ public class GoodsListController {
 
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request, @ModelAttribute UserBasketVO vo, HttpSession session) {
-		//String test = (String)param.get("gubunDB");
-		//System.out.println("test : " + test);
-		int gubunDB = (Integer)param.get("gubunDB");// DB 삽입 정보 구별을 위한 변수.  값이 증가되지 않아 증가된 값을 받아올 예정
+	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request,
+			@ModelAttribute UserBasketVO vo, HttpSession session) {
+		// String test = (String)param.get("gubunDB");
+		// System.out.println("test : " + test);
+		int gubunDB = (Integer) param.get("gubunDB");// DB 삽입 정보 구별을 위한 변수. 값이 증가되지 않아 증가된 값을 받아올 예정
 		System.out.println("gubunDB : " + gubunDB);
-		
-		String gubun = (String)param.get("gubun"); //세션 정보 확인을 구한 변수
 
-	//--------------피자---------------------------
+		String gubun = (String) param.get("gubun"); // 세션 정보 확인을 구한 변수
+
+		// --------------피자---------------------------
 		String userId = (String) param.get("userId");
 		int p_price = (Integer) param.get("pizzaPrice");
 		String p_size = (String) param.get("pizzaSize");
 		String p_name = (String) param.get("pizzaName");
 		String p_dough = (String) param.get("pizzaDough");
 		System.out.println("p_dough : " + p_dough);
-		
+
 		String p_image = (String) param.get("pizzaImage");
 		int p_count = (Integer) param.get("pizzaCount");
-		
-		if(!p_name.isEmpty()) {	
-		// vo에 피자 관련 값 셋팅
-		vo.setUserid(userId);
-		vo.setP_price(p_price);
-		vo.setP_size(p_size);
-		vo.setP_name(p_name);
-		vo.setP_dough(p_dough);
-		vo.setP_count(p_count);
-		vo.setP_image(p_image);
-		vo.setGubun(gubunDB);
-		
-		goodsListService.insertPizzaBasket(vo);
-	}
-	//--------------토핑--------------------------------
-		String t_prices = (String)param.get("toppingPrice");
-		String t_names = (String)param.get("toppingName");
-		String t_counts = (String)param.get("toppingCount");
-		
+
+		if (!p_name.isEmpty()) {
+			// vo에 피자 관련 값 셋팅
+			vo.setUserid(userId);
+			vo.setP_price(p_price);
+			vo.setP_size(p_size);
+			vo.setP_name(p_name);
+			vo.setP_dough(p_dough);
+			vo.setP_count(p_count);
+			vo.setP_image(p_image);
+			vo.setGubun(gubunDB);
+
+			goodsListService.insertPizzaBasket(vo);
+		}
+		// --------------토핑--------------------------------
+		String t_prices = (String) param.get("toppingPrice");
+		String t_names = (String) param.get("toppingName");
+		String t_counts = (String) param.get("toppingCount");
+
 		String t_priceArr[] = t_prices.split(",");
 		String t_nameArr[] = t_names.split(",");
 		String t_countArr[] = t_counts.split(",");
-			
-		if(!t_names.isEmpty()) {		
-			
-			for(int i=0; i<t_nameArr.length; i++) {
+
+		if (!t_names.isEmpty()) {
+
+			for (int i = 0; i < t_nameArr.length; i++) {
 				vo.setUserid(userId);
 				vo.setT_name(t_nameArr[i]);
 				vo.setT_price(Integer.parseInt(t_priceArr[i]));
-				//vo.setT_image(t_image);
+				// vo.setT_image(t_image);
 				vo.setT_count(Integer.parseInt(t_countArr[i]));
 				vo.setGubun(gubunDB);
-				
+
 				goodsListService.insertToppingBasket(vo);
 			}
 		}
-		
-	//--------------사이드---------------------------------
-		String s_prices =  (String)param.get("sidePrice");		
-		String s_names = (String)param.get("sideName");
-		String s_counts =  (String)param.get("sideCount");
-		
+
+		// --------------사이드---------------------------------
+		String s_prices = (String) param.get("sidePrice");
+		String s_names = (String) param.get("sideName");
+		String s_counts = (String) param.get("sideCount");
+
 		String s_priceArr[] = s_prices.split(",");
 		String s_nameArr[] = s_names.split(",");
 		String s_countArr[] = s_counts.split(",");
-		
-		if(!s_names.isEmpty()) {					
-			for(int i=0; i<s_nameArr.length; i++) {
+
+		if (!s_names.isEmpty()) {
+			for (int i = 0; i < s_nameArr.length; i++) {
 				vo.setUserid(userId);
 				vo.setS_name(s_nameArr[i]);
 				vo.setS_price(Integer.parseInt(s_priceArr[i]));
-				//vo.setT_image(t_image);
+				// vo.setT_image(t_image);
 				vo.setS_count(Integer.parseInt(s_countArr[i]));
 				vo.setGubun(gubunDB);
-				
+
 				goodsListService.insertSideBasket(vo);
 			}
 		}
-		
-	// ------------음료 및 기타-------------------------
+
+		// ------------음료 및 기타-------------------------
 		String d_prices = (String) param.get("etcPrice");
 		String d_names = (String) param.get("etcName");
 		String d_counts = (String) param.get("etcCount");
 		System.out.println("d_names : " + d_names);
-		
-		
+
 		String d_priceArr[] = d_prices.split(",");
 		String d_nameArr[] = d_names.split(",");
 		String d_countArr[] = d_counts.split(",");
-		
-		if(!d_names.isEmpty()) {	
+
+		if (!d_names.isEmpty()) {
 			System.out.println("테스트2");
-		for(int i=0; i<d_nameArr.length; i++) {
-			vo.setUserid(userId);
-			vo.setD_name(d_nameArr[i]);
-			vo.setD_price(Integer.parseInt(d_priceArr[i]));
-			//vo.setT_image(t_image);
-			vo.setD_count(Integer.parseInt(d_countArr[i]));
-			vo.setGubun(gubunDB);
-			
-			goodsListService.insertEtcBasket(vo);
+			for (int i = 0; i < d_nameArr.length; i++) {
+				vo.setUserid(userId);
+				vo.setD_name(d_nameArr[i]);
+				vo.setD_price(Integer.parseInt(d_priceArr[i]));
+				// vo.setT_image(t_image);
+				vo.setD_count(Integer.parseInt(d_countArr[i]));
+				vo.setGubun(gubunDB);
+
+				goodsListService.insertEtcBasket(vo);
 			}
-		}		
-		
-		if(gubun != null) {
+		}
+
+		if (gubun != null) {
 			return "success";
-		}else {
+		} else {
 			return "noSession";
-		}			
-		
+		}
+
 	}
-	
+
+	// 장바구니 - 피자 수량 변경
+	@RequestMapping(value = "/changePizzaCnt.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String changePizzaCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+
+		int seq = (Integer) param.get("seq");
+		// 변경된 수량
+		int changeCnt = (Integer) param.get("changeCnt");
+		System.out.println("changeCnt : " + changeCnt);
+
+		vo.setUserid(userid);
+		vo.setSeq(seq);
+		vo.setP_count(changeCnt);
+
+		System.out.println("update : " + userid);
+		System.out.println("update seq : " + seq);
+
+		goodsListService.changePizzaCnt(vo);
+
+		return "success";
+
+	}
+
+	// 장바구니 - 사이드디시 수량 변경
+	@RequestMapping(value = "/changeSideCnt.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String changeSideCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+
+		int seq = (Integer) param.get("seq");
+		// 변경된 수량
+		int changeCnt = (Integer) param.get("changeCnt");
+		System.out.println("changeCnt : " + changeCnt);
+
+		vo.setUserid(userid);
+		vo.setSeq(seq);
+		vo.setS_count(changeCnt);
+
+		System.out.println("update : " + userid);
+		System.out.println("update seq : " + seq);
+
+		goodsListService.changeSideCnt(vo);
+
+		return "success";
+
+	}
+
+	// 장바구니 - 음료및기타 수량 변경
+	@RequestMapping(value = "/changeEtcCnt.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String changeEtcCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
+
+		int seq = (Integer) param.get("seq");
+		// 변경된 수량
+		int changeCnt = (Integer) param.get("changeCnt");
+		System.out.println("changeCnt : " + changeCnt);
+
+		vo.setUserid(userid);
+		vo.setSeq(seq);
+		vo.setD_count(changeCnt);
+
+		System.out.println("update : " + userid);
+		System.out.println("update seq : " + seq);
+
+		goodsListService.changeEtcCnt(vo);
+
+		return "success";
+
+	}
+
 	@RequestMapping(value = "/deleteTopping.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteTopping(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
 		System.out.println("userid : " + userid);
-		
-		int seq = (Integer)param.get("seq");
+
+		int seq = (Integer) param.get("seq");
 		System.out.println("seq : " + seq);
 		vo.setUserid(userid);
 		vo.setSeq(seq);
-		
+
 		System.out.println("del : " + userid);
 		System.out.println("del seq : " + seq);
 
 		goodsListService.deleteTopping(vo);
 		return "success";
-		
+
 	}
-	
+
 	@RequestMapping(value = "/pizzaDelete.do", method = RequestMethod.POST)
 
 	@ResponseBody
@@ -379,14 +452,13 @@ public class GoodsListController {
 		System.out.println("del pizzaName : " + p_name);
 		System.out.println("del seq : " + seq);
 		System.out.println("del gubun : " + gubun);
-		
+
 		goodsListService.deletePizzaInfo(vo);
 		goodsListService.deletePizzasTopping(vo);
-		
+
 		return "success";
 	}
-	
-	  
+
 	@RequestMapping(value = "/sideDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String sideDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -465,7 +537,6 @@ public class GoodsListController {
 		}
 
 	}
-	
 
 	@RequestMapping("/openDetailAddress.do")
 	public ModelAndView openDetailAddress(ModelAndView mav) {

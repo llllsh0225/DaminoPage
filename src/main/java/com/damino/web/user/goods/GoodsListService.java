@@ -42,10 +42,17 @@ public interface GoodsListService {
 	public List<UserBasketVO> getBasketSide(String userid);
 	//장바구니 음료 및 기타 메뉴 불러오기
 	public List<UserBasketVO> getBasketEtc(String userid);	
+
+//-----수량 변경-------------------------------
+	//장바구니 - 음료 및 기타 변경
+	public void changeEtcCnt(UserBasketVO vo);
+	//장바구니 - 사이드디시 변경
+	public void changeSideCnt(UserBasketVO vo);	
+	//장바구니 - 피자 변경
+	public void changePizzaCnt(UserBasketVO vo);
 	
 	//장바구니 - 토핑 삭제
 	public void deleteTopping(UserBasketVO vo); 
-	
 	//장바구니 - 피자 삭제
 	public void deletePizzaInfo(UserBasketVO vo);
 	//장바구니 - 피자 연관 토핑정보 삭제
