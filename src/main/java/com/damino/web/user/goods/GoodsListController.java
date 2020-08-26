@@ -89,8 +89,35 @@ public class GoodsListController {
 
 		return mav;
 	}
+	/** 사용자 선택 - 사이드디시 상세화면 */
+	@RequestMapping("/side.do")
+	public ModelAndView goSideView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsSideVO vo) {
+		System.out.println("사용자 선택 사이드디시 메뉴 열기");
 
-	/** 사용자 선택 피자 메뉴 */
+		String s_code = request.getParameter("s_code");
+		System.out.println("s_code : " + s_code);
+		String s_name = request.getParameter("s_name");
+
+		System.out.println("s_name : " + s_name);
+
+		// 사용자 선택 메뉴 정보 서비스 호출
+		GoodsSideVO goodsDetailSide = goodsListService.getUserSideGoods(vo);
+
+		// 음료 목록 서비스 호출
+		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
+
+		// -------사용자 선택 메뉴 정보 불러오기-------------------
+
+		// 음료 목록 불러오기
+		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
+		// 사이드디시 불러오기
+		mav.addObject("goodsDetailSide", goodsDetailSide);
+
+		mav.setViewName("/goods/detail_goods_side");
+
+		return mav;
+	}
+	/** 사용자 선택 - 피자 상세화면*/
 	@RequestMapping("/detail.do")
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo,
 			HttpSession session) {
@@ -413,7 +440,29 @@ public class GoodsListController {
 		return "success";
 
 	}
+	//장바구니 - 전체 삭제
+	@RequestMapping(value = "/allDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String allDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
 
+		vo.setUserid(userid);
+
+		System.out.println("del : " + userid);
+		
+		//피자 전체 삭제
+		goodsListService.allDeleteP(vo);
+		//토핑 전체 삭제
+		goodsListService.allDeleteT(vo);
+		//사이드디시 전체 삭제
+		goodsListService.allDeleteS(vo);
+		//음료및기타 전체 삭제
+		goodsListService.allDeleteE(vo);
+
+		return "success";
+	}
+
+	//토핑 삭제
 	@RequestMapping(value = "/deleteTopping.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteTopping(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -433,8 +482,9 @@ public class GoodsListController {
 
 	}
 
+	
+	//피자 삭제
 	@RequestMapping(value = "/pizzaDelete.do", method = RequestMethod.POST)
-
 	@ResponseBody
 	public String pizzaDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
@@ -458,7 +508,7 @@ public class GoodsListController {
 
 		return "success";
 	}
-
+	//사이드디시 삭제
 	@RequestMapping(value = "/sideDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String sideDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -476,7 +526,7 @@ public class GoodsListController {
 
 		return "success";
 	}
-
+	//음료및기타 삭제
 	@RequestMapping(value = "/etcDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String etcDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -494,32 +544,6 @@ public class GoodsListController {
 
 		return "success";
 	}
-
-	/*
-	 * @RequestMapping(value = "/getToppingNames.do", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public List<GoodsToppingVO> getToppingNames(HttpServletRequest
-	 * request, @RequestBody Map<String, Object> params, GoodsToppingVO vo) { String
-	 * toppingName = (String) params.get("t_name");
-	 * 
-	 * // String[] arrayParam = request.getParameterValues("test");
-	 * System.out.println(toppingName);
-	 * 
-	 * // GoodsToppingVO toppingVO = new GoodsToppingVO();
-	 * 
-	 * List<String> t_name_List = new ArrayList<String>(); String[] t_name_List2 =
-	 * toppingName.split(",");
-	 * 
-	 * List<GoodsToppingVO> toppingList = new ArrayList<GoodsToppingVO>();
-	 * 
-	 * for (int i = 0; i < t_name_List2.length; i++) {
-	 * vo.setT_name(t_name_List2[i]);
-	 * 
-	 * GoodsToppingVO topping = goodsListService.getUserTopping(vo);
-	 * 
-	 * toppingList.add(topping); System.out.println(vo.getT_name()); } return
-	 * toppingList; }
-	 */
 
 	@RequestMapping(value = "/getStoreRegion.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -545,32 +569,5 @@ public class GoodsListController {
 		return mav;
 	}
 
-	@RequestMapping("/side.do")
-	public ModelAndView goSideView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsSideVO vo) {
-		System.out.println("사용자 선택 사이드디시 메뉴 열기");
-
-		String s_code = request.getParameter("s_code");
-		System.out.println("s_code : " + s_code);
-		String s_name = request.getParameter("s_name");
-
-		System.out.println("s_name : " + s_name);
-
-		// 사용자 선택 메뉴 정보 서비스 호출
-		GoodsSideVO goodsDetailSide = goodsListService.getUserSideGoods(vo);
-
-		// 음료 목록 서비스 호출
-		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
-
-		// -------사용자 선택 메뉴 정보 불러오기-------------------
-
-		// 음료 목록 불러오기
-		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
-		// 사이드디시 불러오기
-		mav.addObject("goodsDetailSide", goodsDetailSide);
-
-		mav.setViewName("/goods/detail_goods_side");
-
-		return mav;
-	}
 
 }

@@ -51,6 +51,16 @@ public interface GoodsListService {
 	//장바구니 - 피자 변경
 	public void changePizzaCnt(UserBasketVO vo);
 	
+//------삭제-----------------------------------
+	//장바구니 - 전체 삭제(피자)
+	public void allDeleteP(UserBasketVO vo);
+	//장바구니 - 전체 삭제(토핑)
+	public void allDeleteT(UserBasketVO vo);
+	//장바구니 - 전체 삭제(사이드디시)
+	public void allDeleteS(UserBasketVO vo);
+	//장바구니 - 전체 삭제(음료및기타)
+	public void allDeleteE(UserBasketVO vo);
+	
 	//장바구니 - 토핑 삭제
 	public void deleteTopping(UserBasketVO vo); 
 	//장바구니 - 피자 삭제

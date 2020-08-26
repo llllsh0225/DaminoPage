@@ -167,11 +167,30 @@
 	</update> -->
 	
 	<select id="getNextGubun" parameterType="String" resultType="Integer">
-	
 		SELECT MAX(gubun) + 1 FROM usersPizza
 		WHERE userid = #{userid}
 	</select>
 	
+	<!-- 장바구니 모든 정보 삭제-피자 -->
+	<delete id="allDeleteP" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersPizza
+		WHERE userid = #{userid}
+	</delete>
+	<!-- 장바구니 모든 정보 삭제-토핑 -->
+	<delete id="allDeleteT" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersTopping
+		WHERE userid = #{userid}
+	</delete>
+	<!-- 장바구니 모든 정보 삭제-사이드디시 -->
+	<delete id="allDeleteS" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersSide
+		WHERE userid = #{userid}
+	</delete>
+	<!-- 장바구니 모든 정보 삭제-음료 -->
+	<delete id="allDeleteE" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersEtc
+		WHERE userid = #{userid}
+	</delete>		
 	<!-- 장바구니 피자정보 삭제 -->
 	<delete id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
 		DELETE FROM usersPizza

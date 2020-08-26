@@ -192,5 +192,29 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("피자 수량 변경");
 		goodsListDAO.changePizzaCnt(vo);		
 	}
+
+	@Override
+	public void allDeleteP(UserBasketVO vo) {
+		System.out.println("장바구니 전체삭제(피자)");
+		goodsListDAO.allDeleteP(vo);	
+	}
+
+	@Override
+	public void allDeleteT(UserBasketVO vo) {
+		System.out.println("장바구니 전체삭제(토핑)");
+		goodsListDAO.allDeleteT(vo);			
+	}
+
+	@Override
+	public void allDeleteS(UserBasketVO vo) {
+		System.out.println("장바구니 전체삭제(사이드디시)");
+		goodsListDAO.allDeleteS(vo);			
+	}
+
+	@Override
+	public void allDeleteE(UserBasketVO vo) {
+		System.out.println("장바구니 전체삭제(음료및기타)");
+		goodsListDAO.allDeleteE(vo);			
+	}
 	
 }
