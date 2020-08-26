@@ -201,7 +201,6 @@ function pizzaSum(){
 		for (var i = 0; i < t_arr.length; i++) {	
 			//i가 마지막일 때
 			if(i == t_arr.length-1){
-				alert("0");
 				toppingPrice -= parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);
 				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 				pizza_total += totalPizzaPrice;
@@ -211,19 +210,16 @@ function pizzaSum(){
 			}
 			//현재 토핑 구분자가 다음 토핑 구분자와 일치할 때
 			else if(t_arr[i].t_gubun == t_arr[i+1].t_gubun){
-				alert("1");
 					toppingPrice += parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10) + parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
 					totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 					
 			}
 			//현재 토핑 구분자가 다음 토핑 구분자와 일치하지 않을 때
 			else if (t_arr[i].t_gubun != t_arr[i+1].t_gubun){
-				alert("2");
 					toppingPrice = 0;
 					toppingPrice += parseInt(t_arr[i+1].t_price, 10) * parseInt(t_arr[i+1].t_count, 10);
 					totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 			}else{
-				alert("3");
 				toppingPrice += parseInt(t_arr[i].t_price, 10) * parseInt(t_arr[i].t_count, 10);
 				totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 			
@@ -474,6 +470,7 @@ function changeSideCnt(sub_action, index, seq, orgCnt) {
 		})
 	
 }
+
 function changePizzaCnt(sub_action, index, seq, orgCnt) {
 	var userid = $('#userid').val();
 	
@@ -516,6 +513,31 @@ function changePizzaCnt(sub_action, index, seq, orgCnt) {
 
 		})
 	
+}
+function allDelete(){
+	
+	if (confirm("장바구니를 비우시겠습니까?")) {
+		var userid = $('#userid').val();
+
+		$.ajax({
+			url : 'allDelete.do',
+			contentType : "application/json; charset=UTF-8;",
+			type : 'post',
+			data : JSON.stringify({
+				userid : userid
+			}),
+
+			success : function(data) {
+				alert("삭제 성공");
+				location.reload(true);
+			},
+			error : function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+		})
+	}else {
+		return;
+	}
 }
 function toppingDelete(index) {
 		var rowseq = index;
