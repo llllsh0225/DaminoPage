@@ -197,7 +197,26 @@ function pizzaSum(){
 	if (pizzaArr != null) {	
 		
 		if (t_arr != null) {
-			//피자금액에 토핑 금액 합산
+		//피자금액에 토핑 금액 합산
+		
+		//토핑이 1개만 있는 경우
+		if(t_arr.length == 1){
+			for (var i = 0; i < pizzaArr.length; i++) {	
+			toppingPrice = parseInt(t_arr[0].t_price, 10) * parseInt(t_arr[0].t_count, 10);
+			totalPizzaPrice = Number(toppingPrice)+ (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
+			pizza_total += totalPizzaPrice;
+			
+			$('#prd-total' + i).html(totalPizzaPrice);
+			p_total = $('#prd-total' + i).text();
+			
+			//천단위 구분 - 정규표현식
+			p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
+			}
+			sum();
+			return;
+		}else{
+			
 		for (var i = 0; i < t_arr.length; i++) {	
 			//i가 마지막일 때
 			if(i == t_arr.length-1){
@@ -234,6 +253,7 @@ function pizzaSum(){
 				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
 				
 				sum(); 
+			}
 			}
 		}
 		else{//토핑이 없을 경우
@@ -283,7 +303,7 @@ window.onload = function() {
 //사용자 선택 정보 합계 계산
 	sideSum();
 	etcSum();
-	//sum();
+	sum();
 	pizzaSum();
 	
 //사용자 주소 추가
