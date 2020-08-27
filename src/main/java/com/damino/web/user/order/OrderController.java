@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
+import com.damino.web.user.goods.GoodsListService;
+import com.damino.web.user.goods.UserBasketVO;
 import com.damino.web.user.quickorder.QuickOrderService;
 
 @Controller
@@ -28,6 +30,8 @@ public class OrderController {
 	private CouponService couponService;
 	@Autowired
 	private QuickOrderService quickOrderService;
+	@Autowired
+	private GoodsListService goodsListService;
 	
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
 	
@@ -56,7 +60,6 @@ public class OrderController {
 		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
 		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
 		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
-		//MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
 		
 		String couponName = ""; // 쿠폰명을 저장할 문자열
 		String couponCode = ""; // 쿠폰코드를 저장할 문자열
@@ -71,11 +74,26 @@ public class OrderController {
 				couponCode += ",";
 				discountRate += ",";
 			}
+			System.out.println("couponName : " + couponName);
 		}
 		
 		mav.addObject("deliveryAddressList", deliveryAddressList);
 		mav.addObject("storeAddressList", storeAddressList);
 		mav.addObject("couponList", couponList);
+		mav.addObject("couponName", couponName);
+		mav.addObject("couponCode", couponCode);
+		mav.addObject("discountRate", discountRate);
+		
+		// userid 기준 장바구니 목록 호출
+		List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
+		List<UserBasketVO> toppingList = goodsListService.getBasketTopping(userid);
+		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
+		List<UserBasketVO> etcList = goodsListService.getBasketEtc(userid);
+
+		mav.addObject("basketList", basketList);
+		mav.addObject("toppingList", toppingList);
+		mav.addObject("sideList", sideList);
+		mav.addObject("etcList", etcList);
 		
 		mav.setViewName("/order/order_page");
 		return mav;
