@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
+import com.damino.web.user.coupon.CouponService;
+import com.damino.web.user.coupon.CouponVO;
 
 @Controller
 public class GoodsListController {
@@ -25,6 +27,8 @@ public class GoodsListController {
 	private GoodsListService goodsListService;
 	@Autowired
 	private MarketAdminRegistService marketAdminRegistService;
+	@Autowired
+	private CouponService couponService;
 
 	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
@@ -89,6 +93,7 @@ public class GoodsListController {
 
 		return mav;
 	}
+
 	/** 사용자 선택 - 사이드디시 상세화면 */
 	@RequestMapping("/side.do")
 	public ModelAndView goSideView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsSideVO vo) {
@@ -117,7 +122,8 @@ public class GoodsListController {
 
 		return mav;
 	}
-	/** 사용자 선택 - 피자 상세화면*/
+
+	/** 사용자 선택 - 피자 상세화면 */
 	@RequestMapping("/detail.do")
 	public ModelAndView goView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsPizzaVO vo,
 			HttpSession session) {
@@ -182,10 +188,7 @@ public class GoodsListController {
 	@RequestMapping(value = "my_basket.do")
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
-
-		// 사용자 선택 메뉴 정보 서비스 호출
-		// GoodsPizzaVO goodsDetail = goodsListService.getUserPizzaGoods(vo);
-
+		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
 
@@ -194,10 +197,25 @@ public class GoodsListController {
 			mav.setViewName("/login/login");
 			return mav;
 		} else {
-
+			 
 			session.setAttribute("msg", "login");
 			vo.setUserid(userid);
-
+			
+			//사용자 쿠폰 정보 조회
+			  List<CouponVO> couponList = couponService.getMyCouponList(userid);
+			  // 사용가능 쿠폰 리스트 불러오
+			  //MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
+			  
+			  String couponName = ""; // 쿠폰명을 저장할 문자열
+			  
+			  for(int i=0; i<couponList.size(); i++) {
+				  couponName += couponList.get(i).getCoupon_name();
+				  if(i != couponList.size() - 1) {
+					  couponName += ","; 
+				  }
+			  }
+			  
+			  mav.addObject("couponName", couponName);
 			// userid 기준 장바구니 목록 호출
 			List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
 			List<UserBasketVO> toppingList = goodsListService.getBasketTopping(userid);
@@ -233,9 +251,24 @@ public class GoodsListController {
 			mav.setViewName("/login/login");
 			return mav;
 		} else {
-
 			session.setAttribute("msg", "login");
 			vo.setUserid(userid);
+			
+			//사용자 쿠폰 정보 조회
+			  List<CouponVO> couponList = couponService.getMyCouponList(userid);
+			  // 사용가능 쿠폰 리스트 불러오
+			  //MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
+			  
+			  String couponName = ""; // 쿠폰명을 저장할 문자열
+			  
+			  for(int i=0; i<couponList.size(); i++) {
+				  couponName += couponList.get(i).getCoupon_name();
+				  if(i != couponList.size() - 1) {
+					  couponName += ","; 
+				  }
+			  }
+			  
+			mav.addObject("couponName", couponName);
 			// userid 기준 장바구니 목록 호출
 			List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
 			List<UserBasketVO> toppingList = goodsListService.getBasketTopping(userid);
@@ -246,10 +279,6 @@ public class GoodsListController {
 			mav.addObject("toppingList", toppingList);
 			mav.addObject("sideList", sideList);
 			mav.addObject("etcList", etcList);
-
-			System.out.println("toppingList : " + toppingList);
-			System.out.println("sideList : " + sideList);
-			System.out.println("etcList : " + etcList);
 
 			mav.setViewName("/basket/basket_detail");
 
@@ -392,29 +421,31 @@ public class GoodsListController {
 		return "success";
 
 	}
+
 	// 장바구니 - 피자 수량 초기화
-		@RequestMapping(value = "/defaultPizzaCnt.do", method = RequestMethod.POST)
-		@ResponseBody
-		public String defaultPizzaCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
-			String userid = (String) param.get("userid");
+	@RequestMapping(value = "/defaultPizzaCnt.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String defaultPizzaCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
 
-			//int seq = (Integer) param.get("seq");
-			// 변경된 수량
-			int changeCnt = (Integer) param.get("changeCnt");
-			System.out.println("changeCnt : " + changeCnt);
+		// int seq = (Integer) param.get("seq");
+		// 변경된 수량
+		int changeCnt = (Integer) param.get("changeCnt");
+		System.out.println("changeCnt : " + changeCnt);
 
-			vo.setUserid(userid);
-			//vo.setSeq(seq);
-			vo.setP_count(changeCnt);
+		vo.setUserid(userid);
+		// vo.setSeq(seq);
+		vo.setP_count(changeCnt);
 
-			System.out.println("update : " + userid);
-			//System.out.println("update seq : " + seq);
+		System.out.println("update : " + userid);
+		// System.out.println("update seq : " + seq);
 
-			goodsListService.defaultPizzaCnt(vo);
+		goodsListService.defaultPizzaCnt(vo);
 
-			return "success";
+		return "success";
 
-		}
+	}
+
 	// 장바구니 - 사이드디시 수량 변경
 	@RequestMapping(value = "/changeSideCnt.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -438,36 +469,37 @@ public class GoodsListController {
 		return "success";
 
 	}
+
 	// 장바구니 - 사이드디시 수량 초기화
-		@RequestMapping(value = "/defaultSideCnt.do", method = RequestMethod.POST)
-		@ResponseBody
-		public String defaultSideCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
-			String userid = (String) param.get("userid");
+	@RequestMapping(value = "/defaultSideCnt.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String defaultSideCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
 
-			//int seq = (Integer) param.get("seq");
-			// 변경된 수량
-			int changeCnt = (Integer) param.get("changeCnt");
-			System.out.println("changeCnt : " + changeCnt);
+		// int seq = (Integer) param.get("seq");
+		// 변경된 수량
+		int changeCnt = (Integer) param.get("changeCnt");
+		System.out.println("changeCnt : " + changeCnt);
 
-			vo.setUserid(userid);
-			//vo.setSeq(seq);
-			vo.setS_count(changeCnt);
+		vo.setUserid(userid);
+		// vo.setSeq(seq);
+		vo.setS_count(changeCnt);
 
-			System.out.println("update : " + userid);
-			//System.out.println("update seq : " + seq);
+		System.out.println("update : " + userid);
+		// System.out.println("update seq : " + seq);
 
-			goodsListService.defaultSideCnt(vo);
+		goodsListService.defaultSideCnt(vo);
 
-			return "success";
+		return "success";
 
-		}
+	}
 
 	// 장바구니 - 음료및기타 수량 변경
 	@RequestMapping(value = "/changeEtcCnt.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String changeEtcCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
-		
+
 		int seq = (Integer) param.get("seq");
 		// 변경된 수량
 		int changeCnt = (Integer) param.get("changeCnt");
@@ -485,30 +517,32 @@ public class GoodsListController {
 		return "success";
 
 	}
+
 	// 장바구니 - 음료및기타 수량 초기화
-		@RequestMapping(value = "/defaultEtcCnt.do", method = RequestMethod.POST)
-		@ResponseBody
-		public String defaultEtcCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
-			String userid = (String) param.get("userid");
-			
-			//int seq = (Integer) param.get("seq");
-			// 변경된 수량
-			int changeCnt = (Integer) param.get("changeCnt");
-			System.out.println("changeCnt : " + changeCnt);
+	@RequestMapping(value = "/defaultEtcCnt.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String defaultEtcCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
+		String userid = (String) param.get("userid");
 
-			vo.setUserid(userid);
-			//vo.setSeq(seq);
-			vo.setD_count(changeCnt);
+		// int seq = (Integer) param.get("seq");
+		// 변경된 수량
+		int changeCnt = (Integer) param.get("changeCnt");
+		System.out.println("changeCnt : " + changeCnt);
 
-			System.out.println("update : " + userid);
-			//System.out.println("update seq : " + seq);
+		vo.setUserid(userid);
+		// vo.setSeq(seq);
+		vo.setD_count(changeCnt);
 
-			goodsListService.defaultEtcCnt(vo);
+		System.out.println("update : " + userid);
+		// System.out.println("update seq : " + seq);
 
-			return "success";
+		goodsListService.defaultEtcCnt(vo);
 
-		}
-	//장바구니 - 전체 삭제
+		return "success";
+
+	}
+
+	// 장바구니 - 전체 삭제
 	@RequestMapping(value = "/allDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String allDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -517,20 +551,20 @@ public class GoodsListController {
 		vo.setUserid(userid);
 
 		System.out.println("del : " + userid);
-		
-		//피자 전체 삭제
+
+		// 피자 전체 삭제
 		goodsListService.allDeleteP(vo);
-		//토핑 전체 삭제
+		// 토핑 전체 삭제
 		goodsListService.allDeleteT(vo);
-		//사이드디시 전체 삭제
+		// 사이드디시 전체 삭제
 		goodsListService.allDeleteS(vo);
-		//음료및기타 전체 삭제
+		// 음료및기타 전체 삭제
 		goodsListService.allDeleteE(vo);
 
 		return "success";
 	}
 
-	//토핑 삭제
+	// 토핑 삭제
 	@RequestMapping(value = "/deleteTopping.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteTopping(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -550,8 +584,7 @@ public class GoodsListController {
 
 	}
 
-	
-	//피자 삭제
+	// 피자 삭제
 	@RequestMapping(value = "/pizzaDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String pizzaDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -576,7 +609,8 @@ public class GoodsListController {
 
 		return "success";
 	}
-	//사이드디시 삭제
+
+	// 사이드디시 삭제
 	@RequestMapping(value = "/sideDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String sideDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -594,7 +628,8 @@ public class GoodsListController {
 
 		return "success";
 	}
-	//음료및기타 삭제
+
+	// 음료및기타 삭제
 	@RequestMapping(value = "/etcDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String etcDelete(@RequestBody Map<String, Object> param, UserBasketVO vo) {
@@ -636,6 +671,5 @@ public class GoodsListController {
 		mav.setViewName("/basket/detailAddr");
 		return mav;
 	}
-
 
 }

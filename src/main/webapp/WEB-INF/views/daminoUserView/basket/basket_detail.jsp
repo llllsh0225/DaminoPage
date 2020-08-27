@@ -321,11 +321,40 @@ function checkCount(){
 	}
 	
 	//쿠폰 발급 및 주문페이지로 이동
-	alert("성공");
+	var couponName = $('#couponName').val();
+	var couponNameArr = couponName.split(",");
 	
-	//location.href="orderPage.do";
+	console.log("couponNameArr : " + couponNameArr.length);
 	
-	
+	//사용자에게 당월 발급된 쿠폰이 없을 때 쿠폰 발급
+	if(couponNameArr.length == 0){
+		var userlevel = sessionStorage.getItem("userlevel");
+		
+		$.ajax({
+			type : "POST",
+			url : "insertManiaCoupon.do",
+			contentType : "application/json; charset=utf-8;",
+			data : JSON.stringify({
+				userid : userid,
+				userlevel : userlevel,
+			}),
+			async : false,
+			success : function(res){
+				if(res == 'success'){
+					alert("매니아 쿠폰이 발급되었습니다");
+					location.href="orderPage.do";
+				}else if(res == 'duplicated'){ //당월 발급된 쿠폰이 있는 경우
+					location.href="orderPage.do";
+				}
+			},
+			error : function(err){
+				alert("매니아 쿠폰 발급 과정에서 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+			},
+		});
+		
+	}else{
+		location.href="orderPage.do";
+	}
 	
 }//END checkCount()
 
@@ -1170,6 +1199,7 @@ function toppingDelete(index) {
 									</h3>
 								</div>
 								<input type="hidden" id="userid" value="${userid}" />
+								<input type="hidden" id="couponName" value="${couponName }" />
 								<!-- 배달주문 div -->
 								<div class="deli-info" id="d_order">
 									<input type="hidden" id="addrVal" value="" /> <input
