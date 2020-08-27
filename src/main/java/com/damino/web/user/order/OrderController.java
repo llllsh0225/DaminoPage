@@ -8,19 +8,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.board.BoardVO;
-import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
-import com.damino.web.user.quickorder.QuickOrderAddressVO;
 import com.damino.web.user.quickorder.QuickOrderService;
 
 @Controller
@@ -44,8 +40,23 @@ public class OrderController {
 		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
 		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
 		
+		mav.addObject("deliveryAddressList", deliveryAddressList);
+		mav.addObject("storeAddressList", storeAddressList);
+		mav.setViewName("order/orderGubun");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/orderPage.do")
+	public ModelAndView orderPage(ModelAndView mav, HttpSession session) {
+		System.out.println("결제하기 페이지 열기");
+		
+		String userid = (String) session.getAttribute("userid");
+		
+		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
+		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
 		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
-		MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
+		//MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
 		
 		String couponName = ""; // 쿠폰명을 저장할 문자열
 		String couponCode = ""; // 쿠폰코드를 저장할 문자열
@@ -62,11 +73,11 @@ public class OrderController {
 			}
 		}
 		
-		mav.addObject("hourInfo", hourInfo);
 		mav.addObject("deliveryAddressList", deliveryAddressList);
 		mav.addObject("storeAddressList", storeAddressList);
-		mav.setViewName("order/orderGubun");
+		mav.addObject("couponList", couponList);
 		
+		mav.setViewName("/order/order_page");
 		return mav;
 	}
 	

@@ -398,17 +398,17 @@ public class GoodsListController {
 		public String defaultPizzaCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 			String userid = (String) param.get("userid");
 
-			int seq = (Integer) param.get("seq");
+			//int seq = (Integer) param.get("seq");
 			// 변경된 수량
 			int changeCnt = (Integer) param.get("changeCnt");
 			System.out.println("changeCnt : " + changeCnt);
 
 			vo.setUserid(userid);
-			vo.setSeq(seq);
+			//vo.setSeq(seq);
 			vo.setP_count(changeCnt);
 
 			System.out.println("update : " + userid);
-			System.out.println("update seq : " + seq);
+			//System.out.println("update seq : " + seq);
 
 			goodsListService.defaultPizzaCnt(vo);
 
@@ -444,17 +444,17 @@ public class GoodsListController {
 		public String defaultSideCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 			String userid = (String) param.get("userid");
 
-			int seq = (Integer) param.get("seq");
+			//int seq = (Integer) param.get("seq");
 			// 변경된 수량
 			int changeCnt = (Integer) param.get("changeCnt");
 			System.out.println("changeCnt : " + changeCnt);
 
 			vo.setUserid(userid);
-			vo.setSeq(seq);
+			//vo.setSeq(seq);
 			vo.setS_count(changeCnt);
 
 			System.out.println("update : " + userid);
-			System.out.println("update seq : " + seq);
+			//System.out.println("update seq : " + seq);
 
 			goodsListService.defaultSideCnt(vo);
 
@@ -467,7 +467,7 @@ public class GoodsListController {
 	@ResponseBody
 	public String changeEtcCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 		String userid = (String) param.get("userid");
-
+		
 		int seq = (Integer) param.get("seq");
 		// 변경된 수량
 		int changeCnt = (Integer) param.get("changeCnt");
@@ -490,18 +490,18 @@ public class GoodsListController {
 		@ResponseBody
 		public String defaultEtcCnt(@RequestBody Map<String, Object> param, UserBasketVO vo) {
 			String userid = (String) param.get("userid");
-
-			int seq = (Integer) param.get("seq");
+			
+			//int seq = (Integer) param.get("seq");
 			// 변경된 수량
 			int changeCnt = (Integer) param.get("changeCnt");
 			System.out.println("changeCnt : " + changeCnt);
 
 			vo.setUserid(userid);
-			vo.setSeq(seq);
+			//vo.setSeq(seq);
 			vo.setD_count(changeCnt);
 
 			System.out.println("update : " + userid);
-			System.out.println("update seq : " + seq);
+			//System.out.println("update seq : " + seq);
 
 			goodsListService.defaultEtcCnt(vo);
 

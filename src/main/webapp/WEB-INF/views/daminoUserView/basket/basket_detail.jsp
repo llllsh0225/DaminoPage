@@ -118,11 +118,10 @@
 				$('#side-total' + s).html(s_total);
 				
 				sideSum();
-				
-			}
-		
-}		
-var etcPrice = 0;
+					
+				}
+			}		
+		var etcPrice = 0;
 		if (etcArr != null) {
 			for (var i = 0; i < etcArr.length; i++) {
 					etcPrice = (parseInt(etcArr[i].d_price, 10) * parseInt(etcArr[i].d_count));
@@ -143,7 +142,7 @@ var etcPrice = 0;
 }
 
 function checkCount(){
-	/* //피자 row
+	 //피자 row
 	var p_length = pizzaArr.length;
 	//사이드 row
 	var s_length = sideArr.length;
@@ -153,17 +152,126 @@ function checkCount(){
 	var total_length = Number( e_length);
 	console.log("row 길이 : " + total_length);
 	
-	//피자, 사이드디시, 음료 수량 체크를 위한 변수
-	var p_total = 0;
-	var s_total = 0;
-	var e_total = 0; */
+	//피자, 사이드디시, 음료및기타 수량 체크 변수
+	var p_totalCnt = 0;
+	var s_totalCnt = 0;
+	var e_totalCnt = 0;
+	//사이드디시, 음료및기타 가격 체크 변수
 	
-	alert("체크2");
+	var userid = $('#userid').val();
+	
+	//음료가 있을 경우
+	if(e_length > 0){
+		for(var i=0; i<e_length; i++){
+		var etcCount = Number($('#drinkSetNum' + i).val());
+		e_totalCnt += Number(etcCount);
+		console.log("etcCount : " + etcCount);
+		console.log("e_total : " + e_total);
+		}
+		//alert("");
+	}//END e_length
+	
 	//피자가 있을 경우
+	if(p_length > 0){
+			for(var i=0; i<p_length; i++){	
+				var pizzaCount = Number($('#pizzaSetNum' + i).val());
+				p_totalCnt += Number(pizzaCount);
+				console.log("pizzaCount : " + pizzaCount);
+				console.log("p_total : " + p_total);
+				
+				//음료가 있을 경우
+				if(e_length > 0){
+					for(var j=0; j<e_length; j++){
+					var etcCount = Number($('#drinkSetNum' + j).val());
+					e_totalCnt += Number(etcCount);
+					console.log("etcCount : " + etcCount);
+					console.log("e_total : " + e_total);
+				
+				if(e_totalCnt >= (p_totalCnt)*2){
+					alert("음료및기타는 피자와 2:1 비율로 주문 가능합니다. 음료및기타 수량이 초기화됩니다");
+					var changeCnt = 1;
+					//수량 초기화
+					$.ajax({
+						url : 'defaultEtcCnt.do',
+						contentType : "application/json; charset=UTF-8;",
+						type : 'post',
+						data : JSON.stringify({
+							userid : userid,
+							changeCnt : changeCnt
+						}),
+						async : false,
+						success : function(data) {
+							if (data == 'success') {
+								location.reload(true);
+								
+							} else {
+								alert('실패');
+								return;
+							}
+						},
+						error : function() {
+							alert('처리도중 오류가 발생했습니다.');
+						}
+					})
+					}
+				}//END e_length for
+				}//END e_length
+			}//end p_length for
+	}//END p_length
+	
+	//사이드디시와 음료및기타 1:1 비율 유지 
+	else if(s_length > 0){
+		for(var i=0; i<s_length; i++){	
+			var sideCount = Number($('#sideNomalSetNum' + i).val());
+			s_totalCnt += sideCount;
+		}
+		if(e_totalCnt >= s_totalCnt && s_totalCnt >= 1){
+			alert("음료및기타는 사이드디시와 1:1 비율로 주문 가능합니다. 음료및기타 수량이 초기화됩니다");
+			var changeCnt = 1;
+			//수량 초기화
+			$.ajax({
+				url : 'defaultEtcCnt.do',
+				contentType : "application/json; charset=UTF-8;",
+				type : 'post',
+				data : JSON.stringify({
+					userid : userid,
+					changeCnt : changeCnt
+				}),
+				async : false,
+				success : function(data) {
+					if (data == 'success') {
+						location.reload(true);
+					} else {
+						alert('실패');
+						return;
+					}
+				},
+				error : function() {
+					alert('처리도중 오류가 발생했습니다.');
+				}
+			})
+		}//END e_totalCnt if
+		alert("etc_total : " + etc_total);
+		alert("side_total : " + side_total);
+		//사이드디시와 음료만 있을 때 최소 주문금액 설정
+		if(Number(side_total + etc_total) < 12000){
+			alert("최소 주문금액은 12,000원 이상입니다");
+			return;
+		}
+	}//END s_length
+	
+	//음료만 있는 경우
+	if(s_totalCnt<=0 && p_totalCnt<=0 && e_totalCnt >= 1){
+		alert("음료만 주문하실 수 없습니다. 장바구니를 확인해주세요");
+		return;
+	}
 	
 	//주문페이지로 이동
+	alert("성공");
 	
-}
+	
+}//END checkCount()
+
 function sum(){
 	//alert("sum");
 
@@ -206,9 +314,9 @@ function etcSum(){
 function pizzaSum(){
 	var toppingNum = Number($('#toppingNum').val());
 	console.log("토핑 개수 = " + toppingNum);
-	if (pizzaArr != null) {	
+	if (pizzaArr.length >= 1) {	
 		
-		if (t_arr != null) {
+		if (t_arr.length >= 1) {
 		//피자금액에 토핑 금액 합산
 		
 		//토핑 개수가 피자 개수보다 작을 경우
@@ -272,12 +380,12 @@ function pizzaSum(){
 				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
 				
 				sum(); 
+				}
 			}
-			}
-		}
+		}//end t_arr
 		else{//토핑이 없을 경우
-			alert("테스트");
 			toppingPrice = 0;
+			for (var i = 0; i < pizzaArr.length; i++) {	
 				var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 				pizza_total += totalPizzaPrice;
 				
@@ -289,9 +397,11 @@ function pizzaSum(){
 				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
 				
 				sum();
+			}
 		}
 	}
-}
+}//END pizzaSum()
+
 window.onload = function() {
 // 배달주문 or 포장주문 세팅
 	
@@ -482,14 +592,8 @@ function changeEtcCnt(sub_action, index, seq, orgCnt) {
 	//음료및기타 row
 	var e_length = etcArr.length;
 	
-	var userid = $('#userid').val();
 	//음료및기타 수량 체크 변수
 	var e_totalCnt = 0;
-	//피자 수량 체크 변수
-	var p_totalCnt = 0;
-	//사이드디시 수량 체크 변수
-	var s_totalCnt = 0;
-	
 	//변화된 수량을 담을 변수
 	var changeCnt = 0;
 	//최소 카운트 1로 제한
@@ -497,98 +601,15 @@ function changeEtcCnt(sub_action, index, seq, orgCnt) {
 		return;
 	}
 	if(sub_action === 'plus'){
-		
 		for(var i=0; i<e_length; i++){
 			var etcCount = Number($('#drinkSetNum' + i).val());
 			e_totalCnt += Number(etcCount);
 			console.log("etcCount : " + etcCount);
 			console.log("e_total : " + e_total);
 			//alert("");
-		if(p_length > 0){
-			for(var i=0; i<p_length; i++){	
-				var pizzaCount = Number($('#pizzaSetNum' + i).val());
-				p_totalCnt += Number(pizzaCount);
-				console.log("pizzaCount : " + pizzaCount);
-				console.log("p_total : " + p_total);
+		
 			}
-			if(e_totalCnt >= (p_totalCnt)*2){
-				alert("음료및기타는 피자와 2:1 비율로 주문 가능합니다. 음료및기타 수량이 초기화됩니다");
-				var changeCnt = 1;
-				//수량 초기화
-				$.ajax({
-					url : 'defaultEtcCnt.do',
-					contentType : "application/json; charset=UTF-8;",
-					type : 'post',
-					data : JSON.stringify({
-						seq : seq,
-						userid : userid,
-						changeCnt : changeCnt
-					}),
-					async : false,
-					success : function(data) {
-						if (data == 'success') {
-							location.reload(true);
-						} else {
-							alert('실패');
-							return;
-						}
-					},
-					error : function() {
-						alert('처리도중 오류가 발생했습니다.');
-					}
-				})
-				var etcCount = Number($('#drinkSetNum' + i).val(1));
-				return;
-			}
-			changeCnt = orgCnt + 1;
-		}
-		//피자 수량이 없는 경우
-		else{
-			//사이드디시와 1:1 비율 유지    //주문할 때 음료만 있으면 주문안되게
-			if(s_length > 0){
-				for(var i=0; i<s_length; i++){	
-					var sideCount = Number($('#sideNomalSetNum' + i).val());
-					s_totalCnt += sideCount;
-					alert("sideCount : " + sideCount);
-					alert("s_total : " + s_total);
-				}
-				
-				if(e_totalCnt >= s_totalCnt){
-					alert("음료및기타는 사이드디시와 1:1 비율로 주문 가능합니다. 음료및기타 수량이 초기화됩니다");
-					
-					var changeCnt = 1;
-					//수량 초기화
-					$.ajax({
-						url : 'defaultSideCnt.do',
-						contentType : "application/json; charset=UTF-8;",
-						type : 'post',
-						data : JSON.stringify({
-							seq : seq,
-							userid : userid,
-							changeCnt : changeCnt
-						}),
-						async : false,
-						success : function(data) {
-							if (data == 'success') {
-								location.reload(true);
-							} else {
-								alert('실패');
-								return;
-							}
-						},
-						error : function() {
-							alert('처리도중 오류가 발생했습니다.');
-						}
-
-					})
-					
-					var sideCount = Number($('#sideNomalSetNum' + i).val(1));
-					return;
-				}
-			}
-			changeCnt = orgCnt + 1;
-		}
-		}//END PLUS for
+			changeCnt = orgCnt + 1;		
 	}//END PLUS
 	else if (sub_action === 'minus'){
 		changeCnt = orgCnt - 1;
@@ -597,6 +618,8 @@ function changeEtcCnt(sub_action, index, seq, orgCnt) {
 		}
 	}
 	//수량 변경
+	var userid = $('#userid').val();
+	
 	$.ajax({
 			url : 'changeEtcCnt.do',
 			contentType : "application/json; charset=UTF-8;",
@@ -1172,6 +1195,7 @@ function toppingDelete(index) {
 										<strong id="orderGubun"></strong>
 									</h3>
 								</div>
+								<input type="hidden" id="userid" value="${userid}" />
 								<!-- 배달주문 div -->
 								<div class="deli-info" id="d_order">
 									<input type="hidden" id="addrVal" value="" /> <input
@@ -1223,7 +1247,6 @@ function toppingDelete(index) {
 										
 										<c:forEach var="pizza" items="${basketList}" varStatus="status">
 											<div class="hidden-info">
-											<input type="hidden" id="userid" value="${userid}" />	
 											<input type="hidden" id="gubun" value="${pizza.gubun}"/>
 											</div>
 											<c:if test="${pizza.p_name != null }">
