@@ -165,8 +165,6 @@ function checkCount(){
 		for(var i=0; i<e_length; i++){
 		var etcCount = Number($('#drinkSetNum' + i).val());
 		e_totalCnt += Number(etcCount);
-		console.log("etcCount : " + etcCount);
-		console.log("e_total : " + e_total);
 		}
 		//alert("");
 	}//END e_length
@@ -176,11 +174,39 @@ function checkCount(){
 			for(var i=0; i<p_length; i++){	
 				var pizzaCount = Number($('#pizzaSetNum' + i).val());
 				p_totalCnt += Number(pizzaCount);
-				console.log("pizzaCount : " + pizzaCount);
-				console.log("p_total : " + p_total);
-				
-				//음료가 있을 경우
-				if(e_length > 0){
+			//피자 수량 제한
+			if(p_totalCnt >= 9){
+						alert("피자는 최대 9판까지 주문 가능합니다. 피자 수량이 초기화됩니다");
+						var changeCnt = 1;
+						//수량 초기화
+						$.ajax({
+							url : 'defaultPizzaCnt.do',
+							contentType : "application/json; charset=UTF-8;",
+							type : 'post',
+							data : JSON.stringify({
+								seq : seq,
+								userid : userid,
+								changeCnt : changeCnt
+							}),
+							async : false,
+							success : function(data) {
+								if (data == 'success') {
+									location.reload(true);
+								} else {
+									alert('실패');
+									return;
+								}
+							},
+							error : function() {
+								alert('처리도중 오류가 발생했습니다.');
+							}
+
+						})
+						
+					}
+						
+			//음료가 있을 경우
+			if(e_length > 0){
 					for(var j=0; j<e_length; j++){
 					var etcCount = Number($('#drinkSetNum' + j).val());
 					e_totalCnt += Number(etcCount);
@@ -225,6 +251,36 @@ function checkCount(){
 			var sideCount = Number($('#sideNomalSetNum' + i).val());
 			s_totalCnt += sideCount;
 		}
+		//사이드디시 수량 제한
+		if(s_totalCnt >= 9){
+				alert("사이드디시는 최대 9개까지 주문 가능합니다. 사이드디시 수량이 초기화됩니다");
+				
+				var changeCnt = 1;
+				//수량 초기화
+				$.ajax({
+					url : 'defaultSideCnt.do',
+					contentType : "application/json; charset=UTF-8;",
+					type : 'post',
+					data : JSON.stringify({
+						seq : seq,
+						userid : userid,
+						changeCnt : changeCnt
+					}),
+					async : false,
+					success : function(data) {
+						if (data == 'success') {
+							location.reload(true);
+						} else {
+							alert('실패');
+							return;
+						}
+					},
+					error : function() {
+						alert('처리도중 오류가 발생했습니다.');
+					}
+
+				})
+		}//END 사이드디시 수량 제한
 		if(e_totalCnt >= s_totalCnt && s_totalCnt >= 1){
 			alert("음료및기타는 사이드디시와 1:1 비율로 주문 가능합니다. 음료및기타 수량이 초기화됩니다");
 			var changeCnt = 1;
@@ -251,8 +307,6 @@ function checkCount(){
 				}
 			})
 		}//END e_totalCnt if
-		alert("etc_total : " + etc_total);
-		alert("side_total : " + side_total);
 		//사이드디시와 음료만 있을 때 최소 주문금액 설정
 		if(Number(side_total + etc_total) < 12000){
 			alert("최소 주문금액은 12,000원 이상입니다");
@@ -266,8 +320,11 @@ function checkCount(){
 		return;
 	}
 	
-	//주문페이지로 이동
+	//쿠폰 발급 및 주문페이지로 이동
 	alert("성공");
+	
+	//location.href="orderPage.do";
+	
 	
 	
 }//END checkCount()
@@ -601,14 +658,7 @@ function changeEtcCnt(sub_action, index, seq, orgCnt) {
 		return;
 	}
 	if(sub_action === 'plus'){
-		for(var i=0; i<e_length; i++){
-			var etcCount = Number($('#drinkSetNum' + i).val());
-			e_totalCnt += Number(etcCount);
-			console.log("etcCount : " + etcCount);
-			console.log("e_total : " + e_total);
-			//alert("");
-		
-			}
+	
 			changeCnt = orgCnt + 1;		
 	}//END PLUS
 	else if (sub_action === 'minus'){
@@ -661,45 +711,7 @@ function changeSideCnt(sub_action, index, seq, orgCnt) {
 		return;
 	}
 	if(sub_action === 'plus'){
-		for(var i=0; i<s_length; i++){
-			var sideCount = Number($('#sideNomalSetNum' + i).val());
-			s_totalCnt += sideCount;
-			alert("sideCount : " + sideCount);
-			alert("s_total : " + s_total);
-			
-			if(s_totalCnt >= 9){
-				alert("사이드디시는 최대 9개까지 주문 가능합니다. 사이드디시 수량이 초기화됩니다");
-				
-				var changeCnt = 1;
-				//수량 초기화
-				$.ajax({
-					url : 'defaultSideCnt.do',
-					contentType : "application/json; charset=UTF-8;",
-					type : 'post',
-					data : JSON.stringify({
-						seq : seq,
-						userid : userid,
-						changeCnt : changeCnt
-					}),
-					async : false,
-					success : function(data) {
-						if (data == 'success') {
-							location.reload(true);
-						} else {
-							alert('실패');
-							return;
-						}
-					},
-					error : function() {
-						alert('처리도중 오류가 발생했습니다.');
-					}
-
-				})
-				
-				var sideCount = Number($('#sideNomalSetNum' + i).val(1));
-				return;
-			}
-		}
+		
 		changeCnt = orgCnt + 1;
 	}else if (sub_action === 'minus'){
 		changeCnt = orgCnt - 1;
@@ -753,44 +765,6 @@ function changePizzaCnt(sub_action, index, seq, orgCnt) {
 	}
 	if(sub_action === 'plus'){
 		
-		for(var i=0; i<p_length; i++){
-			var pizzaCount = Number($('#pizzaSetNum' + i).val());
-			p_totalCnt += Number(pizzaCount);
-			console.log("pizzaCount : " + pizzaCount);
-			console.log("p_total : " + p_total);
-			
-			if(p_totalCnt >= 9){
-				alert("피자는 최대 9판까지 주문 가능합니다. 피자 수량이 초기화됩니다");
-				var changeCnt = 1;
-				//수량 초기화
-				$.ajax({
-					url : 'defaultPizzaCnt.do',
-					contentType : "application/json; charset=UTF-8;",
-					type : 'post',
-					data : JSON.stringify({
-						seq : seq,
-						userid : userid,
-						changeCnt : changeCnt
-					}),
-					async : false,
-					success : function(data) {
-						if (data == 'success') {
-							location.reload(true);
-						} else {
-							alert('실패');
-							return;
-						}
-					},
-					error : function() {
-						alert('처리도중 오류가 발생했습니다.');
-					}
-
-				})
-				
-				var pizzaCount = Number($('#pizzaSetNum' + i).val(1));
-				return;
-			}
-		}
 		changeCnt = orgCnt + 1;
 		
 	}else if (sub_action === 'minus'){
