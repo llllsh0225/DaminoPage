@@ -69,10 +69,9 @@ public class OrderController {
 		if(storeName != null) {
 			MarketVO hourInfo = quickOrderService.getBusinessHour(storeName); // 배달매장의
 			mav.addObject("hourInfo", hourInfo);
-		}else { 
+		}else { //세션의 매장이 없는 경우 DB에서 조회
 			for (int i=0; i<deliveryAddressList.size(); i++) {
 				DeliveryAddressVO vo = deliveryAddressList.get(i);
-				//System.out.println("배달매장2 : " + vo.getStorename());
 				
 				MarketVO hourInfo = quickOrderService.getBusinessHour(vo.getStorename());
 				mav.addObject("hourInfo", hourInfo);
@@ -108,6 +107,29 @@ public class OrderController {
 		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
 		List<UserBasketVO> etcList = goodsListService.getBasketEtc(userid);
 
+		int totalPrice = 0; // 저장된 제품의 총 가격
+		
+		if (!basketList.isEmpty()) {
+			for(int i=0; i<basketList.size(); i++) {
+				totalPrice += basketList.get(i).getP_price()*basketList.get(i).getP_count();
+			}
+		}
+		if (!toppingList.isEmpty()) {
+			for(int i=0; i<toppingList.size(); i++) {
+				totalPrice += toppingList.get(i).getT_price()*toppingList.get(i).getT_count();
+			}
+		}
+		if (!sideList.isEmpty()) {
+			for(int i=0; i<sideList.size(); i++) {
+				totalPrice += sideList.get(i).getS_price()*sideList.get(i).getS_count();
+			}
+		}
+		if (!etcList.isEmpty()) {
+			for(int i=0; i<etcList.size(); i++) {
+				totalPrice += etcList.get(i).getD_price()*etcList.get(i).getD_count();
+			}
+		}
+		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("basketList", basketList);
 		mav.addObject("toppingList", toppingList);
 		mav.addObject("sideList", sideList);
@@ -116,18 +138,6 @@ public class OrderController {
 		mav.setViewName("/order/order_page");
 		return mav;
 	}
-	
-	/*
-	 * @RequestMapping("/getStoreTime.do") public ModelAndView
-	 * getStoreTime(ModelAndView mav, HttpSession session) { //MarketVO hourInfo =
-	 * quickOrderService.getBusinessHour( storeAddressList.getStorename()); // 배달매장의
-	 * 영업시간 정보 가져오기
-	 * 
-	 * 
-	 * return mav;
-	 * 
-	 * }
-	 */
 	
 	@RequestMapping(value="/insertDeliveryAddress.do", method=RequestMethod.POST)
 	@ResponseBody
