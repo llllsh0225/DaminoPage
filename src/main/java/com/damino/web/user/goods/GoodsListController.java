@@ -208,10 +208,23 @@ public class GoodsListController {
 			mav.setViewName("/login/login");
 			return mav;
 		} else {
-			
 			session.setAttribute("msg", "login");
 			vo.setUserid(userid);
 			
+			//디폴트 배달지 세팅
+			List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
+			
+			if(!deliveryAddressList.isEmpty()) {
+				for (int i=0; i<deliveryAddressList.size(); i++) {
+				DeliveryAddressVO delVO = deliveryAddressList.get(i);
+					String addressDB = delVO.getAddress();
+					String storenameDB = delVO.getStorename();
+					String storephoneDB = delVO.getStorephone();
+					mav.addObject("addressDB", addressDB);
+					mav.addObject("storenameDB", storenameDB);
+					mav.addObject("storephoneDB", storephoneDB);
+				}
+			}
 			//사용자 쿠폰 정보 조회
 			  List<CouponVO> couponList = couponService.getMyCouponList(userid);
 			  
