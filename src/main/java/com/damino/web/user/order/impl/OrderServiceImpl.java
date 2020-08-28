@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damino.web.user.goods.UserOrderVO;
 import com.damino.web.user.order.DeliveryAddressVO;
 import com.damino.web.user.order.OrderDAO;
 import com.damino.web.user.order.OrderService;
@@ -44,6 +45,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void deleteStoreAddress(StoreAddressVO vo) {
 		orderDAO.deleteStoreAddress(vo);
+	}
+
+	@Override
+	public void doOrder(UserOrderVO vo) {
+		System.out.println("주문내역 insert");
+		orderDAO.doOrder(vo);
 	}
 
 }

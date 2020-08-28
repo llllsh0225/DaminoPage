@@ -21,7 +21,9 @@ import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.goods.GoodsListService;
 import com.damino.web.user.goods.UserBasketVO;
+import com.damino.web.user.goods.UserOrderVO;
 import com.damino.web.user.quickorder.QuickOrderService;
+import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Controller
 public class OrderController {
@@ -137,6 +139,51 @@ public class OrderController {
 		
 		mav.setViewName("/order/order_page");
 		return mav;
+	}
+	
+	@RequestMapping(value="/doOrder.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String doOrder(@RequestBody Map<String, Object> param, UserOrderVO vo) {
+		String userid = (String) param.get("userid");
+		String username = (String) param.get("username");
+		String orderdate = (String) param.get("orderTimeStr");
+		String deliverytime = (String) param.get("deliveryTime");
+		String address = (String) param.get("deliverAddress");
+		String tel = (String) param.get("userphone");
+		String menus = (String) param.get("goodsName");
+		int price = (Integer) param.get("totalPayment");
+		String take = (String) param.get("take");
+		String store = (String) param.get("storename");
+		String paytool = (String) param.get("paytool");
+		String paystatus = (String) param.get("paystatus");
+		String status = (String) param.get("status");
+		String requirement = (String) param.get("requirement");
+		String couponCode = (String) param.get("selectCouponCode");
+		
+		vo.setUserid(userid);
+		vo.setUsername(username);
+		vo.setOrderdate(orderdate);
+		vo.setDeliverytime(deliverytime);
+		vo.setOrderdate(orderdate);
+		vo.setAddress(address);
+		vo.setTel(tel);
+		vo.setMenus(menus);
+		vo.setPrice(price);
+		vo.setTake(take);
+		vo.setStore(store);
+		vo.setPaytool(paytool);
+		vo.setPaystatus(paystatus);
+		vo.setStatus(status);
+		vo.setRequirements(requirement);
+		
+		orderService.doOrder(vo);
+		
+		if(couponCode != null) {
+			couponService.updateUsedCoupon(couponCode);
+		}
+		
+		return "success";
+		
 	}
 	
 	@RequestMapping(value="/insertDeliveryAddress.do", method=RequestMethod.POST)
