@@ -43,8 +43,8 @@
 						<c:otherwise>
 							<!-- 로그인 -->
 							<div class="util-nav">
-								${user.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
 									<i class="ico-cart"></i>
 								</a>
 							</div>
@@ -131,7 +131,7 @@
 							</div>
 							<div class="info-wrap">
 								<div class="user">
-									<span>${user.username}</span>님이 주문하신 내역입니다.
+									<span>${sessionScope.username }</span>님이 주문하신 내역입니다.
 									
 								</div>
 								<div class="text-type">주문을 취소하시려면 해당 매장으로 전화하셔야 합니다.</div>
@@ -139,7 +139,6 @@
 									class="btn-type4-brd4">이용안내</a>
 							</div>
 							<div class="tab-type6">
-								<!--2020-01-03 클래스명수정-->
 								<ul>
 									<li class="active"><a href="myorderlist.do">피자 주문</a></li>
 								</ul>
@@ -169,7 +168,8 @@
 												<div class="info od-box">
 													<a href="#">
 														<div class="menu">${myorderlist.menus }&nbsp;
-															${myorderlist.price }원</div>
+															<fmt:formatNumber value="${myorderlist.price }" pattern="#,###,###" />원
+														</div>
 													</a>
 												</div>
 												<form name="orderView" method="post">

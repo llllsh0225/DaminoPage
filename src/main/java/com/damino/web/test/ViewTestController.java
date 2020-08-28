@@ -255,16 +255,6 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/orderorderDone.do")
-	public ModelAndView getOrderOrderDone() {
-		System.out.println("결제완료 페이지");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/order_orderDone");
-		return mav;
-	}
-	
-	
 	
 	@RequestMapping("/findidpw.do")
 	public ModelAndView getFindIdPw() {

@@ -20,21 +20,36 @@ public class MyOrderListController {
 		System.out.println("내 주문현황 열기");
 		String userid=(String)session.getAttribute("userid");
 		
-		List<MyOrderListVO> myOrderList = myOrderListService.getMyOrderList(userid);
-		System.out.println(myOrderList);
-		mav.addObject("myOrderList", myOrderList);
-		mav.setViewName("/mypage/myOrderList");
+		if (userid == null) {
+			mav.setViewName("/login/login");
+		} else {
+			session.setAttribute("msg", "login");
+			
+			List<MyOrderListVO> myOrderList = myOrderListService.getMyOrderList(userid);
+			System.out.println(myOrderList);
+			mav.addObject("myOrderList", myOrderList);
+			mav.setViewName("/mypage/myOrderList");
+		}
 		
 		return mav;
 	}
 
 	@RequestMapping(value="/orderStatus.do", method=RequestMethod.GET)
-	public ModelAndView getOrderStatusReceive(ModelAndView mav, MyOrderListVO vo) {
+	public ModelAndView getOrderStatusReceive(ModelAndView mav, MyOrderListVO vo, HttpSession session) {
 		System.out.println("주문 상태 페이지");
-		MyOrderListVO orderview = myOrderListService.getOrderView(vo);
-		System.out.println(orderview);
-		mav.setViewName("/order/orderStatus");
-		mav.addObject("orderview", orderview);
+		String userid=(String)session.getAttribute("userid");
+		
+		if (userid == null) {
+			mav.setViewName("/login/login");
+		}
+		else {
+			session.setAttribute("msg", "login");
+			
+			MyOrderListVO orderview = myOrderListService.getOrderView(vo);
+			System.out.println(orderview);
+			mav.setViewName("/order/orderStatus");
+			mav.addObject("orderview", orderview);
+		}
 		return mav;
 	}
 	
