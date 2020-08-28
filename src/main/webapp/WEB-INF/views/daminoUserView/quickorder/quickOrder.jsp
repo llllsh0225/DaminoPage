@@ -31,6 +31,18 @@
 				location.href="quickOrderSetting.do";
 			}
 		}
+		
+		function goOrderPage(){
+			var totalPrice = Number($('#totalPrice').val());
+			
+			if(totalPrice < 12000){
+				alert("최소주문금액은 12,000원입니다.");
+				return;
+			}else{
+				location.href="getQuickOrderPaymentPage.do";
+			}
+			
+		}
 	</script>
 </head>
 <body>
@@ -141,6 +153,7 @@
 								<!--퀵 오더-->
 								<div class="quick-guide">
 									<input type="hidden" id="chkSession" value="${sessionScope.msg }" />
+									<input type="hidden" id="totalPrice" value="${totalPrice }" />
 									<p>
 										자주 이용하시는 제품을 더 빨리 주문할 수 있는 다미노피자의 회원전용 서비스입니다.<br> 온라인 회원
 										로그인 후 아래 두가지 방법 중 하나로 퀵 오더를 설정하시고 이용하시기 바랍니다.
@@ -203,7 +216,7 @@
 		
 									<div class="btn-wrap">
 										<a href="javascript:goEdit();" class="btn-type-brd3">퀵 오더 설정하기</a>
-										<a href="getQuickOrderPaymentPage.do" class="btn-type v3">퀵 오더 진행하기</a>
+										<a href="javascript:goOrderPage();" class="btn-type v3">퀵 오더 진행하기</a>
 									</div>
 								</div>
 							</c:when>
@@ -250,7 +263,7 @@
 		
 									<div class="btn-wrap">
 										<a href="javascript:goEdit();" class="btn-type-brd3">퀵 오더 설정하기</a>
-										<a href="getQuickOrderPaymentPage.do" class="btn-type v3">퀵 오더 진행하기</a>
+										<a href="javascript:goOrderPage();" class="btn-type v3">퀵 오더 진행하기</a>
 									</div>
 								</div>
 							</c:when>
