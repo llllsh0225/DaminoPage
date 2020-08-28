@@ -198,7 +198,7 @@ public class GoodsListController {
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
 		//세션 만료 시간 연장
-		request.getSession().setMaxInactiveInterval(300000);
+		//request.getSession().setMaxInactiveInterval(300000);
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
@@ -265,7 +265,7 @@ public class GoodsListController {
 	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
 		//세션 만료 시간 연장
-		request.getSession().setMaxInactiveInterval(300000);
+		//request.getSession().setMaxInactiveInterval(300000);
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);

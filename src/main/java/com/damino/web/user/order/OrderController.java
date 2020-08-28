@@ -39,6 +39,15 @@ public class OrderController {
 	
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
 	
+	@RequestMapping("/orderorderDone.do")
+	public ModelAndView getOrderOrderDone() {
+		System.out.println("결제완료 페이지");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/order/order_orderDone");
+		return mav;
+	}
+	
 	@RequestMapping("/getOrderPage.do")
 	public ModelAndView getOrderPage(ModelAndView mav, HttpSession session) {
 		System.out.println("배달/포장주문 페이지 열기");
@@ -79,7 +88,18 @@ public class OrderController {
 				mav.addObject("hourInfo", hourInfo);
 			}
 		}
-		System.out.println("storeAddressList" + storeName);
+		//디폴트 배달지 세팅
+		if(!deliveryAddressList.isEmpty()) {
+			for (int i=0; i<deliveryAddressList.size(); i++) {
+			DeliveryAddressVO delVO = deliveryAddressList.get(i);
+				String addressDB = delVO.getAddress();
+				String storenameDB = delVO.getStorename();
+				String storephoneDB = delVO.getStorephone();
+				mav.addObject("addressDB", addressDB);
+				mav.addObject("storenameDB", storenameDB);
+				mav.addObject("storephoneDB", storephoneDB);
+			}
+		}
 		
 		String couponName = ""; // 쿠폰명을 저장할 문자열
 		String couponCode = ""; // 쿠폰코드를 저장할 문자열
