@@ -142,7 +142,7 @@
 }
 
 function checkCount(){
-	 //피자 row
+	//피자 row
 	var p_length = pizzaArr.length;
 	//사이드 row
 	var s_length = sideArr.length;
@@ -174,6 +174,7 @@ function checkCount(){
 			for(var i=0; i<p_length; i++){	
 				var pizzaCount = Number($('#pizzaSetNum' + i).val());
 				p_totalCnt += Number(pizzaCount);
+			}//end p_length for
 			//피자 수량 제한
 			if(p_totalCnt >= 9){
 						alert("피자는 최대 9판까지 주문 가능합니다. 피자 수량이 초기화됩니다");
@@ -210,11 +211,10 @@ function checkCount(){
 					for(var j=0; j<e_length; j++){
 					var etcCount = Number($('#drinkSetNum' + j).val());
 					e_totalCnt += Number(etcCount);
-					console.log("etcCount : " + etcCount);
-					console.log("e_total : " + e_total);
 				
-				if(e_totalCnt >= (p_totalCnt)*2){
+				if(Number(e_totalCnt) > Number((p_totalCnt)*2)){
 					alert("음료및기타는 피자와 2:1 비율로 주문 가능합니다. 음료및기타 수량이 초기화됩니다");
+					alert("p_totalCnt : "+p_totalCnt + "/e_totalCnt : " + e_totalCnt);
 					var changeCnt = 1;
 					//수량 초기화
 					$.ajax({
@@ -242,7 +242,7 @@ function checkCount(){
 					}
 				}//END e_length for
 				}//END e_length
-			}//end p_length for
+			
 	}//END p_length
 	
 	//사이드디시와 음료및기타 1:1 비율 유지 
@@ -406,7 +406,7 @@ function pizzaSum(){
 		//피자금액에 토핑 금액 합산
 		
 		//토핑 개수가 피자 개수보다 작을 경우
-		if(t_arr.length < pizzaArr.length){
+		if(t_arr.length <= pizzaArr.length){
 			for (var i = 0; i < pizzaArr.length; i++) {	
 			if(i == 0){
 				toppingPrice = parseInt(t_arr[0].t_price, 10) * parseInt(t_arr[0].t_count, 10);
@@ -425,6 +425,12 @@ function pizzaSum(){
 				var totalPizzaPrice = (parseInt(pizzaArr[i].p_price, 10) * parseInt(pizzaArr[i].p_count, 10));
 				pizza_total += totalPizzaPrice;				
 				
+				$('#prd-total' + i).html(totalPizzaPrice);
+				p_total = $('#prd-total' + i).text();
+				
+				//천단위 구분 - 정규표현식
+				p_total = p_total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				$('#prd-total' + i).html("<em>" + p_total + "</em>" + "원");
 				sum();
 				}
 			}
