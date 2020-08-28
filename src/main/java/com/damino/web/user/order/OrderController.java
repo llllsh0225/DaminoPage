@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
@@ -52,14 +54,31 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/orderPage.do")
-	public ModelAndView orderPage(ModelAndView mav, HttpSession session) {
+	public ModelAndView orderPage(ModelAndView mav, HttpSession session, HttpServletRequest request) {
 		System.out.println("결제하기 페이지 열기");
-		
+		//세션 만료 시간 연장
+		request.getSession().setMaxInactiveInterval(300000);
 		String userid = (String) session.getAttribute("userid");
 		
 		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
 		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
 		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
+		
+		String storeName = (String) session.getAttribute("storename");
+		
+		if(storeName != null) {
+			MarketVO hourInfo = quickOrderService.getBusinessHour(storeName); // 배달매장의
+			mav.addObject("hourInfo", hourInfo);
+		}else { 
+			for (int i=0; i<deliveryAddressList.size(); i++) {
+				DeliveryAddressVO vo = deliveryAddressList.get(i);
+				//System.out.println("배달매장2 : " + vo.getStorename());
+				
+				MarketVO hourInfo = quickOrderService.getBusinessHour(vo.getStorename());
+				mav.addObject("hourInfo", hourInfo);
+			}
+		}
+		System.out.println("storeAddressList" + storeName);
 		
 		String couponName = ""; // 쿠폰명을 저장할 문자열
 		String couponCode = ""; // 쿠폰코드를 저장할 문자열
@@ -76,7 +95,6 @@ public class OrderController {
 			}
 			System.out.println("couponName : " + couponName);
 		}
-		
 		mav.addObject("deliveryAddressList", deliveryAddressList);
 		mav.addObject("storeAddressList", storeAddressList);
 		mav.addObject("couponList", couponList);
@@ -98,6 +116,18 @@ public class OrderController {
 		mav.setViewName("/order/order_page");
 		return mav;
 	}
+	
+	/*
+	 * @RequestMapping("/getStoreTime.do") public ModelAndView
+	 * getStoreTime(ModelAndView mav, HttpSession session) { //MarketVO hourInfo =
+	 * quickOrderService.getBusinessHour( storeAddressList.getStorename()); // 배달매장의
+	 * 영업시간 정보 가져오기
+	 * 
+	 * 
+	 * return mav;
+	 * 
+	 * }
+	 */
 	
 	@RequestMapping(value="/insertDeliveryAddress.do", method=RequestMethod.POST)
 	@ResponseBody

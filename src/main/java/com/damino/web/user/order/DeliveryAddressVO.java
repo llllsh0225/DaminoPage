@@ -37,4 +37,11 @@ public class DeliveryAddressVO {
 		this.userid = userid;
 	}
 	
+	@Override
+	public String toString() {
+		return "DeliveryAddressVO [seq=" + seq + ", address=" + address + ", storename=" + storename + ", storephone="
+				+ storephone + ", userid=" + userid + "]";
+	}
+	
+	
 }
