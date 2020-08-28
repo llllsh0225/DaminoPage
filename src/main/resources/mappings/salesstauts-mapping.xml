@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="salesStausDAO">
+<mapper namespace="salesStatusDAO">
 
 	<select id="getCountMale" resultType="Integer">
 		select count(*) from usermember where sex='M'
@@ -31,6 +31,50 @@
 			FROM order_list 
 			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
 			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+		]]>
+	</select>
+	
+	<select id="getYearly" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
+	<select id="getYearlySales" resultType="String">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
+	<select id="getSalesList" resultType="com.damino.web.admin.salesstatus.SalesVO" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT *
+			FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate}
+		]]>
+	</select>
+	
+	<select id="getSalesSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate}
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') desc
+		]]>
+	</select>
+	
+	<select id="getDateSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate}
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') desc
 		]]>
 	</select>
 </mapper>

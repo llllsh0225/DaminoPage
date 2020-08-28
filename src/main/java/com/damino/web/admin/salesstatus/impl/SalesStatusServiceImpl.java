@@ -42,4 +42,31 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 		return salesStatusDAO.getMonthlySales();
 	}
 
+	@Override
+	public List<SalesVO> getYearly() {
+		return salesStatusDAO.getYearly();
+	}
+
+	@Override
+	public List<SalesVO> getYearlySales() {
+		return salesStatusDAO.getYearlySales();
+	}
+
+	@Override
+	public List<SalesVO> getSalesList(SalesVO vo) {
+		return salesStatusDAO.getSalesList(vo);
+	}
+	
+	@Override
+	public List<SalesVO> getDateSearch(SalesVO vo) {
+		return salesStatusDAO.getDateSearch(vo);
+	}
+	
+	@Override
+	public List<SalesVO> getSalesSearch(SalesVO vo) {
+		return salesStatusDAO.getSalesSearch(vo);
+	}
+
+	
+
 }

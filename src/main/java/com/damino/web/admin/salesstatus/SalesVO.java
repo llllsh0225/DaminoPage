@@ -2,10 +2,13 @@ package com.damino.web.admin.salesstatus;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class SalesVO {
 	private String orderseq;
 	private String userid;
 	private String username;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date orderdate = new Date();
 	private Date deliverytime = new Date();
 	private String address;
@@ -17,6 +20,11 @@ public class SalesVO {
 	private String paytool;
 	private String paystatus;
 	private String status;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date startdate = new Date();
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date enddate = new Date();
+	
 	public String getOrderseq() {
 		return orderseq;
 	}
@@ -107,6 +115,18 @@ public class SalesVO {
 				+ orderdate + ", deliverytime=" + deliverytime + ", address=" + address + ", tel=" + tel + ", menus="
 				+ menus + ", price=" + price + ", take=" + take + ", store=" + store + ", paytool=" + paytool
 				+ ", paystatus=" + paystatus + ", status=" + status + "]";
+	}
+	public Date getStartdate() {
+		return startdate;
+	}
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
+	}
+	public Date getEnddate() {
+		return enddate;
+	}
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
 	}
 
 	

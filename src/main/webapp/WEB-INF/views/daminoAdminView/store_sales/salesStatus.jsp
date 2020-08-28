@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,14 +14,56 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
 
-
-<script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-<!-- chart js -->
-<script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" '/>" crossorigin="anonymous"></script>
-<script type="text/javascript">
+	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+	<!-- chart js -->
+	<script type="text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" '/>" crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
 	
-</script>
+	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+<script type="text/javascript">
+var lang_kor = {
+        "emptyTable" : "데이터가 없습니다.",
+        "info" : "_START_ - _END_ (총 _TOTAL_ 건)",
+        "infoEmpty" : "0건",
+        "infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",
+        "lengthMenu" : "_MENU_ 개씩 보기",
+        "search" : "빠른 검색 : ",
+        "zeroRecords" : "검색된 데이터가 없습니다.",
+        "paginate" : {
+            "first" : "첫 페이지",
+            "last" : "마지막 페이지",
+            "next" : "다음",
+            "previous" : "이전"
+        }
+    };
+$(document).ready(function() {
+    $('#dataTable1').DataTable( {
+        order: [[ 0, 'desc' ]],
+        ordering:true,
+        language : lang_kor
+    } );
+} );
 
+/* 날짜 선택 자동으로 오늘날짜  */
+/* window.onload = function(){
+	var today = new Date();
+	var Year = today.getFullYear(); 
+	var Month = "" + (today.getMonth()+1);
+	var Day = "" + today.getDate();
+	
+	if(Month.length < 2) Month = "0" + Month;
+	if(Day.length < 2) Day = "0" + Day;
+	
+	var Today = Year + "-" + Month + "-" + Day;
+	
+	document.getElementById("startDate").value = Today;
+	document.getElementById("endDate").value = Today;
+} */
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -196,28 +240,147 @@
 					</div>
 					<!-- 본문  몸통 -->
 					<div class="card-body">
-						<!--년 / 월 매출-->
-						<div class="card mb-4">
-							<div class="card-header">
-								<div>
-									<select id="selectYM">
-										<option value="m" selected>월별</option>
-										<option value="y">년별</option>
-									</select>
-									<b> 매출</b> 
+						<c:if test="${salesList eq null }">
+							<!--년 / 월 매출-->
+							<div class="row">
+								<div class="col-xl-6">
+									<div class="card mb-4">
+										<div class="card-header">
+											<div>
+												<b>최근 12개월 매출</b> 
+											</div>
+										</div>
+										<div class="card-body">
+											<c:forEach var="monthly" items="${monthly}" varStatus="status">
+												<input type="hidden" id="monthly${status.index }" value="${monthly}"/>
+											</c:forEach>
+											<c:forEach var="monthlySales" items="${monthlySales }" varStatus="status">
+												<input type="hidden" id="monthlySales${status.index }" value="${monthlySales }"/>
+											</c:forEach>
+											<canvas id="AreaChart_month" width="100%" height="30"></canvas>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-6">
+									<div class="card mb-4">
+										<div class="card-header">
+											<div>
+												<b>최근 5년 매출</b> 
+											</div>
+										</div>
+										<div class="card-body">
+											<c:forEach var="yearly" items="${yearly }" varStatus="status">
+												<input type="hidden" id="yearly${status.index }" value="${yearly }"/>
+											</c:forEach>
+											<c:forEach var="yearlySales" items="${yearlySales }" varStatus="status">
+												<input type="hidden" id="yearlySales${status.index }" value="${yearlySales }"/>
+											</c:forEach>
+											<canvas id="AreaChart_year" width="100%" height="30"></canvas>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="card-body">
-								<c:forEach var="monthly" items="${monthly}" varStatus="status">
-									<input type="hidden" id="monthly${status.index }" value="${monthly}"/>
-								</c:forEach>
-								<c:forEach var="monthlySales" items="${monthlySales }" varStatus="status">
-									<input type="hidden" id="monthlySales${status.index }" value="${monthlySales }"/>
-								</c:forEach>
-								<canvas id="AreaChart_YM" width="100%" height="30"></canvas>
+						</c:if>
+						<c:if test="${salesList != null }">
+							<!--년 / 월 매출-->
+							<div class="row">
+								<div class="col-xl-6">
+									<div class="card mb-4">
+										<div class="card-header">
+											<div>
+												<b><fmt:formatDate value="${sessionScope.startdate}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${sessionScope.enddate}" pattern="yyyy-MM-dd"/></b> 
+											</div>
+										</div>
+										<div class="card-body">
+											<c:forEach var="dateSearch" items="${dateSearch}" varStatus="status">
+												<input type="hidden" id="dateSearch${status.index }" value="${dateSearch}"/>
+											</c:forEach>
+											<c:forEach var="salesSearch" items="${salesSearch }" varStatus="status">
+												<input type="hidden" id="salesSearch${status.index }" value="${salesSearch }"/>
+											</c:forEach>
+											<canvas id="AreaChart_Search" width="100%" height="30"></canvas>
+										</div>
+									</div>
+								</div>
+								<div class="col-xl-6">
+									<div class="card mb-4">
+										<div class="card-header">
+											<div>
+												<b><fmt:formatDate value="${sessionScope.startdate}" pattern="yyyy-MM"/> ~ <fmt:formatDate value="${sessionScope.enddate}" pattern="yyyy-MM"/></b> 
+											</div>
+										</div>
+										<div class="card-body">
+											<c:forEach var="yearly" items="${yearly }" varStatus="status">
+												<input type="hidden" id="yearly${status.index }" value="${yearly }"/>
+											</c:forEach>
+											<c:forEach var="yearlySales" items="${yearlySales }" varStatus="status">
+												<input type="hidden" id="yearlySales${status.index }" value="${yearlySales }"/>
+											</c:forEach>
+											<canvas id="AreaChart_year" width="100%" height="30"></canvas>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-						<!--년 / 월 매출-->
+						</c:if>
+					</div>
+						<!--검색-->
+						<div class="card mb-4">
+									<div class="card-header">
+										<div>
+											<b>매출 통계</b> 
+										</div>
+									</div>
+									<div class="card-body">
+									
+									<strong>매출 상세 검색</strong>
+									<hr>
+									<form name="searchSales" action="searchSales.admdo" method="post">
+										<div class="input-group" style="margin: 10px;">
+											<input type="date" name="startdate" id="startdate" value="<fmt:formatDate value="${sessionScope.startdate}" pattern="yyyy-MM-dd"/>" style="height: 40px;"/>
+											<p style="margin-top: 10px">&nbsp; &nbsp; ~ &nbsp; &nbsp; </p>
+											<input type="date" name="enddate" id="enddate" value="<fmt:formatDate value="${sessionScope.enddate}" pattern="yyyy-MM-dd"/>" style="height: 40px;"/>
+										</div>
+										<div class="input-group" style="margin: 5px;">
+											<!-- <select class="form-control-kjh" style="margin: 5px">
+												<option>년/월/주</option>
+												<option>연간</option>
+												<option>월간</option>
+												<option>주간</option>
+											</select> <select class="form-control-kjh" style="margin: 5px">
+												<option>매출액</option>
+												<option>주문건</option>
+											</select> -->
+											<input type="submit" class="btn btn-primary" value="검색" />
+										</div>
+									</form>
+									<hr>
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable1"
+											width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>주문날짜</th>
+													<th>판매금액</th>
+													<th>매장명</th>
+													<th>수령방식</th>
+													<th>결제방식</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach var="salesList" items="${salesList }">
+													<tr>
+														<td><fmt:formatDate value="${salesList.orderdate }" pattern="yyyy-MM-dd"/></td>
+														<td>${salesList.price }</td>
+														<td>${salesList.store }</td>
+														<td>${salesList.take }</td>
+														<td>${salesList.paytool }</td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+									</div>
+								</div>
 						<!-- 종합 -->
 						<div class="card mb-4">
 							<div class="card-header">
@@ -248,7 +411,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- 종합 -->
+						
 						<!-- 원그래프 -->
 						<div class="row">
 							<div class="col-lg-6">
@@ -286,7 +449,6 @@
 						</div>
 						<!-- 원그래프 -->
 					</div>
-				</div>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
@@ -303,7 +465,7 @@
 		</div>
 	</div>
 
-	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+	
 	<script
 		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
@@ -311,19 +473,13 @@
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
 	<!-- 차트 -->
-	<!--  월차트   -->
+	<!-- 월 라인 차트  -->
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-month.js'/>"></script>
-	
+	<!-- 년 바 차트  -->
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-year.js'/>"></script>
 	<!--  남녀차트   -->
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-pie-sellrank.js'/>"></script>
-	<!-- end 차트 -->
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
-	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
-	
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
-
-
+	<!-- 검색결과 차트 -->
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-search.js'/>"></script>
 </body>
 </html>

@@ -18,31 +18,61 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 	@Override
 	public int getCountM() {
 		System.out.println("[chart count 남성유저");
-		return sqlSessionTemplate.selectOne("salesStausDAO.getCountMale");
+		return sqlSessionTemplate.selectOne("salesStatusDAO.getCountMale");
 	}
 
 	@Override
 	public int getCountF() {
 		System.out.println("[chart count 여성유저");
-		return sqlSessionTemplate.selectOne("salesStausDAO.getCountFemale");
+		return sqlSessionTemplate.selectOne("salesStatusDAO.getCountFemale");
 	}
 
 	@Override
 	public int getOrderPrice() {
 		System.out.println("주문금액");
-		return sqlSessionTemplate.selectOne("salesStausDAO.getOrderPrice");
+		return sqlSessionTemplate.selectOne("salesStatusDAO.getOrderPrice");
 	}
 
 	@Override
 	public List<SalesVO> getMonthly() {
 		System.out.println("주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)");
-		return sqlSessionTemplate.selectList("salesStausDAO.getMonthly");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getMonthly");
 	}
 
 	@Override
 	public List<SalesVO> getMonthlySales() {
 		System.out.println("주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)");
-		return sqlSessionTemplate.selectList("salesStausDAO.getMonthlySales");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getMonthlySales");
+	}
+
+	@Override
+	public List<SalesVO> getYearly() {
+		System.out.println("주문내역이 있는 최근 5년 yyyy 형태로 가져오기 (차트x축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getYearly");
+	}
+
+	@Override
+	public List<SalesVO> getYearlySales() {
+		System.out.println("주문내역이 있는 최근 5년 yyyy 형태로 가져오기 (차트x축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getYearlySales");
+	}
+
+	@Override
+	public List<SalesVO> getSalesList(SalesVO vo) {
+		System.out.println("날짜별 주문내역 검색");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getSalesList", vo);
+	}
+	
+	@Override
+	public List<SalesVO> getDateSearch(SalesVO vo) {
+		System.out.println("검색기간 날짜");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getDateSearch", vo);
+	}
+	
+	@Override
+	public List<SalesVO> getSalesSearch(SalesVO vo) {
+		System.out.println("검색기간 날짜별 매출액");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getSalesSearch", vo);
 	}
 
 }
