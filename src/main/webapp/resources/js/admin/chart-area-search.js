@@ -1,22 +1,17 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#292b2c';
-
-// Area Chart Example
-var ctx = document.getElementById("AreaChart_month");
-var monthlyArr = new Array();
+var ctx = document.getElementById("AreaChart_Search");
+var dateSearchArr = new Array();
 for(var i=0; i<12; i++){
-	monthlyArr[i]= $("#monthly"+i).val();
+	dateSearchArr[i]= $("#dateSearch"+i).val();
 }
-var monthlySalesArr = new Array();
+var salesSearchArr = new Array();
 for(var i=0; i<12; i++){
-	monthlySalesArr[i]= Number($("#monthlySales"+i).val());
+	salesSearchArr[i]= Number($("#salesSearch"+i).val());
 }
 
-var myLineChart = new Chart(ctx, {
+var myLineChart2 = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: monthlyArr.reverse(),//x축
+    labels: dateSearchArr.reverse(),//x축
     datasets: [{
       label: "매출액",
       lineTension: 0.3,
@@ -29,7 +24,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "red", //선택되었으때 점 색 변
       pointHitRadius: 50,
       pointBorderWidth: 2,
-      data: monthlySalesArr.reverse(),//y축
+      data: salesSearchArr.reverse(),//y축
     }],
   },
   options: {
@@ -61,4 +56,3 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
-

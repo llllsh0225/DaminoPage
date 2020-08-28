@@ -1,49 +1,50 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
+//Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-// Area Chart Example
+// Bar Chart Example
 var ctx = document.getElementById("AreaChart_year");
+var yearlyArr = new Array();
+for(var i=0; i<5; i++){
+	yearlyArr[i]= $("#yearly"+i).val();
+}
+var yearlySalesArr = new Array();
+for(var i=0; i<5; i++){
+	yearlySalesArr[i]= Number($("#yearlySales"+i).val());
+}
+
 var myLineChart = new Chart(ctx, {
-  type: 'line',
+  type: 'bar',
   data: {
-    labels: ["2017","2018","2019","2020"],
+    labels: yearlyArr.reverse(),
     datasets: [{
-      label: "Sessions",
-      lineTension: 0.3,
-      backgroundColor: "rgba(254,220,113,0.4)", //바탕 부분 색(투명도 필요)
-      borderColor: "#4C514A",         // 선 색
-      pointRadius: 5,
-      pointBackgroundColor: "#F38F11", // 선 점(바탕)
-      pointBorderColor: "#000000", // 선 점 테두리
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "#4C514A", //선택되었으때 점 색 변
-      pointHitRadius: 50,
-      pointBorderWidth: 2,
-      data: [999.3, 1200.5,1032.4,1377],
+      label: "매출액",
+      backgroundColor: "rgba(100,100,100,1)",
+      borderColor: "black",
+      data: yearlySalesArr.reverse(),
     }],
   },
   options: {
     scales: {
       xAxes: [{
         time: {
-          unit: 'date'
+          unit: 'year'
         },
         gridLines: {
           display: false
         },
         ticks: {
-          maxTicksLimit: 4
+          maxTicksLimit: 6
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: 2000,
-          maxTicksLimit: 3
+          max: 1500000,
+          maxTicksLimit: 5
         },
         gridLines: {
-          color: "rgba(0, 0, 0, .125)",
+          display: true
         }
       }],
     },
