@@ -176,5 +176,15 @@ public class QuickOrderServiceImpl implements QuickOrderService {
 		quickOrderDAO.doQuickOrder(vo);
 	}
 
+	@Override
+	public void changeAddressSet(String userid) {
+		quickOrderDAO.changeAddressSet(userid);
+	}
+
+	@Override
+	public void changeStoreSet(String userid) {
+		quickOrderDAO.changeStoreSet(userid);
+	}
+
 
 }

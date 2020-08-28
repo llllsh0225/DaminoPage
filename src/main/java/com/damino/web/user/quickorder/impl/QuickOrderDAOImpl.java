@@ -207,5 +207,17 @@ public class QuickOrderDAOImpl implements QuickOrderDAO {
 		sqlSessionTemplate.insert("QuickOrderDAO.doQuickOrder", vo);
 	}
 
+	@Override
+	public void changeAddressSet(String userid) {
+		System.out.println("퀵오더 주소 테이블 디폴트 변경");
+		sqlSessionTemplate.update("QuickOrderDAO.changeAddressSet", userid);
+	}
+
+	@Override
+	public void changeStoreSet(String userid) {
+		System.out.println("퀵오더 매장 테이블 디폴트 변경");
+		sqlSessionTemplate.update("QuickOrderDAO.changeStoreSet", userid);
+	}
+
 
 }

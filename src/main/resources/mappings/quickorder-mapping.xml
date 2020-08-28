@@ -147,4 +147,15 @@
 		INSERT INTO order_list (orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool, paystatus, status, requirement)
 		VALUES (#{orderdate}||LPAD(order_list_seq.nextval, 5, '0'), #{userid}, #{username}, to_date(#{orderdate}, 'YYYYMMDDHH24MISS'), to_date(#{deliverytime}, 'YYYYMMDDHH24MISS'), #{address}, #{tel}, #{menus}, #{price}, #{take}, #{store}, #{paytool}, #{paystatus}, #{status}, #{requirements})
 	</insert>
+	
+	<update id="changeAddressSet" parameterType="String">
+		UPDATE quickorder_address SET default_yn = 'N'
+		WHERE default_yn = 'Y' AND userid = #{userid}
+	</update>
+	
+	<update id="changeStoreSet" parameterType="String">
+		UPDATE quickorder_store SET default_yn = 'N'
+		WHERE default_yn = 'Y' AND userid = #{userid}
+	</update>
+	
 </mapper>
