@@ -56,6 +56,24 @@
 			
 			$('#totalOrderPrice').text(totalDBGoodsPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
+			if(${defaultAddress ne null} && ${defaultStore eq null}){
+				$('#order_deli').prop('checked', true);
+			}else if(${defaultStore ne null} && ${defaultAddress eq null}){
+				$('#order_visit').prop('checked', true);
+			}
+			
+			if($('#order_deli').prop('checked')){
+				$('#d_orderinfo').show();
+				
+				$('#w_orderinfo').hide();
+				$('#wrap_lately').hide();
+			}else{
+				$('#w_orderinfo').show();
+				
+				$('#d_orderinfo').hide();
+				$('#order_lately').hide();
+			}
+			
 		});
 		function selectBoxControl(){
 			var optValue = $('#dsp_ctgr').val();

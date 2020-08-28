@@ -207,6 +207,53 @@
 									</div>
 								</div>
 							</c:when>
+							<c:when test="${quickOrderGoodsList != null && defaultStore != null }">
+										<div class="quick-list">
+											<h3 class="title-type">나의 퀵 오더</h3>
+											<div class="table-type3">
+												<table>
+													<caption>나의 퀵 오더</caption>
+													<colgroup>
+														<col style="width:388px">
+														<col style="width:216px">
+														<col style="width:384px;">
+													</colgroup>
+													<thead>
+														<tr>
+															<th>제품</th>
+															<th>주문방법</th>
+															<th>배송지/매장</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr class="txt_align_lft">
+															<td>
+															<c:forEach var="goods" items="${quickOrderGoodsList }">
+																<p>${goods.quick_goods }</p>
+															</c:forEach>
+																	<p class="total">합계
+																	<fmt:formatNumber value="${totalPrice }" pattern="#,###" />
+																	원</p>
+															</td>
+															<td style="text-align:center">포장주문</td>
+															<td>${defaultStore.storename }<br>(${defaultStore.storephone })</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="text-type2">
+												<p>- 할인은 주문하는 시점의 추천할인이 적용됩니다.</p>
+												<p>- 하프&하프, 마이키친, 마이키친 투토핑 등의 피자와 세트메뉴, 반값 사이드디시 등의 할인제품은 퀵오더 등록이 불가합니다.</p>
+											</div>
+										</div>
+									</div>
+		
+									<div class="btn-wrap">
+										<a href="javascript:goEdit();" class="btn-type-brd3">퀵 오더 설정하기</a>
+										<a href="getQuickOrderPaymentPage.do" class="btn-type v3">퀵 오더 진행하기</a>
+									</div>
+								</div>
+							</c:when>
 							<c:otherwise>
 	
 								<div class="btn-wrap">

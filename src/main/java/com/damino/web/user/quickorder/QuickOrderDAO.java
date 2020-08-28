@@ -50,4 +50,8 @@ public interface QuickOrderDAO {
 	public void releaseDefaultWrapStore(QuickOrderStoreVO vo); // 이전 설정된 디폴트 배달지 해제
 	
 	public void doQuickOrder(QuickOrderVO vo); // 퀵오더 주문
+	
+	public void changeAddressSet(String userid); // 퀵오더 주소 테이블에 설정된 디폴트 해제
+	public void changeStoreSet(String userid); // 퀵오더 매장 테이블에 설정된 디폴트 해제
+	
 }
