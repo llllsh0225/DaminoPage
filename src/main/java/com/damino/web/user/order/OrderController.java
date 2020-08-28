@@ -21,7 +21,9 @@ import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.goods.GoodsListService;
 import com.damino.web.user.goods.UserBasketVO;
+import com.damino.web.user.goods.UserOrderVO;
 import com.damino.web.user.quickorder.QuickOrderService;
+import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Controller
 public class OrderController {
@@ -69,10 +71,9 @@ public class OrderController {
 		if(storeName != null) {
 			MarketVO hourInfo = quickOrderService.getBusinessHour(storeName); // 배달매장의
 			mav.addObject("hourInfo", hourInfo);
-		}else { 
+		}else { //세션의 매장이 없는 경우 DB에서 조회
 			for (int i=0; i<deliveryAddressList.size(); i++) {
 				DeliveryAddressVO vo = deliveryAddressList.get(i);
-				//System.out.println("배달매장2 : " + vo.getStorename());
 				
 				MarketVO hourInfo = quickOrderService.getBusinessHour(vo.getStorename());
 				mav.addObject("hourInfo", hourInfo);
@@ -108,6 +109,29 @@ public class OrderController {
 		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
 		List<UserBasketVO> etcList = goodsListService.getBasketEtc(userid);
 
+		int totalPrice = 0; // 저장된 제품의 총 가격
+		
+		if (!basketList.isEmpty()) {
+			for(int i=0; i<basketList.size(); i++) {
+				totalPrice += basketList.get(i).getP_price()*basketList.get(i).getP_count();
+			}
+		}
+		if (!toppingList.isEmpty()) {
+			for(int i=0; i<toppingList.size(); i++) {
+				totalPrice += toppingList.get(i).getT_price()*toppingList.get(i).getT_count();
+			}
+		}
+		if (!sideList.isEmpty()) {
+			for(int i=0; i<sideList.size(); i++) {
+				totalPrice += sideList.get(i).getS_price()*sideList.get(i).getS_count();
+			}
+		}
+		if (!etcList.isEmpty()) {
+			for(int i=0; i<etcList.size(); i++) {
+				totalPrice += etcList.get(i).getD_price()*etcList.get(i).getD_count();
+			}
+		}
+		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("basketList", basketList);
 		mav.addObject("toppingList", toppingList);
 		mav.addObject("sideList", sideList);
@@ -117,17 +141,50 @@ public class OrderController {
 		return mav;
 	}
 	
-	/*
-	 * @RequestMapping("/getStoreTime.do") public ModelAndView
-	 * getStoreTime(ModelAndView mav, HttpSession session) { //MarketVO hourInfo =
-	 * quickOrderService.getBusinessHour( storeAddressList.getStorename()); // 배달매장의
-	 * 영업시간 정보 가져오기
-	 * 
-	 * 
-	 * return mav;
-	 * 
-	 * }
-	 */
+	@RequestMapping(value="/doOrder.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String doOrder(@RequestBody Map<String, Object> param, UserOrderVO vo) {
+		String userid = (String) param.get("userid");
+		String username = (String) param.get("username");
+		String orderdate = (String) param.get("orderTimeStr");
+		String deliverytime = (String) param.get("deliveryTime");
+		String address = (String) param.get("deliverAddress");
+		String tel = (String) param.get("userphone");
+		String menus = (String) param.get("goodsName");
+		int price = (Integer) param.get("totalPayment");
+		String take = (String) param.get("take");
+		String store = (String) param.get("storename");
+		String paytool = (String) param.get("paytool");
+		String paystatus = (String) param.get("paystatus");
+		String status = (String) param.get("status");
+		String requirement = (String) param.get("requirement");
+		String couponCode = (String) param.get("selectCouponCode");
+		
+		vo.setUserid(userid);
+		vo.setUsername(username);
+		vo.setOrderdate(orderdate);
+		vo.setDeliverytime(deliverytime);
+		vo.setOrderdate(orderdate);
+		vo.setAddress(address);
+		vo.setTel(tel);
+		vo.setMenus(menus);
+		vo.setPrice(price);
+		vo.setTake(take);
+		vo.setStore(store);
+		vo.setPaytool(paytool);
+		vo.setPaystatus(paystatus);
+		vo.setStatus(status);
+		vo.setRequirements(requirement);
+		
+		orderService.doOrder(vo);
+		
+		if(couponCode != null) {
+			couponService.updateUsedCoupon(couponCode);
+		}
+		
+		return "success";
+		
+	}
 	
 	@RequestMapping(value="/insertDeliveryAddress.do", method=RequestMethod.POST)
 	@ResponseBody

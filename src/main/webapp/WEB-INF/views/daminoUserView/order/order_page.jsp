@@ -78,23 +78,24 @@ window.onload = function() {
 		var storephone = sessionStorage.getItem("storephone");
 		var storeaddr = sessionStorage.getItem("storeaddr");
 		
-			if(gubun == 'D'){
-				$('#orderGubun').text("배달주문");
-				
-				$('#d_order').show();
-				$('#w_order').hide();
-				
-				$('#address').text(address);
-				$('#store').html('<span>' + storename + '</span>&nbsp;' + storephone);
-			}else if(gubun == 'W'){
-				$('#orderGubun').text("포장주문");
-				
-				$('#w_order').show();
-				$('#d_order').hide();
-				
-				$('#storeinfo').text(storename + " (" + storephone + ")");
-				$('#storeaddr').text(storeaddr);
-			}
+		if(gubun == 'D'){
+			$('#orderGubun').text("배달주문");
+			
+			$('#d_order').show();
+			$('#w_order').hide();
+			
+			$('#address').text(address);
+			$('#store').html('<span>' + storename + '</span>&nbsp;' + storephone);
+		}else if(gubun == 'W'){
+			$('#orderGubun').text("포장주문");
+			
+			$('#w_order').show();
+			$('#d_order').hide();
+			
+			$('#storeinfo').text(storename + " (" + storephone + ")");
+			$('#storeaddr').text(storeaddr);
+		}
+		
 			if($('#sessionMsg').val() == 'login'){
 				$('#recipient').prop('checked', true);
 			}else{
@@ -184,34 +185,27 @@ window.onload = function() {
 			console.log(discountRateArr[i]);
 		}
 		$('#couponList').html(target);
+		
+		// 총 상품금액 세팅
+		var totalPrice = Number($('#totalGoodsPrice').val());
+		$('#totalPrice').text(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+		// 총 결제금액 세팅
+		$('#totalPayment').text((totalPrice - Number($('#totalDiscount').text())).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
 	}//END window.onload
 	
-	// 총 상품금액 세팅
-	var totalPrice = Number($('#totalGoodsPrice').val());
-	$('#totalPrice').text(
-			totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-	// 총 결제금액 세팅
-	$('#totalPayment').text(
-			(totalPrice - Number($('#totalDiscount').text())).toString()
-					.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
 	function setDiscountRate() {
 		var selectDiscountRate = Number($('#couponList').val());
 		var totalPrice = $('#totalPrice').text().replace(",", "");
-		var totalDiscount = Math.floor(Number(totalPrice)
-				* (selectDiscountRate / 100));
+		var totalDiscount = Math.floor(Number(totalPrice)*(selectDiscountRate / 100));
 
 		console.log(totalPrice);
 		console.log(totalDiscount);
 
-		$('#totalDiscount').text(
-				totalDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-						","));
-		$('#totalPayment').text(
-				(Number(totalPrice) - totalDiscount).toString().replace(
-						/\B(?=(\d{3})+(?!\d))/g, ","));
+		$('#totalDiscount').text(totalDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,","));
+		$('#totalPayment').text((Number(totalPrice) - totalDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 	}
 
 	function directMessage() { // 직접입력을 선택했을 때 텍스트박스가 나타남
@@ -499,6 +493,155 @@ window.onload = function() {
 			$('#tel3').val("");
 		}
 	}
+	
+	function doOrder(){
+		var orderTime = new Date();
+		var orderMonth = String(orderTime.getMonth() + 1);
+		if(orderMonth.length < 2){
+			orderMonth = '0' + orderMonth;
+		}
+		var orderDate = String(orderTime.getDate());
+		if(orderDate.length < 2){
+			orderDate = '0' + orderDate;
+		}
+		var orderHours = String(orderTime.getHours());
+		if(orderHours.length < 2){
+			orderHours = '0' + orderHours;
+		}
+		var orderMinutes = String(orderTime.getMinutes());
+		if(orderMinutes.length < 2){
+			orderMinutes = '0' + orderMinutes;
+		}
+		var orderSeconds = String(orderTime.getSeconds());
+		if(orderSeconds.length < 2){
+			orderSeconds = '0' + orderSeconds;
+		}
+		
+		var orderTimeStr = orderTime.getFullYear() + orderMonth + orderDate + orderHours + orderMinutes + orderSeconds;
+		var userid = $('#userid').val();
+		var username = $('#customerName').val();
+		var deliveryTime = $('#deliveryTime').val();
+		
+		//var deliverAddress = $('#deliverAddress').val();
+		var deliverAddress = sessionStorage.getItem("address");
+		var userphone = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
+		var totalPayment = Number($('#totalPayment').text().replace(',', ''));
+		var take = '배달';
+		
+		//var storename = $('#deliverStore').val();
+		//var storephone = $('#storePhone').val();
+		var storename = sessionStorage.getItem("storename");
+		var storephone = sessionStorage.getItem("storephone");
+		var paytool = "";
+		var paystatus = '결제완료'; // 결제 과정에서 변동이 있을 수 있음.
+		var status = '주문완료';
+		var requirement = "";
+		
+		// 선택한 쿠폰 인덱스
+		var couponCode = $('#couponCode').val();
+		var couponCodeArr = couponCode.split(",");
+		
+		var couponIdx = $('#couponList option').index($('#couponList option:selected'));
+		var selectCouponCode = couponCodeArr[couponIdx - 1];
+		console.log(couponIdx + " : " + selectCouponCode);
+		
+		// 결제수단 세팅
+		if($('#pay1').prop('checked')){
+			paytool = $('#pay1').val();
+			
+			// ======== 카드결제 선택했을 때 ========
+			// 이 부분에 결제 function 들어가면 될 것 같습니다!
+			
+		}else if($('#pay2').prop('checked')){
+			paytool = $('#pay2').val();
+		}else if($('#pay3').val()){
+			paytool = $('#pay3').val();
+		}
+		
+		// 요청사항 세팅
+		var selectReq = $('#more_req_box').val();
+		if(selectReq != "direct"){
+			requirement = selectReq;
+		}else{
+			requirement = $('#more_req').val();
+		}
+		//상품정보
+		var totalGoods = "";
+		//피자 row
+		var p_length = pizzaArr.length;
+		//사이드 row
+		var s_length = sideArr.length;
+		//음료및기타 row
+		var e_length = etcArr.length;
+		
+		if (p_length >= 1) {
+			for (var i = 0; i < pizzaArr.length; i++) {
+				if (i != pizzaArr.length - 1) {
+					totalGoods += pizzaArr[i].p_name;
+				} else {
+					totalGoods = pizzaArr[i].p_name + ",";
+				}
+			}
+		}
+		if (s_length >= 1) {
+			for (var j = 0; j < s_length; j++) {
+				if (i != s_length - 1) {
+					totalGoods += sideArr[j].s_name;
+				} else {
+					totalGoods += sideArr[j].s_name + ",";
+				}
+			}
+		}
+		if (e_length >= 1) {
+			for (var si = 0; si < e_length; si++) {
+				if (i != e_length - 1) {
+					totalGoods += etcArr[si].d_name;
+				} else {
+					totalGoods += etcArr[si].d_name + ",";
+				}
+			}
+		}
+		
+		console.log("orderTimeStr : " + orderTimeStr);
+		console.log("totalGoods : " + totalGoods);
+		console.log("totalPayment : " + totalPayment);
+		console.log("take : " + take);
+		console.log("paytool : " + paytool);
+		console.log("requirement : " + requirement);
+		console.log("selectCouponCode : " + selectCouponCode);
+		
+		 $.ajax({
+			url: 'doOrder.do',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post',  
+			data : JSON.stringify({
+				orderTimeStr : orderTimeStr,
+				userid : userid,
+				username : username,
+				deliveryTime : deliveryTime,
+				deliverAddress : deliverAddress,
+				userphone : userphone,
+				goodsName : totalGoods,
+				totalPayment : totalPayment,
+				take : take,
+				storename : storename,
+				storephone : storephone,
+				paytool : paytool,
+				paystatus : paystatus,
+				status : status,
+				requirement : requirement,
+				selectCouponCode : selectCouponCode
+			}),
+			success: function(data) {
+				// 결과 페이지로 이동
+				location.href="orderorderDone.do";
+			},
+			error: function() {
+				alert('처리도중 오류가 발생했습니다.');
+			}
+		}); 
+	}//END doOrder()
+	
 </script>		
 </head>
 <body>
@@ -515,7 +658,7 @@ window.onload = function() {
 						<!-- and AUTH.memberYn eq 'Y' -->
 								<a href="main.do">로그아웃</a>
 								<a href="mylevel.do">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
+								<a href="my_basket.do"  class="btn-cart">
 									<i class="ico-cart"></i>
 									<span class="hidden ">장바구니</span>
 									<strong class="cart_count"></strong> <!-- count -->
@@ -582,10 +725,9 @@ window.onload = function() {
 			<input type="hidden" id="userid" value="${user.userid }" />
 			<input type="hidden" id="username" value="${user.username }" />
 			<input type="hidden" id="userphone" value="${user.phone }" />
-			<input type="hidden" id="deliverStore" value="${defaultAddress.storename }" />
-			<input type="hidden" id="storePhone" value="${defaultAddress.storephone }" /> 
 			<input type="hidden" id="couponName" value="${couponName }" />
 			<input type="hidden" id="couponCode" value="${couponCode }" />
+			<input type="hidden" id="totalGoodsPrice" value="${totalPrice }" />
 			<input type="hidden" id="discountRate" value="${discountRate }" />
 			<input type="hidden" id="storeOpenTime" value="${hourInfo.opentime }" />
 			<input type="hidden" id="storeEndTime" value="${hourInfo.endtime }" />

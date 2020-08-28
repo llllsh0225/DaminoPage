@@ -39,4 +39,12 @@
 		DELETE FROM wrap_store
 		WHERE seq = (SELECT MAX(seq) FROM wrap_store WHERE storename=#{storename} AND userid=#{userid})
 	</delete>
+	
+	<insert id="doOrder" parameterType="com.damino.web.user.goods.UserOrderVO">
+	INSERT INTO order_list (orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool, paystatus, status, requirement)
+	VALUES (#{orderdate}||LPAD(order_list_seq.nextval, 5, '0'), #{userid},
+		#{username}, to_date(#{orderdate}, 'YYYYMMDDHH24MISS'),
+		to_date(#{deliverytime}, 'YYYYMMDDHH24MISS'), #{address}, #{tel},
+		#{menus}, #{price}, #{take}, #{store}, #{paytool}, #{paystatus}, #{status}, #{requirements})
+</insert>
 </mapper>

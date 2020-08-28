@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
+import com.damino.web.user.order.DeliveryAddressVO;
+import com.damino.web.user.order.OrderService;
+import com.damino.web.user.quickorder.QuickOrderService;
 
 @Controller
 public class GoodsListController {
@@ -29,7 +33,12 @@ public class GoodsListController {
 	private MarketAdminRegistService marketAdminRegistService;
 	@Autowired
 	private CouponService couponService;
-
+	
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private QuickOrderService quickOrderService;
+	
 	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
 
@@ -188,6 +197,8 @@ public class GoodsListController {
 	@RequestMapping(value = "my_basket.do")
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
+		//세션 만료 시간 연장
+		request.getSession().setMaxInactiveInterval(300000);
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
@@ -197,14 +208,12 @@ public class GoodsListController {
 			mav.setViewName("/login/login");
 			return mav;
 		} else {
-			 
+			
 			session.setAttribute("msg", "login");
 			vo.setUserid(userid);
 			
 			//사용자 쿠폰 정보 조회
 			  List<CouponVO> couponList = couponService.getMyCouponList(userid);
-			  // 사용가능 쿠폰 리스트 불러오
-			  //MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
 			  
 			  String couponName = ""; // 쿠폰명을 저장할 문자열
 			  
@@ -242,7 +251,9 @@ public class GoodsListController {
 	@ResponseBody
 	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
-
+		//세션 만료 시간 연장
+		request.getSession().setMaxInactiveInterval(300000);
+		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
 
@@ -251,13 +262,12 @@ public class GoodsListController {
 			mav.setViewName("/login/login");
 			return mav;
 		} else {
+					
 			session.setAttribute("msg", "login");
 			vo.setUserid(userid);
 			
 			//사용자 쿠폰 정보 조회
 			  List<CouponVO> couponList = couponService.getMyCouponList(userid);
-			  // 사용가능 쿠폰 리스트 불러오
-			  //MarketVO hourInfo = quickOrderService.getBusinessHour(((MarketVO) storeAddressList).getStorename()); // 배달매장의 영업시간 정보 가져오기
 			  
 			  String couponName = ""; // 쿠폰명을 저장할 문자열
 			  
@@ -370,14 +380,12 @@ public class GoodsListController {
 		String d_prices = (String) param.get("etcPrice");
 		String d_names = (String) param.get("etcName");
 		String d_counts = (String) param.get("etcCount");
-		System.out.println("d_names : " + d_names);
 
 		String d_priceArr[] = d_prices.split(",");
 		String d_nameArr[] = d_names.split(",");
 		String d_countArr[] = d_counts.split(",");
 
 		if (!d_names.isEmpty()) {
-			System.out.println("테스트2");
 			for (int i = 0; i < d_nameArr.length; i++) {
 				vo.setUserid(userId);
 				vo.setD_name(d_nameArr[i]);

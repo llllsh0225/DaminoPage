@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.damino.web.user.goods.UserOrderVO;
 import com.damino.web.user.order.DeliveryAddressVO;
 import com.damino.web.user.order.OrderDAO;
 import com.damino.web.user.order.StoreAddressVO;
@@ -50,6 +51,11 @@ public class OrderDAOImpl implements OrderDAO {
 	public void deleteStoreAddress(StoreAddressVO vo) {
 		System.out.println("포장매장 삭제");
 		sqlSessionTemplate.delete("OrderDAO.deleteStoreAddress", vo);
+	}
+
+	@Override
+	public void doOrder(UserOrderVO vo) {
+		sqlSessionTemplate.insert("OrderDAO.doOrder", vo);
 	}
 
 }
