@@ -948,6 +948,7 @@
 		function goSave(){
 			alert("퀵오더가 저장되었습니다.");
 			location.href="quickOrder.do";
+	
 		}
 	</script>
 </head>
