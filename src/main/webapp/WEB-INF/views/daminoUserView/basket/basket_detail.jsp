@@ -503,6 +503,11 @@ window.onload = function() {
 	var storephone = sessionStorage.getItem("storephone");
 	var storeaddr = sessionStorage.getItem("storeaddr");
 	
+	var addressDB = $('#addressDB').val();
+	var storenameDB = $('#storenameDB').val();
+	var storephoneDB = $('#storephoneDB').val();
+	console.log("storephoneDB : " + storephoneDB);
+	
 		if(gubun == 'D'){
 			$('#orderGubun').text("배달주문");
 			
@@ -519,6 +524,13 @@ window.onload = function() {
 			
 			$('#storeinfo').text(storename + " (" + storephone + ")");
 			$('#storeaddr').text(storeaddr);
+		}else{
+			$('#orderGubun').text("주문");
+			$('#d_order').show();
+			$('#w_order').hide();
+			
+			$('#address').text(addressDB);
+			$('#store').html('<span>' + storenameDB + '</span>&nbsp;' + storephoneDB);
 		}
 		
 //사용자 선택 정보 합계 계산
@@ -665,7 +677,6 @@ window.onload = function() {
 			++addressSeq;
 
 			alert(addressSeq);
-			//var deliveryAddrList = document.getElementById("addr_list_o");
 			var address = $('#addrVal').val() + ' ' + $('#detailAddrVal').val(); // 배달 주소
 			$('#address').text(address);
 
@@ -1206,6 +1217,9 @@ function toppingDelete(index) {
 								</div>
 								<input type="hidden" id="userid" value="${userid}" />
 								<input type="hidden" id="couponName" value="${couponName }" />
+								<input type="hidden" id="addressDB" value="${addressDB }" />
+								<input type="hidden" id="storenameDB" value="${storenameDB }" />
+								<input type="hidden" id="storephoneDB" value="${storephoneDB }" />
 								<!-- 배달주문 div -->
 								<div class="deli-info" id="d_order">
 									<input type="hidden" id="addrVal" value="" /> <input
