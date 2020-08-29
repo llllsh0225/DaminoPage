@@ -2,6 +2,7 @@ package com.damino.web.admin.market.member.regist;
 
 public class MarketAdminMemberVO {
 
+	private int seq; //점포 회원 관리를 위한 일련번호
 	private String managerName;
 	private String managerId;
 	private String managerPasswd;
@@ -45,14 +46,19 @@ public class MarketAdminMemberVO {
 	public void setCheckMem(String checkMem) {
 		this.checkMem = checkMem;
 	}
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	
 	@Override
 	public String toString() {
-		return "MarketAdminMemberVO [managerName=" + managerName + ", managerId=" + managerId + ", managerPasswd="
-				+ managerPasswd + ", storeRegion=" + storeRegion + ", storeName=" + storeName + ", checkMem=" + checkMem
-				+ "]";
+		return "MarketAdminMemberVO [seq=" + seq + ", managerName=" + managerName + ", managerId=" + managerId
+				+ ", managerPasswd=" + managerPasswd + ", storeRegion=" + storeRegion + ", storeName=" + storeName
+				+ ", checkMem=" + checkMem + "]";
 	}
-	
 	
 }
 

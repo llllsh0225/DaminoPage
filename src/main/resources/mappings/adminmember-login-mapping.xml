@@ -15,4 +15,16 @@
 		SELECT * FROM marketadminmember
 	</select>	
 
+	<!-- 매장관리자 승인 여부 변경 -->
+	<update id="changeCheckMem" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		UPDATE marketadminmember SET
+		checkMem = #{checkMem}
+		WHERE seq = #{seq}
+	</update>
+	
+	<!-- 매장관리자 삭제 -->
+	<delete id="marketMemDel" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		DELETE FROM marketadminmember WHERE seq = #{seq}
+	</delete>
+	
 </mapper>

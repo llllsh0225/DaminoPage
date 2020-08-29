@@ -11,5 +11,10 @@ public interface AdminMemberLoginDAO {
 	//매장 관리자 리스트 불러오기
 	public List<MarketAdminMemberVO> marketAdminList();
 	
+	//매장관리자 승인 상태 변경
+	public void changeCheckMem(MarketAdminMemberVO vo);
+	
+	//매장관리자 삭제
+	public void marketMemDel(MarketAdminMemberVO vo);
 	
 }

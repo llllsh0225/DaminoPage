@@ -58,13 +58,16 @@ public class MarketAdminLoginController {
 		boolean pwdMatch = pwdEncoder.matches(managerpasswd, managerLogin.getManagerpasswd());
 		System.out.println(pwdMatch);
 		if(managerLogin!=null && pwdMatch==true) {
-			mav.addObject("managerid", managerLogin.getManagerid());
-			mav.addObject("managername", managerLogin.getManagername());
-			mav.addObject("storeregion", managerLogin.getStoreregion());
-			mav.addObject("storename", managerLogin.getStorename());
-			
-			session.setAttribute("msg", "managerLogin");
-			mav.setViewName("/members/main");
+			String checkMem = managerLogin.getCheckMem(); //매장관리자 승인여부 체크
+			if(checkMem.equals("Y")) {
+				mav.addObject("managerid", managerLogin.getManagerid());
+				mav.addObject("managername", managerLogin.getManagername());
+				mav.addObject("storeregion", managerLogin.getStoreregion());
+				mav.addObject("storename", managerLogin.getStorename());
+				
+				session.setAttribute("msg", "managerLogin");
+				mav.setViewName("/members/main");
+			}
 		}else {
 			System.out.println("오류");
 		}

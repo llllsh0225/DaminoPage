@@ -30,4 +30,16 @@ public class AdminMemberLoginServiceImpl implements AdminMemberLoginService {
 		return adminloginDAO.marketAdminList();
 	}
 
+	@Override
+	public void changeCheckMem(MarketAdminMemberVO vo) {
+		System.out.println("매장관리자 승인상태 변경");
+		adminloginDAO.changeCheckMem(vo);
+	}
+
+	@Override
+	public void marketMemDel(MarketAdminMemberVO vo) {
+		System.out.println("매장관리자 삭제");
+		adminloginDAO.marketMemDel(vo);
+	}
+
 }

@@ -54,6 +54,68 @@ $(document).ready(function() {
     } );
 } );
 </script>
+<script>
+ window.onload = function(){
+/* 	var checkMem = $("select option:selected").val();
+
+	//var checkMem2 = $(':radio[name="size"]:checked').val(); //사이즈에 따른 피자 가격
+	console.log("checkMem : " + checkMem);
+	 */
+	/* if(typeof price == "undefined"){
+		price = Number($('#size1').val());
+	} */
+} 
+ 
+function changeCheckMem(idx, seq){
+	 var checkMem = $("#select" + idx).find(":selected").val();
+	 
+	 $.ajax({
+		url : 'changeCheckMem.admdo',
+		contentType : "application/json; charset=UTF-8;",
+		type: 'post', 
+		data : JSON.stringify({
+			seq : seq,
+			checkMem : checkMem
+		}),
+		async : false,
+		success: function(data) {
+			if(data == 'success'){
+				alert('success');
+				location.reload(true);
+			}
+		}
+		/* error: function() {
+			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+		} */
+	})
+}
+
+function marketMemDel(seq){
+	
+	if (confirm("정말로 삭제하시겠습니까?")){
+	 $.ajax({
+			url : 'marketMemDel.admdo',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				seq : seq
+			}),
+			async : false,
+			success: function(data) {
+				if(data == 'success'){
+					alert('success');
+					location.reload(true);
+				}
+			}
+			/* error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			} */
+		})
+	}else{
+		return;
+	}
+}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -247,7 +309,7 @@ $(document).ready(function() {
 										<th>매장관리자 계정변경</th>
 									</tr>
 								</thead>
-								<c:forEach var="marketMemList" items="${marketMemList}">
+								<c:forEach var="marketMemList" items="${marketMemList}" varStatus="status">
 								<tbody>
 									<tr>
 										<td>
@@ -264,7 +326,7 @@ $(document).ready(function() {
 										<td>${marketMemList.managerName}</td>
 										<td>${marketMemList.managerId}</td>
 										<td>
-										<select>
+										<select id="select${status.index}" name="select">
 										<c:if test="${marketMemList.checkMem eq 'N' || marketMemList.checkMem eq 'null'}">
 												<option value="Y">승인</option>
 												<option value="N" selected>미승인</option>
@@ -274,11 +336,13 @@ $(document).ready(function() {
 										<option value="N" >미승인</option>
 										</c:if>
 										</select>
+										<a class="btn btn-primary"
+											href="javascript:changeCheckMem(${status.index},${marketMemList.seq})" role="button" style="margin-left:40px">수정</a>
 										</td>
 										<td><a class="btn btn-primary"
 											href="marketEdit.admdo" role="button">수정</a>
 										</button>
-											<button class="btn btn-danger" type="submit">삭제</button></td>
+											<button class="btn btn-danger" onclick="marketMemDel(${marketMemList.seq})">삭제</button></td>
 									</tr>
 								</tbody>
 								</c:forEach>
