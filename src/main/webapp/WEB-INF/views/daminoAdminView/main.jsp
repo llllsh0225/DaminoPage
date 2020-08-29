@@ -25,12 +25,37 @@
         text-align:center;
         width:98%;
     }
+    
+    .char_day{
+    	padding-right: 10px; 
+    	padding-left: 10px;
+    }
+    
 </style>	
 
 <script language="javascript">
 	var today = new Date(); // 오늘 날짜
 	var date = new Date();
-
+		
+	function daychart(){
+		var monthday = document.getElementById("monthday");
+		monthday.innerHTML = (today.getMonth()+1) +"월 " + today.getDate()+"일";
+	}
+	
+	function beforeD(){
+		today = new Date(today.getFullYear(), today.getMonth(), today.getDate()- 1 );
+		daychart();
+	}
+	
+	function afterD(){
+		today = new Date(today.getFullYear(), today.getMonth(), today.getDate()+ 1 );
+		daychart();
+	}
+	
+	
+	
+	
+	/* ==== 달력 js ==== */
 	function beforem() //이전 달을 today에 값을 저장
 	{
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today
@@ -50,18 +75,21 @@
 		var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
 		var tbcal = document.getElementById("calendar"); // 테이블 달력을 만들 테이블
 		var yearmonth = document.getElementById("yearmonth"); //  년도와 월 출력할곳
-		yearmonth.innerHTML = today.getFullYear() + "년 "
-				+ (today.getMonth() + 1) + "월"; //년도와 월 출력
+		yearmonth.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월"; //년도와 월 출력
+		
+		
 
 		if (today.getMonth() + 1 == 12) //  눌렀을 때 월이 넘어가는 곳
 		{
 			before.innerHTML = (today.getMonth()) + "월";
 			next.innerHTML = "1월";
-		} else if (today.getMonth() + 1 == 1) //  1월 일 때
+		} 
+		else if (today.getMonth() + 1 == 1) //  1월 일 때
 		{
 			before.innerHTML = "12월";
 			next.innerHTML = (today.getMonth() + 2) + "월";
-		} else //   12월 일 때
+		} 
+		else //   12월 일 때
 		{
 			before.innerHTML = (today.getMonth()) + "월";
 			next.innerHTML = (today.getMonth() + 2) + "월";
@@ -102,6 +130,10 @@
 		}
 
 	}
+</script>
+
+<script>
+	
 </script>
 
 
@@ -280,10 +312,37 @@
 						<div class="col-xl-6">
 							<div class="card mb-4">
 								<div class="card-header bg-dark text-white">
-									<i class="fas fa-chart-area mr-1"></i> 월별 차트
+									<i class="fas fa-chart-area mr-1"></i> <b>일일 주문건수</b>
+									<span style="position: absolute; right: 0; margin-right: 1%">
+										<span class="char_day">
+											<font size=2%; color="#B3B6B3" >
+												<label onclick="beforeD()"> ((</label>
+											</font>
+										</span>	
+										<span class="char_day" >
+											<font size=2%; color="#B3B6B3" >
+												<label id="monthday"></label>
+											</font>
+										</span>	
+										<span class="char_day">
+											<font size=2%; color="#B3B6B3" >
+												<label onclick="afterD()"> )) </label>
+											</font>
+										</span>	
+									</span>
 								</div>
+								<script type="text/javascript">
+									daychart();
+								</script>
+												
 								<div class="card-body">
-									<canvas id="AreaChart_month" width="100%" height="40"></canvas>
+									<c:forEach var="daily" items="${daily}" varStatus="status">
+										<input type="hidden" id="daily${status.index }" value="${daily}"/>
+									</c:forEach>
+									<c:forEach var="dailyCount" items="${dailyCount }" varStatus="status">
+										<input type="hidden" id="dailyCount${status.index }" value="${dailyCount }"/>
+									</c:forEach>
+									<canvas id="BarChar_daily" width="100%" height="40"></canvas>
 								</div>
 							</div>
 						</div>
@@ -295,11 +354,17 @@
 								</div>
 								<table align="center" id="calendar">
 									<tr>
-										<td><font size=1%; color="#B3B6B3"><label
-												onclick="beforem()" id="before"></label></font></td>
+										<td>
+											<font size=1%; color="#B3B6B3">
+												<label onclick="beforem()" id="before"></label>
+											</font>
+										</td>
 										<td colspan="5" align="center" id="yearmonth"></td>
-										<td><font size=1%; color="#B3B6B3"><label
-												onclick="nextm()" id="next"></label></font></td>
+										<td>
+											<font size=1%; color="#B3B6B3">
+												<label onclick="nextm()" id="next"></label>
+											</font>
+										</td>
 									</tr>
 									<tr>
 										<td align="center"><font color="#FF9090">일</font></td>
@@ -313,7 +378,7 @@
 								</table>
 								<script type="text/javascript">
 									build();
-								</script>
+								</script>							
 							</div>
 						</div>
 					</div>
@@ -325,7 +390,7 @@
 								<div class="card-body">
 									<c:forEach var="board" items="${boardListMain }">
 										<ul style="margin-bottom: 0px;">
-											<li class="small">
+											<li>
 												<span><a href="#"><b>[${board.flag }]</b></a></span>
 												<span><a href="boardView.admdo?seq=${board.seq }" class="text-muted">&nbsp;${board.title }</a></span>
 											</li>
@@ -453,14 +518,10 @@
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>"
 		crossorigin="anonymous"></script>
 
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+	
 	<!-- 차트 -->
-	<!--  월차트   -->
-	<script type="text/javascript"
-		src="<c:url value='/resources/js/admin/chart-area-month.js'/>"></script>
+	<!--  일일차트   -->
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-bar-day.js'/>"></script>
 	<!-- end차트  -->
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>"

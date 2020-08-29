@@ -16,6 +16,25 @@
 		SELECT SUM(price) FROM order_list
 	</select>
 	
+	<select id="getdaily" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy-mm-dd') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd') 
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') DESC
+		]]>
+	</select>
+	
+	<select id="getdailyCount" resultType="String">
+		<![CDATA[
+			SELECT count(*), TO_CHAR(orderdate,'yyyy-mm-dd') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd') 
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') DESC
+		]]>
+	</select>
+<!-- //main -->	
+	
 	<select id="getMonthly" resultType="String">
 		<![CDATA[
 			SELECT TO_CHAR(orderdate,'yyyy-mm') 

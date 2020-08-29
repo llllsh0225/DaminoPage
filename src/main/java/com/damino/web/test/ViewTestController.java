@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.damino.web.admin.board.BoardService;
 import com.damino.web.admin.board.BoardVO;
 import com.damino.web.admin.orderlist.OrderlistService;
+import com.damino.web.admin.salesstatus.SalesStatusService;
+import com.damino.web.admin.salesstatus.SalesVO;
 import com.damino.web.user.banner.UserBannerService;
 import com.damino.web.user.banner.UserBannerVO;
 
@@ -336,12 +338,14 @@ public class ViewTestController {
 	@Autowired
 	private OrderlistService orderlistService;
 	@Autowired
+	private SalesStatusService salesStatusService;
+	@Autowired
 	private BoardService boardService;
 	
 	@RequestMapping(value= "/main.admdo" , method=RequestMethod.GET)
 	   public ModelAndView getAdminMainPage(ModelAndView mav) {
 	      System.out.println("메인페이지 열기");
-	      
+	       
 	      List<BoardVO> boardListMain = boardService.BoardListMain();
 	      System.out.println(boardListMain.toString());
 	      System.out.println("---------------------- 구 분 선 ----------------------------");
@@ -349,6 +353,13 @@ public class ViewTestController {
 	      int orderCount = orderlistService.orderCount();
 	      System.out.println(" 총 주문건수 : " + orderCount);
 	      
+	      List<SalesVO> daily = salesStatusService.getDaily();
+	      System.out.println("주문내역에 있는 일일 목록 : " + daily);
+	      List<SalesVO> dailyCount = salesStatusService.getDailyCount();
+	      System.out.println("주문내역에 있는 일일 주문건수 목록 : " + dailyCount);
+	      
+	      mav.addObject("daily", daily);
+	      mav.addObject("dailyCount", dailyCount);
 	      mav.addObject("boardListMain",boardListMain);
 	      mav.addObject("orderCount", orderCount );	
 	      mav.setViewName("/main");
