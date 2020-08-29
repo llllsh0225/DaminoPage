@@ -73,7 +73,11 @@
 		SELECT * FROM qnaboard WHERE seq=#{seq}
 	</select>
 	
-	<select id="getQnaCount" resultType="int">
+	<select id="getQnaCount" resultType="int" parameterType="com.damino.web.user.board.QnaBoardVO">
+		 SELECT count(*) FROM qnaboard WHERE writerId=#{writerId}
+	</select>
+	
+	<select id="getQnaCountAdm" resultType="int">
 		 SELECT count(*) FROM qnaboard
 	</select>
 	<!-- End 1:1 문의 게시판 -->

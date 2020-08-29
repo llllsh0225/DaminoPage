@@ -42,12 +42,6 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}	
 
 	@Override
-	public int getQnaCount() throws Exception {
-		System.out.println("QnaBoardServiceImpl getQnaCount()");
-		return qnaBoardDAO.getQnaCount();
-	}
-
-	@Override
 	public List<QnaBoardVO> myQuestionList(Paging pa) throws Exception {
 		System.out.println("QnaBoardServiceImpl myQuestionList(Paging pa)");
 		return qnaBoardDAO.myQuestionList(pa);
@@ -65,5 +59,16 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		return qnaBoardDAO.myQuestionList_adm_notComplete(pa);
 	}
 
+	@Override
+	public int getQnaCount(QnaBoardVO vo) {
+		System.out.println("QnaBoardServiceImpl getQnaCount(vo)");
+		return qnaBoardDAO.getQnaCount(vo);
+	}
+
+	@Override
+	public int getQnaCountAdm() {
+		System.out.println("QnaBoardServiceImpl getQnaCountAdm()");
+		return qnaBoardDAO.getQnaCountAdm();
+	}
 
 }
