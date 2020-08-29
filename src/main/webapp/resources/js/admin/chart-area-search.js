@@ -1,10 +1,16 @@
+// Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
 var ctx = document.getElementById("AreaChart_Search");
+var searchCount = $(".searchCount").length;
+
 var dateSearchArr = new Array();
-for(var i=0; i<12; i++){
+for(var i=0; i<searchCount; i++){
 	dateSearchArr[i]= $("#dateSearch"+i).val();
 }
 var salesSearchArr = new Array();
-for(var i=0; i<12; i++){
+for(var i=0; i<searchCount; i++){
 	salesSearchArr[i]= Number($("#salesSearch"+i).val());
 }
 
@@ -37,13 +43,13 @@ var myLineChart2 = new Chart(ctx, {
           display: false
         },
         ticks: {
-          maxTicksLimit: 12
+          maxTicksLimit: searchCount
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: 1000000,
+          max: Math.max.apply(0,salesSearchArr),//데이터 최대값을 배열에서 가장 큰 값으로함
           maxTicksLimit: 10
         },
         gridLines: {

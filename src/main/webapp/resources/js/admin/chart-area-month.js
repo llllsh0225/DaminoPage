@@ -12,7 +12,9 @@ var monthlySalesArr = new Array();
 for(var i=0; i<12; i++){
 	monthlySalesArr[i]= Number($("#monthlySales"+i).val());
 }
-
+function tt(x){
+	x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -48,8 +50,8 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 1000000,
-          maxTicksLimit: 10
+          max: Math.max.apply(0,monthlySalesArr),
+          maxTicksLimit: 8
         },
         gridLines: {
           color: "rgba(0, 0, 0, .125)",
