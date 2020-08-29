@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@SessionAttributes({"user","username", "userid", "userlevel"})
+@SessionAttributes({"user","username", "userid", "userlevel", "phone"})
 public class LoginController {
 	@Autowired
 	private LoginService loginService;
@@ -57,6 +57,7 @@ public class LoginController {
 				mav.addObject("userlevel", login.getUserlevel()); // session 객체에 userlevel 저장
 				mav.addObject("user", login); // session 객체의 "user"에 login 한 멤버 객체를 저장
 				
+				mav.addObject("phone", login.getPhone());
 				session.setAttribute("msg", "login"); // 로그인 확인용 메세지 세팅
 				
 				mav.setViewName("main");

@@ -51,230 +51,6 @@
 	
 	/* <!-- //기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 --> */
 	</style>
-	<script type="text/javascript">
-	
-	/*gps lsm 전역변수 */
-	var lat;
-	var lon;
-	var xdot;
-	var ydot;
-	var address;
-	var gps_yn;
-	
-	var CON_DOMAIN_URL = "http://web.dominos.co.kr";
-	var CON_SSL_URL = "https://web.dominos.co.kr";
-	var CON_STATIC_URL = "https://cdn.dominos.co.kr/renewal2018/w";
-	function goLink(menuCode, link) {
-		location.href = link;
-	}
-
-	$(document).ready(function() {
-		$.ajaxSetup({cache:false});
-
-		setBasketCnt();
-
-		// 마이쿠폰 정보 조회(가입회원)
-		
-			$.ajax({
-				type: "POST",
-				url: "/mypage/mainMyCouponInfoAjax",
-				dataType : "json",
-				success:function(data) {
-				 	if (data.resultData.status == "success") {
-				 		$('#myMonth').text(data.resultData.myMonth+'월');
-				 		$('#myLevel').text(data.resultData.myLevel);
-				 		if(data.resultData.myCouponCnt > 0) {
-				 			$(".none_coupon").hide();
-					 		$(".exist_coupon").show();
-					 		$('#myCouponCnt').html(data.resultData.myCouponCnt+"<span>개</span>");
-					 		$('#gnbCoupon').text("("+data.resultData.myCouponCnt+")");
-				 		}
-					} else {
-// 						console.log("마이쿠폰 정보 가져오기 실패");
-					}
-				}
-			});
-			
-
-
-	function setBasketCnt() {
-		var basketCnt = cookieManager.getCookie("BASKETCNT");
-		var basket = cookieManager.getCookie("BASKET");
-		var finish_basket = cookieManager.getCookie("FINISH_BASKET");
-
-		if(basketCnt == "") basketCnt = "0";
-		else if(basket != "" && basket == finish_basket) basketCnt = "0";
-		
-		if(basketCnt != "0"){ 
-			$(".btn-cart > strong ").addClass("cart-count");
-			$(".cart-count").text(basketCnt);
-		}else{
-			$(".btn-cart > strong").removeClass("cart-count");
-		}
-	}
-
-	var goCart = function() {
-		location.href="/basket/detail";
-	};
-
-	var doLogin = function() {
-		location.href="/global/login";
-	};
-
-	var myOrderDetail = function() {
-		var order_no = $('#tracker_order_no').val();
-		location.href="/mypage/myOrderView?order_no="+order_no+"&pageNo=1";
-	};
-	
-	
-	var goPresentLogin = function(gubun) {
-		var rtnUrl = "/voucher/list?gubun="+gubun;
-		if("true" == "true"){
-			location.href = rtnUrl;
-		}else{
-			location.href = "/global/login?returnUrl="+rtnUrl;	
-		}
-	};
-	
-	function appendLocation(paramArr) {
-		var simpleAddress;
-		
-		gps_yn = 'Y';
-		
-		if (paramArr == null || paramArr.length == 0){
-			return;
-		}
-		
-		$.ajax({
-		    type: "GET",
-		    url: "/gis/getXyAddressAjax",
-		    data: paramArr.join('&'),
-		    
-		    success:function(data) {
-		        $('#myloc').html("");
-		        
-		        if(data.resultData.result.length > 0) {
-		        	var html = '';
-					html += '<div class="tip-box center" id="tip-box">';
-					html += '<p>주변 매장의 프로모션을 확인해보세요!</p>';
-					html += '</div>';
-					
-					$("#tip-box-top").append(html);
-					$("#tip-box").delay(2000).fadeOut(1000);
-					
-		       		$.each(data.resultData.result, function(i, v) {
-		       			if(v.roadaddr === ''){
-		       				simpleAddress = v.sggname+' '+v.bemdname+' '+v.jbmain+(v.jbsub=='0'?'':'-'+v.jbsub);
-		       				$('#myloc').html(simpleAddress);
-		       				lat = v.lat;
-		       				lon = v.lon;
-		       				xdot = v.kx;
-		       				ydot = v.ky;
-		       				address = simpleAddress;
-		       				
-		       			}else{
-		       				simpleAddress = v.roadname+' '+v.bdmain+(v.bdsub=='0'?'':'-'+v.bdsub);
-		       				$('#myloc').html(simpleAddress);
-		       				lat = v.lat;
-		       				lon = v.lon;
-		       				xdot = v.kx;
-		       				ydot = v.ky;
-		       				address = simpleAddress;
-		       			}
-		       		});
-		   	    }else {
-		       		 $('#myloc').html("주변 매장의 프로모션이 궁금하시면, 위치 서비스를 허용해주세요.");
-		    	}
-		    },
-		    error: function (error){
-		        alert("다시 시도해주세요.");
-		    }
-		    
-		});
-	}
-	
-	//현재 위치 받아오기
-
-	var geo = {
-		init : function() { 
-			
-			if ('geolocation' in navigator) {
-				/* 지오로케이션 사용 가능 */
-				navigator.geolocation.getCurrentPosition(geo.success, geo.error);
-				
-			} else {
-				/* 지오로케이션 사용 불가능 */
-				alert('geolocationx');
-				alert('사용자의 브라우저는 지오로케이션을 지원하지 않습니다.');
-
-				//geo.changeTab();
-			}
-		},
-		success : function(position) {
-
-			var latitude  = position.coords.latitude;
-		    var longitude = position.coords.longitude;
-		  	// console.log('<p>위도 : ' + latitude + '° <br>경도 : ' + longitude + '°</p>');
-
-		    findLocation(latitude, longitude);
-		},
-		error : function(err) {
-			
-			var userAgent = navigator.userAgent.toString();
-
-			if(/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream){ // iOS
-				alert('아이폰 > 설정 >개인정보보호 > 위치서비스 > 다미노피자 항목의 위치접근허용을 체크해주세요.');
-				return;
-			} else {
-				//alert('위치접근허용을 승인해주세요.');
-				$('#myloc').html('주변 매장의 프로모션을 확인해보세요!');
-				return;
-				/* var latitude  = '37.539465';
-				var longitude = '127.052185';
-
-				findLocation(latitude,longitude);
-				gps_yn = 'Y'; */
-			}
-		}
-	}
-
-
-
-	function findLocation(lat,lon) {
-		//if (!!!optn) return;
-
-		// 검색 파라미터 설정
-		var paramArr = [];	
-		paramArr[0] = 'lat=' + lat;
-		paramArr[1] = 'lon=' + lon;
-		
-		appendLocation(paramArr);
-	}
-	
-	function gpsLsm(gps_yn){
-		if(gps_yn == 'Y'){
-			address = encodeURIComponent(address);
-			UI.layerPopUp({selId:'#pop-lsm', url:'/branch/gpsLsm', data:{lon:lon, lat:lat, xdot:xdot, ydot:ydot, address:address}});
-			address = decodeURIComponent(address);
-			_trk_call();
-		}else{
-			alert('위치접근허용을 승인해주세요.');	
-		}
-	}
-	
-	var _trk_call = function () {
-	    // 트래킹
-		var _trk_url = document.baseURI + '&_TRK_PI=WP_1P&_TRK_CP=LSM 팝업';
-	    try {
-	       	_trk_code_base = _trk_code_base.replace(/(du=).*?(&)/,'$1' + escape(_trk_url) + '$2');
-	        _trk_flashEnvView("_TRK_PI=WP_1P","_TRK_CP=LSM 팝업");
-	        /* console.log('TRK WEB_3_2 DONE!!'); */
-	    } catch (e) {
-	    	console.log(e.message);
-	    }
-		
-	}
-</script>
 
 </head>
 <body>
@@ -444,13 +220,18 @@
 								<div id="qna_list_num">
 									<ul>
 										<c:if test="${pageMaker.prev}">
-											<a href="myquestionlist.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
+											<a class='pager-prev' href="myquestionlist.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
 										</c:if>
 										<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
+										<c:if test="${pageMaker.startPage eq 0}">
+											<a href="myquestionlist.do${pageMaker.makeQuery(i)}">[${i+1}]</a>
+										</c:if>
+										<c:if test="${pageMaker.startPage ne 0}">
 											<a href="myquestionlist.do${pageMaker.makeQuery(i)}">[${i}]</a>
+										</c:if>
 										</c:forEach>
 										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-											<a href="myquestionlist.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
+											<a class='pager-next' href="myquestionlist.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
 										</c:if>
 									</ul>
 								</div>
@@ -649,10 +430,6 @@ function proc(){
 	}
 }
 
-</script>
-<script type="text/javascript">
-	_TRK_PI = "WP_24_4";			
-	_TRK_CP = "나의 정보>1:1문의";
 </script>
 <!-- 로딩 이미지 -->
 	<!-- // 로딩 이미지 -->

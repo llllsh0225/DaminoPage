@@ -78,6 +78,10 @@ window.onload = function() {
 		var storephone = sessionStorage.getItem("storephone");
 		var storeaddr = sessionStorage.getItem("storeaddr");
 		
+		var addressDB = $('#addressDB').val();
+		var storenameDB = $('#storenameDB').val();
+		var storephoneDB = $('#storephoneDB').val();
+		
 		if(gubun == 'D'){
 			$('#orderGubun').text("배달주문");
 			
@@ -94,7 +98,14 @@ window.onload = function() {
 			
 			$('#storeinfo').text(storename + " (" + storephone + ")");
 			$('#storeaddr').text(storeaddr);
-		}
+		} else{
+			$('#orderGubun').text("주문");
+			$('#d_order').show();
+			$('#w_order').hide();
+			
+			$('#address').text(addressDB);
+			$('#store').html('<span>' + storenameDB + '</span>&nbsp;' + storephoneDB);
+		} 
 		
 			if($('#sessionMsg').val() == 'login'){
 				$('#recipient').prop('checked', true);
@@ -116,10 +127,15 @@ window.onload = function() {
 		setUserinfoForm();
 
 		var couponName = $('#couponName').val();
-		var couponNameArr = couponName.split(",");
+		if(couponName != null){
+			var couponNameArr = couponName.split(",");
+		}
 
 		var discountRate = $('#discountRate').val();
-		var discountRateArr = discountRate.split(",");
+		if(discountRate != null){
+			var discountRateArr = discountRate.split(",");
+		}
+		//var discountRateArr = discountRate.split(",");
 
 		var couponArr = []; // 사용가능 쿠폰을 담는 배열
 		//피자 row
@@ -136,32 +152,53 @@ window.onload = function() {
 
 		if (p_length >= 1) {
 			for (var i = 0; i < pizzaArr.length; i++) {
-				if (i != pizzaArr.length - 1) {
+				if (i == pizzaArr.length - 1) {
 					totalGoods += pizzaArr[i].p_name;
-				} else {
-					totalGoods = pizzaArr[i].p_name + ",";
 				}
+					totalGoods = pizzaArr[i].p_name + ",";
 			}
-		}
-		if (s_length >= 1) {
+			if (s_length >= 1) {
 			for (var j = 0; j < s_length; j++) {
-				if (i != s_length - 1) {
+				if (i == s_length - 1) {
 					totalGoods += sideArr[j].s_name;
-				} else {
+				}
 					totalGoods += sideArr[j].s_name + ",";
 				}
 			}
-		}
-		if (e_length >= 1) {
-			for (var si = 0; si < e_length; si++) {
-				if (i != e_length - 1) {
-					totalGoods += etcArr[si].d_name;
-				} else {
-					totalGoods += etcArr[si].d_name + ",";
+			if (e_length >= 1) {
+			for (var j = 0; j < e_length; j++) {
+				if (i == e_length - 1) {
+					totalGoods += etcArr[j].s_name;
+				} 
+					totalGoods += etcArr[j].s_name + ",";
+				
 				}
 			}
-		}
-
+		}//END p_length
+		
+		if (s_length >= 1) {
+			for (var j = 0; j < s_length; j++) {
+				totalGoods += sideArr[j].s_name + ",";
+				if (s_length == 1 && e_length == 0) {
+					totalGoods += sideArr[j].s_name;
+				}
+				if(s_length >= 2 && i == s_length - 1 && e_length == 0){
+					totalGoods += sideArr[j].s_name;
+				}
+					
+			}
+			 if (e_length >= 1) {
+				for (var si = 0; si < e_length; si++) {
+					if (i == e_length - 1) {
+						totalGoods += etcArr[si].d_name;
+					} 
+						totalGoods += etcArr[si].d_name + ",";
+					}
+				}
+		}//END s_length
+		console.log("totalGoods : " + totalGoods);
+		console.log("e_length : " + e_length);
+		
 		var totalGoodsArr = totalGoods.split(",");
 
 		//제품 수량 세팅
@@ -463,14 +500,25 @@ window.onload = function() {
 		}
 	}
 	function setUserinfoForm() {
+		if($('#userphone').val() != null){
+			
 		var tel1 = $('#userphone').val().substring(0, 3);
 		var tel2 = $('#userphone').val().substring(3, 7);
 		var tel3 = $('#userphone').val().substring(7, 11);
-
+		}
+		if($('#userphone').val() == null){
+			var tel1 = $('#userphoneSE').val().substring(0, 3);
+			var tel2 = $('#userphoneSE').val().substring(3, 7);
+			var tel3 = $('#userphoneSE').val().substring(7, 11);
+		}
 		if ($('#recipient').prop('checked')) { // '주문자와 동일'이 체크 되었을 때 세션의 사용자 정보를 세팅
 			$('#customerName').attr('disabled', true);
-			$('#customerName').val($('#username').val());
-
+			if($('#username').val() != null){
+				$('#customerName').val($('#username').val());
+			}
+			if($('#username').val() == null){
+				$('#customerName').val($('#usernameSE').val());
+			}
 			$('#tel1').attr('disabled', true);
 			$('#tel1').val(tel1).prop("selected", true);
 
@@ -519,19 +567,40 @@ window.onload = function() {
 		
 		var orderTimeStr = orderTime.getFullYear() + orderMonth + orderDate + orderHours + orderMinutes + orderSeconds;
 		var userid = $('#userid').val();
+		if(userid == null){
+			userid = $('#useridSE').val(); 
+		}
 		var username = $('#customerName').val();
+		if(username == null){
+			username = $('#usernameSE').val(); 
+		}
 		var deliveryTime = $('#deliveryTime').val();
 		
 		//var deliverAddress = $('#deliverAddress').val();
 		var deliverAddress = sessionStorage.getItem("address");
+		
+		if(deliverAddress == null){
+			deliverAddress = $('#addressDB').val(); 
+		}
 		var userphone = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
+		if(userphone == null){
+			userphone = $('#userphoneSE').val(); 
+		}
 		var totalPayment = Number($('#totalPayment').text().replace(',', ''));
 		var take = '배달';
 		
 		//var storename = $('#deliverStore').val();
 		//var storephone = $('#storePhone').val();
 		var storename = sessionStorage.getItem("storename");
+		
+		if(storename == null){
+			storename = $('#storenameDB').val();
+		}
 		var storephone = sessionStorage.getItem("storephone");
+		
+		if(storephone == null){
+			storephone = $('#storephoneDB').val();
+		}
 		var paytool = "";
 		var paystatus = '결제완료'; // 결제 과정에서 변동이 있을 수 있음.
 		var status = '주문완료';
@@ -539,11 +608,18 @@ window.onload = function() {
 		
 		// 선택한 쿠폰 인덱스
 		var couponCode = $('#couponCode').val();
-		var couponCodeArr = couponCode.split(",");
+		
+		if(couponCode != null){
+			var couponCodeArr = couponCode.split(",");
+		}
 		
 		var couponIdx = $('#couponList option').index($('#couponList option:selected'));
-		var selectCouponCode = couponCodeArr[couponIdx - 1];
-		console.log(couponIdx + " : " + selectCouponCode);
+		if(couponIdx != 0){
+			var selectCouponCode = couponCodeArr[couponIdx - 1];
+		}else{
+			var selectCouponCode = null;
+		}
+		console.log("couponIdx : " + couponIdx);
 		
 		// 결제수단 세팅
 		if($('#pay1').prop('checked')){
@@ -574,32 +650,53 @@ window.onload = function() {
 		//음료및기타 row
 		var e_length = etcArr.length;
 		
+		var totalGoods = "";
+
 		if (p_length >= 1) {
 			for (var i = 0; i < pizzaArr.length; i++) {
-				if (i != pizzaArr.length - 1) {
+				if (i == pizzaArr.length - 1) {
 					totalGoods += pizzaArr[i].p_name;
-				} else {
-					totalGoods = pizzaArr[i].p_name + ",";
 				}
+					totalGoods = pizzaArr[i].p_name + ",";
 			}
-		}
-		if (s_length >= 1) {
+			if (s_length >= 1) {
 			for (var j = 0; j < s_length; j++) {
-				if (i != s_length - 1) {
+				if (i == s_length - 1) {
 					totalGoods += sideArr[j].s_name;
-				} else {
+				}
 					totalGoods += sideArr[j].s_name + ",";
 				}
 			}
-		}
-		if (e_length >= 1) {
-			for (var si = 0; si < e_length; si++) {
-				if (i != e_length - 1) {
-					totalGoods += etcArr[si].d_name;
-				} else {
-					totalGoods += etcArr[si].d_name + ",";
+			if (e_length >= 1) {
+			for (var j = 0; j < e_length; j++) {
+				if (i == e_length - 1) {
+					totalGoods += etcArr[j].s_name;
+				} 
+					totalGoods += etcArr[j].s_name + ",";
+				
 				}
 			}
+		}//END p_length
+		
+		if (s_length >= 1) {
+			for (var j = 0; j < s_length; j++) {
+				totalGoods += sideArr[j].s_name + ",";
+				if (s_length == 1 && e_length == 0) {
+					totalGoods += sideArr[j].s_name;
+				}
+				if(s_length >= 2 && i == s_length - 1 && e_length == 0){
+					totalGoods += sideArr[j].s_name;
+				}
+					
+			}
+			 if (e_length >= 1) {
+				for (var si = 0; si < e_length; si++) {
+					if (i == e_length - 1) {
+						totalGoods += etcArr[si].d_name;
+					} 
+						totalGoods += etcArr[si].d_name + ",";
+					}
+				}
 		}
 		
 		console.log("orderTimeStr : " + orderTimeStr);
@@ -608,7 +705,7 @@ window.onload = function() {
 		console.log("take : " + take);
 		console.log("paytool : " + paytool);
 		console.log("requirement : " + requirement);
-		console.log("selectCouponCode : " + selectCouponCode);
+		//console.log("selectCouponCode : " + selectCouponCode);
 		
 		 $.ajax({
 			url: 'doOrder.do',
@@ -630,7 +727,7 @@ window.onload = function() {
 				paystatus : paystatus,
 				status : status,
 				requirement : requirement,
-				selectCouponCode : selectCouponCode
+			 	selectCouponCode : selectCouponCode
 			}),
 			success: function(data) {
 				// 결과 페이지로 이동
@@ -722,11 +819,13 @@ window.onload = function() {
 	<form id="orderFrm" name="orderFrm" action="" target="" method="post">		
 		<div id="hidden_info">
 			<input type="hidden" id="sessionMsg" value="${msg }" />
-			<input type="hidden" id="userid" value="${user.userid }" />
-			<input type="hidden" id="username" value="${user.username }" />
-			<input type="hidden" id="userphone" value="${user.phone }" />
+			<input type="hidden" id="useridSE" value="${sessionScope.userid }" />
+			<input type="hidden" id="usernameSE" value="${sessionScope.username }" />
+			<input type="hidden" id="userphoneSE" value="${sessionScope.phone }" />
 			<input type="hidden" id="couponName" value="${couponName }" />
-			<input type="hidden" id="couponCode" value="${couponCode }" />
+			<input type="hidden" id="addressDB" value="${addressDB }" />
+			<input type="hidden" id="storenameDB" value="${storenameDB }" />
+			<input type="hidden" id="storephoneDB" value="${storephoneDB }" />
 			<input type="hidden" id="totalGoodsPrice" value="${totalPrice }" />
 			<input type="hidden" id="discountRate" value="${discountRate }" />
 			<input type="hidden" id="storeOpenTime" value="${hourInfo.opentime }" />
@@ -1107,7 +1206,7 @@ window.onload = function() {
 
 													<!-- 주문하기 버튼 -->
 													<div class="btn-wrap">
-														<a href="javascript:;" id="doOrder" onclick="doOrder()"
+														<a href="javascript:doOrder();" id="doOrder"
 															class="btn-type">결제하기</a>
 													</div>
 													<!-- //주문하기 버튼 -->

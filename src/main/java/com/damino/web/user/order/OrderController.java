@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.damino.web.admin.market.MarketVO;
@@ -26,6 +27,7 @@ import com.damino.web.user.quickorder.QuickOrderService;
 import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Controller
+@SessionAttributes({"address","storename", "storephone"})
 public class OrderController {
 
 	@Autowired
@@ -68,9 +70,10 @@ public class OrderController {
 	public ModelAndView orderPage(ModelAndView mav, HttpSession session, HttpServletRequest request) {
 		System.out.println("결제하기 페이지 열기");
 		//세션 만료 시간 연장
-		request.getSession().setMaxInactiveInterval(300000);
+		//request.getSession().setMaxInactiveInterval(300000);
 		String userid = (String) session.getAttribute("userid");
-		
+		//mav.addObject("storename", vo.getStoreName());
+
 		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
 		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
 		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
@@ -91,10 +94,10 @@ public class OrderController {
 		//디폴트 배달지 세팅
 		if(!deliveryAddressList.isEmpty()) {
 			for (int i=0; i<deliveryAddressList.size(); i++) {
-			DeliveryAddressVO delVO = deliveryAddressList.get(i);
-				String addressDB = delVO.getAddress();
-				String storenameDB = delVO.getStorename();
-				String storephoneDB = delVO.getStorephone();
+			DeliveryAddressVO delVO2 = deliveryAddressList.get(i);
+				String addressDB = delVO2.getAddress();
+				String storenameDB = delVO2.getStorename();
+				String storephoneDB = delVO2.getStorephone();
 				mav.addObject("addressDB", addressDB);
 				mav.addObject("storenameDB", storenameDB);
 				mav.addObject("storephoneDB", storephoneDB);
