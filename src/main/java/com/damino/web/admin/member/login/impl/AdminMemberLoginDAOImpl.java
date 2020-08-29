@@ -29,4 +29,14 @@ public class AdminMemberLoginDAOImpl implements AdminMemberLoginDAO {
 		return sqlSessionTemplate.selectList("AdminMemberLoginDAO.marketAdminList");
 	}
 
+	@Override
+	public void changeCheckMem(MarketAdminMemberVO vo) {
+		sqlSessionTemplate.selectOne("AdminMemberLoginDAO.changeCheckMem", vo);
+	}
+
+	@Override
+	public void marketMemDel(MarketAdminMemberVO vo) {
+		sqlSessionTemplate.delete("AdminMemberLoginDAO.marketMemDel", vo);
+	}
+
 }

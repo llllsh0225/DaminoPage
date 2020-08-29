@@ -1,6 +1,7 @@
 package com.damino.web.admin.member.login;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -141,7 +143,32 @@ public class AdminMemberLoginController {
 			 return mav;
 		 }
 	}
-	
+	@RequestMapping("/changeCheckMem.admdo")
+	public String changeCheckMem(ModelAndView mav, @RequestBody Map<String, Object> param, MarketAdminMemberVO vo, HttpSession session) {
+		System.out.println("매장관리자 승인상태 변경");
+		 int seq = (Integer) param.get("seq");
+		 String checkMem = (String) param.get("checkMem");
+		 
+		 vo.setCheckMem(checkMem);
+		 vo.setSeq(seq);
+		 
+		 adminMemberLoginService.changeCheckMem(vo);
+			 
+		 return "success";
+		 
+	}
+	@RequestMapping("/marketMemDel.admdo")
+	public String marketMemDel(ModelAndView mav, @RequestBody Map<String, Object> param, MarketAdminMemberVO vo, HttpSession session) {
+		System.out.println("매장관리자 삭제");
+		 int seq = (Integer) param.get("seq");
+		 
+		 vo.setSeq(seq);
+		 
+		 adminMemberLoginService.marketMemDel(vo);
+			 
+		 return "success";
+		 
+	}
 	@RequestMapping("/marketEdit.admdo")
 	   public ModelAndView getAdminMarketEditPage(ModelAndView mav, HttpSession session) {
 		 String adminid = (String)session.getAttribute("adminid");

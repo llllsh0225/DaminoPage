@@ -5,8 +5,8 @@
 <mapper namespace="marketAdminMemberDAO">
 	<!-- 회원 가입 -->
 	<insert id="registMarketAdminMember" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
-		INSERT INTO MarketAdminMember (managerName, managerId, managerPasswd, storeRegion, storeName, checkMem) 
-		VALUES (#{managerName}, #{managerId}, #{managerPasswd}, #{storeRegion}, #{storeName}, 'N' )
+		INSERT INTO MarketAdminMember (managerName, managerId, managerPasswd, storeRegion, storeName, checkMem, seq) 
+		VALUES (#{managerName}, #{managerId}, #{managerPasswd}, #{storeRegion}, #{storeName}, 'N', (select nvl(max(seq), 0)+1 from MarketAdminMember))
 	</insert>
 	
 	<!-- id 중복 체크  -->
