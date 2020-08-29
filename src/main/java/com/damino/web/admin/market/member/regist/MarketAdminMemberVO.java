@@ -7,7 +7,7 @@ public class MarketAdminMemberVO {
 	private String managerPasswd;
 	private String storeRegion; //매장 지역
 	private String storeName; //매장명
-	
+	private String checkMem; //승인여부 체크를 위한 변수
 	
 	public String getManagerName() {
 		return managerName;
@@ -39,11 +39,18 @@ public class MarketAdminMemberVO {
 	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
+	public String getCheckMem() {
+		return checkMem;
+	}
+	public void setCheckMem(String checkMem) {
+		this.checkMem = checkMem;
+	}
 	
 	@Override
 	public String toString() {
-		return "MarketAdminMemVO [managerName=" + managerName + ", managerId=" + managerId + ", managerPasswd="
-				+ managerPasswd + ", storeRegion=" + storeRegion + ", storeName=" + storeName + "]";
+		return "MarketAdminMemberVO [managerName=" + managerName + ", managerId=" + managerId + ", managerPasswd="
+				+ managerPasswd + ", storeRegion=" + storeRegion + ", storeName=" + storeName + ", checkMem=" + checkMem
+				+ "]";
 	}
 	
 	

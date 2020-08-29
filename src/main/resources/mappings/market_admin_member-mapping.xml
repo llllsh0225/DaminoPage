@@ -5,8 +5,8 @@
 <mapper namespace="marketAdminMemberDAO">
 	<!-- 회원 가입 -->
 	<insert id="registMarketAdminMember" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
-		INSERT INTO MarketAdminMember (managerName, managerId, managerPasswd, storeRegion, storeName) 
-		VALUES (#{managerName}, #{managerId}, #{managerPasswd}, #{storeRegion}, #{storeName} )
+		INSERT INTO MarketAdminMember (managerName, managerId, managerPasswd, storeRegion, storeName, checkMem) 
+		VALUES (#{managerName}, #{managerId}, #{managerPasswd}, #{storeRegion}, #{storeName}, 'N' )
 	</insert>
 	
 	<!-- id 중복 체크  -->
@@ -21,6 +21,7 @@
 		WHERE storeRegion = #{storeRegion}
 	</select>
 	
+
 </mapper>
 
 

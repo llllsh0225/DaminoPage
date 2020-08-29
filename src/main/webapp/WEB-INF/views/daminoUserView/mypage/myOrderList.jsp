@@ -160,8 +160,6 @@
 													<span class="tit">주문번호</span>${myorderlist.orderseq }
 												</span>
 												<div class="btn-wrap">
-													<a href="#">+재주문 하기</a>
-													<a href="#">+퀵오더 등록</a>
 												</div>
 											</div>
 											<div class="order-center">

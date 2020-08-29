@@ -239,7 +239,7 @@ $(document).ready(function() {
 													for="checkAll"></label>
 											</div>
 										</th>
-										<th>매장번호</th>
+										<th>매장 지역</th>
 										<th>매장명</th>
 										<th>아이디</th>
 										<th>비밀번호</th>
@@ -247,6 +247,7 @@ $(document).ready(function() {
 										<th>매장관리자 계정변경</th>
 									</tr>
 								</thead>
+								<c:forEach var="marketMemList" items="${marketMemList}">
 								<tbody>
 									<tr>
 										<td>
@@ -258,20 +259,31 @@ $(document).ready(function() {
 											</label>
 											</div>
 										</td>
-										<td>1</td>
-										<td>명동1점</td>
-										<td>a0107</td>
-										<td>1234</td>
-										<td><select>
-												<option value="O">승인</option>
-												<option value="X" selected>미승인</option>
-										</select></td>
+										<td>${marketMemList.storeRegion}</td>
+										<td>${marketMemList.storeName}</td>
+										<td>${marketMemList.managerName}</td>
+										<td>${marketMemList.managerId}</td>
+										<td>
+										<select>
+										<c:if test="${marketMemList.checkMem eq 'N' || marketMemList.checkMem eq 'null'}">
+												<option value="Y">승인</option>
+												<option value="N" selected>미승인</option>
+										</c:if>
+										<c:if test="${marketMemList.checkMem eq 'Y'}">
+										<option value="Y" selected>승인</option>
+										<option value="N" >미승인</option>
+										</c:if>
+										</select>
+										</td>
 										<td><a class="btn btn-primary"
 											href="marketEdit.admdo" role="button">수정</a>
 										</button>
 											<button class="btn btn-danger" type="submit">삭제</button></td>
 									</tr>
 								</tbody>
+								</c:forEach>
+								
+								
 							</table>
 						</div>
 					</div>
