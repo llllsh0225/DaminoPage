@@ -23,7 +23,7 @@ public class QnaBoardController {
 	private QnaBoardService qnaBoardService;
 	
 	@RequestMapping(value = "/myquestionlist.do", method = RequestMethod.GET)
-	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, Paging pa, HttpSession session) throws Throwable{
+	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, QnaBoardVO vo, Paging pa, HttpSession session) throws Throwable{
 		System.out.println("내 질문내역 1:1 열기");
 		String userid = (String)session.getAttribute("userid");
 		System.out.println(userid);
@@ -34,7 +34,8 @@ public class QnaBoardController {
 		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList(pa);
 		System.out.println(boardList.toString());
 		
-		int count = qnaBoardService.getQnaCount();
+		vo.setWriterId(userid);
+		int count = qnaBoardService.getQnaCount(vo);
 		 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/mypage/myQuestionList");
@@ -94,16 +95,19 @@ public class QnaBoardController {
 	 * 관리자 권한으로 1:1 문의사항 - 전체조회 접근하는 경로
 	 */
 	@RequestMapping(value = "/myquestionlist.admdo", method = RequestMethod.GET)
-	public ModelAndView getMyQuestionList_adm(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+	public ModelAndView getMyQuestionList_adm(HttpSession session, HttpServletRequest request, QnaBoardVO vo, HttpServletResponse response, Paging pa) throws Throwable{
 		System.out.println("관리자권한으로 질문내역 1:1 열기");
 		
 		//1:1 문의게시판 페이징처리
+		//String userid = (String)session.getAttribute("userid");
+		//System.out.println(userid);
 		
 		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm(pa);
 		System.out.println(boardList.toString());
 		
-		int count = qnaBoardService.getQnaCount();
-		 
+		//vo.setWriterId(userid);
+		int count = qnaBoardService.getQnaCountAdm();
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/userQnaBoard/myQuestionList_adm");
 		
@@ -123,15 +127,19 @@ public class QnaBoardController {
 	 * 관리자 권한으로 1:1 문의사항 - 처리대기 접근하는 경로
 	 */
 	@RequestMapping(value = "/myquestionlist_notComplete.admdo", method = RequestMethod.GET)
-	public ModelAndView getMyQuestionList_adm_notComplete(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+	public ModelAndView getMyQuestionList_adm_notComplete(HttpSession session, QnaBoardVO vo, HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
 		System.out.println("관리자권한으로 질문내역 1:1 열기");
+		
+		//String userid = (String)session.getAttribute("userid");
+		//System.out.println(userid);
 		
 		//1:1 문의게시판 페이징처리
 		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm_notComplete(pa);
 		System.out.println(boardList.toString());
 		
-		int count = qnaBoardService.getQnaCount();
-		 
+		//vo.setWriterId(userid);
+		int count = qnaBoardService.getQnaCountAdm();
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/userQnaBoard/myQuestionList_adm");
 		
