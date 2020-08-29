@@ -397,24 +397,23 @@ public class ViewTestController {
 		return mav;
 	}
 	//members > market 폴더 시작 ---------
-	@RequestMapping("/marketEdit.admdo")
-	   public ModelAndView getAdminMarketEditPage() {
-	      System.out.println("점포 수정 페이지 열기");
-	      
-	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("/members/market/marketEdit");
-	      
-	      return mav;
-	   }
-	@RequestMapping("/marketList.admdo")
-	public ModelAndView getAdminMarketListPage() {
-		System.out.println("점포 목록 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/market/marketList");
-		
-		return mav;
-	}
+	/*
+	 * @RequestMapping("/marketEdit.admdo") public ModelAndView
+	 * getAdminMarketEditPage() { System.out.println("점포 수정 페이지 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView();
+	 * mav.setViewName("/members/market/marketEdit");
+	 * 
+	 * return mav; }
+	 * 
+	 * @RequestMapping("/marketList.admdo") public ModelAndView
+	 * getAdminMarketListPage() { System.out.println("점포 목록 페이지 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView();
+	 * mav.setViewName("/members/market/marketList");
+	 * 
+	 * return mav; }
+	 */
 	
 	//members > member 폴더 시작 ---------
 	@RequestMapping("/login.admdo")

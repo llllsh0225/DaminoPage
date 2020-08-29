@@ -1,5 +1,7 @@
 package com.damino.web.admin.member.login;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,12 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.admin.market.MarketService;
+import com.damino.web.admin.market.MarketVO;
+import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
+
 @Controller
 @SessionAttributes("adminid")
 public class AdminMemberLoginController {
 	
 	@Autowired
 	private AdminMemberLoginService adminMemberLoginService;
+		
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;  //비밀번호 암호화 기능 수행하는 객체 
 	
@@ -111,5 +118,49 @@ public class AdminMemberLoginController {
 		mav.setViewName("main");
 		return mav;
 	}
+	
+	/**
+	 * 매장관리자 - 점포승인 관련
+	 * */
+	@RequestMapping("/marketList.admdo")
+	public ModelAndView getAdminMarketListPage(ModelAndView mav, HttpSession session) {
+		System.out.println("점포 목록 페이지 열기");
+		 String adminid = (String)session.getAttribute("adminid");
+		 
+		 if(adminid == null) {
+			 
+			 mav.setViewName("/members/managerLogin");
+	    	  return mav;
+		 }
+		 else{
+			 List<MarketAdminMemberVO> marketMemList = adminMemberLoginService.marketAdminList();
+			 
+			 mav.addObject("marketMemList", marketMemList);
+			 mav.setViewName("/members/market/marketList");
+			 
+			 return mav;
+		 }
+	}
+	
+	@RequestMapping("/marketEdit.admdo")
+	   public ModelAndView getAdminMarketEditPage(ModelAndView mav, HttpSession session) {
+		 String adminid = (String)session.getAttribute("adminid");
+		  System.out.println("관리자 화면의 메인페이지 열기");
+		  
+	      if(adminid == null) {
+	    	  System.out.println(adminid);
+	    	  mav.setViewName("/members/managerLogin");
+	    	  return mav;
+	      }else {
+	    	  
+	    	  
+	    	  
+	    	  mav.setViewName("/members/market/marketEdit");
+	    	  return mav;
+	      }
+	}	     
+	
+	
+	
 	
 }

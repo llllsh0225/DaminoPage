@@ -35,5 +35,5 @@
 		WHERE adminid = #{adminid}
 	</update>	
 	
-
+	
 </mapper>
