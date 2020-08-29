@@ -293,7 +293,7 @@ $(document).ready(function() {
 										</div>
 										<div class="card-body">
 											<c:forEach var="dateSearch" items="${dateSearch}" varStatus="status">
-												<input type="hidden" id="dateSearch${status.index }" value="${dateSearch}"/>
+												<input type="hidden" class="searchCount" id="dateSearch${status.index }" value="${dateSearch}"/>
 											</c:forEach>
 											<c:forEach var="salesSearch" items="${salesSearch }" varStatus="status">
 												<input type="hidden" id="salesSearch${status.index }" value="${salesSearch }"/>
