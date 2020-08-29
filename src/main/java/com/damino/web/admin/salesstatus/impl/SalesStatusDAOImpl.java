@@ -32,7 +32,19 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		System.out.println("주문금액");
 		return sqlSessionTemplate.selectOne("salesStatusDAO.getOrderPrice");
 	}
+	@Override
+	public List<SalesVO> getDaily() {
+		System.out.println("주문내역 일일로 yyyy-mm-dddd형태로 가져오기 (차트 x축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getdaily");
+	}
 
+	@Override
+	public List<SalesVO> getDailyCount() {
+		System.out.println("주문내역 일일로 매출건수 가져오기 (차트 y축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getdailyCount");
+	}
+// ======= ㄴmain =======--------------------------------------------------------
+	
 	@Override
 	public List<SalesVO> getMonthly() {
 		System.out.println("주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)");
@@ -74,5 +86,7 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		System.out.println("검색기간 날짜별 매출액");
 		return sqlSessionTemplate.selectList("salesStatusDAO.getSalesSearch", vo);
 	}
+
+
 
 }

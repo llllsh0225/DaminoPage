@@ -31,6 +31,19 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 	public int getOrderPrice() {
 		return salesStatusDAO.getOrderPrice();
 	}
+	
+	@Override
+	public List<SalesVO> getDaily() {
+		
+		return salesStatusDAO.getDaily();
+	}
+
+	@Override
+	public List<SalesVO> getDailyCount() {
+		
+		return salesStatusDAO.getDailyCount();
+	}
+// ======= ¤¤main =======--------------------------------------------------------	
 
 	@Override
 	public List<SalesVO> getMonthly() {
@@ -66,6 +79,8 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 	public List<SalesVO> getSalesSearch(SalesVO vo) {
 		return salesStatusDAO.getSalesSearch(vo);
 	}
+
+
 
 	
 

@@ -6,6 +6,9 @@ public interface SalesStatusService {
 	public int getCountM();
 	public int getCountF();
 	public int getOrderPrice();
+	public List<SalesVO> getDaily();
+	public List<SalesVO> getDailyCount();
+// ======= ¤¤main =======	
 	public List<SalesVO> getMonthly();
 	public List<SalesVO> getMonthlySales();
 	public List<SalesVO> getYearly();
