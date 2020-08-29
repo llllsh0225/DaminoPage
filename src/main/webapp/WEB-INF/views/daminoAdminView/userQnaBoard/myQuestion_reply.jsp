@@ -18,6 +18,10 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
+<style>
+#dataTable th { width: 20%; }
+
+</style>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -191,47 +195,50 @@
 						<i class="fas fa-table mr-1"></i> <strong>1:1문의 처리</strong>
 					</div>
 					<div class="card-body">
-						<h6>
-							<strong>※ 총 ${count }건의 문의글이 있습니다.</strong>
-						</h6>
-						<div class="for-margin-height-div"></div>
-						<form>
+						<form action="registQnaReply.admdo" method="post">
 							<div id="table-reponsive">
-								<div id="selectAll" style="display:inline-block;">
-									<input type="button" class="btn btn-delete" value="전체 문의글"
-										onClick="location.href='myquestionlist.admdo'" />
-								</div>
-								<div id="selectNotComplete" style="float:right;">
-									<input type="button" class="btn btn-primary" value="미처리 문의글" 
-										onClick="location.href='myquestionlist_notComplete.admdo'"/>
-								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
+								<input type="hidden" name="seq" value="${qna.seq }" />
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
-									<thead>
-										<tr>
-											<th style="width:25px;">No.</th>
-											<th>제목</th>
-											<th style="width:160px;">문의 카테고리</th>
-											<th style="width:70px;">해당 매장</th>
-											<th style="width:70px;">ID</th>
-											<th style="width:100px;">등록일</th>
-											<th style="width:100px;">처리상태</th>
-										</tr>
-									</thead>
 									<tbody>
-										<c:forEach var="qna" items="${boardList }">
 										<tr>
-											<td style="text-align:center;">${qna.seq }</td>
-											<td><a href="myquestion_reply.admdo?seq=${qna.seq }">${qna.title }</a></td>
-											<td style="text-align:center;">${qna.qnaType }</td>
-											<td style="text-align:center;">${qna.storeName }</td>
-											<td style="text-align:center;">${qna.writerId }</td>
-											<td style="text-align:center;"><fmt:formatDate value="${qna.regDate}" pattern="yyyy.MM.dd"/></td>
-											<td style="text-align:center;">${qna.result }</td>
+											<th>아이디</th><td>${qna.writerId }</td>
 										</tr>
-										</c:forEach>
+										<tr>
+											<th>연락처</th><td>${qna.phone }</td>
+										</tr>
+										<tr>
+											<th>이메일</th><td>${qna.email }</td>
+										</tr>
+										<tr>
+											<th>문의유형</th><td>${qna.qnaType }</td>
+										</tr>
+										<tr>
+											<th>해당매장</th><td>${qna.storeRegion },&nbsp;${qna.storeName }</td>
+										</tr>
+										<tr>
+											<th>제목</th><td>${qna.title }</td>
+										</tr>
+										<tr>
+											<th>문의내용</th>
+											<td>
+												<textarea cols="70" rows="10" readonly>${qna.content }</textarea>
+											</td>
+										</tr>
+										<tr>
+											<th>답변내용</th>
+											<td>
+												<textarea name="replyContent" cols="70" rows="10">${qna.replyContent }</textarea>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="text-align:center;">
+												<input type="submit" class="btn btn-primary" value="답변등록" />
+												<input type="reset" class="btn btn-delete" value="작성취소" />
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
