@@ -10,31 +10,13 @@
 	#qna_list_num {list-style:none; text-align:center; padding:15px; margin:20px;}
 </style>
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
-	<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
 	
-	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
-	<script type="text/javascript" src="/resources/js/selectbox.js"></script><!-- js 수정함. -->
-	<script type="text/javascript" src="/resources/js/d2CommonUtil.js?ver=1.5"></script>
-	<script type="text/javascript" src="/resources/js/Cookie.js"></script>
-	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/basket_w.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/asset/css/font.css"> 
-	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/pc/css/common.css"> 
-	
-	<!--메인에는 sub.css 호출하지않음-->
-	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/pc/css/sub.css">
-	<!--//메인에는 sub.css 호출하지않음  -->
-
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
-	
-	<script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
-	<script type="text/javascript" src="/resources/js/gcenmaps/gcenmap.js"></script><!--서브에는 main.js 호출하지않음-->
-	<!--//서브에는 main.js 호출하지않음-->
-	
-	<!-- 기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 -->
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	<style>
 	#card_add .pop_wrap{position:fixed;top:50%;width:490px;margin-left:-245px;margin-top:-35px;}
 	#card_add .pop_wrap .pop_content p{font-size:18px;color:#fff;text-align:center}
@@ -53,27 +35,60 @@
 	</style>
 
 </head>
+
+<script type="text/javascript">
+	function getStoreName(){
+		var storeRegion = $('#sel2').val();
+		var target = document.getElementById("sel3");
+		
+		$.ajax({
+			url: 'searchStore.smdo',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post',
+			dataType: 'json',   
+			data : JSON.stringify({
+				storeRegion : storeRegion,//searchStore 쿼리에서 필요한 값
+			}),
+			success: function(data) {
+					
+					if (data != null) {
+						for(var i=0; i<data.length; i++){
+							 target += ('<option value="'+ data[i] +'">'+
+									 data[i] + '</option>');
+							
+						}
+						
+						$('#sel3').html(target);
+					}else if (typeof callbackFunc === 'function') {
+				        callbackFunc();
+				    }else {
+						alert("다시 시도해주세요");
+					}
+					 
+				},
+				error: function() {
+					 alert('처리도중 오류가 발생했습니다.');
+				}
+			});
+	}
+</script>
 <body>
 
-	
 <div id="wrap">
-	<header id="header">
+		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo">
-						<i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-					
+
+					<div class="location active">
+						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
+					</div>
+
 					<c:choose>
-						<c:when test="${sessionScope.username eq null}">
+						<c:when test="${msg != 'login' }">
 							<!-- 비로그인 -->
-							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
-							</div>
-						</c:when>
-						<c:when test="${msg=='logout' }">
-							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
 							<div class="util-nav">
 								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 							</div>
@@ -81,76 +96,65 @@
 						<c:otherwise>
 							<!-- 로그인 -->
 							<div class="util-nav">
-								${user.username } 님 &nbsp; <a href="logout.do">로그아웃</a> <a
-									href="mylevel.do">나의정보</a> <a href="#" class="btn-cart"> <i
-									class="ico-cart"></i>
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
 								</a>
 							</div>
 						</c:otherwise>
 					</c:choose>
 				</div>
 			</div>
-				
-			<!-- main 1dep menu -->
+
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active">
-							<a href="/goods/list?dsp_ctgr=C0101"><span>메뉴</span></a>
-						</li>
-						<li>
-							<a href="/ecoupon/index"><span>e-쿠폰</span></a>
-						</li>
-						
-						<li>
-							<a href="/branch"><span>매장검색</span></a>
-						</li>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
-				
+
 				<div class="snb-wrap">
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="/event/mania">다미노 서비스</a>
+								<a href="mania.do">다미노 서비스</a>
 								<ul>
-									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li><a href="/goods/dominosMoment">다미노 모멘트</a></li>
-									<li><a href="/quickOrder/index">퀵 오더</a></li>
-									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a>
+								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">자주하는 질문</a></li>
-									<li><a href="/bbs/qnaForm">온라인 신문고</a></li>
+									<li><a
+										href="faqMain.do">자주하는
+											질문</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/company/contents/overview">회사소개</a>
+								<a href="overview.do">회사소개</a>
 								<ul>
-									<li><a href="/company/contents/overview">한국다미노피자</a></li>
-									<li><a href="/company/tvcfList">광고갤러리</a></li>
-									<li><a href="/company/contents/society">사회공헌활동</a></li>
-									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
-									<li><a href="/company/jobList?type=R">인재채용</a></li>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="/bbs/newsList?type=N">공지사항</a>
+							<a href="noticeList.do">공지사항</a>
 							<ul>
-								<li><a href="/bbs/newsList?type=N">다미노뉴스</a></li>
-								<li><a href="/bbs/newsList?type=P">보도자료</a></li>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- //main 1dep menu -->
-		</header><!-- //header -->
+		</header>
+		<!-- //header -->
 	<!-- container -->
 <div id="container">
 	<section id="content">
@@ -263,9 +267,10 @@
 				주문 취소 / 변경과 같은 긴급한 요청은 매장으로 연락 부탁드립니다.
 			</div>
 			<input type="hidden" name="pageNo" id="pageNo" value="1">
-			
+			<input type="hidden" name="writerId" id="writerId" value="${user.userid }" />
+			<input type="hidden" name="phone" id="phone" value="${user.phone }" />
+			<input type="hidden" name="email" id="email" value="${user.email }" />
 			<div class="step-wrap">
-			<input type="hidden" name="writerId" id="writerId">
 				<dl> 
 					<dt>아이디</dt>
 					<dd>${user.userid }</dd>
@@ -306,41 +311,39 @@
 						<dd class="form-group">
 							<div class="form-item">
 								<div class="select-type2">
-									<select id="sel2" name="storeRegion" >
-										<option value="0" <c:if test="${storeRegion == 0}"></c:if>>지역</option>
-										<option value="서울" <c:if test="${storeRegion == '서울'}"></c:if>>서울</option>
-										</select>
+									<select id="sel2" name="storeRegion" onChange="getStoreName();">
+										<option value="">구 선택</option>
+										<option value="강남구">강남구</option>
+										<option value="강동구">강동구</option>
+										<option value="강북구">강북구</option>
+										<option value="강서구">강서구</option>
+										<option value="관악구">관악구</option>
+										<option value="광진구">광진구</option>
+										<option value="구로구">구로구</option>
+										<option value="금천구">금천구</option>
+										<option value="노원구">노원구</option>
+										<option value="도봉구">도봉구</option>
+										<option value="동대문구">동대문구</option>
+										<option value="동작구">동작구</option>
+										<option value="마포구">마포구</option>
+										<option value="서대문구">서대문구</option>
+										<option value="서초구">서초구</option>
+										<option value="성동구">성동구</option>
+										<option value="성북구">성북구</option>
+										<option value="송파구">송파구</option>
+										<option value="양천구">양천구</option>
+										<option value="영등포구">영등포구</option>
+										<option value="용산구">용산구</option>
+										<option value="은평구">은평구</option>
+										<option value="종로구">종로구</option>
+										<option value="중구">중구</option>
+										<option value="중랑구">중랑구</option>
+									</select>
 								</div>
 							</div>
 										<div class="form-item">
 											<div class="select-type2">
 												<select id="sel3" name="storeName">
-													<option value="0" <c:if test="${storeName == 0}"></c:if>>구/군</option>
-													<option value="강남구" <c:if test="${storeName == '강남구'}"></c:if>>강남구</option>
-													<option value="강동구" <c:if test="${storeName == '강동구'}"></c:if>>강동구</option>
-													<option value="강북구" <c:if test="${storeName == '강북구'}"></c:if>>강북구</option>
-													<option value="강서구" <c:if test="${storeName == '강서구'}"></c:if>>강서구</option>
-													<option value="관악구" <c:if test="${storeName == '관악구'}"></c:if>>관악구</option>
-													<option value="광진구" <c:if test="${storeName == '광진구'}"></c:if>>광진구</option>
-													<option value="구로구" <c:if test="${storeName == '구로구'}"></c:if>>구로구</option>
-													<option value="금천구" <c:if test="${storeName == '금천구'}"></c:if>>금천구</option>
-													<option value="노원구" <c:if test="${storeName == '노원구'}"></c:if>>노원구</option>
-													<option value="도봉구" <c:if test="${storeName == '도봉구'}"></c:if>>도봉구</option>
-													<option value="동대문구" <c:if test="${storeName == '동대문구'}"></c:if>>동대문구</option>
-													<option value="동작구" <c:if test="${storeName == '동작구'}"></c:if>>동작구</option>
-													<option value="마포구" <c:if test="${storeName == '마포구'}"></c:if>>마포구</option>
-													<option value="서대문구" <c:if test="${storeName == '서대문구'}"></c:if>>서대문구</option>
-													<option value="서초구" <c:if test="${storeName == '서초구'}"></c:if>>서초구</option>
-													<option value="성동구" <c:if test="${storeName == '성동구'}"></c:if>>성동구</option>
-													<option value="성북구" <c:if test="${storeName == '성북구'}"></c:if>>성북구</option>
-													<option value="송파구" <c:if test="${storeName == '송파구'}"></c:if>>송파구</option>
-													<option value="양천구" <c:if test="${storeName == '양천구'}"></c:if>>양천구</option>
-													<option value="영등포구" <c:if test="${storeName == '영등포구'}"></c:if>>영등포구</option>
-													<option value="용산구" <c:if test="${storeName == '용산구'}"></c:if>>용산구</option>
-													<option value="은평구" <c:if test="${storeName == '은평구'}"></c:if>>은평구</option>
-													<option value="종로구" <c:if test="${storeName == '종로구'}"></c:if>>종로구</option>
-													<option value="중구" selected <c:if test="${storeName == '중구'}"></c:if>>중구</option>
-													<option value="중랑구" <c:if test="${storeName == '중랑구'}"></c:if>>중랑구</option>
 												</select>
 											</div>
 										</div>
@@ -383,7 +386,8 @@
 <input type="hidden" name="idx" id="idx" />
 <input type="hidden" name="no" id="no" />
 <input type="hidden" name="pageNo" id="pageNo" value="1">
-<input type="hidden" name="writerId" id="writerId" value="${pageMaker.writerId }">
+<!--  <input type="hidden" name="writerId" id="writerId" value="${pageMaker.writerId }">-->
+
 </form>
 
 <script type="text/javascript">
