@@ -7,9 +7,16 @@
 		SELECT orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status
 		FROM order_list
 	</select>
-	<select id="getMyOrderList" resultType="com.damino.web.user.orderlist.MyOrderListVO" parameterType="com.damino.web.user.orderlist.MyOrderListVO">
-		SELECT orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status
-		FROM order_list WHERE userid=#{userid} ORDER BY orderseq DESC
+	<select id="getMyOrderList" resultType="com.damino.web.user.orderlist.MyOrderListVO" parameterType="com.damino.web.user.board.paging.Paging">
+		<![CDATA[
+		SELECT * FROM (SELECT rownum rnum, orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status
+		FROM (SELECT * FROM order_list WHERE userid=#{writerId} ORDER BY orderseq DESC)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		]]>
+		
+		<!-- <![CDATA[
+		SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result
+		FROM (SELECT * FROM qnaboard WHERE writerId=#{writerId} ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		]]> -->
 	</select>
 	
 	<!-- 매장 관리자 주문내역 가져오는 쿼리 (세션에 매장명 가져가서 조건문에 넣어줘야함) -->

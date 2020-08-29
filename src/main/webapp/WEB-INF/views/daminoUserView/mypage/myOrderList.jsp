@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
@@ -20,6 +21,9 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 </head>
+<style type="text/css">
+	#qna_list_num {list-style:none; text-align:center; padding:15px; margin:20px;}
+</style>
 <body>
 	<div id="wrap">
 		<header id="header">
@@ -181,17 +185,23 @@
 										</li>
 									</c:forEach>
 								</ul>
-								<div class="pager-wrap">
-									<div class="pager-inner">
-										<a href='javascript:;' class='pager-first'><span
-											class="hidden">첫페이지</span></a><a href='javascript:;'
-											class='pager-prev'><span class="hidden">이전페이지</span></a><strong
-											class="pager-item active">1</strong><a href='javascript:;'
-											class='pager-next'
-											onclick='javascript:paging(1, 1); return false;'><span
-											class="hidden">다음페이지</span></a><a href='javascript:;'
-											class='pager-last'><span class="hidden">마지막페이지</span></a>
-									</div>
+								<div id="qna_list_num">
+									<ul>
+										<c:if test="${pageMaker.prev}">
+											<a href="myorderlist.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
+										</c:if>
+										<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
+										<c:if test="${pageMaker.startPage eq 0}">
+											<a href="myorderlist.do${pageMaker.makeQuery(i)}">[${i+1}]</a>
+										</c:if>
+										<c:if test="${pageMaker.startPage ne 0}">
+											<a href="myorderlist.do${pageMaker.makeQuery(i)}">[${i}]</a>
+										</c:if>
+										</c:forEach>
+										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+											<a href="myorderlist.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
+										</c:if>
+									</ul>
 								</div>
 							</div>
 						</article>

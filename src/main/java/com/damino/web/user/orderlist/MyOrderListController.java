@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.user.board.paging.PageMaker;
+import com.damino.web.user.board.paging.Paging;
+
 @Controller
 public class MyOrderListController {
 	@Autowired
 	private MyOrderListService myOrderListService;
 	
 	@RequestMapping("/myorderlist.do")
-	public ModelAndView getMyOrderList(ModelAndView mav, HttpSession session) {
+	public ModelAndView getMyOrderList(ModelAndView mav, HttpSession session, Paging pa) {
 		System.out.println("내 주문현황 열기");
 		String userid=(String)session.getAttribute("userid");
 		
@@ -25,8 +28,15 @@ public class MyOrderListController {
 		} else {
 			session.setAttribute("msg", "login");
 			
-			List<MyOrderListVO> myOrderList = myOrderListService.getMyOrderList(userid);
+			//페이징 처리를 위해 pa 변수에 세팅
+			pa.setWriterId(userid);
+			List<MyOrderListVO> myOrderList = myOrderListService.getMyOrderList(pa);
 			System.out.println(myOrderList);
+			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setPa(pa);
+			
+			mav.addObject("pageMaker", pageMaker);
 			mav.addObject("myOrderList", myOrderList);
 			mav.setViewName("/mypage/myOrderList");
 		}
