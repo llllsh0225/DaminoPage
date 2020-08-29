@@ -81,7 +81,6 @@ var doughPrice = 0;
 
 //사용자 선택 내용을 POST 방식으로 넘겨주기
 function saveBasket(){
-	alert("saveBasket 입니다");
 	
 	// 세션 정보 확인
 	var userid = $('#userid').val(); // 유저 아이디

@@ -105,9 +105,29 @@ public class GoodsListController {
 
 	/** 사용자 선택 - 사이드디시 상세화면 */
 	@RequestMapping("/side.do")
-	public ModelAndView goSideView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsSideVO vo) {
+	public ModelAndView goSideView(ModelAndView mav, HttpServletRequest request, @ModelAttribute GoodsSideVO vo, HttpSession session) {
 		System.out.println("사용자 선택 사이드디시 메뉴 열기");
 
+		String userid = (String) session.getAttribute("userid");
+
+		if (userid == null) {
+
+		} else {
+			session.setAttribute("msg", "login");
+		}
+		List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
+		// DB에 있는 구별자 조회
+		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
+		
+		if (basketList.size() >= sideList.size()) {
+			int gubunDB = goodsListService.getNextGubun(userid);
+			System.out.println("gubunDB : " + gubunDB);
+			mav.addObject("gubunDB", gubunDB);
+		}else if(sideList.size() > basketList.size()) {
+			int gubunDB = goodsListService.getNextGubunSide(userid);
+			System.out.println("gubunDB : " + gubunDB);
+			mav.addObject("gubunDB", gubunDB);
+		}
 		String s_code = request.getParameter("s_code");
 		System.out.println("s_code : " + s_code);
 		String s_name = request.getParameter("s_name");
@@ -146,9 +166,14 @@ public class GoodsListController {
 		}
 		List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
 		// DB에 있는 구별자 조회
-
-		if (basketList.size() != 0) {
+		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
+		
+		if (basketList.size() >= sideList.size()) {
 			int gubunDB = goodsListService.getNextGubun(userid);
+			System.out.println("gubunDB : " + gubunDB);
+			mav.addObject("gubunDB", gubunDB);
+		}else if(sideList.size() > basketList.size()) {
+			int gubunDB = goodsListService.getNextGubunSide(userid);
 			System.out.println("gubunDB : " + gubunDB);
 			mav.addObject("gubunDB", gubunDB);
 		}
@@ -315,7 +340,7 @@ public class GoodsListController {
 			@ModelAttribute UserBasketVO vo, HttpSession session) {
 		// String test = (String)param.get("gubunDB");
 		// System.out.println("test : " + test);
-		int gubunDB = (Integer) param.get("gubunDB");// DB 삽입 정보 구별을 위한 변수. 값이 증가되지 않아 증가된 값을 받아올 예정
+		int gubunDB = (Integer) param.get("gubunDB");// DB 삽입 정보 구별을 위한 변수
 		System.out.println("gubunDB : " + gubunDB);
 
 		String gubun = (String) param.get("gubun"); // 세션 정보 확인을 구한 변수
@@ -366,6 +391,70 @@ public class GoodsListController {
 				goodsListService.insertToppingBasket(vo);
 			}
 		}
+
+		// --------------사이드---------------------------------
+		String s_prices = (String) param.get("sidePrice");
+		String s_names = (String) param.get("sideName");
+		String s_counts = (String) param.get("sideCount");
+
+		String s_priceArr[] = s_prices.split(",");
+		String s_nameArr[] = s_names.split(",");
+		String s_countArr[] = s_counts.split(",");
+
+		if (!s_names.isEmpty()) {
+			for (int i = 0; i < s_nameArr.length; i++) {
+				vo.setUserid(userId);
+				vo.setS_name(s_nameArr[i]);
+				vo.setS_price(Integer.parseInt(s_priceArr[i]));
+				// vo.setT_image(t_image);
+				vo.setS_count(Integer.parseInt(s_countArr[i]));
+				vo.setGubun(gubunDB);
+
+				goodsListService.insertSideBasket(vo);
+			}
+		}
+
+		// ------------음료 및 기타-------------------------
+		String d_prices = (String) param.get("etcPrice");
+		String d_names = (String) param.get("etcName");
+		String d_counts = (String) param.get("etcCount");
+
+		String d_priceArr[] = d_prices.split(",");
+		String d_nameArr[] = d_names.split(",");
+		String d_countArr[] = d_counts.split(",");
+
+		if (!d_names.isEmpty()) {
+			for (int i = 0; i < d_nameArr.length; i++) {
+				vo.setUserid(userId);
+				vo.setD_name(d_nameArr[i]);
+				vo.setD_price(Integer.parseInt(d_priceArr[i]));
+				// vo.setT_image(t_image);
+				vo.setD_count(Integer.parseInt(d_countArr[i]));
+				vo.setGubun(gubunDB);
+
+				goodsListService.insertEtcBasket(vo);
+			}
+		}
+
+		if (gubun != null) {
+			return "success";
+		} else {
+			return "noSession";
+		}
+
+	}
+	@RequestMapping(value = "side_insert_basket.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String side_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request,
+			@ModelAttribute UserBasketVO vo, HttpSession session) {
+		// String test = (String)param.get("gubunDB");
+		// System.out.println("test : " + test);
+		int gubunDB = (Integer) param.get("gubunDB");// DB 삽입 정보 구별을 위한 변수
+		System.out.println("gubunDB : " + gubunDB);
+
+		String gubun = (String) param.get("gubun"); // 세션 정보 확인을 구한 변수
+
+		String userId = (String) param.get("userId");
 
 		// --------------사이드---------------------------------
 		String s_prices = (String) param.get("sidePrice");

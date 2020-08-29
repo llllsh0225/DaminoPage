@@ -234,5 +234,11 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("피자 수량 초기화");
 		goodsListDAO.defaultPizzaCnt(vo);		
 	}
+
+	@Override
+	public int getNextGubunSide(String userid) {
+		System.out.println("사이드메뉴 구분자 호출");
+		return goodsListDAO.getNextGubunSide(userid);
+	}
 	
 }

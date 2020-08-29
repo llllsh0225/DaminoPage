@@ -95,12 +95,8 @@ function sum(){
 		totalSideSum += Number(sideSumArr[i]) * Number(sideCntArr[i]);
 	}
 	
-	
-	//etcSum += Number($('.etcSum').val());
 	var sideAmt = Number(price) * Number($("#sideNomalSetNum").val());
 	//$(".total-price_sum").text(Number(totalEtcSum + totalSideSum) + "원");
-	//var etcAmt = Number
-	
 		
 	$(".total-price_sum").text(Number(sideAmt + totalEtcSum) + "원");
 
@@ -109,6 +105,120 @@ function sum(){
 	$(".total-price_sum").html(s_total);
 
 }
+function saveBasket(){
+	alert("saveBasket");
+	
+	// 세션 정보 확인
+	var userid = $('#userid').val(); // 유저 아이디
+	var gubun = sessionStorage.getItem("gubun"); // 주문 구분 (D=배달, W=포장)
+	var address = sessionStorage.getItem("address"); // 배달지 주소
+	var storename = sessionStorage.getItem("storename"); // 배달매장명
+	var storephone = sessionStorage.getItem("storephone"); // 배달매장 전화번호
+
+	sum();
+	
+	//사이드 정보 String에 넣기
+	var sideCounts = "";
+	if(sideCntArr != 0){
+		for (var i = 0; i < sideCntArr.length; i++) {
+			
+			if (i != sideCntArr.length-1) {
+				sideCntArr[i] += ",";
+			}
+			sideCounts += sideCntArr[i];
+		}
+	}
+	var sideName = "";
+	if(sideNameArr != 0){
+		for (var i = 0; i < sideNameArr.length; i++) {
+			
+			if (i != sideNameArr.length-1) {
+				sideNameArr[i] += ",";
+			}
+			sideName += sideNameArr[i];
+		}
+	}
+	var sidePrices="";
+	if(sidePriceArr != 0){
+		for (var i = 0; i < sidePriceArr.length; i++) {
+			 
+			if (i != sidePriceArr.length-1) {
+				sidePriceArr[i] += ",";
+			}
+			sidePrices += sidePriceArr[i];
+		}
+	}
+	//음료 정보 String에 넣기
+	var etcCounts = "";
+	if(etcCntArr != 0){
+		for (var i = 0; i < etcCntArr.length; i++) {
+			
+			if (i != etcCntArr.length-1) {
+				etcCntArr[i] += ",";
+			}
+			etcCounts += etcCntArr[i];
+		}
+	}
+	var etcName = "";
+	if(etcNameArr != 0){
+		for (var i = 0; i < etcNameArr.length; i++) {
+			if (i != etcNameArr.length-1) {
+				etcNameArr[i] += ",";
+			}
+			etcName += etcNameArr[i];
+		}
+	}
+	var etcPrices="";
+	if(etcPriceArr != 0){
+		for (var i = 0; i < etcPriceArr.length; i++) {
+			
+			if (i != etcPriceArr.length-1) {
+				etcPriceArr[i] += ",";
+			}
+			etcPrices += etcPriceArr[i];
+		}
+	}
+	var gubunDB = Number($('#gubunDB').val());
+	if(!gubunDB){
+		gubunDB = 0;
+	}
+	alert("gubunDB : " + gubunDB);
+	
+	 $.ajax({
+		url : 'side_insert_basket.do',
+		contentType : "application/json; charset=UTF-8;",
+		type: 'post', 
+		data : JSON.stringify({
+			userId : userid,
+			
+			sidePrice : sidePrices,
+			sideName : sideName,
+			sideCount : sideCounts,
+			
+			etcPrice : etcPrices, 
+			etcName : etcName,
+			etcCount : etcCounts,
+			
+			gubun : gubun,
+			gubunDB : gubunDB
+		}),
+		async : false,
+		success: function(data) {
+			
+				if(data == 'success'){
+					alert('success');
+					$("#myBasket").submit();
+				}else if(data == 'noSession'){
+					sessionStorage.setItem("addBasket", "Y"); // 장바구니 추가 여부
+					location.href = "getOrderPage.do?gubun=D";
+				}
+		},
+		error: function() {
+			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+		}
+	}) 
+	
+}//END saveBasket()
 
 function totalEtcValue(){
 	etcStr = ""; //사이드 정보 초기화
@@ -478,6 +588,9 @@ function minusNomalSide(){
 		<!-- container -->
 		<div id="container">
 			<section id="content">
+				<input type="hidden" id="userid" name="userid" value="${userid}" />
+				<input type="hidden" id="gubunDB" value="${gubunDB}" />
+			<form name="myBasket" id="myBasket" method="post" action="my_baskets.do" >
 				<div class="sub-type menu">
 					<div class="">
 						<!-- inner-box -->
@@ -534,8 +647,7 @@ function minusNomalSide(){
 											<!-- //대표 이미지 슬라이드 -->
 
 											<a href="javascript:UI.layerPopUp({selId:'#pop-zoom'});"
-												class="btn-detail"> <i class="ico-zoomImg"></i>제품상세 ·
-												원산지 <span class="hidden">상세버튼</span>
+												class="btn-detail"> <i class="ico-sch2"></i> <span class="hidden">상세버튼</span>
 											</a>
 										</div>
 										<div class="guide-box2">모든 사진은 이미지컷으로 실제 제품과 다를 수 있습니다.</div>
@@ -582,7 +694,7 @@ function minusNomalSide(){
 													<div class="title-type2">수량 선택</div>
 												</div>
 												<div class="quantity-box">
-													<button class="btn-minus side"
+													<button type="button" class="btn-minus side"
 														onclick="minusNomalSide()"></button>
 													<input class="setNum" id="sideNomalSetNum"
 														type="number" value="1" readonly> <input
@@ -593,7 +705,7 @@ function minusNomalSide(){
 														class="setPrice" type="hidden"
 														id="sidePrice"
 														value="${goodsDetailSide.s_price}">
-													<button class="btn-plus side"
+													<button type="button" class="btn-plus side"
 														onclick="plusNomalSide()"></button>
 												</div>
 											</div>
@@ -616,12 +728,11 @@ function minusNomalSide(){
 																	<div class="prd-cont">
 																		<div class="subject">${goodsDrinkEtcList.d_name}</div>
 																		<div class="price-box">
-																			<%-- <strong>${goodsDrinkEtcList.d_price}</strong> --%>
 																			<strong><fmt:formatNumber value="${goodsDrinkEtcList.d_price}" pattern="#,###" />원</strong>
 																		</div>
 
 																		<div class="quantity-box">
-																			<button class="btn-minus etc"
+																			<button type="button" class="btn-minus etc"
 																				onclick="minusDrinkEtc(${status.index})"></button>
 																			<input class="setNum" id="drinkSetNum${status.index}"
 																				type="number" value="0" readonly>
@@ -632,7 +743,7 @@ function minusNomalSide(){
 																				class="setPrice" type="hidden"
 																				id="etcPrice${status.index}"
 																				value="${goodsDrinkEtcList.d_price}">
-																			<button class="btn-plus etc"
+																			<button type="button" class="btn-plus etc"
 																				onclick="plusDrinkEtc(${status.index})"></button>
 																		</div>
 																	</div>
@@ -665,7 +776,7 @@ function minusNomalSide(){
 											<div id="login_order_btn">
 												<span>총 금액</span> <strong class="total-price_sum">0원</strong>
 												<div class="btn-wrap">
-													<a id="btn_basket" href="javascript:;" class="btn-type">
+													<a id="btn_basket" href="javascript:saveBasket();" class="btn-type">
 														주문하기 </a>
 												</div>
 											</div>
@@ -675,6 +786,7 @@ function minusNomalSide(){
 						</article>
 					</div>
 				</div>
+				</form>
 				<div class="pop-layer" id="pop-sidedish">
 					<div class="dim"></div>
 					<div class="pop-wrap">
@@ -695,19 +807,7 @@ function minusNomalSide(){
 									<li>내일예약가능</li>
 								</ul>
 							</div>
-							<!-- <div class="title-wrap v2">
-				<div class="title-type2">2. 사이드디시 천원 딜 유의사항</div>
-			</div>
-			<div class="pop-text">
-				<ul class="list-text-v2">
-					<li>해피위크 이용 고객 대상 할인 적용 가능 (비회원도 할인 적용 가능)</li>
-					<li>피자(M,L)에 한해 적용 가능(사이드디시, 음료, 추가토핑, 킹고피자, 싱글피자, 더블팩/트리플팩은 제외)</li>
-					<li>제휴 및 여타 할인과 중복 할인 불가 (단, 사이드디시 반값, 해피위크와도 적용 가능)</li>
-					<li>사이드디시 1천원딜은 피자 1판당 1회로 제한</li>
-					<li>일부 특수 매장(알펜시아점, 대명비발디파크점, 휘닉스 파크점, 잠실 야구장점, 롯데월드점) 제외</li>
-					<li>익일 예약 불가</li>
-				</ul>
-			</div> -->
+						
 						</div>
 						<a href="#" class="btn-close"></a>
 					</div>
@@ -968,78 +1068,8 @@ function minusNomalSide(){
 													class="btn-zoom"> <i class="ico-zoom"></i> <span
 													class="hidden">확대버튼</span>
 												</a>
-												<!-- //대표 이미지 슬라이드 -->
 											</div>
-											<div class="guide-box2">모든 사진은 이미지컷으로 실제 제품과 다를 수 있습니다.
 											</div>
-										</div>
-										<div class="detail-wrap">
-											<div class="select-box">
-												<div class="step-wrap step-detail">
-													<div class="title-wrap">
-														<div class="title-type">메인 토핑</div>
-													</div>
-													<div class="js_toggle_box detail_topping"></div>
-												</div>
-												<div class="step-wrap step-detail">
-													<div class="title-wrap">
-														<div class="title-type">원산지</div>
-													</div>
-													<div class="js_toggle_box detail_origin"></div>
-												</div>
-											</div>
-											<div class="btn-wrap2">
-												<a href="javascript:UI.layerPopUp({selId:'#pop-allergy'})"
-													class="btn-type2-brd">영양성분 및 알레르기 유발성분</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="select-box">
-										<div class="step-wrap step-detail">
-											<div class="title-wrap close">
-												<div class="title-type">제품 상세보기</div>
-												<a href="#" class="btn-toggle-close"> <span
-													class="hidden">열기</span>
-												</a>
-											</div>
-											<div class="js_toggle_box detail_contents close ">
-												<div class="detail-box">
-													<div class="title-box">
-														<h3 class="title">
-															매콤달콤한 다미노 특제 소스와 핫치킨의 화끈한 만남,<br />매운맛 매니아들을 위한 취향저격 피자
-														</h3>
-														<div class="guide-box3">어린이 및 매운맛에 민감한 분들에게 다소 매울 수
-															있습니다.</div>
-													</div>
-													<div class="img-box">
-														<img src="" alt="블랙타이거 슈림프1" class="img-zoom"
-															data-elem="pinchzoomer" />
-													</div>
-												</div>
-											</div>
-										</div>
-
-										<div class="step-wrap step-detail">
-											<div class="title-wrap close">
-												<div class="title-type">메인 토핑</div>
-												<a href="#" class="btn-toggle-close"> <span
-													class="hidden">열기</span>
-												</a>
-											</div>
-											<div class="js_toggle_box close detail_topping"></div>
-										</div>
-										<div class="step-wrap step-detail">
-											<div class="title-wrap close">
-												<div class="title-type">원산지</div>
-												<a href="#" class="btn-toggle-close "> <span
-													class="hidden">열기</span>
-												</a>
-											</div>
-											<div class="js_toggle_box close detail_origin"></div>
-										</div>
-
-										<!-- 사이드 메뉴  시 제거 부분  -->
 									</div>
 									<!-- 구매하기 버튼 -->
 									<!-- //구매하기 버튼 -->
@@ -1053,23 +1083,10 @@ function minusNomalSide(){
 
 
 				<!--팝업-확대 이미지 -->
-				<!-- <div class="pop-layer pop-full" id="pop-zoom">
-	<div class="pop-wrap">
-		<div class="pop-title-wrap">
-			<h2 class="pop-title">확대</h2>
-		</div>
-		<div class="pop-content">
-			<div class="zoom-wrap">
-				<img src="https://cdn.dominos.co.kr/admin/upload/goods/20190529_PrpQRpBP.jpg" alt="블랙타이거 슈림프1" class="img-zoom" />
-			</div>
-		</div>
-		<a href="#" class="btn-close"></a>
-	</div>
-</div> -->
 
 				<div class="pop-layer" id="pop-zoom">
 					<div class="dim"></div>
-					<div class="pop-wrap">
+					<div class="pop-wrap" style="top:0px; left:20%;">
 						<div class="pop-title-wrap">
 							<h2 class="pop-title">확대</h2>
 						</div>
@@ -1077,34 +1094,22 @@ function minusNomalSide(){
 							<div class="zoom-wrap">
 								<div class="menu-zoom-wrap">
 									<div class="menu-big" id="zoom">
-										<img
-											src="https://cdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-											alt="블랙타이거 슈림프1" class="img-zoom-big" />
+									<img
+										src="<c:url value= '/resources/images/admin/goods/${goodsDetailSide.s_image}' />"
+										alt="${goodsDetailSide.s_name}" class="img-zoom-big" />
+							</div>
 									</div>
 								</div>
 								<div class="menu-thumb">
 									<div class="item subimg1 active">
-										<a href="#"> <img
-											src="https://cdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-											alt="블랙타이거 슈림프1" class="img-zoom-big1" />
-										</a>
-									</div>
-									<div class="item subimg2">
-										<a href="#"> <img
-											src="https://cdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-											alt="블랙타이거 슈림프2" class="img-zoom-big2" />
-										</a>
-									</div>
-									<div class="item subimg3">
-										<a href="#"> <img
-											src="https://cdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-											alt="블랙타이거 슈림프3" class="img-zoom-big3" />
+										<a href="#"> 
 										</a>
 									</div>
 								</div>
 							</div>
+							<a class="btn-close" style="cursor:pointer;"></a>
 						</div>
-						<a href="#" class="btn-close"></a>
+						
 					</div>
 				</div>
 				<!--//팝업-확대 이미지 -->

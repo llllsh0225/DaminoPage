@@ -77,21 +77,19 @@ function changeCheckMem(idx, seq){
 			seq : seq,
 			checkMem : checkMem
 		}),
-		async : false,
+		//async : false,
 		success: function(data) {
 			if(data == 'success'){
 				alert('success');
 				location.reload(true);
 			}
-		}
-		/* error: function() {
+		},
+		 error: function() {
 			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-		} */
+		} 
 	})
 }
-
 function marketMemDel(seq){
-	
 	if (confirm("정말로 삭제하시겠습니까?")){
 	 $.ajax({
 			url : 'marketMemDel.admdo',
@@ -100,16 +98,16 @@ function marketMemDel(seq){
 			data : JSON.stringify({
 				seq : seq
 			}),
-			async : false,
+			//async : false,
 			success: function(data) {
 				if(data == 'success'){
 					alert('success');
 					location.reload(true);
 				}
-			}
-			/* error: function() {
+			},
+			 error: function() {
 				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-			} */
+			} 
 		})
 	}else{
 		return;

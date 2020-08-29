@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -143,10 +144,14 @@ public class AdminMemberLoginController {
 			 return mav;
 		 }
 	}
+	
 	@RequestMapping("/changeCheckMem.admdo")
-	public String changeCheckMem(ModelAndView mav, @RequestBody Map<String, Object> param, MarketAdminMemberVO vo, HttpSession session) {
+	@ResponseBody
+	public String changeCheckMem(@RequestBody Map<String, Object> param, MarketAdminMemberVO vo, HttpSession session) {
 		System.out.println("매장관리자 승인상태 변경");
-		 int seq = (Integer) param.get("seq");
+		
+		int seq = (Integer) param.get("seq");
+		
 		 String checkMem = (String) param.get("checkMem");
 		 
 		 vo.setCheckMem(checkMem);
@@ -158,15 +163,17 @@ public class AdminMemberLoginController {
 		 
 	}
 	@RequestMapping("/marketMemDel.admdo")
-	public String marketMemDel(ModelAndView mav, @RequestBody Map<String, Object> param, MarketAdminMemberVO vo, HttpSession session) {
+	@ResponseBody
+	public String marketMemDel(@RequestBody Map<String, Object> param, MarketAdminMemberVO vo, HttpSession session) {
 		System.out.println("매장관리자 삭제");
-		 int seq = (Integer) param.get("seq");
 		 
+		int seq = (Integer) param.get("seq");
 		 vo.setSeq(seq);
 		 
 		 adminMemberLoginService.marketMemDel(vo);
 			 
 		 return "success";
+		 
 		 
 	}
 	@RequestMapping("/marketEdit.admdo")

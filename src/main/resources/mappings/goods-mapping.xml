@@ -192,6 +192,11 @@
 		WHERE userid = #{userid}
 	</select>
 	
+	<select id="getNextGubunSide" parameterType="String" resultType="Integer">
+		SELECT MAX(gubun) + 1 FROM usersSide
+		WHERE userid = #{userid}
+	</select>
+	
 	<!-- 장바구니 모든 정보 삭제-피자 -->
 	<delete id="allDeleteP" parameterType="com.damino.web.user.goods.UserBasketVO">
 		DELETE FROM usersPizza
