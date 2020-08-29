@@ -25,6 +25,14 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
+<script>
+$(document).ready(function(){
+	$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
+		$('.pop-layer').hide();
+	});
+	
+});
+</script>
 
 </head>
 <body>
@@ -356,7 +364,7 @@
 
 		<div class="pop-layer" id="pop-zoom">
 			<div class="dim"></div>
-			<div class="pop-wrap">
+			<div class="pop-wrap" style="top:10%; left:20%;">
 				<div class="pop-title-wrap">
 					<h2 class="pop-title">확대</h2>
 				</div>
@@ -364,29 +372,20 @@
 					<div class="zoom-wrap">
 						<div class="menu-zoom-wrap">
 							<div class="menu-big" id="zoom">
-								<img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프1" class="img-zoom-big" />
+								<c:forEach var="goodsSideList" items="${goodsSideList}">
+									<img
+										src="<c:url value= '/resources/images/admin/goods/${goodsSideList.s_image}' />"
+										alt="${goodsSideList.s_name}" class="img-zoom-big" />
+								</c:forEach>
 							</div>
 						</div>
 						<div class="menu-thumb">
 							<div class="item subimg1 active">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프1" class="img-zoom-big1" />
-								</a>
-							</div>
-							<div class="item subimg2">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프2" class="img-zoom-big2" />
-								</a>
-							</div>
-							<div class="item subimg3">
-								<a href="#"> <img
-									src="../../newcdn.dominos.co.kr/admin/upload/goods/20200120_ZlC0dSzU.jpg"
-									alt="블랙타이거 슈림프3" class="img-zoom-big3" />
-								</a>
+								<c:forEach var="goodsSideList" items="${goodsSideList}">
+									<img
+										src="<c:url value= '/resources/images/admin/goods/${goodsSideList.s_image}' />"
+										alt="${goodsSideList.s_name}" class="img-zoom-big" />
+								</c:forEach>
 							</div>
 						</div>
 					</div>
