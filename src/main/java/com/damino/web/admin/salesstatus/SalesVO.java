@@ -24,6 +24,8 @@ public class SalesVO {
 	private Date startdate = new Date();
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date enddate = new Date();
+	private int rowprice;
+	private int highprice;
 	
 	public String getOrderseq() {
 		return orderseq;
@@ -109,13 +111,6 @@ public class SalesVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	@Override
-	public String toString() {
-		return "SalesVO [orderseq=" + orderseq + ", userid=" + userid + ", username=" + username + ", orderdate="
-				+ orderdate + ", deliverytime=" + deliverytime + ", address=" + address + ", tel=" + tel + ", menus="
-				+ menus + ", price=" + price + ", take=" + take + ", store=" + store + ", paytool=" + paytool
-				+ ", paystatus=" + paystatus + ", status=" + status + "]";
-	}
 	public Date getStartdate() {
 		return startdate;
 	}
@@ -128,6 +123,26 @@ public class SalesVO {
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 	}
+	public int getRowprice() {
+		return rowprice;
+	}
+	public void setRowprice(int rowprice) {
+		this.rowprice = rowprice;
+	}
+	public int getHighprice() {
+		return highprice;
+	}
+	public void setHighprice(int highprice) {
+		this.highprice = highprice;
+	}
+	@Override
+	public String toString() {
+		return "SalesVO [orderseq=" + orderseq + ", userid=" + userid + ", username=" + username + ", orderdate="
+				+ orderdate + ", deliverytime=" + deliverytime + ", address=" + address + ", tel=" + tel + ", menus="
+				+ menus + ", price=" + price + ", take=" + take + ", store=" + store + ", paytool=" + paytool
+				+ ", paystatus=" + paystatus + ", status=" + status + "]";
+	}
+	
 
 	
 }

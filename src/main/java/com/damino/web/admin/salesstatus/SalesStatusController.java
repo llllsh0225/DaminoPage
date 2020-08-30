@@ -68,11 +68,15 @@ public class SalesStatusController {
 		List<SalesVO> salesSearch = salesStatusService.getSalesSearch(vo);
 		System.out.println(salesSearch);//검색기간 일별로 매출액 리스트 저장
 		
+		List<SalesVO> countSearch = salesStatusService.getCountSearch(vo);
+		System.out.println(countSearch);
+		
 		mav.addObject("startdate", vo.getStartdate());//세션
 		mav.addObject("enddate", vo.getEnddate());//세션
 		mav.addObject("salesList", salesList);
 		mav.addObject("dateSearch", dateSearch);
 		mav.addObject("salesSearch", salesSearch);
+		mav.addObject("countSearch", countSearch);
 		mav.setViewName("/store_sales/salesStatus");
 		return mav;
 	}

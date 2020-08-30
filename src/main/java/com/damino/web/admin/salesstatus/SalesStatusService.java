@@ -16,4 +16,5 @@ public interface SalesStatusService {
 	public List<SalesVO> getSalesList(SalesVO vo);
 	public List<SalesVO> getDateSearch(SalesVO vo);
 	public List<SalesVO> getSalesSearch(SalesVO vo);
+	public List<SalesVO> getCountSearch(SalesVO vo);
 }

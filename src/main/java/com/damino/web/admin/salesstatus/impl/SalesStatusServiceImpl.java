@@ -80,6 +80,11 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 		return salesStatusDAO.getSalesSearch(vo);
 	}
 
+	@Override
+	public List<SalesVO> getCountSearch(SalesVO vo) {
+		return salesStatusDAO.getCountSearch(vo);
+	}
+
 
 
 	
