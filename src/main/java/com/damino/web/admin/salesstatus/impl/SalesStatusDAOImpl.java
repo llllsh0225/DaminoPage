@@ -87,6 +87,12 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		return sqlSessionTemplate.selectList("salesStatusDAO.getSalesSearch", vo);
 	}
 
+	@Override
+	public List<SalesVO> getCountSearch(SalesVO vo) {
+		System.out.println("검색기간 날짜별 주문건수");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getCountSearch", vo);
+	}
+
 
 
 }
