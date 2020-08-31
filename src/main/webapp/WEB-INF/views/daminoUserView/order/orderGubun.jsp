@@ -34,7 +34,35 @@
 	src="<c:url value='/resources/js/user/slick.min.js' />"></script>
 <!-- 다음 주소 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>	
 <script>
 	var basketChk = sessionStorage.getItem("addBasket"); // 장바구니 추가 후 넘어온 상태인지 확인
 
@@ -438,7 +466,7 @@
 				<article class="sel-order-area">
 					<div class="menu-nav-wrap">
 						<div class="menu-nav js_tab">
-						<input type="hidden" id="userid" value="${userid }" /> 
+						<input type="hidden" id="userid" value="${sessionScope.userid}" />
 						<input type="hidden" id="gubun" value="${param.gubun }"> <!-- 주문타입 구분 -->
 						<input type="hidden" id="addrVal" value="" /> <!-- 상세주소 앞까지 저장 -->
 						<input type="hidden" id="guVal" value="" /> <!-- 구 이름 저장 -->

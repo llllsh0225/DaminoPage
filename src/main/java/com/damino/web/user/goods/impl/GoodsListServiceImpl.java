@@ -240,5 +240,6 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("사이드메뉴 구분자 호출");
 		return goodsListDAO.getNextGubunSide(userid);
 	}
+
 	
 }

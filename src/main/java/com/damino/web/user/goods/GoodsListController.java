@@ -222,8 +222,7 @@ public class GoodsListController {
 	@RequestMapping(value = "my_basket.do")
 	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
-		//세션 만료 시간 연장
-		//request.getSession().setMaxInactiveInterval(300000);
+		
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
@@ -289,9 +288,7 @@ public class GoodsListController {
 	@ResponseBody
 	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
-		//세션 만료 시간 연장
-		//request.getSession().setMaxInactiveInterval(300000);
-		
+			
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
 
@@ -300,7 +297,6 @@ public class GoodsListController {
 			mav.setViewName("/login/login");
 			return mav;
 		} else {
-					
 			session.setAttribute("msg", "login");
 			vo.setUserid(userid);
 			
@@ -333,7 +329,7 @@ public class GoodsListController {
 			return mav;
 		}
 	}
-
+		
 	@RequestMapping(value = "insert_basket.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String go_InsertBasket(@RequestBody Map<String, Object> param, HttpServletRequest request,

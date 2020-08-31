@@ -29,7 +29,6 @@
 <script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
 <script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
-<script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
 
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
@@ -41,7 +40,8 @@
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+	
+	
 <!-- 다음 주소 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script language=JavaScript>
@@ -86,9 +86,36 @@
 </c:forEach>
 
 </script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 <script language=JavaScript>
-
-
 //총 합계 구하기
 	
 		//토핑 합계 계산
@@ -1216,6 +1243,7 @@ function toppingDelete(index) {
 									</h3>
 								</div>
 								<input type="hidden" id="userid" value="${userid}" />
+								<input type="hidden" id="inactive" value="${inactive}" />
 								<input type="hidden" id="couponName" value="${couponName }" />
 								<input type="hidden" id="addressDB" value="${addressDB }" />
 								<input type="hidden" id="storenameDB" value="${storenameDB }" />
