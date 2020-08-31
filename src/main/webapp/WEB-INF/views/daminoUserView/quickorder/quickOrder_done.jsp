@@ -18,7 +18,35 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-	
+	<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 	
 
 </head>
@@ -31,7 +59,7 @@
 						<i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-					
+			<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<c:choose>
 						<c:when test="${msg != 'login' }">
 							<!-- 비로그인 -->

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@SessionAttributes({"user","username", "userid", "userlevel", "phone"})
+@SessionAttributes({"user","username", "userid", "userlevel", "phone", "inactive"})
 public class LoginController {
 	@Autowired
 	private LoginService loginService;
@@ -52,6 +52,19 @@ public class LoginController {
 				System.out.println("회원 이름 : " + login.getUsername());//sql select로 userid, userpasswd, username 3개만 가져옴
 				System.out.println("회원 등급 : " + login.getUserlevel());
 				//session.setAttribute("username", login.getUsername());//session 객체에 username이라는 키에 로그인한 회원의 이름을 값으로 저장
+				
+				/*
+				 * java.util.Date date = new java.util.Date(session.getCreationTime());
+				 * java.util.Date date2 = new java.util.Date(session.getLastAccessedTime());
+				 * System.out.println("세션 생성된 시간 : " + date);
+				 * System.out.println("세션이 마지막으로 요청한 시간 : " + date2);
+				 * 
+				 * int inactive = session.getMaxInactiveInterval() / 60;
+				 * System.out.println("세션 유효 시간 : " + inactive);
+				 */
+				int inactive = session.getMaxInactiveInterval();
+				System.out.println("세션 유효 시간 : " + inactive);
+				
 				mav.addObject("username", login.getUsername());
 				mav.addObject("userid", login.getUserid()); // session 객체에 userid라는 키에 로그인한 회원의 아이디를 값으로 저장
 				mav.addObject("userlevel", login.getUserlevel()); // session 객체에 userlevel 저장
