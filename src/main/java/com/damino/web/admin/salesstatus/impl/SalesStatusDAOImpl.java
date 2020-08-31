@@ -15,6 +15,7 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	// ======= ㄴmain =======--------------------------------------------------------
 	@Override
 	public int getCountM() {
 		System.out.println("[chart count 남성유저");
@@ -43,8 +44,8 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		System.out.println("주문내역 일일로 매출건수 가져오기 (차트 y축)");
 		return sqlSessionTemplate.selectList("salesStatusDAO.getdailyCount");
 	}
-// ======= ㄴmain =======--------------------------------------------------------
-	
+
+	//홈페이지 관리자 매출현황
 	@Override
 	public List<SalesVO> getMonthly() {
 		System.out.println("주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)");
@@ -91,6 +92,32 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 	public List<SalesVO> getCountSearch(SalesVO vo) {
 		System.out.println("검색기간 날짜별 주문건수");
 		return sqlSessionTemplate.selectList("salesStatusDAO.getCountSearch", vo);
+	}
+	
+	
+	// 매장 관리자 매출현황
+	@Override
+	public List<SalesVO> getStoreMonthly(SalesVO vo) {
+		System.out.println("매장 관리자 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreMonthly", vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreMonthlySales(SalesVO vo) {
+		System.out.println("매장 관리자 주문내역이 있는 최근 12개월 월별매출액 (차트 y축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreMonthlySales", vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreYearly(SalesVO vo) {
+		System.out.println("매장 관리자 주문내역이 있는 최근 5년 yyyy-mm형태로 가져오기(차트 x축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreYearly", vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreYearlySales(SalesVO vo) {
+		System.out.println("매장 관리자 주문내역이 있는 최근 5년 월별매출액 (차트 y축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreYearlySales", vo);
 	}
 
 

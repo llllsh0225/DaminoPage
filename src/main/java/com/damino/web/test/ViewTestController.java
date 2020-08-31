@@ -736,15 +736,7 @@ public class ViewTestController {
 	//order 폴더 시작 ---------
 		
 	//statistics 폴더 시작 ---------
-	@RequestMapping("/statistics_list.smdo")
-	public ModelAndView getStatistics_listPage() {
-		System.out.println("매출 현황 페이지 열기");
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/statistics/statistics_list");
-		
-		return mav;
-	}
 	//store 폴더 시작 ---------
 	@RequestMapping("/storeManagerInfo.smdo")
 	public ModelAndView getStoreManagerInfoPage() {

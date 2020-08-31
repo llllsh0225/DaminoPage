@@ -14,7 +14,8 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 
 	@Autowired
 	private SalesStatusDAO salesStatusDAO;
-	
+
+	// ======= main =======--------------------------------------------------------	
 	@Override
 	public int getCountM() {
 		System.out.println("## Chart 남성 Service..");
@@ -43,8 +44,9 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 		
 		return salesStatusDAO.getDailyCount();
 	}
-// ======= ㄴmain =======--------------------------------------------------------	
 
+
+	// 홈페이지 관리자 매출현황
 	@Override
 	public List<SalesVO> getMonthly() {
 		return salesStatusDAO.getMonthly();
@@ -84,8 +86,30 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 	public List<SalesVO> getCountSearch(SalesVO vo) {
 		return salesStatusDAO.getCountSearch(vo);
 	}
+	
+	
+	// 매장 관리자 매출현황
+	@Override
+	public List<SalesVO> getStoreMonthly(SalesVO vo) {
+		return salesStatusDAO.getStoreMonthly(vo);
+	}
 
+	@Override
+	public List<SalesVO> getStoreMonthlySales(SalesVO vo) {
+		return salesStatusDAO.getStoreMonthlySales(vo);
+	}
 
+	@Override
+	public List<SalesVO> getStoreYearly(SalesVO vo) {
+		return salesStatusDAO.getStoreYearly(vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreYearlySales(SalesVO vo) {
+		return salesStatusDAO.getStoreYearlySales(vo);
+	}
+
+	
 
 	
 

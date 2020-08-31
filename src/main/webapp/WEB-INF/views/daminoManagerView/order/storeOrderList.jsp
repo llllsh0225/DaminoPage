@@ -96,8 +96,7 @@ function updateOrderList(idx){
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
-			<nav class="sb-sidenav accordion sb-sidenav-dark"
-				id="sidenavAccordion">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
@@ -112,11 +111,9 @@ function updateOrderList(idx){
 						</a>
 						<div class="collapse" id="orderPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionPages">
+							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 								<a class="nav-link collapsed" href="orderList.smdo"> 주문목록 </a>
-								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색
-								</a>
+								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색 </a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -142,7 +139,7 @@ function updateOrderList(idx){
 						<div class="collapse" id="statisticPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="statistics_list.smdo">매출통계</a>
+								<a class="nav-link" href="statistics_list.smdo?store=${storename }">매출통계</a>
 							</nav>
 						</div>
 					</div>
@@ -153,7 +150,6 @@ function updateOrderList(idx){
 				</div>
 			</nav>
 		</div>
-
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="card mb-4">
@@ -165,15 +161,12 @@ function updateOrderList(idx){
 								$("#layoutSidenav_content").load(
 										window.location
 												+ '#layoutSidenav_content');
-								document
-										.getElementById('layoutSidenav_content').style.marginLeft = "-225px";
-								document
-										.getElementById('layoutSidenav_content').style.marginTop = "-56px";
+								document.getElementById('layoutSidenav_content').style.marginLeft = "-225px";
+								document.getElementById('layoutSidenav_content').style.marginTop = "-56px";
 							}
 						</script>
-						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							onClick="div_refresh()"
-							style="margin-left: 15px; cursor: pointer;">
+						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20" 
+							onClick="div_refresh()" style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<form name="updateForm" action="updateOrderList.smdo" method="post">
 					<div class="card-body">
