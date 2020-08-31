@@ -3,19 +3,22 @@ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSyste
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Area Chart Example
-var ctx = document.getElementById("AreaChart_month");
-var monthlyArr = new Array();
+var ctx = document.getElementById("Store_AreaChart_month");
+var storeMonthlyArr = new Array();
 for(var i=0; i<12; i++){
-	monthlyArr[i]= $("#monthly"+i).val();
+	storeMonthlyArr[i]= $("#storeMonthly"+i).val();
 }
-var monthlySalesArr = new Array();
+var storeMonthlySalesArr = new Array();
 for(var i=0; i<12; i++){
-	monthlySalesArr[i]= Number($("#monthlySales"+i).val());
+	storeMonthlySalesArr[i]= Number($("#storeMonthlySales"+i).val());
+}
+function tt(x){
+	x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: monthlyArr.reverse(),//x축
+    labels: storeMonthlyArr.reverse(),//x축
     datasets: [{
       label: "매출액",
       lineTension: 0.3,
@@ -28,7 +31,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "red", //선택되었으때 점 색 변
       pointHitRadius: 50,
       pointBorderWidth: 2,
-      data: monthlySalesArr.reverse(),//y축
+      data: storeMonthlySalesArr.reverse(),//y축
     }],
   },
   options: {
@@ -47,8 +50,8 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: Math.max.apply(0,monthlySalesArr),
-          maxTicksLimit: 8
+          max: Math.max.apply(0,storeMonthlySalesArr),
+          maxTicksLimit: 6
         },
         gridLines: {
           color: "rgba(0, 0, 0, .125)",

@@ -39,5 +39,11 @@ public class FaqServiceImpl implements FaqService {
 		faqDAO.deleteFaq(vo);
 	}
 
+	//权其捞瘤包府磊 main侩
+	@Override
+	public List<FaqVO> faqMain() {
+		return faqDAO.faqMain();
+	}
+
 
 }

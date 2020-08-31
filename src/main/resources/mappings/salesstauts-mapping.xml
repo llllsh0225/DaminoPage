@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="salesStatusDAO">
-
+	<!-- //main -->	
 	<select id="getCountMale" resultType="Integer">
 		select count(*) from usermember where sex='M'
 	</select>
@@ -33,24 +33,21 @@
 			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') DESC
 		]]>
 	</select>
-<!-- //main -->	
+
 	
+	<!-- 홈페이지 관리자 매출 -->
 	<select id="getMonthly" resultType="String">
-		<![CDATA[
-			SELECT TO_CHAR(orderdate,'yyyy-mm') 
-			FROM order_list 
-			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
-			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
-		]]>
+		SELECT TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list 
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
 	</select>
 	
 	<select id="getMonthlySales" resultType="String">
-		<![CDATA[
-			SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
-			FROM order_list 
-			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
-			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
-		]]>
+		SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list 
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
 	</select>
 	
 	<select id="getYearly" resultType="String">
@@ -75,25 +72,135 @@
 		<![CDATA[
 			SELECT *
 			FROM order_list 
-			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate}
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
 		]]>
+		<choose>
+			<when test="rowprice != 0 and highprice != 0">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != 0 and highprice == 0">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == 0 and highprice != 0">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+		<if test="take != 'none'">
+			AND take=#{take}
+		</if>
+		<if test="store != 'none'">
+			AND store=#{store}
+		</if>
 	</select>
 	
 	<select id="getSalesSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
 		<![CDATA[
 			SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
-			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate}
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+		]]>
+		<choose>
+			<when test="rowprice != '' and highprice != ''">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != '' and highprice == ''">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == '' and highprice != ''">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+			<if test="take != 'none'">
+				AND take=#{take}
+			</if>
+			<if test="store != 'none'">
+				AND store=#{store}
+			</if>
 			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
 			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') desc
-		]]>
 	</select>
 	
 	<select id="getDateSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
 		<![CDATA[
 			SELECT TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
-			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate}
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+		]]>
+		<choose>
+			<when test="rowprice != '' and highprice != ''">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != '' and highprice == ''">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == '' and highprice != ''">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+			<if test="take != 'none'">
+				AND take=#{take}
+			</if>
+			<if test="store != 'none'">
+				AND store=#{store}
+			</if>
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') 
+	</select>
+	
+	<select id="getCountSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT COUNT(TO_CHAR(orderdate,'yyyy-mm-dd')), TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+		]]>
+		<choose>
+			<when test="rowprice != '' and highprice != ''">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != '' and highprice == ''">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == '' and highprice != ''">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+			<if test="take != 'none'">
+				AND take=#{take}
+			</if>
+			<if test="store != 'none'">
+				AND store=#{store}
+			</if>
 			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
 			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') desc
+	</select>
+	
+	<!-- 매장관리자 매출 -->
+	<select id="getStoreMonthly" resultType="String">
+		SELECT TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list WHERE store=#{store}
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getStoreMonthlySales" resultType="String">
+		SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list WHERE store=#{store}
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getStoreYearly" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
+	<select id="getStoreYearlySales" resultType="String">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
 		]]>
 	</select>
 </mapper>

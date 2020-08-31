@@ -17,7 +17,7 @@ for(var i=0; i<searchCount; i++){
 var myLineChart2 = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: dateSearchArr.reverse(),//x축
+    labels: dateSearchArr,//x축
     datasets: [{
       label: "매출액",
       lineTension: 0.3,
@@ -50,7 +50,7 @@ var myLineChart2 = new Chart(ctx, {
         ticks: {
           min: 0,
           max: Math.max.apply(0,salesSearchArr),//데이터 최대값을 배열에서 가장 큰 값으로함
-          maxTicksLimit: 10
+          maxTicksLimit: 8
         },
         gridLines: {
           color: "rgba(0, 0, 0, .125)",
