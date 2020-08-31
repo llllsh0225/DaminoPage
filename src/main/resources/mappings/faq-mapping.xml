@@ -54,4 +54,10 @@
 		parameterType="com.damino.web.admin.faq.FaqVO">
 		DELETE FROM faq WHERE seq = #{seq}
 	</delete>
+	
+	<select id="getFaqMain" resultType="com.damino.web.admin.faq.FaqVO">
+		<![CDATA[
+			SELECT * FROM (SELECT rownum rnum, seq, title, faq_type FROM (SELECT * FROM faq ORDER BY seq desc))Where rownum <=5
+		]]>
+	</select>
 </mapper>

@@ -45,9 +45,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.getBoard(vo);
 	}
 
+	//权其捞瘤包府磊 main侩
 	@Override
 	public List<BoardVO> BoardListMain() {
-		System.out.println(" BoardListmain [service] ");
+		System.out.println("BoardListmain [service] ");
 		return boardDAO.BoardListMain();
 	}
 

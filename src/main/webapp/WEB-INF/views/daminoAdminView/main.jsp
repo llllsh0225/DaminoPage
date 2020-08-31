@@ -125,7 +125,8 @@
 			if (today.getFullYear() == date.getFullYear()
 					&& today.getMonth() == date.getMonth()
 					&& i == date.getDate()) {
-				cell.bgColor = "#BCF1B1"; //오늘날짜배경색
+				cell.bgColor = "#ffe566"; //오늘날짜배경색
+				
 			}
 		}
 
@@ -312,7 +313,7 @@
 					</div>
 					<div class="row">
 						<!-- 월별 차트 -->
-						<div class="col-xl-6">
+						<div class="col-xl-8">
 							<div class="card mb-4">
 								<div class="card-header bg-dark text-white">
 									<i class="fas fa-chart-area mr-1"></i> <b>일일 주문건수</b>
@@ -350,35 +351,37 @@
 							</div>
 						</div>
 						<!-- 달력 -->
-						<div class="col-xl-6">
+						<div class="col-xl-4">
 							<div class="card mb-4">
 								<div class="card-header bg-dark text-white">
 									<i class="fas fa-chart-area mr-1"></i> 달력
 								</div>
-								<table align="center" id="calendar">
-									<tr>
-										<td>
-											<font size=1%; color="#B3B6B3">
-												<label onclick="beforem()" id="before"></label>
-											</font>
-										</td>
-										<td colspan="5" align="center" id="yearmonth"></td>
-										<td>
-											<font size=1%; color="#B3B6B3">
-												<label onclick="nextm()" id="next"></label>
-											</font>
-										</td>
-									</tr>
-									<tr>
-										<td align="center"><font color="#FF9090">일</font></td>
-										<td align="center">월</td>
-										<td align="center">화</td>
-										<td align="center">수</td>
-										<td align="center">목</td>
-										<td align="center">금</td>
-										<td align="center"><font color=#7ED5E4>토</font></td>
-									</tr>
-								</table>
+								<div style="margin-top: 17%; margin-bottom: 17%; margin-right: 5px; margin-left: 5px;">
+									<table align="center" id="calendar">
+										<tr>
+											<td>
+												<font size=1%; color="#B3B6B3">
+													<label onclick="beforem()" id="before"></label>
+												</font>
+											</td>
+											<td colspan="5" align="center" id="yearmonth"></td>
+											<td>
+												<font size=1%; color="#B3B6B3">
+													<label onclick="nextm()" id="next"></label>
+												</font>
+											</td>
+										</tr>
+										<tr>
+											<td align="center"><font color="#FF9090">일</font></td>
+											<td align="center">월</td>
+											<td align="center">화</td>
+											<td align="center">수</td>
+											<td align="center">목</td>
+											<td align="center">금</td>
+											<td align="center"><font color=#7ED5E4>토</font></td>
+										</tr>
+									</table>
+								</div>
 								<script type="text/javascript">
 									build();
 								</script>							
@@ -408,21 +411,18 @@
 						<!-- 주문내역 -->
 						<div class="col-xl-4">
 							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">주문내역</div>
+								<div class="card-header bg-dark text-white"><b>최근 Q&A 목록</b></div>
 								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[2020-07]</b></a></span>
-											<span><a href="#" class="text-muted"> - 7월 주문내역 -</a></span>
-										</li>
-										<li class="small"><span><a href="#"><b>[2020-06]</b></a></span>
-											<span><a href="#" class="text-muted">- 6월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-05]</b></a></span>
-											<span><a href="#" class="text-muted">- 5월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-04]</b></a></span>
-											<span><a href="#" class="text-muted">- 4월 주문내역 -</a></span></li>
-									</ul>
+										<c:forEach var="faq" items="${faqMain }">
+											<ul style="margin-bottom: 0px;">
+												<li>
+													<span><a href="#"><b>[${faq.faq_type}]</b></a></span>
+													<span><a href="qna_view.admdo?seq=${faq.seq }" class="text-muted">&nbsp;${faq.title }</a></span>
+												</li>
+											</ul>
+										</c:forEach>
 									<div align="right">
-										<a href="orderList.admdo" class=small>주문내역로 이동</a>
+										<a href="qna_list.admdo" class=small>Q&A 내역로 이동</a>
 									</div>
 								</div>
 							</div>
@@ -434,6 +434,9 @@
 								<div class="card-body">
 									<div>
 										<span><h1>${orderCount}</h1></span> <span><h3 class=small>건수</h3></span>
+									</div>
+									<div align="right">
+										<a href="orderList.admdo" class=small>주문내역로 이동</a>
 									</div>
 								</div>
 							</div>
