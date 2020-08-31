@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="salesStatusDAO">
-
+	<!-- //main -->	
 	<select id="getCountMale" resultType="Integer">
 		select count(*) from usermember where sex='M'
 	</select>
@@ -33,24 +33,21 @@
 			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') DESC
 		]]>
 	</select>
-<!-- //main -->	
+
 	
+	<!-- 홈페이지 관리자 매출 -->
 	<select id="getMonthly" resultType="String">
-		<![CDATA[
-			SELECT TO_CHAR(orderdate,'yyyy-mm') 
-			FROM order_list 
-			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
-			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
-		]]>
+		SELECT TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list 
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
 	</select>
 	
 	<select id="getMonthlySales" resultType="String">
-		<![CDATA[
-			SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
-			FROM order_list 
-			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
-			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
-		]]>
+		SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list 
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
 	</select>
 	
 	<select id="getYearly" resultType="String">
@@ -172,5 +169,38 @@
 			</if>
 			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
 			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') desc
+	</select>
+	
+	<!-- 매장관리자 매출 -->
+	<select id="getStoreMonthly" resultType="String">
+		SELECT TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list WHERE store=#{store}
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getStoreMonthlySales" resultType="String">
+		SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list WHERE store=#{store}
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getStoreYearly" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
+	<select id="getStoreYearlySales" resultType="String">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
 	</select>
 </mapper>

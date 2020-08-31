@@ -85,8 +85,7 @@ $(document).ready(function() {
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
-			<nav class="sb-sidenav accordion sb-sidenav-dark"
-				id="sidenavAccordion">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
@@ -129,7 +128,7 @@ $(document).ready(function() {
 						<div class="collapse" id="statisticPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="statistics_list.smdo">매출통계</a>
+								<a class="nav-link" href="statistics_list.smdo?store=${storename }">매출통계</a>
 							</nav>
 						</div>
 					</div>
