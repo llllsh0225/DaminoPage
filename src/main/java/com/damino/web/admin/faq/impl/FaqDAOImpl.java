@@ -39,5 +39,12 @@ public class FaqDAOImpl implements FaqDAO {
 		sqlSessionTemplate.delete("FaqDAO.deleteFaq", vo);
 	}
 
+	/* main 홈페이지용 */
+	@Override
+	public List<FaqVO> faqMain() {
+		System.out.println(" FaqMain [dao]");
+		return sqlSessionTemplate.selectList("FaqDAO.getFaqMain");
+	}
+
 
 }
