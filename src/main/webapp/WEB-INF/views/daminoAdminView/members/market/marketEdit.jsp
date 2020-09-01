@@ -17,6 +17,56 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
+<script>
+function btnConfirms(seq){
+	//비밀번호 공백 확인
+	if($("#managerPasswd").val() == ""){
+		alert("비밀번호를 입력해주세요");
+		//return;
+	 return false;
+	}
+	//비밀번호 확인 공백 확인
+	if($("#ConfirmPassword").val() == ""){
+		alert("비밀번호 확인을 입력해주세요");
+	//	return;
+	 return false;
+	}
+	//비밀번호와 비밀번호 확인 값 일치여부 확인
+	if($("#managerPasswd").val() != $("#ConfirmPassword").val()){
+		alert("비밀번호 일치여부를 확인해주세요");
+	//	return;
+	 return false;
+	}
+	
+	var managerPasswd = $("#managerPasswd").val();
+	
+	alert("managerPasswd : " + managerPasswd);
+	 //변경 정보 컨트롤러로 전송
+	 $.ajax({
+		url : 'changeManagerPasswd.admdo',
+		contentType : "application/json; charset=UTF-8;",
+		type : 'post',
+		data : JSON.stringify({
+			seq : seq,
+			managerPasswd : managerPasswd
+		}),
+		success : function(data) {
+			if (data == 'success') {
+				location.reload(true);
+				alert("성공");
+			} else {
+				alert('실패');
+				return;
+			}
+		},
+		error : function() {
+			alert('처리도중 오류가 발생했습니다.');
+		}
+
+	})  
+	
+}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -195,10 +245,10 @@
 									<form>
 										<div class="form-row">
 											<div class="col-md-6">
-												<div class="form-group">
+												<div class="form-group" style="width:150px">
 													<label class="small mb-1" for="inputFirstName">점포명
 													</label> <input class="form-control py-4" id="inputFirstName"
-														type="text" placeholder="" />
+														type="text" placeholder="${marketMemView.storeName}" disabled="disabled" />
 												</div>
 											</div>
 											<div class="col-md-6"></div>
@@ -208,7 +258,7 @@
 												<div class="form-group">
 													<label class="small mb-1" for="inputPassword">아이디</label> <input
 														class="form-control py-4" id="inputPassword" type="text"
-														placeholder="" />
+														placeholder="${marketMemView.managerId}" disabled="disabled" />
 												</div>
 											</div>
 											<div class="col-md-6">
@@ -218,14 +268,23 @@
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputPassword">비밀번호</label>
-													<input class="form-control py-4" id="inputPassword"
+													<label class="small mb-1" for="managerPasswd">비밀번호</label>
+													<input class="form-control py-4" id="managerPasswd"
+														type="password" placeholder="" />
+												</div>
+											</div>
+										</div>
+										<div class="form-row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="small mb-1" for="ConfirmPassword">비밀번호 확인</label>
+													<input class="form-control py-4" id="ConfirmPassword"
 														type="password" placeholder="" />
 												</div>
 											</div>
 										</div>
 										<div class="form-group mt-4 mb-0">
-											<a class="btn btn-primary btn-block" href="login.admdo">변경정보
+											<a class="btn btn-primary btn-block" href="javascript:btnConfirms(${marketMemView.seq})">변경정보
 												저장</a>
 										</div>
 									</form>

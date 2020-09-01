@@ -15,5 +15,11 @@ public interface AdminMemberLoginService {
 	
 	//매장관리자 삭제
 	public void marketMemDel(MarketAdminMemberVO vo);
+	
+	 //매장관리자 정보 조회
+	public MarketAdminMemberVO marketMemView(MarketAdminMemberVO vo);
+	
+	//매장관리자 비밀번호 변경
+	public void changeManagerPasswd(MarketAdminMemberVO vo);
 		
 }

@@ -39,4 +39,14 @@ public class AdminMemberLoginDAOImpl implements AdminMemberLoginDAO {
 		sqlSessionTemplate.delete("AdminMemberLoginDAO.marketMemDel", vo);
 	}
 
+	@Override
+	public MarketAdminMemberVO marketMemView(MarketAdminMemberVO vo) {
+		return sqlSessionTemplate.selectOne("AdminMemberLoginDAO.marketMemView", vo);
+	}
+
+	@Override
+	public void changeManagerPasswd(MarketAdminMemberVO vo) {
+		sqlSessionTemplate.update("AdminMemberLoginDAO.changeManagerPasswd", vo);
+	}
+
 }

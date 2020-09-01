@@ -42,4 +42,16 @@ public class AdminMemberLoginServiceImpl implements AdminMemberLoginService {
 		adminloginDAO.marketMemDel(vo);
 	}
 
+	@Override
+	public MarketAdminMemberVO marketMemView(MarketAdminMemberVO vo) {
+		System.out.println("매장관리자 정보 조회");
+		return adminloginDAO.marketMemView(vo);
+	}
+
+	@Override
+	public void changeManagerPasswd(MarketAdminMemberVO vo) {
+		System.out.println("매장관리자 비밀번호 변경");
+		adminloginDAO.changeManagerPasswd(vo);
+	}
+
 }
