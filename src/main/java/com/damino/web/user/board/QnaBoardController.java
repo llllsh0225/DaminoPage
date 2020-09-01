@@ -159,12 +159,13 @@ public class QnaBoardController {
 		
 		QnaBoardVO qna = qnaBoardService.myQuestion(vo);
 		
-		mail.setTo("romantico_u@naver.com");
-		mail.setFrom("daminopizzaadm@gmail.com");
-		mail.setContent(qna.getContent() + " < 답변내용 > " + vo.getReplyContent());
+		String username = qnaBoardService.getQnaWriterName(qna);
 		
-		System.out.println(mail.getTo());
-		System.out.println(mail.getContent());
+		mail.setTo(qna.getEmail()); // 문의고객 메일주소
+		mail.setFrom("daminopizzaadm@gmail.com"); // 다미노피자 메일주소
+		mail.setSubject(username + "님의 문의사항에 대한 답변입니다.");
+		mail.setContent("[문의내용]\r\n\r\n" + qna.getContent() + "\r\n\r\n==================================\r\n\r\n[답변내용]\r\n\r\n" + qna.getReplyContent());
+		
 		
 		qnaBoardService.registQnaReply(vo);
 		mailService.sendMail(mail);

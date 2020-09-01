@@ -83,6 +83,12 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 		return sqlSessionTemplate.selectOne("BoardDAO.getQnaCountAdm");
 	}
 
+	@Override
+	public String getQnaWriterName(QnaBoardVO vo) {
+		return sqlSessionTemplate.selectOne("BoardDAO.getQnaWriterName", vo);
+		
+	}
+
 	
 
 }

@@ -74,6 +74,11 @@
 		WHERE seq = #{seq}
 	</update>
 			
+	<select id="getQnaWriterName" parameterType="com.damino.web.user.board.QnaBoardVO" resultType="String">
+		SELECT username FROM usermember
+		WHERE userid = #{writerId}
+	</select>
+	
 	<select id="myQuestion" resultType="com.damino.web.user.board.QnaBoardVO">
 		SELECT * FROM qnaboard WHERE seq=#{seq}
 	</select>
