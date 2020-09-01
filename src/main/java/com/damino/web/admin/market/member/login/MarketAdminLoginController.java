@@ -32,9 +32,9 @@ public class MarketAdminLoginController {
 	public ModelAndView getAdminMainPage(HttpSession session, ModelAndView mav, SalesVO vo, MarketAdminVO vo2) {
 		String managerid = (String) session.getAttribute("managerid");
 		System.out.println("관리자 화면의 메인페이지 열기");
-		
-		String getStorename = marketAdminLoginService.getStorename(vo2);
-		System.out.println(getStorename);
+//		
+//		String getStorename = marketAdminLoginService.getStorename(vo2);
+//		System.out.println(getStorename);
 		
 		if (managerid == null) {
 			System.out.println(managerid);
@@ -50,7 +50,7 @@ public class MarketAdminLoginController {
 //			mav.addObject("storeMonthlySales", storeMonthlySales);
 			
 			
-			mav.addObject("getStorename", getStorename);
+//			mav.addObject("getStorename", getStorename);
 			mav.setViewName("/members/main");
 			return mav;
 		}
@@ -87,6 +87,16 @@ public class MarketAdminLoginController {
 				mav.addObject("storeregion", managerLogin.getStoreregion());
 				mav.addObject("storename", managerLogin.getStorename());
 //				mav.addObject("getStorename", getStorename);
+				
+				List<SalesVO> storeMonthly = salesStatusService.getStoreMonthly(vo2);// 해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
+				System.out.println("해당 매장 주문내역이 있는 최근 12개월 : " + storeMonthly);
+
+				List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo2);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
+				System.out.println("해당 매장 주문내역이 있는 최근 12개월 매출액 :" + storeMonthlySales);
+				
+				mav.addObject("storeMonthly", storeMonthly);
+				mav.addObject("storeMonthlySales", storeMonthlySales);
+				
 				System.out.println(managerLogin.getStorename());
 				session.setAttribute("msg", "managerLogin");
 				mav.setViewName("/members/main");
