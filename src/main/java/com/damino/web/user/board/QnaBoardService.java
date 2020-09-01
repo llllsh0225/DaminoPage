@@ -23,4 +23,6 @@ public interface QnaBoardService {
 	//어드민 접속 - 답변처리
 	public void registQnaReply(QnaBoardVO vo);
 	
+	// 문의한 유저의 이름 받아오기
+	public String getQnaWriterName(QnaBoardVO vo);
 }

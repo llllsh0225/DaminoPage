@@ -77,5 +77,11 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		return qnaBoardDAO.getQnaCountAdm();
 	}
 
+	@Override
+	public String getQnaWriterName(QnaBoardVO vo) {
+		System.out.println("QnaBoardServiceImpl getQnaWriterName(QnaBoardVO vo)");
+		return qnaBoardDAO.getQnaWriterName(vo);
+	}
+
 
 }

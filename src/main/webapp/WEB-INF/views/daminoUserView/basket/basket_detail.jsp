@@ -1024,6 +1024,12 @@ function toppingDelete(index) {
 					</div>
 
 					<c:choose>
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
 						<c:when test="${msg != 'login' }">
 							<!-- 비로그인 -->
 							<div class="util-nav">
