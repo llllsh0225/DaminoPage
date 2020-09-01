@@ -108,4 +108,20 @@
       <property name="order" value="0"/>
     </bean>
     
+    <!-- G-Mail을 이용한 메일발송을 위한 설정 -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+    	<property name="port" value="587" /> 
+    	<property name="username" value="daminopizzaadm@gmail.com" /> 
+    	<property name="password" value="jabuueqezexgtsiv" /> 
+    	<property name="javaMailProperties"> 
+    		<props>
+    			<prop key="mail.smtp.host">smtp.gmail.com</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+    		</props> 
+    	</property> 
+    </bean>
+
+    
 </beans>
