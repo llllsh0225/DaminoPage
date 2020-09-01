@@ -27,4 +27,16 @@
 		DELETE FROM marketadminmember WHERE seq = #{seq}
 	</delete>
 	
+	<!-- 매장관리자 정보 조회 -->
+	<select id="marketMemView"  resultType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		SELECT * FROM marketadminmember WHERE seq = #{seq}
+	</select>
+	
+	<!-- 매장관리자 비밀번호 변경 -->
+	<update id="changeManagerPasswd" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		UPDATE marketadminmember SET
+		managerPasswd = #{managerPasswd}
+		WHERE seq = #{seq}
+	</update>
+	
 </mapper>
