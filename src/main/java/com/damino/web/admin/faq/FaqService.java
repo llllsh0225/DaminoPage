@@ -8,4 +8,6 @@ public interface FaqService {
 	public void insertFaq(FaqVO vo); // faq 등록
 	public void updateFaq(FaqVO vo); // faq 수정
 	public void deleteFaq(FaqVO vo); // faq 삭제
+	
+	public List<FaqVO> faqMain(); //홈페이지관리자 main용
 }

@@ -33,7 +33,35 @@
 	
 	/* <!-- //기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 --> */
 	</style>
-
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 </head>
 
 <script type="text/javascript">
@@ -266,6 +294,7 @@
 			<div class="guide-box3">
 				주문 취소 / 변경과 같은 긴급한 요청은 매장으로 연락 부탁드립니다.
 			</div>
+			<input type="hidden" id="userid" value="${sessionScope.userid}" />
 			<input type="hidden" name="pageNo" id="pageNo" value="1">
 			<input type="hidden" name="writerId" id="writerId" value="${user.userid }" />
 			<input type="hidden" name="phone" id="phone" value="${user.phone }" />

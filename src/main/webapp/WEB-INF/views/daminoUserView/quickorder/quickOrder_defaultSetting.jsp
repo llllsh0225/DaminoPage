@@ -22,7 +22,35 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	<!-- 다음 주소 api -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	
+	<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 	<script type="text/javascript">
 	var toppingCnt = 0; // 선택 토핑 전체 카운트
 	var toppingStr = ""; // 선택 토핑 정보를 저장할 문자열

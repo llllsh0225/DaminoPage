@@ -177,7 +177,8 @@ public class AdminMemberLoginController {
 		 
 	}
 	@RequestMapping("/marketEdit.admdo")
-	   public ModelAndView getAdminMarketEditPage(ModelAndView mav, HttpSession session) {
+	 public ModelAndView getAdminMarketEditPage(MarketAdminMemberVO vo, HttpServletRequest request,
+			  			ModelAndView mav, HttpSession session) {
 		 String adminid = (String)session.getAttribute("adminid");
 		  System.out.println("관리자 화면의 메인페이지 열기");
 		  
@@ -187,13 +188,39 @@ public class AdminMemberLoginController {
 	    	  return mav;
 	      }else {
 	    	  
+	    	 int seq = Integer.parseInt(request.getParameter("seq"));
+	    	 //int seq = 
+	 		 vo.setSeq(seq);  
 	    	  
-	    	  
-	    	  mav.setViewName("/members/market/marketEdit");
-	    	  return mav;
+	 		 //조회 서비스 호출
+	 		//adminMemberLoginService.marketMemView(vo);
+	 		MarketAdminMemberVO marketMemView = adminMemberLoginService.marketMemView(vo);
+			 
+			mav.addObject("marketMemView", marketMemView);
+			 
+	    	mav.setViewName("/members/market/marketEdit");
+	    	return mav;
 	      }
-	}	     
+	}
 	
+	@RequestMapping("/changeManagerPasswd.admdo")
+	@ResponseBody
+	public String changeManagerPasswd(@RequestBody Map<String, Object> param, MarketAdminMemberVO vo, HttpSession session) {
+		System.out.println("매장관리자 비밀번호 변경");
+		 
+		int seq = (Integer) param.get("seq");
+		String pwd = (String) param.get("managerPasswd");
+		String managerPasswd = pwdEncoder.encode(pwd);
+		
+		vo.setSeq(seq);
+		vo.setManagerPasswd(managerPasswd);
+		
+		adminMemberLoginService.changeManagerPasswd(vo);
+			 
+		 return "success";
+		 
+		 
+	}
 	
 	
 	
