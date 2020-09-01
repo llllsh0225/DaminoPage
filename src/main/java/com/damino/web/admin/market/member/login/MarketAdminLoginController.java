@@ -34,7 +34,7 @@ public class MarketAdminLoginController {
 		System.out.println("관리자 화면의 메인페이지 열기");
 		
 		String getStorename = marketAdminLoginService.getStorename(vo2);
-		System.out.println(getStorename);
+//		System.out.println(getStorename);
 		
 		
 		if (managerid == null) {
@@ -52,7 +52,7 @@ public class MarketAdminLoginController {
 			mav.addObject("storeMonthly", storeMonthly);
 			mav.addObject("storeMonthlySales", storeMonthlySales);
 			
-			mav.addObject("getStorename", getStorename);
+//			mav.addObject("getStorename", getStorename);
 			mav.setViewName("/members/main");
 			return mav;
 		}
@@ -89,10 +89,15 @@ public class MarketAdminLoginController {
 			if (checkMem.equals("Y")) {
 				
 				vo2.setStore(getStorename);
+				
 				List<SalesVO> storeMonthly = salesStatusService.getStoreMonthly(vo2);// 해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
 				System.out.println("해당 매장 주문내역이 있는 최근 12개월 : " + storeMonthly);
+
+				List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo2);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
+				System.out.println("해당 매장 주문내역이 있는 최근 12개월 매출액 :" + storeMonthlySales);
 				
-				List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo2);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)	
+				mav.addObject("storeMonthly", storeMonthly);
+				mav.addObject("storeMonthlySales", storeMonthlySales);
 				
 				mav.addObject("storeMonthlySales", storeMonthlySales);
 				mav.addObject("storeMonthly", storeMonthly);

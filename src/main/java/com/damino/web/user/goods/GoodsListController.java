@@ -168,11 +168,11 @@ public class GoodsListController {
 		// DB에 있는 구별자 조회
 		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
 		
-		if (basketList.size() >= sideList.size()) {
+		if (basketList.size() >= sideList.size() && !basketList.isEmpty()) {
 			int gubunDB = goodsListService.getNextGubun(userid);
 			System.out.println("gubunDB : " + gubunDB);
 			mav.addObject("gubunDB", gubunDB);
-		}else if(sideList.size() > basketList.size()) {
+		}else if(sideList.size() > basketList.size() && !sideList.isEmpty()) {
 			int gubunDB = goodsListService.getNextGubunSide(userid);
 			System.out.println("gubunDB : " + gubunDB);
 			mav.addObject("gubunDB", gubunDB);
