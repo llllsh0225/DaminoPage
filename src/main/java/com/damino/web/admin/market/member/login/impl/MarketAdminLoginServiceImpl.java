@@ -26,4 +26,10 @@ public class MarketAdminLoginServiceImpl implements MarketAdminLoginService{
 		marketAdminDAO.updateMember(vo);
 	}
 
+
+	@Override
+	public String getStorename(MarketAdminVO vo) {
+		return marketAdminDAO.getStorename(vo);
+	}
+
 }

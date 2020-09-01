@@ -103,12 +103,17 @@
 					<div class="row">
 						<div class="col-xl-6">
 							<div class="card mb-4">
-								<div class="card-header" onClick="location.href='statistics_list.smdo'"
-									style="cursor: pointer">
+								<div class="card-header" onClick="location.href='statistics_list.smdo'" style="cursor: pointer">
 									<i class="fas fa-chart-area mr-1"></i> 이번달 매출액
 								</div>
 								<div class="card-body">
-									<canvas id="myAreaChart" width="100%" height="40"></canvas>
+									<c:forEach var="storeMonthly" items="${storeMonthly}" varStatus="status">
+										<input type="hidden" id="storeMonthly${status.index }" value="${storeMonthly}"/>
+									</c:forEach>
+									<c:forEach var="storeMonthlySales" items="${storeMonthlySales }" varStatus="status">
+										<input type="hidden" id="storeMonthlySales${status.index }" value="${storeMonthlySales }"/>
+									</c:forEach>
+									<canvas id="Store_AreaChart_month" width="100%" height="40"></canvas>
 								</div>
 							</div>
 						</div>
@@ -140,8 +145,7 @@
 						</div>
 						<div class="col-xl-6">
 							<div class="card mb-4">
-								<div class="card-header" onClick="location.href='statistics_list.smdo'"
-									style="cursor: pointer">
+								<div class="card-header" onClick="location.href='statistics_list.smdo'" style="cursor: pointer">
 									<i class="fas fa-chart-bar mr-1"></i> 최근 6개월 주문건수
 								</div>
 								<div class="card-body">
@@ -156,8 +160,7 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
 											<th>날짜</th>
@@ -168,41 +171,7 @@
 											<th>쿠폰</th>
 										</tr>
 									</thead>
-									<tfoot>
-										<tr>
-											<th>합계</th>
-											<th></th>
-											<th></th>
-											<th></th>
-											<th></th>
-											<th></th>
-										</tr>
-									</tfoot>
 									<tbody>
-										<tr>
-											<td>2020-05</td>
-											<td>8,000,000</td>
-											<td>300</td>
-											<td>200</td>
-											<td>70</td>
-											<td>30</td>
-										</tr>
-										<tr>
-											<td>2020-04</td>
-											<td>8,000,000</td>
-											<td>300</td>
-											<td>200</td>
-											<td>70</td>
-											<td>30</td>
-										</tr>
-										<tr>
-											<td>2020-03</td>
-											<td>8,000,000</td>
-											<td>300</td>
-											<td>200</td>
-											<td>70</td>
-											<td>30</td>
-										</tr>
 										<tr>
 											<td>2020-05</td>
 											<td>8,000,000</td>
@@ -238,7 +207,7 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-demo.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-area-month-store.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-bar-demo.js'/>"></script>
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
