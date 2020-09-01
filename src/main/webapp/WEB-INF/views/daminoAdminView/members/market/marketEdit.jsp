@@ -40,7 +40,6 @@ function btnConfirms(seq){
 	
 	var managerPasswd = $("#managerPasswd").val();
 	
-	alert("managerPasswd : " + managerPasswd);
 	 //변경 정보 컨트롤러로 전송
 	 $.ajax({
 		url : 'changeManagerPasswd.admdo',
