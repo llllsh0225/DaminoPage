@@ -94,7 +94,13 @@ function expireSession(){
 					</a>
 					<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<c:choose>
-						<c:when test="${msg != 'login' }">
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
 								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
@@ -104,7 +110,7 @@ function expireSession(){
 							<!-- 로그인 -->
 							<div class="util-nav">
 								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a> <a href="#" class="btn-cart">
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
 									<i class="ico-cart"></i>
 								</a>
 							</div>

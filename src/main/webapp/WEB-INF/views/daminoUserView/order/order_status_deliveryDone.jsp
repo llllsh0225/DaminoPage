@@ -62,16 +62,29 @@ function expireSession(){
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 					<input type="hidden" id="userid" value="${sessionScope.userid}" />
-					<div class="util-nav">
-						<!-- and AUTH.memberYn eq 'Y' -->
-								<a href="main.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
+					<c:choose>
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
 									<i class="ico-cart"></i>
-									<span class="hidden ">장바구니</span>
-									<strong class="cart_count"></strong> <!-- count -->
 								</a>
-					</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 				
