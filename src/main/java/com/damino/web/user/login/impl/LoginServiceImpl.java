@@ -18,6 +18,11 @@ public class LoginServiceImpl implements LoginService {
 		return userDAO.login(vo);
 	}
 
+	@Override
+	public void insertGuestInfo(UserVO vo) {
+		userDAO.insertGuestInfo(vo);
+	}
+
 	
 
 }
