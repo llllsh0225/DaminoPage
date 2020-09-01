@@ -41,6 +41,12 @@
 		SET userpasswd=#{userpasswd}, birthday=#{birthday}, cyear=#{cyear}, phone=#{phone}, email=#{email}, receive_sms=#{receive_sms}, receive_email=#{receive_email}, receive_dm=#{receive_dm}
 		WHERE userid=#{userid}
 	</update>
+	
+	<!-- 비회원 로그인 시 usermember 테이블에 비회원정보 insert -->
+	<insert id="insertGuestInfo" parameterType="com.damino.web.user.login.UserVO">
+		INSERT INTO usermember (userid, username, phone)
+		VALUES (#{userid}, #{username}, #{phone})
+	</insert>
 </mapper>
 
 

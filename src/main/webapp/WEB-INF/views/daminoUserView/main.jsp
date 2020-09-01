@@ -115,7 +115,13 @@ function expireSession(){
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 					<c:choose>
-						<c:when test="${msg != 'login' }">
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
 								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
@@ -230,7 +236,7 @@ function expireSession(){
 					</article>
 					<article class="article grade-area">
 						<div class="inner-box">
-						<c:if test="${msg != 'login' }"> <!-- 비로그인 시 -->
+						<c:if test="${msg != 'login' || guest == 'guest' }"> <!-- 비로그인 시 -->
 							<div class="grade-info">
 								<div class="login-before">
 									<div class="title-wrap">
@@ -256,7 +262,7 @@ function expireSession(){
 								</div>
 							</div>
 						</c:if>
-						<c:if test="${msg == 'login' }"> <!-- 로그인 시 -->
+						<c:if test="${msg == 'login' && guest eq null}"> <!-- 로그인 시 -->
 							<div class="grade-info">
 								<div class="user-info">
 									<p><span>${user.username }</span>님 현재 등급</p>

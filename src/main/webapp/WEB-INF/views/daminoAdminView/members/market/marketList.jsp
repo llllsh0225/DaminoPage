@@ -55,37 +55,6 @@ $(document).ready(function() {
 } );
 </script>
 <script>
- window.onload = function(){
-/* 	var checkMem = $("select option:selected").val();
-
-	//var checkMem2 = $(':radio[name="size"]:checked').val(); //사이즈에 따른 피자 가격
-	console.log("checkMem : " + checkMem);
-	 */
-	/* if(typeof price == "undefined"){
-		price = Number($('#size1').val());
-	} */
-} 
-/* function marketEdit(seq){
-	
-	$.ajax({
-		url : 'marketEdit.admdo',
-		contentType : "application/json; charset=UTF-8;",
-		type: 'post', 
-		data : JSON.stringify({
-			seq : seq
-		}),
-		//async : false,
-		success: function(data) {
-			if(data == 'success'){
-				alert('success');
-				location.href = "login.do";
-			}
-		},
-		 error: function() {
-			alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
-		} 
-	})
-} */
 function changeCheckMem(idx, seq){
 	 var checkMem = $("#select" + idx).find(":selected").val();
 	 

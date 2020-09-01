@@ -36,19 +36,21 @@ public class MarketAdminLoginController {
 //		String getStorename = marketAdminLoginService.getStorename(vo2);
 //		System.out.println(getStorename);
 		
+		
 		if (managerid == null) {
 			System.out.println(managerid);
 			mav.setViewName("/members/managerLogin");
 			return mav;
 		} else {
-//			List<SalesVO> storeMonthly = salesStatusService.getStoreMonthly(vo);// 해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
-//			System.out.println("해당 매장 주문내역이 있는 최근 12개월 : " + storeMonthly);
-//
-//			List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
-//			System.out.println("해당 매장 주문내역이 있는 최근 12개월 매출액 :" + storeMonthlySales);
-//			mav.addObject("storeMonthly", storeMonthly);
-//			mav.addObject("storeMonthlySales", storeMonthlySales);
+			vo.setStore(getStorename);
+			List<SalesVO> storeMonthly = salesStatusService.getStoreMonthly(vo);// 해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
+			System.out.println("해당 매장 주문내역이 있는 최근 12개월 : " + storeMonthly);
 			
+			List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
+			System.out.println("해당 매장 주문내역이 있는 최근 12개월 매출액 :" + storeMonthlySales);
+			
+			mav.addObject("storeMonthly", storeMonthly);
+			mav.addObject("storeMonthlySales", storeMonthlySales);
 			
 //			mav.addObject("getStorename", getStorename);
 			mav.setViewName("/members/main");
@@ -70,8 +72,11 @@ public class MarketAdminLoginController {
 			HttpSession session, HttpServletRequest request, SalesVO vo2) {
 		System.out.println("로그인 정보 확인");
 		session = request.getSession();
-//		String getStorename = marketAdminLoginService.getStorename(vo);
-//		System.out.println(getStorename);
+		
+		
+		String getStorename = marketAdminLoginService.getStorename(vo);
+		System.out.println(getStorename);
+		
 		MarketAdminVO managerLogin = marketAdminLoginService.managerLogin(vo);
 		System.out.println(managerLogin);
 		System.out.println(vo.getManagerid());
@@ -82,6 +87,15 @@ public class MarketAdminLoginController {
 		if (managerLogin != null && pwdMatch == true) {
 			String checkMem = managerLogin.getCheckMem(); // 매장관리자 승인여부 체크
 			if (checkMem.equals("Y")) {
+				
+				vo2.setStore(getStorename);
+				List<SalesVO> storeMonthly = salesStatusService.getStoreMonthly(vo2);// 해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
+				System.out.println("해당 매장 주문내역이 있는 최근 12개월 : " + storeMonthly);
+				
+				List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo2);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)	
+				
+				mav.addObject("storeMonthlySales", storeMonthlySales);
+				mav.addObject("storeMonthly", storeMonthly);
 				mav.addObject("managerid", managerLogin.getManagerid());
 				mav.addObject("managername", managerLogin.getManagername());
 				mav.addObject("storeregion", managerLogin.getStoreregion());

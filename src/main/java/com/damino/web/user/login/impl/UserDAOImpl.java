@@ -17,4 +17,9 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println("UserDAOImpl login(vo)");
 		return sqlSessionTemplate.selectOne("UserMemberDAO.login", vo);
 	}
+
+	@Override
+	public void insertGuestInfo(UserVO vo) {
+		sqlSessionTemplate.insert("UserMemberDAO.insertGuestInfo", vo);
+	}
 }
