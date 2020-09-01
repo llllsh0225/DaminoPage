@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="salesStatusDAO">
+	<!-- //main -->	
+	<select id="getCountMale" resultType="Integer">
+		select count(*) from usermember where sex='M'
+	</select>
+	
+	<select id="getCountFemale" resultType="Integer">
+		select count(*) from usermember where sex='F'
+	</select>
+	
+	<select id="getOrderPrice" resultType="Integer">
+		SELECT SUM(price) FROM order_list
+	</select>
+	
+	<select id="getdaily" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy-mm-dd') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd') 
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') DESC
+		]]>
+	</select>
+	
+	<select id="getdailyCount" resultType="String">
+		<![CDATA[
+			SELECT count(*), TO_CHAR(orderdate,'yyyy-mm-dd') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd') 
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') DESC
+		]]>
+	</select>
+
+	
+	<!-- 홈페이지 관리자 매출 -->
+	<select id="getMonthly" resultType="String">
+		SELECT TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list 
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getMonthlySales" resultType="String">
+		SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list 
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getYearly" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
+	<select id="getYearlySales" resultType="String">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy') 
+			FROM order_list 
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
+	<select id="getSalesList" resultType="com.damino.web.admin.salesstatus.SalesVO" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT *
+			FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+		]]>
+		<choose>
+			<when test="rowprice != 0 and highprice != 0">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != 0 and highprice == 0">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == 0 and highprice != 0">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+		<if test="take != 'none'">
+			AND take=#{take}
+		</if>
+		<if test="store != 'none'">
+			AND store=#{store}
+		</if>
+	</select>
+	
+	<select id="getSalesSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+		]]>
+		<choose>
+			<when test="rowprice != '' and highprice != ''">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != '' and highprice == ''">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == '' and highprice != ''">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+			<if test="take != 'none'">
+				AND take=#{take}
+			</if>
+			<if test="store != 'none'">
+				AND store=#{store}
+			</if>
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') desc
+	</select>
+	
+	<select id="getDateSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+		]]>
+		<choose>
+			<when test="rowprice != '' and highprice != ''">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != '' and highprice == ''">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == '' and highprice != ''">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+			<if test="take != 'none'">
+				AND take=#{take}
+			</if>
+			<if test="store != 'none'">
+				AND store=#{store}
+			</if>
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') 
+	</select>
+	
+	<select id="getCountSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
+		<![CDATA[
+			SELECT COUNT(TO_CHAR(orderdate,'yyyy-mm-dd')), TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
+			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+		]]>
+		<choose>
+			<when test="rowprice != '' and highprice != ''">
+				AND price BETWEEN #{rowprice} AND #{highprice}
+			</when>
+			<when test="rowprice != '' and highprice == ''">
+			 	AND price <![CDATA[>=]]> #{rowprice}
+			</when>
+			<when test="rowprice == '' and highprice != ''">
+			 	AND price <![CDATA[<=]]> #{highprice}
+			</when>
+		</choose>
+			<if test="take != 'none'">
+				AND take=#{take}
+			</if>
+			<if test="store != 'none'">
+				AND store=#{store}
+			</if>
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm-dd')
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm-dd') desc
+	</select>
+	
+	<!-- 매장관리자 매출 -->
+	<select id="getStoreMonthly" resultType="String">
+		SELECT TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list WHERE store=#{store}
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getStoreMonthlySales" resultType="String">
+		SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
+		FROM order_list WHERE store=#{store}
+		GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+	</select>
+	
+	<select id="getStoreYearly" resultType="String">
+		<![CDATA[
+			SELECT TO_CHAR(orderdate,'yyyy') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
+	<select id="getStoreYearlySales" resultType="String">
+		<![CDATA[
+			SELECT SUM(price), TO_CHAR(orderdate,'yyyy') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+</mapper>

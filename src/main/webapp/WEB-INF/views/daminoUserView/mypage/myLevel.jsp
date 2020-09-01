@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,91 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
+<script>
 
+window.onload = function(){
+	// 오늘 날짜 객체
+	var today = new Date();
+	
+	// 두 달 전
+	var twoMonthAgo = String(today.getMonth() - 1);
+	if(twoMonthAgo.length < 2){
+		twoMonthAgo = '0' + twoMonthAgo;
+	}
+	
+	// 현재 달
+	var thisMonth = String(today.getMonth() + 1);
+	if(thisMonth.length < 2){
+		thisMonth = '0' + thisMonth;
+	}
+	
+	// 주문 건수 계산 기준 월
+	$('#orderCntDate').text('(' + today.getFullYear() + '-' + twoMonthAgo + '~' + today.getFullYear() + "-" + thisMonth + ")");
+	
+	// 주문 액수 계산 기준 월
+	$('#payCntDate').text('(' + today.getFullYear() + '-01~' + today.getFullYear() + "-" + thisMonth + ")");
+}
+
+function myCouponDown(){ // 당월에 이미 발급된 쿠폰이 있는지 확인 한 후, 중복발급이 아닐 경우에만 쿠폰을 지급한다.
+	var userid = '<%=session.getAttribute("userid")%>';
+	var userlevel = '<%=session.getAttribute("userlevel")%>';
+	
+	$.ajax({
+		type : "POST",
+		url : "insertManiaCoupon.do",
+		contentType : "application/json; charset=utf-8;",
+		// return 값 받을 때 dataType : "json" 지워주니까 success 에서 제대로 결과값을 받는다; 이유는 모르겠음..
+		data : JSON.stringify({
+			userid : userid,
+			userlevel : userlevel,
+		}),
+		async : false,
+		success : function(res){
+			if(res == 'success'){
+				location.href='ecouponResult.do';
+			}else if(res == 'duplicated'){
+				alert("이미 당월 발급된 매니아 쿠폰이 존재합니다.");
+			}
+		},
+		error : function(err){
+			alert("매니아 쿠폰 발급 과정에서 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+		},
+	});
+}
+function orderlistSubmit(){
+	document.myinfoForm.action='myorderlist.do';
+	document.myinfoForm.submit();
+}
+</script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -28,15 +113,35 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+			<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님  &nbsp;
+								<a href="logout.do">로그아웃</a>
+								<a href="#">나의정보</a>
+								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -64,9 +169,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -124,69 +227,182 @@
 								<!-- royal 일 경우 class 추가 -->
 								<div class="user">
 									<div class="user-box">
-										<span>OOO님</span> <strong class="grade">REGULAR</strong>
+										<span>${user.username }님</span> <strong class="grade">${user.userlevel }</strong>
 									</div>
 									<a href="mania.do" class="btn-type4-brd4">등급별 혜택 보기</a>
 								</div>
 								<div class="order">
 									<dl>
 										<dt>
-											주문 <span class="date">(2020.04~2020.06)</span>
+											주문 <span class="date" id="orderCntDate"></span>
 										</dt>
 										<dd>
 											<p>
-												<strong>0</strong>
+												<strong>${orderCnt }건</strong>
 											</p>
 										</dd>
 									</dl>
 									<dl>
 										<dt>
-											주문금액 <span class="date">(2020-01 ~ 2020-07)</span>
+											주문금액 <span class="date" id="payCntDate"></span>
 										</dt>
 										<dd>
 											<p>
-												<strong>31,520</strong>
+												<strong><fmt:formatNumber type="number" maxFractionDigits="3" value="${payCnt }" />원</strong>
 											</p>
 										</dd>
 									</dl>
 								</div>
 							</div>
-							<div class="upgrade-wrap">
-								<div class="title-wrap2">
-									<div class="title-type2">PREMIUM 등급으로 업그레이드 하려면?</div>
-									<div class="side">*최근 3개월간 완료된 주문에 대해서 주문건 수를 기준으로 매월 1일
-										매니아 등급에 반영됩니다.</div>
-								</div>
-								<div class="box">
-									<div class="title-type4">
-										<span class="t-l"> 주문건수 </span> <span class="t-r">목표등급</span>
-									</div>
-									<div class="grade-wrap">
-										<div class="graph">
-											<span class="graph-inner" style="width: 50.0%">50.0%</span>
+							<c:set var="mylevel" value="${user.userlevel }" />
+							<c:choose>
+								<c:when test="${mylevel eq 'REGULAR'}">
+									<div class="upgrade-wrap">
+										<div class="title-wrap2">
+											<div class="title-type2">PREMIUM 등급으로 업그레이드 하려면?</div>
+											<div class="side">*최근 3개월간 완료된 주문에 대해서 주문건 수를 기준으로 매월 1일
+												매니아 등급에 반영됩니다.</div>
 										</div>
-										<span class="grade">PREMIUM</span>
+										<div class="box">
+											<div class="title-type4">
+												<span class="t-l"> 주문건수 </span> <span class="t-r">목표등급</span>
+											</div>
+											<!-- 주문 건수가 2건 이상일 때 -->
+											<c:if test="${((orderCnt/2) * 100) >= 100}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: 100%">100%</span>
+												</div>
+												<span class="grade">PREMIUM</span>
+											</div>
+											<div class="tip-box2 tip-center" style="left: 887.737px;">
+												<p>목표달성</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+											<!-- 주문 건수가 2건 미만일 때 -->
+											<c:if test="${((orderCnt/2) * 100) < 100}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: ${(orderCnt/2) * 100}%">${(orderCnt/2) * 100}%</span>
+												</div>
+												<span class="grade">PREMIUM</span>
+											</div>
+											<div class="tip-box2 tip-center">
+												<p>${2 - orderCnt} 건 더 구매</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+										</div>
 									</div>
-									<div class="tip-box2 tip-center">
-										<p>1건 더 구매</p>
-										<span class="arrow"></span>
+								</c:when>
+								<c:when test="${mylevel eq 'PREMIUM'}">
+									<div class="upgrade-wrap">
+										<div class="title-wrap2">
+											<div class="title-type2">VIP 등급으로 업그레이드 하려면?</div>
+											<div class="side">*최근 3개월간 완료된 주문에 대해서 주문건 수를 기준으로 매월 1일
+												매니아 등급에 반영됩니다.</div>
+										</div>
+										<div class="box">
+											<div class="title-type4">
+												<span class="t-l"> 주문건수 </span> <span class="t-r">목표등급</span>
+											</div>
+											<!-- 주문 건수가 6건 이상일 때 -->
+											<c:if test="${((orderCnt/6) * 100) >= 100}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: 100%">100%</span>
+												</div>
+												<span class="grade">VIP</span>
+											</div>
+											<div class="tip-box2 tip-center" style="left: 887.737px;">
+												<p>목표달성</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+											<!-- 주문 건수가 6건 미만일 때 -->
+											<c:if test="${((orderCnt/6) * 100) < 100}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: ${(orderCnt/6) * 100}%">${(orderCnt/6) * 100}%</span>
+												</div>
+												<span class="grade">VIP</span>
+											</div>
+											<div class="tip-box2 tip-center">
+												<p>${6 - orderCnt} 건 더 구매</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+										</div>
 									</div>
-								</div>
-							</div>
+								</c:when>
+								<c:when test="${mylevel eq 'VIP'}">
+									<div class="upgrade-wrap">
+										<div class="title-wrap2">
+											<div class="title-type2">ROYAL 등급으로 업그레이드 하려면?</div>
+											<div class="side">*올해 1년간 주문 완료된 주문 총액을 기준으로 내년 1월 1일
+												매니아 등급에 반영됩니다.</div>
+										</div>
+										<div class="box">
+											<div class="title-type4">
+												<span class="t-l"> 주문총액 </span> <span class="t-r">목표등급</span>
+											</div>
+											<!-- 주문 총액이 70만원 이상일 때 -->
+											<c:if test="${payCnt >= 700000}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: 100%">100%</span>
+												</div>
+												<span class="grade">ROYAL</span>
+											</div>
+											<div class="tip-box2 tip-center" style="left: 887.737px;">
+												<p>목표달성</p>
+												<span class="arrow"></span>
+											</div>
+											</c:if>
+											<!-- 주문 총액이 70만원 미만일 때 -->
+											<c:if test="${payCnt < 700000}">
+											<div class="grade-wrap">
+												<div class="graph">
+													<span class="graph-inner" style="width: ${(payCnt/700000) * 100}%">${(payCnt/700000) * 100}%</span>
+												</div>
+												<span class="grade">ROYAL</span>
+											</div>
+											</c:if>
+										</div>
+									</div>
+								</c:when>
+							</c:choose>
 							<div class="coupon-wrap">
 								<div class="title-wrap2">
 									<div class="title-type">나의 매니아 혜택</div>
-									<a href="javascript:UI.layerPopUp({selId:'#pop-coupon-info'});"
-										class="side notice-text"> 유의사항 </a>
 								</div>
 								<div class="coupon-list">
 									<style>
-.coupon-list a {
-	cursor: default;
-}
-</style>
+										.coupon-list a {
+											cursor: default;
+										}
+										</style>
 									<ul>
+									<c:choose>
+										<c:when test="${mylevel eq 'REGULAR' }">
 										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 2매</a></li>
+										</c:when>
+										<c:when test="${mylevel eq 'PREMIUM' }">
+										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">배달주문 25% 할인쿠폰 1매</a></li>
+										</c:when>
+										<c:when test="${mylevel eq 'VIP' }">
+										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">배달주문 30% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">포장주문 35% 할인쿠폰 1매</a></li>
+										</c:when>
+										<c:when test="${mylevel eq 'ROYAL' }">
+										<li><a href="javaScript:void(0)">배달주문 20% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">배달주문 30% 할인쿠폰 1매</a></li>
+										<li><a href="javaScript:void(0)">포장주문 40% 할인쿠폰 1매</a></li>
+										</c:when>
+									</c:choose>
 									</ul>
 								</div>
 								<div class="btn-wrap">
@@ -202,33 +418,6 @@
 				</div>
 			</section>
 		</div>
-
-		<!--팝업-나의 쿠폰 혜택 유의사항 -->
-		<div class="pop-layer" id="pop-coupon-info">
-			<div class="dim"></div>
-			<div class="pop-wrap">
-				<div class="pop-title-wrap">
-					<h2 class="pop-title v2">나의 쿠폰 혜택 유의사항</h2>
-				</div>
-				<div class="pop-content">
-					<div class="pop-text">
-						<div class="title-type2">나의 쿠폰 혜택 유의사항</div>
-						<ul class="list-text-v2">
-							<li>제공된 쿠폰은 온라인 주문(홈페이지, 모바일 웹, 앱)시에 만 사용 가능합니다.<br />(전화주문
-								불가)
-							</li>
-							<li>쿠폰은 나의 정보 > 쿠폰 페이지에서 확인 가능합니다. (쿠폰 유효기간은 매월 말일까지입니다.)</li>
-							<li>매니아 등급 및 혜택은 매월 변경될 수 있습니다.</li>
-							<li>ROYAL 및 VIP 등급에게만 발급되는 생일 50%쿠폰은 당월 생일자 에게만 발급되며, 방문포장
-								주문 시 사용 가능합니다. (50% 할인은 피자 1판에만 적용됩니다.)</li>
-							<li>매니아 쿠폰은 1회 주문 시 최대 4판까지 할인 적용됩니다.</li>
-						</ul>
-					</div>
-				</div>
-				<a href="#" class="btn-close"></a>
-			</div>
-		</div>
-		<!--//팝업-나의 쿠폰 혜택 유의사항 -->
 
 		<script type="text/javascript">
 			_TRK_PI = "WP_24_1";

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserLevelDAO">
+
+	<!-- 지난 3개월 간의 주문 건수를 카운트 -->
+	<select id="getUsersOrderCnt" parameterType="String" resultType="Integer">
+		<![CDATA[
+		SELECT COUNT(*) FROM order_list
+		WHERE orderdate >= ADD_MONTHS(TRUNC(sysdate,'MM'), -2)
+		AND userid = #{userid}
+		]]>
+	</select>
+
+	<!-- 올해 1월 1일부터 현재까지의 주문액수를 카운트 -->
+	<select id="getUsersPayCnt" parameterType="String" resultType="Integer">
+		<![CDATA[
+		SELECT SUM(price) FROM order_list
+	    WHERE orderdate >= TRUNC(sysdate, 'yyyy')
+	    AND userid = #{userid}
+		]]>
+	</select>
+	
+	<!-- REGUAL 등급 기준을 만족하는 회원의 등급을 업데이트 (ROYAL 회원 제외)  -->
+	<update id="setRegularLevel">
+		<![CDATA[
+			UPDATE usermember SET userlevel = 'REGULAR'
+			WHERE (SELECT COUNT(*) FROM order_list
+					WHERE orderdate >= ADD_MONTHS(TRUNC(sysdate,'MM'), -2)) < 2
+			AND userlevel NOT IN ('ROYAL')
+		]]>
+	</update>
+	
+	<!-- PREMIUM 등급 기준을 만족하는 회원의 등급을 업데이트 (ROYAL 회원 제외)  -->
+	<update id="setPremiumLevel">
+		<![CDATA[
+			UPDATE usermember SET userlevel = 'PREMIUM'
+			WHERE (SELECT COUNT(*) FROM order_list
+					WHERE orderdate >= ADD_MONTHS(TRUNC(sysdate,'MM'), -2)) >= 2 
+			AND (SELECT COUNT(*) FROM order_list
+					WHERE orderdate >= ADD_MONTHS(TRUNC(sysdate,'MM'), -2)) < 6
+			AND userlevel NOT IN ('ROYAL')
+		]]>
+	</update>
+	
+	<!-- VIP 등급 기준을 만족하는 회원의 등급을 업데이트 (ROYAL 회원 제외) -->
+	<update id="setVIPLevel">
+		<![CDATA[
+			UPDATE usermember SET userlevel = 'VIP'
+			WHERE (SELECT COUNT(*) FROM order_list
+					WHERE orderdate >= ADD_MONTHS(TRUNC(sysdate,'MM'), -2)) >= 6 
+			AND userlevel NOT IN ('ROYAL')
+		]]>
+	</update>
+	
+	<!-- ROYAL 등급 기준을 만족하는 회원의 등급을 업데이트 (매년 1월 1일) -->
+	<update id="setRoyalLevel">
+		<![CDATA[
+			UPDATE usermember SET userlevel = 'ROYAL'
+			WHERE (SELECT SUM(price) FROM order_list WHERE orderdate >= TRUNC(sysdate, 'yyyy')) >= 700000
+		]]>
+	</update>
+	
+	<!-- ROYAL 등급 유지기준을 만족하지 못한 회원의 등급을 VIP로 degrade (매년 1월 1일) -->
+	<update id="degradeRoyalUser">
+		<![CDATA[
+			UPDATE usermember SET userlevel = 'VIP'
+			WHERE (SELECT SUM(price) FROM order_list WHERE orderdate >= TRUNC(sysdate, 'yyyy')) < 700000
+			AND userlevel = 'ROYAL'
+		]]>
+	</update>
+</mapper>

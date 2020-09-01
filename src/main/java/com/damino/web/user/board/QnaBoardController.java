@@ -2,8 +2,10 @@ package com.damino.web.user.board;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,18 +23,23 @@ public class QnaBoardController {
 	@Autowired
 	private QnaBoardService qnaBoardService;
 	
+	@Autowired
+	private MailService mailService;
+	
 	@RequestMapping(value = "/myquestionlist.do", method = RequestMethod.GET)
-	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, QnaBoardVO vo, Paging pa, HttpSession session) throws Throwable{
 		System.out.println("내 질문내역 1:1 열기");
-		
-		pa.setWriterId("userid");
+		String userid = (String)session.getAttribute("userid");
+		System.out.println(userid);
+		pa.setWriterId(userid);
 		
 		//1:1 문의게시판 페이징처리
 		
 		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList(pa);
 		System.out.println(boardList.toString());
 		
-		int count = qnaBoardService.getQnaCount();
+		vo.setWriterId(userid);
+		int count = qnaBoardService.getQnaCount(vo);
 		 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/mypage/myQuestionList");
@@ -50,13 +57,18 @@ public class QnaBoardController {
 	}
 	
 	@RequestMapping(value="/myquestion_view.do", method=RequestMethod.GET)
-	public ModelAndView myQuestion(QnaBoardVO vo) {
+	public ModelAndView myQuestion(ModelAndView mav, QnaBoardVO vo, HttpSession session) {
 		System.out.println("1:1 문의글 상세");
-		QnaBoardVO qnaBoard = qnaBoardService.myQuestion(vo);
+		String writerId = (String) session.getAttribute("userid");
 		
-		ModelAndView mav = new ModelAndView();
+		vo.setWriterId(writerId);
+		
+		QnaBoardVO qnaBoard = qnaBoardService.myQuestion(vo);
+		int count = qnaBoardService.getQnaCount(vo);
+		
 		mav.setViewName("/mypage/myQuestion_view");
 		mav.addObject("qnaboard", qnaBoard);
+		mav.addObject("count", count);
 		return mav;
 	}
 	
@@ -71,10 +83,6 @@ public class QnaBoardController {
 	public String insertBoard(@ModelAttribute QnaBoardVO vo) {
 		System.out.println("1:1 글 작성");
 		
-		//회원정보 테이블 조회하여 아이디, 연락처, 이메일 셋팅 필요
-		vo.setWriterId("userid");
-		vo.setPhone("01012341234");
-		vo.setEmail("test@hanmail.net");
 		System.out.println("작성자 : " + vo.getWriterId());
 		System.out.println("제목 : " + vo.getTitle());
 		System.out.println("내용 : " + vo.getContent());
@@ -92,27 +100,20 @@ public class QnaBoardController {
 	 * 관리자 권한으로 1:1 문의사항 - 전체조회 접근하는 경로
 	 */
 	@RequestMapping(value = "/myquestionlist.admdo", method = RequestMethod.GET)
-	public ModelAndView getMyQuestionList_adm(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+	public ModelAndView getMyQuestionList_adm() throws Throwable{
 		System.out.println("관리자권한으로 질문내역 1:1 열기");
 		
-		//1:1 문의게시판 페이징처리
-		
-		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm(pa);
+		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm();
 		System.out.println(boardList.toString());
 		
-		int count = qnaBoardService.getQnaCount();
-		 
+		int count = qnaBoardService.getQnaCountAdm();
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/userQnaBoard/myQuestionList_adm");
 		
 		mav.addObject("boardList", boardList);
 		mav.addObject("count", count); //총 게시글 개수
 		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setPa(pa);
-		pageMaker.setTotalCount(count);
-		
-		mav.addObject("pageMaker", pageMaker);
 		
 		return mav;
 	}
@@ -121,28 +122,54 @@ public class QnaBoardController {
 	 * 관리자 권한으로 1:1 문의사항 - 처리대기 접근하는 경로
 	 */
 	@RequestMapping(value = "/myquestionlist_notComplete.admdo", method = RequestMethod.GET)
-	public ModelAndView getMyQuestionList_adm_notComplete(HttpServletRequest request, HttpServletResponse response, Paging pa) throws Throwable{
+	public ModelAndView getMyQuestionList_adm_notComplete(QnaBoardVO vo) throws Throwable{
 		System.out.println("관리자권한으로 질문내역 1:1 열기");
 		
+		
 		//1:1 문의게시판 페이징처리
-		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm_notComplete(pa);
+		List<QnaBoardVO> boardList = qnaBoardService.myQuestionList_adm_notComplete();
 		System.out.println(boardList.toString());
 		
-		int count = qnaBoardService.getQnaCount();
-		 
+		int count = qnaBoardService.getQnaCountAdm();
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/userQnaBoard/myQuestionList_adm");
 		
 		mav.addObject("boardList", boardList);
 		mav.addObject("count", count); //총 게시글 개수
 		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setPa(pa);
-		pageMaker.setTotalCount(count);
+		return mav;
+	}
+	
+	@RequestMapping("/myquestion_reply.admdo")
+	public ModelAndView getMyQuestion_reply(ModelAndView mav, QnaBoardVO vo) {
+		System.out.println("관리자권한으로 1:1문의 상세내용 조회");
 		
-		mav.addObject("pageMaker", pageMaker);
+		QnaBoardVO qna = qnaBoardService.myQuestion(vo);
+		
+		mav.addObject("qna", qna);
+		mav.setViewName("/userQnaBoard/myQuestion_reply");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="registQnaReply.admdo", method=RequestMethod.POST)
+	public String registQnaReply(QnaBoardVO vo, MailVO mail) throws MessagingException {
+		System.out.println("관리자페이지에서 1:1 문의 답변 등록");
+		
+		QnaBoardVO qna = qnaBoardService.myQuestion(vo);
+		
+		mail.setTo("romantico_u@naver.com");
+		mail.setFrom("daminopizzaadm@gmail.com");
+		mail.setContent(qna.getContent() + " < 답변내용 > " + vo.getReplyContent());
+		
+		System.out.println(mail.getTo());
+		System.out.println(mail.getContent());
+		
+		qnaBoardService.registQnaReply(vo);
+		mailService.sendMail(mail);
+		
+		return "redirect:myquestionlist.admdo";
 	}
 	
 }

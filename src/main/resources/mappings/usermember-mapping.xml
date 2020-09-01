@@ -5,8 +5,8 @@
 <mapper namespace="UserMemberDAO">
 	<!-- 회원 가입 -->
 	<insert id="registUserMember" parameterType="com.damino.web.user.regist.UserMemberVO">
-		INSERT INTO usermember (username, userid, userpasswd, birthday, sex, cyear, phone, email, receive_sms, receive_email, receive_dm, userlevel) 
-		VALUES (#{username}, #{userid}, #{userpasswd}, #{birthday}, #{sex}, #{cyear}, #{phone}, #{email}, #{receive_sms}, #{receive_email}, #{receive_dm}, 'REGULAR' )
+		INSERT INTO usermember (username, userid, userpasswd, birthday, sex, cyear, phone, email, receive_sms, receive_email, receive_dm, userlevel, seq) 
+		VALUES (#{username}, #{userid}, #{userpasswd}, #{birthday}, #{sex}, #{cyear}, #{phone}, #{email}, #{receive_sms}, #{receive_email}, #{receive_dm}, 'REGULAR', (select nvl(max(seq), 0)+1 from usermember))
 	</insert>
 	
 	<!-- id 중복 체크 -->
@@ -24,14 +24,23 @@
 	
 	<!-- 로그인 -->
 	<select id="login" resultType="com.damino.web.user.login.UserVO">
-		SELECT userid, userpasswd, username
+		SELECT *
 		FROM usermember
 		WHERE userid=#{userid}
 	</select>
 	
 	<!-- 패스워드 체크 -->
-	<select id="passwdcheck" resultType="int">
+	<select id="passwdCheck" resultType="com.damino.web.user.userinfo.UserInfoVO">
+		SELECT *
+		FROM usermember
+		WHERE userid=#{userid}
 	</select>
+	
+	<update id="updateUserMember" parameterType="com.damino.web.user.userinfo.UserInfoVO">
+		UPDATE usermember
+		SET userpasswd=#{userpasswd}, birthday=#{birthday}, cyear=#{cyear}, phone=#{phone}, email=#{email}, receive_sms=#{receive_sms}, receive_email=#{receive_email}, receive_dm=#{receive_dm}
+		WHERE userid=#{userid}
+	</update>
 </mapper>
 
 

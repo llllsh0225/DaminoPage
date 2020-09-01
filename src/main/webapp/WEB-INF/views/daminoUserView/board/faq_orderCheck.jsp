@@ -1,26 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 <meta charset="utf-8">
 <title>FAQ- 다미노피자</title>
-<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon"
+	href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/card_add.css' />">
 
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script>
+function showContent(idx){
+	$('#faqContent' + idx).slideToggle(500);
+}
+</script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -30,14 +72,13 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+				<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -66,9 +107,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -93,7 +132,8 @@
 		<!-- //header -->
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="<c:url value='/resources/css/user/jquery-ui.css' />" />
-		<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
 		<!-- container -->
 		<div id="container">
 			<!-- content -->
@@ -105,8 +145,7 @@
 							<div class="depth-area">
 								<ol>
 									<li><a href="main.do">홈</a></li>
-									<li><a
-										href="faqMain.do">고객센터</a></li>
+									<li><a href="faqMain.do">고객센터</a></li>
 									<li><strong>자주하는 질문</strong></li>
 								</ol>
 							</div>
@@ -136,77 +175,26 @@
 
 									<div class="tab-type4 btn_tab_faq">
 										<ul>
-											<li><a
-												href="faqHowToOrder.do">피자
-													주문하기</a></li>
-											<li class="active"><a
-												href="faqOrderCheck.do">주문확인</a></li>
-											<li><a
-												href="faqWrapOrder.do">포장
-													주문</a></li>
-											<li><a
-												href="faqSendPresent.do">피자
-													선물하기</a></li>
-											<li><a
-												href="faqHomePage.do">홈페이지
-													관련</a></li>
+											<li><a href="faqHowToOrder.do">피자 주문하기</a></li>
+											<li class="active"><a href="faqOrderCheck.do">주문확인</a></li>
+											<li><a href="faqWrapOrder.do">포장 주문</a></li>
+											<li><a href="faqSendPresent.do">피자 선물하기</a></li>
+											<li><a href="faqHomePage.do">홈페이지 관련</a></li>
 										</ul>
 									</div>
 									<div class="lst_faq_wrap">
 										<ul>
-											<li>
-												<dl id="active_184" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(184);">신용카드/휴대폰 승인 및
-															취소 현황은 어떻게 확인하나요?</a>
-													</dt>
-													<dd>
-														신용카드/휴대폰 승인 및 취소 현황은 피자 주문 시 사용하신 신용카드사 또는 통신사 홈페이지를 통해서
-														확인하실 수 있습니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_183" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(183);">신용카드 결제내역 영수증을
-															출력하고 싶은데요?</a>
-													</dt>
-													<dd>
-														주문을 완료하신 후에 My Page > 주문/배송조회로 이동합니다. <br />
-														<br> <br />
-														<br>주문 번호를 클릭하신 후 주문 상세 페이지의 영수증 출력을 클릭하시면 해당 주문의
-														영수증을 출력할 수 있습니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_182" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(182);">주문한 내역은 어디에서
-															확인할 수 있나요?</a>
-													</dt>
-													<dd>
-														주문한 내역은 My Page의 주문/배송조회를 통해 확인하실 수 있으며 <br />
-														<br> <br />
-														<br>배달주문/포장주문 / 피자선물/ 피자상품권 등으로 구매내역을 확인하실 수 있습니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_181" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(181);">주문/배송조회 란?</a>
-													</dt>
-													<dd>
-														주문이 완료된 후 매장에서 주문 접수 / 피자 메이킹 / 배달 단계를 보여 드립니다. <br />
-														<br> <br />
-														<br>"..ing"는 매장에서 주문을 받아서 피자를 만들고 있는 상태입니다.<br>"배달완료"는
-														피자 수령이 완료된 상태입니다. <br /> <br>"취소완료"는 매장을 통해 주문을 취소하신
-														상태입니다.
-													</dd>
-												</dl>
-											</li>
+											<c:forEach var="faqViewList" items="${faqViewList }" varStatus="status">
+												<li>
+													<dl id="active" class="classActive">
+														<dt>
+															<a style="cursor:pointer" onclick="showContent(${status.index});">${faqViewList.title }</a>
+														</dt>
+														<dd id="faqContent${status.index }">
+															${faqViewList.content }</dd>
+													</dl>
+												</li>
+											</c:forEach>
 										</ul>
 									</div>
 								</form>
@@ -254,8 +242,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -303,27 +290,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>

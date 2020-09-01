@@ -49,9 +49,16 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="memberEdit.admdo">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</li>
 		</ul>
@@ -79,9 +86,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -127,8 +134,11 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -181,7 +191,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -204,7 +214,7 @@
 						<div class="card-body">
 							<input type="hidden" name="seq" id="seq" value="${board.seq }" />
 							<input type="button" class="btn btn-primary" value="글수정" onclick="boardSubmit(1)" style="float: right" /> 
-							<input type="button" class="btn-delete" value="글삭제" onclick="boardSubmit(2)" style="float: right" /> 
+							<input type="button" class="btn-delete" value="글삭제" onclick="boardSubmit(2)" style="float: right; background-color:#dc3500; color:white" /> 
 							<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='boardList.admdo'" style="float: right"/>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

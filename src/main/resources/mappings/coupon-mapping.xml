@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CouponDAO">
+	<select id="chkUsersManiaCoupon" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM coupon 
+		WHERE to_char(validity, 'yyyymmdd') = to_char(LAST_DAY(sysdate), 'yyyymmdd') 
+		AND userid = #{userid} AND isPresent = 'N'
+	</select>
+	
+	<insert id="insertManiaCoupon" parameterType="hashMap">
+		INSERT ALL
+		<choose>
+			<when test="userlevel=='REGULAR'">
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MRD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'),(select nvl(max(seq),0)+1 from coupon), '[REGULAR]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MRD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[REGULAR]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+			</when>
+			<when test="userlevel=='PREMIUM'">
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MPD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '[PREMIUM]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MPD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[PREMIUM]배달주문 25% 할인쿠폰', '배달', 25, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+			</when>
+			<when test="userlevel=='VIP'">
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MVD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '[VIP]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MVD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[VIP]배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MVW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '[VIP]포장주문 35% 할인쿠폰', '포장', 35, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+			</when>
+			<when test="userlevel=='ROYAL'">
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MLD'||LPAD((select nvl(max(seq), 0)+1 from coupon), 8, '0'), (select nvl(max(seq),0)+1 from coupon), '[ROYAL]배달주문 20% 할인쿠폰', '배달', 20, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MLD'||LPAD((select nvl(max(seq), 0)+2 from coupon), 8, '0'), (select nvl(max(seq),0)+2 from coupon), '[ROYAL]배달주문 30% 할인쿠폰', '배달', 30, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+				INTO coupon (coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, userid)
+				VALUES('MLW'||LPAD((select nvl(max(seq), 0)+3 from coupon), 8, '0'), (select nvl(max(seq),0)+3 from coupon), '[ROYAL]포장주문 40% 할인쿠폰', '포장', 40, sysdate, LAST_DAY(sysdate), 'Y', #{userid})
+			</when>
+		</choose>
+		SELECT * FROM DUAL
+	</insert>
+	
+	<select id="getMyCouponList" parameterType="String" resultType="com.damino.web.user.coupon.CouponVO">
+		SELECT coupon_code, coupon_name, discountrate, regdate, validity FROM coupon 
+		WHERE userid = #{userid} AND chkusable = 'Y'
+	</select>
+
+	<select id="searchUser" parameterType="hashMap" resultType="com.damino.web.user.login.UserVO">
+		SELECT * FROM usermember
+		WHERE username = #{name} AND phone = #{phone}
+	</select>
+	
+	<update id="updatePresentCoupon" parameterType="hashMap">
+		UPDATE coupon SET userid = #{presentUserId}, chkusable = 'N', isPresent = 'Y'
+		WHERE coupon_code = #{presentCouponCode}
+	</update>
+	
+	<update id="registEcoupon" parameterType="hashMap">
+		UPDATE coupon SET
+		<choose>
+			<when test='chkCouponType=="M"'>
+				chkusable = 'Y' WHERE coupon_code = #{couponCode}
+			</when>
+			<when test='chkCouponType=="P"'>
+				chkusable = 'Y', userid = #{userid} WHERE coupon_code = #{couponCode}
+			</when>
+		</choose>
+	</update>
+	
+	<select id="chkRegistEcoupon" parameterType="hashMap" resultType="Integer">
+		SELECT COUNT(*) FROM coupon
+		<choose>
+			<when test='chkCouponType=="M"'>
+				WHERE userid = #{userid} 
+				AND chkusable = 'N' 
+				AND isPresent = 'Y'
+			</when>
+			<when test='chkCouponType=="P"'>
+				WHERE coupon_code = #{couponCode}
+				AND chkusable = 'N'
+			</when>
+		</choose> 
+	</select>
+	
+	<select id="getUsersCouponList" resultType="com.damino.web.user.coupon.CouponVO">
+		SELECT * FROM coupon
+	</select>
+	
+	<select id="getNextCouponCode" resultType="String">
+		SELECT 'PRM'||LPAD(prom_coupon_seq.nextval, 8, '0') FROM DUAL
+	</select>
+	
+	<select id="getNextCouponSeq" resultType="Integer">
+		SELECT (select nvl(max(seq), 0)+1 from coupon) FROM DUAL
+	</select>
+	
+	<insert id="insertPromotionCoupon" parameterType="hashMap">
+		INSERT ALL
+			<foreach collection="couponList" item="coupon" index="index">
+			INTO coupon(coupon_code, seq, coupon_name, ordertype, discountrate, regdate, validity, chkusable, ispresent, coupon_type)
+			VALUES(#{coupon.coupon_code}, #{coupon.seq}, #{coupon.coupon_name}, #{coupon.ordertype}, #{coupon.discountrate}, sysdate, ADD_MONTHS(sysdate, 3), 'N', 'P', 'PROMOTION')
+			</foreach>
+		SELECT * FROM DUAL
+	</insert>
+	
+	<update id="updateChkusable">
+		UPDATE coupon SET chkusable = 'N'
+		WHERE to_char(sysdate, 'YYYYMMDD') > to_char(validity, 'YYYYMMDD')
+	</update>
+	
+	<update id="updateUsedCoupon" parameterType="String">
+		UPDATE coupon SET chkusable = 'N'
+		WHERE coupon_code = #{couponCode}
+	</update>
+	
+	<!-- 유효기간 만료 쿠폰 삭제 -->
+	<delete id="deleteExpirations">
+		<![CDATA[
+			DELETE FROM coupon
+			WHERE validity < sysdate
+		]]>
+	</delete>
+</mapper>

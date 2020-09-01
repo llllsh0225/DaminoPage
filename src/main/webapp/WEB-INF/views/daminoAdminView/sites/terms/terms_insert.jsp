@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +16,8 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-
+<!-- CK에디터 추가 -->
+<script type="text/javascript" src="<c:url value='https://cdn.ckeditor.com/4.14.1/full/ckeditor.js' />"></script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -36,10 +36,18 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -65,9 +73,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -96,9 +104,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
-								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
-								</a>ㄴ
+								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a> 
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황 </a>
 							</nav>
 						</div>
 
@@ -113,8 +120,11 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -167,7 +177,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -184,32 +194,41 @@
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<form>
+						<form action="insertTerms.admdo" method="post">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
-										<th>약관 분류</th>
-										<td><select class="form-control-osh-qna-insert">
-												<option>개인정보 처리방침</option>
-												<option>홈페이지 이용약관</option>
-												<option>위치기반 서비스 약관</option>
-										</select></td>
-									</tr>
-									<tr>
-										<th>시행 일자</th>
-										<td><input type="date" /></td>
-									</tr>
-									<tr>
-										<th>약관 내용</th>
-										<!-- 게시판 에디터 적용하기 -->
-										<td><textarea id="terms-textarea" cols="80" rows="10"></textarea>
+										<td>약관 분류</td>
+										<td>
+											<select name="title">
+												<option value="개인정보 처리방침">개인정보 처리방침</option>
+												<option value="이용약관">이용 약관</option>
+											</select>
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="center-group"><input type="button"
-											class="btn btn-primary" value="약관 등록" /> <input
-											type="button" class="btn btn-delete" value="취소" /></td>
+										<td>약관 세부분류</td>
+										<td colspan="2"><input type="text" name="subtitle" size="40"/></td>
+									</tr>
+									<tr>
+										<td>시행일</td>
+										<td><input type="date" name="enforcementDate"/></td>
+									</tr>
+									<tr>
+										<td>약관 내용</td>
+										<!-- 게시판 에디터 적용하기 -->
+										<td style="height: 300px">
+											<textarea name="content" rows="10" cols="14" > </textarea>
+											<script>
+								                CKEDITOR.replace( 'content' );
+								            </script>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="center-group">
+										<input type="submit" class="btn btn-primary" value="약관 등록" /> 
+										</td>
 									</tr>
 								</table>
 							</div>
@@ -221,7 +240,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

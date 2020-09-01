@@ -20,7 +20,40 @@
 <script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+<script>
+function showContent(idx){
+	$('#faqContent' + idx).slideToggle(500);
+}
+</script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 <div id="wrap">
 	<header id="header">
 			<div class="top-wrap">
@@ -28,7 +61,7 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+				<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
@@ -151,114 +184,18 @@
 								</div>
 								<div class="lst_faq_wrap">
 									<ul>
+									<c:forEach var="faqViewList" items="${faqViewList }" varStatus="status">
 										<li>
-											<dl id="active_240" class="classActive">
+											<dl id="active" class="classActive">
 												<dt>
-													<a href="#none" onclick="fncCnt(240);">휴면계정으로 처리됐는데 어떻게
-														해야 하나요?</a>
+													<a style="cursor:pointer" onclick="showContent(${status.index});">${faqViewList.title }</a>
 												</dt>
-												<dd>
-													'정보통신망 이용촉진 및 정보보호 등에 관한 제 29조 2항(2015년 8월 18일 시행)에 의거'하여
-													1년 이상 다미노피자 서비스를 이용하지 않은 회원님들의 개인정보는 파기 또는 분리 저장,관리됩니다. <br>
-													<br /> <br />
-													<br>지속적인 서비스 이용 및 혜택 안내를 원하실 경우, <br />다미노피자
-													온라인(홈페이지/모바일/앱)에 1회 이상 로그인을 통해 서비스 이용에 불편함이 없으시길 바랍니다.<br>
-													<br /> <br />
-													<br>휴면계정 해제를 원하실 경우, 본인인증 후 휴면계정 해제 신청을 하시면 기존 계정으로
-													서비스 이용 가능합니다. <br>
+												<dd id="faqContent${status.index }">
+													${faqViewList.content }
 												</dd>
 											</dl>
 										</li>
-										<li>
-											<dl id="active_135" class="classActive">
-												<dt>
-													<a href="#none" onclick="fncCnt(135);">뉴스레터로 받은 쿠폰 출력 시
-														인증번호와 유효기간만 출력됩니다.</a>
-												</dt>
-												<dd>
-													뉴스레터를 통해 발송하는 모든 쿠폰은 인증번호와 유효기간이 부여되어 제공됩니다. <br /> <br />받으시는
-													쿠폰 출력 시 인증번호와 유효기간만 출력되는 경우가 있습니다. <br /> <br />이러한 현상이 발생할
-													시 도구>인터넷 옵션>고급>인쇄에서 배경 및 이미지 인쇄 항목을 클릭하시면 쿠폰 이미지와 함께 정상적으로
-													출력하실 수 있습니다. <br /> <br />
-												</dd>
-											</dl>
-										</li>
-										<li>
-											<dl id="active_112" class="classActive">
-												<dt>
-													<a href="#none" onclick="fncCnt(112);">탈퇴하는 방법을 알려주세요</a>
-												</dt>
-												<dd>
-													탈퇴는 나의정보 -&gt 설정변경 -&gt 회원탈퇴 절차를 거쳐 진행합니다. <br /> <br />탈퇴
-													시에는 회원정보 중 아이디를 제외한 개인정보는 모두 삭제됩니다. <br /> <br />탈퇴한 회원의
-													아이디는 다른 회원이 사용하여 생길 수 있는 아이디 도용 문제를 차단하기 위해 재사용할 수 없도록 되어
-													있으니 양해 부탁드립니다.
-												</dd>
-											</dl>
-										</li>
-										<li>
-											<dl id="active_111" class="classActive">
-												<dt>
-													<a href="#none" onclick="fncCnt(111);">ID/PW 찾기는 어떻게 할
-														수 있나요?</a>
-												</dt>
-												<dd>
-													아이디 찾기 & 패스워드 재설정은
-													<휴대폰 본인인증> 확인 후, 인증 완료 시 <br />
-													즉각적으로 확인하실 수 있습니다. <br />
-													<br />
-													<br>
-													<br>
-													<br />
-													추가적인 문의사항은 다미노피자 고객만족팀(080-860-3082)으로 문의하시기 바랍니다.
-												</dd>
-											</dl>
-										</li>
-										<li>
-											<dl id="active_110" class="classActive">
-												<dt>
-													<a href="#none" onclick="fncCnt(110);">가입하는데 휴대폰으로
-														인증번호가 전송되지 않습니다.</a>
-												</dt>
-												<dd>
-													1) 휴대폰 번호를 정확히 기재한 경우 <br />대부분의 장애는 이동통신사 기지국 처리 장애입니다. <br />
-													<br>통신사 기지국에서 사용자 단말기로 제대로 전송이 되지 못하는 경우가 있습니다. <br />이
-													경우 홈페이지에 다시 접속하신 후 재인증절차를 거치실 수 있습니다.네트워크 상황에 따라 1~2분 정도
-													소요될 수 있습니다. <br /> <br />
-													<br>
-													<br>2) 휴대폰 번호를 정확히 기재하지 못한 경우 <br />웹마스터(webmaster@dominos.co.kr)에게
-													가입하신 정보(아이디, 이름, 연락처 등)와 정상적인 휴대폰번호를 보내주시면 확인 후에 처리해드립니다. <br />또는
-													다미노피자 고객만족팀(080-860-3082)으로 전화하시면 신속하게 해결할 수 있습니다. <br />
-												</dd>
-											</dl>
-										</li>
-										<li>
-											<dl id="active_109" class="classActive">
-												<dt>
-													<a href="#none" onclick="fncCnt(109);">온라인 회원 가입은 어떻게
-														해야 하나요? </a>
-												</dt>
-												<dd>
-													다미노피자 온라인 회원 가입은
-													<본인인증>, <약관동의>, <정보입력>, <가입완료>
-													순으로 이루어 집니다 <br />
-													<br>
-													<br>
-													<br />
-													안전한 인터넷 서비스 이용을 위하여, 실명 여부를 확인하고 있습니다. <br />
-													<br>
-													<휴대폰 본인인증>을 통해 실명인증을 받게 됨으로, 고객님의 주민등록번호 등은 입력, 저장하지
-													않습니다 <br />
-													<br />
-													<br>
-													<br>
-													<정보 입력 시>휴대폰으로 전송된 인증번호를 입력하시고 인증처리를 받으시면 다미노피자 회원으로
-													인정받게 됩니다. <br />
-													<br />
-													<br />
-												</dd>
-											</dl>
-										</li>
+									</c:forEach>
 									</ul>
 								</div>
 							</form>

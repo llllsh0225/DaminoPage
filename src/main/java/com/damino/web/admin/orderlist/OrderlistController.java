@@ -13,17 +13,15 @@ public class OrderlistController {
 	private OrderlistService orderlistService;
 
 	@RequestMapping("/orderList.admdo")
-	public ModelAndView getOrderlistInv() {
+	public ModelAndView getOrderlistInv(ModelAndView mav) {
 		System.out.println("주문 내역");
 		List<OrderlistVO> orderlistInv = orderlistService.getOrderlistInv();
 		//service객체의 메서드 수행
 		System.out.println(orderlistInv.toString());
 
-		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/store_sales/orderList"); //이동할 viewname
 		mav.addObject("orderlistInv", orderlistInv); //modelandview 객체가 orderlistinv객체를 물고감
 		return mav;
 	}
-	
-	
+
 }

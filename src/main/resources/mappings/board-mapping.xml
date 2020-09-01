@@ -55,25 +55,34 @@
 		]]>
 	</select>
 	
-	<select id="myQuestionList_adm" resultType="com.damino.web.user.board.QnaBoardVO" parameterType="com.damino.web.user.board.paging.Paging">
+	<select id="myQuestionList_adm" resultType="com.damino.web.user.board.QnaBoardVO">
 		<![CDATA[
-		SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result
-		FROM (SELECT * FROM qnaboard ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		SELECT  * FROM (SELECT rownum rnum, seq, title, qnaType, storeName, writerId, regdate, result
+		FROM (SELECT * FROM qnaboard ORDER BY seq desc))
 		]]>
 	</select>
 	
-	<select id="myQuestionList_adm_notComplete" resultType="com.damino.web.user.board.QnaBoardVO" parameterType="com.damino.web.user.board.paging.Paging">
+	<select id="myQuestionList_adm_notComplete" resultType="com.damino.web.user.board.QnaBoardVO">
 		<![CDATA[
-		SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result
-		FROM (SELECT * FROM qnaboard WHERE result='처리대기' ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		SELECT  * FROM (SELECT rownum rnum, seq, title, qnaType, storeName, writerId, regdate, result
+		FROM (SELECT * FROM qnaboard WHERE result='처리대기' ORDER BY seq desc))
 		]]>
 	</select>
+	
+	<update id="registQnaReply" parameterType="com.damino.web.user.board.QnaBoardVO">
+		UPDATE qnaboard SET replycontent = #{replyContent}, result = '처리완료'
+		WHERE seq = #{seq}
+	</update>
 			
 	<select id="myQuestion" resultType="com.damino.web.user.board.QnaBoardVO">
 		SELECT * FROM qnaboard WHERE seq=#{seq}
 	</select>
 	
-	<select id="getQnaCount" resultType="int">
+	<select id="getQnaCount" resultType="int" parameterType="com.damino.web.user.board.QnaBoardVO">
+		 SELECT count(*) FROM qnaboard WHERE writerId=#{writerId}
+	</select>
+	
+	<select id="getQnaCountAdm" resultType="int">
 		 SELECT count(*) FROM qnaboard
 	</select>
 	<!-- End 1:1 문의 게시판 -->
@@ -98,6 +107,13 @@
 		SELECT * FROM (SELECT rownum rnum, seq, title, writer, regdate, cnt, flag
 		FROM (SELECT * FROM board ORDER BY seq desc))
 		WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+	]]>
+	</select>
+	
+	<!-- 메인.admdo 표시 -->
+	<select id="getBoardListMain" resultType="com.damino.web.admin.board.BoardVO">
+	<![CDATA[
+		SELECT * FROM (SELECT rownum rnum, seq, title, flag FROM (SELECT * FROM board ORDER BY seq desc))Where rownum <=5
 	]]>
 	</select>
 </mapper>

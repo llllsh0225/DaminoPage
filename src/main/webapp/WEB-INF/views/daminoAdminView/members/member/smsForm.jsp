@@ -10,13 +10,25 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <title>도미노피자 테스트점 관리페이지</title>
 <link rel="stylesheet"
-	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css' />" crossorigin="anonymous">
+	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css' />" />
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />" />
 
 <script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"></script>
 <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+
+<script type="text/javascript">
+    function sendSMS(){
+        console.log("문자를 전송합니다.");
+        $("#smsForm").attr("action",  "sendSms.admdo"); //위에 있는 폼태그를 컨트롤러로 전송한다.
+        $("#smsForm").submit();
+    }
+</script>
+
+
+
+
 
 <style type="text/css">
 body {
@@ -43,10 +55,18 @@ body {
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -71,9 +91,9 @@ body {
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -114,8 +134,11 @@ body {
 						<div class="collapse" id="boardPage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="noticeBoardView.admdo"> 게시판리스트 </a> <a class="nav-link"
+								<a class="nav-link" href="noticeBoardView.admdo"> 게시판리스트 </a> 
+								<a class="nav-link"
 									href="boardList.admdo"> 게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -164,45 +187,38 @@ body {
 							</nav>
 						</div>
 						<div class="sb-sidenav-footer">
-							<div class="small">Logged in as:</div>
+							<div class="small">Logged in as: ${admin.adminid }</div>
 							Start Bootstrap
 						</div>
 					</div>
-				</div>
-				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					Start Bootstrap
 				</div>
 			</nav>
 		</div>
 		<div id="layoutSidenav_content">
 			<main>
 				<p class="text-center">SMS 발송하기</p>
-				<form>
+				<form method="post" id="smsForm">
 					<div class="form-row mb-3">
 						<label for="to" class="col-2 col-sm-1 col-form-label">To:</label>
 						<div class="col-10 col-sm-11">
-							<input type="email" class="form-control" id="to"
-								placeholder="전화번호">
+							<input type="text" class="form-control" id="to" name="from"
+								placeholder="전화번호만 입력 ">
 						</div>
 					</div>
-				</form>
 				<div class="row">
 					<div class="col-sm-11 ml-auto">
 						<div class="form-group mt-4">
-							<textarea class="form-control" id="message" name="content" rows="7"
+							<textarea class="form-control" id="message" name="text" rows="7"
 								placeholder=""></textarea>
-							<script>	
-								CKEDITOR.replace('content');
-							</script>
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-success">Send</button>
-							<button type="submit" class="btn btn-light">Draft</button>
-							<button type="submit" class="btn btn-danger">Discard</button>
+							<input type="button" class="btn btn-success" onclick="sendSMS()" value="전송하기">
+							<button type="button" class="btn btn-light">Draft</button>
+							<button type="button" class="btn btn-danger">Discard</button>
 						</div>
 					</div>
 				</div>
+				</form>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">

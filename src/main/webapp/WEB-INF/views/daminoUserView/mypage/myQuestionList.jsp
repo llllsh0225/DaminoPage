@@ -10,31 +10,13 @@
 	#qna_list_num {list-style:none; text-align:center; padding:15px; margin:20px;}
 </style>
 <title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
-	<script type="text/javascript" src="/resources/js/jquery1.11.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
 	
-	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/jquery.flexslider.js"></script>
-	<script type="text/javascript" src="/resources/js/selectbox.js"></script><!-- js 수정함. -->
-	<script type="text/javascript" src="/resources/js/d2CommonUtil.js?ver=1.5"></script>
-	<script type="text/javascript" src="/resources/js/Cookie.js"></script>
-	<script type="text/javascript" src="https://cdn.dominos.co.kr/renewal2018/w/js/basket_w.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/asset/css/font.css"> 
-	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/pc/css/common.css"> 
-	
-	<!--메인에는 sub.css 호출하지않음-->
-	<link rel="stylesheet" type="text/css" href="https://cdn.dominos.co.kr/domino/pc/css/sub.css">
-	<!--//메인에는 sub.css 호출하지않음  -->
-
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/jquery-3.1.1.min.js"></script>
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/slick.js"></script>
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/TweenMax.min.js"></script>
-	<script src="https://cdn.dominos.co.kr/domino/asset/js/lazyload.js"></script>
-	
-	<script src="https://cdn.dominos.co.kr/domino/pc/js/ui.js"></script>
-	<script type="text/javascript" src="/resources/js/gcenmaps/gcenmap.js"></script><!--서브에는 main.js 호출하지않음-->
-	<!--//서브에는 main.js 호출하지않음-->
-	
-	<!-- 기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 -->
+	<script type="text/javascript" src="<c:url value='/resources/js/jquery1.11.1.js'/>" ></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	<style>
 	#card_add .pop_wrap{position:fixed;top:50%;width:490px;margin-left:-245px;margin-top:-35px;}
 	#card_add .pop_wrap .pop_content p{font-size:18px;color:#fff;text-align:center}
@@ -51,324 +33,156 @@
 	
 	/* <!-- //기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 --> */
 	</style>
-	<script type="text/javascript">
-	
-	/*gps lsm 전역변수 */
-	var lat;
-	var lon;
-	var xdot;
-	var ydot;
-	var address;
-	var gps_yn;
-	
-	var CON_DOMAIN_URL = "http://web.dominos.co.kr";
-	var CON_SSL_URL = "https://web.dominos.co.kr";
-	var CON_STATIC_URL = "https://cdn.dominos.co.kr/renewal2018/w";
-	function goLink(menuCode, link) {
-		location.href = link;
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
 	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
+</head>
 
-	$(document).ready(function() {
-		$.ajaxSetup({cache:false});
-
-		setBasketCnt();
-
-		// 마이쿠폰 정보 조회(가입회원)
-		
-			$.ajax({
-				type: "POST",
-				url: "/mypage/mainMyCouponInfoAjax",
-				dataType : "json",
-				success:function(data) {
-				 	if (data.resultData.status == "success") {
-				 		$('#myMonth').text(data.resultData.myMonth+'월');
-				 		$('#myLevel').text(data.resultData.myLevel);
-				 		if(data.resultData.myCouponCnt > 0) {
-				 			$(".none_coupon").hide();
-					 		$(".exist_coupon").show();
-					 		$('#myCouponCnt').html(data.resultData.myCouponCnt+"<span>개</span>");
-					 		$('#gnbCoupon').text("("+data.resultData.myCouponCnt+")");
-				 		}
-					} else {
-// 						console.log("마이쿠폰 정보 가져오기 실패");
-					}
-				}
-			});
-			
-
-
-	function setBasketCnt() {
-		var basketCnt = cookieManager.getCookie("BASKETCNT");
-		var basket = cookieManager.getCookie("BASKET");
-		var finish_basket = cookieManager.getCookie("FINISH_BASKET");
-
-		if(basketCnt == "") basketCnt = "0";
-		else if(basket != "" && basket == finish_basket) basketCnt = "0";
-		
-		if(basketCnt != "0"){ 
-			$(".btn-cart > strong ").addClass("cart-count");
-			$(".cart-count").text(basketCnt);
-		}else{
-			$(".btn-cart > strong").removeClass("cart-count");
-		}
-	}
-
-	var goCart = function() {
-		location.href="/basket/detail";
-	};
-
-	var doLogin = function() {
-		location.href="/global/login";
-	};
-
-	var myOrderDetail = function() {
-		var order_no = $('#tracker_order_no').val();
-		location.href="/mypage/myOrderView?order_no="+order_no+"&pageNo=1";
-	};
-	
-	
-	var goPresentLogin = function(gubun) {
-		var rtnUrl = "/voucher/list?gubun="+gubun;
-		if("true" == "true"){
-			location.href = rtnUrl;
-		}else{
-			location.href = "/global/login?returnUrl="+rtnUrl;	
-		}
-	};
-	
-	function appendLocation(paramArr) {
-		var simpleAddress;
-		
-		gps_yn = 'Y';
-		
-		if (paramArr == null || paramArr.length == 0){
-			return;
-		}
+<script type="text/javascript">
+	function getStoreName(){
+		var storeRegion = $('#sel2').val();
+		var target = document.getElementById("sel3");
 		
 		$.ajax({
-		    type: "GET",
-		    url: "/gis/getXyAddressAjax",
-		    data: paramArr.join('&'),
-		    
-		    success:function(data) {
-		        $('#myloc').html("");
-		        
-		        if(data.resultData.result.length > 0) {
-		        	var html = '';
-					html += '<div class="tip-box center" id="tip-box">';
-					html += '<p>주변 매장의 프로모션을 확인해보세요!</p>';
-					html += '</div>';
+			url: 'searchStore.smdo',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post',
+			dataType: 'json',   
+			data : JSON.stringify({
+				storeRegion : storeRegion,//searchStore 쿼리에서 필요한 값
+			}),
+			success: function(data) {
 					
-					$("#tip-box-top").append(html);
-					$("#tip-box").delay(2000).fadeOut(1000);
-					
-		       		$.each(data.resultData.result, function(i, v) {
-		       			if(v.roadaddr === ''){
-		       				simpleAddress = v.sggname+' '+v.bemdname+' '+v.jbmain+(v.jbsub=='0'?'':'-'+v.jbsub);
-		       				$('#myloc').html(simpleAddress);
-		       				lat = v.lat;
-		       				lon = v.lon;
-		       				xdot = v.kx;
-		       				ydot = v.ky;
-		       				address = simpleAddress;
-		       				
-		       			}else{
-		       				simpleAddress = v.roadname+' '+v.bdmain+(v.bdsub=='0'?'':'-'+v.bdsub);
-		       				$('#myloc').html(simpleAddress);
-		       				lat = v.lat;
-		       				lon = v.lon;
-		       				xdot = v.kx;
-		       				ydot = v.ky;
-		       				address = simpleAddress;
-		       			}
-		       		});
-		   	    }else {
-		       		 $('#myloc').html("주변 매장의 프로모션이 궁금하시면, 위치 서비스를 허용해주세요.");
-		    	}
-		    },
-		    error: function (error){
-		        alert("다시 시도해주세요.");
-		    }
-		    
-		});
-	}
-	
-	//현재 위치 받아오기
-
-	var geo = {
-		init : function() { 
-			
-			if ('geolocation' in navigator) {
-				/* 지오로케이션 사용 가능 */
-				navigator.geolocation.getCurrentPosition(geo.success, geo.error);
-				
-			} else {
-				/* 지오로케이션 사용 불가능 */
-				alert('geolocationx');
-				alert('사용자의 브라우저는 지오로케이션을 지원하지 않습니다.');
-
-				//geo.changeTab();
-			}
-		},
-		success : function(position) {
-
-			var latitude  = position.coords.latitude;
-		    var longitude = position.coords.longitude;
-		  	// console.log('<p>위도 : ' + latitude + '° <br>경도 : ' + longitude + '°</p>');
-
-		    findLocation(latitude, longitude);
-		},
-		error : function(err) {
-			
-			var userAgent = navigator.userAgent.toString();
-
-			if(/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream){ // iOS
-				alert('아이폰 > 설정 >개인정보보호 > 위치서비스 > 다미노피자 항목의 위치접근허용을 체크해주세요.');
-				return;
-			} else {
-				//alert('위치접근허용을 승인해주세요.');
-				$('#myloc').html('주변 매장의 프로모션을 확인해보세요!');
-				return;
-				/* var latitude  = '37.539465';
-				var longitude = '127.052185';
-
-				findLocation(latitude,longitude);
-				gps_yn = 'Y'; */
-			}
-		}
-	}
-
-
-
-	function findLocation(lat,lon) {
-		//if (!!!optn) return;
-
-		// 검색 파라미터 설정
-		var paramArr = [];	
-		paramArr[0] = 'lat=' + lat;
-		paramArr[1] = 'lon=' + lon;
-		
-		appendLocation(paramArr);
-	}
-	
-	function gpsLsm(gps_yn){
-		if(gps_yn == 'Y'){
-			address = encodeURIComponent(address);
-			UI.layerPopUp({selId:'#pop-lsm', url:'/branch/gpsLsm', data:{lon:lon, lat:lat, xdot:xdot, ydot:ydot, address:address}});
-			address = decodeURIComponent(address);
-			_trk_call();
-		}else{
-			alert('위치접근허용을 승인해주세요.');	
-		}
-	}
-	
-	var _trk_call = function () {
-	    // 트래킹
-		var _trk_url = document.baseURI + '&_TRK_PI=WP_1P&_TRK_CP=LSM 팝업';
-	    try {
-	       	_trk_code_base = _trk_code_base.replace(/(du=).*?(&)/,'$1' + escape(_trk_url) + '$2');
-	        _trk_flashEnvView("_TRK_PI=WP_1P","_TRK_CP=LSM 팝업");
-	        /* console.log('TRK WEB_3_2 DONE!!'); */
-	    } catch (e) {
-	    	console.log(e.message);
-	    }
-		
+					if (data != null) {
+						for(var i=0; i<data.length; i++){
+							 target += ('<option value="'+ data[i] +'">'+
+									 data[i] + '</option>');
+							
+						}
+						
+						$('#sel3').html(target);
+					}else if (typeof callbackFunc === 'function') {
+				        callbackFunc();
+				    }else {
+						alert("다시 시도해주세요");
+					}
+					 
+				},
+				error: function() {
+					 alert('처리도중 오류가 발생했습니다.');
+				}
+			});
 	}
 </script>
-
-</head>
 <body>
 
-	
 <div id="wrap">
-	<header id="header">
+		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo">
-						<i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-					
-					<div class="util-nav">
-								<a href="/global/logout">로그아웃</a>
-								<a href="/mypage/myLevel">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
-									<i class="ico-cart"></i>
-									<span class="hidden ">장바구니</span>
-									<strong class="cart_count"></strong> <!-- count -->
-								</a>
-		                <a href="javascript:void(0);" class="lang">
-		                    <div class="select-type2 language">
-		                    	<select id="select-type2">
-									<option value="/main?locale=ko">KOR</option>
-									<option value="/main?locale=en">ENG</option>
-								</select>
-		                    </div>
-		                </a>
+
+					<div class="location active">
+						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
+
+					<c:choose>
+						<c:when test="${msg != 'login' }">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
-				
-			<!-- main 1dep menu -->
+
 			<div id="gnb" class="gnb-wrap">
 				<div class="gnb-inner">
 					<ul>
-						<li class="active">
-							<a href="/goods/list?dsp_ctgr=C0101"><span>메뉴</span></a>
-						</li>
-						<li>
-							<a href="/ecoupon/index"><span>e-쿠폰</span></a>
-						</li>
-						
-						<li>
-							<a href="/branch"><span>매장검색</span></a>
-						</li>
+						<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+						<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
+						<li><a href="branch.do"><span>매장검색</span></a></li>
 					</ul>
 					<a href="#" class="snb-more">더보기</a>
 				</div>
-				
+
 				<div class="snb-wrap">
 					<div class="inner-box">
 						<div class="mnu-wrap">
 							<div class="mnu-box">
-								<a href="/event/mania">다미노 서비스</a>
+								<a href="mania.do">다미노 서비스</a>
 								<ul>
-									<li><a href="/event/mania">매니아 혜택</a></li>
-									<li><a href="/goods/dominosMoment">다미노 모멘트</a></li>
-									<li><a href="/quickOrder/index">퀵 오더</a></li>
-									<li><a href="/order/groupOrder">단체주문 서비스</a></li>
+									<li><a href="mania.do">매니아 혜택</a></li>
+									<li><a href="quickOrder.do">퀵 오더</a></li>
+									<li><a href="groupOrder.do">단체주문 서비스</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/bbs/faqList?view_gubun=W&bbs_cd=online">고객센터</a>
+								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a href="/bbs/faqList?view_gubun=W&bbs_cd=online">자주하는 질문</a></li>
-									<li><a href="/bbs/qnaForm">온라인 신문고</a></li>
+									<li><a
+										href="faqMain.do">자주하는
+											질문</a></li>
+									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
-								<a href="/company/contents/overview">회사소개</a>
+								<a href="overview.do">회사소개</a>
 								<ul>
-									<li><a href="/company/contents/overview">한국다미노피자</a></li>
-									<li><a href="/company/tvcfList">광고갤러리</a></li>
-									<li><a href="/company/contents/society">사회공헌활동</a></li>
-									<li><a href="/company/contents/chainstore1">가맹점 모집</a></li>
-									<li><a href="/company/jobList?type=R">인재채용</a></li>
+									<li><a href="overview.do">한국다미노피자</a></li>
+									<li><a href="chainstore1.do">가맹점 모집</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="notice-box">
-							<a href="/bbs/newsList?type=N">공지사항</a>
+							<a href="noticeList.do">공지사항</a>
 							<ul>
-								<li><a href="/bbs/newsList?type=N">다미노뉴스</a></li>
-								<li><a href="/bbs/newsList?type=P">보도자료</a></li>
+								<li><a href="noticeList.do">다미노뉴스</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- //main 1dep menu -->
-		</header><!-- //header -->
+		</header>
+		<!-- //header -->
 	<!-- container -->
 <div id="container">
 	<section id="content">
@@ -378,8 +192,8 @@
 					<h2 class="page-title">나의정보</h2>
 					<div class="depth-area">
 						<ol>
-							<li><a href="/main">홈</a></li>
-							<li><a href="/mypage/myOrderList">나의 정보</a></li>
+							<li><a href="main.do">홈</a></li>
+							<li><a href="mylevel.do">나의정보</a></li>
 							<li><strong>1:1문의</strong></li>
 						</ol>
 					</div>
@@ -388,19 +202,19 @@
 					<div class="menu-nav-wrap">
 							<div class="menu-nav">
 								<ul>
-									<li><a href="/mypage/myLevel">매니아 등급</a></li>
-									<li><a href="/mypage/myOrderList">주문내역</a></li>
-									<li><a href="/mypage/myCoupon">쿠폰함</a></li>
+									<li><a href="mylevel.do">매니아 등급</a></li>
+									<li><a href="myorderlist.do">주문내역</a></li>
+									<li><a href="mycoupon.do">쿠폰함</a></li>
 									<li class="active"><a href="myquestionlist.do">1:1문의</a></li>
-									<li><a href="/member/userinfoConfirm">정보수정</a></li>
+									<li><a href="myuserinfoconfirm.do">정보수정</a></li>
 								</ul>
 							</div>
 						</div>
 					<div class="info-wrap">
 						<div class="user">
-							<span>ㅇㅇㅇ</span>님께서 문의하신 내용입니다.
+							<span>${user.username }</span>님께서 문의하신 내용입니다.
 						</div>
-						<div class="text-type">ㅇㅇㅇ님께서 문의하신 내용은 <strong>총 ${count}건</strong> 입니다.</div>
+						<div class="text-type">${user.username }님께서 문의하신 내용은 <strong>총 ${count}건</strong> 입니다.</div>
 					</div>
 					<div class="counsil-wrap">
 						<div class="table-type4">
@@ -438,13 +252,18 @@
 								<div id="qna_list_num">
 									<ul>
 										<c:if test="${pageMaker.prev}">
-											<a href="myquestionlist.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
+											<a class='pager-prev' href="myquestionlist.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
 										</c:if>
 										<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
+										<c:if test="${pageMaker.startPage eq 0}">
+											<a href="myquestionlist.do${pageMaker.makeQuery(i)}">[${i+1}]</a>
+										</c:if>
+										<c:if test="${pageMaker.startPage ne 0}">
 											<a href="myquestionlist.do${pageMaker.makeQuery(i)}">[${i}]</a>
+										</c:if>
 										</c:forEach>
 										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-											<a href="myquestionlist.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
+											<a class='pager-next' href="myquestionlist.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
 										</c:if>
 									</ul>
 								</div>
@@ -475,21 +294,23 @@
 			<div class="guide-box3">
 				주문 취소 / 변경과 같은 긴급한 요청은 매장으로 연락 부탁드립니다.
 			</div>
+			<input type="hidden" id="userid" value="${sessionScope.userid}" />
 			<input type="hidden" name="pageNo" id="pageNo" value="1">
-			
+			<input type="hidden" name="writerId" id="writerId" value="${user.userid }" />
+			<input type="hidden" name="phone" id="phone" value="${user.phone }" />
+			<input type="hidden" name="email" id="email" value="${user.email }" />
 			<div class="step-wrap">
-			<input type="hidden" name="writerId" id="writerId">
 				<dl> 
 					<dt>아이디</dt>
-					<dd>userid</dd>
+					<dd>${user.userid }</dd>
 				</dl>
 				<dl>
 					<dt>연락처</dt>
-					<dd>01012341234</dd>
+					<dd>${user.phone }</dd>
 				</dl>
 				<dl>
 					<dt>이메일</dt>
-					<dd>test@hanmail.net</dd>
+					<dd>${user.email }</dd>
 				</dl>
 			</div>
 			<div class="step-wrap">
@@ -519,41 +340,39 @@
 						<dd class="form-group">
 							<div class="form-item">
 								<div class="select-type2">
-									<select id="sel2" name="storeRegion" >
-										<option value="0" <c:if test="${storeRegion == 0}"></c:if>>지역</option>
-										<option value="서울" <c:if test="${storeRegion == '서울'}"></c:if>>서울</option>
-										</select>
+									<select id="sel2" name="storeRegion" onChange="getStoreName();">
+										<option value="">구 선택</option>
+										<option value="강남구">강남구</option>
+										<option value="강동구">강동구</option>
+										<option value="강북구">강북구</option>
+										<option value="강서구">강서구</option>
+										<option value="관악구">관악구</option>
+										<option value="광진구">광진구</option>
+										<option value="구로구">구로구</option>
+										<option value="금천구">금천구</option>
+										<option value="노원구">노원구</option>
+										<option value="도봉구">도봉구</option>
+										<option value="동대문구">동대문구</option>
+										<option value="동작구">동작구</option>
+										<option value="마포구">마포구</option>
+										<option value="서대문구">서대문구</option>
+										<option value="서초구">서초구</option>
+										<option value="성동구">성동구</option>
+										<option value="성북구">성북구</option>
+										<option value="송파구">송파구</option>
+										<option value="양천구">양천구</option>
+										<option value="영등포구">영등포구</option>
+										<option value="용산구">용산구</option>
+										<option value="은평구">은평구</option>
+										<option value="종로구">종로구</option>
+										<option value="중구">중구</option>
+										<option value="중랑구">중랑구</option>
+									</select>
 								</div>
 							</div>
 										<div class="form-item">
 											<div class="select-type2">
 												<select id="sel3" name="storeName">
-													<option value="0" <c:if test="${storeName == 0}"></c:if>>구/군</option>
-													<option value="강남구" <c:if test="${storeName == '강남구'}"></c:if>>강남구</option>
-													<option value="강동구" <c:if test="${storeName == '강동구'}"></c:if>>강동구</option>
-													<option value="강북구" <c:if test="${storeName == '강북구'}"></c:if>>강북구</option>
-													<option value="강서구" <c:if test="${storeName == '강서구'}"></c:if>>강서구</option>
-													<option value="관악구" <c:if test="${storeName == '관악구'}"></c:if>>관악구</option>
-													<option value="광진구" <c:if test="${storeName == '광진구'}"></c:if>>광진구</option>
-													<option value="구로구" <c:if test="${storeName == '구로구'}"></c:if>>구로구</option>
-													<option value="금천구" <c:if test="${storeName == '금천구'}"></c:if>>금천구</option>
-													<option value="노원구" <c:if test="${storeName == '노원구'}"></c:if>>노원구</option>
-													<option value="도봉구" <c:if test="${storeName == '도봉구'}"></c:if>>도봉구</option>
-													<option value="동대문구" <c:if test="${storeName == '동대문구'}"></c:if>>동대문구</option>
-													<option value="동작구" <c:if test="${storeName == '동작구'}"></c:if>>동작구</option>
-													<option value="마포구" <c:if test="${storeName == '마포구'}"></c:if>>마포구</option>
-													<option value="서대문구" <c:if test="${storeName == '서대문구'}"></c:if>>서대문구</option>
-													<option value="서초구" <c:if test="${storeName == '서초구'}"></c:if>>서초구</option>
-													<option value="성동구" <c:if test="${storeName == '성동구'}"></c:if>>성동구</option>
-													<option value="성북구" <c:if test="${storeName == '성북구'}"></c:if>>성북구</option>
-													<option value="송파구" <c:if test="${storeName == '송파구'}"></c:if>>송파구</option>
-													<option value="양천구" <c:if test="${storeName == '양천구'}"></c:if>>양천구</option>
-													<option value="영등포구" <c:if test="${storeName == '영등포구'}"></c:if>>영등포구</option>
-													<option value="용산구" <c:if test="${storeName == '용산구'}"></c:if>>용산구</option>
-													<option value="은평구" <c:if test="${storeName == '은평구'}"></c:if>>은평구</option>
-													<option value="종로구" <c:if test="${storeName == '종로구'}"></c:if>>종로구</option>
-													<option value="중구" selected <c:if test="${storeName == '중구'}"></c:if>>중구</option>
-													<option value="중랑구" <c:if test="${storeName == '중랑구'}"></c:if>>중랑구</option>
 												</select>
 											</div>
 										</div>
@@ -596,7 +415,8 @@
 <input type="hidden" name="idx" id="idx" />
 <input type="hidden" name="no" id="no" />
 <input type="hidden" name="pageNo" id="pageNo" value="1">
-<input type="hidden" name="writerId" id="writerId" value="${pageMaker.writerId }">
+<!--  <input type="hidden" name="writerId" id="writerId" value="${pageMaker.writerId }">-->
+
 </form>
 
 <script type="text/javascript">
@@ -643,10 +463,6 @@ function proc(){
 	}
 }
 
-</script>
-<script type="text/javascript">
-	_TRK_PI = "WP_24_4";			
-	_TRK_CP = "나의 정보>1:1문의";
 </script>
 <!-- 로딩 이미지 -->
 	<!-- // 로딩 이미지 -->

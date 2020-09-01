@@ -18,6 +18,11 @@
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 
+
+
+
+
+
 <style type="text/css">
 body {
 	margin-top: 20px;
@@ -41,10 +46,18 @@ body {
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -69,9 +82,9 @@ body {
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav accordion"
 								id="sidenavAccordionPages">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -113,8 +126,11 @@ body {
 						<div class="collapse" id="boardPage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="noticeBoardView.admdo"> 게시판리스트 </a> <a class="nav-link"
+								<a class="nav-link" href="noticeBoardView.admdo"> 게시판리스트 </a> 
+								<a class="nav-link"
 									href="boardList.admdo"> 게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -162,8 +178,8 @@ body {
 							</nav>
 						</div>
 						<div class="sb-sidenav-footer">
-							<div class="small">Logged in as:</div>
-							Start Bootstrap
+							<div class="small">Logged in as: ${admin.adminid }</div>
+						Start Bootstrap
 						</div>
 					</div>
 				</div>
@@ -220,7 +236,7 @@ body {
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

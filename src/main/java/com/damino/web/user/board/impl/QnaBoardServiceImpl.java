@@ -42,27 +42,39 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}	
 
 	@Override
-	public int getQnaCount() throws Exception {
-		System.out.println("QnaBoardServiceImpl getQnaCount()");
-		return qnaBoardDAO.getQnaCount();
-	}
-
-	@Override
 	public List<QnaBoardVO> myQuestionList(Paging pa) throws Exception {
 		System.out.println("QnaBoardServiceImpl myQuestionList(Paging pa)");
 		return qnaBoardDAO.myQuestionList(pa);
 	}
 
 	@Override
-	public List<QnaBoardVO> myQuestionList_adm(Paging pa) throws Exception {
-		System.out.println("QnaBoardServiceImpl myQuestionList_adm(Paging pa)");
-		return qnaBoardDAO.myQuestionList_adm(pa);
+	public List<QnaBoardVO> myQuestionList_adm() throws Exception {
+		System.out.println("QnaBoardServiceImpl myQuestionList_adm()");
+		return qnaBoardDAO.myQuestionList_adm();
 	}
 
 	@Override
-	public List<QnaBoardVO> myQuestionList_adm_notComplete(Paging pa) throws Exception {
-		System.out.println("QnaBoardServiceImpl myQuestionList_adm_notComplete(Paging pa)");
-		return qnaBoardDAO.myQuestionList_adm_notComplete(pa);
+	public List<QnaBoardVO> myQuestionList_adm_notComplete() throws Exception {
+		System.out.println("QnaBoardServiceImpl myQuestionList_adm_notComplete()");
+		return qnaBoardDAO.myQuestionList_adm_notComplete();
+	}
+	
+	@Override
+	public void registQnaReply(QnaBoardVO vo) {
+		System.out.println("QnaBoardServiceImpl registQnaReply(QnaBoardVO vo)");
+		qnaBoardDAO.registQnaReply(vo);
+	}
+
+	@Override
+	public int getQnaCount(QnaBoardVO vo) {
+		System.out.println("QnaBoardServiceImpl getQnaCount(vo)");
+		return qnaBoardDAO.getQnaCount(vo);
+	}
+
+	@Override
+	public int getQnaCountAdm() {
+		System.out.println("QnaBoardServiceImpl getQnaCountAdm()");
+		return qnaBoardDAO.getQnaCountAdm();
 	}
 
 

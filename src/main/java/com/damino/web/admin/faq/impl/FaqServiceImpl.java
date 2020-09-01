@@ -15,8 +15,8 @@ public class FaqServiceImpl implements FaqService {
 	private FaqDAO faqDAO;
 	
 	@Override
-	public List<FaqVO> getFaqList() {
-		return faqDAO.getFaqList();
+	public List<FaqVO> getFaqList(FaqVO vo) {
+		return faqDAO.getFaqList(vo);
 	}
 
 	@Override
@@ -39,9 +39,11 @@ public class FaqServiceImpl implements FaqService {
 		faqDAO.deleteFaq(vo);
 	}
 
+	//权其捞瘤包府磊 main侩
 	@Override
-	public List<FaqVO> getFaqTypeList(String faq_type) {
-		return faqDAO.getFaqTypeList(faq_type);
+	public List<FaqVO> faqMain() {
+		return faqDAO.faqMain();
 	}
+
 
 }

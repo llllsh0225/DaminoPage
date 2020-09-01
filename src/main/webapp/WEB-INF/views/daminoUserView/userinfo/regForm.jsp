@@ -155,6 +155,16 @@
 			}
 		});
 	}
+	
+	function formSubmit(){
+		if(checks()==false){
+			alert('작성 내용을 다시 확인해주세요.');
+		}else{
+			alert('회원가입 완료');
+			document.frm.action='registMember.do';
+			document.frm.submit();
+		}
+	}
 </script>
 </head>
 <div id="wrap">
@@ -246,8 +256,7 @@
 
 							<div class="myinfo-wrap">
 								<div class="form">
-									<form name="frm" id="frm" action="registMember.do" name="form1"
-										method="post" onsubmit="return checks()">
+									<form name="frm" id="frm" method="post" onsubmit="return checks()">
 
 										<dl>
 											<dt class="center">이름</dt>
@@ -689,7 +698,7 @@
 										</dl>
 
 										<div class="btn-wrap">
-											<input type="submit" class="btn-type v6" value="가입하기" />
+											<input type="button" class="btn-type v6" value="가입하기" onclick="formSubmit()" style="cursor: pointer"/>
 
 										</div>
 									</form><!-- --------------------------------------------------form end -->

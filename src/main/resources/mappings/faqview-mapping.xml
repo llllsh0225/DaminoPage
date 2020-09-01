@@ -7,5 +7,21 @@
 	<select id="getHowToOrderPage" resultType="com.damino.web.user.faq.FaqViewVO">
 		SELECT * FROM faq WHERE faq_type = '피자 주문하기'
 	</select>
+	
+	<select id="getOrderCheckPage" resultType="com.damino.web.user.faq.FaqViewVO">
+		SELECT * FROM faq WHERE faq_type = '주문확인'
+	</select>
+	
+	<select id="getWrapOrderPage" resultType="com.damino.web.user.faq.FaqViewVO">
+		SELECT * FROM faq WHERE faq_type = '포장 주문'
+	</select>
+	
+	<select id="getSendPresentPage" resultType="com.damino.web.user.faq.FaqViewVO">
+		SELECT * FROM faq WHERE faq_type = '피자 선물하기'
+	</select>
+	
+	<select id="getAboutHomepagePage" resultType="com.damino.web.user.faq.FaqViewVO">
+		SELECT * FROM faq WHERE faq_type = '홈페이지 관련'
+	</select>
 
 </mapper>

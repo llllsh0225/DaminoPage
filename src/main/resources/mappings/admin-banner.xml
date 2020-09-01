@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BannerDAO">
+	<!-- 배너등록 (코드) 이름 설명 이미지 이미지(원래이름) 시퀀스 -->
+	<insert id="insertBanner" parameterType="com.damino.web.admin.banner.BannerVO">
+		INSERT INTO banner_db (banner_code, banner_name, banner_alt, banner_image, banner_originalname, banner_seq)
+		VALUES('B'||LPAD(banner_seq.nextval, 3, '0'), #{banner_name}, #{banner_alt}, #{banner_image}, #{banner_originalname}, (select nvl(max(banner_seq), 0)+1 from banner_db))
+	</insert>
+	
+	<!-- 관리자, 사용자 배너이미지 불러오기 -->
+	<select id="getBannerList" parameterType="com.damino.web.admin.banner.BannerVO" resultType="com.damino.web.admin.banner.BannerVO">
+		SELECT banner_seq, banner_code,  banner_name, banner_alt, banner_image, banner_originalname
+		FROM banner_db
+	</select>
+	
+	<!-- 배너 수정을 위한 가져오기 -->
+	
+	<select id="getBanner" parameterType="com.damino.web.admin.banner.BannerVO" resultType="com.damino.web.admin.banner.BannerVO">
+		SELECT * 
+		FROM banner_db
+		WHERE banner_seq=#{banner_seq}
+	</select>
+	
+	<!-- 배너 수정 -->
+	<!-- if 1) banneroriginalname이 null 아닐때 (파일추가할때.) -->
+	<!-- if 2) banneroriginalname이 null 일때 (파일추가를 하지 않을때.) -->
+	<update id="updateBanner" parameterType="com.damino.web.admin.banner.BannerVO" >
+		UPDATE banner_db
+		<if test = "#{banner_originalname} != null"> 
+		set banner_name=#{banner_name}, banner_alt=#{banner_alt}, banner_image=#{banner_image}, banner_originalname=#{banner_originalname}
+		WHERE banner_seq=#{banner_seq}
+		</if>
+		<if test="#{banner_originalname} == null"> 
+		set banner_name=#{banner_name}, banner_alt=#{banner_alt}
+		WHERE banner_seq=#{banner_seq}
+		</if>		
+	</update>
+	
+	<!-- 배너 삭제 -->
+	<delete id="deleteBanner" parameterType="com.damino.web.admin.banner.BannerVO" >
+		DELETE FROM banner_db 
+		WHERE banner_seq=#{banner_seq} 
+	</delete>	
+	
+	
+
+</mapper>

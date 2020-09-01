@@ -6,22 +6,14 @@
 
 	<insert id="insertPizza"
 		parameterType="com.damino.web.admin.menu.PizzaVO">
-		INSERT ALL
-			INTO pizza (p_code, p_name, p_type, p_size, p_price, p_dough, p_image, seq)
-			VALUES('P'||LPAD(pizza_seq.nextval, 3, '0'), #{p_name}, #{p_type}, #{p_size}, #{p_price}, #{p_dough}, #{p_image}, (select nvl(max(seq), 0)+1 from pizza))
-			INTO p_nutrients (p_nutrients_code, gross_weight, onetime_basis, onetime_weight, kcal, protein, fat, natrium, sugars, p_code)
-			VALUES('NP'||LPAD(p_nutrients_seq.nextval, 3, '0'), #{gross_weight}, #{onetime_basis}, #{onetime_weight}, #{kcal}, #{protein}, #{fat}, #{natrium}, #{sugars}, 'P'||LPAD(pizza_seq.nextval, 3, '0'))
-		SELECT * FROM DUAL
+		INSERT INTO pizza (p_code, p_name, p_type, p_size_m, p_size_l, p_price_m, p_price_l, p_dough, p_originalFileName, p_image, gross_weight_m, gross_weight_l, onetime_basis_m, onetime_basis_l, onetime_weight_m, onetime_weight_l, kcal_m, kcal_l, protein_m, protein_l, fat_m, fat_l, natrium_m, natrium_l, sugars_m, sugars_l, seq)
+		VALUES('P'||LPAD(pizza_seq.nextval, 3, '0'), #{p_name}, #{p_type}, 'M', 'L', #{p_price_m}, #{p_price_l}, #{p_dough}, #{p_originalFileName}, #{p_image}, #{gross_weight_m}, #{gross_weight_l}, #{onetime_basis_m}, #{onetime_basis_l}, #{onetime_weight_m}, #{onetime_weight_l}, #{kcal_m}, #{kcal_l}, #{protein_m}, #{protein_l}, #{fat_m}, #{fat_l}, #{natrium_m}, #{natrium_l}, #{sugars_m}, #{sugars_l}, (select nvl(max(seq), 0)+1 from pizza))
 	</insert>
 	
 	<insert id="insertSide"
 		parameterType="com.damino.web.admin.menu.SideVO">
-		INSERT ALL
-			INTO side (s_code, s_name, s_price, s_image, seq)
-			VALUES('S'||LPAD(side_seq.nextval, 3, '0'), #{s_name}, #{s_price}, #{s_image}, (select nvl(max(seq), 0)+1 from side))
-			INTO s_nutrients (s_nutrients_code, gross_weight, kcal, protein, fat, natrium, sugars, s_code)
-			VALUES('NS'||LPAD(s_nutrients_seq.nextval, 3, '0'), #{gross_weight}, #{kcal}, #{protein}, #{fat}, #{natrium}, #{sugars}, 'S'||LPAD(side_seq.nextval, 3, '0'))
-		SELECT * FROM DUAL
+		INSERT INTO side (s_code, s_name, s_price, s_image, s_originalFileName, seq, gross_weight, kcal, protein, fat, natrium, sugars)
+		VALUES('S'||LPAD(side_seq.nextval, 3, '0'), #{s_name}, #{s_price}, #{s_image}, #{s_originalFileName}, (select nvl(max(seq), 0)+1 from side), #{gross_weight}, #{kcal}, #{protein}, #{fat}, #{natrium}, #{sugars})
 	</insert>
 	
 	<insert id="insertDrinkEtc"
@@ -38,19 +30,128 @@
 
 	<select id="getPizzaList" 
 		resultType="com.damino.web.admin.menu.PizzaVO">
-		SELECT seq, P_CODE, P_NAME, P_TYPE, P_PRICE
+		SELECT seq, P_CODE, P_NAME, P_TYPE, P_PRICE_M, P_PRICE_L
 		FROM PIZZA
 	</select>
 
+	<select id="getNutrients"
+		resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT *
+		FROM p_nutrients
+	</select>
+	
 	<select id="getToppingList"
 		resultType="com.damino.web.admin.menu.ToppingVO">
 		SELECT seq, t_code, t_name, t_type, t_price
 		FROM topping
-		</select>
+	</select>
 		
-	<select id="getPizza" 
-		resultType="com.damino.web.admin.menu.PizzaVO">
-		SELECT * FROM pizza where seq=#{seq}
+	<select id="getSideList"	
+		resultType="com.damino.web.admin.menu.SideVO">
+		SELECT seq, s_code, s_name, s_price
+		FROM side
 	</select>
 
+	<select id="getDrinkEtcList"	
+		resultType="com.damino.web.admin.menu.DrinkEtcVO">
+		SELECT seq, d_code, d_name, d_price
+		FROM drink_Etc
+	</select>
+
+		
+	<select id="getPizza" parameterType="com.damino.web.admin.menu.PizzaVO"
+		resultType="com.damino.web.admin.menu.PizzaVO">
+        
+        SELECT * FROM pizza 
+        where seq=#{seq}
+		
+	</select>
+	
+	
+	<select id="getSide" parameterType="com.damino.web.admin.menu.SideVO"
+		resultType="com.damino.web.admin.menu.SideVO">
+		SELECT * FROM side
+		where seq=#{seq}	
+	</select>
+	
+	
+	<select id="getDrinkEtc" parameterType="com.damino.web.admin.menu.DrinkEtcVO"
+		resultType="com.damino.web.admin.menu.DrinkEtcVO">
+		SELECT * FROM drink_etc
+		where seq=#{seq}
+	</select>
+	
+	
+	<select id="getTopping" parameterType="com.damino.web.admin.menu.ToppingVO"
+		resultType="com.damino.web.admin.menu.ToppingVO">
+		SELECT * FROM topping
+		where seq=#{seq}
+	</select>		
+
+	<delete id="deletePizza" parameterType="com.damino.web.admin.menu.PizzaVO">
+		DELETE FROM pizza WHERE seq = #{seq}
+	</delete>
+	
+	<delete id="deleteSide" parameterType="com.damino.web.admin.menu.SideVO">
+		DELETE FROM side WHERE seq = #{seq}
+	</delete>
+	
+	<delete id="deleteDrinkEtc" parameterType="com.damino.web.admin.menu.DrinkEtcVO">
+		DELETE FROM drink_etc WHERE seq = #{seq}
+	</delete>
+	
+	<delete id="deleteTopping" parameterType="com.damino.web.admin.menu.ToppingVO">
+		DELETE FROM topping WHERE seq = #{seq}
+	</delete>
+	
+	<update id="updatePizza" parameterType="com.damino.web.admin.menu.PizzaVO">
+			UPDATE pizza 
+			<if test = "#{p_originalFileName} != null">
+			SET p_name=#{p_name}, p_type=#{p_type}, p_price_l=#{p_price_l}, p_price_m=#{p_price_m}, p_dough=#{p_dough}, p_originalFileName=#{p_originalFileName}, p_image=#{p_image}, gross_weight_m=#{gross_weight_m}, gross_weight_l=#{gross_weight_l}, onetime_basis_m=#{onetime_basis_m}, onetime_basis_l=#{onetime_basis_l}, onetime_weight_m=#{onetime_weight_m}, onetime_weight_l=#{onetime_weight_l}, kcal_m=#{kcal_m}, kcal_l=#{kcal_l}, protein_m=#{protein_m}, protein_l=#{protein_l}, fat_m=#{fat_m}, fat_l=#{fat_l}, natrium_m=#{natrium_m}, natrium_l=#{natrium_l}, sugars_m=#{sugars_m}, sugars_l=#{sugars_l}
+			where seq=#{seq}			
+			</if>
+			<if test = "#{p_originalFileName} == null">
+			SET p_name=#{p_name}, p_type=#{p_type}, p_price_l=#{p_price_l}, p_price_m=#{p_price_m}, p_dough=#{p_dough}, gross_weight_m=#{gross_weight_m}, gross_weight_l=#{gross_weight_l}, onetime_basis_m=#{onetime_basis_m}, onetime_basis_l=#{onetime_basis_l}, onetime_weight_m=#{onetime_weight_m}, onetime_weight_l=#{onetime_weight_l}, kcal_m=#{kcal_m}, kcal_l=#{kcal_l}, protein_m=#{protein_m}, protein_l=#{protein_l}, fat_m=#{fat_m}, fat_l=#{fat_l}, natrium_m=#{natrium_m}, natrium_l=#{natrium_l}, sugars_m=#{sugars_m}, sugars_l=#{sugars_l}
+			where seq=#{seq}	
+			</if>
+	</update>
+	
+	<update id="updateSide" parameterType="com.damino.web.admin.menu.SideVO">
+			UPDATE side
+			<if test = "#{s_originalFileName} != null">
+			set	s_name=#{s_name }, s_price=#{s_price }, gross_weight=#{gross_weight }, kcal=#{kcal }, protein=#{protein }, fat=#{fat }, natrium=#{natrium }, sugars=#{sugars }, s_originalFileName=#{s_originalFileName }
+			where seq=#{seq}
+			</if>
+			<if test = "#{s_originalFileName} == null">
+			set	s_name=#{s_name }, s_price=#{s_price }, gross_weight=#{gross_weight }, kcal=#{kcal }, protein=#{protein }, fat=#{fat }, natrium=#{natrium }, sugars=#{sugars }
+			where seq=#{seq}
+			</if>
+	</update>
+	
+	<update id="updateDrinkEtc" parameterType="com.damino.web.admin.menu.DrinkEtcVO">
+			<if test = "#{d_originalFileName} != null">
+			UPDATE drink_etc
+			set d_name=#{d_name}, d_price=#{d_price}, d_originalFileName=#{d_originalFileName}
+			where seq=#{seq}
+			</if>
+			<if test = "#{d_originalFileName} == null">
+			UPDATE drink_etc
+			set d_name=#{d_name}, d_price=#{d_price}
+			where seq=#{seq}
+			</if>
+	</update>	
+	
+	<update id="updateTopping" parameterType="com.damino.web.admin.menu.ToppingVO">
+			<if test = "#{t_originalFileName} != null">
+			UPDATE topping
+			set t_name=#{t_name}, t_price=#{t_price}, t_originalFileName=#{t_originalFileName}
+			where seq=#{seq}
+			</if>
+			<if test = "#{t_originalFileName} == null">
+			UPDATE topping
+			set t_name=#{t_name}, t_price=#{t_price}
+			where seq=#{seq}
+			</if>
+	</update>	
+	
 </mapper>

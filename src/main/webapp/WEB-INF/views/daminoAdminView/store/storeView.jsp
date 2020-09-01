@@ -37,7 +37,30 @@
 		});
 	});
 </script>
-
+<script type="text/javascript">
+var lang_kor = {
+        "emptyTable" : "데이터가 없습니다.",
+        "info" : "_START_ - _END_ (총 _TOTAL_ 건)",
+        "infoEmpty" : "0건",
+        "infoFiltered" : "(전체 _MAX_ 건 중 검색결과)",
+        "lengthMenu" : "_MENU_ 건씩 보기",
+        "search" : "빠른 검색 : ",
+        "zeroRecords" : "검색된 데이터가 없습니다.",
+        "paginate" : {
+            "first" : "첫 페이지",
+            "last" : "마지막 페이지",
+            "next" : "다음",
+            "previous" : "이전"
+        }
+    };
+$(document).ready(function() {
+    $('#dataTable1').DataTable( {
+        order: [[ 1, 'asc' ]],
+        ordering:true,
+        language : lang_kor
+    } );
+} );
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -56,10 +79,18 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -85,9 +116,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -133,8 +164,11 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -187,7 +221,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -200,12 +234,12 @@
 						<i class="fas fa-table mr-1"></i> 매장관리
 						<!--새로고침 버튼-->
 						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							vonClick="window.location.reload()"
+							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered" id="dataTable" width="100%"
+							<table class="table table-bordered" id="dataTable1" width="100%"
 								cellspacing="0">
 								<thead>
 									<tr>
@@ -214,15 +248,17 @@
 													type="checkbox" /> <label class="custom-control-label"
 													for="checkAll"></label>
 											</div></th>
+										<th>지역구</th>
 										<th>점포명</th>
-										<th>전화번호</th>
+										<th>우편번호</th>
 										<th>주소</th>
-										<th>위치정보</th>
+										<th>상세주소</th>
+										<th>전화번호</th>
+										<th>매장주차</th>
+										<th>특이사항</th>
+										<th>주차시설</th>
 										<th>오픈시간</th>
 										<th>마감시간</th>
-										<th>매장주차</th>
-										<th>주차시설</th>
-										<th>특이사항</th>
 										<th><a class="btn btn-secondary" href="emailForm.admdo"
 											role="button">메일발송</a> <a class="btn btn-secondary"
 											href="smsForm.admdo" role="button">SMS발송</a></th>
@@ -238,31 +274,34 @@
 													for="check${market.seq }"></label>
 											</div>
 										</td>
-										<td>${market.name }</td>
-										<td>${market.tel }</td>
-										<td>${market.address}</td>
-										<td>${market.location }</td>
-										<td>${market.time }</td>
-										<td>${market.etime }</td>
-										<td>${market.car }</td>
-										<td>${market.park }</td>
-										<td>${market.etc }</td>
+										<td>${market.storeregion }</td>
+										<td>${market.storename }</td>
+										<td>${market.zipcode}</td>
+										<td>${market.storeaddress }</td>
+										<td>${market.detailaddress }</td>
+										<td>${market.storephone }</td>
+										<td>${market.parking }</td>
+										<td>${market.referinfo }</td>
+										<td>${market.parkingplace }</td>
+										<td>${market.opentime }</td>
+										<td>${market.endtime }</td>
 										<td><a class="btn btn-primary" href="storeEdit.admdo?seq=${market.seq }"
 											role="button">수정</a>
-
 											<button class="btn btn-danger" onClick="del(${market.seq})">삭제</button></td>
 									</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
-						</form>
+					</div>
+				</div>
+				</form>
 			</main>
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

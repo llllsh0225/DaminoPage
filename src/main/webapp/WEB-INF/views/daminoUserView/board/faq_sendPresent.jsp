@@ -1,26 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 <html lang="ko">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 <meta charset="utf-8">
 <title>FAQ- 다미노피자</title>
-<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon"
+	href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/card_add.css' />">
 
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script>
+function showContent(idx){
+	$('#faqContent' + idx).slideToggle(500);
+}
+</script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -30,14 +72,13 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+					<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -66,9 +107,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -93,7 +132,8 @@
 		<!-- //header -->
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="<c:url value='/resources/css/user/jquery-ui.css' />" />
-		<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
 		<!-- container -->
 		<div id="container">
 			<!-- content -->
@@ -105,8 +145,7 @@
 							<div class="depth-area">
 								<ol>
 									<li><a href="main.do">홈</a></li>
-									<li><a
-										href="faqMain.do">고객센터</a></li>
+									<li><a href="faqMain.do">고객센터</a></li>
 									<li><strong>자주하는 질문</strong></li>
 								</ol>
 							</div>
@@ -136,82 +175,27 @@
 
 									<div class="tab-type4 btn_tab_faq">
 										<ul>
-											<li><a
-												href="faqHowToOrder.do">피자
-													주문하기</a></li>
-											<li><a
-												href="faqOrderCheck.do">주문확인</a></li>
-											<li><a
-												href="faqWrapOrder.do">포장
-													주문</a></li>
-											<li class="active"><a
-												href="faqSendPresent.do">피자
+											<li><a href="faqHowToOrder.do">피자 주문하기</a></li>
+											<li><a href="faqOrderCheck.do">주문확인</a></li>
+											<li><a href="faqWrapOrder.do">포장 주문</a></li>
+											<li class="active"><a href="faqSendPresent.do">피자
 													선물하기</a></li>
-											<li><a
-												href="faqHomePage.do">홈페이지
-													관련</a></li>
+											<li><a href="faqHomePage.do">홈페이지 관련</a></li>
 										</ul>
 									</div>
 									<div class="lst_faq_wrap">
 										<ul>
-											<li>
-												<dl id="active_209" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(209);">피자 선물하기를 이용할 때
-															유의사항은 무엇인가요? </a>
-													</dt>
-													<dd>
-														① 결제는 신용카드 선결제와 휴대폰 선결제 를 이용하실 수 있습니다. <br />
-														<br>② 결제 완료 후 메뉴 변경 및 취소는 불가능합니다. <br />
-														<br>③ 메뉴를 변경하실 경우 주문을 취소하고 다시 주문을 하셔야 합니다. <br />
-														<br>④ 주문취소는 주문하신 매장으로 전화를 하여 요청하여야 합니다. <br />
-														<br>⑤ 주문이 취소되면 신용카드/휴대폰의 승인도 자동으로 취소됩니다. <br />
-														<br>⑥ 승인취소여부는 취소 다음날 이용하신 해당 카드사 및 통신사 홈페이지를 통해서 확인하실
-														수 있습니다. <br />
-														<br>⑦ 수령하실 매장 선택시 반드시 매장 위치를 확인하시기 바랍니다. <br />
-														<br>⑧ 수령자 정보(이름/휴대폰)를 정확하게 입력해 주시기 바랍니다. 정보의 오기재로 인해
-														피자가 전달되지 못한 경우, 환불이 불가능합니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_208" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(208);">피자 선물하기 주문은 어떻게
-															하나요?</a>
-													</dt>
-													<dd>
-														① 홈페이지 메인화면 또는 온라인주문 내에 피자 선물하기를 선택합니다. <br />
-														<br>② 피자를 선물하실 장소(배달지)를 등록합니다. <br />
-														<br>③ 피자 및 사이드디쉬, 음료 등을 선택합니다. <br />
-														<br>④ 할인 선택에서 이용 가능한 할인혜택을 선택합니다 <br />
-														<br>⑤ 주문 내역을 확인한 후 수령인 정보에 선물 받으실 분의 성함과 연락처를 적습니다. <br />
-														<br>⑥ 주문내역을 다시 한번 확인한 후 추가 사항을 입력합니다. <br />
-														<br>⑦ 결제하기 버튼을 누르면 결제수단(휴대폰 또는 신용카드)를 선택하고 주문완료 버튼을
-														누릅니다. <br />
-														<br>⑧ 결제창이 열리면 결제정보를 입력하고 결제를 완료합니다. <br />
-														<br>⑨ 주문이 완료됩니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_207" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(207);">피자 선물하기는 무엇인가요?</a>
-													</dt>
-													<dd>
-														피자 선물하기는 온라인 주문을 이용하여 선물받을 분께 원하시는 지역 및 시간에 맞춰 따뜻하고 맛있는
-														피자를 보내드리는 선물 주문 서비스 입니다. <br /> <br />
-														<br>회사에서 집에 있는 가족에게, <br />
-														<br>타지에서 생일을 맞이한 친구에게, <br />
-														<br>사랑하는 연인에게 피자를 보내고 싶을 때, <br />
-														<br>피자 선물하기를 통해 온라인상에서 주문 및 결제를 마치시면 다미노피자 전국매장에서
-														원하시는 주소로 피자를 배달해드립니다. <br />
-														<br> <br />
-														<br>웹사이트 및 다미노피자 모바일을 통해 선물하기 주문이 가능합니다.
-													</dd>
-												</dl>
-											</li>
+											<c:forEach var="faqViewList" items="${faqViewList }" varStatus="status">
+												<li>
+													<dl id="active" class="classActive">
+														<dt>
+															<a style="cursor:pointer" onclick="showContent(${status.index});">${faqViewList.title }</a>
+														</dt>
+														<dd id="faqContent${status.index }">
+															${faqViewList.content }</dd>
+													</dl>
+												</li>
+											</c:forEach>
 										</ul>
 									</div>
 								</form>
@@ -259,8 +243,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -308,27 +291,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>

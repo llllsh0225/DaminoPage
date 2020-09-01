@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="false" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,36 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
+	
 	<script type="text/javascript">
 	function inputCheck(){
 		var idcheck = $('#userid').val();
@@ -33,6 +64,74 @@
 		else if(pwcheck == ""){
 			alert("비밀번호를 입력하세요.");
 		}else{
+		}
+	}
+	
+	function doSendAuthKey() {
+		var phoneNumber1 = $('#sel_hand_tel1').val();
+		var phoneNumber2 = $('#hand_tel2').val();
+		var phoneNumber3 = $('#hand_tel3').val();
+		var phoneNumber = phoneNumber1.concat(phoneNumber2, phoneNumber3);
+
+		$.ajax({
+			type : "POST",
+			url : "sendAuthKey.do",
+			dataType : "json",
+			contentType : "application/json; charset=utf-8;",
+			data : JSON.stringify({
+				phoneNumber : phoneNumber,
+			}),
+			success : function(res) {
+				alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
+				$('#btn_AuthKeyConfirm').click(
+						function() {
+							alert("인증번호 입력");
+							if ($.trim(res) == $('#security_no').val()) {
+								$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
+								$('#security_alert').text("휴대폰 인증이 완료되었습니다.");
+								$('#security_alert').show();
+							} else {
+								$('#security_alert').text(
+										"인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+								$('#security_alert').show();
+								$('#security_no').val() = "";
+								$('#security_no').focus();
+								return;
+							}
+						})
+			},
+			error : function(error) {
+				alert("인증문자 발송에 실패하였습니다. 다시 시도해주세요.");
+			}
+		});
+	}
+	
+	
+	// 필수약관 동의 여부 검사
+	function formSumbit(){
+		var name = $('#name').val();
+		var tel1 = $('#sel_hand_tel1').val();
+		var tel2 = $('#hand_tel2').val();
+		var tel3 = $('#hand_tel3').val();
+		var auth = $('#auth_num').val();
+		var chk = document.nonf.agree1.checked;
+		if(name==""){
+			alert("이름을 입력하세요");
+			return false;
+		}
+		if(tel1=="" || tel2=="" || tel3=="" || auth==""){
+			alert("번호를 입력하세요");
+			return false;
+		}
+		
+		if(!chk){
+			alert("필수 약관에 동의해주세요");
+			return false;
+		}else{
+			
+		alert("비회원으로 로그인 하였습니다.");
+		document.nonf.action="NonLogin.do";
+		document.nonf.submit();
 		}
 	}
 	</script>
@@ -53,7 +152,7 @@
 
                <div class="util-nav">
                   <a href="login.do">로그인</a> 
-                  <a href="login.do">회원가입</a>
+                  <a href="registMember.do">회원가입</a>
                </div>
             </div>
          </div>
@@ -121,8 +220,8 @@
                   <article class="login-area">
                      <div class="tab-type5 js_tab">
                         <ul>
-                           <li class="active"><a href="login.do">회원로그인</a></li>
-                           <li><a href="#guest" onclick="showAlert(); return false;">비회원 주문</a></li>
+                           <li class="active"><a href="#login" onclick="return false;">회원로그인</a></li>
+                           <li><a href="#guest" onclick="return false;">비회원 주문</a></li>
                         </ul>
                      </div>
                      <div class="tab-content active" id="login">
@@ -156,18 +255,18 @@
 
                            </div>
                            <div class="btn-wrap">
-                              <a href="javascript:goIdLoginPop();" class="btn-type-brd5">회원가입</a>
+                              <a href="registMember.do" class="btn-type-brd5">회원가입</a>
                            </div>
                         </form>
                      </div>
                      <div class="tab-content" id="guest">
                         <form name="nonf" id="nonf"
-                           action="https://web.dominos.co.kr/global/nonMemLogin"
+                           action=""
                            method="post">
                            <input type="hidden" name="hp" id="hp" value="" /> <input
                               type="hidden" name="returnUrl" id="returnUrl" value="/main" />
                            <div class="sub-text">
-                              아직 다미노피자 회원이 아니세요? <a href="javascript:goIdLoginPop();">회원가입</a>
+                              아직 다미노피자 회원이 아니세요? <a href="registMember.do">회원가입</a>
                            </div>
                            <div class="form">
                               <div class="form-item">
@@ -177,7 +276,7 @@
                               <div class="form-group">
                                  <div class="form-item number">
                                     <div class="select-type2">
-                                       <select name="hp1" id="hp1">
+                                       <select name="sel_hand_tel1" id="sel_hand_tel1">
                                           <option value="010">010</option>
                                           <option value="011">011</option>
                                           <option value="016">016</option>
@@ -186,24 +285,25 @@
                                           <option value="019">019</option>
                                        </select>
                                     </div>
-                                    <input type="text" name="hp2" id="hp2" maxlength="4"
+                                    <input type="text" name="hand_tel2" id="hand_tel2" maxlength="4"
                                        onkeyup="checkNum($(this), '숫자만 입력하세요.');"> <input
-                                       type="text" name="hp3" id="hp3" maxlength="4"
+                                       type="text" name="hand_tel3" id="hand_tel3" maxlength="4"
                                        onkeyup="checkNum($(this), '숫자만 입력하세요.');">
                                  </div>
-                                 <a href="javascript:goNonAuth();" class="btn-type v7">인증번호</a>
+                                 <a href="javascript:doSendAuthKey();" id="btn_sendAuthchk" class="btn-type v7">인증번호</a>
                               </div>
                               <div class="form-group">
                                  <div class="form-item">
                                     <input type="text" placeholder="인증번호" name="auth_num"
-                                       id="auth_num">
+                                       id="auth_num"><Button type="button" id="btn_AuthKeyConfirm"
+															onclick="btn_AuthKeyConfirm()" class="btn-type v7">인증하기</button>
                                  </div>
                               </div>
                            </div>
                            <div class="chk-item">
                               <div class="chk-box v4">
-                                 <input type="checkbox" id="agree1" name="agree" value="Y"
-                                    checked="checked"> <label class="checkbox"
+                                 <input type="checkbox" id="agree1" name="agree1" 
+                                 value="N"> <label class="checkbox"
                                     for="agree1"></label> <label for="agree1">개인정보 수집 및
                                     이용 동의(필수)</label>
                               </div>
@@ -211,7 +311,7 @@
                                  class="btn-link side">보기</a>
                            </div>
                            <div class="btn-wrap">
-                              <a href="javascript:goNonLogin();" class="btn-type3">주문하기</a>
+                              <input type="button" class="btn-type3" onclick="formSumbit()"value="주문하기">
                            </div>
                            <p class="title-type2">비회원 주문 시 매니아 및 제휴할인 혜택을 받을 수 없습니다.</p>
                            <div class="banner-wrap">

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GoodsListDAO">
+
+	<!-- 프리미엄 피자 목록 불러오기 -->
+	<select id="getPizzaList" resultType="com.damino.web.user.goods.GoodsPizzaVO">
+		SELECT * FROM pizza WHERE p_type='프리미엄'
+		ORDER BY seq desc
+	</select>
+	<!-- 클래식 피자 목록 불러오기 -->
+	<select id="getPizzaClassicList" resultType="com.damino.web.user.goods.GoodsPizzaVO">
+		SELECT * FROM pizza WHERE p_type='클래식'
+		ORDER BY seq desc
+	</select>
+	
+	<!-- 사이드메뉴 목록 불러오기 -->
+	<select id="getSideList" resultType="com.damino.web.user.goods.GoodsSideVO">
+		SELECT * FROM side
+		ORDER BY seq desc
+	</select>	
+
+	<!-- 음료 및 기타 목록 불러오기 -->
+	<select id="getDrinkEtcList" resultType="com.damino.web.user.goods.GoodsDrinkEtcVO">
+		SELECT * FROM drink_etc
+		ORDER BY seq desc
+	</select>
+	
+	<!-- 사용자 선택 - 피자 메뉴 불러오기 -->
+	<select id="getUserPizzaGoods" resultType="com.damino.web.user.goods.GoodsPizzaVO" parameterType="com.damino.web.user.goods.GoodsPizzaVO" >
+		SELECT * FROM pizza WHERE p_code = #{p_code} AND p_name = #{p_name}
+	</select>
+	
+	<!-- 메인 토핑 목록 불러오기 -->
+	<select id="getMainTopping" resultType="com.damino.web.user.goods.GoodsToppingVO">
+		SELECT * FROM topping WHERE t_type = '메인'
+		ORDER BY seq desc
+	</select>	
+	
+	<!-- 치즈 토핑 목록 불러오기 -->
+	<select id="getCheezeTopping" resultType="com.damino.web.user.goods.GoodsToppingVO">
+		SELECT * FROM topping WHERE t_type = '치즈'
+		ORDER BY seq desc
+	</select>
+
+	<!-- 애프터 토핑 목록 불러오기 -->
+	<select id="getAfterTopping" resultType="com.damino.web.user.goods.GoodsToppingVO">
+		SELECT * FROM topping WHERE t_type = '애프터'
+		ORDER BY seq desc
+	</select>	
+	
+	<!-- 사용자 선택 - 사이드디시 메뉴 불러오기 -->
+	<select id="getUserSideGoods" resultType="com.damino.web.user.goods.GoodsSideVO" parameterType="com.damino.web.user.goods.GoodsSideVO" >	
+		SELECT * FROM side WHERE s_code = #{s_code} AND s_name = #{s_name}	
+	</select>
+	
+	<!-- 사용자 선택 - 토핑 메뉴 불러오기 -->
+	<select id="getUserTopping" resultType="com.damino.web.user.goods.GoodsToppingVO" parameterType="com.damino.web.user.goods.GoodsToppingVO" >	
+		SELECT * FROM topping WHERE t_name = #{t_name}	
+	</select>
+	
+	 <!--  장바구니 정보 삽입 -->
+	<!-- <insert id="insertBasket" parameterType="com.damino.web.user.goods.UserBasketVO">
+		INSERT INTO userBasket (seq, pizzaPrice, pizzaSize, pizzaName, pizzaDough, pizzaCount, pizzaImage, toppingPrice, toppingName, toppingCount, sideName, sideCount, sidePrice,
+		etcName, etcCount, etcPrice, userid)
+		VALUES ((select nvl(max(seq), 0)+1 from userBasket), #{pizzaPrice}, #{pizzaSize}, #{pizzaName},#{pizzaDough}, #{pizzaCount}, #{pizzaImage}, #{toppingPrice},
+		#{toppingName}, #{toppingCount}, #{sideName}, #{sideCount}, #{sidePrice}, #{etcName}, #{etcCount}, #{etcPrice}, #{userid})
+	</insert> -->
+	
+	<!--  장바구니 피자 정보 삽입 -->
+	<insert id="insertPizzaBasket" parameterType="com.damino.web.user.goods.UserBasketVO">
+		INSERT INTO usersPizza (seq, gubun, p_name, p_count, p_image, p_price, p_size, p_dough, userid)
+		VALUES ((select nvl(max(seq), 0)+1 from usersPizza), #{gubun}, #{p_name},
+		#{p_count}, #{p_image},#{p_price}, #{p_size}, #{p_dough}, #{userid})
+	</insert>
+	
+	<!--  장바구니 토핑 정보 삽입 -->
+	<insert id="insertToppingBasket" parameterType="com.damino.web.user.goods.UserBasketVO">
+		INSERT INTO usersTopping (seq, gubun, t_name, t_count, t_price, userid)
+		VALUES ((select nvl(max(seq), 0)+1 from usersTopping), #{gubun}, #{t_name},
+		#{t_count}, #{t_price}, #{userid})
+	</insert>
+	
+	<!--  장바구니 사이드 정보 삽입 -->
+	<insert id="insertSideBasket" parameterType="com.damino.web.user.goods.UserBasketVO">
+		INSERT INTO usersSide (seq, gubun, s_name, s_count, s_price, userid)
+		VALUES ((select nvl(max(seq), 0)+1 from usersSide), #{gubun}, #{s_name},
+		#{s_count}, #{s_price}, #{userid})
+	</insert>
+		
+	<!--  장바구니 음료 및 기타 정보 삽입 -->
+	<insert id="insertEtcBasket" parameterType="com.damino.web.user.goods.UserBasketVO">
+		INSERT INTO usersEtc (seq, gubun, d_name, d_count, d_price, userid)
+		VALUES ((select nvl(max(seq), 0)+1 from usersEtc), #{gubun}, #{d_name},
+		#{d_count}, #{d_price}, #{userid})
+	</insert>	
+	
+	<!-- 장바구니 피자 정보 불러오기 -->
+	<select id="getBasketPizza" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
+		SELECT * FROM usersPizza 
+		WHERE userid = #{userid}
+		ORDER BY seq
+	</select>
+	
+	<!-- 장바구니 토핑 정보 불러오기 -->
+	<select id="getBasketTopping" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
+		SELECT * FROM usersTopping
+		WHERE userid = #{userid}
+		ORDER BY seq
+	</select>
+	
+	<!-- 장바구니 사이드디시 정보 불러오기 -->
+	<select id="getBasketSide" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
+		SELECT * FROM usersSide
+		WHERE userid = #{userid}
+		ORDER BY seq
+	</select>
+	
+	<!-- 장바구니 음료 및 기타 정보 불러오기 -->
+	<select id="getBasketEtc" parameterType="String" resultType="com.damino.web.user.goods.UserBasketVO">
+		SELECT * FROM usersEtc
+		WHERE userid = #{userid}
+		ORDER BY seq
+	</select>
+	
+	<!-- 장바구니 - 음료및기타 수량 변경 -->
+	<update id="changeEtcCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersEtc SET
+		d_count = #{d_count}
+		WHERE userid = #{userid} AND seq = #{seq}
+	</update> 
+
+	<!-- 장바구니 - 음료및기타 수량 초기화 -->
+	<update id="defaultEtcCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersEtc SET
+		d_count = #{d_count}
+		WHERE userid = #{userid}
+	</update> 
+	
+	<!-- 장바구니 - 사이드디시 수량 변경 -->
+	<update id="changeSideCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersSide SET
+		s_count = #{s_count}
+		WHERE userid = #{userid} AND seq = #{seq}
+	</update>
+	
+	<!-- 장바구니 - 사이드디시 수량 초기화 -->
+	<update id="defaultSideCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersSide SET
+		s_count = #{s_count}
+		WHERE userid = #{userid}
+	</update>
+	
+	<!-- 장바구니 - 피자 수량 변경 -->
+	<update id="changePizzaCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersPizza SET
+		p_count = #{p_count}
+		WHERE userid = #{userid} AND seq = #{seq}
+	</update>
+
+	<!-- 장바구니 - 피자 수량 초기화 -->
+	<update id="defaultPizzaCnt" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE usersPizza SET
+		p_count = #{p_count}
+		WHERE userid = #{userid}
+	</update>			
+	
+	<!-- 장바구니 토핑 삭제하기 -->
+	<delete id="deleteTopping" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersTopping
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
+	
+	<!-- 장바구니 특정 토핑 이름, 토핑개수 삭제 -->
+	<!-- update 테이블명 set 컬럼명 = replace(컬럼명, '대상문자', '치환될문자'); -->
+	<!-- <update id="deleteTopping" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE userBasket SET
+		toppingName = REPLACE (toppingName, #{toppingName}, null),
+		toppingCount = REPLACE (toppingCount, #{toppingCount}, null),
+		toppingPrice = REPLACE (toppingPrice, #{toppingPrice}, null)
+		WHERE userid = #{userid} AND seq = #{seq} AND toppingName = #{toppingName} 
+	</update>
+	
+	<update id="deleteToppingCount" parameterType="com.damino.web.user.goods.UserBasketVO">
+		UPDATE userBasket SET 
+		WHERE userid = #{userid} AND seq = #{seq} 
+	</update> -->
+	
+	<select id="getNextGubun" parameterType="String" resultType="Integer">
+		SELECT MAX(gubun) + 1 FROM usersPizza
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="getNextGubunSide" parameterType="String" resultType="Integer">
+		SELECT MAX(gubun) + 1 FROM usersSide
+		WHERE userid = #{userid}
+	</select>
+	
+	<!-- 장바구니 모든 정보 삭제-피자 -->
+	<delete id="allDeleteP" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersPizza
+		WHERE userid = #{userid}
+	</delete>
+	<!-- 장바구니 모든 정보 삭제-토핑 -->
+	<delete id="allDeleteT" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersTopping
+		WHERE userid = #{userid}
+	</delete>
+	<!-- 장바구니 모든 정보 삭제-사이드디시 -->
+	<delete id="allDeleteS" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersSide
+		WHERE userid = #{userid}
+	</delete>
+	<!-- 장바구니 모든 정보 삭제-음료 -->
+	<delete id="allDeleteE" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersEtc
+		WHERE userid = #{userid}
+	</delete>
+			
+	<!-- 장바구니 피자정보 삭제 -->
+	<delete id="deletePizzaInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersPizza
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
+	<!-- 장바구니 피자 삭제시 연관된 토핑 삭제 -->
+	<delete id="deletePizzasTopping" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersTopping
+		WHERE userid = #{userid} AND gubun = #{gubun}
+	</delete>
+	
+	<!-- 장바구니 사이드디시 정보 삭제 -->
+	<delete id="deleteSideInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersSide
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
+	
+	<!-- 장바구니 음료 정보 삭제 -->
+	<delete id="deleteEtcInfo" parameterType="com.damino.web.user.goods.UserBasketVO">
+		DELETE FROM usersEtc
+		WHERE userid = #{userid} AND seq = #{seq}
+	</delete>
+</mapper>

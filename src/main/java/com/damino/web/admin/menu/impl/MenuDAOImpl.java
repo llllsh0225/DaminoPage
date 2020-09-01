@@ -52,11 +52,96 @@ public class MenuDAOImpl implements MenuDAO {
 		System.out.println("토핑 메뉴 가져오기");
 		return sqlSessionTemplate.selectList("MenuDAO.getToppingList");
 	}
+	
+	@Override
+	public List<SideVO> getSideList() {
+		System.out.println("사이드 메뉴 가져오기");
+		return sqlSessionTemplate.selectList("MenuDAO.getSideList");
+	}
 
 	@Override
+	public List<DrinkEtcVO> getDrinkEtcList() {
+		System.out.println("음료&기타 메뉴 가져오기");
+		return sqlSessionTemplate.selectList("MenuDAO.getDrinkEtcList");
+	}
+	
+	@Override
 	public PizzaVO getPizza(PizzaVO vo) {
-		System.out.println("피자 메뉴 DAO");
+		System.out.println("피자 수정 DAO");
 		return sqlSessionTemplate.selectOne("MenuDAO.getPizza", vo);
 	}
+
+	@Override
+	public List<PizzaVO> getNutrients() {
+		System.out.println("영양성분 가져오기");
+		return sqlSessionTemplate.selectOne("MenuDAO.getNutrients");
+	}
+
+	@Override
+	public SideVO getSide(SideVO vo) {
+		System.out.println("사이드 수정 DAO");
+		return sqlSessionTemplate.selectOne("MenuDAO.getSide", vo);
+	}
+
+	@Override
+	public DrinkEtcVO getDrinkEtc(DrinkEtcVO vo) {
+		System.out.println("음료&기타 수정 DAO");
+		return sqlSessionTemplate.selectOne("MenuDAO.getDrinkEtc", vo);
+	}
+
+	@Override
+	public ToppingVO getTopping(ToppingVO vo) {
+		System.out.println("토핑 수정 DAO");
+		return sqlSessionTemplate.selectOne("MenuDAO.getTopping", vo);
+	}
+
+	@Override
+	public void deletePizza(PizzaVO vo) {
+		System.out.println("피자 삭제 DAO");
+		sqlSessionTemplate.delete("MenuDAO.deletePizza", vo);
+	}
+
+	@Override
+	public void updatePizza(PizzaVO vo) {
+		System.out.println("피자 업데이트");
+		sqlSessionTemplate.update("MenuDAO.updatePizza", vo);
+	}
+
+	@Override
+	public void updateSide(SideVO vo) {
+		System.out.println("사이드 업데이트");
+		sqlSessionTemplate.update("MenuDAO.updateSide", vo);
+	}
+
+	@Override
+	public void updateDrinkEtc(DrinkEtcVO vo) {
+		System.out.println("음료&기타 업데이트");
+		sqlSessionTemplate.update("MenuDAO.updateDrinkEtc", vo);
+	}
+
+	@Override
+	public void updateTopping(ToppingVO vo) {
+		sqlSessionTemplate.update("MenuDAO.updateTopping", vo);
+	}
+
+	@Override
+	public void deleteSide(SideVO vo) {
+		System.out.println("사이드 삭제 DAO");
+		sqlSessionTemplate.delete("MenuDAO.deleteSide", vo);
+	}
+
+	@Override
+	public void deleteDrinkEtc(DrinkEtcVO vo) {
+		System.out.println("음료 삭제 DAO");
+		sqlSessionTemplate.delete("MenuDAO.deleteDrinkEtc", vo);
+	}
+
+	@Override
+	public void deleteTopping(ToppingVO vo) {
+		System.out.println("토핑 삭제 DAO");
+		sqlSessionTemplate.delete("MenuDAO.deleteTopping", vo);
+	}
+
+	
 
 }

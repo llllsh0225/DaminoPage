@@ -7,20 +7,62 @@
 <head>
 <meta charset="utf-8">
 <title>FAQ- 다미노피자</title>
-<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon"
+	href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/sub.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/user/card_add.css' />">
 
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
 <!-- 메인페이지 슬라이드 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
-<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
-
+<script type="text/javascript"
+	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script>
+function showContent(idx){
+	$('#faqContent' + idx).slideToggle(500);
+}
+</script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 </head>
 <body>
 
@@ -31,14 +73,13 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+			<input type="hidden" id="userid" value="${sessionScope.userid}" />	
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
 					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
+						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
 					</div>
 				</div>
 			</div>
@@ -67,9 +108,7 @@
 							<div class="mnu-box">
 								<a href="faqMain.do">고객센터</a>
 								<ul>
-									<li><a
-										href="faqMain.do">자주하는
-											질문</a></li>
+									<li><a href="faqMain.do">자주하는 질문</a></li>
 									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
@@ -94,7 +133,8 @@
 		<!-- //header -->
 		<link rel="stylesheet" type="text/css" media="screen"
 			href="<c:url value='/resources/css/user/jquery-ui.css' />" />
-		<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
+		<script type="text/javascript"
+			src="<c:url value='/resources/js/user/jquery-ui.js' />"></script>
 		<!-- container -->
 		<div id="container">
 			<!-- content -->
@@ -106,8 +146,7 @@
 							<div class="depth-area">
 								<ol>
 									<li><a href="main.do">홈</a></li>
-									<li><a
-										href="faqMain.do">고객센터</a></li>
+									<li><a href="faqMain.do">고객센터</a></li>
 									<li><strong>자주하는 질문</strong></li>
 								</ol>
 							</div>
@@ -137,177 +176,26 @@
 
 									<div class="tab-type4 btn_tab_faq">
 										<ul>
-											<li><a
-												href="faqHowToOrder.do">피자
-													주문하기</a></li>
-											<li><a
-												href="faqOrderCheck.do">주문확인</a></li>
-											<li class="active"><a
-												href="faqWrapOrder.do">포장
-													주문</a></li>
-											<li><a
-												href="faqSendPresent.do">피자
-													선물하기</a></li>
-											<li><a
-												href="faqHomePage.do">홈페이지
-													관련</a></li>
+											<li><a href="faqHowToOrder.do">피자 주문하기</a></li>
+											<li><a href="faqOrderCheck.do">주문확인</a></li>
+											<li class="active"><a href="faqWrapOrder.do">포장 주문</a></li>
+											<li><a href="faqSendPresent.do">피자 선물하기</a></li>
+											<li><a href="faqHomePage.do">홈페이지 관련</a></li>
 										</ul>
 									</div>
 									<div class="lst_faq_wrap">
 										<ul>
-											<li>
-												<dl id="active_211" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(211);">주문한 내역을 다시 확인하고
-															싶은데 어디에서 확인할 수 있나요?</a>
-													</dt>
-													<dd>
-														주문하신 내역은 다미노피자 온라인 하단의 My Page -> 주문/배송 조회-> 방문포장내역을 통하여
-														포장주문 상세내역 및 주문상태를 확인하실 수 있습니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_164" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(164);">화끈한 화요일은 무엇인가요?</a>
-													</dt>
-													<dd>
-														다미노피자에서 고객님께 제공해 드리는 화요일 특별 프로모션 입니다. <br />
-														<br> <br />
-														<br>매주 화요일 마다 온라인으로 방문포장 주문 시 피자 40% 할인을 해 드립니다 <br />
-														<br>전체 매장에서 동일하게 이용할 수 있습니다(리조트점 등 일부 특수매장 제외) <br />
-														<br> <br />
-														<br>익일 예약 주문 시에는 화끈한 화요일 혜택을 이용할 수 없으며, 특수일, 공휴일에는
-														프로모션을 운영하지 않습니다
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_163" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(163);">방문포장 주문 이용 시간은
-															어떻게 되나요?</a>
-													</dt>
-													<dd>
-														피자 수령은 11:15 ~ 22:30까지(매장 별 다름) 가능합니다. <br />포장 예약 시, 도착
-														예정시간의 날짜와 시간 모두를 확인하여 주십시오. <br />
-														<br>11:00~21:59까지는 당일 및 익일의 포장예약주문이 가능합니다. <br />
-														<br>22:00~23:59까지는 익일의 포장예약주문이 가능합니다. <br />
-														<br>00:00~11:29까지는 당일 및 익일의 포장예약주문이 가능합니다. <br /> <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_162" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(162);">포장주문 이용은 어떻게
-															하나요?</a>
-													</dt>
-													<dd>
-														① 온라인 주문 시 방문포장 주문을 선택합니다. <br />
-														<br>② 피자를 수령하실 매장을 검색(주소/매장명) 후 매장을 선택합니다. <br />
-														<br>③ 피자 및 사이드디쉬, 음료를 선택합니다. <br />
-														<br>④ 할인 선택에서 방문포장 주문 할인을 선택하면 해당 매장의 포장할인율이 적용됩니다. <br />
-														<br>⑤ 주문 확인 시 도착 예정시간(15분 후,당일예약,익일예약) 을 선택한후 추가사항을
-														입력합니다 <br />
-														<br>⑥ 결제수단을 선택(신용카드 또는 휴대폰)한 뒤 주문완료 버튼을 누릅니다. <br />
-														<br>⑦ 결제창이 열리면 결제정보를 입력하고 결제를 완료합니다. <br />
-														<br>⑧ 주문이 완료됩니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_161" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(161);">온라인 방문포장 주문을
-															이용할 때 유의사항은 무엇인가요?</a>
-													</dt>
-													<dd>
-														① 15분 후 수령, 당일 예약, 익일 예약 방문포장 주문을 받습니다. <br />
-														<br>② 결제 완료 후 메뉴 변경 및 취소는 불가능합니다. <br />
-														<br>③ 메뉴를 변경하실 경우 주문을 취소하고 다시 주문을 하셔야 합니다. <br />
-														<br>④ 주문취소는 주문하신 매장으로 직접 연락 하셔야 합니다.(온라인 취소 불가) <br />
-														<br>⑤ 주문이 취소되면 신용카드/휴대폰의 승인도 자동으로 취소 됩니다 <br />
-														<br>⑥ 승인취소여부는 취소 다음날 이용하신 해당 카드사 및 통신사 홈페이지를 통해서 확인하실
-														수 있습니다. <br />
-														<br>⑦ 수령하실 매장 선택 시 반드시 매장 위치를 확인하시기 바랍니다. <br />
-														<br>⑧ 수령자 정보(이름/휴대폰)를 정확하게 입력해 주시기 바랍니다. <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_160" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(160);">배달주문 / 포장주문의
-															차이점은 무엇인가요?</a>
-													</dt>
-													<dd>
-
-														<br /> <br>● 배달주문은 집, 회사 등 고객이 선택한 주소로 피자가 배달되는 것이며,
-														매장은 배달장소에 따라 자동적으로 선택됩니다. <br /> <br />
-														<br>● 포장주문은 고객이 직접 매장에서 피자를 수령하며, 고객이 매장의 위치를 확인 후
-														원하는 매장으로 주문이 가능합니다. <br />
-														<br>또한, 방문포장 주문을 이용하실 경우, 각 매장 별 방문포장 할인율을 적용 받으실 수
-														있습니다.(각 매장 별 방문포장 할인률은 다름) <br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_159" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(159);">방문포장 할인율은 어디서
-															확인할 수 있나요?</a>
-													</dt>
-													<dd>
-														매장 선택 시 할인정보에서 방문포장 할인율 확인이 가능합니다. <br /> <br />
-														<br>다미노피자 온라인 상단의 "매장찾기"에서도 매장을 검색하시면 매장 별 포장할인율을
-														확인하실 수 있습니다.
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_158" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(158);">매장 방문포장 할인율이
-															달라졌어요. 왜 그런가요?</a>
-													</dt>
-													<dd>
-														포장할인은 각 매장 별 자율적으로 시행하고 있어, 수시로 변동될 수 있습니다. <br />
-														<br> <br />
-														<br>주문하실 때 해당 매장의 방문포장 할인율을 확인해 주시기 바랍니다.
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_157" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(157);">다른 사람이 피자를 수령할
-															수 있나요?</a>
-													</dt>
-													<dd>
-														주문하는 분과 피자를 수령하실 분이 다르신 경우, 수령자 정보를 정확히 입력해 주시기 바랍니다. <br />
-														<br> <br />
-														<br>전화번호의 경우, 휴대폰 번호 입력이 가능하며, <br />정보의 오기재로 인해 피자를
-														수령하지 못하였을 경우 환불은 불가능합니다. <br />
-														<br> <br />
-														<br>[포장내역출력하기] 에서 포장내역을 출력해가시면 빠른 확인 및 피자 수령에 도움이 됩니다
-														<br />
-													</dd>
-												</dl>
-											</li>
-											<li>
-												<dl id="active_155" class="classActive">
-													<dt>
-														<a href="#none" onclick="fncCnt(155);">주문한 내역을 다시 확인하고
-															싶은데 어디에서 확인할 수 있나요?</a>
-													</dt>
-													<dd>
-														주문하신 내역은 다미노피자 홈페이지 상단의 My Page -> 주문/배송 조회-> 포장주문내역 을 통하여
-														포장주문 상세내역 및 주문상태를 확인하실 수 있습니다. <br /> <br />
-													</dd>
-												</dl>
-											</li>
+											<c:forEach var="faqViewList" items="${faqViewList }" varStatus="status">
+												<li>
+													<dl id="active" class="classActive">
+														<dt>
+															<a style="cursor:pointer" onclick="showContent(${status.index});">${faqViewList.title }</a>
+														</dt>
+														<dd id="faqContent${status.index }">
+															${faqViewList.content }</dd>
+													</dl>
+												</li>
+											</c:forEach>
 										</ul>
 									</div>
 								</form>
@@ -355,8 +243,7 @@
 					<ul class="footer-contact">
 						<li><a href="law.do">이용약관</a></li>
 						<li class="on"><a href="privacy.do">개인정보처리방침</a></li>
-						<li><a
-							href="faqMain.do">고객센터</a></li>
+						<li><a href="faqMain.do">고객센터</a></li>
 						<li><a href="groupOrder.do">단체주문</a></li>
 					</ul>
 
@@ -404,27 +291,39 @@
 			<div class="awards-area">
 				<div class="inner-box">
 					<ul>
-						<li><img src="<c:url value='/resources/images/user/list_awards.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards.png' />"
+							alt="">
 							<p>
 								식품안전<br>경영시스템 인증
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards2.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards2.png' />"
+							alt="">
 							<p>
 								지식경제부<br>우수디자인 선정
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards3.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards3.png' />"
+							alt="">
 							<p>
 								고객이 가장 추천하는 기업<br>피자전문점 부문 7년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards4.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards4.png' />"
+							alt="">
 							<p>
 								2019년 한국산업 고객만족도<br>피자전문점 부문 5년 연속 1위
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards5.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards5.png' />"
+							alt="">
 							<p>
 								2019 프리미엄브랜드지수<br>피자전문점 부문 4년 연속 1위 수상
 							</p></li>
-						<li><img src="<c:url value='/resources/images/user/list_awards6.png' />" alt="">
+						<li><img
+							src="<c:url value='/resources/images/user/list_awards6.png' />"
+							alt="">
 							<p>
 								대학생 1000명이 선택한<br>2019 올해의 핫 브랜드 캠퍼스 잡앤조이 선정
 							</p></li>

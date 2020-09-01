@@ -17,7 +17,74 @@
 <script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script>
 
+function checkLogin(){ // 사용자의 로그인 여부를 체크
+	var sessionChk = $('#sessionChk').val();
+	
+	if(sessionChk != "login"){
+		alert('다미노 회원전용 서비스입니다. 로그인해주세요.');
+		location.href="login.do";
+	}else{
+		return;
+	}
+}
+
+function registEcoupon(){
+	var userid = '<%=session.getAttribute("userid")%>';
+	var couponCode = $('#couponCode').val();
+	
+	$.ajax({
+		url : 'registEcoupon.do',
+		type : 'post',
+		contentType : "application/json; charset=UTF-8;",
+		data : JSON.stringify({
+			userid : userid,
+			couponCode : couponCode,
+		}),
+		success : function(res){
+			if(res == 'success'){
+				location.href='ecouponResult.do'; // 쿠폰등록 성공 -> 결과페이지로 이동
+			}else if(res == 'fail'){
+				alert('등록불가한 쿠폰입니다. 쿠폰코드를 다시 확인해주세요.');
+				location.reload();
+			}
+		},
+		error : function(err){
+			alert('e-쿠폰 등록 중 오류가 발생하였습니다. 다시 시도해주세요.');
+		}
+	})
+}
+</script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -27,15 +94,36 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+				<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${sessionScope.username eq null}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:when test="${msg=='logout' }">
+							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> 
+								<a href="login.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${user.username } 님  &nbsp;
+								<a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a>
+								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -110,9 +198,12 @@
 								<h3 class="title-type5">쿠폰번호를 입력하세요.</h3>
 							</div>
 							<div class="search-form">
-								<input type="text" name="" placeholder="쿠폰번호를 입력하세요."
-									id="couponNo" maxlength="16" onClick="checkLogin();">
-								<button type="submit" onClick="search('s')" class="btn-search">검색</button>
+								<form>
+								<input type="hidden" id="sessionChk" value="${sessionScope.msg }" />
+								<input type="text" name="couponCode" placeholder="쿠폰번호를 입력하세요."
+									id="couponCode" maxlength="16" onClick="checkLogin();">
+								<Button class="btn-search" onClick="registEcoupon();">검색</Button>
+								</form>
 							</div>
 
 							<div class="e-coupon-result" id="product" style="display: none">

@@ -25,12 +25,37 @@
         text-align:center;
         width:98%;
     }
+    
+    .char_day{
+    	padding-right: 10px; 
+    	padding-left: 10px;
+    }
+    
 </style>	
 
 <script language="javascript">
 	var today = new Date(); // 오늘 날짜
 	var date = new Date();
-
+		
+	function daychart(){
+		var monthday = document.getElementById("monthday");
+		monthday.innerHTML = (today.getMonth()+1) +"월 " + today.getDate()+"일";
+	}
+	
+	function beforeD(){
+		today = new Date(today.getFullYear(), today.getMonth(), today.getDate()- 1 );
+		daychart();
+	}
+	
+	function afterD(){
+		today = new Date(today.getFullYear(), today.getMonth(), today.getDate()+ 1 );
+		daychart();
+	}
+	
+	
+	
+	
+	/* ==== 달력 js ==== */
 	function beforem() //이전 달을 today에 값을 저장
 	{
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today
@@ -50,18 +75,21 @@
 		var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
 		var tbcal = document.getElementById("calendar"); // 테이블 달력을 만들 테이블
 		var yearmonth = document.getElementById("yearmonth"); //  년도와 월 출력할곳
-		yearmonth.innerHTML = today.getFullYear() + "년 "
-				+ (today.getMonth() + 1) + "월"; //년도와 월 출력
+		yearmonth.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월"; //년도와 월 출력
+		
+		
 
 		if (today.getMonth() + 1 == 12) //  눌렀을 때 월이 넘어가는 곳
 		{
 			before.innerHTML = (today.getMonth()) + "월";
 			next.innerHTML = "1월";
-		} else if (today.getMonth() + 1 == 1) //  1월 일 때
+		} 
+		else if (today.getMonth() + 1 == 1) //  1월 일 때
 		{
 			before.innerHTML = "12월";
 			next.innerHTML = (today.getMonth() + 2) + "월";
-		} else //   12월 일 때
+		} 
+		else //   12월 일 때
 		{
 			before.innerHTML = (today.getMonth()) + "월";
 			next.innerHTML = (today.getMonth() + 2) + "월";
@@ -97,11 +125,16 @@
 			if (today.getFullYear() == date.getFullYear()
 					&& today.getMonth() == date.getMonth()
 					&& i == date.getDate()) {
-				cell.bgColor = "#BCF1B1"; //오늘날짜배경색
+				cell.bgColor = "#ffe566"; //오늘날짜배경색
+				
 			}
 		}
 
 	}
+</script>
+
+<script>
+	
 </script>
 
 
@@ -123,10 +156,18 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -152,9 +193,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리
-								</a> <a class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -201,8 +242,11 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -255,7 +299,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -269,43 +313,78 @@
 					</div>
 					<div class="row">
 						<!-- 월별 차트 -->
-						<div class="col-xl-6">
+						<div class="col-xl-8">
 							<div class="card mb-4">
 								<div class="card-header bg-dark text-white">
-									<i class="fas fa-chart-area mr-1"></i> 월별 차트
+									<i class="fas fa-chart-area mr-1"></i> <b>일일 주문건수</b>
+									<span style="position: absolute; right: 0; margin-right: 1%">
+										<span class="char_day">
+											<font size=2%; color="#B3B6B3" >
+												<label onclick="beforeD()"> ((</label>
+											</font>
+										</span>	
+										<span class="char_day" >
+											<font size=2%; color="#B3B6B3" >
+												<label id="monthday"></label>
+											</font>
+										</span>	
+										<span class="char_day">
+											<font size=2%; color="#B3B6B3" >
+												<label onclick="afterD()"> )) </label>
+											</font>
+										</span>	
+									</span>
 								</div>
+								<script type="text/javascript">
+									daychart();
+								</script>
+												
 								<div class="card-body">
-									<canvas id="AreaChart_month" width="100%" height="40"></canvas>
+									<c:forEach var="daily" items="${daily}" varStatus="status">
+										<input type="hidden" id="daily${status.index }" value="${daily}"/>
+									</c:forEach>
+									<c:forEach var="dailyCount" items="${dailyCount }" varStatus="status">
+										<input type="hidden" id="dailyCount${status.index }" value="${dailyCount }"/>
+									</c:forEach>
+									<canvas id="BarChar_daily" width="100%" height="40"></canvas>
 								</div>
 							</div>
 						</div>
 						<!-- 달력 -->
-						<div class="col-xl-6">
+						<div class="col-xl-4">
 							<div class="card mb-4">
 								<div class="card-header bg-dark text-white">
 									<i class="fas fa-chart-area mr-1"></i> 달력
 								</div>
-								<table align="center" id="calendar">
-									<tr>
-										<td><font size=1%; color="#B3B6B3"><label
-												onclick="beforem()" id="before"></label></font></td>
-										<td colspan="5" align="center" id="yearmonth"></td>
-										<td><font size=1%; color="#B3B6B3"><label
-												onclick="nextm()" id="next"></label></font></td>
-									</tr>
-									<tr>
-										<td align="center"><font color="#FF9090">일</font></td>
-										<td align="center">월</td>
-										<td align="center">화</td>
-										<td align="center">수</td>
-										<td align="center">목</td>
-										<td align="center">금</td>
-										<td align="center"><font color=#7ED5E4>토</font></td>
-									</tr>
-								</table>
+								<div style="margin-top: 17%; margin-bottom: 17%; margin-right: 5px; margin-left: 5px;">
+									<table align="center" id="calendar">
+										<tr>
+											<td>
+												<font size=1%; color="#B3B6B3">
+													<label onclick="beforem()" id="before"></label>
+												</font>
+											</td>
+											<td colspan="5" align="center" id="yearmonth"></td>
+											<td>
+												<font size=1%; color="#B3B6B3">
+													<label onclick="nextm()" id="next"></label>
+												</font>
+											</td>
+										</tr>
+										<tr>
+											<td align="center"><font color="#FF9090">일</font></td>
+											<td align="center">월</td>
+											<td align="center">화</td>
+											<td align="center">수</td>
+											<td align="center">목</td>
+											<td align="center">금</td>
+											<td align="center"><font color=#7ED5E4>토</font></td>
+										</tr>
+									</table>
+								</div>
 								<script type="text/javascript">
 									build();
-								</script>
+								</script>							
 							</div>
 						</div>
 					</div>
@@ -315,20 +394,14 @@
 							<div class="card mb-4">
 								<div class="card-header bg-dark text-white">공지사항</div>
 								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-										<li class="small"><span><a href="#"><b>[공지사항]</b></a></span>
-											<span><a href="#" class="text-muted">코로나 사태에 따른
-													매장대처</a></span></li>
-									</ul>
+									<c:forEach var="board" items="${boardListMain }">
+										<ul style="margin-bottom: 0px;">
+											<li>
+												<span><a href="#"><b>[${board.flag }]</b></a></span>
+												<span><a href="boardView.admdo?seq=${board.seq }" class="text-muted">&nbsp;${board.title }</a></span>
+											</li>
+										</ul>
+									</c:forEach>
 									<div align="right">
 										<a href="boardList.admdo" class=small>공지사항로 이동</a>
 									</div>
@@ -338,21 +411,18 @@
 						<!-- 주문내역 -->
 						<div class="col-xl-4">
 							<div class="card mb-4">
-								<div class="card-header bg-dark text-white">주문내역</div>
+								<div class="card-header bg-dark text-white"><b>최근 Q&A 목록</b></div>
 								<div class="card-body">
-									<ul>
-										<li class="small"><span><a href="#"><b>[2020-07]</b></a></span>
-											<span><a href="#" class="text-muted"> - 7월 주문내역 -</a></span>
-										</li>
-										<li class="small"><span><a href="#"><b>[2020-06]</b></a></span>
-											<span><a href="#" class="text-muted">- 6월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-05]</b></a></span>
-											<span><a href="#" class="text-muted">- 5월 주문내역 -</a></span></li>
-										<li class="small"><span><a href="#"><b>[2020-04]</b></a></span>
-											<span><a href="#" class="text-muted">- 4월 주문내역 -</a></span></li>
-									</ul>
+										<c:forEach var="faq" items="${faqMain }">
+											<ul style="margin-bottom: 0px;">
+												<li>
+													<span><a href="#"><b>[${faq.faq_type}]</b></a></span>
+													<span><a href="qna_view.admdo?seq=${faq.seq }" class="text-muted">&nbsp;${faq.title }</a></span>
+												</li>
+											</ul>
+										</c:forEach>
 									<div align="right">
-										<a href="orderList.admdo" class=small>주문내역로 이동</a>
+										<a href="qna_list.admdo" class=small>Q&A 내역로 이동</a>
 									</div>
 								</div>
 							</div>
@@ -363,7 +433,10 @@
 								<div class="card-header bg-dark text-white">주문건수</div>
 								<div class="card-body">
 									<div>
-										<span><h1>91</h1></span> <span><h3 class=small>건수</h3></span>
+										<span><h1>${orderCount}</h1></span> <span><h3 class=small>건수</h3></span>
+									</div>
+									<div align="right">
+										<a href="orderList.admdo" class=small>주문내역로 이동</a>
 									</div>
 								</div>
 							</div>
@@ -376,7 +449,7 @@
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
 									<a class="small text-white stretched-link"
-										href="membersInfo.admdo">회원관리</a>
+										href="memberInfo.admdo">회원관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>
@@ -426,7 +499,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>
@@ -451,14 +524,10 @@
 		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>"
 		crossorigin="anonymous"></script>
 
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+	
 	<!-- 차트 -->
-	<!--  월차트   -->
-	<script type="text/javascript"
-		src="<c:url value='/resources/js/admin/chart-area-month.js'/>"></script>
+	<!--  일일차트   -->
+	<script type="text/javascript" src="<c:url value='/resources/js/admin/chart-bar-day.js'/>"></script>
 	<!-- end차트  -->
 	<script type="text/javascript"
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>"

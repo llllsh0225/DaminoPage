@@ -27,23 +27,6 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
-<script>
-
-function faqTypeSearch(){
-	var faq_type = $('#faqTypeKeyword option:selected').val();
-	
-	$.ajax({
-		type : "POST",
-		url : "getFaqTypeList.admdo",
-		dataType : "json",
-		contentType : "application/json; charset=utf-8;",
-		data : JSON.stringify({
-			faq_type : faq_type,
-		})
-	});
-}
-
-</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -62,10 +45,18 @@ function faqTypeSearch(){
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -91,9 +82,9 @@ function faqTypeSearch(){
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -139,8 +130,11 @@ function faqTypeSearch(){
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -193,7 +187,7 @@ function faqTypeSearch(){
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -210,7 +204,7 @@ function faqTypeSearch(){
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<form id="faqListForm" name="faqListForm" action="post">
+						<form id="faqListForm" name="faqListForm" action="qna_list.admdo" method="post">
 							<div id="table-reponsive">
 								<div id="qna-insert-btn">
 									<input type="button" class="btn btn-primary" value="Q&A 등록"
@@ -223,9 +217,8 @@ function faqTypeSearch(){
 										<option value="주문확인">주문확인</option>
 										<option value="포장 주문">포장 주문</option>
 										<option value="피자 선물하기">피자 선물하기</option>
-										<option value="도미노콘">도미노콘</option>
 										<option value="홈페이지 관련">홈페이지 관련</option>
-									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="faqTypeSearch();" value="조회" />
+									</select>&nbsp; <input type="submit" class="btn btn-delete" value="조회" />
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
@@ -257,7 +250,7 @@ function faqTypeSearch(){
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

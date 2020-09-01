@@ -5,9 +5,20 @@
 <mapper namespace="marketAdminDAO">
 
 	<!-- 매장관리자 아이디 값 파라미터로 받기 -->
-	<select id="checkMemberId" parameterType="string" resultType="com.damino.web.admin.market.member.login.MarketAdminVO">
-	SELECT * FROM MarketAdminMember WHERE managerId=#{managerId}
+	<select id="managerLogin" resultType="com.damino.web.admin.market.member.login.MarketAdminVO">
+	SELECT * FROM MarketAdminMember WHERE managerid=#{managerid}
 	</select>
+	
+	<select id="getStorename" resultType="String">
+	SELECT storename FROM MarketAdminMember WHERE managerid=#{managerid}
+	</select>
+	
+	<update id="updateMember" parameterType="com.damino.web.admin.market.member.login.MarketAdminVO">
+	UPDATE MarketAdminMember
+	set managerName=#{managerName}, managerPasswd=#{managerPasswd}, storeRegion=#{storeRegion}, storeName=#{storeName}
+		WHERE
+	managerId=#{managerId}
+</update>
 	
 </mapper>
 

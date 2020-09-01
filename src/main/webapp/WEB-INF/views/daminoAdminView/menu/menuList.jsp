@@ -16,13 +16,6 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-<script type="text/javascript">
-/* 	var countPizzaBoard=${countPizzaBoard}; //총 게시글
-	var countPerPage=5; //한페이지에 보여줄 게시글 수
-	var totalPage=countPizzaBoard/countPerPage; //총 페이지 수
-	var pageCount=5; // << 1 2 3 4 5 >>  */
-
-</script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -42,10 +35,18 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -71,9 +72,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -119,8 +120,11 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -173,7 +177,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -185,8 +189,8 @@
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <strong>메뉴 관리</strong><br>
 						<a href="menuList.admdo">피자</a>&nbsp;
-						<a href="#">사이드디시</a>&nbsp;
-						<a href="#">음료&기타</a>&nbsp;
+						<a href="menuSideList.admdo">사이드디시</a>&nbsp;
+						<a href="menuDrinkEtcList.admdo">음료&기타</a>&nbsp;
 						<a href="menuToppingList.admdo">토핑</a>
 					</div>
 					<div class="card-body">
@@ -206,23 +210,18 @@
 											<th>카테고리</th>
 											<th>구분</th>
 											<th>가격</th>
-											<th>수정</th>
-											<th>삭제</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="pizza" items="${pizzaList }">
+										<c:forEach var="pizza" items="${pizzaList }" >
+										
 										<tr>
 											<!-- 데이터 예시 -->
 											<td class="center-group">${pizza.seq }</td>
-											<td><a href="#">${pizza.p_name }</a></td>
+											<td><a href="getPizzaInfo.admdo?seq=${pizza.seq }">${pizza.p_name }</a></td>
 											<td class="center-group">${pizza.p_code }</td>
 											<td class="center-group">${pizza.p_type }</td>
-											<td class="center-group">${pizza.p_price }</td>
-											<td class="center-group"><a class="btn btn-primary" href="pizzaInfo.admdo?seq=${pizza.seq }"
-											role="button">수정</a></td>
-											<td class="center-group"><input type="button"
-												class="btn btn-danger" value="삭제" /></td>
+											<td style="margin-left:5px">M&nbsp;&nbsp;${pizza.p_price_m }&nbsp;&nbsp;/&nbsp;&nbsp;L&nbsp;&nbsp;${pizza.p_price_l }</td>
 										</tr>
 										</c:forEach>
 									</tbody>
@@ -236,7 +235,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

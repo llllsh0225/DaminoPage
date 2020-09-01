@@ -42,11 +42,9 @@
 	</nav>
 	<div id="layoutSidenav">
 		<div id="layoutSidenav_nav">
-			<nav class="sb-sidenav accordion sb-sidenav-dark"
-				id="sidenavAccordion">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
 						<a class="nav-link" href="main.smdo"> 메인 </a>
 						<div class="sb-sidenav-menu-heading">Interface</div>
@@ -59,11 +57,9 @@
 						</a>
 						<div class="collapse" id="orderPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
-							<nav class="sb-sidenav-menu-nested nav accordion"
-								id="sidenavAccordionPages">
+							<nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 								<a class="nav-link collapsed" href="orderList.smdo"> 주문목록 </a>
-								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색
-								</a>
+								<a class="nav-link collapse" href="orderSearch.smdo"> 주문검색 </a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -89,14 +85,14 @@
 						<div class="collapse" id="statisticPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="statistics_list.smdo">매출통계</a>
+								<a class="nav-link" href="statistics_list.smdo?store=${storename }">매출통계</a>
 							</nav>
 						</div>
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					Start Bootstrap
+					<div class="small">로그인 : &nbsp; ${managername }님</div>
+					 ${storeregion } / ${storename }
 				</div>
 			</nav>
 		</div>

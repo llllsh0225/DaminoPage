@@ -16,18 +16,69 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+<!-- 다음 주소 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 
 <script type="text/javascript">
 	function boardSubmit(index){
 		if(index==1){
-/* 			var radio = $(':radio[name="parking"]:checked').val();
-			${market.car} = radio; */
 			document.form1.action='updateMarket.admdo';
 		}
 		document.form1.submit();
 	}
 
 </script>
+
+<script type="text/javascript">
+function execPostCode() {
+         new daum.Postcode({
+             oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+ 
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+ 
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if(fullRoadAddr !== ''){
+                    fullRoadAddr += extraRoadAddr;
+                }
+ 
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                console.log(data.zonecode);
+                console.log(fullRoadAddr);
+                
+                
+                $("[name=zipcode]").val(data.zonecode);
+                $("[name=storeaddress]").val(fullRoadAddr);
+                
+                document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('storeaddress').value = fullAddr;
+                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+                document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+            }
+         }).open();
+     }
+
+</script>
+
+
 
 </head>
 <body class="sb-nav-fixed">
@@ -47,10 +98,18 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -77,9 +136,9 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
-								</a>
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> 
+								<a class="nav-link collapsed" href="marketList.admdo"> 점포승인 </a>
+								<a class="nav-link collapsed" href="couponList.admdo"> 쿠폰관리 </a>
 							</nav>
 						</div>
 
@@ -125,8 +184,11 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -179,7 +241,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -197,39 +259,45 @@
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputFirstName">점포</label> 
+													<label class="small mb-1" for="inputFirstName">매장명</label> 
 													<input class="form-control py-4" id="inputFirstName"
-														type="text" placeholder="" name="name" value="${market.name }"/>
+														type="text" placeholder="" name="storename" value="${market.storename }"/>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputLastName">전화번호
 													</label> <input class="form-control py-4" id="inputLastName"
-														type="text" placeholder="" name="tel" value="${market.tel }"/>
+														type="text" placeholder="" name="storephone" value="${market.storephone }"/>
 												</div>
 											</div>
 										</div>
+										<h6>우편번호</h6>
 										<div class="form-group">
-											<label class="small mb-1" for="inputEmailAddress">주소</label>
-											<input class="form-control py-4" id="inputEmailAddress"
-												type="text" aria-describedby="emailHelp" placeholder="" name="address" value="${market.address }"/>
+											<input class="text-jms" name="zipcode" id="zipcode" readonly="readonly" value="${market.zipcode }"/>
+											<label class="small mb-1" for="inputEmailAddress"></label>
+											<a class="btn btn-primary" onclick="execPostCode();">우편번호 찾기</a><br>
+											<input class="text2-jms" name="storeaddress" id="storeaddress" readonly="readonly" value="${market.storeaddress }"/>
 										</div>
+										<h6>상세주소</h6>
+										<div>
+											<input class="text2-jms" name="detailaddress" id="detailaddress" value="${market.detailaddress }" />
+										</div>	
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputPassword">위치정보</label>
+													<label class="small mb-1" for="inputPassword">주차시설</label>
 													<input class="form-control py-4" id="inputPassword"
-														type="text" placeholder="" name="location" value="${market.location }"/>
+														type="text" placeholder="" name="parkingplace" value="${market.parkingplace }"/>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputConfirmPassword">주차시설</label>
-													<label class="small mb-1"><input type="radio" name="car" value="X" checked="checked" <c:if test="${market.car eq 'X'}">checked</c:if>/>주차공간 없음</label> 
-													<label class="small mb-1"><input type="radio" name="car" value="O" <c:if test="${market.car eq 'O'}">checked</c:if>/>매장주차 가능</label> 
+													<label class="small mb-1" for="inputConfirmPassword">매장주차</label>
+													<label class="small mb-1"><input type="radio" name="parking" value="X" checked="checked" <c:if test="${market.parking eq 'X'}">checked</c:if>/>주차공간 없음</label> 
+													<label class="small mb-1"><input type="radio" name="parking" value="Y" <c:if test="${market.parking eq 'Y'}">checked</c:if>/>매장주차 가능</label> 
 													<input class="form-control py-4" id="inputConfirmPassword"
-														type="text" placeholder="" name="park" value="${market.park }"/>
+														type="text" placeholder="" name="parking" value="${market.parking }"/>
 												</div>
 											</div>
 										</div>
@@ -238,14 +306,14 @@
 												<div class="form-group">
 													<label class="small mb-1" for="inputPassword">오픈시간</label>
                                                         <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
-                                                        name="time" value="${market.time }"/>
+                                                        name="opentime" value="${market.opentime }"/>
                                                     </div>
                                                 </div>
 												<div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPassword">마감시간</label>
                                                         <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
-                                                        name="etime" value="${market.etime }"/>
+                                                        name="endtime" value="${market.endtime }"/>
                                                     </div>
                                                 </div>
 											</div>
@@ -254,7 +322,7 @@
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPassword">특이사항</label>
                                                       <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
-                                                      name="etc" value="${market.etc }"/>
+                                                      name="referinfo" value="${market.referinfo }"/>
                                                     </div>
                                                 </div>
 												<div class="col-md-6"> 
@@ -281,7 +349,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

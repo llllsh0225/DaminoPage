@@ -145,7 +145,6 @@ function checks(){
 	// 아이디 중복체크, 이메일 중복체크 검사 추가하기
 }
 	
-
 // 필수약관 체크박스 전체선택
 function termsOneAllCheck(){
 	if($('#agree_all1').prop('checked')){

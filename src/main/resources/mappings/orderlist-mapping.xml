@@ -3,10 +3,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="OrderlistDAO">
-	<select id="getOrderlistInv"
-		resultType="com.damino.web.admin.orderlist.OrderlistVO">
-		SELECT orderseq, name, regdate, address, tel, orderli, price, take, store, paytool ,paystate
+	<select id="getOrderlistInv" resultType="com.damino.web.admin.orderlist.OrderlistVO">
+		SELECT orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status
 		FROM order_list
 	</select>
-
+	<select id="getMyOrderList" resultType="com.damino.web.user.orderlist.MyOrderListVO" parameterType="com.damino.web.user.board.paging.Paging">
+		<![CDATA[
+		SELECT * FROM (SELECT rownum rnum, orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status
+		FROM (SELECT * FROM order_list WHERE userid=#{writerId} ORDER BY orderseq DESC)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		]]>
+		
+		<!-- <![CDATA[
+		SELECT  * FROM (SELECT rownum rnum, seq, title, regdate, result
+		FROM (SELECT * FROM qnaboard WHERE writerId=#{writerId} ORDER BY seq desc)) WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		]]> -->
+	</select>
+	
+	<!-- 매장 관리자 주문내역 가져오는 쿼리 (세션에 매장명 가져가서 조건문에 넣어줘야함) -->
+	<select id="getStoreOrderList" resultType="com.damino.web.admin.market.orderlist.StoreOrderListVO">
+		SELECT orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool ,paystatus, status, requirement
+		FROM order_list WHERE store=#{storename}
+	</select>
+	
+	<update id="updateOrderList" parameterType="com.damino.web.admin.market.orderlist.StoreOrderListVO">
+		UPDATE order_list SET status=#{status} WHERE orderseq=#{orderseq}
+	</update>
+	
+	<select id="getOrderView" resultType="com.damino.web.user.orderlist.MyOrderListVO">
+		SELECT * FROM order_list WHERE orderseq=#{orderseq}
+	</select>
+	<!-- 총 주문량  -->
+	<select id="getOrderCount" resultType="Integer">
+		select count(*) from order_list
+	</select>
 </mapper>

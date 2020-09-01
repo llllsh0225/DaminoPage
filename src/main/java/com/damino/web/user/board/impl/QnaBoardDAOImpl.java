@@ -49,28 +49,40 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	}
 
 	@Override
-	public int getQnaCount() throws Exception{
-		System.out.println("QnaBoardDAOImpl getQnaCount()");
-		return sqlSessionTemplate.selectOne("BoardDAO.getQnaCount");
-	}
-
-	@Override
 	public List<QnaBoardVO> myQuestionList(Paging pa) throws Exception {
 		System.out.println("QnaBoardDAOImpl myQuestionList(Paging pa)");
 		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList", pa);
 	}
 
 	@Override
-	public List<QnaBoardVO> myQuestionList_adm(Paging pa) throws Exception {
-		System.out.println("QnaBoardDAOImpl myQuestionList_adm(Paging pa)");
-		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList_adm", pa);
+	public List<QnaBoardVO> myQuestionList_adm() throws Exception {
+		System.out.println("QnaBoardDAOImpl myQuestionList_adm()");
+		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList_adm");
 	}
 	
 	@Override
-	public List<QnaBoardVO> myQuestionList_adm_notComplete(Paging pa) throws Exception {
-		System.out.println("QnaBoardDAOImpl myQuestionList_adm_notComplete(Paging pa)");
-		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList_adm_notComplete", pa);
+	public List<QnaBoardVO> myQuestionList_adm_notComplete() throws Exception {
+		System.out.println("QnaBoardDAOImpl myQuestionList_adm_notComplete()");
+		return sqlSessionTemplate.selectList("BoardDAO.myQuestionList_adm_notComplete");
 	}
+	
+	@Override
+	public void registQnaReply(QnaBoardVO vo) {
+		System.out.println("QnaBoardDAOImpl registQnaReply(QnaBoardVO vo)");
+		sqlSessionTemplate.update("BoardDAO.registQnaReply", vo);
+		
+	}
+
+	@Override
+	public int getQnaCount(QnaBoardVO vo) {
+		return sqlSessionTemplate.selectOne("BoardDAO.getQnaCount", vo);
+	}
+
+	@Override
+	public int getQnaCountAdm() {
+		return sqlSessionTemplate.selectOne("BoardDAO.getQnaCountAdm");
+	}
+
 	
 
 }

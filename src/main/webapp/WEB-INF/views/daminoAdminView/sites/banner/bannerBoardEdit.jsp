@@ -9,11 +9,15 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <title>도미노피자 테스트점 관리페이지</title>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
-<link rel="stylesheet" type="text/css" href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"  crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/css/admin/styles.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'/>"
+	crossorigin="anonymous" />
 
 <script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>"
+	crossorigin="anonymous"></script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -33,10 +37,18 @@
 				aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">정보수정</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="login.admdo">Logout</a>
-				</div></li>
+					<c:choose>
+						<c:when test="${msg=='logout' }">
+							<a class="dropdown-item" href="login.admdo">Login</a>
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="updateTempPW.admdo">정보수정</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout.admdo">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
 		</ul>
 	</nav>
 	<div id="layoutSidenav">
@@ -62,8 +74,8 @@
 						<div class="collapse" id="customerPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리 </a> <a
-									class="nav-link collapsed" href="marketList.admdo"> 점포승인
+								<a class="nav-link collapsed" href="memberInfo.admdo"> 회원관리
+								</a> <a class="nav-link collapsed" href="marketList.admdo"> 점포승인
 								</a>
 							</nav>
 						</div>
@@ -78,8 +90,9 @@
 						<div class="collapse" id="storePage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="storeRegForm.admdo"> 매장등록 </a> <a
-									class="nav-link collapsed" href="storeView.admdo"> 매장조회 </a>
+								<a class="nav-link collapsed" href="storeRegForm.admdo">
+									매장등록 </a> <a class="nav-link collapsed" href="storeView.admdo">
+									매장조회 </a>
 							</nav>
 						</div>
 
@@ -93,8 +106,8 @@
 						<div class="collapse" id="ordersalesPage"
 							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
-								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
+								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회 </a>
+								<a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
 							</nav>
 						</div>
@@ -110,8 +123,11 @@
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> <a class="nav-link collapse" href="boardList.admdo">
+									게시판리스트 </a> 
+								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
+								<a class="nav-link collapse" href="myquestionlist.admdo">
+									1:1문의처리 </a>
 							</nav>
 						</div>
 
@@ -164,7 +180,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
+					<div class="small">Logged in as: ${admin.adminid }</div>
 					Start Bootstrap
 				</div>
 			</nav>
@@ -174,78 +190,42 @@
 				<!-- 이곳이 Content 영역입니다. -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <b>게시글 상세보기</b> <img
-							src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
-							onClick="window.location.reload()"
+						<i class="fas fa-table mr-1"></i> <b>배너 목록</b> <img
+							src="<c:url value='/resources/images/admin/refresh_icon.png' />"
+							width="20" onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
-						<div align="justify">
-							게시판 검색 <select>
-								<option>그룹선택</option>
-								<option>게시판명</option>
-							</select> <input type="text" placeholder="검색 내용" /> <input type="button"
-								class="btn-delete" value="검색" />
-						</div>
 					</div>
 
 					<div class="card-body">
-
-						<div class="table-responsive">
-
-							<table class="table table-bordered" id="dataTable"
-								cellspacing="0">
-
-								<tr>
-									<th>코드(영문)</th>
-									<td><input type="text" size="30" placeholder="main" /></td>
-									<th>그룹이름</th>
-									<td><input type="text" size="30" placeholder="메인페이지" /></td>
-								</tr>
-								<tr>
-									<th>배너 형태</th>
-									<td><div style="margin: 5px; float: left">
-											<input type="radio" value="세로형" />세로형
-										</div>
-										<div style="margin: 5px; float: left">
-											<input type="radio" value="가로형" />가로형
-										</div></td>
-									<th>배너 간격</th>
-									<td><input type="text" size="30" placeholder="0" /></td>
-								</tr>
-								<tr>
-									<th>사용 여부</th>
-									<td>
-										<div style="margin: 5px; float: left">
-											<input type="radio" value="세로형" />세로형
-										</div>
-										<div style="margin: 5px; float: left">
-											<input type="radio" value="가로형" />가로형
-										</div>
-									</td>
-									<th>배너 개수</th>
-									<td><select>
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
-											<option>4</option>
-											<option>5</option>
-									</select></td>
-								</tr>
-
-							</table>
-							<br></br>
-							<div align="center">
-								<input type="button" class="btn btn-primary" value="확인" /> <input
-									type="button" class="btn-delete" value="목록" />
-							</div>
-							<br> <br>
-							<div style="background-color: #F0F0F0; padding: 15px">
-								<h5>체크사항</h5>
+						<h6>
+							<strong>배너 등록</strong>
+						</h6>
+						<br>
+						<form id="insertBannerForm" action="insertBanner.admdo"
+							method="post" enctype="multipart/form-data">
+							<div id="table-reponsive">
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
+									<tr>
+										<th>배너 명</th>
+										<td><input type="text" name="banner_name" /></td>
+									</tr>
+									<tr>
+										<th>이미지 설명(20자 이내)</th>
+										<td><input type="text" name="banner_alt" /></td>
+									</tr>
+									<tr>
+										<th>배너 이미지</th>
+										<td><input type="file" name="uploadFile" /></td>
+									</tr>
+								</table>
 								<br>
-								<p>- 코드(영문)은 반드시 영문으로 작성하고 변경이 불가합니다.</p>
-								<p>- 배너간격은 배너와 배너 사이의 간격을 조절합니다.</p>
-								<p>- 배너형태가 가로형인 경우 배너개수만큼 가로로 배너가 나오고 줄바꿈이 됩니다.</p>
+								<div id="insert-menu-btns" align="center">
+									<input type="submit" class="btn btn-primary" value="메뉴등록" /> <input
+										type="button" class="btn btn-delete" value="목록" />
+								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</main>
@@ -264,20 +244,30 @@
 		</div>
 	</div>
 
-	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
 	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
+		src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>"
+		crossorigin="anonymous"></script>
+	<script
+		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>"
+		crossorigin="anonymous"></script>
 	<script type="text/javascript"
-		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+		src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
 	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>" crossorigin="anonymous"></script>
+		src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'/>"
+		crossorigin="anonymous"></script>
 	<script type="text/javascript"
-		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
-	
-	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+		src="<c:url value='/resources/assets/admin/demo/chart-area-demo.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value='/resources/assets/admin/demo/chart-bar-demo.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" '/>"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript"
+		src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
 
 
 </body>

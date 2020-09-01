@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminMemberLoginDAO">
+
+	<!-- 로그인 / 관리자 아이디값 파라미터 -->
+	<select id="adminloginCheckId" parameterType="String" resultType="com.damino.web.admin.member.login.AdminMemberLoginVO">
+		SELECT * FROM adminmember
+		WHERE adminid = #{adminid} 
+	</select>
+
+	<!-- 매장관리자 명단(홈페이지 관리자페이지에서 승인 체크) -->
+	<select id="marketAdminList"  resultType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		SELECT * FROM marketadminmember
+	</select>	
+
+	<!-- 매장관리자 승인 여부 변경 -->
+	<update id="changeCheckMem" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		UPDATE marketadminmember SET
+		checkMem = #{checkMem}
+		WHERE seq = #{seq}
+	</update>
+	
+	<!-- 매장관리자 삭제 -->
+	<delete id="marketMemDel" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		DELETE FROM marketadminmember WHERE seq = #{seq}
+	</delete>
+	
+	<!-- 매장관리자 정보 조회 -->
+	<select id="marketMemView"  resultType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		SELECT * FROM marketadminmember WHERE seq = #{seq}
+	</select>
+	
+	<!-- 매장관리자 비밀번호 변경 -->
+	<update id="changeManagerPasswd" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		UPDATE marketadminmember SET
+		managerPasswd = #{managerPasswd}
+		WHERE seq = #{seq}
+	</update>
+	
+</mapper>

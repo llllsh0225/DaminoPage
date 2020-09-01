@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
-<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Domino's</title>
+<title>다미노피자 - 당신의 인생에 완벽한 한끼! Life Food, Damino's</title>
 
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
@@ -19,8 +19,66 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
+<script>
+window.onload = function(){
+	var gubun = sessionStorage.getItem("gubun");
+	var address = sessionStorage.getItem("address");
+	var storename = sessionStorage.getItem("storename");
+	var storephone = sessionStorage.getItem("storephone");
+	var storeaddr = sessionStorage.getItem("storeaddr");
 	
+	var storenameDB = $('#storenameDB').val();
+	var storephoneDB = $('#storephoneDB').val();
+	
+	if(gubun == 'D'){
+		$('#orderGubun').text("배달주문");
+		
+		$('.title-type5').text("배달주문이 완료되었습니다");
+		$('.text-box').html("<p>" + storename + " " + storephone + "</p>");
+	}else if(gubun == 'W'){
+		$('#orderGubun').text("포장주문");
+		
+		$('.title-type5').text("포장주문이 완료되었습니다");
+		$('.text-box').html("<p>" + storename + " " + storephone + "</p>");
+	}else{
+		$('#orderGubun').text("주문");
+		
+		$('.title-type5').text("주문이 완료되었습니다");
+		$('.text-box').html("<p>" + storenameDB + " " + storephoneDB + "</p>");
+	}
+	
+}
 
+</script>
+<script>
+function expireSession(){
+	  alert("세션이 만료되었습니다");
+	  
+	  var userid = $('#userid').val(); // 유저 아이디
+	  
+	  $.ajax({
+		  url:'allDelete.do',
+		  contentType : "application/json; charset=UTF-8;",
+		  type: 'post',
+		  data : JSON.stringify({
+			  userid : userid
+		  }),
+		  async : false,
+		  success : function(data){
+			  if(data == 'success'){
+				  alert("성공");
+				  location.href = "login.do";
+			  }
+		  },
+			error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			}
+	  })
+	  
+	  
+	}
+	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+</script>
 </head>
 <body>	
 <div id="wrap">
@@ -31,12 +89,12 @@
 						<i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-					
+				<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<div class="util-nav">
 						<!-- and AUTH.memberYn eq 'Y' -->
 								<a href="main.do">로그아웃</a>
 								<a href="mylevel.do">나의정보</a>
-								<a href="javascript:goCart();"  class="btn-cart">
+								<a href="my_basket.do"  class="btn-cart">
 									<i class="ico-cart"></i>
 									<span class="hidden ">장바구니</span>
 									<strong class="cart_count"></strong> <!-- count -->
@@ -104,11 +162,11 @@
 					<div class="fin-wrap">
 						<div class="title-wrap-center">
 							<h3 class="title-type5">
-							
 									배달주문이 완료되었습니다.
 								</h3>
 							</div>
-						
+						<input type="hidden" id="storenameDB" value="${storenameDB }" />
+						<input type="hidden" id="storephoneDB" value="${storephoneDB }" />
 						<div class="text-box">
 							<p>세종로점&nbsp;02-723-3082</p>
 						</div>
