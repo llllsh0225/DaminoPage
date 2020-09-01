@@ -25,6 +25,12 @@ public class MarketAdminDAOImpl implements MarketAdminDAO{
 		sqlSessionTemplate.update("marketAdminDAO.updateMember", vo);
 	}
 
+	@Override
+	public String getStorename(MarketAdminVO vo) {
+		System.out.println("로그인 할 아이디 매장명 가져오기");
+		return sqlSessionTemplate.selectOne("marketAdminDAO.getStorename", vo);
+	}
+
 	
 	
 }
