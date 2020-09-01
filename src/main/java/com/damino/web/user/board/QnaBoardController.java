@@ -2,6 +2,7 @@ package com.damino.web.user.board;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,9 @@ import com.damino.web.user.board.paging.Paging;
 public class QnaBoardController {
 	@Autowired
 	private QnaBoardService qnaBoardService;
+	
+	@Autowired
+	private MailService mailService;
 	
 	@RequestMapping(value = "/myquestionlist.do", method = RequestMethod.GET)
 	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, QnaBoardVO vo, Paging pa, HttpSession session) throws Throwable{
@@ -150,10 +154,20 @@ public class QnaBoardController {
 	}
 	
 	@RequestMapping(value="registQnaReply.admdo", method=RequestMethod.POST)
-	public String registQnaReply(QnaBoardVO vo) {
+	public String registQnaReply(QnaBoardVO vo, MailVO mail) throws MessagingException {
 		System.out.println("관리자페이지에서 1:1 문의 답변 등록");
 		
+		QnaBoardVO qna = qnaBoardService.myQuestion(vo);
+		
+		mail.setTo("romantico_u@naver.com");
+		mail.setFrom("daminopizzaadm@gmail.com");
+		mail.setContent(qna.getContent() + " < 답변내용 > " + vo.getReplyContent());
+		
+		System.out.println(mail.getTo());
+		System.out.println(mail.getContent());
+		
 		qnaBoardService.registQnaReply(vo);
+		mailService.sendMail(mail);
 		
 		return "redirect:myquestionlist.admdo";
 	}

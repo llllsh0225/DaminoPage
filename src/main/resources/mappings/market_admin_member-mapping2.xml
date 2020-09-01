@@ -9,6 +9,9 @@
 	SELECT * FROM MarketAdminMember WHERE managerid=#{managerid}
 	</select>
 	
+	<select id="getStorename" resultType="String">
+	SELECT storename FROM MarketAdminMember WHERE managerid=#{managerid}
+	</select>
 	
 	<update id="updateMember" parameterType="com.damino.web.admin.market.member.login.MarketAdminVO">
 	UPDATE MarketAdminMember

@@ -110,7 +110,6 @@ public class SalesStatusController {
 	
 	@RequestMapping(value="/searchSales.smdo",  method=RequestMethod.POST)
 	public ModelAndView getStoreSearchSales(ModelAndView mav, SalesVO vo) {
-		System.out.println(vo.getOrderdate());
 		List<SalesVO> salesList = salesStatusService.getSalesList(vo);//林巩郴开
 		System.out.println("林巩郴开 : " + salesList);
 		
