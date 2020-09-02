@@ -147,7 +147,7 @@ $(document).ready(function() {
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
-						<div class="collapse" id="ordersalesPage"							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+						<div class="collapse" id="ordersalesPage" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
 								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
