@@ -24,6 +24,14 @@
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
 	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+
+	<!-- pdf 변환 js -->
+	<script type = "text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js'/>"></script>
+	<script type = "text/javascript" src ="<c:url value='https://html2canvas.hertzen.com/dist/html2canvas.min.js" '/>"></script>
+	
+	<!-- 특정 영역 print 해주는 js -->
+	<script type = "text/javascript" src ="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js" '/>"></script>
+
 <script type="text/javascript">
 var lang_kor = {
         "emptyTable" : "데이터가 없습니다.",
@@ -45,8 +53,36 @@ $(document).ready(function() {
         order: [[ 0, 'desc' ]],
         ordering:true,
         language : lang_kor
-    } );
-} );
+    });
+    
+    $("#printPDF").click(function(){
+    	alert("1");
+    	//$("#monthly12").printThis();
+
+    	 //pdf_wrap을 canvas객체로 변환
+		  html2canvas($('#monthly12')[0]).then(function(canvas) {
+		    var doc = new jsPDF('p', 'mm', [200,180]); //jspdf객체 생성
+		    var imgData = canvas.toDataURL('image/jpeg', 1.0); //캔버스를 이미지로 변환
+		    
+		     doc.addImage(imgData, 'jpeg', 10, 30); //이미지를 기반으로 pdf생성
+		    doc.save('sample-file.pdf'); //pdf저장 
+		  });
+    });
+    
+    $("#yearlyPDF").click(function(){
+    	alert("1");
+
+    	 //pdf_wrap을 canvas객체로 변환
+		  html2canvas($('#yearly12')[0]).then(function(canvas) {
+		    var doc = new jsPDF('p', 'mm', [200,180]); //jspdf객체 생성
+		    var imgData = canvas.toDataURL('image/jpeg', 1.0); //캔버스를 이미지로 변환
+		    
+		     doc.addImage(imgData, 'jpeg', 10, 30); //이미지를 기반으로 pdf생성
+		    doc.save('sample-file.pdf'); //pdf저장 
+		  });
+    });
+   
+});
 
 /* 날짜 선택 자동으로 오늘날짜  */
 /* window.onload = function(){
@@ -63,6 +99,30 @@ $(document).ready(function() {
 	document.getElementById("startDate").value = Today;
 	document.getElementById("endDate").value = Today;
 } */
+</script>
+<script type="text/javascript">
+    /* function doExcelUploadProcess(){
+        var f = new FormData(document.getElementById('form1'));
+        $.ajax({
+            url: "monthlyExcel.admdo",
+            data: f,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function(data){
+                console.log(data);
+                document.getElementById('result').innerHTML = JSON.stringify(data);
+            }
+        })
+        
+        doExcelDownloadProcess();
+    }
+    
+    function doExcelDownloadProcess(){
+        var f = document.form1;
+        f.action = "monthlyExcel.admdo";
+        f.submit();
+    } */
 </script>
 </head>
 <body class="sb-nav-fixed">
@@ -147,7 +207,8 @@ $(document).ready(function() {
 								<i class="fas fa-angle-down"></i>
 							</div>
 						</a>
-						<div class="collapse" id="ordersalesPage" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+						<div class="collapse" id="ordersalesPage"
+							aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
 								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
@@ -228,7 +289,7 @@ $(document).ready(function() {
 		<div id="layoutSidenav_content">
 			<main>
 				<!-- main 내용 입력  -->
-				<div class="card mb-4">
+				<div class="card mb-4" >
 					<!-- 본문 머리 -->
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i><strong> 매출 현황</strong>
@@ -242,26 +303,33 @@ $(document).ready(function() {
 						<c:if test="${salesList eq null }">
 							<!--년 / 월 매출-->
 							<div class="row">
-								<div class="col-xl-6">
-									<div class="card mb-4">
-										<div class="card-header">
-											<div>
-												<i class="fas fa-chart-area mr-1"></i><b> 최근 12개월 매출</b> 
+									<div class="col-xl-6">
+									<input type="button" id="printPDF" class="btn btn-primary" value="PDF 다운로드" style="height: 40px; margin: 10px; ">
+										<div class="card mb-4" id="monthly12">
+											<div class="card-header">
+												<div>
+													<i class="fas fa-chart-area mr-1"></i><b> 최근 12개월 매출</b> 
+												</div>
+											</div>
+											<div class="card-body">
+												<c:forEach var="monthly" items="${monthly}"
+													varStatus="status">
+													<input type="hidden" id="monthly${status.index }"
+														value="${monthly}" />
+												</c:forEach>
+												<c:forEach var="monthlySales" items="${monthlySales }"
+													varStatus="status">
+													<input type="hidden" id="monthlySales${status.index }" 
+														 value="${monthlySales }" /> 
+												</c:forEach>
+												<canvas id="AreaChart_month" width="100%" height="30"></canvas>
 											</div>
 										</div>
-										<div class="card-body">
-											<c:forEach var="monthly" items="${monthly}" varStatus="status">
-												<input type="hidden" id="monthly${status.index }" value="${monthly}"/>
-											</c:forEach>
-											<c:forEach var="monthlySales" items="${monthlySales }" varStatus="status">
-												<input type="hidden" id="monthlySales${status.index }" value="${monthlySales }"/>
-											</c:forEach>
-											<canvas id="AreaChart_month" width="100%" height="30"></canvas>
-										</div>
 									</div>
-								</div>
+									
 								<div class="col-xl-6">
-									<div class="card mb-4">
+								<input type="button" id="yearlyPDF" class="btn btn-primary" value="PDF 다운로드" style="height: 40px; margin: 10px;">								
+									<div class="card mb-4" id="yearly12">
 										<div class="card-header">
 											<div>
 												<i class="fas fa-chart-bar mr-1"></i><b> 최근 5년 매출</b> 
@@ -282,6 +350,7 @@ $(document).ready(function() {
 						</c:if>
 						<c:if test="${salesList != null }">
 							<!--검색기간 매출 -->
+					
 							<div class="row">
 								<div class="col-xl-6">
 									<div class="card mb-4">
@@ -322,6 +391,8 @@ $(document).ready(function() {
 						</c:if>
 					</div>
 						<!--검색-->
+						<form id="form1" name="form1" method="post" enctype="multipart/form-data">
+						
 						<div class="card mb-4">
 							<div class="card-header">
 								<div>
@@ -448,7 +519,8 @@ $(document).ready(function() {
 													<option value="녹번점">녹번점</option>
 												</select>
 												<input type="submit" class="btn btn-primary" value="검색" style="height:40px; margin:5px;"/>
-											</div>
+												<input type="button" class="btn btn-primary" onclick="doExcelDownloadProcess()" value="Excel 다운로드" style="height: 40px; left-margin: 15px;">
+										</div>
 										</div>
 									</div>
 								</form>
@@ -478,7 +550,9 @@ $(document).ready(function() {
 									</table>
 								</div>
 							</div>
+							
 						</div>
+						</form>
 						<!-- 종합 -->
 						<div class="card mb-4">
 							<div class="card-header">
@@ -493,7 +567,8 @@ $(document).ready(function() {
 											<p>총 매출액</p>
 											<hr>
 											<div class="card-body">
-												<h3>${orderPrice } 원</h3>
+												<!-- <h3> 원</h3> -->
+												<h3><fmt:formatNumber value="${orderPrice }" pattern="#,###" />원</h3>
 											</div>
 										</div>
 									</div>
