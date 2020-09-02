@@ -179,6 +179,15 @@
 		ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
 	</select>
 	
+	<select id="getStoreMonthlyCount" resultType="String">
+		<![CDATA[
+			SELECT count(*), TO_CHAR(orderdate,'yyyy-mm') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy-mm') 
+			ORDER BY TO_CHAR(orderdate,'yyyy-mm') DESC
+		]]>
+	</select>
+	
 	<select id="getStoreMonthlySales" resultType="String">
 		SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm') 
 		FROM order_list WHERE store=#{store}
@@ -195,6 +204,15 @@
 		]]>
 	</select>
 	
+	<select id="getStoreYearlyCount" resultType="String">
+		<![CDATA[
+			SELECT count(*), TO_CHAR(orderdate,'yyyy') 
+			FROM order_list WHERE store=#{store}
+			GROUP BY TO_CHAR(orderdate,'yyyy') 
+			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
+		]]>
+	</select>
+	
 	<select id="getStoreYearlySales" resultType="String">
 		<![CDATA[
 			SELECT SUM(price), TO_CHAR(orderdate,'yyyy') 
@@ -202,5 +220,10 @@
 			GROUP BY TO_CHAR(orderdate,'yyyy') 
 			ORDER BY TO_CHAR(orderdate,'yyyy') DESC
 		]]>
+	</select>
+	<select id="getStoreSalesList" resultType="com.damino.web.admin.salesstatus.SalesVO">
+		SELECT *
+        FROM order_list WHERE store=#{store}
+        ORDER BY orderdate DESC
 	</select>
 </mapper>

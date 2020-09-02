@@ -120,6 +120,24 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreYearlySales", vo);
 	}
 
+	@Override
+	public List<SalesVO> getStoreMonthlyCount(SalesVO vo) {
+		System.out.println("해당 매장 주문내역이 있는 최근 12개월 주문건수 (차트 y축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreMonthlyCount", vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreYearlyCount(SalesVO vo) {
+		System.out.println("해당 매장 주문내역이 있는 최근 5년 주문건수 (차트 y축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreYearlyCount", vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreSalesList(SalesVO vo) {
+		System.out.println("해당 매장 주문내역이 있는 최근 5년 주문건수 (차트 y축)");
+		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreSalesList", vo);
+	}
+
 
 
 }
