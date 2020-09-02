@@ -21,7 +21,13 @@
 			<artifactId>spring-context-support</artifactId> 
 			<version>${org.springframework-version}</version> 
 		</dependency>
- 
+	<!-- Apache POI  -->
+	<dependency>
+		<groupId>org.apache.poi</groupId>
+		<artifactId>poi-ooxml</artifactId>
+		<version>4.0.0</version>
+	</dependency>
+		
 		<!-- Java Mail API -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -79,8 +85,13 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>5.3.3.RELEASE</version>
 		</dependency>
-
-
+		
+	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+		<version>2.9.0.pr4</version>
+	</dependency>
 		<!-- jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
