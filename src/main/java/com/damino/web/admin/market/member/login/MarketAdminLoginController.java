@@ -28,31 +28,48 @@ public class MarketAdminLoginController {
 	@Autowired
 	private SalesStatusService salesStatusService;
 
-	@RequestMapping("/main.smdo")
+	@RequestMapping(value="/main.smdo", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView getAdminMainPage(HttpSession session, ModelAndView mav, SalesVO vo, MarketAdminVO vo2) {
 		String managerid = (String) session.getAttribute("managerid");
 		System.out.println("관리자 화면의 메인페이지 열기");
-		
-		String getStorename = marketAdminLoginService.getStorename(vo2);
-//		System.out.println(getStorename);
-		
 		
 		if (managerid == null) {
 			System.out.println(managerid);
 			mav.setViewName("/members/managerLogin");
 			return mav;
 		} else {
+			String getStorename = vo.getStore();
 			vo.setStore(getStorename);
+			
 			List<SalesVO> storeMonthly = salesStatusService.getStoreMonthly(vo);// 해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
 			System.out.println("해당 매장 주문내역이 있는 최근 12개월 : " + storeMonthly);
 			
 			List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
 			System.out.println("해당 매장 주문내역이 있는 최근 12개월 매출액 :" + storeMonthlySales);
 			
+			List<SalesVO> storeMonthlyCount = salesStatusService.getStoreMonthlyCount(vo);
+			System.out.println("해당 매장 주문내역이 있는 최근 12개월 주문건수 : " + storeMonthlyCount);
+			
+			List<SalesVO> storeYearly = salesStatusService.getStoreYearly(vo);//해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
+			System.out.println("해당 매장 주문내역이 있는 최근 5년: " + storeYearly);
+			
+			List<SalesVO> storeYearlySales = salesStatusService.getStoreYearlySales(vo);//해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
+			System.out.println("해당 매장 주문내역이 있는 최근 5년 매출액 :" + storeYearlySales);
+			
+			List<SalesVO> storeYearlyCount = salesStatusService.getStoreYearlyCount(vo);
+			System.out.println("해당 매장 주문내역이 있는 최근 5년 주문건수 : " + storeYearlyCount);
+			
+			List<SalesVO> storeSalesList = salesStatusService.getStoreSalesList(vo);
+			System.out.println("해당 매장 월별 통계표 : " + storeSalesList);
+			
 			mav.addObject("storeMonthly", storeMonthly);
 			mav.addObject("storeMonthlySales", storeMonthlySales);
+			mav.addObject("storeMonthlyCount", storeMonthlyCount);
+			mav.addObject("storeYearly", storeYearly);
+			mav.addObject("storeYearlySales", storeYearlySales);
+			mav.addObject("storeYearlyCount", storeYearlyCount);
+			mav.addObject("storeSalesList", storeSalesList);
 			
-//			mav.addObject("getStorename", getStorename);
 			mav.setViewName("/members/main");
 			return mav;
 		}
@@ -96,16 +113,34 @@ public class MarketAdminLoginController {
 				List<SalesVO> storeMonthlySales = salesStatusService.getStoreMonthlySales(vo2);// 해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
 				System.out.println("해당 매장 주문내역이 있는 최근 12개월 매출액 :" + storeMonthlySales);
 				
-				mav.addObject("storeMonthly", storeMonthly);
-				mav.addObject("storeMonthlySales", storeMonthlySales);
+				List<SalesVO> storeMonthlyCount = salesStatusService.getStoreMonthlyCount(vo2);
+				System.out.println("해당 매장 주문내역이 있는 최근 12개월 주문건수 : " + storeMonthlyCount);
 				
-				mav.addObject("storeMonthlySales", storeMonthlySales);
+				List<SalesVO> storeYearly = salesStatusService.getStoreYearly(vo2);//해당 매장 주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
+				System.out.println("해당 매장 주문내역이 있는 최근 5년: " + storeYearly);
+				
+				List<SalesVO> storeYearlySales = salesStatusService.getStoreYearlySales(vo2);//해당 매장 주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
+				System.out.println("해당 매장 주문내역이 있는 최근 5년 매출액 :" + storeYearlySales);
+				
+				List<SalesVO> storeYearlyCount = salesStatusService.getStoreYearlyCount(vo2);
+				System.out.println("해당 매장 주문내역이 있는 최근 5년 주문건수 : " + storeYearlyCount);
+				
+				List<SalesVO> storeSalesList = salesStatusService.getStoreSalesList(vo2);
+				System.out.println("해당 매장 월별 통계표 : " + storeSalesList);
+				
 				mav.addObject("storeMonthly", storeMonthly);
+				mav.addObject("storeMonthlySales", storeMonthlySales);
+				mav.addObject("storeMonthlyCount", storeMonthlyCount);
+				mav.addObject("storeYearly", storeYearly);
+				mav.addObject("storeYearlySales", storeYearlySales);
+				mav.addObject("storeYearlyCount", storeYearlyCount);
+				mav.addObject("storeSalesList", storeSalesList);
+				
 				mav.addObject("managerid", managerLogin.getManagerid());
 				mav.addObject("managername", managerLogin.getManagername());
 				mav.addObject("storeregion", managerLogin.getStoreregion());
 				mav.addObject("storename", managerLogin.getStorename());
-//				mav.addObject("getStorename", getStorename);
+
 				System.out.println(managerLogin.getStorename());
 				session.setAttribute("msg", "managerLogin");
 				mav.setViewName("/members/main");

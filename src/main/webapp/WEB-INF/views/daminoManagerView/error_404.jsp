@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 
 <script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -25,12 +25,10 @@
 					<div class="row justify-content-center">
 						<div class="col-lg-6">
 							<div class="text-center mt-4">
-								<img class="mb-4 img-error"
-									src="assets/img/error-404-monochrome.svg" />
-								<p class="lead">This requested URL was not found on this
-									server.</p>
+								<h1 class="display-1">404</h1>
+								<p class="lead">요청하신 페이지를 찾을 수 없습니다.</p>
 								<a href="main.smdo"> <i class="fas fa-arrow-left mr-1"></i>
-									Return to Dashboard
+									메인페이지로 이동
 								</a>
 							</div>
 						</div>
@@ -43,7 +41,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>
@@ -53,9 +51,9 @@
 			</footer>
 		</div>
 	</div>
-	<script src="<c:url value='https://code.jquery.com/jquery-3.5.1.min.js'/>" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 	<script
-		src="<c:url value='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js'/>" crossorigin="anonymous"></script>
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/admin/scripts.js'/>"></script>
 	
 </body>

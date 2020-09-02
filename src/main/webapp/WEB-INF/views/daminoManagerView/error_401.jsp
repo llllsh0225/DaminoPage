@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>404 Error - Damino Administration</title>
+<title>401 Error - Damino Administration</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 
 <script type="text/javascript"
@@ -27,9 +27,9 @@
 							<div class="text-center mt-4">
 								<h1 class="display-1">401</h1>
 								<p class="lead">Unauthorized</p>
-								<p>Access to this resource is denied.</p>
+								<p>해당 페이지에 접근이 불가합니다.</p>
 								<a href="main.smdo"> <i class="fas fa-arrow-left mr-1"></i>
-									Return to Dashboard
+									메인페이지로 이동
 								</a>
 							</div>
 						</div>
@@ -42,7 +42,7 @@
 				<div class="container-fluid">
 					<div
 						class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Your Website 2020</div>
+						<div class="text-muted">Copyright &copy; Damino Pizza 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
 								&amp; Conditions</a>

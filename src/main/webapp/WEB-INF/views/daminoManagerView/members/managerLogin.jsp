@@ -31,7 +31,6 @@
 								</div>
 								<div class="card-body">
 									<form action="managerLoginCheck.smdo" method="post">
-										<input type="hidden" name="store" value="세종로점"/><!-- value에 해당 아이디의 매장명이 들어가야함 -->
 										<div class="form-group">
 											<label class="small mb-1" for="inputStoreManagerId">ID</label>
 											<input class="form-control py-4" id="managerid"

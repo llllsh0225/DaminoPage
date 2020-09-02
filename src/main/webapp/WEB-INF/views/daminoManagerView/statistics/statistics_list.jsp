@@ -52,7 +52,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="main.smdo">다미노피자 ${storename }</a>
+		<a class="navbar-brand" href="main.smdo?store=${storename }">다미노피자 ${storename }</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0"
 			id="sidebarToggle" href="#">
@@ -79,7 +79,7 @@
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading">Dashboard</div>
-						<a class="nav-link" href="main.smdo"> 메인 </a>
+						<a class="nav-link" href="main.smdo?store=${storename }"> 메인 </a>
 						<div class="sb-sidenav-menu-heading">Interface</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
 							data-target="#orderPage" aria-expanded="false"
