@@ -24,6 +24,12 @@
 		src="<c:url value='https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" '/>" crossorigin="anonymous"></script>
 	
 	<script type="text/javascript" src="<c:url value='/resources/assets/admin/demo/datatables-demo.js'/>"></script>
+	
+	<!-- pdf 변환 js -->
+	<script type = "text/javascript" src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js'/>"></script>
+	<script type = "text/javascript" src ="<c:url value='https://html2canvas.hertzen.com/dist/html2canvas.min.js" '/>"></script>
+	
+	
 <script type="text/javascript">
 var lang_kor = {
         "emptyTable" : "데이터가 없습니다.",
@@ -46,6 +52,37 @@ $(document).ready(function() {
         ordering:true,
         language : lang_kor
     } );
+    
+    $("#printPDF").click(function(){
+ 
+    	 //monthly12을 canvas객체로 변환
+		  html2canvas($('#monthly12')[0]).then(function(canvas) {
+		   
+		    var doc = new jsPDF('p', 'mm'); //jspdf객체 생성
+		    var imgData = canvas.toDataURL('image/jpeg', 1.0); //캔버스를 이미지로 변환
+		    
+		    var imgWidth = 210; // 이미지 가로 길이(mm) A4 기준
+		    var imgHeight = canvas.height /2;
+		     doc.addImage(imgData, 'jpeg', 0, 50, imgWidth, imgHeight); //이미지를 기반으로 pdf생성
+		     doc.save('sample-file.pdf'); //pdf저장 
+		  });
+    });
+    
+    $("#printPDF2").click(function(){
+    	//$("#monthly12").printThis();
+    	
+    	//yearly12을 canvas객체로 변환
+		 html2canvas($('#yearly12')[0]).then(function(canvas) {
+			var doc = new jsPDF('p', 'mm'); //jspdf객체 생성
+		    var imgData = canvas.toDataURL('image/jpeg', 1.0); //캔버스를 이미지로 변환
+		    
+		    var imgWidth = 210; // 이미지 가로 길이(mm) A4 기준
+		    var imgHeight = canvas.height /2;
+		    doc.addImage(imgData, 'jpeg', 0, 50, imgWidth, imgHeight); //이미지를 기반으로 pdf생성
+		    doc.save('sample-file.pdf'); //pdf저장 
+		  });
+    });
+    
 } );
 
 /* 날짜 선택 자동으로 오늘날짜  */
@@ -65,6 +102,19 @@ $(document).ready(function() {
 } */
 </script>
 </head>
+<style>
+.pdf {
+position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: none;
+  border-radius: 0.25rem;
+ } 
+</style>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<a class="navbar-brand" href="main.admdo">Damino Administration</a>
@@ -152,6 +202,7 @@ $(document).ready(function() {
 								<a class="nav-link collapsed" href="orderList.admdo"> 주문조회
 								</a> <a class="nav-link collapse" href="salesStatus.admdo"> 매출현황
 								</a>
+								
 							</nav>
 						</div>
 
@@ -236,6 +287,7 @@ $(document).ready(function() {
 						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
 							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
+						<!-- <input type="button" id="printPDF" class="btn btn-primary" value="PDF 다운로드" style="height: 40px; margin: 10px; "> -->
 					</div>
 					<!-- 본문  몸통 -->
 					<div class="card-body">
@@ -243,7 +295,8 @@ $(document).ready(function() {
 							<!--년 / 월 매출-->
 							<div class="row">
 								<div class="col-xl-6">
-									<div class="card mb-4">
+								
+									<div class="card mb-4" id="monthly12">
 										<div class="card-header">
 											<div>
 												<i class="fas fa-chart-area mr-1"></i><b> 최근 12개월 매출</b> 
@@ -259,9 +312,10 @@ $(document).ready(function() {
 											<canvas id="AreaChart_month" width="100%" height="30"></canvas>
 										</div>
 									</div>
+									<div class="pdf"><input type="button" id="printPDF" class="btn btn-primary" value="PDF 다운로드" style="height: 40px; margin: 10px; "></div>
 								</div>
 								<div class="col-xl-6">
-									<div class="card mb-4">
+									<div class="card mb-4" id="yearly12">
 										<div class="card-header">
 											<div>
 												<i class="fas fa-chart-bar mr-1"></i><b> 최근 5년 매출</b> 
@@ -277,6 +331,7 @@ $(document).ready(function() {
 											<canvas id="AreaChart_year" width="100%" height="30"></canvas>
 										</div>
 									</div>
+									<div class="pdf" ><input type="button" id="printPDF2" class="btn btn-primary" value="PDF 다운로드" style="height: 40px; margin: 10px; "></div>
 								</div>
 							</div>
 						</c:if>
