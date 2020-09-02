@@ -81,8 +81,8 @@
 		</mvc:message-converters>
 		
 		
-	</mvc:annotation-driven>
-	
+	</mvc:annotation-driven>	
+
 	<!-- 엑셀 다운로드를 위한 Bean 등록 -->
 	<!-- <beans:bean id="excelDownloadView" class="com.damino.web.test.ExcelDownloadView"/>
     

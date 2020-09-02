@@ -1,20 +1,11 @@
 package com.damino.web.admin.salesstatus;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -61,48 +52,6 @@ public class SalesStatusController {
 		
 		return mav;
 	}
-	/*
-	@RequestMapping(value="/monthlyExcel.admdo")
-	public String monthlyExcel(Model model) {
-		List<SalesVO> monthly = salesStatusService.getMonthly();//주문내역이 있는 최근 12개월 yyyy-mm형태로 가져오기(차트 x축)
-		System.out.println("주문내역이 있는 최근 12개월 : " + monthly);
-		//list 객체를 배열로 변환
-		String[] monthArray = monthly.toArray(new String[monthly.size()]);
-		
-		List<SalesVO> monthlySales = salesStatusService.getMonthlySales();//주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
-		System.out.println("주문내역이 있는 최근 12개월 매출액 :" + monthlySales);
-		//list 객체를 배열로 변환
-		String[] monthSalesArray = monthlySales.toArray(new String[monthlySales.size()]);
-				
-		
-		 * XSSFWorkbook xlsWb = new XSSFWorkbook();
-		 * XSSFSheet sheet1 = xlsWb.createSheet("");
-		 * CellStyle cellStyle = xlsWb.createCellStyle();
-		 * cellStyle.setAlignment(HorizontalAlignment.CENTER); //가운데 정렬
-		 * 
-		 * Row row = null; Cell cell = null;
-		 * 
-		 * row = sheet1.createRow(0); //0행 열을 생성 후 cell = row.createCell(0); //0열 셀을 생성
-		 * cell.setCellValue("데이터"); //엑셀 셀에 데이터 삽입 > 0행 0열에 "데이터"라는 문자열이 삽입된다.
-		 * cell.setCellStyle(cellStyle); //위에서 만들어놓은 셀 스타일 적용
-		 */	
-		/*
-		 * String[] names = {"자몽", "애플망고", "멜론", "오렌지"}; long[] prices = {5000, 10000,
-		 * 7000, 6000}; int[] quantities = {50, 50, 40, 40}; List<Fruit> list =
-		 * salesStatusService.makeFruitList(names, prices, quantities);
-		
-       
-		// SXSSFWorkbook workbook = salesStatusService.excelFileDownloadProcess(monthlySales);
-		List<SalesVO> monthlyList = salesStatusService.makeMonthlyList(monthArray, monthSalesArray);
-		SXSSFWorkbook workbook = salesStatusService.excelFileDownloadProcess(monthlyList);
-		
-        model.addAttribute("locale", Locale.KOREA);
-        model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "주문내역이 있는 최근 12개월 매출액");
-		
-		return "/store_sales/salesStatus";
-		
-	} */  
 	
 	@RequestMapping(value="/searchSales.admdo",  method=RequestMethod.POST)
 	public ModelAndView getAdminSearchSales(ModelAndView mav, SalesVO vo) {
