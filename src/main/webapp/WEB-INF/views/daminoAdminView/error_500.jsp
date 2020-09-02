@@ -25,12 +25,10 @@
 					<div class="row justify-content-center">
 						<div class="col-lg-6">
 							<div class="text-center mt-4">
-								<img class="mb-4 img-error"
-									src="assets/img/error-404-monochrome.svg" />
-								<p class="lead">This requested URL was not found on this
-									server.</p>
+								<h1 class="display-1">500</h1>
+								<p class="lead">요청 처리 중 내부적으로 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.</p>
 								<a href="main.admdo"> <i class="fas fa-arrow-left mr-1"></i>
-									Return to Dashboard
+									메인페이지로 이동
 								</a>
 							</div>
 						</div>
