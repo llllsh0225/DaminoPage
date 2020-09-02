@@ -6,7 +6,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 
-<title>DOMINO</title>
+<title>DAMINO</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
