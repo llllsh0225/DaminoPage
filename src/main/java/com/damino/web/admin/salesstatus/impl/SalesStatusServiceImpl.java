@@ -109,6 +109,21 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 		return salesStatusDAO.getStoreYearlySales(vo);
 	}
 
+	@Override
+	public List<SalesVO> getStoreMonthlyCount(SalesVO vo) {
+		return salesStatusDAO.getStoreMonthlyCount(vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreYearlyCount(SalesVO vo) {
+		return salesStatusDAO.getStoreYearlyCount(vo);
+	}
+
+	@Override
+	public List<SalesVO> getStoreSalesList(SalesVO vo) {
+		return salesStatusDAO.getStoreSalesList(vo);
+	}
+
 	
 
 	

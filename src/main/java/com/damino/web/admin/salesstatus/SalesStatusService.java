@@ -23,6 +23,9 @@ public interface SalesStatusService {
 	// 매장 관리자 매출현황
 	public List<SalesVO> getStoreMonthly(SalesVO vo);
 	public List<SalesVO> getStoreMonthlySales(SalesVO vo);
+	public List<SalesVO> getStoreMonthlyCount(SalesVO vo);
 	public List<SalesVO> getStoreYearly(SalesVO vo);
 	public List<SalesVO> getStoreYearlySales(SalesVO vo);
+	public List<SalesVO> getStoreYearlyCount(SalesVO vo);
+	public List<SalesVO> getStoreSalesList(SalesVO vo);
 }

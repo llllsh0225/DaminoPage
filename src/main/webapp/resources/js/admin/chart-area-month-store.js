@@ -12,9 +12,6 @@ var storeMonthlySalesArr = new Array();
 for(var i=0; i<12; i++){
 	storeMonthlySalesArr[i]= Number($("#storeMonthlySales"+i).val());
 }
-function tt(x){
-	x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
