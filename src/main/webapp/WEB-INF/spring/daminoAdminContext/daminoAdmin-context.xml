@@ -18,4 +18,18 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.damino.web" />
+	
+	<!-- 홈페이지 관리자 에러페이지 설정 -->
+	<beans:bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	    <beans:property name="defaultErrorView" value="error_404" />
+	    <!--
+	    <beans:property name="statusCodes">
+	        <beans:props>
+	            <beans:prop key="error_500">500</beans:prop>
+	            <beans:prop key="error_401">401</beans:prop>
+	            <beans:prop key="error_404">404</beans:prop>
+	        </beans:props>
+	    </beans:property>  -->
+	</beans:bean>
+
 </beans:beans>
