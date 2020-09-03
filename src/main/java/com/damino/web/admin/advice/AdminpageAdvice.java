@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class AdminpageAdvice {
-	
+	/**
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(Exception.class)
 	public String notFountErrorPage(Exception e) {
@@ -17,7 +17,7 @@ public class AdminpageAdvice {
 	}
 	
 
-	/**
+
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	@ExceptionHandler(Exception.class)
 	public String unauthorizedError(Exception e) {

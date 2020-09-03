@@ -26,6 +26,8 @@
 <!-- 더보기 슬라이드로 내려오는 js -->
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<!-- 아임포트 결제API -->
+<script type="text/javascript" src="<c:url value='https://service.iamport.kr/js/iamport.payment-1.1.2.js" '/>" crossorigin="anonymous"></script>
 <script>
 function expireSession(){
 	  alert("세션이 만료되었습니다");
@@ -515,9 +517,6 @@ function expireSession(){
 		if($('#pay1').prop('checked')){
 			paytool = $('#pay1').val();
 			
-			// ======== 카드결제 선택했을 때 ========
-			// 이 부분에 결제 function 들어가면 될 것 같습니다!
-			
 		}else if($('#pay2').prop('checked')){
 			paytool = $('#pay2').val();
 		}else if($('#pay3').val()){
@@ -532,36 +531,100 @@ function expireSession(){
 			requirement = $('#more_req').val();
 		}
 		
-		$.ajax({
-			url: 'doQuickOrder.do',
-			contentType : "application/json; charset=UTF-8;",
-			type: 'post',  
-			data : JSON.stringify({
-				orderTimeStr : orderTimeStr,
-				userid : userid,
-				username : username,
-				deliveryTime : deliveryTime,
-				deliverAddress : deliverAddress,
-				userphone : userphone,
-				goodsName : goodsName,
-				totalPayment : totalPayment,
-				take : take,
-				storename : storename,
-				storephone : storephone,
-				paytool : paytool,
-				paystatus : paystatus,
-				status : status,
-				requirement : requirement,
-				selectCouponCode : selectCouponCode,
-			}),
-			success: function(data) {
-				// 결과 페이지로 이동
-				location.href="getOrderResultPage.do";
-			},
-			error: function() {
-				alert('처리도중 오류가 발생했습니다.');
-			}
-		});
+		if(paytool == '카드결제'){
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp82338815'); //
+
+			IMP.request_pay({
+			    pg : 'html5_inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : goodsName,
+			    amount : 100,
+			    buyer_email : 'samking36@naver.com',
+			    buyer_name : username,
+			    buyer_tel : userphone,
+			    buyer_addr : deliverAddress,
+			    
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			        // 1] 서버단에서 결제정보 조회를 위해 jquery ajax로 imp_uid를 전달
+			    			var msg = '결제가 완료되었습니다.';
+			    			msg += '\n고유ID : ' + rsp.imp_uid;
+			    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+			    			msg += '\n결제 금액 : ' + rsp.paid_amount;
+			    			msg += '카드 승인번호 : ' + rsp.apply_num;	
+			    			
+			    			$.ajax({
+			    				url: 'doQuickOrder.do',
+			    				contentType : "application/json; charset=UTF-8;",
+			    				type: 'post',  
+			    				data : JSON.stringify({
+			    					orderTimeStr : orderTimeStr,
+			    					userid : userid,
+			    					username : username,
+			    					deliveryTime : deliveryTime,
+			    					deliverAddress : deliverAddress,
+			    					userphone : userphone,
+			    					goodsName : goodsName,
+			    					totalPayment : totalPayment,
+			    					take : take,
+			    					storename : storename,
+			    					storephone : storephone,
+			    					paytool : paytool,
+			    					paystatus : paystatus,
+			    					status : status,
+			    					requirement : requirement,
+			    					selectCouponCode : selectCouponCode,
+			    				}),
+			    				success: function(data) {
+			    					// 결과 페이지로 이동
+			    					location.href="getOrderResultPage.do";
+			    				},
+			    				error: function() {
+			    					alert('처리도중 오류가 발생했습니다.');
+			    				}
+			    			}); 
+			    	
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			        
+			        alert(msg);
+				}
+			});
+		}else{
+			$.ajax({
+				url: 'doQuickOrder.do',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post',  
+				data : JSON.stringify({
+					orderTimeStr : orderTimeStr,
+					userid : userid,
+					username : username,
+					deliveryTime : deliveryTime,
+					deliverAddress : deliverAddress,
+					userphone : userphone,
+					goodsName : goodsName,
+					totalPayment : totalPayment,
+					take : take,
+					storename : storename,
+					storephone : storephone,
+					paytool : paytool,
+					paystatus : paystatus,
+					status : status,
+					requirement : requirement,
+					selectCouponCode : selectCouponCode,
+				}),
+				success: function(data) {
+					// 결과 페이지로 이동
+					location.href="getOrderResultPage.do";
+				},
+				error: function() {
+					alert('처리도중 오류가 발생했습니다.');
+				}
+			});
+		}
 	}
 </script>
 </head>
