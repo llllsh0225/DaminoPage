@@ -75,4 +75,14 @@ public class MarketAdminRegistController {
 	 
 			return storeList;
 		}
+		
+		@RequestMapping("/storeManagerInfo.smdo")
+		public ModelAndView getStoreManagerInfoPage() {
+			System.out.println("매출 현황 페이지 열기");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/store/storeManagerInfo");
+			
+			return mav;
+		}
 }
