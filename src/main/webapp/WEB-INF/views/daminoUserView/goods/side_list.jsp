@@ -263,7 +263,7 @@ function expireSession(){
 		<div class="pop-layer pop-menu" id="pop-menu-detail">
 			<input type="hidden" value="" class="hide_code" />
 			<div class="dim"></div>
-			<div class="pop-wrap">
+			<div class="pop-wrap" style="top:0px; left:20%;">
 				<div class="pop-title-wrap">
 					<div class="pop-title menu-name"></div>
 				</div>
@@ -432,7 +432,7 @@ function expireSession(){
 		<!-- 팝업-메인 빅배너 -->
 		<div class="pop-layer pop-full" id="pop-allergy">
 			<div class="dim"></div>
-			<div class="pop-wrap">
+			<div class="pop-wrap" style="top:0px; left:20%;">
 				<div class="pop-title-wrap">
 					<div class="pop-title v2">영양성분 및 알레르기 유발성분</div>
 				</div>
