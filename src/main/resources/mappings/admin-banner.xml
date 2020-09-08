@@ -16,7 +16,6 @@
 	</select>
 	
 	<!-- 배너 수정을 위한 가져오기 -->
-	
 	<select id="getBanner" parameterType="com.damino.web.admin.banner.BannerVO" resultType="com.damino.web.admin.banner.BannerVO">
 		SELECT * 
 		FROM banner_db
