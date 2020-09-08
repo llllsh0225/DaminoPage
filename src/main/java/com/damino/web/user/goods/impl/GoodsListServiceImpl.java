@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damino.web.admin.menu.PizzaVO;
+import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.faq.FaqViewDAO;
 import com.damino.web.user.faq.FaqViewVO;
 import com.damino.web.user.goods.GoodsDrinkEtcVO;
@@ -76,6 +78,16 @@ public class GoodsListServiceImpl implements GoodsListService {
 		return goodsListDAO.getAfterTopping();
 	}
 
+	@Override
+	public List<PizzaVO> getAllPizzaList() {
+		return goodsListDAO.getAllPizzaList();
+	}
+
+	@Override
+	public List<SideVO> getAllSideList() {
+		return goodsListDAO.getAllSideList();
+	}
+	
 	@Override
 	public GoodsSideVO getUserSideGoods(GoodsSideVO vo) {
 		System.out.println("GoodsListServiceImpl getUserSideGoods(GoodsSideVO vo)");
@@ -240,6 +252,8 @@ public class GoodsListServiceImpl implements GoodsListService {
 		System.out.println("사이드메뉴 구분자 호출");
 		return goodsListDAO.getNextGubunSide(userid);
 	}
+
+	
 
 	
 }
