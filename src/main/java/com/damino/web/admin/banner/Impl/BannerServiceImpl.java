@@ -17,33 +17,27 @@ public class BannerServiceImpl implements BannerService {
 
 	@Override
 	public void insertBanner(BannerVO vo) {
-		System.out.println("[bannerserviceimpl] insert...");
 		bannerDAO.insertBanner(vo);
 
 	}
 
 	@Override
 	public List<BannerVO> getBannerList() {
-		System.out.println("[bannerserviceimpl] getbannerList()...");
 		return bannerDAO.getBannerList();
 	}
 
 	@Override
 	public BannerVO getBanner(BannerVO vo) {
-		System.out.println("[bannerserviceimpl] getBanner...");
-		System.out.println(" ´ë»ó : " +vo);
 		return bannerDAO.getBanner(vo);
 	}
 
 	@Override
 	public void updateBanner(BannerVO vo) {
-		System.out.println("[bannerserviceimpl] update...");
 		bannerDAO.updateBanner(vo);
 	}
 
 	@Override
 	public void deleteBanner(BannerVO vo) {
-		System.out.println("[bannerserviceimpl] delete...");
 		bannerDAO.deleteBanner(vo);
 
 	}

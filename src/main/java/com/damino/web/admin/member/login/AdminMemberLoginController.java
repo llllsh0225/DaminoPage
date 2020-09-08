@@ -32,15 +32,15 @@ import com.damino.web.admin.salesstatus.SalesVO;
 public class AdminMemberLoginController {
 
 	@Autowired
-	private AdminMemberLoginService adminMemberLoginService;
+	private AdminMemberLoginService adminMemberLoginService; //홈페이지 관리자 로그인
 	@Autowired
-	private OrderlistService orderlistService;
+	private OrderlistService orderlistService; //주문내역(건수)
 	@Autowired
-	private SalesStatusService salesStatusService;
+	private SalesStatusService salesStatusService;//주문내역(차트)
 	@Autowired
-	private BoardService boardService;
+	private BoardService boardService;//게시판 목록
 	@Autowired
-	private FaqService faqService;
+	private FaqService faqService;//faq 목록
 
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체
