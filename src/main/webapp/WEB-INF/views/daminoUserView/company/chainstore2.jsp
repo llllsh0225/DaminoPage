@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>가맹점모집(가맹점 개설안내)- 다미노피자</title>
-<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon" href="https://newcdn.Daminos.co.kr/renewal2018/w/img/favicon.ico" />
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
@@ -159,7 +159,7 @@
 													<dl>
 														<dt>Step.1 가맹 상담</dt>
 														<dd>
-															Domino’s Pizza 체인점 경영과 가맹에 대한 정보를<br>친절하게 알려드립니다.
+															Damino’s Pizza 체인점 경영과 가맹에 대한 정보를<br>친절하게 알려드립니다.
 														</dd>
 													</dl> <span class="ico_fran_step"></span>
 												</li>
@@ -279,7 +279,7 @@
 						<p>03138 서울특별시 종구 돈화문로 26 단성골드빌딩 KG아이티뱅크｜대표이사 : 오수현, 강수현, 정민균,
 							정민식, 김진혁</p>
 						<p>사업자 등록번호: 220-81-03371｜통신판매업신고: 강남 5064호｜개인정보 보호책임자 : 이승재</p>
-						<p>문의 : admin@daminos.co.kr</p>
+						<p>문의 : admin@Daminos.co.kr</p>
 						<p>Copyright ⓒ Damino’s Pizza. All rights reserved.</p>
 
 						<p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 사이트(PC, 모바일, 앱)의 일체의
@@ -292,24 +292,24 @@
 							<dt>DOWNLOAD APP</dt>
 							<dd>
 								<a
-									href="https://itunes.apple.com/kr/app/dominopija-domino-pizza-korea/id371008429?mt=8"><i
+									href="https://itunes.apple.com/kr/app/Daminopija-Damino-pizza-korea/id371008429?mt=8"><i
 									class="ico-ios"></i>ios 앱다운로드</a> <a
-									href="https://play.google.com/store/apps/details?id=kr.co.d2.dominos"><i
+									href="https://play.google.com/store/apps/details?id=kr.co.d2.Daminos"><i
 									class="ico-android">안드로이드 앱다운로드</i></a>
 							</dd>
 						</dl>
 
 						<div class="sns-box">
 							<ul>
-								<li><a href="http://blog.naver.com/dominostory"><i
+								<li><a href="http://blog.naver.com/Daminostory"><i
 										class="ico-blog"></i>블로그</a></li>
-								<li><a href="https://www.instagram.com/dominostory/"><i
+								<li><a href="https://www.instagram.com/Daminostory/"><i
 										class="ico-insta"></i>인스타그램</a></li>
-								<li><a href="https://www.facebook.com/dominostory/"><i
+								<li><a href="https://www.facebook.com/Daminostory/"><i
 										class="ico-facebook"></i>페이스북</a></li>
-								<li><a href="https://www.youtube.com/user/dominostory3082"><i
+								<li><a href="https://www.youtube.com/user/Daminostory3082"><i
 										class="ico-youtube"></i>유튜브</a></li>
-								<li><a href="https://twitter.com/dominostory"><i
+								<li><a href="https://twitter.com/Daminostory"><i
 										class="ico-twitter"></i>트위터 </a></li>
 							</ul>
 						</div>
