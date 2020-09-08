@@ -33,6 +33,30 @@
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
 
 <script>
+	function allCheck1(){
+		if($('#agree_all').prop("checked")){
+			$('#agree_1').prop("checked", true);
+			$('#agree_2').prop("checked", true);
+			$('#location_yn').prop("checked", true);
+		}else{
+			$('#agree_1').prop("checked", false);
+			$('#agree_2').prop("checked", false);
+			$('#location_yn').prop("checked", false);
+		}
+	}
+	
+	function allCheck2(){
+		if($('#agree_all2').prop("checked")){
+			$('#chk_ds_fl').prop("checked", true);
+			$('#chk_dm_fl').prop("checked", true);
+			$('#chk_o_dm_fl').prop("checked", true);
+		}else{
+			$('#chk_ds_fl').prop("checked", false);
+			$('#chk_dm_fl').prop("checked", false);
+			$('#chk_o_dm_fl').prop("checked", false);
+		}
+	}
+	
 	function phoneCheckValChange() {
 		$('#phoneCheck').val("N"); // 휴대폰 입력값이 바뀔 때 인증여부를 "N"으로 세팅
 	}
@@ -165,13 +189,19 @@
 			document.frm.submit();
 		}
 	}
+	
+	function popClose(){
+		$('.pop-layer').hide();
+	}
+	
+	
 </script>
 </head>
 <div id="wrap">
 	<header id="header" style="transform: translateY(0px);">
 		<div class="top-wrap">
 			<div class="inner-box" id="tip-box-top">
-				<a href="/main" class="btn-logo"> <i class="ico-logo"></i>
+				<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 					<h1 class="hidden">다미노피자</h1>
 				</a>
 
@@ -637,9 +667,9 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all" name="agree_all"
-															value="Y" class="all-check"> <label
-															class="checkbox" for="agree_all"></label> <label
-															for="agree_all">전체 동의하기</label>
+															value="Y" class="all-check" onChange="javascript:allCheck1()"> 
+															<label class="checkbox" for="agree_all"></label> 
+															<label for="agree_all">전체 동의하기</label>
 													</div>
 													<ul>
 														<li>
@@ -683,7 +713,7 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all2" name="agreeType1"
-															class="all-check2"> <label class="checkbox"
+															class="all-check2" onChange="javascript:allCheck2();"> <label class="checkbox"
 															for="agree_all2"></label> <label for="all1">전체
 															동의하기</label>
 													</div>
@@ -733,7 +763,7 @@
 			<!-- 팝업-메인 빅배너 -->
 			<div class="pop-layer type2" id="pop-terms">
 				<div class="dim"></div>
-				<div class="pop-wrap">
+				<div class="pop-wrap" style="top:0px; left:20%;">
 					<div class="pop-title-wrap">
 						<h2 class="pop-title v2">이용약관 동의</h2>
 					</div>
@@ -1011,14 +1041,14 @@
 							</div>
 						</div>
 					</div>
-					<a href="#" class="btn-close"></a>
+					<a href="javascript:popClose();" class="btn-close"></a>
 				</div>
 			</div>
 			<!-- //팝업-메인 빅배너 -->
 			<!-- 팝업-메인 빅배너 -->
 			<div class="pop-layer pop-terms" id="pop-terms-p2">
 				<div class="dim"></div>
-				<div class="pop-wrap">
+				<div class="pop-wrap" style="top:0px; left:20%;">
 					<div class="pop-title-wrap">
 						<h2 class="pop-title">개인정보 수집 및 이용 동의</h2>
 					</div>
@@ -1317,7 +1347,7 @@
 								</div>
 							</div>
 						</div>
-						<a href="#" class="btn-close"></a>
+						<a href="javascript:popClose();" class="btn-close"></a>
 					</div>
 				</div>
 			</div>
@@ -1325,7 +1355,7 @@
 			<!-- 팝업-메인 빅배너 -->
 			<div class="pop-layer pop-terms" id="pop-terms-p3">
 				<div class="dim"></div>
-				<div class="pop-wrap">
+				<div class="pop-wrap" style="top:0px; left:20%;">
 					<div class="pop-title-wrap">
 						<h2 class="pop-title">개인정보 제 3자 제공 동의</h2>
 					</div>
@@ -1377,14 +1407,14 @@
 							</div>
 						</div>
 					</div>
-					<a href="#" class="btn-close"></a>
+					<a href="javascript:popClose();" class="btn-close"></a>
 				</div>
 			</div>
 			<!-- //팝업-메인 빅배너 -->
 			<!-- 팝업-메인 빅배너 -->
 			<div class="pop-layer pop-terms" id="pop-terms-p4">
 				<div class="dim"></div>
-				<div class="pop-wrap">
+				<div class="pop-wrap" style="top:0px; left:20%;">
 					<div class="pop-title-wrap">
 						<h2 class="pop-title v2">위치기반 서비스 약관</h2>
 					</div>
@@ -1589,7 +1619,7 @@
 							</div>
 						</div>
 					</div>
-					<a href="#" class="btn-close"></a>
+					<a href="javascript:popClose();" class="btn-close"></a>
 				</div>
 			</div>
 			<!-- //팝업-메인 빅배너 -->
@@ -1600,7 +1630,7 @@
 	<!-- 중복 이메일 사용 팝업 -->
 	<div class="pop-layer type3" id="pop-email" style="display: none;">
 		<div class="dim"></div>
-		<div class="pop-wrap">
+		<div class="pop-wrap" style="top:0px; left:20%;">
 			<div class="pop-title-wrap">
 				<h2 class="pop-title">이메일 사용 안내</h2>
 			</div>
@@ -1625,7 +1655,7 @@
 					</div>
 				</div>
 			</div>
-			<a href="#" class="btn-close"></a>
+			<a href="javascript:popClose();" class="btn-close"></a>
 		</div>
 	</div>
 	<!-- (E)중복 이메일 사용 팝업 -->
