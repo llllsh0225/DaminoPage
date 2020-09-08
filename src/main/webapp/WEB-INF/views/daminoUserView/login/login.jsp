@@ -154,13 +154,13 @@ function expireSession(){
 						<c:when test="${guest == 'guest' }">
 							<!-- 비회원 로그인시 -->
 							<div class="util-nav">
-								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
 							</div>
 						</c:when>
 						<c:when test="${msg != 'login'}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -274,7 +274,7 @@ function expireSession(){
 
                            </div>
                            <div class="btn-wrap">
-                              <a href="registMember.do" class="btn-type-brd5">회원가입</a>
+                              <a href="regForm.do" class="btn-type-brd5">회원가입</a>
                            </div>
                         </form>
                      </div>
@@ -285,7 +285,7 @@ function expireSession(){
                            <input type="hidden" name="hp" id="hp" value="" /> <input
                               type="hidden" name="returnUrl" id="returnUrl" value="/main" />
                            <div class="sub-text">
-                              아직 다미노피자 회원이 아니세요? <a href="registMember.do">회원가입</a>
+                              아직 다미노피자 회원이 아니세요? <a href="regForm.do">회원가입</a>
                            </div>
                            <div class="form">
                               <div class="form-item">
