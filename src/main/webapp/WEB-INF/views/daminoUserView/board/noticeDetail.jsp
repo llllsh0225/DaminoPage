@@ -58,7 +58,7 @@ function expireSession(){
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo"> <i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 		<input type="hidden" id="userid" value="${sessionScope.userid}" />
