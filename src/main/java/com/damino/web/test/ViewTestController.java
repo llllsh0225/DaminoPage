@@ -747,15 +747,7 @@ public class ViewTestController {
 	//statistics 폴더 시작 ---------
 		
 	//store 폴더 시작 ---------
-	@RequestMapping("/storeManagerInfo.smdo")
-	public ModelAndView getStoreManagerInfoPage() {
-		System.out.println("매출 현황 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/store/storeManagerInfo");
-		
-		return mav;
-	}
+	
 	
 	
 }

@@ -34,6 +34,11 @@
 	/* <!-- //기존 팝업 재사용위해 css 추가함. 추후 common.css 에 아래 소스 추가 예정 --> */
 	</style>
 <script>
+
+function popClose(){
+	$('.pop-layer').hide();
+}
+
 function expireSession(){
 	  alert("세션이 만료되었습니다");
 	  
@@ -118,13 +123,13 @@ function expireSession(){
 						<c:when test="${guest == 'guest' }">
 							<!-- 비회원 로그인시 -->
 							<div class="util-nav">
-								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
 							</div>
 						</c:when>
 						<c:when test="${msg != 'login'}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -292,7 +297,7 @@ function expireSession(){
 <form name="qnaBoardInsert" id="qnaBoardInsert" method="post" action="javascript:proc()">
 <div class="pop-layer" id="pop-write">
 	<div class="dim"></div>
-	<div class="pop-wrap">
+	<div class="pop-wrap" style="top:0px; left:20%;">
 		<div class="pop-title-wrap">
 			<h2 class="pop-title v2">문의하기</h2>
 		</div>
@@ -411,7 +416,7 @@ function expireSession(){
 				</div>
 			</div>
 		</div>
-		<a href="#" class="btn-close"></a>
+		<a href="javascript:popClose();" class="btn-close"></a>
 	</div>
 </div>
 </form>

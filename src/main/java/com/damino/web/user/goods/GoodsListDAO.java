@@ -2,6 +2,8 @@ package com.damino.web.user.goods;
 
 import java.util.List;
 
+import com.damino.web.admin.menu.PizzaVO;
+import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.board.QnaBoardVO;
 import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 
@@ -15,6 +17,10 @@ public interface GoodsListDAO {
 	
 	public List<GoodsDrinkEtcVO> getDrinkEtcList(); // 음료 및 기타 목록 불러오기 
 	
+	// 피자&사이드 영양성분 불러오기
+	public List<PizzaVO> getAllPizzaList();
+	public List<SideVO> getAllSideList();
+	
 //------------------사용자 선택 --------------------
 	//사용자 선택 -피자 메뉴 불러오기(2번째는 이름만 비교)
 	public GoodsPizzaVO getUserPizzaGoods(GoodsPizzaVO vo);
@@ -26,7 +32,7 @@ public interface GoodsListDAO {
 	
 	//사용자 선택 - 선택 가능 도우 불러오기
 	public GoodsPizzaVO getUserDoughGoods(GoodsPizzaVO vo);
-	
+
 	//장바구니 - 피자 메뉴 삽입
 	public void insertPizzaBasket(UserBasketVO vo);
 	//장바구니 - 토핑 삽입

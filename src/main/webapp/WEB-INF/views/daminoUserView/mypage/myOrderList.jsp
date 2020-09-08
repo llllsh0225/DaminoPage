@@ -22,6 +22,14 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	
 	<script>
+	$(document).ready(function(){
+		$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
+			$('.pop-layer').hide();
+		});
+		
+	});
+	</script>
+	<script>
 function expireSession(){
 	  alert("세션이 만료되었습니다");
 	  
@@ -72,13 +80,13 @@ function expireSession(){
 						<c:when test="${guest == 'guest' }">
 							<!-- 비회원 로그인시 -->
 							<div class="util-nav">
-								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
 							</div>
 						</c:when>
 						<c:when test="${msg != 'login'}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -247,7 +255,7 @@ function expireSession(){
 		<!--팝업-주문내역 이용안내 -->
 		<div class="pop-layer" id="pop-order-info">
 			<div class="dim"></div>
-			<div class="pop-wrap">
+			<div class="pop-wrap" style="top:0px; left:30%;">
 				<div class="pop-title-wrap">
 					<h2 class="pop-title v2">주문내역 이용안내</h2>
 				</div>
@@ -265,13 +273,6 @@ function expireSession(){
 							<li>결제방법을 수정하실 경우에는 해당 매장으로 직접 연락하셔야 하며, 배달 중에는 변경 불가합니다.</li>
 							<li>영수증 출력을 원하시는 고객님은 주문상세 페이지의 ‘영수증 출 력’을 클릭하시면, 해당 주문의
 								영수증을 출력할 수 있습니다.</li>
-						</ul>
-					</div>
-					<div class="title-type2">상품권 주문취소 안내</div>
-					<div class="pop-text">
-						<ul class="list-text-v2">
-							<p>모바일 상품권</p>
-							<li>구매 시 입력하신 휴대전화번호로 MMS 발송 후에는 취소가 불가 능합니다.</li>
 						</ul>
 					</div>
 				</div>

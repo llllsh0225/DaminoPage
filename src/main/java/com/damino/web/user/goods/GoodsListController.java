@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
+import com.damino.web.admin.menu.PizzaVO;
+import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.order.DeliveryAddressVO;
@@ -55,9 +57,14 @@ public class GoodsListController {
 		List<GoodsPizzaVO> goodsPremiumList = goodsListService.getPizzaList();
 		List<GoodsPizzaVO> goodsClassicList = goodsListService.getPizzaClassicList();
 
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+		
 		mav.addObject("goodsPremiumList", goodsPremiumList);
 		mav.addObject("goodsClassicList", goodsClassicList);
-
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		System.out.println("프리미엄 피자 리스트 : " + goodsPremiumList);
 		mav.setViewName("/goods/list");
 
@@ -77,8 +84,13 @@ public class GoodsListController {
 
 		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
 
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+		
 		mav.addObject("goodsSideList", goodsSideList);
-
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		mav.setViewName("/goods/side_list");
 
 		return mav;
@@ -97,7 +109,13 @@ public class GoodsListController {
 
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+		
 		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		mav.setViewName("/goods/drink_list");
 
 		return mav;

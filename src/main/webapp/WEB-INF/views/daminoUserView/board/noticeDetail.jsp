@@ -58,7 +58,7 @@ function expireSession(){
 		<header id="header">
 			<div class="top-wrap">
 				<div class="inner-box" id="tip-box-top">
-					<a href="/main" class="btn-logo"> <i class="ico-logo"></i>
+					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 		<input type="hidden" id="userid" value="${sessionScope.userid}" />
@@ -66,13 +66,13 @@ function expireSession(){
 						<c:when test="${guest == 'guest' }">
 							<!-- 비회원 로그인시 -->
 							<div class="util-nav">
-								guest 님&nbsp; <a href="login.do">회원가입</a><a href="logout.do">로그아웃</a> 
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
 							</div>
 						</c:when>
 						<c:when test="${msg != 'login'}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
