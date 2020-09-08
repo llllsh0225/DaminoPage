@@ -15,6 +15,18 @@
 		ORDER BY seq desc
 	</select>
 	
+	<!-- 피자 전체 목록 불러오기 (영양성분 조회용) -->
+	<select id="getAllPizzaList" resultType="com.damino.web.admin.menu.PizzaVO">
+		SELECT * FROM pizza
+		ORDER BY seq desc
+	</select>
+	
+	<!-- 사이드 전체 목록 불러오기 (영양성분 조회용) -->
+	<select id="getAllSideList" resultType="com.damino.web.admin.menu.SideVO">
+		SELECT * FROM side
+		ORDER BY seq desc
+	</select>	
+	
 	<!-- 사이드메뉴 목록 불러오기 -->
 	<select id="getSideList" resultType="com.damino.web.user.goods.GoodsSideVO">
 		SELECT * FROM side
