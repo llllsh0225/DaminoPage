@@ -104,7 +104,7 @@
 						<div class="collapse" id="storeInfoPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="storeManagerInfo.smdo">매장관리자 설정</a>
+								<a class="nav-link" href="storeManagerInfo.smdo?storeName=${sessionScope.storename }">매장관리자 설정</a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"
@@ -142,71 +142,32 @@
 									<hr>
 									<form name="insertManager" action="insertManager.smdo" method="post">
 										<div class="row">
-											<div>
-												<div class="input-group" style="margin: 10px; margin-top: 15px;">
-													<strong><p style="height:25px; font-size: 16px;">이름</p></strong>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<strong><p style="height:25px; font-size: 16px;">ID</p></strong>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<strong><p style="height:25px; font-size: 16px;">PW</p></strong>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<strong><p style="height:25px; font-size: 16px;">연락처</p></strong>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<strong><p style="height:25px; font-size: 16px;">주소</p></strong>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<strong><p style="height:25px; font-size: 16px;">비고</p></strong>
-												</div>
-											</div>
-											
-											<div>
-												<div class="input-group" style="margin: 10px;">
-													<input type="text" name="managername" id="managername" placeholder="이름 입력" style="height: 40px; width:160px;"/>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<input type="text" name="managerid" id="managerid" placeholder="아이디 입력" style="height: 40px; width:160px;"/>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<input type="password" name="managerpasswd" id="managerpasswd" placeholder="비밀번호 입력" style="height: 40px; width:160px;"/>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<input type="storeregion" name="name" id="name" placeholder="연락처 입력" style="height: 40px; width:160px;"/>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<input type="text" name="name" id="name" placeholder="주소 입력" style="height: 40px; width:400px;"/>
-												</div>
-												<div class="input-group" style="margin: 10px;">
-													<input type="text" name="name" id="name" style="height: 40px; width:500px;"/>
-													<input type="submit" class="btn btn-primary" value="등록" style="height:35px; margin:5px;"/>
-												</div>
-												<div class="input-group" style="margin: 5px;">
-													
-												</div>
+											<div class="input-group" style="margin: 10px;">
+												<a href="managerRegister.smdo" class="btn btn-primary" style="height:35px; margin:5px;">관리자 등록하기</a>
 											</div>
 										</div>
 									</form>
 								</div>
 							</div>
 							<hr>
-							<table class="table table-bordered" id="dataTable1" width="100%"
-								cellspacing="0">
+							<table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
 								<thead>
 									<tr>
 										<th style="width: 100px">No</th>
-										<th>이름</th>
 										<th>ID</th>
-										<th>등록일</th>
-										<th>주소</th>
-										<th>연락처</th>
-										<th>비고</th>
+										<th>이름</th>
+										<th>승인여부</th>
 									</tr>
 								</thead>
 								<tbody>
-									
+									<c:forEach var="storeManager" items="${storeManager}">
+										<tr>
+											<td>${storeManager.seq }</td>
+											<td>${storeManager.managerId }</td>
+											<td>${storeManager.managerName }</td>
+											<td>${storeManager.checkMem }</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

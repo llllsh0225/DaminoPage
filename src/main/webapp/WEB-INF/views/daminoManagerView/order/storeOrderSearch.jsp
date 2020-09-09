@@ -96,7 +96,7 @@
 						<div class="collapse" id="storeInfoPage"
 							aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="storeManagerInfo.smdo">매장관리자 설정</a>
+								<a class="nav-link" href="storeManagerInfo.smdo?storeName=${sessionScope.storename }">매장관리자 설정</a>
 							</nav>
 						</div>
 						<a class="nav-link collapsed" href="#" data-toggle="collapse"

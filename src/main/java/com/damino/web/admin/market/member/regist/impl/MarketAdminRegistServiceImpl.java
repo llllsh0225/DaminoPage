@@ -43,5 +43,10 @@ public class MarketAdminRegistServiceImpl implements MarketAdminRegistService{
 		return marketAdminMemberDAO.searchStore(storeRegion);
 	}
 
+	@Override
+	public List<MarketAdminMemberVO> getStoreManager(MarketAdminMemberVO vo) {
+		return marketAdminMemberDAO.getStoreManager(vo);
+	}
+
 
 }
