@@ -36,4 +36,10 @@ public class MarketAdminMemberDAOImpl implements MarketAdminMemberDAO{
 		return sqlSessionTemplate.selectList("marketAdminMemberDAO.searchStore", storeRegion);
 	}
 
+	@Override
+	public List<MarketAdminMemberVO> getStoreManager(MarketAdminMemberVO vo) {
+		System.out.println("매장관리자 리스트 불러오기");
+		return sqlSessionTemplate.selectList("marketAdminMemberDAO.getStoreManager", vo);
+	}
+
 }
