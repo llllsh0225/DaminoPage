@@ -1477,12 +1477,7 @@ function toppingDelete(index) {
 												<div class="no-data">
 													장바구니가 비어 있습니다.
 													<p class="text-type">다미노피자의 맛있는 메뉴를 마음껏 골라 담으세요</p>
-													<!-- 메뉴 추가 버튼 -->
-													<div class="btn-wrap">
-														<a href="goodslist.do" class="btn-type-brd"><i
-															class="ico-plus"></i>메뉴 추가하기</a>
-													</div>
-													<!-- //메뉴 추가 버튼 -->
+													
 												</div>
 											</article>
 											<br></br>
