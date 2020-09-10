@@ -492,6 +492,7 @@ function expireSession(){
 		var orderTimeStr = orderTime.getFullYear() + orderMonth + orderDate + orderHours + orderMinutes + orderSeconds;
 		var userid = $('#userid').val();
 		var username = $('#customerName').val();
+		var useremail = $('#useremail').val();
 		var deliveryTime = $('#deliveryTime').val();
 		var deliverAddress = $('#deliverAddress').val();
 		var userphone = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
@@ -541,7 +542,7 @@ function expireSession(){
 			    merchant_uid : 'merchant_' + new Date().getTime(),
 			    name : goodsName,
 			    amount : 100,
-			    buyer_email : 'samking36@naver.com',
+			    buyer_email : useremail,
 			    buyer_name : username,
 			    buyer_tel : userphone,
 			    buyer_addr : deliverAddress,
@@ -722,6 +723,7 @@ function expireSession(){
 					<input type="hidden" id="userid" value="${user.userid }" />
 					<input type="hidden" id="username" value="${user.username }" />
 					<input type="hidden" id="userphone" value="${user.phone }" />
+					<input type="hidden" id="useremail" value="${user.email }" />
 					<input type="hidden" id="deliverAddress" value="${defaultAddress.address }" />
 					<input type="hidden" id="deliverStore" value="${defaultAddress.storename }" />
 					<input type="hidden" id="storePhone" value="${defaultAddress.storephone }" />

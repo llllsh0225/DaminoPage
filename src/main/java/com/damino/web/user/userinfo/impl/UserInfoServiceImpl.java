@@ -3,6 +3,7 @@ package com.damino.web.user.userinfo.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damino.web.user.login.UserVO;
 import com.damino.web.user.userinfo.UserInfoDAO;
 import com.damino.web.user.userinfo.UserInfoService;
 import com.damino.web.user.userinfo.UserInfoVO;
@@ -22,6 +23,11 @@ public class UserInfoServiceImpl implements UserInfoService{
 	public void updateUserMember(UserInfoVO vo) {
 		System.out.println("UserInfoServiceImpl updateUserMember(vo)");
 		userInfoDAO.updateUserMember(vo);
+	}
+
+	@Override
+	public String findUserId(UserVO vo) {
+		return userInfoDAO.findUserId(vo);
 	}
 
 }

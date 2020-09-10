@@ -36,7 +36,7 @@ public class RegistServiceImpl implements RegistService {
 		params.put("to", phoneNumber);
 		params.put("from", daminoTel);
 		params.put("type", "SMS");
-		params.put("text", "[다미노피자 회원가입] 인증번호 : " + authKey);
+		params.put("text", "[다미노피자] 인증번호 : " + authKey);
 
 		try {
 			JSONObject obj = (JSONObject) sendKey.send(params);

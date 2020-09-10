@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>가맹점모집(가맹점 개설안내)- 다미노피자</title>
-<link rel="shortcut icon" href="https://newcdn.Daminos.co.kr/renewal2018/w/img/favicon.ico" />
+<link rel="shortcut icon" href="https://newcdn.dominos.co.kr/renewal2018/w/img/favicon.ico" />
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
