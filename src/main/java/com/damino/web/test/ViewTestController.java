@@ -288,14 +288,13 @@ public class ViewTestController {
 		return mav;
 	}
 	
-	@RequestMapping("/orderpage3.do")
-	public ModelAndView getOrderPageThree() {
-		System.out.println("주문완료 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/order/order_page3");
-		return mav;
-	}
+	/*
+	 * @RequestMapping("/orderpage3.do") public ModelAndView getOrderPageThree() {
+	 * System.out.println("주문완료 페이지 열기");
+	 * 
+	 * ModelAndView mav = new ModelAndView(); mav.setViewName("/order/order_page3");
+	 * return mav; }
+	 */
 	
 	@RequestMapping("/groupOrder.do")
 	public ModelAndView getGroupOrder() {
