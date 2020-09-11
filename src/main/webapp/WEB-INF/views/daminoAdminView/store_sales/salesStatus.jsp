@@ -69,7 +69,6 @@ $(document).ready(function() {
     });
     
     $("#printPDF2").click(function(){
-    	//$("#monthly12").printThis();
     	
     	//yearly12을 canvas객체로 변환
 		 html2canvas($('#yearly12')[0]).then(function(canvas) {

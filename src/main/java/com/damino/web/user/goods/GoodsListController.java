@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
 import com.damino.web.admin.menu.PizzaVO;
@@ -25,7 +24,6 @@ import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.order.DeliveryAddressVO;
 import com.damino.web.user.order.OrderService;
-import com.damino.web.user.quickorder.QuickOrderService;
 
 @Controller
 public class GoodsListController {
@@ -38,8 +36,6 @@ public class GoodsListController {
 	
 	@Autowired
 	private OrderService orderService;
-	@Autowired
-	private QuickOrderService quickOrderService;
 	
 	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();

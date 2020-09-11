@@ -242,7 +242,6 @@ function saveBasket(){
 	if(!gubunDB){
 		gubunDB = 0;
 	}
-	alert("gubunDB : " + gubunDB);
 	
 	$.ajax({
 		url : 'insert_basket.do',

@@ -60,36 +60,6 @@ function expireSession(){
 	}
 	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
 	
-/* function show_receipt(orderSeq){
-	
-	var orderdate = $('#orderdate').val();
-	var orderseq = $('#orderseq').val();
-	var tel = $('#tel').val();
-	
-	var title = document.getElementsByTagName( "title" );
-	
-	    var mywindow = window.open('', 'PRINT', 'height=600,width=400');
-	    mywindow.document.write('<html><head><title>휴대폰 결제 매출전표</title>');
-	    mywindow.document.write('</head><body>');
-	    mywindow.document.write('<div class="pop-layer" id="pop-print"><div class="dim"></div><div class="pop-wrap">');
-	    mywindow.document.write('<h5 class="title"> 휴대폰 결제 매출전표 </h5>');
-	    mywindow.document.write('<small class="text"> 결제정보 </small><br>');
-	    mywindow.document.write('<small class="text"> 휴대폰번호 : ' + tel + '</small><br>');
-	    mywindow.document.write('<small class="text"> 주문번호 : ' + orderseq + '</small><br>');
-	    mywindow.document.write('</div></div>');
-	    //  mywindow.document.write(document.getElementById(elem).innerHTML);
-	    mywindow.document.write('</body></html>');
-
-	//    mywindow.document.close(); // necessary for IE >= 10
-	//    mywindow.focus(); // necessary for IE >= 10*/
-
-	//    mywindow.print();
-	//    mywindow.close();
-
-	   // return true;
-//	}
-	// */
-	
 window.onload = function() {
 		
 	//팝업창 결제금액 천단위 구분 쉼표 적용
