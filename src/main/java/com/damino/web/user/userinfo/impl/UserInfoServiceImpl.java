@@ -30,4 +30,9 @@ public class UserInfoServiceImpl implements UserInfoService{
 		return userInfoDAO.findUserId(vo);
 	}
 
+	@Override
+	public void updatePasswd(UserVO vo) {
+		userInfoDAO.updatePasswd(vo);
+	}
+
 }
