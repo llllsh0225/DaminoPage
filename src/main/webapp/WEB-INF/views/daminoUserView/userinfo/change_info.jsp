@@ -704,7 +704,7 @@ function updateSubmit(){
 										<input type="button" class="btn-type v4" value="초기화" onclick="javascript:location.reload();" style="cursor: pointer">
 										<p class="desc">
 											다미노피자를 더 이상 이용하지 않는다면
-											<a href="" class="btn-link"><span>회원탈퇴 바로가기</span></a>
+											<a href="openWithdrawal.do" class="btn-link"><span>회원탈퇴 바로가기</span></a>
 										</p>
 									</div>
 								</div>

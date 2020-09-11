@@ -36,4 +36,10 @@ public class UserInfoDAOImpl implements UserInfoDAO{
 		System.out.println("새 비밀번호로 변경");
 		sqlSessionTemplate.update("UserMemberDAO.updatePasswd", vo);
 	}
+
+	@Override
+	public void memberWithdraw(UserInfoVO vo) {
+		System.out.println("회원탈퇴 Proc");
+		sqlSessionTemplate.delete("UserMemberDAO.memberWithdraw", vo);
+	}
 }

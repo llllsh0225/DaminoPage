@@ -257,11 +257,6 @@ function expireSession(){
                               <input type="password" name="userpasswd" id="userpasswd" maxlength="20" placeholder="비밀번호"/> 
                            </div>
                            <div class="chk-item">
-                              <div class="chk-box v4">
-                                 <input type="checkbox" id="idcheck"> 
-                                 <label class="checkbox" for="idcheck"></label> 
-                                 <label for="idcheck">아이디저장</label>
-                              </div>
                               <div class="btn-member-wrap" style="margin-bottom: 20px">
                                  <span><a href="findidpw.do?gubun=id">아이디 찾기</a></span> 
                                        <span><a href="findidpw.do?gubun=pw">비밀번호 찾기</a></span>

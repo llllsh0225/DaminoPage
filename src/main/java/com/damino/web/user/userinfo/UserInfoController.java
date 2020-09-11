@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -197,6 +198,39 @@ public class UserInfoController {
 		System.out.println("비밀번호 변경 결과 페이지 열기");
 		
 		mav.setViewName("userinfo/updatepw_result");
+		
+		return mav;
+	}
+	
+	@RequestMapping("openWithdrawal.do")
+	public ModelAndView openWithdrawalPage(ModelAndView mav) {
+		System.out.println("회원탈퇴 페이지 열기");
+		
+		mav.setViewName("userinfo/withdrawal");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="doWithdraw.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView chkPasswd(ModelAndView mav, UserInfoVO vo, HttpSession session) {
+		System.out.println("회원 탈퇴 - 아이디/비밀번호 일치 확인");
+		
+		UserInfoVO passwdCheck = userInfoService.passwdCheck(vo);
+		
+		boolean pwdMatch = pwdEncoder.matches(vo.getUserpasswd(), passwdCheck.getUserpasswd());
+		
+		System.out.println(passwdCheck.getUserpasswd() + " / " + vo.getUserpasswd() + " / " + pwdMatch);
+		
+		if(passwdCheck != null && pwdMatch == true) {
+			userInfoService.memberWithdraw(vo);
+			session.invalidate();
+			mav.addObject("msg", "logout"); // logout 메세지 세팅
+			mav.setViewName("userinfo/withdraw_result");
+		}else if(passwdCheck != null && pwdMatch == false) {
+			mav.setViewName("userinfo/withdrawal");
+			mav.addObject("msg", "fail");
+		}
 		
 		return mav;
 	}

@@ -7,4 +7,5 @@ public interface UserInfoService {
 	public void updateUserMember(UserInfoVO vo);
 	public String findUserId(UserVO vo);
 	public void updatePasswd(UserVO vo);
+	public void memberWithdraw(UserInfoVO vo);
 }
