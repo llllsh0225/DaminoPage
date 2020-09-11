@@ -20,7 +20,18 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	
+	<!-- 특정 영역 print 해주는 js -->
+    <script type = "text/javascript" src ="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js" '/>"></script>
+
 <script>
+$(document).ready(function(){
+	$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
+		$('.pop-layer').hide();
+	});
+	
+});
+
 function expireSession(){
 	  alert("세션이 만료되었습니다");
 	  
@@ -48,10 +59,78 @@ function expireSession(){
 	  
 	}
 	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+	
+/* function show_receipt(orderSeq){
+	
+	var orderdate = $('#orderdate').val();
+	var orderseq = $('#orderseq').val();
+	var tel = $('#tel').val();
+	
+	var title = document.getElementsByTagName( "title" );
+	
+	    var mywindow = window.open('', 'PRINT', 'height=600,width=400');
+	    mywindow.document.write('<html><head><title>휴대폰 결제 매출전표</title>');
+	    mywindow.document.write('</head><body>');
+	    mywindow.document.write('<div class="pop-layer" id="pop-print"><div class="dim"></div><div class="pop-wrap">');
+	    mywindow.document.write('<h5 class="title"> 휴대폰 결제 매출전표 </h5>');
+	    mywindow.document.write('<small class="text"> 결제정보 </small><br>');
+	    mywindow.document.write('<small class="text"> 휴대폰번호 : ' + tel + '</small><br>');
+	    mywindow.document.write('<small class="text"> 주문번호 : ' + orderseq + '</small><br>');
+	    mywindow.document.write('</div></div>');
+	    //  mywindow.document.write(document.getElementById(elem).innerHTML);
+	    mywindow.document.write('</body></html>');
+
+	//    mywindow.document.close(); // necessary for IE >= 10
+	//    mywindow.focus(); // necessary for IE >= 10*/
+
+	//    mywindow.print();
+	//    mywindow.close();
+
+	   // return true;
+//	}
+	// */
+	
+window.onload = function() {
+		
+	//팝업창 결제금액 천단위 구분 쉼표 적용
+	var orderPrice = $('#orderPrice').val();
+	orderPrice = orderPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$('#price').html(orderPrice);
+};
+
+
+$(document).ready(function() {
+	
+	 $("#print").click(function(){
+		$("#pop-content").printThis();
+	 });
+});
 </script>
 </head>
+<style>
+.middle{
+	color: #4B088A;
+	font-size: 16px;
+}
+.middle-hr{
+	border: 1px solid #bbb;
+	color: #4B088A;
+	width: 40%;
+	margin-bottom:10px;
+	margin-top:10px;
+}
+.hr{
+	border: solid 1px #F2F2F2;
+	margin-bottom:20px;
+	width: 40%;
+	margin-top:10px;
+}
+.text{
+	font-size: 16px;
+	margin-bottom:10px;
+}
+</style>
 <body>
-
 	
 <div id="wrap">
 	<header id="header">
@@ -167,11 +246,14 @@ function expireSession(){
 						<div class="order-top">
 							<span class="type">${orderview.take }</span>
 							<span class="date">
-								<span class="tit">주문일시</span>
+								<span class="tit" >주문일시</span>
 								<fmt:formatDate value="${orderview.orderdate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+								<input type="hidden" id="orderdate" value="${orderview.orderdate }"/> 
 							<span class="num">
 								<span class="tit">주문번호</span>
 								${orderview.orderseq }</span>
+								<input type="hidden" id="orderseq" value="${orderview.orderseq }"/>
+								<input type="hidden" id="tel" value="${orderview.tel }"/>
 							</div>
 						<div class="order-center">
 							<div class="state">
@@ -258,7 +340,7 @@ function expireSession(){
 							<div class="pay-info">
 								<dl>
 									<dt>주문금액</dt>
-									<dd><em>${orderview.price }</em>원</dd>
+									<dd><em><fmt:formatNumber value="${orderview.price }" pattern="#,###,###" /></em>원</dd>
 								</dl>
 								<dl class="discount">
 									<dt>할인 금액</dt>
@@ -269,7 +351,8 @@ function expireSession(){
 	                                </ul>
                                 <dl class="total">
 									<dt>결제금액</dt>
-									<dd><em>${orderview.price }</em>원</dd>
+									<dd><em><fmt:formatNumber value="${orderview.price }" pattern="#,###,###" /></em>원</dd>
+									<input type="hidden" id="orderPrice" value="${orderview.price }"/>
 								</dl>
 							</div>
 						</div>
@@ -278,8 +361,11 @@ function expireSession(){
 							<dl>
 								<dt>결제방법</dt>
 								<dd>
-									${orderview.paytool }(${orderview.paystatus }) &nbsp; ${orderview.price } 원
-									<a href="javascript:show_receipt('StdpayCARDdomin3940220200717181520234596');" class="btn-type4-brd">영수증 출력</a>
+									${orderview.paytool }(${orderview.paystatus }) &nbsp; <fmt:formatNumber value="${orderview.price }" pattern="#,###" /> 원
+									<a href="javascript:UI.layerPopUp({selId:'#pop-zoom'})" id="print" class="btn-type4-brd">영수증 출력</a>
+								<!--  -->
+								
+								
 								</dd>
 							</dl>
 							<dl>
@@ -375,8 +461,44 @@ function expireSession(){
 
                <p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 피자(PC, 모바일, 앱)의 일체의 정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
                </div>
-	
-				<div class="footer-cont">
+               
+         <!-- 영수증 -->      
+			<div class="pop-layer" id="pop-zoom">
+			<div class="dim"></div>
+			<div class="pop-wrap" id="pop-content" style="top:0px; left:20%; width:400px; height:600px;">
+			<div class="pop-title-wrap">
+				<h2 class="pop-title"> 휴대폰 결제 매출전표 </h2>
+			</div>
+	 	 	<div class="pop-content" >
+	 	 	<div class="zoom-wrap">
+	 	 	<div class="menu-zoom-wrap">
+	 	 	<strong class="middle"> 결제정보 </strong><br>
+	 	 	<hr class="middle-hr"></hr>
+	 	  	<p class="text"> 휴대폰번호 :  ${orderview.tel} </p>
+	  		<p class="text"> 주문번호 :  ${orderview.orderseq } </p>
+	  		<p class="text"> 상품명 :  다미노피자 </p>
+	  		<p class="text"> 결제유형 :  소액결제 </p>
+	  		<p class="text"> 결제방법 :  ${orderview.paytool } </p>
+	  		<p class="text"> 거래일시 :  <fmt:formatDate value="${orderview.orderdate }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+	  		<hr class="hr"></hr>
+	  		<strong class="middle"> 결제금액 </strong><br>
+	  		<hr class="middle-hr"></hr>
+	  		<p class="text"> 총 결제 금액 : <span id="price">${orderview.price }</span> 원 </p>
+	  		<hr class="hr"></hr>
+	  		<strong class="middle"> 거래처정보 </strong><br>
+	  		<hr class="middle-hr"></hr>
+	  		<p class="text"> 상점명 : 다미노피자 </p>
+	  		<p class="text"> 사업자번호 : 220-81-03371 </p>
+	  		<p class="text"> 고객문의 : 15773082 </p>
+	  		<hr class="hr"></hr>
+	  		</div>
+			</div>
+			</div>
+			<a class="btn-close" style="cursor:pointer;"></a>
+			</div>
+			</div>
+		 <!-- END 영수증 -->     	
+			<div class="footer-cont">
 	
 					<dl class="app-box">
 						<dt>DOWNLOAD APP</dt>
