@@ -24,7 +24,6 @@ import com.damino.web.user.goods.GoodsListService;
 import com.damino.web.user.goods.UserBasketVO;
 import com.damino.web.user.goods.UserOrderVO;
 import com.damino.web.user.quickorder.QuickOrderService;
-import com.damino.web.user.quickorder.QuickOrderVO;
 
 @Controller
 @SessionAttributes({"address","storename", "storephone"})
@@ -180,7 +179,6 @@ public class OrderController {
 		
 		int pre_price = Integer.parseInt(pre_prices);
 		int count_price = Integer.parseInt(count_prices);
-		
 		int price = (Integer) param.get("totalPayment");
 		String take = (String) param.get("take");
 		String store = (String) param.get("storename");
