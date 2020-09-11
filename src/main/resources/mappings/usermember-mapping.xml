@@ -67,6 +67,11 @@
 		WHERE userid = #{userid}
 	</update>
 	
+	<!-- 회원 탈퇴 -->
+	<delete id="memberWithdraw" parameterType="com.damino.web.user.userinfo.UserInfoVO">
+		DELETE FROM usermember
+		WHERE userid = #{userid}
+	</delete>
 </mapper>
 
 

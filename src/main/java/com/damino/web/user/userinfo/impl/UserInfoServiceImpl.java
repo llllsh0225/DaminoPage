@@ -35,4 +35,9 @@ public class UserInfoServiceImpl implements UserInfoService{
 		userInfoDAO.updatePasswd(vo);
 	}
 
+	@Override
+	public void memberWithdraw(UserInfoVO vo) {
+		userInfoDAO.memberWithdraw(vo);
+	}
+
 }

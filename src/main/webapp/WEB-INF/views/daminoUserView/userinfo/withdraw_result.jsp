@@ -37,19 +37,12 @@
 		if(passwd == ""){
 			$('#pwd_alert').text("비밀번호를 입력해주세요.");
 			$('#pwd_alert').show();
-			$('#pwd_alert2').hide();
-			$('#inputChk').val('N');
-		}else{
-			$('#inputChk').val('Y');
+			return false;
 		}
 	}
 	
 	function withdrawProc(){
-		inputCheck();
-		if($('#inputChk').val() != 'N'){
-			document.withdrawFrm.action = "doWithdraw.do";
-			document.withdrawFrm.submit();
-		}
+		document.withdrawFrm.submit();
 	}
 	
 </script>
@@ -63,7 +56,7 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-					
+
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
@@ -169,35 +162,22 @@
 								</div>
 							</div>
 							<div class="info-wrap">
-								<div class="user">다미노피자 회원탈퇴</div>
-								<div class="text-type">다미노피자를 이용해주셔서 감사합니다. 탈퇴 시 고객님께서 보유하셨던 온라인 쿠폰과 등급 기록이 모두 삭제됩니다.</div>
+								<div class="user">회원탈퇴 완료</div>
 							</div>
 							<div class="myinfo-wrap withdrawal">
 								<div class="form">
-									<form id="withdrawFrm" name="withdrawFrm" method="post">
 									<article>
 										<div style="margin-top:50px;"></div>
 										<div align="center">
-											<font size="4">비밀번호를 다시 입력해주세요.</font>
-											<div style="margin-top:40px;"></div>
-											<input type="hidden" id="inputChk" value="" />
-											<input type="hidden" id="userid" name="userid" value="${sessionScope.userid }" />
-											<input type="password" id="passwd" name="userpasswd" placeholder="비밀번호 입력" style="width:25%;">
-											<c:if test="${msg == 'fail' }">
-												<div class="text-type4" style="margin-top:5px;" id="pwd_alert2">비밀번호가 일치하지 않습니다.</div>
-											</c:if>
-											<div class="text-type4" style="display: none; margin-top:5px;" id="pwd_alert"></div>
+											<font size="4">지금까지 다미노피자 서비스를 이용해주셔서 감사합니다.</font>
 										</div>
 										<br>
 										<br>
 										<div class="btn-wrap">
-											<a href="main.do" class="btn-type v4">탈퇴취소</a> 
-											<a href="javascript:withdrawProc();" class="btn-type v6">탈퇴하기</a>
+											<a href="main.do" class="btn-type v4">메인페이지로 이동</a>
 										</div>
 									</article>
-									</form>
-							</div>
-						</article>
+								</div>
 					</div>
 				</div>
 			</section>
