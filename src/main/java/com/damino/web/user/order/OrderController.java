@@ -174,6 +174,15 @@ public class OrderController {
 		String address = (String) param.get("deliverAddress");
 		String tel = (String) param.get("userphone");
 		String menus = (String) param.get("goodsName");
+		//String pre_price = (String) param.get("totalPrice");
+		//String count_price = (String) param.get("totalDiscount");
+		
+		String pre_prices = (String) param.get("totalPrice");
+		String count_prices = (String)param.get("totalDiscount");
+		
+		int pre_price = Integer.parseInt(pre_prices);
+		int count_price = Integer.parseInt(count_prices);
+		
 		int price = (Integer) param.get("totalPayment");
 		String take = (String) param.get("take");
 		String store = (String) param.get("storename");
@@ -191,6 +200,9 @@ public class OrderController {
 		vo.setAddress(address);
 		vo.setTel(tel);
 		vo.setMenus(menus);
+		
+		vo.setPre_price(pre_price);
+		vo.setCount_price(count_price);
 		vo.setPrice(price);
 		vo.setTake(take);
 		vo.setStore(store);
