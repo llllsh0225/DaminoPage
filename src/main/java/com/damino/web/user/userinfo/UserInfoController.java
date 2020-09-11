@@ -172,4 +172,32 @@ public class UserInfoController {
 		String userid = userInfoService.findUserId(vo);
 		return userid;
 	}
+	
+	@RequestMapping(value="updatePasswd.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String updatePasswd(@RequestBody Map<String, Object> param, UserVO vo) {
+		String userid = (String) param.get("userid");
+		String prepw = (String) param.get("passwd");
+		
+		System.out.println(userid + " / " + prepw);
+		
+		// 비밀번호 암호화
+		String passwd = pwdEncoder.encode(prepw);
+		
+		vo.setUserid(userid);
+		vo.setUserpasswd(passwd);
+		
+		userInfoService.updatePasswd(vo);
+		
+		return "success";
+	}
+	
+	@RequestMapping("updatepwResult.do")
+	public ModelAndView openChangepwResult(ModelAndView mav) {
+		System.out.println("비밀번호 변경 결과 페이지 열기");
+		
+		mav.setViewName("userinfo/updatepw_result");
+		
+		return mav;
+	}
 }

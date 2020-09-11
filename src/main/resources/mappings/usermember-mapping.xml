@@ -60,6 +60,13 @@
 			</when>
 		</choose>
 	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePasswd" parameterType="com.damino.web.user.login.UserVO">
+		UPDATE usermember SET userpasswd = #{userpasswd}
+		WHERE userid = #{userid}
+	</update>
+	
 </mapper>
 
 

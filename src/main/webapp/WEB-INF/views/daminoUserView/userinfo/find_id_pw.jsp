@@ -66,7 +66,9 @@ function expireSession(){
 		
 		$('#phone').show();
 		$('#email').hide();
+		
 	});
+
 	
 	function openIdByInside(param){
 		if(param == 'srchId'){
@@ -251,24 +253,72 @@ function expireSession(){
 				email : email,
 			}),
 			success : function(res) {
-				if(res != ""){
-					$('.pop-layer').hide();
-					$('.login-type').hide();
-					$('#findId').val(res);
-					$('#findUid').text($('#findId').val());
-					$('#result_id').show();
+				if($('#info_id').val() == ""){
+					if(res != ""){
+						$('.pop-layer').hide();
+						$('.login-type').hide();
+						$('#findId').val(res);
+						$('#findUid').text($('#findId').val());
+						$('#result_id').show();
+					}else{
+						$('.pop-layer').hide();
+						$('.login-type').hide();
+						$('#findId').val("");
+						$('#no_result_id').show();
+					}
 				}else{
 					$('.pop-layer').hide();
 					$('.login-type').hide();
-					$('#findId').val("");
-					$('#no_result_id').show();
+					$('#change_pw').show();
 				}
+				
 				
 			},
 			error : function(error) {
 				alert("요청처리 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
 			}
 		});
+	}
+	
+	function updateChangePasswd(){
+		var userid = $('#info_id').val();
+		var passwd = $('#passwd').val();
+		var confirmpw = $('#confirmpw').val();
+		
+		// 공백 및 비밀번호 일치 검사
+		if(passwd == ""){
+			$('#passwd_alert').text("비밀번호를 입력해주세요.");
+			$('#passwd_alert').show();
+			$('#confirmpw_alert').hide();
+			return false;
+		}else if(confirmpw == ""){
+			$('#confirmpw_alert').text("비밀번호를 다시 입력해주세요.");
+			$('#confirmpw_alert').show();
+			$('#passwd_alert').hide();
+			return false;
+		}else if(passwd != confirmpw){
+			$('#confirmpw_alert').text("비밀번호가 일치하지 않습니다.");
+			$('#confirmpw_alert').show();
+			$('#passwd_alert').hide();
+			return false;
+		}else{
+			// 비밀번호 변경
+			$.ajax({
+				type : "POST",
+				url : "updatePasswd.do",
+				contentType : "application/json; charset=utf-8;",
+				data : JSON.stringify({
+					userid : userid,
+					passwd : passwd,
+				}),
+				success : function(res) {
+					location.href="updatepwResult.do";
+				},
+				error : function(error) {
+					alert("요청처리 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+				}
+			});
+		}
 	}
 </script>
 </head>
@@ -394,8 +444,14 @@ function expireSession(){
 									</ul>
 								</div>
 							</div>
-
-							<div class="tab-content active" id="srchId">
+							<c:choose>
+								<c:when test="${param.gubun == 'id' }">
+									<div class="tab-content active" id="srchId">
+								</c:when>
+								<c:otherwise>
+									<div class="tab-content" id="srchId">
+								</c:otherwise>
+							</c:choose>
 								<div class="login-type">
 									<ul>
 										<li>
@@ -437,7 +493,14 @@ function expireSession(){
 								<!-- //아이디찾기 결과-->
 							</div>
 
-							<div class="tab-content" id="srchPw">
+							<c:choose>
+								<c:when test="${param.gubun == 'pw' }">
+									<div class="tab-content active" id="srchPw">
+								</c:when>
+								<c:otherwise>
+									<div class="tab-content" id="srchPw">
+								</c:otherwise>
+							</c:choose>
 								<div class="login-type">
 									<ul>
 										<li>
@@ -457,7 +520,7 @@ function expireSession(){
 								</div>
 
 								<!--비밀번호 변경-->
-								<div class="change-box" style="display: none;">
+								<div class="change-box" id="change_pw" style="display: none;">
 									<div class="title-wrap">
 										<p class="title-type">비밀번호 변경</p>
 									</div>
@@ -467,7 +530,7 @@ function expireSession(){
 											<dt>새 비밀번호</dt>
 											<dd>
 												<input type="password" id="passwd" value=""
-													placeholder="8~16자 영문대소문자,숫자, 특수문자 사용가능">
+													placeholder="비밀번호 입력">
 												<div class="text-type4" style="display: none;"
 													id="passwd_alert">비밀번호는 8~16자로 입력해주세요.</div>
 											</dd>

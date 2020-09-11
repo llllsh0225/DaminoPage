@@ -6,4 +6,5 @@ public interface UserInfoDAO {
 	public UserInfoVO passwdCheck(UserInfoVO vo);
 	public void updateUserMember(UserInfoVO vo);
 	public String findUserId(UserVO vo);
+	public void updatePasswd(UserVO vo);
 }

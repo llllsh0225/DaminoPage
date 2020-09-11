@@ -30,4 +30,10 @@ public class UserInfoDAOImpl implements UserInfoDAO{
 		System.out.println("유저 아이디 찾기");
 		return sqlSessionTemplate.selectOne("UserMemberDAO.findUserId", vo);
 	}
+
+	@Override
+	public void updatePasswd(UserVO vo) {
+		System.out.println("새 비밀번호로 변경");
+		sqlSessionTemplate.update("UserMemberDAO.updatePasswd", vo);
+	}
 }
