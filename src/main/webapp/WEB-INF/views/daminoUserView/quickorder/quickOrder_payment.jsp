@@ -497,6 +497,8 @@ function expireSession(){
 		var deliverAddress = $('#deliverAddress').val();
 		var userphone = $('#tel1').val() + $('#tel2').val() + $('#tel3').val();
 		var goodsName = $('#goodsName').val();
+		var totalPrice = Number($('#totalPrice').text().replace(',', ''));
+		var totalDiscount = Number($('#totalDiscount').text().replace(',', ''));
 		var totalPayment = Number($('#totalPayment').text().replace(',', ''));
 		var take = '배달';
 		var storename = $('#deliverStore').val();
@@ -568,6 +570,8 @@ function expireSession(){
 			    					deliverAddress : deliverAddress,
 			    					userphone : userphone,
 			    					goodsName : goodsName,
+			    					totalPrice : totalPrice,
+			    					totalDiscount : totalDiscount,
 			    					totalPayment : totalPayment,
 			    					take : take,
 			    					storename : storename,
@@ -607,6 +611,8 @@ function expireSession(){
 					deliverAddress : deliverAddress,
 					userphone : userphone,
 					goodsName : goodsName,
+					totalPrice : totalPrice,
+					totalDiscount : totalDiscount,
 					totalPayment : totalPayment,
 					take : take,
 					storename : storename,
