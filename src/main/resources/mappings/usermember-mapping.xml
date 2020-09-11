@@ -47,6 +47,19 @@
 		INSERT INTO usermember (userid, username, phone)
 		VALUES (#{userid}, #{username}, #{phone})
 	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findUserId" parameterType="com.damino.web.user.login.UserVO" resultType="String">
+		SELECT userid FROM usermember
+		<choose>
+			<when test='phone != ""'>
+				WHERE username = #{username} AND birthday = #{birthday} AND phone = #{phone}
+			</when>
+			<when test='email != ""'>
+				WHERE username = #{username} AND birthday = #{birthday} AND email = #{email}
+			</when>
+		</choose>
+	</select>
 </mapper>
 
 
