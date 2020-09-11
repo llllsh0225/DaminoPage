@@ -20,6 +20,9 @@
 	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+	
+	<!-- 특정 영역 print 해주는 js -->
+    <script type = "text/javascript" src ="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.js" '/>"></script>
 
 <script>
 $(document).ready(function(){
@@ -94,7 +97,14 @@ window.onload = function() {
 	orderPrice = orderPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	$('#price').html(orderPrice);
 };
+
+
+$(document).ready(function() {
 	
+	 $("#print").click(function(){
+		$("#pop-content").printThis();
+	 });
+});
 </script>
 </head>
 <style>
@@ -105,13 +115,15 @@ window.onload = function() {
 .middle-hr{
 	border: 1px solid #bbb;
 	color: #4B088A;
+	width: 40%;
 	margin-bottom:10px;
 	margin-top:10px;
 }
 .hr{
 	border: solid 1px #F2F2F2;
-	margin-bottom:30px;
-	margin-top:30px;
+	margin-bottom:20px;
+	width: 40%;
+	margin-top:10px;
 }
 .text{
 	font-size: 16px;
@@ -349,8 +361,8 @@ window.onload = function() {
 							<dl>
 								<dt>결제방법</dt>
 								<dd>
-									${orderview.paytool }(${orderview.paystatus }) &nbsp; ${orderview.price } 원
-									<a href="javascript:UI.layerPopUp({selId:'#pop-zoom'})" class="btn-type4-brd">영수증 출력</a>
+									${orderview.paytool }(${orderview.paystatus }) &nbsp; <fmt:formatNumber value="${orderview.price }" pattern="#,###" /> 원
+									<a href="javascript:UI.layerPopUp({selId:'#pop-zoom'})" id="print" class="btn-type4-brd">영수증 출력</a>
 								<!--  -->
 								
 								
@@ -450,14 +462,14 @@ window.onload = function() {
                <p class="notice">KG아이티뱅크의 사전 서면동의 없이 다미노 피자(PC, 모바일, 앱)의 일체의 정보, 콘텐츠 및 UI 등을 상업적 목적으로 전재, 전송, 스크래핑 등 무단 사용할 수 없습니다.</p>
                </div>
                
-               
+         <!-- 영수증 -->      
 			<div class="pop-layer" id="pop-zoom">
 			<div class="dim"></div>
-			<div class="pop-wrap" style="top:0px; left:20%; width:400px; height:600px;">
+			<div class="pop-wrap" id="pop-content" style="top:0px; left:20%; width:400px; height:600px;">
 			<div class="pop-title-wrap">
 				<h2 class="pop-title"> 휴대폰 결제 매출전표 </h2>
 			</div>
-	 	 	<div class="pop-content">
+	 	 	<div class="pop-content" >
 	 	 	<div class="zoom-wrap">
 	 	 	<div class="menu-zoom-wrap">
 	 	 	<strong class="middle"> 결제정보 </strong><br>
@@ -465,6 +477,8 @@ window.onload = function() {
 	 	  	<p class="text"> 휴대폰번호 :  ${orderview.tel} </p>
 	  		<p class="text"> 주문번호 :  ${orderview.orderseq } </p>
 	  		<p class="text"> 상품명 :  다미노피자 </p>
+	  		<p class="text"> 결제유형 :  소액결제 </p>
+	  		<p class="text"> 결제방법 :  ${orderview.paytool } </p>
 	  		<p class="text"> 거래일시 :  <fmt:formatDate value="${orderview.orderdate }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
 	  		<hr class="hr"></hr>
 	  		<strong class="middle"> 결제금액 </strong><br>
@@ -483,7 +497,7 @@ window.onload = function() {
 			<a class="btn-close" style="cursor:pointer;"></a>
 			</div>
 			</div>
-			
+		 <!-- END 영수증 -->     	
 			<div class="footer-cont">
 	
 					<dl class="app-box">
