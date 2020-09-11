@@ -11,7 +11,9 @@ public class MyOrderListVO {
 	private String address;
 	private String tel;
 	private String menus;
-	private int price;
+	private int price; //최종 금액
+	private int pre_price; //할인전 금액
+	private int count_price; //할인 금액
 	private String take;
 	private String store;
 	private String paytool;
@@ -109,12 +111,26 @@ public class MyOrderListVO {
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
 	}
+	public int getPre_price() {
+		return pre_price;
+	}
+	public void setPre_price(int pre_price) {
+		this.pre_price = pre_price;
+	}
+	public int getCount_price() {
+		return count_price;
+	}
+	public void setCount_price(int count_price) {
+		this.count_price = count_price;
+	}
+	
 	@Override
 	public String toString() {
 		return "MyOrderListVO [orderseq=" + orderseq + ", userid=" + userid + ", username=" + username + ", orderdate="
 				+ orderdate + ", deliverytime=" + deliverytime + ", address=" + address + ", tel=" + tel + ", menus="
-				+ menus + ", price=" + price + ", take=" + take + ", store=" + store + ", paytool=" + paytool
-				+ ", paystatus=" + paystatus + ", status=" + status + ", requirement=" + requirement + "]";
+				+ menus + ", price=" + price + ", pre_price=" + pre_price + ", count_price=" + count_price + ", take="
+				+ take + ", store=" + store + ", paytool=" + paytool + ", paystatus=" + paystatus + ", status=" + status
+				+ ", requirement=" + requirement + "]";
 	}
 	
 	

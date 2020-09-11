@@ -137,14 +137,20 @@ public class GoodsListController {
 		// DB에 있는 구별자 조회
 		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
 		
-		if (basketList.size() >= sideList.size()) {
-			int gubunDB = goodsListService.getNextGubun(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
-		}else if(sideList.size() > basketList.size()) {
-			int gubunDB = goodsListService.getNextGubunSide(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
+		if(!basketList.isEmpty()) {
+			if (basketList.size() >= sideList.size()) {
+				int gubunDB = goodsListService.getNextGubun(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
+			
+		}
+		else if(!sideList.isEmpty()) {
+			if(sideList.size() > basketList.size()) {
+				int gubunDB = goodsListService.getNextGubunSide(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
 		}
 		String s_code = request.getParameter("s_code");
 		System.out.println("s_code : " + s_code);
@@ -186,14 +192,21 @@ public class GoodsListController {
 		// DB에 있는 구별자 조회
 		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
 		
-		if (basketList.size() >= sideList.size()) {
-			int gubunDB = goodsListService.getNextGubun(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
-		}else if(sideList.size() > basketList.size()) {
-			int gubunDB = goodsListService.getNextGubunSide(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
+		if(!basketList.isEmpty()) {
+			if (basketList.size() >= sideList.size()) {
+				int gubunDB = goodsListService.getNextGubun(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
+			
+		}
+
+		else if(!sideList.isEmpty()) {
+			if(sideList.size() > basketList.size()) {
+				int gubunDB = goodsListService.getNextGubunSide(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
 		}
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);

@@ -261,6 +261,7 @@ window.onload = function() {
 		// 총 결제금액 세팅
 		$('#totalPayment').text((totalPrice - Number($('#totalDiscount').text())).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
+		
 	}//END window.onload
 	
 
@@ -652,6 +653,10 @@ window.onload = function() {
 		}
 		console.log("couponIdx : " + couponIdx);
 		
+		var totalDiscount = $('#totalDiscount').text().replace(",","");
+		var totalPrice = $('#totalPrice').text().replace(",","");
+		console.log("totalDiscount : " + totalDiscount);
+		console.log("totalPrice : " + totalPrice);
 		// 결제수단 세팅
 		if($('#pay1').prop('checked')){
 			paytool = $('#pay1').val();
@@ -775,6 +780,8 @@ window.onload = function() {
 			    						deliverAddress : deliverAddress,
 			    						userphone : userphone,
 			    						goodsName : totalGoods,
+			    						totalPrice : totalPrice,
+			    						totalDiscount : totalDiscount,
 			    						totalPayment : totalPayment,
 			    						take : take,
 			    						storename : storename,
@@ -814,6 +821,9 @@ window.onload = function() {
 					deliverAddress : deliverAddress,
 					userphone : userphone,
 					goodsName : totalGoods,
+					
+					totalPrice : totalPrice,
+					totalDiscount : totalDiscount,
 					totalPayment : totalPayment,
 					take : take,
 					storename : storename,
