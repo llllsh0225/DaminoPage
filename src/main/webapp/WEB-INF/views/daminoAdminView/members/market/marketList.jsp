@@ -263,8 +263,7 @@ function marketMemDel(seq){
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as: ${admin.adminid }</div>
-					Start Bootstrap
+					<div class="small">로그인 : ${admin.adminid }</div>
 				</div>
 			</nav>
 		</div>
@@ -284,13 +283,6 @@ function marketMemDel(seq){
 								cellspacing="0">
 								<thead>
 									<tr>
-										<th>
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="checkAll"
-													type="checkbox" /> <label class="custom-control-label"
-													for="checkAll"></label>
-											</div>
-										</th>
 										<th>매장 지역</th>
 										<th>매장명</th>
 										<th>아이디</th>
@@ -302,15 +294,6 @@ function marketMemDel(seq){
 								<c:forEach var="marketMemList" items="${marketMemList}" varStatus="status">
 								<tbody>
 									<tr>
-										<td>
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="check1"
-													type="checkbox" /> <label class="custom-control-label"
-													for="check1"></label>
-											</div>
-											</label>
-											</div>
-										</td>
 										<td>${marketMemList.storeRegion}</td>
 										<td>${marketMemList.storeName}</td>
 										<td>${marketMemList.managerName}</td>
@@ -329,10 +312,10 @@ function marketMemDel(seq){
 										<a class="btn btn-primary"
 											href="javascript:changeCheckMem(${status.index},${marketMemList.seq})" role="button" style="margin-left:40px">수정</a>
 										</td>
-										<td><a class="btn btn-primary"
-											href="marketEdit.admdo?seq=${marketMemList.seq}" role="button">수정</a>
-										</button>
-											<button class="btn btn-danger" onclick="marketMemDel(${marketMemList.seq})">삭제</button></td>
+										<td>
+											<a class="btn btn-primary" href="marketEdit.admdo?seq=${marketMemList.seq}" role="button">수정</a>
+											<button class="btn btn-danger" onclick="marketMemDel(${marketMemList.seq})">삭제</button>
+										</td>
 									</tr>
 								</tbody>
 								</c:forEach>

@@ -2,6 +2,8 @@ package com.damino.web.test;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -346,33 +348,41 @@ public class ViewTestController {
 	private FaqService faqService;
 	
 	@RequestMapping(value= "/main.admdo" , method=RequestMethod.GET)
-	   public ModelAndView getAdminMainPage(ModelAndView mav) {
+	   public ModelAndView getAdminMainPage(ModelAndView mav, HttpSession session) {
 	      System.out.println("메인페이지 열기");
-	       
-	      List<FaqVO> faqMain = faqService.faqMain();
-	      System.out.println(faqMain.toString());
-	      System.out.println("---------------------- 구 분 선(Q&A) ----------------------------");
+	      String adminid = (String) session.getAttribute("adminid");
+	      if(adminid==null) {
+	    	  mav.setViewName("members/member/login");
+		      
+		      return mav;
+	      }else {
 	      
-	      List<BoardVO> boardListMain = boardService.BoardListMain();
-	      System.out.println(boardListMain.toString());
-	      System.out.println("---------------------- 구 분 선(게시판) ----------------------------");
-	      
-	      int orderCount = orderlistService.orderCount();
-	      System.out.println(" 총 주문건수 : " + orderCount);
-	      
-	      List<SalesVO> daily = salesStatusService.getDaily();
-	      System.out.println("주문내역에 있는 일일 목록 : " + daily);
-	      List<SalesVO> dailyCount = salesStatusService.getDailyCount();
-	      System.out.println("주문내역에 있는 일일 주문건수 목록 : " + dailyCount);
-	      
-	      mav.addObject("daily", daily);
-	      mav.addObject("dailyCount", dailyCount);
-	      mav.addObject("boardListMain",boardListMain);
-	      mav.addObject("faqMain", faqMain);
-	      mav.addObject("orderCount", orderCount );	
-	      mav.setViewName("/main");
-	      
-	      return mav;
+		      System.out.println("세션 :" + adminid);
+		      List<FaqVO> faqMain = faqService.faqMain();
+		      System.out.println(faqMain.toString());
+		      System.out.println("---------------------- 구 분 선(Q&A) ----------------------------");
+		      
+		      List<BoardVO> boardListMain = boardService.BoardListMain();
+		      System.out.println(boardListMain.toString());
+		      System.out.println("---------------------- 구 분 선(게시판) ----------------------------");
+		      
+		      int orderCount = orderlistService.orderCount();
+		      System.out.println(" 총 주문건수 : " + orderCount);
+		      
+		      List<SalesVO> daily = salesStatusService.getDaily();
+		      System.out.println("주문내역에 있는 일일 목록 : " + daily);
+		      List<SalesVO> dailyCount = salesStatusService.getDailyCount();
+		      System.out.println("주문내역에 있는 일일 주문건수 목록 : " + dailyCount);
+		      
+		      mav.addObject("daily", daily);
+		      mav.addObject("dailyCount", dailyCount);
+		      mav.addObject("boardListMain",boardListMain);
+		      mav.addObject("faqMain", faqMain);
+		      mav.addObject("orderCount", orderCount );	
+		      mav.setViewName("/main");
+		      
+		      return mav;
+	      }
 	   }
 	
 	//board 폴더 시작 --------
@@ -444,15 +454,7 @@ public class ViewTestController {
 	      
 	      return mav;
 	   }
-	@RequestMapping("/memberEdit.admdo")
-	public ModelAndView getAdminmembersEditPage() {
-		System.out.println("회원 수정 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/member/memberEdit");
-		
-		return mav;
-	}
+	
 //	@RequestMapping("/memberInfo.admdo")
 //	public ModelAndView getAdminmembersInfoPage() {
 //		System.out.println("회원 정보 페이지 열기");

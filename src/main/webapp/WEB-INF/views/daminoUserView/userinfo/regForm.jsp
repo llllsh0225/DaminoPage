@@ -299,7 +299,7 @@
 						<div class="join-step2">
 							<div class="step-list">
 								<ul>
-									<li class="active">01 개인정보입력</li>
+									<li class="active" style="width: 120px;">01 개인정보입력 </li>&nbsp;
 									<li>02 가입완료</li>
 								</ul>
 							</div>
