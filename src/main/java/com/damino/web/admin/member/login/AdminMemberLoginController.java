@@ -155,7 +155,7 @@ public class AdminMemberLoginController {
 		mav.addObject("msg", "logout"); // <<<< 이걸 남겨야하나
 		mav.addObject("adminid", vo.getAdminid()); // <<<< 이걸 남겨야하나(20/0805)
 		// mav.setViewName("members/member/login");
-		mav.setViewName("main");
+		mav.setViewName("members/member/login");
 		return mav;
 	}
 

@@ -1,7 +1,7 @@
 package com.damino.web.admin.homepage.member.vo;
 
 public class MemberVO {
-
+	
 	private String username;
 	private String userid;
 	private String userpasswd;
@@ -14,7 +14,7 @@ public class MemberVO {
 	private String receive_email;
 	private String receive_dm;
 	private String userlevel;
-
+	private int seq;
 
 
 	public String getUsername() {
@@ -157,6 +157,18 @@ public class MemberVO {
 
 	public void setUserlevel(String userlevel) {
 		this.userlevel = userlevel;
+	}
+
+
+
+	public int getSeq() {
+		return seq;
+	}
+
+
+
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 
 }

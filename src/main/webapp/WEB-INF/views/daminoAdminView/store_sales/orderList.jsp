@@ -214,8 +214,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as: ${admin.adminid }</div>
-					Start Bootstrap
+					<div class="small">로그인 : ${admin.adminid }</div>
 				</div>
 			</nav>
 		</div>

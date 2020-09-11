@@ -64,6 +64,32 @@ function checkboxArr() {
 });
 } */
 </script>
+<script type="text/javascript">
+function memberDel(seq){
+	if (confirm("정말로 삭제하시겠습니까?")){
+	 $.ajax({
+			url : 'memberDel.admdo',
+			contentType : "application/json; charset=UTF-8;",
+			type: 'post', 
+			data : JSON.stringify({
+				seq : seq
+			}),
+			//async : false,
+			success: function(data) {
+				if(data == 'success'){
+					alert('success');
+					location.reload(true);
+				}
+			},
+			 error: function() {
+				alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+			} 
+		})
+	}else{
+		return;
+	}
+}
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -224,8 +250,7 @@ function checkboxArr() {
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as: ${admin.adminid }</div>
-					Start Bootstrap
+					<div class="small">로그인 : ${admin.adminid }</div>
 				</div>
 			</nav>
 		</div>
@@ -241,17 +266,10 @@ function checkboxArr() {
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-						<form id="form1" name="form1" method="post" action="smsForm2.admdo">
-							<table class="table table-bordered" id="dataTable1" width="100%"
-								cellspacing="0">
+						<!-- <form id="form1" name="form1" method="post" action="smsForm2.admdo"> -->
+							<table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
 								<thead>
 									<tr>
-										<th><label class="checkbox-inline"><label
-												class="checkbox-inline"><div
-														class="custom-control custom-checkbox">
-														<input class="custom-control-input" id="checkAll"
-															type="checkbox" /> <label class="custom-control-label"
-															for="checkAll"></th>
 										<th>이름</th>
 										<th>아이디</th>
 										<th>등급</th>
@@ -267,31 +285,26 @@ function checkboxArr() {
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach var="users" items="${userList }">
+								<c:forEach var="userList" items="${userList }" varStatus="status">
 									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="check${users.phone}"
-													type="checkbox" name="phone" value="${users.phone}"/> <label class="custom-control-label"
-													for="check${users.phone}"></label>
-											</div>
-										<td>${users.username}</td>
-										<td>${users.userid}</td>
-										<td>${users.userlevel}</td>
-										<td>${users.birthday}</td>
-										<td>${users.phone}</td>
-										<td>${users.email}</td>
-										<td>${users.receive_sms }</td>
-										<td>${users.receive_email }</td>
-										<td>${users.receive_dm }</td>
-										<td><a class="btn btn-primary" href="memberEdit.admdo"
-											role="button">수정</a>
-										
-											<button class="btn btn-danger" type="submit">삭제</button></td>
+										<td>${userList.username}</td>
+										<td>${userList.userid}</td>
+										<td>${userList.userlevel}</td>
+										<td>${userList.birthday}</td>
+										<td>${userList.phone}</td>
+										<td>${userList.email}</td>
+										<td>${userList.receive_sms }</td>
+										<td>${userList.receive_email }</td>
+										<td>${userList.receive_dm }</td>
+										<td>
+											<a class="btn btn-primary" href="memberEdit.admdo?seq=${userList.seq }" role="button">수정</a>
+											<button class="btn btn-danger" onclick="memberDel(${userList.seq});" role="button">삭제</button>
+										</td>
 									</tr>
 									</c:forEach>
 								</tbody>	
 							</table>
-							</form>
+							<!-- </form> -->
 						</div>
 					</div>
 				</div>

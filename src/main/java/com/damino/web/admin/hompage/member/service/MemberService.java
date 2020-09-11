@@ -25,4 +25,14 @@ public class MemberService implements IMemberService{
 		return memberDAO.selectAllPhone();
 		
 	}
+
+	@Override
+	public void memberDel(MemberVO vo) {
+		memberDAO.memberDel(vo);
+	}
+
+	@Override
+	public MemberVO getUserMember(MemberVO vo) {
+		return memberDAO.getUserMember(vo);
+	}
 }

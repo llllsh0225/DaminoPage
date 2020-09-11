@@ -5,7 +5,7 @@
 <mapper namespace="iMemberDAO">
 	
 	<select id="selectAllMembers" resultType="com.damino.web.admin.homepage.member.vo.MemberVO">
-	SELECT username, userid, userpasswd, birthday, sex, cyear, phone, email, receive_sms, receive_email, receive_dm, userlevel
+	SELECT username, userid, userpasswd, birthday, sex, cyear, phone, email, receive_sms, receive_email, receive_dm, userlevel, seq
 		from usermember 
 	</select>
 	
@@ -13,5 +13,15 @@
 	SELECT phone
 	from usermember
 	where phone=#{phone}
+	</select>
+	
+	<!-- 회원 삭제 -->
+	<delete id="memberDel" parameterType="com.damino.web.admin.homepage.member.vo.MemberVO">
+		DELETE FROM usermember WHERE seq = #{seq}
+	</delete>
+	
+	<!-- 회원 정보 불러오기 -->
+	<select id="getUserMember" parameterType="com.damino.web.admin.homepage.member.vo.MemberVO" resultType="com.damino.web.admin.homepage.member.vo.MemberVO">
+		SELECT * FROM usermember WHERE seq=#{seq}
 	</select>
 </mapper>
