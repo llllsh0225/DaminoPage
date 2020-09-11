@@ -340,11 +340,11 @@ $(document).ready(function() {
 							<div class="pay-info">
 								<dl>
 									<dt>주문금액</dt>
-									<dd><em><fmt:formatNumber value="${orderview.price }" pattern="#,###,###" /></em>원</dd>
+									<dd><em><fmt:formatNumber value="${orderview.pre_price }" pattern="#,###,###" /></em>원</dd>
 								</dl>
 								<dl class="discount">
 									<dt>할인 금액</dt>
-									<dd><em>-</em>원</dd>
+									<dd><em>-${orderview.count_price }</em>원</dd>
 								</dl>
 								<ul class="apply">
 	                                    <li>MANIA_R20 20%</li>

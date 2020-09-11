@@ -174,8 +174,6 @@ public class OrderController {
 		String address = (String) param.get("deliverAddress");
 		String tel = (String) param.get("userphone");
 		String menus = (String) param.get("goodsName");
-		//String pre_price = (String) param.get("totalPrice");
-		//String count_price = (String) param.get("totalDiscount");
 		
 		String pre_prices = (String) param.get("totalPrice");
 		String count_prices = (String)param.get("totalDiscount");
