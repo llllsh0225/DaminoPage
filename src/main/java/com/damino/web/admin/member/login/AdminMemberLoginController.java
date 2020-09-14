@@ -152,13 +152,25 @@ public class AdminMemberLoginController {
 		System.out.println("대상 : " + session.getAttribute("adminid")); // session
 																		// 'adminid'
 		session.invalidate(); // session 초기화
-		mav.addObject("msg", "logout"); // <<<< 이걸 남겨야하나
-		mav.addObject("adminid", vo.getAdminid()); // <<<< 이걸 남겨야하나(20/0805)
-		// mav.setViewName("members/member/login");
+		mav.addObject("msg", "logout"); 
+		mav.addObject("adminid", vo.getAdminid()); 
 		mav.setViewName("members/member/login");
 		return mav;
 	}
+	
+	//members > member 폴더 시작 ---------
+	@RequestMapping("/login.admdo")
+	public ModelAndView getAdminLoginPage() {
+		System.out.println("로그인 페이지 열기");
+		      
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/login");
+		      
+		return mav;
+	}
 
+	
+	//--------------------------------------------------------------------------------------------------
 	/**
 	 * 매장관리자 - 점포승인 관련
 	 */

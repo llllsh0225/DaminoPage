@@ -23,7 +23,7 @@ import com.damino.web.user.banner.UserBannerVO;
 
 @Controller
 public class ViewTestController {
-	
+/*	
 	@Autowired
 	private UserBannerService userBannerService;
 	
@@ -42,16 +42,8 @@ public class ViewTestController {
 		
 		return mav;
 	}
+*/	
 	
-	@RequestMapping("/testPrice.admdo")
-	public ModelAndView getTestPrice() {
-		System.out.println("결제 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/testPrice");
-		
-		return mav;
-	}
 	
 	// ---- user main end ----
 	
@@ -338,52 +330,52 @@ public class ViewTestController {
 	// --- end page 폴더 ---
 	
 	//-----daminoAdminView 영역 시작--------------------------
-	@Autowired
-	private OrderlistService orderlistService;
-	@Autowired
-	private SalesStatusService salesStatusService;
-	@Autowired
-	private BoardService boardService;
-	@Autowired
-	private FaqService faqService;
-	
-	@RequestMapping(value= "/main.admdo" , method=RequestMethod.GET)
-	   public ModelAndView getAdminMainPage(ModelAndView mav, HttpSession session) {
-	      System.out.println("메인페이지 열기");
-	      String adminid = (String) session.getAttribute("adminid");
-	      if(adminid==null) {
-	    	  mav.setViewName("members/member/login");
-		      
-		      return mav;
-	      }else {
-	      
-		      System.out.println("세션 :" + adminid);
-		      List<FaqVO> faqMain = faqService.faqMain();
-		      System.out.println(faqMain.toString());
-		      System.out.println("---------------------- 구 분 선(Q&A) ----------------------------");
-		      
-		      List<BoardVO> boardListMain = boardService.BoardListMain();
-		      System.out.println(boardListMain.toString());
-		      System.out.println("---------------------- 구 분 선(게시판) ----------------------------");
-		      
-		      int orderCount = orderlistService.orderCount();
-		      System.out.println(" 총 주문건수 : " + orderCount);
-		      
-		      List<SalesVO> daily = salesStatusService.getDaily();
-		      System.out.println("주문내역에 있는 일일 목록 : " + daily);
-		      List<SalesVO> dailyCount = salesStatusService.getDailyCount();
-		      System.out.println("주문내역에 있는 일일 주문건수 목록 : " + dailyCount);
-		      
-		      mav.addObject("daily", daily);
-		      mav.addObject("dailyCount", dailyCount);
-		      mav.addObject("boardListMain",boardListMain);
-		      mav.addObject("faqMain", faqMain);
-		      mav.addObject("orderCount", orderCount );	
-		      mav.setViewName("/main");
-		      
-		      return mav;
-	      }
-	   }
+//	@Autowired
+//	private OrderlistService orderlistService;
+//	@Autowired
+//	private SalesStatusService salesStatusService;
+//	@Autowired
+//	private BoardService boardService;
+//	@Autowired
+//	private FaqService faqService;
+//	
+//	@RequestMapping(value= "/main.admdo" , method=RequestMethod.GET)
+//	   public ModelAndView getAdminMainPage(ModelAndView mav, HttpSession session) {
+//	      System.out.println("메인페이지 열기");
+//	      String adminid = (String) session.getAttribute("adminid");
+//	      if(adminid==null) {
+//	    	  mav.setViewName("members/member/login");
+//		      
+//		      return mav;
+//	      }else {
+//	      
+//		      System.out.println("세션 :" + adminid);
+//		      List<FaqVO> faqMain = faqService.faqMain();
+//		      System.out.println(faqMain.toString());
+//		      System.out.println("---------------------- 구 분 선(Q&A) ----------------------------");
+//		      
+//		      List<BoardVO> boardListMain = boardService.BoardListMain();
+//		      System.out.println(boardListMain.toString());
+//		      System.out.println("---------------------- 구 분 선(게시판) ----------------------------");
+//		      
+//		      int orderCount = orderlistService.orderCount();
+//		      System.out.println(" 총 주문건수 : " + orderCount);
+//		      
+//		      List<SalesVO> daily = salesStatusService.getDaily();
+//		      System.out.println("주문내역에 있는 일일 목록 : " + daily);
+//		      List<SalesVO> dailyCount = salesStatusService.getDailyCount();
+//		      System.out.println("주문내역에 있는 일일 주문건수 목록 : " + dailyCount);
+//		      
+//		      mav.addObject("daily", daily);
+//		      mav.addObject("dailyCount", dailyCount);
+//		      mav.addObject("boardListMain",boardListMain);
+//		      mav.addObject("faqMain", faqMain);
+//		      mav.addObject("orderCount", orderCount );	
+//		      mav.setViewName("/main");
+//		      
+//		      return mav;
+//	      }
+//	   }
 	
 	//board 폴더 시작 --------
 //	@RequestMapping("/boardView.admdo")
@@ -444,16 +436,7 @@ public class ViewTestController {
 	 * return mav; }
 	 */
 	
-	//members > member 폴더 시작 ---------
-	@RequestMapping("/login.admdo")
-	   public ModelAndView getAdminLoginPage() {
-	      System.out.println("로그인 페이지 열기");
-	      
-	      ModelAndView mav = new ModelAndView();
-	      mav.setViewName("/members/member/login");
-	      
-	      return mav;
-	   }
+	
 	
 //	@RequestMapping("/memberInfo.admdo")
 //	public ModelAndView getAdminmembersInfoPage() {
@@ -464,35 +447,7 @@ public class ViewTestController {
 //		
 //		return mav;
 //	}
-	@RequestMapping("/passwordChange.admdo")
-	public ModelAndView getAdminPasswordChangePage() {
-		System.out.println("비밀번호 변경 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/member/passwordChange");
-		
-		return mav;
-	}
 	
-	@RequestMapping("/updateTempPW.admdo")
-	public ModelAndView getAdminPasswordTempPage() {
-		System.out.println("초기화 비밀번호 변경 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/member/updateTempPW");
-		
-		return mav;
-	}
-	
-	@RequestMapping("/regForm.admdo")
-	public ModelAndView getAdminRegFormPage() {
-		System.out.println("회원 가입 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/members/member/regForm");
-		
-		return mav;
-	}
 	@RequestMapping("/smsForm.admdo")
 	public ModelAndView getAdminSmsFormPage() {
 		System.out.println("문자 발송 페이지 열기");
@@ -589,15 +544,7 @@ public class ViewTestController {
 	
 	//sites > banner 폴더 시작 -------
 	
-	@RequestMapping("/bannerBoardEdit.admdo")
-	public ModelAndView getAdminBannerBoardEditPage() {
-		System.out.println("배너 수정 페이지 열기");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sites/banner/bannerBoardEdit");
-		
-		return mav;
-	}
+	
 	/*
 	@RequestMapping("/bannerBoardView.admdo")
 	public ModelAndView getAdminBannerBoardViewPage() {
