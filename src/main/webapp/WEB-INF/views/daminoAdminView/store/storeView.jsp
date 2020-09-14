@@ -242,11 +242,6 @@ $(document).ready(function() {
 								cellspacing="0">
 								<thead>
 									<tr>
-										<th><div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="checkAll"
-													type="checkbox" /> <label class="custom-control-label"
-													for="checkAll"></label>
-											</div></th>
 										<th>지역구</th>
 										<th>점포명</th>
 										<th>우편번호</th>
@@ -266,13 +261,6 @@ $(document).ready(function() {
 								<tbody>
 								<c:forEach var="market" items="${marketList }" > 
 									<tr>
-										<td>
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input" id="check${market.seq }"
-													type="checkbox" /> <label class="custom-control-label" 
-													for="check${market.seq }"></label>
-											</div>
-										</td>
 										<td>${market.storeregion }</td>
 										<td>${market.storename }</td>
 										<td>${market.zipcode}</td>
