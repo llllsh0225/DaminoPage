@@ -29,6 +29,19 @@ public class AdminMemberController {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체 
 	
+	// -- 홈페이지관리자 등록페이지 --
+	@RequestMapping("/regForm.admdo")
+	public ModelAndView getAdminRegFormPage() {
+		System.out.println("회원 가입 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/regForm");
+		
+		return mav;
+	}
+
+	
+	// -- 홈페이지관리자 등록 --
 	@RequestMapping(value = "/registAdminMember.admdo", method = RequestMethod.POST)
 	public String postRegistAdmin(@ModelAttribute AdminMemberVO vo,ModelAndView mav, HttpServletRequest request) throws Throwable {
 		
@@ -42,6 +55,7 @@ public class AdminMemberController {
 		return "redirect:/login.admdo"; //로그인창으로 이동.
 	}
 	
+	// -- 홈페이지 관리자 id중복확인 --
 	@RequestMapping(value ="/adminidCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public int admincheck(@RequestBody Map<String, Object> params, HttpServletRequest request) {
@@ -54,8 +68,30 @@ public class AdminMemberController {
 		return cnt_admin;
 	}
 	
+	// -- 비밀번호 변경페이지 --
+	@RequestMapping("/passwordChange.admdo")
+	public ModelAndView getAdminPasswordChangePage() {
+		System.out.println("비밀번호 변경 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/passwordChange");
+		
+		return mav;
+	}
+	
+	// -- 초기화시 비밀번호변경페이지 --
+	@RequestMapping("/updateTempPW.admdo")
+	public ModelAndView getAdminPasswordTempPage() {
+		System.out.println("초기화 비밀번호 변경 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/updateTempPW");
+		
+		return mav;
+	}
+	
 
-	//임시 비번으로 교체
+	// -- 임시 비번으로 교체 --
 	@RequestMapping(value= "/changeTempPw.admdo", method = RequestMethod.POST)
 	public ModelAndView changeTempPw(@ModelAttribute AdminMemberVO vo, ModelAndView mav, HttpServletRequest request) {
 		System.out.println("-- 임시 비밀번호로 교체 --");

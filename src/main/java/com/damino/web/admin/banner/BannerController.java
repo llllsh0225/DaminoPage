@@ -21,6 +21,19 @@ public class BannerController {
 	@Autowired
 	private BannerService bannerService;
 	
+	
+	// -- 배너 등록페이지 --
+	@RequestMapping("/bannerBoardEdit.admdo")
+	public ModelAndView getAdminBannerBoardEditPage() {
+		System.out.println("배너 등록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/sites/banner/bannerBoardEdit");
+		
+		return mav;
+	}
+	
+	
 	// -- 배너 등록 --
 	@RequestMapping(value ="/insertBanner.admdo" , method=RequestMethod.POST)
 	public ModelAndView insertBanner(BannerVO vo, ModelAndView mav, HttpServletRequest request) throws IOException {
@@ -50,7 +63,7 @@ public class BannerController {
 		return mav;
 		
 	}
-	
+
 	// -- 배너 조회--
 	@RequestMapping(value="/bannerBoardView.admdo", method = RequestMethod.GET)//get
 	public ModelAndView getBannerList() {
