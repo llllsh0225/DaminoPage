@@ -22,6 +22,16 @@ public class MarketController {
 	@Autowired
 	private MarketService marketService;
 	
+	@RequestMapping("/storeRegForm.admdo")
+	public ModelAndView getAdminStoreRegFormPage() {
+		System.out.println("매장 등록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/store/storeRegForm");
+		
+		return mav;
+	}
+	
 	@RequestMapping("/storeView.admdo")
 	public ModelAndView getMarketList() {
 		System.out.println("매장 목록");
