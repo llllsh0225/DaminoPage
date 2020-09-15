@@ -61,23 +61,10 @@
 												아이디 또는 비밀번호를 다시 확인해주시길바랍바니다.
 											</div>
 										</c:if>
-										<!-- 비밀번호 저장 -->
-										<!--  
-										<div class="form-group">
-											<div class="custom-control custom-checkbox">
-												<input class="custom-control-input"
-													id="rememberPasswordCheck" type="checkbox" /> 
-												<label class="custom-control-label" for="rememberPasswordCheck">비밀번호 저장</label>
-											</div>
-										</div>
-										-->
 										<div
 											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 											<a class="small" href="updateTempPW.admdo">비밀번호 찾기</a> 
 											<input type="submit" id="loginbtn" class="btn btn-primary" value="로그인" />
-											<!--  
-											<a class="btn btn-primary" href="login.admdo">Login</a>
-											-->
 										</div>
 									</form>
 								</div>

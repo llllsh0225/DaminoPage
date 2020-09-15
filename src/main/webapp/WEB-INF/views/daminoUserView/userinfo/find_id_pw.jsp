@@ -57,6 +57,270 @@ function expireSession(){
 	}
 	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
 </script>
+<script>
+
+	$(document).ready(function(){
+		$('.btn-close').click(function(){ // pop-up layer close
+			$('.pop-layer').hide();
+		});
+		
+		$('#phone').show();
+		$('#email').hide();
+		
+	});
+
+	
+	function openIdByInside(param){
+		if(param == 'srchId'){
+			$('.btn-type1').html('아이디 찾기');
+			UI.layerPopUp({selId:'#pop-rest'});
+		}else{
+			var info_id = $('#info_id').val();
+			
+			if(info_id == ''){
+				alert("아이디를 입력해주세요.");
+				$('#info_id').focus();
+				return;
+			}
+			$("#u_name").val("");
+			$('.btn-type1').html('비밀번호 변경');
+			UI.layerPopUp({selId:'#pop-rest'});
+			$("#userId").val(info_id);
+		}
+	}
+	
+	function selectSearchTool(){
+		if($('#rdb_auth_type1').is(":checked")){
+			$('#phone').show();
+			$('#email').hide();
+		}else{
+			$('#email').show();
+			$('#phone').hide();
+		}
+	}
+	
+	function changeEmail(param){
+		$('#email2').val(param);
+	}
+	
+	function doSendAuthKey(param){
+		if(param == 'sms'){
+			var tel1 = $('#tel1').val();
+			var tel2 = $('#tel2').val();
+			var tel3 = $('#tel3').val();
+			var phone = tel1 + tel2 + tel3;
+			
+			// 공백 검사
+			if(tel2 == ""){
+				$('#tel_alert').text("휴대전화번호를 입력해주세요.");
+				$('#tel_alert').show();
+				$('#u_name_f').hide();
+				$('#date_alert').hide();
+				$('#tel2').focus();
+				return false;
+			}else if(tel3 == ""){
+				$('#tel_alert').text("휴대전화번호를 입력해주세요.");
+				$('#tel_alert').show();
+				$('#u_name_f').hide();
+				$('#date_alert').hide();
+				$('#tel3').focus();
+				return false;
+			}
+			
+			// 인증번호 발송
+			$.ajax({
+				type : "POST",
+				url : "sendSMSAuthKey.do",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8;",
+				data : JSON.stringify({
+					phone : phone,
+				}),
+				success : function(res) {
+					alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
+					$('#authKey').val(res);
+				},
+				error : function(error) {
+					alert("인증문자 발송에 실패하였습니다. 다시 시도해주세요.");
+				}
+			});
+		}else if(param == 'email'){
+			var email1 = $('#email1').val();
+			var email2 = $('#email2').val();
+			var email = email1 + "@" + email2;
+			
+			// 공백 검사
+			if(email1 == ""){
+				$('#email_alert').text("이메일을 입력해주세요.");
+				$('#email_alert').show();
+				$('#u_name_f').hide();
+				$('#date_alert').hide();
+				$('#email1').focus();
+				return false;
+			}else if(email2 == ""){
+				$('#email_alert').text("이메일을 입력해주세요.");
+				$('#email_alert').show();
+				$('#u_name_f').hide();
+				$('#date_alert').hide();
+				$('#email2').focus();
+				return false;
+			}
+			
+			// 인증번호 발송
+			$.ajax({
+				type : "POST",
+				url : "sendEmailAuthKey.do",
+				dataType : "json",
+				contentType : "application/json; charset=utf-8;",
+				data : JSON.stringify({
+					email : email,
+				}),
+				success : function(res) {
+					alert("인증번호가 메일로 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
+					$('#authKey').val(res);
+				},
+				error : function(error) {
+					alert("인증메일 발송에 실패하였습니다. 다시 시도해주세요.");
+				}
+			});
+		}
+		
+		
+	}
+	
+	function findIdByInside(){
+		var username = $('#u_name').val(); // 유저 이름
+		
+		var byear = $('#byear').val();
+		var bmonth = $('#bmonth').val();
+		var bday = $('#bday').val();
+		var birthday = byear + "/" + bmonth + "/" + bday; // 생년월일
+		var phone = "";
+		var email = "";
+		
+		if($('#rdb_auth_type1').is(":checked")){
+			var tel1 = $('#tel1').val();
+			var tel2 = $('#tel2').val();
+			var tel3 = $('#tel3').val();
+			phone = tel1 + tel2 + tel3; // 휴대전화
+		}else{
+			var email1 = $('#email1').val();
+			var email2 = $('#email2').val();
+			email = email1 + "@" + email2; // 이메일
+		}
+		
+		// 공백 검사
+		if(username == ""){
+			$('#u_name_f').text("이름을 입력해주세요.");
+			$('#u_name_f').show();
+			$('#u_name').focus();
+			return false;
+		}else if(byear == ""){
+			$('#date_alert').text("생년월일을 입력해주세요.");
+			$('#date_alert').show();
+			$('#u_name_f').hide();
+			$('#byear').focus();
+			return false;
+		}else if(bmonth == ""){
+			$('#date_alert').text("생년월일을 입력해주세요.");
+			$('#date_alert').show();
+			$('#u_name_f').hide();
+			$('#bmonth').focus();
+			return false;
+		}else if(bday == ""){
+			$('#date_alert').text("생년월일을 입력해주세요.");
+			$('#date_alert').show();
+			$('#u_name_f').hide();
+			$('#bday').focus();
+			return false;
+		}else if($('#authKey').val() != $('#security_no_h').val() && $('#authKey').val() != $('#security_no_e').val()){
+			alert("인증번호가 일치하지 않습니다. 다시 확인해주세요.");
+			$('#u_name_f').hide();
+			$('#date_alert').hide();
+			$('#security_no_e').focus();
+			return false;
+		}
+		
+		// 아이디 찾기
+		$.ajax({
+			type : "POST",
+			url : "findUserId.do",
+			contentType : "application/json; charset=utf-8;",
+			data : JSON.stringify({
+				username : username,
+				birthday : birthday,
+				phone : phone,
+				email : email,
+			}),
+			success : function(res) {
+				if($('#info_id').val() == ""){
+					if(res != ""){
+						$('.pop-layer').hide();
+						$('.login-type').hide();
+						$('#findId').val(res);
+						$('#findUid').text($('#findId').val());
+						$('#result_id').show();
+					}else{
+						$('.pop-layer').hide();
+						$('.login-type').hide();
+						$('#findId').val("");
+						$('#no_result_id').show();
+					}
+				}else{
+					$('.pop-layer').hide();
+					$('.login-type').hide();
+					$('#change_pw').show();
+				}
+				
+				
+			},
+			error : function(error) {
+				alert("요청처리 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+			}
+		});
+	}
+	
+	function updateChangePasswd(){
+		var userid = $('#info_id').val();
+		var passwd = $('#passwd').val();
+		var confirmpw = $('#confirmpw').val();
+		
+		// 공백 및 비밀번호 일치 검사
+		if(passwd == ""){
+			$('#passwd_alert').text("비밀번호를 입력해주세요.");
+			$('#passwd_alert').show();
+			$('#confirmpw_alert').hide();
+			return false;
+		}else if(confirmpw == ""){
+			$('#confirmpw_alert').text("비밀번호를 다시 입력해주세요.");
+			$('#confirmpw_alert').show();
+			$('#passwd_alert').hide();
+			return false;
+		}else if(passwd != confirmpw){
+			$('#confirmpw_alert').text("비밀번호가 일치하지 않습니다.");
+			$('#confirmpw_alert').show();
+			$('#passwd_alert').hide();
+			return false;
+		}else{
+			// 비밀번호 변경
+			$.ajax({
+				type : "POST",
+				url : "updatePasswd.do",
+				contentType : "application/json; charset=utf-8;",
+				data : JSON.stringify({
+					userid : userid,
+					passwd : passwd,
+				}),
+				success : function(res) {
+					location.href="updatepwResult.do";
+				},
+				error : function(error) {
+					alert("요청처리 중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
+				}
+			});
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -66,15 +330,36 @@ function expireSession(){
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-			<input type="hidden" id="userid" value="${sessionScope.userid}" />
+					<input type="hidden" id="userid" value="${sessionScope.userid}" />
+					<input type="hidden" id="gubun" value="${param.gubun }" />
+					<input type="hidden" id="authKey" value="" />
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -146,13 +431,27 @@ function expireSession(){
 							<div class="menu-nav-wrap">
 								<div class="menu-nav js_tab">
 									<ul>
-										<li class="active srchId"><a href="#srchId">아이디찾기</a></li>
-										<li class="srchPw"><a href="#srchPw">비밀번호찾기</a></li>
+										<c:choose>
+											<c:when test="${param.gubun == 'id' }">
+												<li class="active srchId"><a href="#srchId">아이디찾기</a></li>
+												<li class="srchPw"><a href="#srchPw">비밀번호찾기</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="srchId"><a href="#srchId">아이디찾기</a></li>
+												<li class="active srchPw"><a href="#srchPw">비밀번호찾기</a></li>
+											</c:otherwise>
+										</c:choose>
 									</ul>
 								</div>
 							</div>
-
-							<div class="tab-content active" id="srchId">
+							<c:choose>
+								<c:when test="${param.gubun == 'id' }">
+									<div class="tab-content active" id="srchId">
+								</c:when>
+								<c:otherwise>
+									<div class="tab-content" id="srchId">
+								</c:otherwise>
+							</c:choose>
 								<div class="login-type">
 									<ul>
 										<li>
@@ -165,65 +464,43 @@ function expireSession(){
 												</div>
 											</div>
 										</li>
-										<li>
-											<div>
-												<i class="ico-login2"></i>
-												<p class="title-type4">본인인증(휴대전화)으로 찾기</p>
-												<div class="btn-wrap">
-													<a href="javascript:findIdByKG();" class="btn-type v4">본인
-														인증</a>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div>
-												<i class="ico-login3"></i>
-												<p class="title-type4">아이핀(I-pin)으로 찾기</p>
-												<div class="btn-wrap">
-													<a href="javascript:findIdByIpin();" class="btn-type v4">아이핀
-														인증</a>
-												</div>
-											</div>
-										</li>
 									</ul>
 								</div>
 
 								<!-- 아이디찾기 결과-->
 								<div class="result-box v2" id="result_id" style="display: none;">
 									<div class="result-list">
-										<p class="sub-tit">고객님의 정보와 일치하는 아이디 목록입니다.</p>
-
+										<input type="hidden" id="findId" name="fId" value="">
+										<p class="sub-tit">아이디 : <em id="findUid"></em></p>
 									</div>
 
 									<div class="btn-wrap">
-										<a href="javascript:findLogin();" class="btn-type v6">로그인</a>
-										<a href="javascript:srchPw()" class="btn-type v4">비밀번호 찾기</a>
+										<a href="login.do" class="btn-type v6">로그인</a>
+										<a href="findidpw.do?gubun=pw" class="btn-type v4">비밀번호 찾기</a>
+									</div>
+								</div>
+								
+								<div class="result-box v2" id="no_result_id" style="display: none;">
+									<div class="result-list">
+										<p class="sub-tit">입력하신 정보와 일치하는 아이디가 없습니다.</p>
+									</div>
+
+									<div class="btn-wrap">
+										<a href="regForm.do" class="btn-type v6">회원가입</a>
+										<a href="findidpw.do?gubun=id" class="btn-type v4">아이디 찾기</a>
 									</div>
 								</div>
 								<!-- //아이디찾기 결과-->
-
-								<!-- 아이디 찾기 결과: 휴면계정일 경우 -->
-								<div class="result-box" id="result_dormancy"
-									style="display: none;">
-									<div class="title-wrap">
-										<p class="title-type user_info"></p>
-
-									</div>
-									<p class="sub-text">
-										회원님의 ID는 휴면계정으로 관리 중 입니다. <br>기존 ID 및 정보는 휴면계정 해제 후 재이용이
-										가능합니다.<br>휴면계정을 해제하시겠습니까?
-									</p>
-									<p class="sub-text">신용평가기관을 통해 실명 인증된 다미노피자 아이디입니다.</p>
-									<div class="btn-wrap">
-										<a href="javascript:clearDormancy();" class="btn-type v6">확인</a>
-										<a href="main.do" class="btn-type v4">취소</a>
-									</div>
-								</div>
-
-
 							</div>
 
-							<div class="tab-content" id="srchPw">
+							<c:choose>
+								<c:when test="${param.gubun == 'pw' }">
+									<div class="tab-content active" id="srchPw">
+								</c:when>
+								<c:otherwise>
+									<div class="tab-content" id="srchPw">
+								</c:otherwise>
+							</c:choose>
 								<div class="login-type">
 									<ul>
 										<li>
@@ -239,37 +516,11 @@ function expireSession(){
 												</div>
 											</div>
 										</li>
-										<li>
-											<div>
-												<i class="ico-login2"></i>
-												<p class="title-type4">본인인증(휴대전화)으로 찾기</p>
-												<div class="form-item">
-													<input type="text" id="kg_id" placeholder="아이디">
-												</div>
-												<div class="btn-wrap">
-													<a href="javascript:findPwdByKG();" class="btn-type v4">본인
-														인증</a>
-												</div>
-											</div>
-										</li>
-										<li>
-											<div>
-												<i class="ico-login3"></i>
-												<p class="title-type4">아이핀(I-pin)으로 찾기</p>
-												<div class="form-item">
-													<input type="text" id="ipin_id" placeholder="아이디">
-												</div>
-												<div class="btn-wrap">
-													<a href="javascript:findPwdByIpin();" class="btn-type v4">아이핀
-														인증</a>
-												</div>
-											</div>
-										</li>
 									</ul>
 								</div>
 
 								<!--비밀번호 변경-->
-								<div class="change-box" style="display: none;">
+								<div class="change-box" id="change_pw" style="display: none;">
 									<div class="title-wrap">
 										<p class="title-type">비밀번호 변경</p>
 									</div>
@@ -279,7 +530,7 @@ function expireSession(){
 											<dt>새 비밀번호</dt>
 											<dd>
 												<input type="password" id="passwd" value=""
-													placeholder="8~16자 영문대소문자,숫자, 특수문자 사용가능">
+													placeholder="비밀번호 입력">
 												<div class="text-type4" style="display: none;"
 													id="passwd_alert">비밀번호는 8~16자로 입력해주세요.</div>
 											</dd>
@@ -301,15 +552,6 @@ function expireSession(){
 								</div>
 								<!--//비밀번호 변경-->
 							</div>
-							<div class="info-guide">
-								<ul class="list-text-v2">
-									<li>회원 가입 시 등록한 휴대폰번호와 현재 보유 휴대폰번호가 다를경우 본인인증/아이핀으로 찾기를
-										진행해주세요.</li>
-									<li>회원가입 시 아이핀으로 가입하신 회원님께서는 아이핀으로 인증하세요.</li>
-									<li>신용평가기관을 통해 한국다미노피자에 가입하신 아이디,비밀번호 찾기를 진행하며, 당사는 고객의
-										주민등록번호를 저장하지 않습니다.</li>
-								</ul>
-							</div>
 						</article>
 					</div>
 				</div>
@@ -318,7 +560,7 @@ function expireSession(){
 
 		<div class="pop-layer type2" id="pop-rest">
 			<div class="dim"></div>
-			<div class="pop-wrap basic">
+			<div class="pop-wrap basic" style="top:0%; left:30%;">
 				<div class="pop-title-wrap">
 					<h2 class="pop-title v2">회원정보 인증</h2>
 				</div>
@@ -344,7 +586,7 @@ function expireSession(){
 										<div class="form-item">
 											<div class="select-type2">
 												<select name="byear" id="byear">
-													<option>년</option>
+													<option value="">년</option>
 													<option value="2020">2020</option>
 													<option value="2019">2019</option>
 													<option value="2018">2018</option>
@@ -470,7 +712,7 @@ function expireSession(){
 											</div>
 											<div class="select-type2">
 												<select name="bmonth" id="bmonth">
-													<option>월</option>
+													<option value="">월</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
@@ -487,7 +729,7 @@ function expireSession(){
 											</div>
 											<div class="select-type2">
 												<select name="bday" id="bday">
-													<option>일</option>
+													<option value="">일</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
 													<option value="3">3</option>
@@ -533,12 +775,12 @@ function expireSession(){
 									<div class="form-item">
 										<div class="chk-box selected">
 											<input type="radio" name="rdb_auth_type" id="rdb_auth_type1"
-												value="H" checked="checked"> <label class="checkbox"
+												value="H" checked="checked" onclick="selectSearchTool();"> <label class="checkbox"
 												for="rdb_auth_type1"></label> <label for="rdb_auth_type1">휴대전화</label>
 										</div>
 										<div class="chk-box">
 											<input type="radio" name="rdb_auth_type" id="rdb_auth_type2"
-												value="E"> <label class="checkbox"
+												value="E" onclick="selectSearchTool();"> <label class="checkbox"
 												for="rdb_auth_type2"></label> <label for="rdb_auth_type2">이메일</label>
 										</div>
 									</div>
@@ -568,7 +810,7 @@ function expireSession(){
 										style="margin-top: 12px; display: none;"></div>
 									<div class="form-confirm">
 										<div class="btn-wrap">
-											<a href="javascript:doSendAuthKey();" class="btn-type v7">인증번호</a>
+											<a href="javascript:doSendAuthKey('sms');" class="btn-type v7">인증번호</a>
 										</div>
 										<div class="form-group">
 											<div class="form-item">
@@ -591,12 +833,12 @@ function expireSession(){
 											<div class="select-type2">
 												<select id="email3" name="email3"
 													onchange="changeEmail(this.value);">
+													<option value="">직접입력</option>
 													<option value="naver.com">네이버</option>
 													<option value="hanmail.net">한메일</option>
 													<option value="gmail.com">지메일</option>
 													<option value="hotmail.com">핫메일</option>
 													<option value="nate.com">네이트</option>
-													<option value="">직접입력</option>
 												</select>
 											</div>
 										</div>
@@ -605,7 +847,7 @@ function expireSession(){
 										style="margin-top: 12px; display: none;"></div>
 									<div class="form-confirm">
 										<div class="btn-wrap">
-											<a href="javascript:doSendAuthKey();" class="btn-type v7">인증번호</a>
+											<a href="javascript:doSendAuthKey('email');" class="btn-type v7">인증번호</a>
 										</div>
 										<div class="form-group">
 											<div class="form-item">
@@ -619,8 +861,7 @@ function expireSession(){
 							</dl>
 						</div>
 						<div class="btn-wrap">
-							<a href="javascript:findIdByInside();" class="btn-type1">아이디
-								찾기</a>
+							<a href="javascript:findIdByInside();" class="btn-type1"></a>
 						</div>
 					</div>
 				</div>

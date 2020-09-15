@@ -35,10 +35,29 @@
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -146,11 +165,10 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td>경기</td>
-														<td class="txt_align_lft">가평, 강화, 청학리, 포승, 양주백석,
-															군포송정, <span class="txt_orange">*</span>고양, <span
-															class="txt_orange">*</span>동두천, <span class="txt_orange">*</span>시흥연성,
-															<span class="txt_orange">*</span>팽성
+														<td>서울</td>
+														<td class="txt_align_lft">
+														강남구, 강동구, 강북구, 강서구, 관악구, 광진구, 구로구, 금천구, 노원구, 도봉구, 동대문구, 동작구, 마포구, 서대문구, 서초구,
+														성동구, 성북구, 송파구, 양천구, 영등포구, 용산구, 은평구, 종로구, 중구, 중랑구
 														</td>
 													</tr>
 												</tbody>

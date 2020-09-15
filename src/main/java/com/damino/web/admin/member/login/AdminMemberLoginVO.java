@@ -1,8 +1,8 @@
 package com.damino.web.admin.member.login;
 
 public class AdminMemberLoginVO {
-	private String adminid;
-	private String adminpassword;
+	private String adminid;			//홈페이지 관리자
+	private String adminpassword;	//홈페이지 비밀번호
 	
 	public String getAdminid() {
 		return adminid;

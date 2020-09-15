@@ -100,27 +100,25 @@ function expireSession(){
 					</div>
 
 					<c:choose>
-						<c:when test="${sessionScope.username eq null}">
-							<!-- 비로그인 -->
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
 							</div>
 						</c:when>
-						<c:when test="${msg=='logout' }">
-							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<!-- 로그인 -->
 							<div class="util-nav">
-								${user.username } 님  &nbsp;
-								<a href="logout.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a>
-								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -238,30 +236,9 @@ function expireSession(){
 								</div>
 								<div class="cont-wrap">
 									<ul class="list-text-v3">
-										<li>e-쿠폰은 온라인 주문 시 사용할 수 있습니다.<br>(온라인 회원, 비회원 모두 사용
-											가능)
+										<li>e-쿠폰은 온라인 주문 시 사용할 수 있습니다.<br>(다미노 회원 전용 서비스)
 										</li>
-										<li>e-쿠폰 이용 시 해당 메뉴 외 메뉴 구성 변경이 불가하며, <em>추가 메뉴를 주문할
-												수 없습니다.</em></li>
-										<li>e-쿠폰 이용 시 여타 할인 및 프로모션 메뉴(반값 사이드디시)와 함께 이용할 수 없습니다.</li>
 										<li>e-쿠폰은 유효기간 내에만 사용할 수 있습니다.</li>
-										<li>1회 주문 시 e-쿠폰은 4개까지 사용이 가능합니다.</li>
-										<li>일부 특수 매장(알펜시아점, 대명비발디파크점, 휘닉스파크점, 잠실야구장점, 롯데월드점)에서
-											사용할 수 없습니다.</li>
-									</ul>
-								</div>
-							</div>
-							<div class="info-wrap">
-								<div class="title-wrap">
-									<div class="title-type2">단종메뉴 안내</div>
-								</div>
-								<div class="cont-wrap">
-									<ul class="list-text-v3">
-										<li><em>판매 종료된 상품은 다미노피자 본사 및 매장이 아닌 구매처를 통하여 환불해주시기
-												바랍니다.</em></li>
-										<li>판매 종료 상품 : 와규 앤 비스테카, 더블크러스트 치즈멜팅, 슈퍼시드 앤 스테이크, 슈림푸스,
-											꽃게온더피자, 브레이즈드 포크, 킹프론 씨푸드, 크리스피치킨텐더(사이드디시 세트 구성), 치즈케이크 롤,
-											7치즈 앤 그릴드 비프, 알로하 하와이안, 콰트로 치즈퐁듀, 글램핑 바비큐, 불고기피자</li>
 									</ul>
 								</div>
 							</div>

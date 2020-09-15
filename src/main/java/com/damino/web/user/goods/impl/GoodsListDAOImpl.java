@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damino.web.admin.menu.PizzaVO;
+import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.goods.GoodsDrinkEtcVO;
 import com.damino.web.user.goods.GoodsListDAO;
 import com.damino.web.user.goods.GoodsPizzaVO;
@@ -75,6 +77,18 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 		return sqlSessionTemplate.selectList("GoodsListDAO.getAfterTopping");
 	}
 
+	@Override
+	public List<PizzaVO> getAllPizzaList() {
+		System.out.println("피자 영양성분 조회");
+		return sqlSessionTemplate.selectList("GoodsListDAO.getAllPizzaList");
+	}
+
+	@Override
+	public List<SideVO> getAllSideList() {
+		System.out.println("사이드 영양성분 조회");
+		return sqlSessionTemplate.selectList("GoodsListDAO.getAllSideList");
+	}
+	
 	@Override
 	public GoodsSideVO getUserSideGoods(GoodsSideVO vo) {
 		System.out.println("GoodsListDAOImpl getUserSideGoods(GoodsSideVO vo)");
@@ -223,6 +237,8 @@ public class GoodsListDAOImpl implements GoodsListDAO {
 	public int getNextGubunSide(String userid) {
 		return sqlSessionTemplate.selectOne("GoodsListDAO.getNextGubunSide", userid);
 	}
+
+	
 	
 	
 }

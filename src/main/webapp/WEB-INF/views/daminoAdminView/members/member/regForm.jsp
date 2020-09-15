@@ -88,6 +88,16 @@
 		} else {
 			$('#pwc_alert').hide();
 		}
+		//초기화 비번사용 제지
+		if($("#adminpassword").val() == "0000"){
+			$('#pw_alert').text("다른 비밀번호를 사용해주세요.");
+			$('#pw_alert').show();
+			$("#adminpassword").focus();
+			return false;
+		}else{
+			$('#pw_alert').hide();
+		}
+		
 		//pw 일치 불일치
 		if ($("#adminpassword").val() != $("#adminConfirmpassword").val()) {
 			$('#pwc_alert').text("비밀번호가 일치하지 않습니다");

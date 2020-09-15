@@ -26,4 +26,16 @@ public class MemberDAO implements IMemberDAO{
 		return sqlSessionTemplate.selectList("iMemberDAO.selectAllPhone");
 	}
 
+	@Override
+	public void memberDel(MemberVO vo) {
+		System.out.println("회원 삭제");
+		sqlSessionTemplate.delete("iMemberDAO.memberDel", vo);
+	}
+
+	@Override
+	public MemberVO getUserMember(MemberVO vo) {
+		System.out.println("선택한 회원정보 불러오기");
+		return sqlSessionTemplate.selectOne("iMemberDAO.getUserMember", vo);
+	}
+
 }

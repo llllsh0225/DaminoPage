@@ -991,26 +991,25 @@ function expireSession(){
 					</a>
 					
 					<c:choose>
-						<c:when test="${msg != 'login' }">
-							<!-- 비로그인 -->
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
 							</div>
 						</c:when>
-						<c:when test="${msg=='logout' }">
-							<!-- 비로그인 : 추후에 Spring Security로 비로그인 유저는 아예 접근 불가 하도록 처리 -->
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> 
-								<a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<!-- 로그인 -->
 							<div class="util-nav">
-								${user.username } 님  &nbsp;
-								<a href="logout.do">로그아웃</a>
-								<a href="mylevel.do">나의정보</a>
-								<a href="#" class="btn-cart"> <i class="ico-cart"></i> </a>
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
 							</div>
 						</c:otherwise>
 					</c:choose>

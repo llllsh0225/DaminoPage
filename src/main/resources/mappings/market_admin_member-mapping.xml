@@ -21,7 +21,11 @@
 		WHERE storeRegion = #{storeRegion}
 	</select>
 	
-
+	
+	<select id="getStoreManager" parameterType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO" resultType="com.damino.web.admin.market.member.regist.MarketAdminMemberVO">
+		SELECT * FROM marketadminmember
+		WHERE storeName = #{storeName}
+	</select>
 </mapper>
 
 

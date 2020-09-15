@@ -41,10 +41,10 @@
 	</delete>
 	
 	<insert id="doOrder" parameterType="com.damino.web.user.goods.UserOrderVO">
-	INSERT INTO order_list (orderseq, userid, username, orderdate, deliverytime, address, tel, menus, price, take, store, paytool, paystatus, status, requirement)
+	INSERT INTO order_list (orderseq, userid, username, orderdate, deliverytime, address, tel, menus, pre_price, count_price, price, take, store, paytool, paystatus, status, requirement)
 	VALUES (#{orderdate}||LPAD(order_list_seq.nextval, 5, '0'), #{userid},
 		#{username}, to_date(#{orderdate}, 'YYYYMMDDHH24MISS'),
 		to_date(#{deliverytime}, 'YYYYMMDDHH24MISS'), #{address}, #{tel},
-		#{menus}, #{price}, #{take}, #{store}, #{paytool}, #{paystatus}, #{status}, #{requirements})
+		#{menus}, #{pre_price}, #{count_price}, #{price}, #{take}, #{store}, #{paytool}, #{paystatus}, #{status}, #{requirements})
 </insert>
 </mapper>

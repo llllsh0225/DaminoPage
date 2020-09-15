@@ -1,5 +1,7 @@
 package com.damino.web.user.login;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.user.banner.UserBannerService;
+import com.damino.web.user.banner.UserBannerVO;
+
 
 @Controller
 @SessionAttributes({"user","username", "userid", "userlevel", "phone", "inactive"})
@@ -23,6 +28,10 @@ public class LoginController {
 	private LoginService loginService;
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
+	
+	//배너
+	@Autowired
+	private UserBannerService userBannerService;
 
 
 	@RequestMapping("/login.do")
@@ -65,6 +74,9 @@ public class LoginController {
 				int inactive = session.getMaxInactiveInterval();
 				System.out.println("세션 유효 시간 : " + inactive);
 				
+				//배너
+				List<UserBannerVO> bannerList = userBannerService.getUserBannerList();
+				
 				mav.addObject("username", login.getUsername());
 				mav.addObject("userid", login.getUserid()); // session 객체에 userid라는 키에 로그인한 회원의 아이디를 값으로 저장
 				mav.addObject("userlevel", login.getUserlevel()); // session 객체에 userlevel 저장
@@ -72,6 +84,9 @@ public class LoginController {
 				
 				mav.addObject("phone", login.getPhone());
 				session.setAttribute("msg", "login"); // 로그인 확인용 메세지 세팅
+				
+				//배너
+				mav.addObject("bannerList", bannerList);
 				
 				mav.setViewName("main");
 				return mav;
@@ -99,6 +114,15 @@ public class LoginController {
 		mav.addObject("msg", "logout"); // logout 메세지 세팅
 		mav.addObject("username", null);
 		mav.setViewName("main");
+		return mav;
+	}
+	
+	@RequestMapping("/findidpw.do")
+	public ModelAndView getFindIdPw() {
+		System.out.println("아이디/비밀번호 찾기 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/find_id_pw");
 		return mav;
 	}
 	

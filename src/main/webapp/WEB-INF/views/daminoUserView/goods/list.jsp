@@ -77,10 +77,16 @@ $(document).ready(function(){
 					</div>
 
 					<c:choose>
-						<c:when test="${msg != 'login' }">
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
 							<!-- 비로그인 -->
 							<div class="util-nav">
-								<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -273,21 +279,16 @@ $(document).ready(function(){
 									<dt>※ 유의사항</dt>
 									<dd>
 										<ul>
-											<li>단종으로 인한 상품권 사용 안내 : 동일 가격 또는 더 높은 가격의 제품으로 대체 주문 가능<br>
-												(상품권에 명시된 제품보다 더 높은 가격대의 제품 주문 시, 금액 추가 발생)<br> (단,
-												상품권에 명시된 제품보다 저렴한 제품 주문 시 발생하는 차액에 대해서는 환불 처리 불가)
-											</li>
-											<li>일부 리조트 및 특수매장은 상기 가격과 차이가 있음</li>
 											<li>모든 사진은 이미지 컷이므로 실제 제품과 다를 수 있습니다.</li>
 										</ul>
 									</dd>
 								</div>
 							</div>
 							<div class="box">
-								<p class="text-type">제품의 영양성분 및 알레르기 유발성분을 먼저 확인하세요.</p>
+								<p class="text-type">제품의 영양성분을 먼저 확인하세요.</p>
 								<div class="btn-wrap2">
 									<a href="javascript:UI.layerPopUp({selId:'#pop-allergy'})"
-										class="btn-type-left">영양성분 및 알레르기 유발성분</a>
+										class="btn-type-left">피자 및 사이드메뉴 영양성분</a>
 								</div>
 
 							</div>
@@ -480,15 +481,9 @@ $(document).ready(function(){
 			<div class="dim"></div>
 			<div class="pop-wrap" style="top:0px; left:20%;">
 				<div class="pop-title-wrap">
-					<div class="pop-title v2">영양성분 및 알레르기 유발성분</div>
+					<div class="pop-title v2">영양성분</div>
 				</div>
 				<div class="pop-content">
-					<div class="tab-type v2 js_tab">
-						<ul>
-							<li class="active"><a href="#allergy1">영양성분</a></li>
-							<li><a href="#allergy2">제품 알레르기 유발성분</a></li>
-						</ul>
-					</div>
 					<div id="allergy1" class="tab-content active">
 						<div class="tab-type2 js_tab">
 							<ul>
@@ -531,35 +526,37 @@ $(document).ready(function(){
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>더블크러스트 이베리코(더블 크러스트 L)</td>
-											<td>1,038</td>
-											<td>1조각</td>
-											<td>130</td>
-											<td>344</td>
-											<td>12</td>
-											<td>7</td>
-											<td>465</td>
-											<td>10</td>
-										</tr>
-										<tr>
-											<td>더블크러스트 이베리코(더블 크러스트 M)</td>
-											<td>652</td>
-											<td>2조각</td>
-											<td>163</td>
-											<td>421</td>
-											<td>14</td>
-											<td>9</td>
-											<td>564</td>
-											<td>13</td>
-										</tr>
+										<c:forEach var="pizza" items="${pizzaNutrients }">
+											<tr>
+												<td>${pizza.p_name }(L사이즈)</td>
+												<td>${pizza.gross_weight_l }</td>
+												<td>${pizza.onetime_basis_l }</td>
+												<td>${pizza.onetime_weight_l }</td>
+												<td>${pizza.kcal_l }</td>
+												<td>${pizza.protein_l }</td>
+												<td>${pizza.fat_l }</td>
+												<td>${pizza.natrium_l }</td>
+												<td>${pizza.sugars_l }</td>
+											</tr>
+											<tr>
+												<td>${pizza.p_name }(M사이즈)</td>
+												<td>${pizza.gross_weight_m }</td>
+												<td>${pizza.onetime_basis_m }</td>
+												<td>${pizza.onetime_weight_m }</td>
+												<td>${pizza.kcal_m }</td>
+												<td>${pizza.protein_m }</td>
+												<td>${pizza.fat_m }</td>
+												<td>${pizza.natrium_m }</td>
+												<td>${pizza.sugars_m }</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
 						<div id="allergy1-2" class="tab-content-v2">
 							<div class="allergy-group">
-								<div class="title-type3">1. 사이드디시</div>
+								<div class="title-type3">사이드디시</div>
 								<div class="table-type v2">
 									<table class="bg-table">
 										<caption>사이드디시 영양성분</caption>
@@ -589,239 +586,23 @@ $(document).ready(function(){
 											</tr>
 										</thead>
 										<tbody id="ingredientList1">
-											<tr>
-												<td>치캉스 팩</td>
-												<td>538</td>
-												<td>1037</td>
-												<td>77</td>
-												<td>12</td>
-												<td>2263</td>
-												<td>15</td>
-											</tr>
+											<c:forEach var="side" items="${sideNutrients }">
+												<tr>
+													<td>${side.s_name }</td>
+													<td>${side.gross_weight }</td>
+													<td>${side.kcal }</td>
+													<td>${side.protein }</td>
+													<td>${side.fat }</td>
+													<td>${side.natrium }</td>
+													<td>${side.sugars }</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
-								</div>
-							</div>
-							<div id="allergy1-2" class="tab-content-v2">
-								<div class="allergy-group">
-									<div class="title-type3">1. 사이드디시</div>
-									<div class="table-type v2">
-										<table class="bg-table">
-											<caption>사이드디시 영양성분</caption>
-											<colgroup>
-												<col width="28%">
-												<col width="12%">
-												<col width="12%">
-												<col width="12%">
-												<col width="12%">
-												<col width="12%">
-												<col width="12%">
-											</colgroup>
-											<thead>
-												<tr>
-													<th rowspan="2">제품명</th>
-													<th rowspan="2">총 중량(g)</th>
-													<th rowspan="2">열량<br>(kcal/1회분)
-													</th>
-													<th rowspan="2">단백질<br>(g/1회분)
-													</th>
-													<th rowspan="2">포화지방<br>(g/1회분)
-													</th>
-													<th rowspan="2">나트륨<br>(mg/1회분)
-													</th>
-													<th rowspan="2">당류<br>(g/1회분)
-													</th>
-												</tr>
-											</thead>
-											<tbody id="ingredientList1">
-												<tr>
-													<td>치캉스 팩</td>
-													<td>538</td>
-													<td>1037</td>
-													<td>77</td>
-													<td>12</td>
-													<td>2263</td>
-													<td>15</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<!-- 음료 성분 -->
-								<div class="allergy-group">
-									<div class="title-type3">2. 음료</div>
-									<div class="table-type v2">
-										<table class="bg-table">
-											<caption>음료 영양성분</caption>
-											<colgroup>
-												<col width="25%">
-												<col width="15%">
-												<col width="15%">
-												<col width="15%">
-												<col width="15%">
-												<col width="15%">
-											</colgroup>
-											<thead>
-												<tr>
-													<th rowspan="2">제품명</th>
-													<th rowspan="2">열량<br>(kcal/1회분)
-													</th>
-													<th rowspan="2">단백질<br>(g/1회분)
-													</th>
-													<th rowspan="2">포화지방<br>(g/1회분)
-													</th>
-													<th rowspan="2">나트륨<br>(mg/1회분)
-													</th>
-													<th rowspan="2">당류<br>(g/1회분)
-													</th>
-												</tr>
-											</thead>
-											<tbody id="ingredientList2">
-												<tr>
-													<td>미닛메이드 스파클링 청포도 1.25L</td>
-													<td>450</td>
-													<td>0</td>
-													<td>0</td>
-													<td>38</td>
-													<td>113</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- 알레르기 성분표 -->
-					<div id="allergy2" class="tab-content">
-						<div class="tab-type2 js_tab">
-							<ul>
-								<li class="active"><a href="#allergy2-1">피자</a></li>
-								<li><a href="#allergy2-2">사이드</a></li>
-							</ul>
-						</div>
-						<div id="allergy2-1" class="tab-content-v2 active">
-							<div class="allergy_guide">
-								<p class="text-type">한국인에게 알레르기를 유발할 수 있는 12가지 식품에 대해 아래와 같이
-									제품별 상세 내용을 표기하여 안내해드립니다. (괄호 안 식품이 해당 토핑에 포함되어있는 알레르기 유발가능 식품)</p>
-								<dl>
-									<dt>* 알레르기 유발 가능 식품 :</dt>
-									<dd>난류(가금류에 한한다), 우유, 메밀, 땅콩, 대두, 밀, 고등어, 게, 새우, 돼지고기,
-										복숭아, 토마토, 아황산류, 호두, 닭고기, 쇠고기, 오징어, 조개류(굴, 전복, 홍합포함), 잣</dd>
-								</dl>
-							</div>
-							<div class="allergy-group">
-								<div class="title-type3">피자</div>
-								<div class="guide-box3">피자 공통: 오리지널,나폴리, 슈퍼시드함유, 샌드 도우(우유,
-									밀, 대두), 씬, 더블 도우(밀), 더블치즈엣지(스트링 치즈(우유, 대두, 밀), 카망베르 크림치즈(우유))</div>
-								<div class="table-type v2">
-									<table class="bg-table">
-										<caption>피자 재료중 알레르기 유발 가능 식품</caption>
-										<colgroup>
-											<col width="7%">
-											<col width="23%">
-											<col>
-										</colgroup>
-										<thead>
-											<tr>
-												<th>NO</th>
-												<th>피자</th>
-												<th>알레르기 유발성분 표기</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>시리얼 칠리크랩+블랙앵거스 스테이크</td>
-												<td>모차렐라, 페터크림, 리코타 치즈(우유), 토마토 소스(토마토, 대두), 갈릭 크림
-													소스(계란, 우유, 대두, 밀), 로스트 포테이토(대두), 베이컨칩(돼지고기), 호스래디시 스퀴드(오징어,
-													계란, 우유, 대두), 스위트 칠리크랩(게, 대두, 밀, 새우, 토마토, 닭고기, 오징어, 조개류(굴)),
-													오리엔탈 통새우(새우, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 조개류(굴)), 호스래디시소스(계란,
-													우유, 대두), 아라비아타소스(계란,대두,밀,돼지고기,닭고기,토마토), 선드라이토마토(토마토), 블랙앵거스
-													비프 (쇠고기, 대두, 밀, 계란)</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<div id="allergy2-2" class="tab-content-v2">
-							<div class="allergy_guide">
-								<p class="text-type">한국인에게 알레르기를 유발할 수 있는 12가지 식품에 대해 아래와 같이
-									제품별 상세 내용을 표기하여 안내해드립니다. (괄호 안 식품이 해당 토핑에 포함되어있는 알레르기 유발가능 식품)</p>
-								<dl>
-									<dt>* 알레르기 유발 가능 식품 :</dt>
-									<dd>난류(가금류에 한한다), 우유, 메밀, 땅콩, 대두, 밀, 고등어, 게, 새우, 돼지고기,
-										복숭아, 토마토, 아황산류, 호두, 닭고기, 쇠고기, 오징어, 조개류(굴, 전복, 홍합포함), 잣</dd>
-								</dl>
-							</div>
-							<div class="allergy-group">
-								<div class="title-type3">1. 사이드디시</div>
-								<div class="table-type v2">
-									<table class="bg-table">
-										<caption>사이드디시 재료중 알레르기 유발 가능 식품</caption>
-										<colgroup>
-											<col width="7%">
-											<col width="23%">
-											<col>
-										</colgroup>
-										<thead>
-											<tr>
-												<th scope="col">NO</th>
-												<th scope="col">사이드디시</th>
-												<th scope="col">알레르기 유발성분 표기</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>치캉스 팩</td>
-												<td>갈릭&허브윙스 : 닭고기,대두,밀,우유,토마토 / 슈퍼곡물 치킨 : 밀, 우유, 대두,
-													계란, 땅콩, 토마토, 닭고기, 쇠고기 / 크리스피 핫 순살 치킨 : 닭고기,대두,밀,쇠고기,계란 /
-													코울슬로 : 계란,대두</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<!-- 시리얼소스  -->
-							<div class="allergy-group">
-								<div class="title-type3">2. 시리얼&소스</div>
-								<div class="table-type v2">
-									<table class="bg-table">
-										<caption></caption>
-										<colgroup>
-											<col width="7%">
-											<col width="23%">
-											<col>
-										</colgroup>
-										<thead>
-											<tr>
-												<th scope="col">NO</th>
-												<th scope="col">제품명</th>
-												<th scope="col">알레르기 유발성분 표기</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td>갈릭 디핑 소스</td>
-												<td>계란,우유,대두</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>도미노 시리얼</td>
-												<td>계란,우유,대두</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<!--end 알레르기성분 -->
 				</div>
 				<a href="#" class="btn-close"></a>
 			</div>

@@ -25,10 +25,11 @@
 					<div class="row justify-content-center">
 						<div class="col-lg-6">
 							<div class="text-center mt-4">
-								<h1 class="display-1">500</h1>
-								<p class="lead">Internal Server Error</p>
+								<h1 class="display-1">401</h1>
+								<p class="lead">Unauthorized</p>
+								<p>해당 페이지에 접근이 불가합니다.</p>
 								<a href="main.admdo"> <i class="fas fa-arrow-left mr-1"></i>
-									Return to Dashboard
+									메인페이지로 이동
 								</a>
 							</div>
 						</div>

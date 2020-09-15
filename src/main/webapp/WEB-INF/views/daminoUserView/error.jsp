@@ -6,7 +6,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 
-<title>DOMINO</title>
+<title>DAMINO</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
@@ -21,8 +21,7 @@
 				<div class="error-wrap">
 					<div class="error-inner">
 						<div class="logo">
-							<a href="main.do"> <i class="ico-domions"></i>
-							</a>
+							<i class="ico-domions"></i>
 						</div>
 						<i class="ico-emoji1"></i> <strong class="title-type7">죄송합니다<br>요청하신
 							페이지를 찾을 수 없습니다.

@@ -14,6 +14,26 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	@RequestMapping("/noticeBoardEdit.admdo")
+	public ModelAndView getAdminNoticeBoardEditPage() {
+		System.out.println("게시판 리스트 수정 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/noticeBoard/noticeBoardEdit");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/noticeBoardView.admdo")
+	public ModelAndView getAdminNoticeBoardViewPage() {
+		System.out.println("게시판 리스트 목록 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/noticeBoard/noticeBoardView");
+		
+		return mav;
+	}
+	
 	@RequestMapping("/boardList.admdo")
 	public ModelAndView getBoardList(){
 		System.out.println("글 목록 ");

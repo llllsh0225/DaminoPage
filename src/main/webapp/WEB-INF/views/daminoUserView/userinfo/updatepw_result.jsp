@@ -1,26 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html lang="ko">
-
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-<head>
 <meta charset="utf-8">
+<title>E-쿠폰- 다미노피자</title>
 
-<title>회원가입- 다미노피자</title>
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/common.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/font.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/sub.css' />">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/user/card_add.css' />">
-	
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>" ></script>
-	<!-- 메인페이지 슬라이드 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>" ></script>
-	<!-- 더보기 슬라이드로 내려오는 js -->
-	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery1.11.1.js'/>"></script>
+<!-- 메인페이지 슬라이드 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery.flexslider.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/user/jquery-3.1.1.min.js'/>"></script>
+<!-- 더보기 슬라이드로 내려오는 js -->
+<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 <script>
 function expireSession(){
 	  alert("세션이 만료되었습니다");
@@ -49,7 +45,7 @@ function expireSession(){
 	  
 	}
 	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
-</script>	
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -59,15 +55,34 @@ function expireSession(){
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-			<input type="hidden" id="userid" value="${sessionScope.userid}" />
+			<input type="hidden" id="userid" value="${sessionScope.userid}" />	
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> 
-						<a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -119,118 +134,37 @@ function expireSession(){
 				</div>
 			</div>
 		</header>
-		<!-- //header -->
-		
-		<!-- container -->
 		<div id="container">
 			<section id="content">
-				<div class="sub-type member">
+				<div class="sub-type order">
 					<div class="inner-box">
-						<div class="page-title-wrap v2">
-							<h2 class="page-title">회원가입</h2>
+						<div class="page-title-wrap">
+							<h2 class="page-title">아이디/비밀번호 찾기</h2>
 							<div class="depth-area">
 								<ol>
 									<li><a href="main.do">홈</a></li>
-									<li><strong>회원가입</strong></li>
+									<li><strong>아이디/비밀번호 찾기</strong></li>
 								</ol>
 							</div>
 						</div>
-						<article class="join-area">
-							<div class="join-step1">
-								<div class="step-list">
-									<ul>
-										<li class="active">01 본인인증</li>
-										<li>02 개인정보입력</li>
-										<li>03 가입완료</li>
-									</ul>
-								</div>
-								<div class="info-text-wrap">
-									<a href="javascript:UI.layerPopUp({selId: '#pop-accredit'});"
-										class="notice-text">본인인증 안내</a> <strong class="title">반갑습니다.</strong>
-									<p>
-										다미노피자 회원가입을 위해서는 본인인증이 필요합니다.<br> 회원가입은 아동의 개인정보 보호를 위해 만
-										14세 이상만 가능합니다.
-									</p>
-									<div class="btn-wrap">
-										<a href="javascript:goCheckByPhone();" class="btn-type v4">휴대전화
-											인증</a> <a href="javascript:goCheckByIpin();" class="btn-type v4">아이핀
-											인증</a>
-									</div>
-								</div>
+						<article class="e-coupon">
+							<div class="title-wrap-center">
+								<h3 class="title-type5">비밀번호 변경 완료</h3>
+							</div>
+							<div align="center">
+								<font size="4"><strong>새 비밀번호로 변경되었습니다. 다시 로그인해주세요.</font>
+							</div>
+							<br>
+							<br>
+							<div class="btn-wrap">
+								<a href="login.do" class="btn-type v4">로그인</a>
 							</div>
 						</article>
 					</div>
 				</div>
 			</section>
-
-			<!-- //container -->
-			<!-- 팝업 본인인증 안내 -->
-			<div class="pop-layer type2" id="pop-accredit">
-				<div class="dim"></div>
-				<div class="pop-wrap">
-					<div class="pop-title-wrap">
-						<h2 class="pop-title v2">본인인증 안내</h2>
-					</div>
-					<div class="pop-content">
-						<div class="step-wrap">
-							<div class="sub-type-text">만 14세 이상 회원가입 가능</div>
-							<div class="sub-text">만 14세 미만 아동의 개인정보 보호를 위해 회원가입은 만 14세
-								이상만 가능 합니다. (단, 본인 명의의 금융거래가 있는 경우에 한하여 실명인증센터에 인증요청을 하실 수
-								있습니다.)</div>
-						</div>
-						<div class="step-wrap">
-							<div class="sub-type-text">본인인증이란?</div>
-							<div class="sub-text">다미노피자는 안전한 인터넷 서비스 이용을 위해 본인여부를 확인하고
-								있습니다. 인증대행사를 통해 본인인증을 받게 되므로, 다미노피자에서는 회원님의 개인정보를 저장하지 않습니다.</div>
-						</div>
-					</div>
-					<a href="#" class="btn-close"></a>
-				</div>
-			</div>
-			<!--//팝업 본인인증 안내 -->
-
-			<!--팝업-회원가입 여부 및 실명 확인 -->
-			<div class="pop-layer" id="pop-ismember">
-				<div class="dim" onClick="javascript:doLogin();"></div>
-				<div class="pop-wrap">
-					<div class="pop-title-wrap">
-						<h2 class="pop-title">회원가입 여부 및 실명 확인</h2>
-					</div>
-					<div class="pop-content">
-						<form name="frm" id="frm"
-							action="https://web.dominos.co.kr/global/login" method="post">
-							<div class="result-list">
-								<dl>
-									<dt>
-										<div class="chk-box">
-											<input type="radio" id="id" name="findId" value="domino11111">
-											<label class="checkbox" for="id"></label> <label for="id">domino**</label>
-										</div>
-									</dt>
-									<dd>
-										<div>
-											연동된 계정
-											<div class="sns-icon">
-												<i class="btn-naver"></i> <i class="btn-payco"></i> <i
-													class="btn-apple"></i>
-											</div>
-											<br>가입 : 2020-02-23
-										</div>
-									</dd>
-								</dl>
-							</div>
-						</form>
-						<p class="sub-text">이미 가입되어있는 회원정보입니다.</p>
-						<div class="btn-wrap">
-							<a href="javascript:doLoginGetId();" class="btn-type v6">로그인</a>
-							<a href="javascript:goFindIdPwd('#srchpw');" class="btn-type v4">비밀번호
-								찾기</a>
-						</div>
-					</div>
-					<a href="#" class="btn-close"></a>
-				</div>
-			</div>
 		</div>
+		
 		<div class="pop_toast" id="card_add" style="display: none;">
 			<div class="bg"></div>
 			<div class="pop_wrap">
@@ -240,21 +174,16 @@ function expireSession(){
 			</div>
 		</div>
 
-		<!-- //장바구니 담기 토스트 팝업(e) -->
-
-		<!-- 장바구니(s) -->
 		<div class="pop_layer pop_type" id="cart_pop" style="display: none;">
 			<div class="bg"></div>
 			<div class="pop_wrap">
 				<div class="pop_header">
 					<h2>장바구니</h2>
 				</div>
-				<!-- iframe src="100_cart_pop_frame.html" width="1000" height="832" frameborder="0"></iframe><!-- 2016-10-05//아이프레임대체 -->
 				<a href="javascript:;" onclick="setBasketCnt();"
 					class="btn_ico btn_close">닫기</a>
 			</div>
 		</div>
-		<!-- //장바구니(e) -->
 
 		<footer id="footer">
 			<div class="footer-area">
@@ -342,11 +271,8 @@ function expireSession(){
 					</ul>
 				</div>
 			</div>
-		</footer>		
-		<!-- //footer -->
+		</footer>
 	</div>
-	<!-- //wrap -->
-
-
 </body>
+
 </html>

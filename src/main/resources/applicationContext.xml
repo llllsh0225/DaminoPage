@@ -81,8 +81,13 @@
 		</mvc:message-converters>
 		
 		
-	</mvc:annotation-driven>
-	
+	</mvc:annotation-driven>	
+
+	<!-- 엑셀 다운로드를 위한 Bean 등록 -->
+	<!-- <beans:bean id="excelDownloadView" class="com.damino.web.test.ExcelDownloadView"/>
+    
+    <beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/> -->
+    
 	<!-- 파일 업로드를 위한 설정 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="5000000"></property> <!-- 파일의 최대 사이즈 -->
@@ -112,7 +117,7 @@
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
     	<property name="port" value="587" /> 
     	<property name="username" value="daminopizzaadm@gmail.com" /> 
-    	<property name="password" value="jabuueqezexgtsiv" /> 
+    	<property name="password" value="daminoadm1!" /> 
     	<property name="javaMailProperties"> 
     		<props>
     			<prop key="mail.smtp.host">smtp.gmail.com</prop>
@@ -123,5 +128,4 @@
     	</property> 
     </bean>
 
-    
 </beans>

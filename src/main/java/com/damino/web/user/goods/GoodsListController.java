@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
+import com.damino.web.admin.menu.PizzaVO;
+import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.order.DeliveryAddressVO;
 import com.damino.web.user.order.OrderService;
-import com.damino.web.user.quickorder.QuickOrderService;
 
 @Controller
 public class GoodsListController {
@@ -36,8 +36,6 @@ public class GoodsListController {
 	
 	@Autowired
 	private OrderService orderService;
-	@Autowired
-	private QuickOrderService quickOrderService;
 	
 	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
@@ -55,9 +53,14 @@ public class GoodsListController {
 		List<GoodsPizzaVO> goodsPremiumList = goodsListService.getPizzaList();
 		List<GoodsPizzaVO> goodsClassicList = goodsListService.getPizzaClassicList();
 
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+		
 		mav.addObject("goodsPremiumList", goodsPremiumList);
 		mav.addObject("goodsClassicList", goodsClassicList);
-
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		System.out.println("프리미엄 피자 리스트 : " + goodsPremiumList);
 		mav.setViewName("/goods/list");
 
@@ -77,8 +80,13 @@ public class GoodsListController {
 
 		List<GoodsSideVO> goodsSideList = goodsListService.getSideList();
 
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+		
 		mav.addObject("goodsSideList", goodsSideList);
-
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		mav.setViewName("/goods/side_list");
 
 		return mav;
@@ -97,7 +105,13 @@ public class GoodsListController {
 
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+		
 		mav.addObject("goodsDrinkEtcList", goodsDrinkEtcList);
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		mav.setViewName("/goods/drink_list");
 
 		return mav;
@@ -119,14 +133,20 @@ public class GoodsListController {
 		// DB에 있는 구별자 조회
 		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
 		
-		if (basketList.size() >= sideList.size()) {
-			int gubunDB = goodsListService.getNextGubun(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
-		}else if(sideList.size() > basketList.size()) {
-			int gubunDB = goodsListService.getNextGubunSide(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
+		if(!basketList.isEmpty()) {
+			if (basketList.size() >= sideList.size()) {
+				int gubunDB = goodsListService.getNextGubun(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
+			
+		}
+		else if(!sideList.isEmpty()) {
+			if(sideList.size() > basketList.size()) {
+				int gubunDB = goodsListService.getNextGubunSide(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
 		}
 		String s_code = request.getParameter("s_code");
 		System.out.println("s_code : " + s_code);
@@ -168,14 +188,21 @@ public class GoodsListController {
 		// DB에 있는 구별자 조회
 		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
 		
-		if (basketList.size() >= sideList.size()) {
-			int gubunDB = goodsListService.getNextGubun(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
-		}else if(sideList.size() > basketList.size()) {
-			int gubunDB = goodsListService.getNextGubunSide(userid);
-			System.out.println("gubunDB : " + gubunDB);
-			mav.addObject("gubunDB", gubunDB);
+		if(!basketList.isEmpty()) {
+			if (basketList.size() >= sideList.size()) {
+				int gubunDB = goodsListService.getNextGubun(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
+			
+		}
+
+		else if(!sideList.isEmpty()) {
+			if(sideList.size() > basketList.size()) {
+				int gubunDB = goodsListService.getNextGubunSide(userid);
+				System.out.println("gubunDB : " + gubunDB);
+				mav.addObject("gubunDB", gubunDB);
+			}
 		}
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);

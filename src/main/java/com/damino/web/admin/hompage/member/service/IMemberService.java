@@ -8,4 +8,6 @@ public interface IMemberService {
 	
 	List<MemberVO> selectAllMembers();
 	public List<MemberVO> selectAllPhone();
+	public void memberDel(MemberVO vo);
+	public MemberVO getUserMember(MemberVO vo);
 }

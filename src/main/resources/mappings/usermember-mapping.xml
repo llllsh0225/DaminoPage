@@ -41,6 +41,37 @@
 		SET userpasswd=#{userpasswd}, birthday=#{birthday}, cyear=#{cyear}, phone=#{phone}, email=#{email}, receive_sms=#{receive_sms}, receive_email=#{receive_email}, receive_dm=#{receive_dm}
 		WHERE userid=#{userid}
 	</update>
+	
+	<!-- 비회원 로그인 시 usermember 테이블에 비회원정보 insert -->
+	<insert id="insertGuestInfo" parameterType="com.damino.web.user.login.UserVO">
+		INSERT INTO usermember (userid, username, phone)
+		VALUES (#{userid}, #{username}, #{phone})
+	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findUserId" parameterType="com.damino.web.user.login.UserVO" resultType="String">
+		SELECT userid FROM usermember
+		<choose>
+			<when test='phone != ""'>
+				WHERE username = #{username} AND birthday = #{birthday} AND phone = #{phone}
+			</when>
+			<when test='email != ""'>
+				WHERE username = #{username} AND birthday = #{birthday} AND email = #{email}
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePasswd" parameterType="com.damino.web.user.login.UserVO">
+		UPDATE usermember SET userpasswd = #{userpasswd}
+		WHERE userid = #{userid}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="memberWithdraw" parameterType="com.damino.web.user.userinfo.UserInfoVO">
+		DELETE FROM usermember
+		WHERE userid = #{userid}
+	</delete>
 </mapper>
 
 

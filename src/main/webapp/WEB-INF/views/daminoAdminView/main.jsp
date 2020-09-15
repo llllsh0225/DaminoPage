@@ -54,7 +54,6 @@
 	
 	
 	
-	
 	/* ==== 달력 js ==== */
 	function beforem() //이전 달을 today에 값을 저장
 	{
@@ -133,9 +132,7 @@
 	}
 </script>
 
-<script>
-	
-</script>
+
 
 
 </head>
@@ -299,8 +296,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as: ${admin.adminid }</div>
-					Start Bootstrap
+					<div class="small">로그인 : ${admin.adminid }</div>
 				</div>
 			</nav>
 		</div>
@@ -461,7 +457,7 @@
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
 									<a class="small text-white stretched-link"
-										href="marketList.admdo">매장관리</a>
+										href="storeView.admdo">매장관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>

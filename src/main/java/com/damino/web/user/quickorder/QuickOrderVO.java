@@ -9,6 +9,8 @@ public class QuickOrderVO {
 	private String address; // 배송지 주소
 	private String tel; // 수령인 전화번호
 	private String menus; // 주문 메뉴
+	private int pre_price; // 총 주문 가격
+	private int count_price; // 할인 가격
 	private int price; // 총 결제가격
 	private String take; // 배달or포장
 	private String store; // 배달매장
@@ -105,6 +107,18 @@ public class QuickOrderVO {
 	}
 	public void setRequirements(String requirements) {
 		this.requirements = requirements;
+	}
+	public int getPre_price() {
+		return pre_price;
+	}
+	public void setPre_price(int pre_price) {
+		this.pre_price = pre_price;
+	}
+	public int getCount_price() {
+		return count_price;
+	}
+	public void setCount_price(int count_price) {
+		this.count_price = count_price;
 	}
 	
 }

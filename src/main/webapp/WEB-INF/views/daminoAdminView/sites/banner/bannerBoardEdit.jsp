@@ -180,8 +180,7 @@
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as: ${admin.adminid }</div>
-					Start Bootstrap
+					<div class="small">로그인 : ${admin.adminid }</div>
 				</div>
 			</nav>
 		</div>
@@ -221,8 +220,8 @@
 								</table>
 								<br>
 								<div id="insert-menu-btns" align="center">
-									<input type="submit" class="btn btn-primary" value="메뉴등록" /> <input
-										type="button" class="btn btn-delete" value="목록" />
+									<input type="submit" class="btn btn-primary" value="메뉴등록" /> 
+									<input type="button" class="btn btn-delete" value="목록" onclick="location.href='bannerBoardView.admdo'" />
 								</div>
 							</div>
 						</form>

@@ -27,6 +27,32 @@
 <script type="text/javascript"
 	src="<c:url value='/resources/js/user/ui.js'/>"></script>
 
+<script>
+
+	function inputCheck(){
+		var userid = $('#userid').val();
+		var passwd = $('#passwd').val();
+		
+		// 공백 및 비밀번호 일치 검사
+		if(passwd == ""){
+			$('#pwd_alert').text("비밀번호를 입력해주세요.");
+			$('#pwd_alert').show();
+			$('#pwd_alert2').hide();
+			$('#inputChk').val('N');
+		}else{
+			$('#inputChk').val('Y');
+		}
+	}
+	
+	function withdrawProc(){
+		inputCheck();
+		if($('#inputChk').val() != 'N'){
+			document.withdrawFrm.action = "doWithdraw.do";
+			document.withdrawFrm.submit();
+		}
+	}
+	
+</script>
 </head>
 <body>
 
@@ -37,14 +63,34 @@
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-
+					
 					<div class="location active">
 						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
 					</div>
 
-					<div class="util-nav">
-						<a href="login.do">로그인</a> <a href="login.do">회원가입</a>
-					</div>
+					<c:choose>
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
@@ -124,83 +170,32 @@
 							</div>
 							<div class="info-wrap">
 								<div class="user">다미노피자 회원탈퇴</div>
-								<div class="text-type">다미노피자를 이용해주셔서 감사합니다. 불편하셨던 점이나
-									불만사항을 알려주시면 적극 반영하도록 노력하겠습니다.</div>
+								<div class="text-type">다미노피자를 이용해주셔서 감사합니다. 탈퇴 시 고객님께서 보유하셨던 온라인 쿠폰과 등급 기록이 모두 삭제됩니다.</div>
 							</div>
 							<div class="myinfo-wrap withdrawal">
-								<div class="text-type4">탈퇴 시 고객님께서 보유하셨던 온라인 쿠폰과 등급 기록이 모두
-									삭제되며, 한번 탈퇴한 아이디는 다시 사용 불가능합니다.</div>
 								<div class="form">
-									<form name="f" id="f" action="/member/outMemberProc"
-										method="post">
-										<input type="hidden" name="id" id="id" value="llllsh0225" />
-										<input type="hidden" name="reason" id="reason" />
-										<dl>
-											<dt>탈퇴사유</dt>
-											<dd>
-												<div class="form">
-													<div class="chk-box selected">
-														<input type="radio" id="rdb_reason1" name="rdb_reason"
-															value="R1" checked="checked"> <label
-															class="checkbox" for="rdb_reason1"></label> <label
-															for="rdb_reason1">관리자 답변 불만</label>
-													</div>
-													<div class="chk-box">
-														<input type="radio" id="rdb_reason2" name="rdb_reason"
-															value="R2"> <label class="checkbox"
-															for="rdb_reason2"></label> <label for="rdb_reason2">회사
-															서비스에 대한 불만</label>
-													</div>
-													<div class="chk-box">
-														<input type="radio" id="rdb_reason3" name="rdb_reason"
-															value="R3"> <label class="checkbox"
-															for="rdb_reason3"></label> <label for="rdb_reason3">시스템
-															성능 불만</label>
-													</div>
-													<div class="chk-box">
-														<input type="radio" id="rdb_reason4" name="rdb_reason"
-															value="R4"> <label class="checkbox"
-															for="rdb_reason4"></label> <label for="rdb_reason4">사이트
-															정보 미흡</label>
-													</div>
-												</div>
-												<div class="form">
-													<div class="chk-box">
-														<input type="radio" id="rdb_reason5" name="rdb_reason"
-															value="R5"> <label class="checkbox"
-															for="rdb_reason5"></label> <label for="rdb_reason5">광고
-															메일 수신</label>
-													</div>
-													<div class="chk-box">
-														<input type="radio" id="rdb_reason6" name="rdb_reason"
-															value="R6"> <label class="checkbox"
-															for="rdb_reason6"></label> <label for="rdb_reason6">개인정보
-															보호</label>
-													</div>
-													<div class="chk-box">
-														<input type="radio" id="rdb_reason7" name="rdb_reason"
-															value="R7"> <label class="checkbox"
-															for="rdb_reason7"></label> <label for="rdb_reason7">기타</label>
-													</div>
-												</div>
-											</dd>
-										</dl>
-										<dl>
-											<dt>내용</dt>
-											<dd>
-												<div class="form info-form">
-													<textarea cols="30" rows="10" id="breakout_content"
-														maxlength="500"
-														placeholder="기타 불편사항 및 다미노피자에 바라는 고객님의 소중한 의견을 적어주세요.(500자 이내)"></textarea>
-												</div>
-											</dd>
-										</dl>
+									<form id="withdrawFrm" name="withdrawFrm" method="post">
+									<article>
+										<div style="margin-top:50px;"></div>
+										<div align="center">
+											<font size="4">비밀번호를 다시 입력해주세요.</font>
+											<div style="margin-top:40px;"></div>
+											<input type="hidden" id="inputChk" value="" />
+											<input type="hidden" id="userid" name="userid" value="${sessionScope.userid }" />
+											<input type="password" id="passwd" name="userpasswd" placeholder="비밀번호 입력" style="width:25%;">
+											<c:if test="${msg == 'fail' }">
+												<div class="text-type4" style="margin-top:5px;" id="pwd_alert2">비밀번호가 일치하지 않습니다.</div>
+											</c:if>
+											<div class="text-type4" style="display: none; margin-top:5px;" id="pwd_alert"></div>
+										</div>
+										<br>
+										<br>
+										<div class="btn-wrap">
+											<a href="main.do" class="btn-type v4">탈퇴취소</a> 
+											<a href="javascript:withdrawProc();" class="btn-type v6">탈퇴하기</a>
+										</div>
+									</article>
 									</form>
-								</div>
-								<div class="btn-wrap">
-									<a href="javascript:outMemberCancel();" class="btn-type v4">탈퇴
-										취소</a> <a href="javascript:outMemberProc();" class="btn-type v6">탈퇴하기</a>
-								</div>
 							</div>
 						</article>
 					</div>

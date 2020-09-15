@@ -30,56 +30,57 @@
 								</div>
 								<div class="card-body">
 									<form>
+										<input type="hidden" value="${userMember.seq }"/>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputFirstName">이름 </label>
 													<input class="form-control py-4" id="inputFirstName"
-														type="text" placeholder="" />
+														type="text" placeholder="" value="${userMember.username }"/>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputLastName">아이디 </label>
 													<input class="form-control py-4" id="inputLastName"
-														type="text" placeholder="" />
+														type="text" placeholder="" value="${userMember.userid }" />
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="small mb-1" for="inputEmailAddress">이메일</label>
 											<input class="form-control py-4" id="inputEmailAddress"
-												type="email" aria-describedby="emailHelp" placeholder="" />
+												type="text" aria-describedby="emailHelp" placeholder="" value="${userMember.email }"/>
 										</div>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputPassword">비밀번호</label>
 													<input class="form-control py-4" id="inputPassword"
-														type="text" placeholder="" />
+														type="password" placeholder="" />
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputConfirmPassword">전화번호</label>
+													<label class="small mb-1" for="inputConfirmPassword">비밀번호 확인</label>
 													<input class="form-control py-4" id="inputConfirmPassword"
-														type="text" placeholder="" />
+														type="password" placeholder="" />
 												</div>
 											</div>
 										</div>
 										<div class="form-row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputPassword">등급</label> <input
-														class="form-control py-4" id="inputPassword" type="text"
-														placeholder="" />
+													<label class="small mb-1" for="inputPassword">전화번호</label> 
+													<input class="form-control py-4" id="inputPassword" type="text"
+														placeholder="" value="${userMember.phone }" >
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-													<label class="small mb-1" for="inputConfirmPassword">생년월일</label>
+													<label class="small mb-1" for="inputConfirmPassword">등급</label>
 													<input class="form-control py-4" id="inputConfirmPassword"
-														type="text" placeholder="" />
+														type="text" placeholder="" value="${userMember.userlevel }"/>
 												</div>
 											</div>
 										</div>

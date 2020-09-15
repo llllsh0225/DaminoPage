@@ -150,10 +150,29 @@ function expireSession(){
                   <a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
                </div>
 
-               <div class="util-nav">
-                  <a href="login.do">로그인</a> 
-                  <a href="registMember.do">회원가입</a>
-               </div>
+               		<c:choose>
+						<c:when test="${guest == 'guest' }">
+							<!-- 비회원 로그인시 -->
+							<div class="util-nav">
+								guest 님&nbsp; <a href="regForm.do">회원가입</a><a href="logout.do">로그아웃</a> 
+							</div>
+						</c:when>
+						<c:when test="${msg != 'login'}">
+							<!-- 비로그인 -->
+							<div class="util-nav">
+								<a href="login.do">로그인</a> <a href="regForm.do">회원가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<!-- 로그인 -->
+							<div class="util-nav">
+								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
+								<a href="mylevel.do">나의정보</a> <a href="my_basket.do" class="btn-cart">
+									<i class="ico-cart"></i>
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
             </div>
          </div>
 
@@ -238,14 +257,9 @@ function expireSession(){
                               <input type="password" name="userpasswd" id="userpasswd" maxlength="20" placeholder="비밀번호"/> 
                            </div>
                            <div class="chk-item">
-                              <div class="chk-box v4">
-                                 <input type="checkbox" id="idcheck"> 
-                                 <label class="checkbox" for="idcheck"></label> 
-                                 <label for="idcheck">아이디저장</label>
-                              </div>
                               <div class="btn-member-wrap" style="margin-bottom: 20px">
-                                 <span><a href="javascript:goFindIdPwd('#srchid');">아이디 찾기</a></span> 
-                                       <span><a href="javascript:goFindIdPwd('#srchpw');">비밀번호 찾기</a></span>
+                                 <span><a href="findidpw.do?gubun=id">아이디 찾기</a></span> 
+                                       <span><a href="findidpw.do?gubun=pw">비밀번호 찾기</a></span>
                               </div>
                            </div>
 
@@ -255,7 +269,7 @@ function expireSession(){
 
                            </div>
                            <div class="btn-wrap">
-                              <a href="registMember.do" class="btn-type-brd5">회원가입</a>
+                              <a href="regForm.do" class="btn-type-brd5">회원가입</a>
                            </div>
                         </form>
                      </div>
@@ -266,7 +280,7 @@ function expireSession(){
                            <input type="hidden" name="hp" id="hp" value="" /> <input
                               type="hidden" name="returnUrl" id="returnUrl" value="/main" />
                            <div class="sub-text">
-                              아직 다미노피자 회원이 아니세요? <a href="registMember.do">회원가입</a>
+                              아직 다미노피자 회원이 아니세요? <a href="regForm.do">회원가입</a>
                            </div>
                            <div class="form">
                               <div class="form-item">

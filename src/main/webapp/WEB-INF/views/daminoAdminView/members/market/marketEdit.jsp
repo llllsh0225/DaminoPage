@@ -40,7 +40,6 @@ function btnConfirms(seq){
 	
 	var managerPasswd = $("#managerPasswd").val();
 	
-	alert("managerPasswd : " + managerPasswd);
 	 //변경 정보 컨트롤러로 전송
 	 $.ajax({
 		url : 'changeManagerPasswd.admdo',
@@ -227,8 +226,7 @@ function btnConfirms(seq){
 					</div>
 				</div>
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as: ${admin.adminid }</div>
-					Start Bootstrap
+					<div class="small">로그인 : ${admin.adminid }</div>
 				</div>
 			</nav>
 		</div>
