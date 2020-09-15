@@ -35,6 +35,15 @@ public class UserInfoController {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder;
 	
+	@RequestMapping("/withdrawal.do")
+	public ModelAndView getWithdrawal() {
+		System.out.println("회원탈퇴 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/withdrawal");
+		return mav;
+	}
+	
 	@RequestMapping("/myuserinfoconfirm.do")
 	public ModelAndView getMyUserInfoConfirm() {
 		System.out.println("내 정보수정 열기");

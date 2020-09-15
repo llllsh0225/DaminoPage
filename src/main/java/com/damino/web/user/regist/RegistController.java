@@ -23,10 +23,24 @@ public class RegistController {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체
 
-	@RequestMapping(value="/registMember.do", method = RequestMethod.GET)
-	public String registMember() {
-		
-		return "/userinfo/regForm";
+	@RequestMapping("/regForm.do")
+	   public ModelAndView getUserRegFormPage() {
+	      System.out.println("사용자 회원 가입 페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/userinfo/regForm");
+	      
+	      return mav;
+	   }
+	@RequestMapping("/regResult.do")
+	   public ModelAndView getUserRegResultPage() {
+	      System.out.println("사용자 회원 가입 결과 페이지 열기");
+	      
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/userinfo/regResult");
+	      
+	      return mav;
+	   
 	}
 	
 	@RequestMapping(value = "/registMember.do", method = RequestMethod.POST)

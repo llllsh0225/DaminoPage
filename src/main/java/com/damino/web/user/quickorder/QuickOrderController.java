@@ -40,6 +40,16 @@ public class QuickOrderController {
 	// 상세주소 입력 페이지로 보낼 매장명 리스트 객체
 	private List<MarketAdminMemberVO> storeNameList = new ArrayList<MarketAdminMemberVO>();
 	
+	@RequestMapping("/quickOrderDefaultSet.do")
+	public ModelAndView getQuickOrderDefault() {
+		System.out.println("퀵오더 디폴트 세팅페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/quickorder/quickOrder_defaultSetting");
+		
+		return mav;
+	}
+	
 	@RequestMapping("/quickOrder.do")
 	public ModelAndView getQuickOrderPage(ModelAndView mav, HttpSession session) {
 		System.out.println("퀵오더페이지 열기");

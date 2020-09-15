@@ -117,4 +117,13 @@ public class LoginController {
 		return mav;
 	}
 	
+	@RequestMapping("/findidpw.do")
+	public ModelAndView getFindIdPw() {
+		System.out.println("아이디/비밀번호 찾기 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/userinfo/find_id_pw");
+		return mav;
+	}
+	
 }

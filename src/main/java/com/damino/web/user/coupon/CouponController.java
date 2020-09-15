@@ -22,6 +22,15 @@ public class CouponController {
 	@Autowired
 	private CouponService couponService;
 	
+	@RequestMapping("/ecouponInput.do")
+	public ModelAndView getEcouponInputPage() {
+		System.out.println("ecoupon 입력페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/ecoupon/ecouponInput");
+		return mav;
+	}
+	
 	@RequestMapping(value="/insertManiaCoupon.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String insertManiaCoupon(@RequestBody Map<String, Object> param, HttpServletRequest request) { // [나의 정보]-[쿠폰 지급] 매니아 쿠폰 지급 메서드

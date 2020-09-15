@@ -27,6 +27,16 @@ public class MarketAdminRegistController {
 	@Autowired
 	private BCryptPasswordEncoder pwdEncoder; // 비밀번호 암호화 기능 수행하는 객체
 
+	@RequestMapping("/managerRegister.smdo")
+	public ModelAndView getManagerRegisterPage() {
+		System.out.println("회원가입 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/managerRegister");
+		
+		return mav;
+	}
+	
 	@RequestMapping(value = "/registMarketAdminMember.smdo", method = RequestMethod.POST)
 	public ModelAndView registMember(@ModelAttribute MarketAdminMemberVO vo, ModelAndView mav, HttpServletRequest request, HttpServletResponse response) throws Throwable{
 		System.out.println("매장관리자 멤버 등록");

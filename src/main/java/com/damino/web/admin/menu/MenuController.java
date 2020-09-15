@@ -24,6 +24,46 @@ public class MenuController {
 	@Autowired
 	private MenuService menuService;
 	
+	@RequestMapping("/insertMenu_drink.admdo")
+	public ModelAndView getAdminInsertMenu_drinkPage() {
+		System.out.println("메뉴추가 - 음료 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_drink");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/insertMenu_pizza.admdo")
+	public ModelAndView getAdminInsertMenu_pizzaPage() {
+		System.out.println("메뉴추가 - 피자 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_pizza");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/insertMenu_side.admdo")
+	public ModelAndView getAdminInsertMenu_sidePage() {
+		System.out.println("메뉴추가 - 사이드디쉬 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_side");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/insertMenu_topping.admdo")
+	public ModelAndView getAdminInsertMenu_toppingPage() {
+		System.out.println("메뉴추가 - 토핑 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/menu/insertMenu_topping");
+		
+		return mav;
+	}
+	
 	/**
 	 * 피자 메뉴정보, 영양성분 insert
 	 */

@@ -41,6 +41,26 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping("/smsForm.admdo")
+	public ModelAndView getAdminSmsFormPage() {
+		System.out.println("문자 발송 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/smsForm");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/emailForm.admdo")
+	public ModelAndView getAdminEmailFormPage() {
+		System.out.println("이메일 발송 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/member/emailForm");
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="/sendSms2.admdo")
 	public String sendSms(HttpServletRequest request ) throws Exception {
 		
@@ -48,9 +68,6 @@ public class MemberController {
 		String api_secret = "B5AFCHCWXWG3SYM1QVUHSOSOXD4BTXIJ"; // API SECRET
 		String daminoTel = "01093613740"; // CoolSMS에 등록된 발신 번호
 		Message sendKey = new Message(api_key, api_secret);
-	
-//		String[] to= request.getParameterValues("from");
-//		for(int i=0;i<to.length;i++) {
 
 		HashMap<String, String> set = new HashMap<String, String>();
 		set.put("from", daminoTel);	
@@ -65,19 +82,6 @@ public class MemberController {
 //		}
 		return "redirect:main.admdo";
 	}
-	
-//	@RequestMapping(value ="/smsForm2.admdo", method = {RequestMethod.POST, RequestMethod.GET})
-//	@ResponseBody
-//	public ModelAndView getAdminSmsFormPage(HttpServletRequest request) {
-//		System.out.println("문자 발송 페이지 열기");
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName("/members/member/smsForm2");
-//		String temp[] = request.getParameterValues("phone");
-//		System.out.println(temp);
-////		mav.addObject(valueArr);
-////		System.out.println(valueArr);
-//		return mav;
-//	}
 
 	@PostMapping("/smsForm2.admdo")
 	public String sendsms(@RequestParam(value="phone", required=false, defaultValue="no phone") List<String> phone, Model model) {

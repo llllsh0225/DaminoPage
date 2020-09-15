@@ -26,6 +26,15 @@ public class QnaBoardController {
 	@Autowired
 	private MailService mailService;
 	
+	@RequestMapping("/qnaForm.do")
+	public ModelAndView getQnaFormPage() {
+		System.out.println("1:1 문의 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/board/qnaForm");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/myquestionlist.do", method = RequestMethod.GET)
 	public ModelAndView getMyQuestionList(HttpServletRequest request, HttpServletResponse response, QnaBoardVO vo, Paging pa, HttpSession session) throws Throwable{
 		System.out.println("내 질문내역 1:1 열기");

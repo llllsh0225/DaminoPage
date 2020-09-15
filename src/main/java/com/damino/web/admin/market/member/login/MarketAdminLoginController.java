@@ -160,66 +160,14 @@ public class MarketAdminLoginController {
       return "members/managerLogin";
    }
 
-//   @RequestMapping(value="/managerRegister2.smdo", method=RequestMethod.GET)
-//   public String managerChangePage(HttpSession session, Model model) {
-//      System.out.println("회원정보 수정 페이지 열기");
-//      String managerId = (String)session.getAttribute("id");
-//      MarketAdminVO manager = marketAdminLoginService.checkMemberId(managerId);
-//      model.addAttribute("manager", manager);
-//      return "members/managerRegister2";
-//   }
-
-//   @RequestMapping(value="/managerRegister2.smdo", method=RequestMethod.POST)
-//   public String managerChangePage(Model model, MarketAdminVO manager, HttpSession session) {
-//      System.out.println("회원정보 수정");
-//      
-//      String pwd = manager.getManagerpasswd();
-//      String managerPasswd = pwdEncoder.encode(pwd);
-//      manager.setManagerpasswd(managerPasswd);
-//      
-//      marketAdminLoginService.updateMember(manager);
-//      session.invalidate();
-//      System.out.println("수정이 완료 되었습니다.");
-//      return "redirect:/managerLogin.smdo";
-//   }
-
-//   @RequestMapping(value="member/update", method=RequestMethod.GET)
-//   public String memberUpdate(HttpSession session, Model model) {
-//      String id = (String)session.getAttribute("id");
-//      MemberVO member = memberService.checkMemberId(id);
-//      model.addAttribute("member", member);
-//      return "member/update_form";
-//   }
-//   
-//   @RequestMapping(value="member/update", method=RequestMethod.POST)
-//   public String memberUpdate(Model model, MemberVO member) { 
-//      memberService.updateMember(member);
-//      return "redirect:../"; 
-//   }
-
-//   @RequestMapping(value="/loginTest.smdo", method=RequestMethod.GET)
-//   private String loginView(MarketAdminVO vo) {
-//      System.out.println("로그인 페이지로 이동");
-//      System.out.println(marketAdminLoginService.toString());
-//      return "members/managerLogin";
-//   }   
-//   
-//   @RequestMapping(value="/loginTest.smdo", method=RequestMethod.POST)
-//   private ModelAndView loginCheck(MarketAdminVO vo, ModelAndView mav, HttpSession session) {
-//      System.out.println("로그인 인증 처리");
-//      
-//      MarketAdminVO user = marketAdminLoginService.getMember(vo);
-//      
-//      if(user != null) {
-//         System.out.println("로그인에 성공하였습니다.");
-//         mav.setViewName("main");
-//         return mav;
-//      }else {
-//         System.out.println("로그인에 실패하였습니다.");
-//         
-//         mav.setViewName("login/login");
-//
-//         return mav;
-//      }
-//   }
+   @RequestMapping("/passwordChange.smdo")
+	public ModelAndView getManagerPasswordChangePage() {
+		System.out.println("비밀번호 변경 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/members/passwordChange");
+		
+		return mav;
+	}
+   
 }

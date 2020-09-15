@@ -13,6 +13,16 @@ public class FaqController {
 	@Autowired
 	private FaqService faqService;
 	
+	@RequestMapping("/qna_insert.admdo")
+	public ModelAndView getAdminQna_insertPage() {
+		System.out.println("문의사항 추가 페이지 열기");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/sites/questionAndAnswer/qna_insert");
+		
+		return mav;
+	}
+	
 	// GET 방식으로 접근했을 때 (FAQ 전체 목록 불러오기)
 	@RequestMapping(value="/qna_list.admdo", method=RequestMethod.GET)
 	public ModelAndView getFaqList(FaqVO vo, ModelAndView mav){
