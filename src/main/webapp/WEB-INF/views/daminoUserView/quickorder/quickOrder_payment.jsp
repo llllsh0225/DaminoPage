@@ -730,6 +730,7 @@ function expireSession(){
 					<input type="hidden" id="username" value="${user.username }" />
 					<input type="hidden" id="userphone" value="${user.phone }" />
 					<input type="hidden" id="useremail" value="${user.email }" />
+					<input type="hidden" id="gubun" value="${gubun }" />
 					<input type="hidden" id="deliverAddress" value="${defaultAddress.address }" />
 					<input type="hidden" id="deliverStore" value="${defaultAddress.storename }" />
 					<input type="hidden" id="storePhone" value="${defaultAddress.storephone }" />
@@ -753,8 +754,8 @@ function expireSession(){
 								<h2 class="page-title">결제하기</h2>
 								<div class="depth-area">
 									<ol>
-										<li><a href="/main">홈</a></li>
-										<li><a href="/basket/detail">장바구니</a></li>
+										<li><a href="main.do">홈</a></li>
+										<li><a href="my_basket.do">장바구니</a></li>
 										<li><strong>결제하기</strong></li>
 									</ol>
 								</div>
@@ -768,16 +769,25 @@ function expireSession(){
 											<strong>수령인 정보</strong>
 										</h3>
 									</div>
-									<!-- 배달 -->
-									<div class="deli-info">
-										<div class="address">${defaultAddress.address }</div>
-										<div class="store">
-											<span>${defaultAddress.storename }</span>${defaultAddress.storephone }</div>
-									</div>
-									<!-- // 배달 -->
-
-									<!-- 포장 -->
-									<!-- // 포장 -->
+									
+									<!-- 배달 / 포장 -->
+									<c:choose>
+										<c:when test="${gubun == 'D' }">
+											<div class="deli-info">
+												<div class="address">${defaultAddress.address }</div>
+												<div class="store">
+													<span>${defaultAddress.storename }</span>${defaultAddress.storephone }</div>
+											</div>
+										</c:when>
+										<c:when test="${gubun == 'W' }">
+											<div class="deli-info">
+												<div class="address">${defaultStore.storeaddr }</div>
+												<div class="store">
+													<span>${defaultStore.storename }</span>${defaultStore.storephone }</div>
+											</div>
+										</c:when>
+									</c:choose>
+									
 
 									<div class="deli-info form">
 										<dl class="chk-wrap">
