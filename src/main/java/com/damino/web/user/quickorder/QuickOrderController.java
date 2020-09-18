@@ -435,8 +435,20 @@ public class QuickOrderController {
 		
 		List<QuickOrderGoodsVO> quickOrderGoodsList = quickOrderService.getQuickOrderGoodsList(userid);	
 		QuickOrderAddressVO defaultAddress = quickOrderService.getDefaultDeliveryAddress(userid);
+		QuickOrderStoreVO defaultStore = quickOrderService.getDefaultWrapStore(userid);
 		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
-		MarketVO hourInfo = quickOrderService.getBusinessHour(defaultAddress.getStorename()); // 배달매장의 영업시간 정보 가져오기
+
+		if(defaultAddress != null) {
+			MarketVO hourInfo = quickOrderService.getBusinessHour(defaultAddress.getStorename()); // 배달매장의 영업시간 정보 가져오기
+			mav.addObject("defaultAddress", defaultAddress);
+			mav.addObject("hourInfo", hourInfo);
+			mav.addObject("gubun", "D"); // 구분 - 배달주문
+		}
+		
+		if(defaultStore != null) {
+			mav.addObject("defaultStore", defaultStore);
+			mav.addObject("gubun", "W"); // 구분 - 포장주문
+		}
 		
 		String goodsName = ""; // 저장된 제품명을 담을 문자열
 		String goodsPrice = ""; // 저장된 제품가격을 담을 문자열
@@ -473,13 +485,13 @@ public class QuickOrderController {
 			}
 		}
 		
-		mav.addObject("hourInfo", hourInfo);
+		
 		mav.addObject("goodsName", goodsName);
 		mav.addObject("goodsPrice", goodsPrice);
 		mav.addObject("goodsQty", goodsQty);
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("quickOrderGoodsList", quickOrderGoodsList);
-		mav.addObject("defaultAddress", defaultAddress);
+		
 		mav.addObject("couponName", couponName);
 		mav.addObject("couponCode", couponCode);
 		mav.addObject("discountRate", discountRate);
