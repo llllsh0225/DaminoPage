@@ -128,26 +128,30 @@ public class GoodsListController {
 
 		} else {
 			session.setAttribute("msg", "login");
-		}
-		List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
-		// DB에 있는 구별자 조회
-		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
-		
-		if(!basketList.isEmpty()) {
-			if (basketList.size() >= sideList.size()) {
-				int gubunDB = goodsListService.getNextGubun(userid);
-				System.out.println("gubunDB : " + gubunDB);
-				mav.addObject("gubunDB", gubunDB);
+			
+			List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
+			// DB에 있는 구별자 조회
+			List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
+			
+			if(!basketList.isEmpty()) {
+				if (basketList.size() >= sideList.size()) {
+					int gubunDB = goodsListService.getNextGubun(userid);
+					System.out.println("gubunDB : " + gubunDB);
+					mav.addObject("gubunDB", gubunDB);
+				}
+				
+			}
+
+			else if(!sideList.isEmpty()) {
+				if(sideList.size() > basketList.size()) {
+					int gubunDB = goodsListService.getNextGubunSide(userid);
+					System.out.println("gubunDB : " + gubunDB);
+					mav.addObject("gubunDB", gubunDB);
+				}
 			}
 			
 		}
-		else if(!sideList.isEmpty()) {
-			if(sideList.size() > basketList.size()) {
-				int gubunDB = goodsListService.getNextGubunSide(userid);
-				System.out.println("gubunDB : " + gubunDB);
-				mav.addObject("gubunDB", gubunDB);
-			}
-		}
+		
 		String s_code = request.getParameter("s_code");
 		System.out.println("s_code : " + s_code);
 		String s_name = request.getParameter("s_name");
@@ -178,32 +182,34 @@ public class GoodsListController {
 			HttpSession session) {
 		System.out.println("사용자 선택 피자메뉴 열기");
 		String userid = (String) session.getAttribute("userid");
-
+		
 		if (userid == null) {
 
 		} else {
 			session.setAttribute("msg", "login");
-		}
-		List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
-		// DB에 있는 구별자 조회
-		List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
-		
-		if(!basketList.isEmpty()) {
-			if (basketList.size() >= sideList.size()) {
-				int gubunDB = goodsListService.getNextGubun(userid);
-				System.out.println("gubunDB : " + gubunDB);
-				mav.addObject("gubunDB", gubunDB);
-			}
 			
-		}
+			List<UserBasketVO> basketList = goodsListService.getBasketPizza(userid);
+			// DB에 있는 구별자 조회
+			List<UserBasketVO> sideList = goodsListService.getBasketSide(userid);
+			
+			if(!basketList.isEmpty()) {
+				if (basketList.size() >= sideList.size()) {
+					int gubunDB = goodsListService.getNextGubun(userid);
+					System.out.println("gubunDB : " + gubunDB);
+					mav.addObject("gubunDB", gubunDB);
+				}
+				
+			}
 
-		else if(!sideList.isEmpty()) {
-			if(sideList.size() > basketList.size()) {
-				int gubunDB = goodsListService.getNextGubunSide(userid);
-				System.out.println("gubunDB : " + gubunDB);
-				mav.addObject("gubunDB", gubunDB);
+			else if(!sideList.isEmpty()) {
+				if(sideList.size() > basketList.size()) {
+					int gubunDB = goodsListService.getNextGubunSide(userid);
+					System.out.println("gubunDB : " + gubunDB);
+					mav.addObject("gubunDB", gubunDB);
+				}
 			}
 		}
+		
 		String p_code = request.getParameter("p_code");
 		System.out.println("p_code : " + p_code);
 		String p_name = request.getParameter("p_name");
