@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.damino</groupId>
 	<artifactId>web</artifactId>
-	<name>DaminoPage</name>
+	<name>daminoPage</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
