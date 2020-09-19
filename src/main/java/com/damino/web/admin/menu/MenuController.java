@@ -301,11 +301,10 @@ public class MenuController {
 			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
 			p_image = uuid + "." + ext;
 			uploadFile.transferTo(new File(path + "/" + p_image));
+			vo.setP_image(p_image);
+			vo.setP_originalFileName(originalFileName);
 		}
 
-		
-		vo.setP_image(p_image);
-		vo.setP_originalFileName(originalFileName);
 			
 		menuService.updatePizza(vo);
 		mav.setViewName("redirect:/menuList.admdo");
@@ -329,10 +328,10 @@ public class MenuController {
 			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
 			s_image = uuid + "." + ext;
 			uploadFile.transferTo(new File(path + "/" + s_image));
+			vo.setS_image(s_image);
+			System.out.println(vo.getS_image());
+			vo.setS_originalFileName(originalFileName);
 		}
-		
-		vo.setS_image(s_image);
-		vo.setS_originalFileName(originalFileName);
 		
 		menuService.updateSide(vo);
 		mav.setViewName("redirect:/menuSideList.admdo");
@@ -355,10 +354,9 @@ public class MenuController {
 			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
 			d_image = uuid + "." + ext;
 			uploadFile.transferTo(new File(path + "/" + d_image));
+			vo.setD_image(d_image);
+			vo.setD_originalFileName(originalFileName);
 		}
-		
-		vo.setD_image(d_image);
-		vo.setD_originalFileName(originalFileName);
 		
 		menuService.updateDrinkEtc(vo);
 		mav.setViewName("redirect:/menuDrinkEtcList.admdo");
@@ -367,7 +365,7 @@ public class MenuController {
 	
 	@RequestMapping(value="/updateTopping.admdo", method = RequestMethod.POST)
 	public ModelAndView updateTopping(ModelAndView mav, ToppingVO vo, HttpServletRequest request)throws IOException {
-		System.out.println("음료 업데이트");
+		System.out.println("토핑 업데이트");
 		
 		String path = request.getSession().getServletContext().getRealPath("/resources/images/admin/goods"); // 이미지가 저장될 절대 경로
 		
@@ -381,10 +379,9 @@ public class MenuController {
 			UUID uuid = UUID.randomUUID(); // UUID 생성 (file id)
 			t_image = uuid + "." + ext;
 			uploadFile.transferTo(new File(path + "/" + t_image));
+			vo.setT_image(t_image);
+			vo.setT_originalFileName(originalFileName);
 		}
-		
-		vo.setT_image(t_image);
-		vo.setT_originalFileName(originalFileName);
 		
 		menuService.updateTopping(vo);
 		mav.setViewName("redirect:/menuToppingList.admdo");

@@ -106,11 +106,11 @@
 	
 	<update id="updatePizza" parameterType="com.damino.web.admin.menu.PizzaVO">
 			UPDATE pizza 
-			<if test = "#{p_originalFileName} != null">
+			<if test = "#{p_image} != null">
 			SET p_name=#{p_name}, p_type=#{p_type}, p_price_l=#{p_price_l}, p_price_m=#{p_price_m}, p_dough=#{p_dough}, p_originalFileName=#{p_originalFileName}, p_image=#{p_image}, gross_weight_m=#{gross_weight_m}, gross_weight_l=#{gross_weight_l}, onetime_basis_m=#{onetime_basis_m}, onetime_basis_l=#{onetime_basis_l}, onetime_weight_m=#{onetime_weight_m}, onetime_weight_l=#{onetime_weight_l}, kcal_m=#{kcal_m}, kcal_l=#{kcal_l}, protein_m=#{protein_m}, protein_l=#{protein_l}, fat_m=#{fat_m}, fat_l=#{fat_l}, natrium_m=#{natrium_m}, natrium_l=#{natrium_l}, sugars_m=#{sugars_m}, sugars_l=#{sugars_l}
 			where seq=#{seq}			
 			</if>
-			<if test = "#{p_originalFileName} == null">
+			<if test = "#{p_image} == null">
 			SET p_name=#{p_name}, p_type=#{p_type}, p_price_l=#{p_price_l}, p_price_m=#{p_price_m}, p_dough=#{p_dough}, gross_weight_m=#{gross_weight_m}, gross_weight_l=#{gross_weight_l}, onetime_basis_m=#{onetime_basis_m}, onetime_basis_l=#{onetime_basis_l}, onetime_weight_m=#{onetime_weight_m}, onetime_weight_l=#{onetime_weight_l}, kcal_m=#{kcal_m}, kcal_l=#{kcal_l}, protein_m=#{protein_m}, protein_l=#{protein_l}, fat_m=#{fat_m}, fat_l=#{fat_l}, natrium_m=#{natrium_m}, natrium_l=#{natrium_l}, sugars_m=#{sugars_m}, sugars_l=#{sugars_l}
 			where seq=#{seq}	
 			</if>
@@ -118,23 +118,23 @@
 	
 	<update id="updateSide" parameterType="com.damino.web.admin.menu.SideVO">
 			UPDATE side
-			<if test = "#{s_originalFileName} != null">
-			set	s_name=#{s_name }, s_price=#{s_price }, gross_weight=#{gross_weight }, kcal=#{kcal }, protein=#{protein }, fat=#{fat }, natrium=#{natrium }, sugars=#{sugars }, s_originalFileName=#{s_originalFileName }
+			<if test = "#{s_image} != null">
+			set	s_name=#{s_name }, s_price=#{s_price }, gross_weight=#{gross_weight }, kcal=#{kcal }, protein=#{protein }, fat=#{fat }, natrium=#{natrium }, sugars=#{sugars }, s_image=#{s_image }, s_originalFileName=#{s_originalFileName}
 			where seq=#{seq}
 			</if>
-			<if test = "#{s_originalFileName} == null">
+			<if test = "#{s_image} == null">
 			set	s_name=#{s_name }, s_price=#{s_price }, gross_weight=#{gross_weight }, kcal=#{kcal }, protein=#{protein }, fat=#{fat }, natrium=#{natrium }, sugars=#{sugars }
 			where seq=#{seq}
 			</if>
 	</update>
 	
 	<update id="updateDrinkEtc" parameterType="com.damino.web.admin.menu.DrinkEtcVO">
-			<if test = "#{d_originalFileName} != null">
+			<if test = "#{d_image} != null">
 			UPDATE drink_etc
-			set d_name=#{d_name}, d_price=#{d_price}, d_originalFileName=#{d_originalFileName}
+			set d_name=#{d_name}, d_price=#{d_price}, d_image=#{d_image}, d_originalFileName=#{d_originalFileName}
 			where seq=#{seq}
 			</if>
-			<if test = "#{d_originalFileName} == null">
+			<if test = "#{d_image} == null">
 			UPDATE drink_etc
 			set d_name=#{d_name}, d_price=#{d_price}
 			where seq=#{seq}
@@ -142,12 +142,12 @@
 	</update>	
 	
 	<update id="updateTopping" parameterType="com.damino.web.admin.menu.ToppingVO">
-			<if test = "#{t_originalFileName} != null">
+			<if test = "#{t_image} != null">
 			UPDATE topping
-			set t_name=#{t_name}, t_price=#{t_price}, t_originalFileName=#{t_originalFileName}
+			set t_name=#{t_name}, t_price=#{t_price}, t_image=#{t_image}, t_originalFileName=#{t_originalFileName}
 			where seq=#{seq}
 			</if>
-			<if test = "#{t_originalFileName} == null">
+			<if test = "#{t_image} == null">
 			UPDATE topping
 			set t_name=#{t_name}, t_price=#{t_price}
 			where seq=#{seq}
