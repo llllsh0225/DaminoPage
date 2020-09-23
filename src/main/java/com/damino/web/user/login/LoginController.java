@@ -74,7 +74,7 @@ public class LoginController {
 				int inactive = session.getMaxInactiveInterval();
 				System.out.println("세션 유효 시간 : " + inactive);
 				
-				//배너
+				//로그인시 배너 이미지 main출력
 				List<UserBannerVO> bannerList = userBannerService.getUserBannerList();
 				
 				mav.addObject("username", login.getUsername());
@@ -111,6 +111,11 @@ public class LoginController {
 		System.out.println("로그아웃");
 		System.out.println(session.getAttribute("username"));
 		session.invalidate();
+		
+		//로그아웃시 배너 이미지 main출력
+		List<UserBannerVO> bannerList = userBannerService.getUserBannerList();
+		mav.addObject("bannerList", bannerList);
+		
 		mav.addObject("msg", "logout"); // logout 메세지 세팅
 		mav.addObject("username", null);
 		mav.setViewName("main");
