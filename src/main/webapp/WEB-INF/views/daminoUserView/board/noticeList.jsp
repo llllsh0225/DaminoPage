@@ -62,9 +62,6 @@ function expireSession(){
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 			<input type="hidden" id="userid" value="${sessionScope.userid}" />
-					<div class="location active">
-						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
-					</div>
 
 					<c:choose>
 						<c:when test="${guest == 'guest' }">
@@ -119,7 +116,6 @@ function expireSession(){
 									<li><a
 										href="faqMain.do">자주하는
 											질문</a></li>
-									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">
@@ -150,7 +146,7 @@ function expireSession(){
 							<h2 class="page-title">공지사항</h2>
 							<div class="depth-area">
 								<ol>
-									<li><a href="#">홈</a></li>
+									<li><a href="main.do">홈</a></li>
 									<li><a href="noticeList.do">공지사항</a></li>
 									<li><strong>공지사항</strong></li>
 								</ol>
@@ -160,8 +156,20 @@ function expireSession(){
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li><a href="noticeList.do">공지사항</a></li>
-										<li><a href="noticeList.do">보도자료</a></li>
+										<c:choose>
+											<c:when test="${param.gubun == 'notice' }">
+												<li class="active"><a href="noticeList.do?gubun=notice">공지사항</a></li>
+												<li><a href="noticeList.do?gubun=news">보도자료</a></li>
+											</c:when>
+											<c:when test="${param.gubun == 'news' }">
+												<li><a href="noticeList.do?gubun=notice">공지사항</a></li>
+												<li class="active"><a href="noticeList.do?gubun=news">보도자료</a></li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="noticeList.do?gubun=notice">공지사항</a></li>
+												<li><a href="noticeList.do?gubun=news">보도자료</a></li>
+											</c:otherwise>
+										</c:choose>
 									</ul>
 								</div>
 							</div>
@@ -223,13 +231,14 @@ function expireSession(){
 									<div class="pagination">
 										<ol>
 										 	<c:if test="${noticePageMaker.prev}">
-										    	<li><a href="noticeList.do${noticePageMaker.makeQuery(noticePageMaker.startPage - 1)}">이전</a></li>
+										 		<li><a href="noticeList.do${noticePageMaker.makeQuery(noticePageMaker.startPage - 1)}">이전</a></li>
 										    </c:if> 
-										
-										    <c:forEach begin="${noticePageMaker.startPage}" end="${noticePageMaker.endPage}" var="idx">
-										    	<li><a href="noticeList.do${noticePageMaker.makeQuery(idx)}">${idx}</a></li>
-										    </c:forEach>
-										
+										    
+											<c:forEach begin="${noticePageMaker.startPage}" end="${noticePageMaker.endPage}" var="idx">
+												<li><a href="noticeList.do${noticePageMaker.makeQuery(idx)}">${idx}</a></li>
+											</c:forEach>
+										    
+											
 										    <c:if test="${noticePageMaker.next && noticePageMaker.endPage > 0}">
 										    	<li><a href="noticeList.do${noticePageMaker.makeQuery(noticePageMaker.endPage + 1)}">다음</a></li>
 										    </c:if> 
