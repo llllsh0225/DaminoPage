@@ -431,7 +431,6 @@ function expireSession(){
 								<a href="faqMain.do">고객센터</a>
 								<ul>
 									<li><a href="faqMain.do">자주하는 질문</a></li>
-									<li><a href="qnaForm.do">온라인 신문고</a></li>
 								</ul>
 							</div>
 							<div class="mnu-box">

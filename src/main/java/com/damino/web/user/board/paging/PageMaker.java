@@ -12,6 +12,7 @@ public class PageMaker {
 	private int displayPageNum = 10; //페이지당 보여주는 게시글 수
 	private Paging pa;
 	private String writerId;
+	private String gubun; // 게시판 카테고리
 	
 	
 	
@@ -78,12 +79,28 @@ public class PageMaker {
 	}
 	
 	public String makeQuery(int pageNo) {
-		UriComponents uriComponents =
-		UriComponentsBuilder.newInstance()
-						    .queryParam("pageNo", pageNo)
-							.queryParam("perPageNum", pa.getPerPageNum())
-							.build();
+		UriComponents uriComponents = null;
+		if(gubun != null) {
+			uriComponents =
+					UriComponentsBuilder.newInstance()
+										.queryParam("gubun", gubun)
+									    .queryParam("pageNo", pageNo)
+										.queryParam("perPageNum", pa.getPerPageNum())
+										.build();
+		}else {
+			uriComponents =
+					UriComponentsBuilder.newInstance()
+									    .queryParam("pageNo", pageNo)
+										.queryParam("perPageNum", pa.getPerPageNum())
+										.build();
+		}
 		   
 		return uriComponents.toUriString();
+	}
+	public String getGubun() {
+		return gubun;
+	}
+	public void setGubun(String gubun) {
+		this.gubun = gubun;
 	}
 }

@@ -97,8 +97,32 @@
       	SELECT * FROM board WHERE seq=#{seq}
    	</select>
    
+   	<select id="getNoticeCategory" parameterType="com.damino.web.user.board.paging.Paging" resultType="com.damino.web.user.board.NoticeBoardVO">
+   		<![CDATA[
+		SELECT * FROM (SELECT rownum rnum, seq, title, writer, regdate, cnt, flag
+		FROM (SELECT * FROM board WHERE flag = '공지사항' ORDER BY seq desc))
+		WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		]]>
+   	</select>
+   	
+   	<select id="getNewsCategory" parameterType="com.damino.web.user.board.paging.Paging" resultType="com.damino.web.user.board.NoticeBoardVO">
+   		<![CDATA[
+		SELECT * FROM (SELECT rownum rnum, seq, title, writer, regdate, cnt, flag
+		FROM (SELECT * FROM board WHERE flag = '보도자료' ORDER BY seq desc))
+		WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+		]]>
+   	</select>
+   	
    	<select id="countNoticeBoard" resultType="int">
         SELECT COUNT(*) FROM board
+   	</select>
+   	
+   	<select id="countNoticeCategory" resultType="int">
+   		SELECT COUNT(*) FROM board WHERE flag = '공지사항'
+   	</select>
+   	
+   	<select id="countNewsCategory" resultType="int">
+   		SELECT COUNT(*) FROM board WHERE flag = '보도자료'
    	</select>
    	
    	<update id="increaseCnt" parameterType="com.damino.web.user.board.NoticeBoardVO">

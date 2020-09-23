@@ -54,6 +54,30 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		//noticeBoardDAO.increaseCnt(vo);
 	}
 
+	@Override
+	public List<NoticeBoardVO> getNoticeCategory(Paging pa) {
+		System.out.println("NoticeBoardServiceImpl getNoticeCategory(Paging pa)");
+		return noticeBoardDAO.getNoticeCategory(pa);
+	}
+
+	@Override
+	public int countNoticeCategory() {
+		System.out.println("NoticeBoardServiceImpl countNoticeCategory()");
+		return noticeBoardDAO.countNoticeCategory();
+	}
+
+	@Override
+	public List<NoticeBoardVO> getNewsCategory(Paging pa) {
+		System.out.println("NoticeBoardServiceImpl getNewsCategory(Paging pa)");
+		return noticeBoardDAO.getNewsCategory(pa);
+	}
+
+	@Override
+	public int countNewsCategory() {
+		System.out.println("NoticeBoardServiceImpl countNoticeCategory()");
+		return noticeBoardDAO.countNewsCategory();
+	}
+
 	
 	
 }

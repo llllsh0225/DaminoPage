@@ -41,6 +41,30 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 		System.out.println("NoticeBoardDAOImpl increaseCnt()");
 		sqlSessionTemplate.update("BoardDAO.increaseCnt", vo);
 	}
+
+	@Override
+	public List<NoticeBoardVO> getNoticeCategory(Paging pa) {
+		System.out.println("NoticeBoardDAOImpl getNoticeCategory(Paging pa)");
+		return sqlSessionTemplate.selectList("BoardDAO.getNoticeCategory", pa);
+	}
+
+	@Override
+	public int countNoticeCategory() {
+		System.out.println("NoticeBoardDAOImpl countNoticeCategory()");
+		return sqlSessionTemplate.selectOne("BoardDAO.countNoticeCategory");
+	}
+
+	@Override
+	public List<NoticeBoardVO> getNewsCategory(Paging pa) {
+		System.out.println("NoticeBoardDAOImpl getNewsCategory(Paging pa)");
+		return sqlSessionTemplate.selectList("BoardDAO.getNewsCategory", pa);
+	}
+
+	@Override
+	public int countNewsCategory() {
+		System.out.println("NoticeBoardDAOImpl countNewsCategory()");
+		return sqlSessionTemplate.selectOne("BoardDAO.countNewsCategory");
+	}
 	
 	
 	
