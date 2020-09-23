@@ -111,9 +111,6 @@ function expireSession(){
 						<h1 class="hidden">다미노피자</h1>
 					</a>
 				<input type="hidden" id="userid" value="${sessionScope.userid}" />
-					<div class="location active">
-						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
-					</div>
 					<c:choose>
 						<c:when test="${guest == 'guest' }">
 							<!-- 비회원 로그인시 -->

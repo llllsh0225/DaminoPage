@@ -55,11 +55,7 @@ function expireSession(){
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
-			<input type="hidden" id="userid" value="${sessionScope.userid}" />	
-					<div class="location active">
-						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
-					</div>
-
+					<input type="hidden" id="userid" value="${sessionScope.userid}" />	
 					<c:choose>
 						<c:when test="${guest == 'guest' }">
 							<!-- 비회원 로그인시 -->

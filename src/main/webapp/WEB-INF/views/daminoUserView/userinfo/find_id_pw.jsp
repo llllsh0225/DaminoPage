@@ -333,10 +333,6 @@ function expireSession(){
 					<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<input type="hidden" id="gubun" value="${param.gubun }" />
 					<input type="hidden" id="authKey" value="" />
-					<div class="location active">
-						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
-					</div>
-
 					<c:choose>
 						<c:when test="${guest == 'guest' }">
 							<!-- 비회원 로그인시 -->
