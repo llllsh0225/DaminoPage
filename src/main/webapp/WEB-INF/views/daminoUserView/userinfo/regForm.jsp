@@ -235,8 +235,8 @@
 		<div id="gnb" class="gnb-wrap">
 			<div class="gnb-inner">
 				<ul>
-					<li class="active"><a href="menuList.do"><span>메뉴</span></a></li>
-					<li><a href="ecoupon.do"><span>e-쿠폰</span></a></li>
+					<li class="active"><a href="goodslist.do"><span>메뉴</span></a></li>
+					<li><a href="ecouponInput.do"><span>e-쿠폰</span></a></li>
 					<li><a href="branch.do"><span>매장검색</span></a></li>
 				</ul>
 				<a href="#" class="snb-more">더보기</a>
