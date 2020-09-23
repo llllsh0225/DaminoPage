@@ -164,6 +164,10 @@ public class GoodsListController {
 		// 음료 목록 서비스 호출
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
+		// 피자&사이드 영양성분
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+		
 		// -------사용자 선택 메뉴 정보 불러오기-------------------
 
 		// 음료 목록 불러오기
@@ -171,6 +175,9 @@ public class GoodsListController {
 		// 사이드디시 불러오기
 		mav.addObject("goodsDetailSide", goodsDetailSide);
 
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		mav.setViewName("/goods/detail_goods_side");
 
 		return mav;
@@ -228,6 +235,10 @@ public class GoodsListController {
 		// 음료 목록 서비스 호출
 		List<GoodsDrinkEtcVO> goodsDrinkEtcList = goodsListService.getDrinkEtcList();
 
+		// 피자&사이드 영양성분
+		List<PizzaVO> pizzaNutrients = goodsListService.getAllPizzaList();
+		List<SideVO> sideNutrients = goodsListService.getAllSideList();
+				
 		// -------사용자 선택 메뉴 정보 불러오기-------------------
 
 		// 토핑 타입별 목록 불러오기
@@ -246,6 +257,9 @@ public class GoodsListController {
 
 		// request parameter에서 받은 피자 이름
 		mav.addObject("p_name", p_name);
+		mav.addObject("pizzaNutrients", pizzaNutrients);
+		mav.addObject("sideNutrients", sideNutrients);
+		
 		mav.setViewName("/goods/detail_goods");
 
 		return mav;
