@@ -154,9 +154,6 @@ function expireSession(){
 					</a>
 					<input type="hidden" id="sessionChk" value="${msg }"> 
 					<input type="hidden" id="userid" value="${userid }" /> 
-					<div class="location active">
-						<a href="javascript:void(0);" id="myloc" onclick="gpsLsm(gps_yn);"></a>
-					</div>
 					<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<c:choose>
 						<c:when test="${guest == 'guest' }">
