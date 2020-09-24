@@ -253,9 +253,7 @@ $(document).ready(function() {
 										<th>주차시설</th>
 										<th>오픈시간</th>
 										<th>마감시간</th>
-										<th><a class="btn btn-secondary" href="emailForm.admdo"
-											role="button">메일발송</a> <a class="btn btn-secondary"
-											href="smsForm.admdo" role="button">SMS발송</a></th>
+										<th>수정/삭제</th>
 									</tr>
 								</thead>
 								<tbody>
