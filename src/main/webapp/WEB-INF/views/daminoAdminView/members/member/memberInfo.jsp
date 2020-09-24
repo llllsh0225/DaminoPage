@@ -279,9 +279,7 @@ function memberDel(seq){
 										<th>SMS수신</th>
 										<th>Email수신</th>
 										<th>DM수신</th>
-										<th><a class="btn btn-secondary" href="emailForm.admdo"
-											role="button">메일발송</a> <input type=submit class="btn btn-secondary"
-											role="button" value="sms발송"></th>
+										<th>수정/삭제</th>
 									</tr>
 								</thead>
 								<tbody>
