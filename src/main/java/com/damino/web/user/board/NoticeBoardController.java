@@ -94,7 +94,18 @@ public class NoticeBoardController {
 		System.out.println("공지사항 상세");
 		noticeBoardService.increaseCnt(vo, session);// 조회수 증가
 		NoticeBoardVO noticeBoard = noticeBoardService.getNoticeBoard(vo);
+		// 이전글 조회
+		NoticeBoardVO prevBoard = noticeBoardService.getPrevBoard(noticeBoard.getSeq() - 1);
+		// 다음글 조회
+		NoticeBoardVO nextBoard = noticeBoardService.getNextBoard(noticeBoard.getSeq() + 1);
+		
 		ModelAndView mav = new ModelAndView();
+		if(prevBoard != null) {
+			mav.addObject("prevBoard", prevBoard);
+		}
+		if(nextBoard != null) {
+			mav.addObject("nextBoard", nextBoard);
+		}
 		mav.setViewName("/board/noticeDetail");
 		mav.addObject("noticeBoard", noticeBoard);
 		System.out.println(noticeBoard);
