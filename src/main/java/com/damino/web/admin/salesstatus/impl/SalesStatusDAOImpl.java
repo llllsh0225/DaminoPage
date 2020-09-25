@@ -27,7 +27,17 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		System.out.println("[chart count 여성유저");
 		return sqlSessionTemplate.selectOne("salesStatusDAO.getCountFemale");
 	}
+	@Override
+	public int getTogo() {
+		System.out.println("포장 주문 건수");
+		return sqlSessionTemplate.selectOne("salesStatusDAO.getTogo");
+	}
 
+	@Override
+	public int getDelivery() {
+		System.out.println("배달 주문 건수");
+		return sqlSessionTemplate.selectOne("salesStatusDAO.getDelivery");
+	}
 	@Override
 	public int getOrderPrice() {
 		System.out.println("주문금액");
@@ -137,7 +147,6 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		System.out.println("해당 매장 주문내역이 있는 최근 5년 주문건수 (차트 y축)");
 		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreSalesList", vo);
 	}
-
 
 
 }

@@ -82,8 +82,18 @@ $(document).ready(function() {
 		  });
     });
     
+    
+    
 } );
 
+window.onload = function(){
+	var orderPrice = $('#orderPriceH').val();
+	
+	console.log("orderPrice : " + orderPrice);
+	
+	orderPrice = orderPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	$('#orderPrice').html("<h3>" + orderPrice + "원 </h3>");	
+}
 /* 날짜 선택 자동으로 오늘날짜  */
 /* window.onload = function(){
 	var today = new Date();
@@ -545,8 +555,9 @@ position: relative;
 										<div class="card-header">
 											<p>총 매출액</p>
 											<hr>
-											<div class="card-body">
+											<div class="card-body" id="orderPrice">
 												<h3>${orderPrice } 원</h3>
+												<input type="hidden" id="orderPriceH" value="${orderPrice }"/>
 											</div>
 										</div>
 									</div>
@@ -567,11 +578,27 @@ position: relative;
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="card-header">
-									<i class="fas fa-chart-pie mr-1"></i><b> 인기 제품</b>
+									<i class="fas fa-chart-pie mr-1"></i><b> 주문 유형</b>
 								</div>
 								<div class="card-body">
-									<canvas id="PieChart_sellrank" width="100%" height="50"></canvas>
+									<canvas id="PieChart_take" width="100%" height="50"></canvas>
 								</div>
+								<script>
+									var ctx = document.getElementById("PieChart_take");
+									var myPieChart = new Chart(ctx, {
+									  type: 'pie',
+									  data: {
+									    labels: ["포장", "배달"],
+									    datasets: [{
+									      data: [
+									    	  "${toGoCount}",
+									    	  "${deliveryCount}"
+									    	  ],
+									      backgroundColor: ['#FF8000 ', '#0B610B'],
+									    }],
+									  },
+									});
+								</script>
 							</div>
 							<div class="col-lg-6">
 								<div class="card-header">

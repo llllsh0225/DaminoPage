@@ -26,6 +26,9 @@ public class SalesStatusController {
 		int femaleCount = salesStatusService.getCountF();
 		System.out.println("남성 유저 수 : " + maleCount + "명 , 여성 유저의 수 : " + femaleCount + "명");
 		
+		int toGoCount = salesStatusService.getTogo();
+		int deliveryCount = salesStatusService.getDelivery();
+		
 		int orderPrice = salesStatusService.getOrderPrice();//전체 주문금액
 		System.out.println("전체 주문 금액 :" + orderPrice);
 		
@@ -43,6 +46,8 @@ public class SalesStatusController {
 		
 		mav.addObject("maleCount" , maleCount);
 		mav.addObject("femaleCount", femaleCount);
+		mav.addObject("toGoCount", toGoCount);
+		mav.addObject("deliveryCount", deliveryCount);
 		mav.addObject("orderPrice", orderPrice);
 		mav.addObject("monthly", monthly);
 		mav.addObject("monthlySales", monthlySales);
