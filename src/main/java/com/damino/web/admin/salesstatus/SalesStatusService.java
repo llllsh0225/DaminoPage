@@ -21,6 +21,8 @@ public interface SalesStatusService {
 	public List<SalesVO> getDateSearch(SalesVO vo);
 	public List<SalesVO> getSalesSearch(SalesVO vo);
 	public List<SalesVO> getCountSearch(SalesVO vo);
+	public int lastMonthSales();
+	public int prevLastMonthSales();
 	
 	// 매장 관리자 매출현황
 	public List<SalesVO> getStoreMonthly(SalesVO vo);

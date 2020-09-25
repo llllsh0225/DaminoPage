@@ -234,16 +234,22 @@ function presentCoupon(){
 								</table>
 							</div>
 							<div class="pager-wrap">
-								<div class="pager-inner">
-									<a href='javascript:;' class='pager-first'><span
-										class="hidden">첫페이지</span></a><a href='javascript:;'
-										class='pager-prev'><span class="hidden">이전페이지</span></a><strong
-										class="pager-item active">1</strong><a href='javascript:;'
-										class='pager-next'
-										onclick='javascript:paging(1, 1); return false;'><span
-										class="hidden">다음페이지</span></a><a href='javascript:;'
-										class='pager-last'><span class="hidden">마지막페이지</span></a>
-								</div>
+								<ul>
+									<c:if test="${pageMaker.prev}">
+										<a class='pager-prev' href="myquestionlist.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">[이전]</a>
+									</c:if>
+									<c:forEach var="i" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
+									<c:if test="${pageMaker.startPage eq 0}">
+										<a href="myquestionlist.do${pageMaker.makeQuery(i)}">[${i+1}]</a>
+									</c:if>
+									<c:if test="${pageMaker.startPage ne 0}">
+										<a href="myquestionlist.do${pageMaker.makeQuery(i)}">[${i}]</a>
+									</c:if>
+									</c:forEach>
+									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+										<a class='pager-next' href="myquestionlist.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">[다음]</a>
+									</c:if>
+								</ul>
 							</div>
 							<div class="btn-wrap">
 								<a href="goodslist.do" class="btn-type v3">피자 주문하기</a>

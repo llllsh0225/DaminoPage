@@ -44,6 +44,9 @@ public class SalesStatusController {
 		List<SalesVO> yearlySales = salesStatusService.getYearlySales();//주문내역이 있는 최근 12개월 월별 매출액 가져옴(차트 y축)
 		System.out.println("주문내역이 있는 최근 5년 매출액 :" + yearlySales);
 		
+		int lastMonthSales = salesStatusService.lastMonthSales(); // 전월 매출 총액
+		int prevLastMonthSales = salesStatusService.prevLastMonthSales(); // 전전월 매출 총액
+		
 		mav.addObject("maleCount" , maleCount);
 		mav.addObject("femaleCount", femaleCount);
 		mav.addObject("toGoCount", toGoCount);
@@ -53,6 +56,9 @@ public class SalesStatusController {
 		mav.addObject("monthlySales", monthlySales);
 		mav.addObject("yearly", yearly);
 		mav.addObject("yearlySales", yearlySales);
+		mav.addObject("lastMonthSales", lastMonthSales);
+		mav.addObject("prevLastMonthSales", prevLastMonthSales);
+		
 		mav.setViewName("/store_sales/salesStatus");
 		
 		return mav;

@@ -20,6 +20,7 @@ import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
 import com.damino.web.admin.menu.PizzaVO;
 import com.damino.web.admin.menu.SideVO;
+import com.damino.web.user.board.paging.Paging;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.order.DeliveryAddressVO;
@@ -267,13 +268,13 @@ public class GoodsListController {
 
 	/** 사용자 선택 피자 메뉴 - 장바구니 클릭 경로로 들어올 때 */
 	@RequestMapping(value = "my_basket.do")
-	public ModelAndView goView_basket(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
+	public ModelAndView goView_basket(Paging pa, ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
 		
 		
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
-
+		pa.setWriterId(userid);
 		// 로그인 되어 있지 않다면 비회원에서 user 정보 받아오게 리다이렉트
 		if (userid == null) {
 			mav.setViewName("/login/login");
@@ -297,7 +298,7 @@ public class GoodsListController {
 				}
 			}
 			//사용자 쿠폰 정보 조회
-			  List<CouponVO> couponList = couponService.getMyCouponList(userid);
+			  List<CouponVO> couponList = couponService.getMyCouponList(pa);
 			  
 			  String couponName = ""; // 쿠폰명을 저장할 문자열
 			  
@@ -333,12 +334,12 @@ public class GoodsListController {
 	/** 사용자 선택 피자 메뉴 - 주문하기 경로로 들어올 때 */
 	@RequestMapping(value = "my_baskets.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView goView_baskets(ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
+	public ModelAndView goView_baskets(Paging pa, ModelAndView mav, HttpServletRequest request, @ModelAttribute UserBasketVO vo,
 			HttpSession session) {
 			
 		String userid = (String) session.getAttribute("userid");
 		System.out.println(" my_basket userid : " + userid);
-
+		pa.setWriterId(userid);
 		// 로그인 되어 있지 않다면 비회원에서 user 정보 받아오게 리다이렉트
 		if (userid == null) {
 			mav.setViewName("/login/login");
@@ -348,7 +349,7 @@ public class GoodsListController {
 			vo.setUserid(userid);
 			
 			//사용자 쿠폰 정보 조회
-			  List<CouponVO> couponList = couponService.getMyCouponList(userid);
+			  List<CouponVO> couponList = couponService.getMyCouponList(pa);
 			  
 			  String couponName = ""; // 쿠폰명을 저장할 문자열
 			  

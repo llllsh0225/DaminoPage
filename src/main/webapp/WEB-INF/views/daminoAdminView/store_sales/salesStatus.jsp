@@ -82,7 +82,22 @@ $(document).ready(function() {
 		  });
     });
     
+    var date = new Date(); // 현재 날짜
     
+    var year = date.getFullYear(); // 현재 연도
+    var month = date.getMonth(); // 전월
+    
+    var calcDate = new Date();
+    calcDate.setMonth(date.getMonth() - 1); // 전전월
+    $('#prevMonth').text(calcDate.getFullYear() + "년 " + calcDate.getMonth() + "월");
+    $('#lastMonth').text(year + "년 " + month + "월"); // 전월대비 날짜 세팅
+    
+    var lastMonthSales = ${lastMonthSales}; // 전월 매출총액
+    var prevLastMonthSales = ${prevLastMonthSales}; // 전전월 매출총액
+    
+    var salesPercentage = (lastMonthSales / prevLastMonthSales) * 100;
+    console.log(salesPercentage.toFixed(2));
+    $('#percentage').text(salesPercentage.toFixed(2) + "%");
     
 } );
 
@@ -225,7 +240,6 @@ position: relative;
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="noticeBoardView.admdo">게시판리스트 </a> 
 								<a class="nav-link collapse" href="boardList.admdo">게시글관리 </a>
 								<a class="nav-link collapse" href="myquestionlist.admdo">1:1문의처리 </a>
 							</nav>
@@ -563,10 +577,10 @@ position: relative;
 									</div>
 									<div class="col-lg-6">
 										<div class="card-header">
-											<p>전월대비</p>
+											<p><span id="prevMonth"></span> 대비 <span id="lastMonth"></span> 매출</p>
 											<hr>
 											<div class="card-body">
-												<h3>100.0 %</h3>
+												<h3 id="percentage"></h3>
 											</div>
 										</div>
 									</div>

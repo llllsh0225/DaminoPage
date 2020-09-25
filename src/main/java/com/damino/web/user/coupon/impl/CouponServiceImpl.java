@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.damino.web.user.board.paging.Paging;
 import com.damino.web.user.coupon.CouponDAO;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
@@ -33,8 +34,8 @@ public class CouponServiceImpl implements CouponService {
 	}
 
 	@Override
-	public List<CouponVO> getMyCouponList(String userid) {
-		return couponDAO.getMyCouponList(userid);
+	public List<CouponVO> getMyCouponList(Paging pa) {
+		return couponDAO.getMyCouponList(pa);
 	}
 
 	@Override
@@ -97,6 +98,11 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public void deleteExpirations() {
 		couponDAO.deleteExpirations();
+	}
+
+	@Override
+	public int countCoupon(String userid) {
+		return couponDAO.countCoupon(userid);
 	}
 
 }

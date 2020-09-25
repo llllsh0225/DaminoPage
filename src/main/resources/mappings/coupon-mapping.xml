@@ -44,9 +44,12 @@
 		SELECT * FROM DUAL
 	</insert>
 	
-	<select id="getMyCouponList" parameterType="String" resultType="com.damino.web.user.coupon.CouponVO">
-		SELECT coupon_code, coupon_name, discountrate, regdate, validity FROM coupon 
-		WHERE userid = #{userid} AND chkusable = 'Y'
+	<select id="getMyCouponList" parameterType="com.damino.web.user.board.paging.Paging" resultType="com.damino.web.user.coupon.CouponVO">
+	<![CDATA[
+		SELECT * FROM (SELECT rownum rnum, coupon_code, coupon_name, discountrate, regdate, validity
+		FROM (SELECT * FROM coupon WHERE userid = #{writerId} AND chkusable = 'Y' ORDER BY seq DESC))
+		WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
+	]]>
 	</select>
 
 	<select id="searchUser" parameterType="hashMap" resultType="com.damino.web.user.login.UserVO">
@@ -116,6 +119,11 @@
 		UPDATE coupon SET chkusable = 'N'
 		WHERE coupon_code = #{couponCode}
 	</update>
+	
+	<select id="countCoupon" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM coupon
+		WHERE userid = #{userid} AND chkusable = 'Y'
+	</select>
 	
 	<!-- 유효기간 만료 쿠폰 삭제 -->
 	<delete id="deleteExpirations">

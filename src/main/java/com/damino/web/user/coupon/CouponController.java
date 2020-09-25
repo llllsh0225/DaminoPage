@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.user.board.paging.PageMaker;
+import com.damino.web.user.board.paging.Paging;
 import com.damino.web.user.login.UserVO;
 
 @Controller
@@ -63,12 +65,18 @@ public class CouponController {
 	}
 	
 	@RequestMapping("/mycoupon.do")
-	public ModelAndView getMyCouponList(HttpSession session, ModelAndView mav) {
+	public ModelAndView getMyCouponList(Paging pa, HttpSession session, ModelAndView mav) {
 		System.out.println("내 쿠폰함 열기");
 		String userid = (String)session.getAttribute("userid"); // 세션에 저장된 userid 가져오기
+		pa.setWriterId(userid);
+		List<CouponVO> myCouponList = couponService.getMyCouponList(pa); // 사용자가 보유한 사용 가능 쿠폰 리스트
+		int count = couponService.countCoupon(userid);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setPa(pa);
+		pageMaker.setTotalCount(count);
 		
-		List<CouponVO> myCouponList = couponService.getMyCouponList(userid); // 사용자가 보유한 사용 가능 쿠폰 리스트
-		
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("count", count);
 		mav.addObject("myCouponList", myCouponList);
 		mav.setViewName("/mypage/myCoupon");
 		return mav;
@@ -76,10 +84,10 @@ public class CouponController {
 	
 	@RequestMapping(value="/selectCouponList.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<CouponVO> selectCouponList(@RequestBody Map<String, Object> param){
+	public List<CouponVO> selectCouponList(@RequestBody Map<String, Object> param, Paging pa){
 		String userid = (String) param.get("userid");
-		System.out.println(userid);
-		List<CouponVO> selectCouponList = couponService.getMyCouponList(userid); // 선물할 쿠폰 selectbox에 넣을 쿠폰 리스트
+		pa.setWriterId(userid);
+		List<CouponVO> selectCouponList = couponService.getMyCouponList(pa); // 선물할 쿠폰 selectbox에 넣을 쿠폰 리스트
 		System.out.println(selectCouponList.toString());
 		return selectCouponList;
 	}

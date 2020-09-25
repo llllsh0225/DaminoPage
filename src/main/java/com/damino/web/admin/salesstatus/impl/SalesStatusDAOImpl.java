@@ -148,5 +148,17 @@ public class SalesStatusDAOImpl implements SalesStatusDAO {
 		return sqlSessionTemplate.selectList("salesStatusDAO.getStoreSalesList", vo);
 	}
 
+	@Override
+	public int lastMonthSales() {
+		System.out.println("전월 매출 총액");
+		return sqlSessionTemplate.selectOne("salesStatusDAO.lastMonthSales");
+	}
+
+	@Override
+	public int prevLastMonthSales() {
+		System.out.println("전전월 매출 총액 (비교대상)");
+		return sqlSessionTemplate.selectOne("salesStatusDAO.prevLastMonthSales");
+	}
+
 
 }
