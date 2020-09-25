@@ -50,6 +50,11 @@ function expireSession(){
 	  })
 	}
 	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+	
+function gg(){
+	document.searchForm.action="noticeList.do";
+	document.searchForm.submit();
+}
 </script>
 
 </head>
