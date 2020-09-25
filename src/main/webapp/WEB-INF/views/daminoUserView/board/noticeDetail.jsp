@@ -175,8 +175,22 @@ function expireSession(){
 										</dd>
 									</dl>
 									<ul class="news-button">
-										<li><span>이전</span><a href="#none" onclick="#">이전글</a></li>
-										<li><span>다음</span><a href="#none" onclick="#">다음글</a></li>
+									<c:choose>
+										<c:when test="${prevBoard ne null }">
+											<li><span>이전</span><a href="noticeDetail.do?seq=${prevBoard.seq }">${prevBoard.title }</a></li>
+										</c:when>
+										<c:otherwise>
+											<li><span>이전</span>이전글이 없습니다.</li>
+										</c:otherwise>									
+									</c:choose>
+									<c:choose>
+										<c:when test="${nextBoard ne null }">
+											<li><span>다음</span><a href="noticeDetail.do?seq=${nextBoard.seq }">${nextBoard.title }</a></li>
+										</c:when>
+										<c:otherwise>
+											<li><span>다음</span>다음글이 없습니다.</li>
+										</c:otherwise>
+									</c:choose>
 									</ul>
 								</form>
 							</div>

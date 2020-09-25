@@ -14,4 +14,6 @@ public interface NoticeBoardDAO {
 	public int countNoticeCategory(); // 공지사항 게시글 수
 	public List<NoticeBoardVO> getNewsCategory(Paging pa); // 보도자료 목록
 	public int countNewsCategory(); // 보도자료 게시글 수
+	public NoticeBoardVO getPrevBoard(int seq); // 이전글 조회
+	public NoticeBoardVO getNextBoard(int seq); // 다음글 조회
 } 

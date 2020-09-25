@@ -65,6 +65,18 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 		System.out.println("NoticeBoardDAOImpl countNewsCategory()");
 		return sqlSessionTemplate.selectOne("BoardDAO.countNewsCategory");
 	}
+
+	@Override
+	public NoticeBoardVO getPrevBoard(int seq) {
+		System.out.println("NoticeBoardDAOImpl getPrevBoard(int seq)");
+		return sqlSessionTemplate.selectOne("BoardDAO.getPrevBoard", seq);
+	}
+
+	@Override
+	public NoticeBoardVO getNextBoard(int seq) {
+		System.out.println("NoticeBoardDAOImpl getNextBoard(int seq)");
+		return sqlSessionTemplate.selectOne("BoardDAO.getNextBoard", seq);
+	}
 	
 	
 	
