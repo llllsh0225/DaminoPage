@@ -44,10 +44,10 @@ function registEcoupon(){
 		}),
 		success : function(res){
 			if(res == 'success'){
-				location.href='ecouponResult.do'; // 쿠폰등록 성공 -> 결과페이지로 이동
+				window.location.href='ecouponResult.do'; // 쿠폰등록 성공 -> 결과페이지로 이동
 			}else if(res == 'fail'){
 				alert('등록불가한 쿠폰입니다. 쿠폰코드를 다시 확인해주세요.');
-				location.reload();
+				//location.reload();
 			}
 		},
 		error : function(err){
@@ -191,12 +191,10 @@ function expireSession(){
 								<h3 class="title-type5">쿠폰번호를 입력하세요.</h3>
 							</div>
 							<div class="search-form">
-								<form>
 								<input type="hidden" id="sessionChk" value="${sessionScope.msg }" />
 								<input type="text" name="couponCode" placeholder="쿠폰번호를 입력하세요."
 									id="couponCode" maxlength="16" onClick="checkLogin();">
 								<Button class="btn-search" onClick="registEcoupon();">검색</Button>
-								</form>
 							</div>
 
 							<div class="e-coupon-result" id="product" style="display: none">

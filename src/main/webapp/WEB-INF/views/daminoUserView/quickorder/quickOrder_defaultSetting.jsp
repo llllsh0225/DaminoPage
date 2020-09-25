@@ -461,7 +461,6 @@ function expireSession(){
 		function addGoods(){
 			++goodsNextRowSeq;
 			
-			alert(goodsNextRowSeq);
 			// 선택된 옵션 value
 			var selectCtgr = $('#dsp_ctgr').val();
 			var selectGoodsName = $('#goods_code').val();
@@ -730,7 +729,6 @@ function expireSession(){
 		function addAddrRow(){
 			++addressNextRowSeq;
 			
-			alert(addressNextRowSeq);
 			
 			// 행을 추가할 tbody
 			var deliveryAddrList = document.getElementById("addr_list_o");
