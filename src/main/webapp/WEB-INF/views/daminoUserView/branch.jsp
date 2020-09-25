@@ -197,7 +197,7 @@ function searchRegion(callBackFunc){
 						</div>
 						<div class="store-wrap">
 							<div class="btn-wrap">
-								<a href="#" class="btn-type v4" onclick="openLayerPopup('detail_map'); return false;">전체매장 보기</a>
+								
 							</div>
 							<div class="store-map-area">
 								<div class="store-map-wrap">
