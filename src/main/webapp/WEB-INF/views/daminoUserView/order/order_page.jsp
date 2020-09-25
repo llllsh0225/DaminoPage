@@ -575,6 +575,7 @@ window.onload = function() {
 	}
 	
 	function doOrder(){
+		
 		var orderTime = new Date();
 		var orderMonth = String(orderTime.getMonth() + 1);
 		if(orderMonth.length < 2){
@@ -634,6 +635,7 @@ window.onload = function() {
 			storephone = $('#storephoneDB').val();
 		}
 		var paytool = "";
+		
 		var paystatus = '결제완료'; // 결제 과정에서 변동이 있을 수 있음.
 		var status = '주문완료';
 		var requirement = "";
@@ -643,15 +645,16 @@ window.onload = function() {
 		
 		if(couponCode != null){
 			var couponCodeArr = couponCode.split(",");
-		}
+		
 		
 		var couponIdx = $('#couponList option').index($('#couponList option:selected'));
-		if(couponIdx != 0){
+		
+			if(couponIdx != 0){
 			var selectCouponCode = couponCodeArr[couponIdx - 1];
-		}else{
+			}else{
 			var selectCouponCode = null;
+			}
 		}
-		console.log("couponIdx : " + couponIdx);
 		
 		var totalDiscount = $('#totalDiscount').text().replace(",","");
 		var totalPrice = $('#totalPrice').text().replace(",","");
@@ -670,6 +673,7 @@ window.onload = function() {
 		}else if($('#pay3').val()){
 			paytool = $('#pay3').val();
 		}
+		console.log("paytool : " + paytool);
 		
 		// 요청사항 세팅
 		var selectReq = $('#more_req_box').val();
