@@ -10,6 +10,8 @@ public class NoticeBoardVO {
 	private Date regDate = new Date();
 	private int cnt;
 	private String flag;
+	private String search; // 검색조건
+	private String conditionTemp; // 검색키워드
 	
 	public int getSeq() {
 		return seq;
@@ -57,6 +59,18 @@ public class NoticeBoardVO {
 	public String toString() {
 		return "NoticeBoardVO [seq=" + seq + ", title=" + title + ", writer=" + writer + ", content=" + content
 				+ ", regDate=" + regDate + ", cnt=" + cnt + ", flag=" + flag + "]";
+	}
+	public String getConditionTemp() {
+		return conditionTemp;
+	}
+	public void setConditionTemp(String conditionTemp) {
+		this.conditionTemp = conditionTemp;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	
 	

@@ -132,9 +132,24 @@
 	</update>
 	
 	<select id="getNoticeBoardList" resultType="com.damino.web.user.board.NoticeBoardVO" parameterType="com.damino.web.user.board.paging.Paging">
-	<![CDATA[
+	
 		SELECT * FROM (SELECT rownum rnum, seq, title, writer, regdate, cnt, flag
-		FROM (SELECT * FROM board ORDER BY seq desc))
+		FROM 
+		<choose>
+			<when test="search=='subject'">
+				(SELECT * FROM board WHERE title LIKE '%' || #{conditionTemp} || '%' ORDER BY seq desc))
+			</when>
+			<when test="search=='content'">
+				(SELECT * FROM board WHERE content LIKE '%' || #{conditionTemp} || '%' ORDER BY seq desc))
+			</when>
+			<when test="search=='all'">
+				(SELECT * FROM board WHERE title LIKE '%' || #{conditionTemp} || '%' OR content LIKE '%' || #{conditionTemp} || '%' ORDER BY seq desc))
+			</when>
+			<otherwise>
+				(SELECT * FROM board ORDER BY seq desc))
+			</otherwise>
+		</choose>
+	<![CDATA[
 		WHERE rnum>=#{rowStart} AND rnum<=#{rowEnd}
 	]]>
 	</select>

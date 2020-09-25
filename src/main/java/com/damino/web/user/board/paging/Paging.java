@@ -6,6 +6,8 @@ public class Paging {
 	private int rowStart; //DB 테이블 seq 첫번째 게시글 번호
 	private int rowEnd; //DB 테이블 seq 마지막 게시글 번호
 	private String writerId;
+	private String search; // 검색 조건
+	private String conditionTemp; // 검색 키워드
 	
 	public String getWriterId() {
 		return writerId;
@@ -63,6 +65,23 @@ public class Paging {
 		return "Paging [pageNo=" + pageNo + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd="
 				+ rowEnd + "]";
 	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getConditionTemp() {
+		return conditionTemp;
+	}
+
+	public void setConditionTemp(String conditionTemp) {
+		this.conditionTemp = conditionTemp;
+	}
+
 
 	
 }
