@@ -12,6 +12,14 @@
 		select count(*) from usermember where sex='F'
 	</select>
 	
+	<select id="getTogo" resultType="Integer">
+		select count(*) from order_list where take='포장'
+	</select>
+	
+	<select id="getDelivery" resultType="Integer">
+		select count(*) from order_list where take='배달'
+	</select>
+	
 	<select id="getOrderPrice" resultType="Integer">
 		SELECT SUM(price) FROM order_list
 	</select>

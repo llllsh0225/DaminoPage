@@ -27,7 +27,17 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 		System.out.println("## Chart 여성 Service..");
 		return salesStatusDAO.getCountF();
 	}
+	@Override
+	public int getTogo() {
+		System.out.println("## Chart 포장 Service..");
+		return salesStatusDAO.getTogo();
+	}
 
+	@Override
+	public int getDelivery() {
+		System.out.println("## Chart 배달 Service..");
+		return salesStatusDAO.getDelivery();
+	}
 	@Override
 	public int getOrderPrice() {
 		return salesStatusDAO.getOrderPrice();
@@ -124,8 +134,5 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 		return salesStatusDAO.getStoreSalesList(vo);
 	}
 
-	
-
-	
 
 }

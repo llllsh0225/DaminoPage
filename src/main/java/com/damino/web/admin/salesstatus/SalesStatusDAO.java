@@ -6,6 +6,8 @@ public interface SalesStatusDAO {
 	// ======= 权其捞瘤 包府磊main =======	
 	public int getCountM();
 	public int getCountF();
+	public int getTogo();
+	public int getDelivery();
 	public int getOrderPrice();
 	public List<SalesVO> getDaily();
 	public List<SalesVO> getDailyCount();
