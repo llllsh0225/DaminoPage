@@ -154,6 +154,18 @@
 	]]>
 	</select>
 	
+	<!-- 이전글 조회 -->
+	<select id="getPrevBoard" resultType="com.damino.web.user.board.NoticeBoardVO" parameterType="Integer">
+		SELECT * FROM board
+		WHERE seq = #{seq} - 1
+	</select>
+	
+	<!-- 다음글 조회 -->
+	<select id="getNextBoard" resultType="com.damino.web.user.board.NoticeBoardVO" parameterType="Integer">
+		SELECT * FROM board
+		WHERE seq = #{seq} + 1
+	</select>
+	
 	<!-- 메인.admdo 표시 -->
 	<select id="getBoardListMain" resultType="com.damino.web.admin.board.BoardVO">
 	<![CDATA[

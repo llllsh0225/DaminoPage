@@ -78,6 +78,18 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return noticeBoardDAO.countNewsCategory();
 	}
 
+	@Override
+	public NoticeBoardVO getPrevBoard(int seq) {
+		System.out.println("NoticeBoardServiceImpl getPrevBoard(int seq)");
+		return noticeBoardDAO.getPrevBoard(seq);
+	}
+
+	@Override
+	public NoticeBoardVO getNextBoard(int seq) {
+		System.out.println("NoticeBoardServiceImpl getNextBoard(int seq)");
+		return noticeBoardDAO.getNextBoard(seq);
+	}
+
 	
 	
 }
