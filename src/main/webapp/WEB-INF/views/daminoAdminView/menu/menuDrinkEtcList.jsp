@@ -126,8 +126,6 @@
 						<div class="collapse" id="boardPage" aria-labelledby="headingTwo"
 							data-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link collapsed" href="noticeBoardView.admdo">
-									게시판리스트 </a> 
 								<a class="nav-link collapse" href="boardList.admdo">
 									게시글관리 </a>
 								<a class="nav-link collapse" href="myquestionlist.admdo">
