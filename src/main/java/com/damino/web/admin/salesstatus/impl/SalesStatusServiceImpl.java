@@ -134,5 +134,15 @@ public class SalesStatusServiceImpl implements SalesStatusService {
 		return salesStatusDAO.getStoreSalesList(vo);
 	}
 
+	@Override
+	public int lastMonthSales() {
+		return salesStatusDAO.lastMonthSales();
+	}
+
+	@Override
+	public int prevLastMonthSales() {
+		return salesStatusDAO.prevLastMonthSales();
+	}
+
 
 }

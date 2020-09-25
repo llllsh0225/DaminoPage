@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +20,7 @@ import com.damino.web.admin.market.member.regist.MarketAdminRegistService;
 import com.damino.web.admin.menu.DrinkEtcVO;
 import com.damino.web.admin.menu.PizzaVO;
 import com.damino.web.admin.menu.SideVO;
+import com.damino.web.user.board.paging.Paging;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.goods.GoodsListService;
@@ -428,15 +428,15 @@ public class QuickOrderController {
 	}
 	
 	@RequestMapping("/getQuickOrderPaymentPage.do")
-	public ModelAndView getQuickOrderPaymentPage(ModelAndView mav, HttpSession session) {
+	public ModelAndView getQuickOrderPaymentPage(Paging pa, ModelAndView mav, HttpSession session) {
 		System.out.println("퀵오더 결제하기 페이지 열기");
 		
 		String userid = (String)session.getAttribute("userid");
-		
+		pa.setWriterId(userid);
 		List<QuickOrderGoodsVO> quickOrderGoodsList = quickOrderService.getQuickOrderGoodsList(userid);	
 		QuickOrderAddressVO defaultAddress = quickOrderService.getDefaultDeliveryAddress(userid);
 		QuickOrderStoreVO defaultStore = quickOrderService.getDefaultWrapStore(userid);
-		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
+		List<CouponVO> couponList = couponService.getMyCouponList(pa); // 사용가능 쿠폰 리스트 불러오기
 
 		if(defaultAddress != null) {
 			MarketVO hourInfo = quickOrderService.getBusinessHour(defaultAddress.getStorename()); // 배달매장의 영업시간 정보 가져오기

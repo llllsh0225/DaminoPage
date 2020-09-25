@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
+import com.damino.web.user.board.paging.Paging;
 import com.damino.web.user.coupon.CouponService;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.goods.GoodsListService;
@@ -66,16 +67,17 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/orderPage.do")
-	public ModelAndView orderPage(ModelAndView mav, HttpSession session, HttpServletRequest request) {
+	public ModelAndView orderPage(Paging pa, ModelAndView mav, HttpSession session, HttpServletRequest request) {
 		System.out.println("결제하기 페이지 열기");
 		//세션 만료 시간 연장
 		//request.getSession().setMaxInactiveInterval(300000);
 		String userid = (String) session.getAttribute("userid");
+		pa.setWriterId(userid);
 		//mav.addObject("storename", vo.getStoreName());
 
 		List<DeliveryAddressVO> deliveryAddressList = orderService.getDeliveryAddressList(userid);
 		List<StoreAddressVO> storeAddressList = orderService.getStoreAddressList(userid);
-		List<CouponVO> couponList = couponService.getMyCouponList(userid); // 사용가능 쿠폰 리스트 불러오기
+		List<CouponVO> couponList = couponService.getMyCouponList(pa); // 사용가능 쿠폰 리스트 불러오기
 		
 		String storeName = (String) session.getAttribute("storename");
 		

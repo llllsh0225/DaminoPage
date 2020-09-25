@@ -1,6 +1,5 @@
 package com.damino.web.user.coupon.impl;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.damino.web.user.board.paging.Paging;
 import com.damino.web.user.coupon.CouponDAO;
 import com.damino.web.user.coupon.CouponVO;
 import com.damino.web.user.login.UserVO;
@@ -30,9 +30,9 @@ public class CouponDAOImpl implements CouponDAO {
 	}
 
 	@Override
-	public List<CouponVO> getMyCouponList(String userid) {
+	public List<CouponVO> getMyCouponList(Paging pa) {
 		System.out.println("user의 쿠폰리스트 조회");
-		return sqlSessionTemplate.selectList("CouponDAO.getMyCouponList", userid);
+		return sqlSessionTemplate.selectList("CouponDAO.getMyCouponList", pa);
 	}
 
 	@Override
@@ -75,6 +75,12 @@ public class CouponDAOImpl implements CouponDAO {
 	public void deleteExpirations() {
 		System.out.println("유효기간 만료 쿠폰 일괄 삭제처리");
 		sqlSessionTemplate.delete("CouponDAO.deleteExpirations");
+	}
+
+	@Override
+	public int countCoupon(String userid) {
+		System.out.println("전체 쿠폰 수 조회");
+		return sqlSessionTemplate.selectOne("CouponDAO.countCoupon", userid);
 	}
 
 }
