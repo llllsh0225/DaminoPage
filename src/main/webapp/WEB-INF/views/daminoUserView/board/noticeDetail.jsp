@@ -154,7 +154,7 @@ function expireSession(){
 							<div class="menu-nav-wrap">
 								<div class="menu-nav">
 									<ul>
-										<li class="active"><a href="#">공지사항</a></li>
+										<li><a href="#">공지사항</a></li>
 										<li><a href="#">보도자료</a></li>
 									</ul>
 								</div>

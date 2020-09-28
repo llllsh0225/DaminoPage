@@ -278,7 +278,7 @@ function memberDel(seq){
 										<th>SMS수신</th>
 										<th>Email수신</th>
 										<th>DM수신</th>
-										<th>수정/삭제</th>
+										<th>삭제</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -294,7 +294,6 @@ function memberDel(seq){
 										<td>${userList.receive_email }</td>
 										<td>${userList.receive_dm }</td>
 										<td>
-											<a class="btn btn-primary" href="memberEdit.admdo?seq=${userList.seq }" role="button">수정</a>
 											<button class="btn btn-danger" onclick="memberDel(${userList.seq});" role="button">삭제</button>
 										</td>
 									</tr>
