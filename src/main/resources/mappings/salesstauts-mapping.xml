@@ -80,7 +80,7 @@
 		<![CDATA[
 			SELECT *
 			FROM order_list 
-			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+			WHERE orderdate>=#{startdate} AND orderdate<=#{enddate} 
 		]]>
 		<choose>
 			<when test="rowprice != 0 and highprice != 0">
@@ -104,7 +104,7 @@
 	<select id="getSalesSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
 		<![CDATA[
 			SELECT SUM(price), TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
-			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+			WHERE orderdate>=#{startdate} AND orderdate<=#{enddate} 
 		]]>
 		<choose>
 			<when test="rowprice != '' and highprice != ''">
@@ -130,7 +130,7 @@
 	<select id="getDateSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
 		<![CDATA[
 			SELECT TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
-			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+			WHERE orderdate>=#{startdate} AND orderdate<=#{enddate} 
 		]]>
 		<choose>
 			<when test="rowprice != '' and highprice != ''">
@@ -156,7 +156,7 @@
 	<select id="getCountSearch" resultType="String" parameterType="com.damino.web.admin.salesstatus.SalesVO">
 		<![CDATA[
 			SELECT COUNT(TO_CHAR(orderdate,'yyyy-mm-dd')), TO_CHAR(orderdate,'yyyy-mm-dd') FROM order_list 
-			WHERE TO_CHAR(orderdate,'yyyy-mm-dd')>=#{startdate} AND TO_CHAR(orderdate,'yyyy-mm-dd')<=#{enddate} 
+			WHERE orderdate>=#{startdate} AND orderdate<=#{enddate} 
 		]]>
 		<choose>
 			<when test="rowprice != '' and highprice != ''">
@@ -238,16 +238,16 @@
 	<select id="lastMonthSales" resultType="Integer">
 		<![CDATA[
 			SELECT SUM(price) FROM order_list
-			WHERE orderdate >= TO_DATE(TO_CHAR(TO_DATE(TO_CHAR(sysdate, 'YYYYMM'), 'YYYYMM') - 1, 'YYYYMM') || '01')
-			AND orderdate <= TO_DATE(TO_CHAR(TO_DATE(SUBSTR(TO_CHAR(sysdate, 'YYYYMMDD'),1,6) || '01', 'YYYYMMDD') - 1, 'YYYYMMDD'))
+			WHERE TO_CHAR(orderdate, 'YYYYMMDD') >= TO_CHAR(TO_DATE(TO_CHAR(sysdate, 'YYYYMM'), 'YYYYMM') - 1, 'YYYYMM') || '01'
+			AND TO_CHAR(orderdate, 'YYYYMMDD') <= TO_CHAR(TO_DATE(SUBSTR(TO_CHAR(sysdate, 'YYYYMMDD'),1,6) || '01', 'YYYYMMDD') - 1, 'YYYYMMDD')
 		]]>
 	</select>
 	<!-- 전전월 매출액 총계 (비교대상) -->
 	<select id="prevLastMonthSales" resultType="Integer">
 		<![CDATA[
 			SELECT SUM(price) FROM order_list
-			WHERE orderdate >= TO_DATE(TO_CHAR(ADD_MONTHS(sysdate, -2), 'YYYYMM') || '01', 'YYYYMMDD')
-			AND orderdate <= TO_DATE(TO_CHAR(TO_DATE(TO_CHAR(TO_DATE(TO_CHAR(sysdate, 'YYYYMM'), 'YYYYMM') - 2, 'YYYYMM') || '01', 'YYYYMMDD') - 1, 'YYYYMMDD'))
+			WHERE TO_CHAR(orderdate, 'YYYYMMDD') >= TO_CHAR(ADD_MONTHS(sysdate, -2), 'YYYYMM') || '01'
+			AND TO_CHAR(orderdate, 'YYYYMMDD') <= TO_CHAR(TO_DATE(TO_CHAR(TO_DATE(TO_CHAR(sysdate, 'YYYYMM'), 'YYYYMM') - 2, 'YYYYMM') || '01', 'YYYYMMDD') - 1, 'YYYYMMDD')
 		]]>
 	</select>
 </mapper>
