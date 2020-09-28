@@ -56,6 +56,14 @@ function expireSession(){
 	  
 	}
 	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
+function goCoupon(){
+	if(${msg != 'login'}){
+		alert("다미노회원 전용 서비스입니다. 로그인해주세요.");
+		location.href="login.do";
+	}else{
+		location.href="mycoupon.do";
+	}
+}
 </script>
 </head>
 <body>
@@ -235,8 +243,7 @@ function expireSession(){
 											alt="">
 									</div>
 									<div class="mania_coupon_btn">
-										<a href="https://web.dominos.co.kr/mypage/myCoupon"
-											class="btn"><span class="btn_txt">쿠폰 선물하러가기</span></a>
+										<a href="javascript:goCoupon();" class="btn"><span class="btn_txt">쿠폰 선물하러가기</span></a>
 									</div>
 								</div>
 							</div>
