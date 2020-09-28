@@ -89,18 +89,6 @@ public class MemberController {
 		return "members/member/smsForm2";
 	}
 	
-	@RequestMapping("/memberEdit.admdo")
-	public ModelAndView getAdminmembersEditPage(MemberVO vo, ModelAndView mav) {
-		System.out.println("회원 수정 페이지 열기");
-		MemberVO userMember = memberService.getUserMember(vo);
-		System.out.println(userMember);
-		
-		mav.addObject("userMember", userMember);
-		mav.setViewName("/members/member/memberEdit");
-		
-		return mav;
-	}
-	
 	@RequestMapping("/memberDel.admdo")
 	@ResponseBody
 	public String memberDel(@RequestBody Map<String, Object> param, MemberVO vo, HttpSession session) {
