@@ -224,34 +224,7 @@ $(document).ready(function() {
 						<!-- 머리부분 채워야할것.-->
 					</div>
 					<div class="card mb-4">
-						<div>
-							<strong>상세검색</strong>
-							<hr>
-							<div class="input-group">
-								<input class="text-kjh" type="date" placeholder="날짜 입력" />
-								<p>&nbsp; &nbsp; ~ &nbsp; &nbsp;</p>
-								<input class="text-kjh" type="date" placeholder="날짜 입력" />
-							</div>
-							<div class="input-group">
-								<select class="form-control-kjh" style="margin: 5px">
-									<option>수령방식 선택</option>
-									<option>배달</option>
-									<option>포장</option>
-								</select> <select class="form-control-kjh" style="margin: 5px">
-									<option>결제방식 선택</option>
-									<option>현장 결제</option>
-									<option>방문 결제</option>
-								</select>
-							</div>
-							<div class="input-group">
-								<select class="form-control-kjh" style="margin: 5px">
-									<option>주문번호</option>
-									<option></option>
-									<option>주문번호</option>
-								</select> <input class="text2-kjh" type="text" placeholder="검색할 내용 입력" />
-								<input type="submit" class="btn btn-primary" value="상세 검색" />
-							</div>
-						</div>
+						
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
