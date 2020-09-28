@@ -47,6 +47,7 @@ public class GoodsListController {
 		if (userid == null) {
 
 		} else {
+			System.out.println("유저 아이디 " + userid);
 			session.setAttribute("msg", "login");
 		}
 		System.out.println("제품 목록 열기");

@@ -118,6 +118,7 @@ public class LoginController {
 		
 		mav.addObject("msg", "logout"); // logout 메세지 세팅
 		mav.addObject("username", null);
+		mav.addObject("userid", null);
 		mav.setViewName("main");
 		return mav;
 	}

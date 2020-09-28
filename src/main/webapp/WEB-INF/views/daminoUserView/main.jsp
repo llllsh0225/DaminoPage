@@ -78,6 +78,8 @@ function expireSession(){
 			arrows : true
 
 		});
+		
+		console.log($('#sessionChk').val());
 
 	});
 	

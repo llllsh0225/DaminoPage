@@ -59,6 +59,8 @@ $(document).ready(function(){
 	$('.btn-close').click(function(){ // 제품 상세보기 pop-layer 숨기기
 		$('.pop-layer').hide();
 	});
+	
+	console.log($('#msg').val());
 });
 
 </script>
@@ -71,6 +73,7 @@ $(document).ready(function(){
 					<a href="main.do" class="btn-logo"> <i class="ico-logo"></i>
 						<h1 class="hidden">다미노피자</h1>
 					</a>
+					<input type="hidden" id="msg" value="${msg }" />
 					<input type="hidden" id="userid" value="${sessionScope.userid}" />
 					<c:choose>
 						<c:when test="${guest == 'guest' }">
