@@ -144,9 +144,10 @@
 									<div class="location_area">
 										<dl>
 											<dt>DAMINO'S PIZZA COMPANY LOCATION</dt>
+											<br />
 											<dd>
 												<div class="location_map">
-													<!-- 회사 위치 지도 들어가는 곳. GoogleMap API 사용해보기. -->
+													<img src="<c:url value='/resources/images/user/location.png' />">
 												</div>
 												<div class="location_info">
 													<dl>
