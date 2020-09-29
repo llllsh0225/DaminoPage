@@ -55,7 +55,6 @@ function expireSession(){
 		  async : false,
 		  success : function(data){
 			  if(data == 'success'){
-				  alert("성공");
 				  location.href = "login.do";
 			  }
 		  },
@@ -1012,10 +1011,6 @@ function minusDrink(idx){
 										<div class="step-wrap">
 											<div class="title-wrap">
 												<div class="title-type2">도우 선택</div>
-												<div class="notice-text side">
-													<a href="javascript:UI.layerPopUp({selId:'#pop-dough'})">도우의
-														특징</a>
-												</div>
 											</div>
 							
 											<div class="option-box dough">
@@ -1044,10 +1039,7 @@ function minusDrink(idx){
 										<div class="step-wrap">
 											<div class="title-wrap topping">
 												<div class="title-type2">토핑추가</div>
-												<div class="notice-text side">
-													<a href="javascript:UI.layerPopUp({selId:'#pop-allergy2'})">토핑
-														알레르기 유발성분</a>
-												</div>
+												
 												<a href="#" class="btn-toggle-close"> <span
 													class="hidden">열기</span>
 												</a>
@@ -1523,7 +1515,7 @@ afterSetNum -= 1;
 				</form>
 				<div class="pop-layer" id="pop-sidedish">
 					<div class="dim"></div>
-					<div class="pop-wrap">
+					<div class="pop-wrap" style="top:0px; left:30%;">
 						<div class="pop-title-wrap">
 							<h2 class="pop-title v2">특가 사이드디시 유의사항</h2>
 						</div>
@@ -1578,169 +1570,7 @@ afterSetNum -= 1;
 										도우,<br>얇고 바삭한 씬 도우까지 선택하실 수 있습니다.
 									</p>
 								</div>
-								<div class="lst_dough">
-									<div class="grain_dough">
-										<img class="lazyload"
-											data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/img_dough_superseed.jpg"
-											alt="슈퍼시드 도우" />
-										<dl>
-											<dt>
-												"더 맛있으면서, 더 건강한 도우를 만들 수는 없을까?"<br>끝없는 질문과 오랜 연구 끝에 탄생한
-												도미노 슈퍼시드 도우<br> <br>
-											</dt>
-											<dt>
-												국내산 흑미에 세계가 주목하는 6가지 슈퍼시드를 더해<br>영양과 풍미를 가득 담았습니다.
-											</dt>
-										</dl>
-										<div class="superseed_dough">
-											<dl class="superseed_dough_title">
-												<dt>1. 영양을 채우다</dt>
-												<dd>엄선한 재료, 국내산 흑미와 세계가 주목하는 6가지 슈퍼시드의 특징</dd>
-											</dl>
-											<dl class="superseed_dough_content large">
-												<dt>
-													<!-- <img class="lazyload"
-														/> -->
-												</dt>
-												<dd class="cont_title">100% 국내산 흑미</dd>
-												<dd class="cont_sub">
-													항산화, 항암, 항궤양 효과가 있다고 알려진 안토시아닌이 검은콩보다 4배 이상 함유,<br>철,
-													아연, 셀레늄 등의 무기염류는 일반 쌀 대비 5배 이상 함유<br>노화와 여러 질병을 일으키는
-													체내의 활성산소를 효과적으로 중화시키며 심장실병, 뇌졸증, 성인병, 암 예방에도 좋은 곡물
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/superseed_2.jpg"
-														alt="아마씨">
-												</dt>
-												<dd class="cont_title">아마씨</dd>
-												<dd class="cont_sub">
-													타임지가 선정한 슈퍼곡물, 노화방지에 좋은 리그난이<br>석류보다 2700배나 많이 함유,<br>또한
-													오메가 3가 풍부해 각종 혈관질환 예방에 효과
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/superseed_3.jpg"
-														alt="퀴노아">
-												</dt>
-												<dd class="cont_title">퀴노아</dd>
-												<dd class="cont_sub">
-													페루어로 '곡물의 어미니'라고 불릴 정도로<br>풍부한 영양소 함유,<br>쌀보다 7배
-													많은 식이섬유 함유
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/superseed_4.jpg"
-														alt="병아리콩">
-												</dt>
-												<dd class="cont_title">병아리콩</dd>
-												<dd class="cont_sub">
-													클레오파트라도 즐겨먹었던 것으로 알려진 곡물,<br>우유보다 5배 많은 칼슘을 함유하여 비타민E가
-													풍부해<br>항노화 기능과 아르기닌 성분으로 신진대사를 활발히 해<br>젊음을 유지하는데
-													효과적
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/superseed_5.jpg"
-														alt="햄프씨드">
-												</dt>
-												<dd class="cont_title">햄프씨드</dd>
-												<dd class="cont_sub">
-													타임지가 선정한 슈퍼곡물,<br>불포화지방산이 등푸른 생선보다 10배 많아<br>혈관
-													건강에 도움
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/superseed_6.jpg"
-														alt="귀리">
-												</dt>
-												<dd class="cont_title">귀리</dd>
-												<dd class="cont_sub">
-													세계보건기구(WHO)에서 핀란드 등 장수 국가의 대표<br>음식으로 발표될 정도로 영양이 풍부한
-													곡물.<br>칼슘, 철분, 인을 비롯한 미네랄과 비타민 다량 함유
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/superseed_7.jpg"
-														alt="렌틸콩">
-												</dt>
-												<dd class="cont_title">렌틸콩</dd>
-												<dd class="cont_sub">
-													풍부한 식이섬유와<br>소고기보다 1.3배 많은 단백질 함유
-												</dd>
-											</dl>
-											<dl class="superseed_dough_title height">
-												<dt>2. 맛을 살리다</dt>
-												<dd>
-													씹을수록 입안 가득 은은하게 퍼지는 고소한 맛과 쫄깃한 식감의 도우<br>토핑의 맛을 더욱 잘
-													살려줄 수 있는 도우를 만들기 위해 수천번의 테스트 끝에 찾은 황금 레시피로 피자의 맛에 풍미를
-													더해줍니다.
-												</dd>
-											</dl>
-											<dl class="superseed_dough_title">
-												<dt>3. 부담은 줄이다</dt>
-												<dd>
-													어린이, 청소년 및 젊은 남녀, 어르신들까지 모두가 부담 없이 즐길 수 있는 도우<br>칼슘,
-													철분 등 다양한 영양소가 함유되어 성장기 어린이, 청소년에게 더욱 좋은 아마씨드, 퀴노아<br>포만감이
-													높아 다이어트, 몸매관리에 관심이 많은 분들에게 더욱 좋은 병아리콩, 귀리<br>혈관질환 예방에
-													좋은 오메가3, 불포화지방산등이 함유되어 혈관건강에 관심이 많은 분들에게 더욱 좋은 흑미, 햄프시드,
-													렌틸콩
-												</dd>
-											</dl>
-										</div>
-									</div>
-									<ul>
-										<li><img class="lazyload"
-											data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/img_dough2.jpg"
-											alt="">
-											<dl>
-												<dt>
-													담백하고 쫄깃한 <strong>오리지널 도우</strong>
-												</dt>
-												<dd>
-													냉장 저온숙성시킨 도우를 손으로 직접 펴서<br>만든 미국 뉴욕 스타일의 도우, 엣지의 두께는<br>2.2CM
-													피자 가운데는 1.3CM 내외로 담백하<br>면서도 쫄깃한 도우의 맛이 특징
-												</dd>
-											</dl></li>
-										<li><img class="lazyload"
-											data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/img_dough3.jpg"
-											alt="">
-											<dl>
-												<dt>
-													겉은 바삭, 속은 쫄깃한 <strong>나폴리 도우</strong>
-												</dt>
-												<dd>
-													피자의 원조인 이탈리아 나폴리 스타일의 도우,<br>씬피자와는 다르게 엣지는 살리면서 얇게<br>펴주는
-													것이 주요 특징. 엣지의 두께는 1.5CM,<br>피자 가운데는 0.3CM 내외이며, 도우 겉은<br>바삭하고
-													속은 쫄깃한 맛을 가지고 있음.
-												</dd>
-											</dl></li>
-										<li><img class="lazyload"
-											data-src="https://newcdn.dominos.co.kr/renewal2018/w/img/img_dough4.jpg"
-											alt="">
-											<dl>
-												<dt>
-													얇고 바삭한 <strong>씬 도우</strong>
-												</dt>
-												<dd>
-													이탈리아 로마식 도우로 일반적인 이탈리아<br>적 지역(나폴리 지역 제외)에서 대중화되어<br>있는
-													얇은 도우, 엣지 없이 도우가 얇고<br>평평한 것이 특징이며 바삭함을 즐길 수 있음.
-												</dd>
-											</dl></li>
-									</ul>
-								</div>
+								
 							</div>
 							<div class="topping_info">
 								<div class="tit_wrap">
@@ -2102,59 +1932,7 @@ afterSetNum -= 1;
 						<a href="#" class="btn-close"></a>
 					</div>
 				</div>
-				<!-- //팝업-메인 빅배너 -->
-				<!-- //알레르기 -->
-
-				<!-- 피자스토리 -->
-				<!-- 피자스토리 -->
-
-				<div class="pop-layer" id="pop-allergy2">
-					<div class="dim"></div>
-					<div class="pop-wrap">
-						<div class="pop-title-wrap">
-							<h2 class="pop-title">토핑 알레르기 유발성분</h2>
-						</div>
-						<div class="pop-content">
-							<div class="allergy_guide">
-								<p class="text-type">
-									한국인에게 알레르기를 유발할 수 있는 12가지 식품에 대해 아래와 같이 제품별 상세 내용을 표기하여
-									안내해드립니다.<br>(괄호 안 식품이 해당 토핑에 포함되어있는 알레르기 유발 가능식품)
-								</p>
-								<dl>
-									<dt>* 알레르기 유발 가능 식품 :</dt>
-									<dd>토마토, 아황산류(이를 첨가하여 최종제품에 SO2로 10mg/kg 이상 함유한 경우에 한한다),
-										호두, 닭고기, 쇠고기, 오징어, 조개류(굴, 전복, 홍합 포함)</dd>
-								</dl>
-							</div>
-							<div class="table-type v2">
-								<table class="tbl_type">
-									<caption>유발성분 표</caption>
-									<colgroup>
-										<col width="5%">
-										<col width="25%">
-										<col>
-									</colgroup>
-									<thead>
-										<tr>
-											<th>NO</th>
-											<th>토핑</th>
-											<th>알레르기 유발성분 표기</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>26</td>
-											<td>이베리코 스테이크</td>
-											<td>돼지고기,대두,밀</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<a href="#" class="btn-close"></a>
-					</div>
-				</div>
-				<!-- 팝업-메인 빅배너 -->
+			<!-- 팝업-메인 빅배너 -->
 				<div class="pop-layer pop-full" id="pop-allergy">
 					<div class="dim"></div>
 					<div class="pop-wrap">
@@ -2168,227 +1946,7 @@ afterSetNum -= 1;
 									<li><a href="#allergy2">제품 알레르기 유발성분</a></li>
 								</ul>
 							</div>
-							<div id="allergy1" class="tab-content active">
-								<div class="tab-type2 js_tab">
-									<ul>
-										<li class="active"><a href="#allergy1-1">피자</a></li>
-										<li><a href="#allergy1-2">사이드</a></li>
-									</ul>
-								</div>
-								<div id="allergy1-1" class="tab-content-v2 active">
-									<div class="table-type v2">
-										<table class="bg-table">
-											<caption>피자 영양성분</caption>
-											<colgroup>
-												<col width="20%">
-												<col width="10%">
-												<col width="10%">
-												<col width="10%">
-												<col width="10%">
-												<col width="10%">
-												<col width="10%">
-												<col width="10%">
-												<col width="10%">
-											</colgroup>
-											<thead>
-												<tr>
-													<th>제품명</th>
-													<th>총 중량(g)</th>
-													<th>1회분 기준</th>
-													<th>1회분<br>중량 (g)
-													</th>
-													<th>열량<br>(kcal/1회분)
-													</th>
-													<th>단백질<br>(g/1회분)
-													</th>
-													<th>포화지방<br>(g/1회분)
-													</th>
-													<th>나트륨<br>(mg/1회분)
-													</th>
-													<th>당류<br>(g/1회분)
-													</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>더블크러스트 이베리코(더블 크러스트 L)</td>
-													<td>1,038</td>
-													<td>1조각</td>
-													<td>130</td>
-													<td>344</td>
-													<td>12</td>
-													<td>7</td>
-													<td>465</td>
-													<td>10</td>
-												</tr>
-												<tr>
-													<td>더블크러스트 이베리코(더블 크러스트 M)</td>
-													<td>652</td>
-													<td>2조각</td>
-													<td>163</td>
-													<td>421</td>
-													<td>14</td>
-													<td>9</td>
-													<td>564</td>
-													<td>13</td>
-												</tr>
-
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div id="allergy1-2" class="tab-content-v2">
-									<div class="allergy-group">
-										<div class="title-type3">1. 사이드디시</div>
-										<div class="table-type v2">
-											<table class="bg-table">
-												<caption>사이드디시 영양성분</caption>
-												<colgroup>
-													<col width="28%">
-													<col width="12%">
-													<col width="12%">
-													<col width="12%">
-													<col width="12%">
-													<col width="12%">
-													<col width="12%">
-												</colgroup>
-												<thead>
-													<tr>
-														<th>제품명</th>
-														<th>총 중량(g)</th>
-														<th>열량<br>(kcal/1회분)
-														</th>
-														<th>단백질<br>(g/1회분)
-														</th>
-														<th>포화지방<br>(g/1회분)
-														</th>
-														<th>나트륨<br>(mg/1회분)
-														</th>
-														<th>당류<br>(g/1회분)
-														</th>
-													</tr>
-												</thead>
-												<tbody id="ingredientList1">
-													<tr>
-														<td>치캉스 팩</td>
-														<td>538</td>
-														<td>1037</td>
-														<td>77</td>
-														<td>12</td>
-														<td>2263</td>
-														<td>15</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<div id="allergy1-2" class="tab-content-v2">
-										<div class="allergy-group">
-											<div class="title-type3">1. 사이드디시</div>
-											<div class="table-type v2">
-												<table class="bg-table">
-													<caption>사이드디시 영양성분</caption>
-													<colgroup>
-														<col width="28%">
-														<col width="12%">
-														<col width="12%">
-														<col width="12%">
-														<col width="12%">
-														<col width="12%">
-														<col width="12%">
-													</colgroup>
-													<thead>
-														<tr>
-															<th rowspan="2">제품명</th>
-															<th rowspan="2">총 중량(g)</th>
-															<th rowspan="2">열량<br>(kcal/1회분)
-															</th>
-															<th rowspan="2">단백질<br>(g/1회분)
-															</th>
-															<th rowspan="2">포화지방<br>(g/1회분)
-															</th>
-															<th rowspan="2">나트륨<br>(mg/1회분)
-															</th>
-															<th rowspan="2">당류<br>(g/1회분)
-															</th>
-														</tr>
-													</thead>
-													<tbody id="ingredientList1">
-														<tr>
-															<td>치캉스 팩</td>
-															<td>538</td>
-															<td>1037</td>
-															<td>77</td>
-															<td>12</td>
-															<td>2263</td>
-															<td>15</td>
-														</tr>
-														<tr>
-															<td>크리스피 핫 순살 치킨(8조각)</td>
-															<td>127</td>
-															<td>262</td>
-															<td>25</td>
-															<td>2</td>
-															<td>966</td>
-															<td>1</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<div class="allergy-group">
-											<div class="title-type3">2. 음료</div>
-											<div class="table-type v2">
-												<table class="bg-table">
-													<caption>음료 영양성분</caption>
-													<colgroup>
-														<col width="25%">
-														<col width="15%">
-														<col width="15%">
-														<col width="15%">
-														<col width="15%">
-														<col width="15%">
-													</colgroup>
-													<thead>
-														<tr>
-															<th rowspan="2">제품명</th>
-															<th rowspan="2">열량<br>(kcal/1회분)
-															</th>
-															<th rowspan="2">단백질<br>(g/1회분)
-															</th>
-															<th rowspan="2">포화지방<br>(g/1회분)
-															</th>
-															<th rowspan="2">나트륨<br>(mg/1회분)
-															</th>
-															<th rowspan="2">당류<br>(g/1회분)
-															</th>
-														</tr>
-													</thead>
-													<tbody id="ingredientList2">
-														<tr>
-															<td>미닛메이드 스파클링 청포도 1.25L</td>
-															<td>450</td>
-															<td>0</td>
-															<td>0</td>
-															<td>38</td>
-															<td>113</td>
-														</tr>
-														<tr>
-															<td>스프라이트 1.5L</td>
-															<td>700</td>
-															<td>0</td>
-															<td>0</td>
-															<td>150</td>
-															<td>170</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
+							
 							<div id="allergy2" class="tab-content">
 								<div class="tab-type2 js_tab">
 									<ul>
@@ -2396,51 +1954,7 @@ afterSetNum -= 1;
 										<li><a href="#allergy2-2">사이드</a></li>
 									</ul>
 								</div>
-								<div id="allergy2-1" class="tab-content-v2 active">
-									<div class="allergy_guide">
-										<p class="text-type">한국인에게 알레르기를 유발할 수 있는 12가지 식품에 대해 아래와
-											같이 제품별 상세 내용을 표기하여 안내해드립니다. (괄호 안 식품이 해당 토핑에 포함되어있는 알레르기 유발가능
-											식품)</p>
-										<dl>
-											<dt>* 알레르기 유발 가능 식품 :</dt>
-											<dd>난류(가금류에 한한다), 우유, 메밀, 땅콩, 대두, 밀, 고등어, 게, 새우, 돼지고기,
-												복숭아, 토마토, 아황산류, 호두, 닭고기, 쇠고기, 오징어, 조개류(굴, 전복, 홍합포함), 잣</dd>
-										</dl>
-									</div>
-									<div class="allergy-group">
-										<div class="title-type3">피자</div>
-										<div class="guide-box3">피자 공통: 오리지널,나폴리, 슈퍼시드함유, 샌드
-											도우(우유, 밀, 대두), 씬, 더블 도우(밀), 더블치즈엣지(스트링 치즈(우유, 대두, 밀), 카망베르
-											크림치즈(우유))</div>
-										<div class="table-type v2">
-											<table class="bg-table">
-												<caption>피자 재료중 알레르기 유발 가능 식품</caption>
-												<colgroup>
-													<col width="7%">
-													<col width="23%">
-													<col>
-												</colgroup>
-												<thead>
-													<tr>
-														<th>NO</th>
-														<th>피자</th>
-														<th>알레르기 유발성분 표기</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>14</td>
-														<td>더블크러스트 이베리코</td>
-														<td>모차렐라, 리코타, 로마노크림치즈, 콰트로 치즈퐁듀(우유), 베이컨(돼지고기), New
-															고구마 무스(계란, 우유, 대두, 밀), 감자(대두,이산화황),마요네즈(난류,대두),
-															토마토소스(토마토, 대두), 선드라이토마토(토마토), 코코넛 허니버터 파우더(대두,밀,우유),이베리코
-															스테이크 (돼지고기,대두,밀)</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
+								
 								<div id="allergy2-2" class="tab-content-v2">
 									<div class="allergy_guide">
 										<p class="text-type">한국인에게 알레르기를 유발할 수 있는 12가지 식품에 대해 아래와

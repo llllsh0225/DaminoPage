@@ -40,7 +40,6 @@ function expireSession(){
 		  async : false,
 		  success : function(data){
 			  if(data == 'success'){
-				  alert("성공");
 				  location.href = "login.do";
 			  }
 		  },

@@ -649,13 +649,13 @@ function minusNomalSide(){
 											<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
 										</ul>
 									</div>
-
-									<div class="sch-box">
+ 
+									<!-- <div class="sch-box">
 										<span>인기순</span>
 										<div class="sch-slider"></div>
 										<a href="#" class="btn-open"> <span class="hidden">열기</span><i></i>
 										</a>
-									</div>
+									</div>  -->
 								</div>
 
 								<!-- //menu-list -->
@@ -813,13 +813,14 @@ function minusNomalSide(){
 										</div>
 									</div>
 								</div>
+								</div>
 						</article>
 					</div>
 				</div>
 				</form>
 				<div class="pop-layer" id="pop-sidedish">
 					<div class="dim"></div>
-					<div class="pop-wrap">
+					<div class="pop-wrap" style="top:0px; left:30%;">
 						<div class="pop-title-wrap">
 							<h2 class="pop-title v2">특가 사이드디시 유의사항</h2>
 						</div>
@@ -842,240 +843,7 @@ function minusNomalSide(){
 						<a href="#" class="btn-close"></a>
 					</div>
 				</div>
-				<link rel="stylesheet" type="text/css"
-					href="https://cdn.dominos.co.kr/domino/pc/css/as_is.css">
-				<div class="pop-layer pop-full" id="pop-dough">
-					<div class="dim"></div>
-					<div class="pop-wrap">
-						<div class="pop-title-wrap">
-							<h2 class="pop-title">도우의 특징</h2>
-						</div>
-						<div class="pop-content pop_dough">
-							<div class="dough_info">
-								<div class="tit_wrap">
-									<strong>다미노피자의 <span>다양한 도우</span>를<br>입맛대로 골라
-										드세요!
-									</strong>
-									<p>
-										다양한 소스와 토핑은 기본!<br>국내산 흑미에 세계가 주목하는 6가지 슈퍼시드를 더해 영양과 풍미를
-										가득 담은 도우는 물론,<br>담백하고 쫄깃한 오리지널 도우나, 겉은 바삭하고 속은 쫄깃한 나폴리
-										도우,<br>얇고 바삭한 씬 도우까지 선택하실 수 있습니다.
-									</p>
-								</div>
-								<div class="lst_dough">
-									<div class="grain_dough">
-										<img class="lazyload"
-											data-src="https://cdn.dominos.co.kr/renewal2018/w/img/img_dough_superseed.jpg"
-											alt="슈퍼시드 도우" />
-										<dl>
-											<dt>
-												"더 맛있으면서, 더 건강한 도우를 만들 수는 없을까?"<br>끝없는 질문과 오랜 연구 끝에 탄생한
-												다미노 슈퍼시드 도우<br> <br>
-											</dt>
-											<dt>
-												국내산 흑미에 세계가 주목하는 6가지 슈퍼시드를 더해<br>영양과 풍미를 가득 담았습니다.
-											</dt>
-										</dl>
-										<div class="superseed_dough">
-											<dl class="superseed_dough_title">
-												<dt>1. 영양을 채우다</dt>
-												<dd>엄선한 재료, 국내산 흑미와 세계가 주목하는 6가지 슈퍼시드의 특징</dd>
-											</dl>
-											<dl class="superseed_dough_content large">
-												<dt>
-													<img class="lazyload"
-														data-src="https://cdn.dominos.co.kr/renewal2018/w/img/superseed_1.jpg"
-														alt="100% 국내산 흑미">
-												</dt>
-												<dd class="cont_title">100% 국내산 흑미</dd>
-												<dd class="cont_sub">
-													항산화, 항암, 항궤양 효과가 있다고 알려진 안토시아닌이 검은콩보다 4배 이상 함유,<br>철,
-													아연, 셀레늄 등의 무기염류는 일반 쌀 대비 5배 이상 함유<br>노화와 여러 질병을 일으키는
-													체내의 활성산소를 효과적으로 중화시키며 심장실병, 뇌졸증, 성인병, 암 예방에도 좋은 곡물
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://cdn.dominos.co.kr/renewal2018/w/img/superseed_2.jpg"
-														alt="아마씨">
-												</dt>
-												<dd class="cont_title">아마씨</dd>
-												<dd class="cont_sub">
-													타임지가 선정한 슈퍼곡물, 노화방지에 좋은 리그난이<br>석류보다 2700배나 많이 함유,<br>또한
-													오메가 3가 풍부해 각종 혈관질환 예방에 효과
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://cdn.dominos.co.kr/renewal2018/w/img/superseed_3.jpg"
-														alt="퀴노아">
-												</dt>
-												<dd class="cont_title">퀴노아</dd>
-												<dd class="cont_sub">
-													페루어로 '곡물의 어미니'라고 불릴 정도로<br>풍부한 영양소 함유,<br>쌀보다 7배
-													많은 식이섬유 함유
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://cdn.dominos.co.kr/renewal2018/w/img/superseed_4.jpg"
-														alt="병아리콩">
-												</dt>
-												<dd class="cont_title">병아리콩</dd>
-												<dd class="cont_sub">
-													클레오파트라도 즐겨먹었던 것으로 알려진 곡물,<br>우유보다 5배 많은 칼슘을 함유하여 비타민E가
-													풍부해<br>항노화 기능과 아르기닌 성분으로 신진대사를 활발히 해<br>젊음을 유지하는데
-													효과적
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://cdn.dominos.co.kr/renewal2018/w/img/superseed_5.jpg"
-														alt="햄프씨드">
-												</dt>
-												<dd class="cont_title">햄프씨드</dd>
-												<dd class="cont_sub">
-													타임지가 선정한 슈퍼곡물,<br>불포화지방산이 등푸른 생선보다 10배 많아<br>혈관
-													건강에 도움
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://cdn.dominos.co.kr/renewal2018/w/img/superseed_6.jpg"
-														alt="귀리">
-												</dt>
-												<dd class="cont_title">귀리</dd>
-												<dd class="cont_sub">
-													세계보건기구(WHO)에서 핀란드 등 장수 국가의 대표<br>음식으로 발표될 정도로 영양이 풍부한
-													곡물.<br>칼슘, 철분, 인을 비롯한 미네랄과 비타민 다량 함유
-												</dd>
-											</dl>
-											<dl class="superseed_dough_content">
-												<dt>
-													<img class="lazyload"
-														data-src="https://cdn.dominos.co.kr/renewal2018/w/img/superseed_7.jpg"
-														alt="렌틸콩">
-												</dt>
-												<dd class="cont_title">렌틸콩</dd>
-												<dd class="cont_sub">
-													풍부한 식이섬유와<br>소고기보다 1.3배 많은 단백질 함유
-												</dd>
-											</dl>
-											<dl class="superseed_dough_title height">
-												<dt>2. 맛을 살리다</dt>
-												<dd>
-													씹을수록 입안 가득 은은하게 퍼지는 고소한 맛과 쫄깃한 식감의 도우<br>토핑의 맛을 더욱 잘
-													살려줄 수 있는 도우를 만들기 위해 수천번의 테스트 끝에 찾은 황금 레시피로 피자의 맛에 풍미를
-													더해줍니다.
-												</dd>
-											</dl>
-											<dl class="superseed_dough_title">
-												<dt>3. 부담은 줄이다</dt>
-												<dd>
-													어린이, 청소년 및 젊은 남녀, 어르신들까지 모두가 부담 없이 즐길 수 있는 도우<br>칼슘,
-													철분 등 다양한 영양소가 함유되어 성장기 어린이, 청소년에게 더욱 좋은 아마씨드, 퀴노아<br>포만감이
-													높아 다이어트, 몸매관리에 관심이 많은 분들에게 더욱 좋은 병아리콩, 귀리<br>혈관질환 예방에
-													좋은 오메가3, 불포화지방산등이 함유되어 혈관건강에 관심이 많은 분들에게 더욱 좋은 흑미, 햄프시드,
-													렌틸콩
-												</dd>
-											</dl>
-										</div>
-									</div>
-									<ul>
-										<li><img class="lazyload"
-											data-src="https://cdn.dominos.co.kr/renewal2018/w/img/img_dough2.jpg"
-											alt="">
-											<dl>
-												<dt>
-													담백하고 쫄깃한 <strong>오리지널 도우</strong>
-												</dt>
-												<dd>
-													냉장 저온숙성시킨 도우를 손으로 직접 펴서<br>만든 미국 뉴욕 스타일의 도우, 엣지의 두께는<br>2.2CM
-													피자 가운데는 1.3CM 내외로 담백하<br>면서도 쫄깃한 도우의 맛이 특징
-												</dd>
-											</dl></li>
-										<li><img class="lazyload"
-											data-src="https://cdn.dominos.co.kr/renewal2018/w/img/img_dough3.jpg"
-											alt="">
-											<dl>
-												<dt>
-													겉은 바삭, 속은 쫄깃한 <strong>나폴리 도우</strong>
-												</dt>
-												<dd>
-													피자의 원조인 이탈리아 나폴리 스타일의 도우,<br>씬피자와는 다르게 엣지는 살리면서 얇게<br>펴주는
-													것이 주요 특징. 엣지의 두께는 1.5CM,<br>피자 가운데는 0.3CM 내외이며, 도우 겉은<br>바삭하고
-													속은 쫄깃한 맛을 가지고 있음.
-												</dd>
-											</dl></li>
-										<li><img class="lazyload"
-											data-src="https://cdn.dominos.co.kr/renewal2018/w/img/img_dough4.jpg"
-											alt="">
-											<dl>
-												<dt>
-													얇고 바삭한 <strong>씬 도우</strong>
-												</dt>
-												<dd>
-													이탈리아 로마식 도우로 일반적인 이탈리아<br>적 지역(나폴리 지역 제외)에서 대중화되어<br>있는
-													얇은 도우, 엣지 없이 도우가 얇고<br>평평한 것이 특징이며 바삭함을 즐길 수 있음.
-												</dd>
-											</dl></li>
-									</ul>
-								</div>
-							</div>
-							<div class="topping_info">
-								<div class="tit_wrap">
-									<strong>도우 끝 <span>엣지</span>까지 숨어있는<br> <span>갖가지
-											토핑</span>을 찾아보세요.
-									</strong>
-								</div>
-								<div class="lst_topping">
-									<ul>
-										<li>
-											<div class="lst_tit">
-												<img class="lazyload"
-													data-src="https://cdn.dominos.co.kr/renewal2018/w/img/img_topping.png"
-													alt="">
-												<dl>
-													<dt>더블치즈엣지</dt>
-													<dd>카망베르 크림치즈와 스트링치즈로 꽉~채운</dd>
-												</dl>
-											</div>
-											<ul class="lst_view">
-												<li><img class="lazyload"
-													data-src="https://cdn.dominos.co.kr/renewal2018/w/img/lst_topping.png"
-													alt="">
-													<dl>
-														<dt>카망베르 크림 치즈</dt>
-														<dd>
-															치즈의 여왕이라고도 불리는 프랑스 대표 숙성<br>치즈로 깊은 맛과 향, 크림처럼 부드러운
-															식감을<br>즐길 수 있는 프리미엄 치즈입니다.
-														</dd>
-													</dl></li>
-												<li><img class="lazyload"
-													data-src="https://cdn.dominos.co.kr/renewal2018/w/img/lst_topping2.png"
-													alt="">
-													<dl>
-														<dt>스트링 치즈</dt>
-														<dd>
-															쫄깃한 식감으로 카망베르 크림 치즈의<br>풍미를 더해줍니다.
-														</dd>
-													</dl></li>
-											</ul>
-										</li>
-
-									</ul>
-								</div>
-							</div>
-						</div>
-						<a href="#" class="btn-close"></a>
-					</div>
-				</div>
-
+				
 				<div class="pop-layer pop-menu" id="pop-menu-detail">
 					<input type="hidden" value="" class="hide_code" />
 					<div class="dim"></div>
