@@ -207,7 +207,7 @@ $(document).ready(function() {
 									<li class="active"><a href="myorderlist.do">주문내역</a></li>
 									<li><a href="mycoupon.do">쿠폰함</a></li>
 									<li><a href="myquestionlist.do">1:1문의</a></li>
-									<li><a href="userinfoconfirm.do">정보수정</a></li>
+									<li><a href="myuserinfoconfirm.do">정보수정</a></li>
 								</ul>
 							</div>
 						</div>
