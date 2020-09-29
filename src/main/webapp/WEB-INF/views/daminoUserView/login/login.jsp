@@ -22,6 +22,13 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 	<script>
+	
+	$(document).ready(function(){
+		$('.btn-close').click(function(){ // 약관 팝업 숨기기
+			$('.pop-layer').hide();
+		});
+	});
+	
 function expireSession(){
 	  alert("세션이 만료되었습니다");
 	  
@@ -86,7 +93,7 @@ function expireSession(){
 				$('#btn_AuthKeyConfirm').click(
 						function() {
 							alert("인증번호 입력");
-							if ($.trim(res) == $('#security_no').val()) {
+							if (res == $('#auth_num').val()) {
 								$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
 								$('#security_alert').text("휴대폰 인증이 완료되었습니다.");
 								$('#security_alert').show();
@@ -116,14 +123,18 @@ function expireSession(){
 		var auth = $('#auth_num').val();
 		var chk = document.nonf.agree1.checked;
 		if(name==""){
-			alert("이름을 입력하세요");
+			alert("이름을 입력해주세요.");
 			return false;
 		}
 		if(tel1=="" || tel2=="" || tel3=="" || auth==""){
-			alert("번호를 입력하세요");
+			alert("휴대폰번호를 입력해주세요.");
 			return false;
 		}
-		
+		if($('#phoneCheck').val() != "Y"){
+			alert("휴대폰번호를 인증해주세요.");
+			alert($('#phoneCheck').val());
+			return false;
+		}
 		if(!chk){
 			alert("필수 약관에 동의해주세요");
 			return false;
@@ -302,6 +313,7 @@ function expireSession(){
                               </div>
                               <div class="form-group">
                                  <div class="form-item">
+                                 	<input type="hidden" id="phoneCheck" value="" />
                                     <input type="text" placeholder="인증번호" name="auth_num"
                                        id="auth_num"><Button type="button" id="btn_AuthKeyConfirm"
 															onclick="btn_AuthKeyConfirm()" class="btn-type v7">인증하기</button>
@@ -325,7 +337,7 @@ function expireSession(){
                            <div class="banner-wrap">
                               <ul>
                                  <li>다미노피자의 특별한 매니아 혜택을 누려보세요! <a
-                                    href="../event/mania.html">매니아 혜택</a>
+                                    href="mania.do">매니아 혜택</a>
                                  </li>
                               </ul>
                            </div>
@@ -342,7 +354,7 @@ function expireSession(){
       <!-- 팝업 개인정보 수집 및 이용 동의 -->
       <div class="pop-layer type2" id="pop-terms-p">
          <div class="dim"></div>
-         <div class="pop-wrap">
+         <div class="pop-wrap" style="top:0px; left:30%;">
             <div class="pop-title-wrap">
                <h2 class="pop-title v2">개인정보 수집 및 이용 동의</h2>
             </div>
