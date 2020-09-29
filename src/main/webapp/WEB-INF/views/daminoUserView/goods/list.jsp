@@ -40,7 +40,6 @@ function expireSession(){
 		  async : false,
 		  success : function(data){
 			  if(data == 'success'){
-				  alert("성공");
 				  location.href = "login.do";
 			  }
 		  },
@@ -178,13 +177,7 @@ $(document).ready(function(){
 										<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
 									</ul>
 								</div>
-								<div class="sch-box">
-									<span>인기순</span>
-									<div class="sch-slider"></div>
-									<div class="sch-slider-nav"></div>
-									<a href="#" class="btn-open"> <span class="hidden">열기</span><i></i>
-									</a>
-								</div>
+								
 							</div>
 
 							<!-- //menu-list -->
