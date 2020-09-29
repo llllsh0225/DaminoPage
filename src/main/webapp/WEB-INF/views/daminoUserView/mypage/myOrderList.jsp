@@ -208,11 +208,9 @@ function expireSession(){
 													<div class="shop">${myorderlist.store }&nbsp;</div>
 												</div>
 												<div class="info od-box">
-													<a href="#">
-														<div class="menu">${myorderlist.menus }&nbsp;
+														<div class="menu">${myorderlist.menus }&nbsp;<br><br />
 															<fmt:formatNumber value="${myorderlist.price }" pattern="#,###,###" />원
 														</div>
-													</a>
 												</div>
 												<form name="orderView" method="post">
 													<div class="btn-detail od-box">

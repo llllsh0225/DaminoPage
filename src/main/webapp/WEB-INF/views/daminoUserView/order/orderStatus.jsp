@@ -311,13 +311,10 @@ $(document).ready(function() {
 									<dt>주문금액</dt>
 									<dd><em><fmt:formatNumber value="${orderview.pre_price }" pattern="#,###,###" /></em>원</dd>
 								</dl>
-								<dl class="discount">
+								<dl class="discount" style="margin-bottom:30px;">
 									<dt>할인 금액</dt>
-									<dd><em>-${orderview.count_price }</em>원</dd>
+									<dd><em>-<fmt:formatNumber value="${orderview.count_price }" pattern="#,###,###" /></em>원</dd>
 								</dl>
-								<ul class="apply">
-	                                    <li>MANIA_R20 20%</li>
-	                                </ul>
                                 <dl class="total">
 									<dt>결제금액</dt>
 									<dd><em><fmt:formatNumber value="${orderview.price }" pattern="#,###,###" /></em>원</dd>
@@ -364,11 +361,9 @@ $(document).ready(function() {
 						</div>
 						<div class="btn-wrap">
 							<div class="t-l">
-									<a href="myorderlist.do" class="btn-type v5">목록</a>
 								</div>
-								<div class="t-r">
-									<a href="javascript:profileOrder('R');" class="btn-type v3">재주문</a>
-									<a href="javascript:profileOrder('Q');" class="btn-type v4">퀵오더 등록</a>
+								<div style="text-align:center;">
+									<a href="myorderlist.do" class="btn-type v4">목록</a>
 								</div>
 							</div>
 					</div>
