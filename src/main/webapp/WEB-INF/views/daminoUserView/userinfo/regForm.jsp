@@ -33,28 +33,265 @@
 	src="<c:url value='/resources/js/user/member.js'/>"></script>
 
 <script>
-	function allCheck1(){
-		if($('#agree_all').prop("checked")){
-			$('#agree_1').prop("checked", true);
+	
+	function chkAgree2(){
+		if($('#agree_2').val() != "Y"){
 			$('#agree_2').prop("checked", true);
-			$('#location_yn').prop("checked", true);
+			$('#agree_2').val("Y");
 		}else{
-			$('#agree_1').prop("checked", false);
 			$('#agree_2').prop("checked", false);
-			$('#location_yn').prop("checked", false);
+			$('#agree_2').val("N");
 		}
 	}
 	
-	function allCheck2(){
-		if($('#agree_all2').prop("checked")){
+	function chkAgree1(){
+		if($('#agree_1').val() != "Y"){
+			$('#agree_1').prop("checked", true);
+			$('#agree_1').val("Y");
+		}else{
+			$('#agree_1').prop("checked", false);
+			$('#agree_1').val("N");
+		}
+	}
+	
+	function chkLocation(){
+		if($('#location_yn').val() != "Y"){
+			$('#location_yn').prop("checked", true);
+			$('#location_yn').val("Y");
+		}else{
+			$('#location_yn').prop("checked", false);
+			$('#location_yn').val("N");
+		}
+	}
+	
+	function chkDsfl(){
+		if($('#chk_ds_fl').val() != "Y"){
 			$('#chk_ds_fl').prop("checked", true);
-			$('#chk_dm_fl').prop("checked", true);
-			$('#chk_o_dm_fl').prop("checked", true);
+			$('#chk_ds_fl').val("Y");
 		}else{
 			$('#chk_ds_fl').prop("checked", false);
-			$('#chk_dm_fl').prop("checked", false);
-			$('#chk_o_dm_fl').prop("checked", false);
+			$('#chk_ds_fl').val("N");
 		}
+	}
+	
+	function chkDmfl(){
+		if($('#chk_dm_fl').val() != "Y"){
+			$('#chk_dm_fl').prop("checked", true);
+			$('#chk_dm_fl').val("Y");
+		}else{
+			$('#chk_dm_fl').prop("checked", false);
+			$('#chk_dm_fl').val("N");
+		}
+	}
+	
+	function chkODmfl(){
+		if($('#chk_o_dm_fl').val() != "Y"){
+			$('#chk_o_dm_fl').prop("checked", true);
+			$('#chk_o_dm_fl').val("Y");
+		}else{
+			$('#chk_o_dm_fl').prop("checked", false);
+			$('#chk_o_dm_fl').val("N");
+		}
+	}
+	
+	function checks(){
+		// 정규표현식
+		var nameChk = RegExp(/^[가-힣]+$/);
+		var idChk= RegExp(/^[a-zA-Z0-9]{4,12}$/);
+		var emailChk = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+
+		// 아이디 중복체크값
+		var idDupChk = $('#idCheckVal').val();
+		
+		// 생년월일 입력값
+		var cyear = $('#cyear').val();
+		var bmonth = $('#bmonth').val();
+		var bday = $('#bday').val();
+		
+		// 핸드폰 인증여부 
+		var phoneCheck = $('#phoneCheck').val();
+		
+		// 이메일 입력값
+		var email1 = $('#email1').val();
+		var email2 = $('#email2').val();
+		var email = email1 + "@" + email2;
+		
+		// 이메일 중복체크 여부
+		var emailDupChk = $('#emailCheckVal').val();
+		
+		// 이름 공백 검사
+		if($("#username").val() == ""){
+			$('#name_alert').text("이름을 입력해주세요.");
+		    $('#name_alert').show();
+			$("#username").focus();
+			return false;
+		}else{
+			$('#name_alert').hide();
+		}
+		
+		// 이름 유효성 검사
+		if(!nameChk.test($("#username").val())){ 
+			$('#name_alert').text("이름 형식에 맞게 입력해주세요.");
+		    $('#name_alert').show();
+		    $("#username").val(""); 
+			$("#username").focus();
+			return false;
+		}else{
+			$('#name_alert').hide();
+		}
+		
+		// 아이디 공백 확인
+		if($("#userid").val() == ""){
+			$('#id_alert').text("아이디를 입력해주세요.");
+		    $('#id_alert').show();
+			$("#userid").focus();
+			return false;
+		}else{
+			$('#id_alert').hide();
+		}
+			
+		// 아이디 유효성 검사
+		if(!idChk.test($("#userid").val())){ 
+			$('#id_alert').text("아이디는 영어 대/소문자, 숫자만 입력 가능합니다.");
+		    $('#id_alert').show();
+		    $("#userid").val("");
+		    $("#userid").focus();
+		    return false;
+		}else{
+			$('#id_alert').hide();
+		}
+
+		// 아이디 중복확인
+		if(idDupChk != 'Y'){
+			$('#id_alert').text("아이디 중복확인을 해주세요.");
+		    $('#id_alert').show();
+		    $("#userid").focus();
+		    return false;
+		}else{
+			$('#id_alert').hide();
+		}
+		
+		// 비밀번호 공백 검사
+		if($("#userpasswd").val() == ""){ 
+			$('#pwd_alert').text("비밀번호를 입력해주세요.");
+		    $('#pwd_alert').show();
+			$("#userpasswd").focus(); 
+			return false; 
+		}else{
+			$('#pwd_alert').hide();
+		}
+		
+		// 비밀번호 확인란 공백 검사
+		if($("#passwordChk").val() == ""){ 
+			$('#pwdChk_alert').text("비밀번호를 확인 해주세요.");
+		    $('#pwdChk_alert').show();
+			$("#passwordChk").focus(); 
+			return false; 
+		}else{
+			$('#pwdChk_alert').hide();
+		}
+		
+		// 비밀번호 일치 확인
+		if($("#userpasswd").val() != $("#passwordChk").val()){ 
+			$('#pwdChk_alert').text("비밀번호가 일치하지 않습니다.");
+		    $('#pwdChk_alert').show();
+			$("#passwordChk").val(""); 
+			$("#passwordChk").focus(); 
+			return false; 
+		}else{
+			$('#pwdChk_alert').hide();
+		}
+
+		// 생년월일 공백 검사
+		if(cyear == "년" || bmonth == "월" || bday == "일"){
+			$('#birth_alert').text("생년월일을 입력해주세요.");
+		    $('#birth_alert').show();
+		    $('#cyear').focus();
+		    return false;
+		}else{
+			$('#birth_alert').hide();
+		}
+		
+		// 휴대폰 공백 검사
+		if($('#hand_tel2').val() == ""){
+			$('#tel_alert').text("휴대폰 번호를 입력해주세요.");
+		    $('#tel_alert').show();
+		    $('#hand_tel2').focus();
+		    return false;
+		}else if($('#hand_tel3').val() == ""){
+			$('#tel_alert').text("휴대폰 번호를 입력해주세요.");
+		    $('#tel_alert').show();
+		    $('#hand_tel3').focus();
+		    return false;
+		}else{
+			$('#tel_alert').hide();
+		}
+		
+		// 휴대폰 인증 여부 검사
+		if(phoneCheck != "Y"){
+			alert(phoneCheck);
+			$('#tel_alert').text("휴대폰번호를 인증해주세요.");
+		    $('#tel_alert').show();
+		    $('#security_no').focus();
+		    return false;
+		}else{
+			$('#tel_alert').hide();
+		}
+		
+		// 이메일 공백 검사
+		if(email1 == ""){
+			$('#email_alert').text("이메일주소를 입력해주세요.");
+		    $('#email_alert').show();
+		    $('#email1').focus();
+		    return false;
+		}else if(email2 == ""){
+			$('#email_alert').text("이메일주소를 입력해주세요.");
+		    $('#email_alert').show();
+		    $('#email2').focus();
+		    return false;
+		}else{
+			$('#email_alert').hide();
+		}
+		
+		// 이메일 유효성 검사
+		if(!emailChk.test(email)){
+			$('#email_alert').text("이메일주소가 유효하지 않습니다.");
+		    $('#email_alert').show();
+		    $('#email1').val("");
+		    $('#email2').val("");
+		    $('#email1').focus();
+		    return false;
+		}else{
+			$('#email_alert').hide();
+		}
+		
+		// 이메일 중복체크 검사
+		if(emailDupChk != 'Y'){
+			$('#email_alert').text("이메일주소 중복여부를 체크해주세요.");
+		    $('#email_alert').show();
+		    return false;
+		}else{
+			$('#email_alert').hide();
+		}
+		
+		// 필수약관 동의 여부 검사
+		if($('#agree_2').val() != "Y" || $('#agree_1').val() != "Y" || $('#location_yn').val() != "Y"){
+			alert("필수약관에 동의해주세요");
+			return false;
+		}
+		
+	}
+	
+	function allCheck1(){
+		chkAgree1();
+		chkAgree2();
+		chkLocation();
+	}
+	
+	function allCheck2(){
+		chkDsfl();
+		chkDmfl();
+		chkODmfl();
 	}
 	
 	function phoneCheckValChange() {
@@ -79,16 +316,15 @@
 				alert("인증번호가 발송되었습니다. \n인증번호 입력란에 수신된 인증번호를 입력해 주세요.");
 				$('#btn_AuthKeyConfirm').click(
 						function() {
-							alert("인증번호 입력");
 							if ($.trim(res) == $('#security_no').val()) {
 								$('#phoneCheck').val("Y"); // 휴대폰 인증이 완료 되었을 경우 phoneCheck 값을 "Y"로 세팅
 								$('#security_alert').text("휴대폰 인증이 완료되었습니다.");
 								$('#security_alert').show();
+								$('#tel_alert').hide();
 							} else {
-								$('#security_alert').text(
-										"인증번호가 일치하지 않습니다. 다시 시도해주세요.");
+								$('#security_alert').text("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
 								$('#security_alert').show();
-								$('#security_no').val() = "";
+								$('#security_no').val("");
 								$('#security_no').focus();
 								return;
 							}
@@ -110,9 +346,6 @@
 		var chkEmail2 = $('#email2').val();
 		var golbang = "@";
 		var chkEmail = chkEmail1.concat(golbang, chkEmail2);
-		var Emchkvalue =$('#emailCheckVal');
-
-		alert(chkEmail); //확인용
 		
 		$.ajax({
 			url : "emailCheck.do",
@@ -124,20 +357,19 @@
 			}),
 			success : function(data) {
 				if (data > 0) {
-					alert("이미 사용중인 이메일입니다.");
+					$('#emailCheckVal').val("N");
 					$('#email_alert').text("이미 사용중인 이메일입니다.");
 					$('#email_alert').show();
 					return;
 				} else {
 					alert("사용가능한 이메일입니다.");
 					$('#emailCheckVal').val("Y");
-					console.log(Emchkvalue);
-					$('#email_alert').text("사용가능한 이메일입니다..");
+					$('#email_alert').text("사용가능한 이메일입니다.");
 					$('#email_alert').show();
 				}
 			},
 			error : function(err) {
-				alert("실패!");
+				alert("처리도중 오류가 발생하였습니다. 잠시 후 다시 시도해주세요.");
 			}
 		});
 
@@ -162,12 +394,10 @@
 			}),
 			success : function(data) {
 				if (data > 0) {
-					alert("아이디 중복");
 					$('#id_alert').text("이미 사용중인 아이디입니다.");
 					$('#id_alert').show();
 					return;
 				} else {
-					alert("사용가능");
 					$('#idCheckVal').val("Y");
 					console.log(IDchkvalue);
 					$('#id_alert').text("사용가능 아이디입니다.");
@@ -638,9 +868,9 @@
 											<dd>
 												<div class="form-group v2">
 													<div class="form-item e-mail">
-														<input type="hidden" name="idCheckVal" id="emailCheckVal"/>
+														<input type="hidden" id="emailCheckVal" value=""/>
 														<input type="text" name="email1" id="email1" onchange="emailCheckValChange()"><span>@</span>
-														<input type="text" name="email2" id="email2">
+														<input type="text" name="email2" id="email2" onchange="emailCheckValChange()">
 														<div class="select-type2">
 															<select name="email3" id="email3"
 																onchange="checkEmailState($('#email3'),$('#email2'))">
@@ -666,7 +896,7 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all" name="agree_all"
-															value="Y" class="all-check" onChange="javascript:allCheck1()"> 
+															value="" class="all-check" onClick="javascript:allCheck1()"> 
 															<label class="checkbox" for="agree_all"></label> 
 															<label for="agree_all">전체 동의하기</label>
 													</div>
@@ -674,7 +904,7 @@
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_2" id="agree_2"
-																	value="Y"> <label class="checkbox"
+																	value="" onClick="javascript:chkAgree2();"> <label class="checkbox"
 																	for="agree_2"></label> <label for="agree_2">개인정보
 																	수집 및 이용 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p2'})"
@@ -684,7 +914,7 @@
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" name="agree_1" id="agree_1"
-																	value="Y"> <label class="checkbox"
+																	value="" onClick="javascrippt:chkAgree1();"> <label class="checkbox"
 																	for="agree_1"></label> <label for="agree_1">이용약관
 																	동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms'})"
@@ -694,7 +924,7 @@
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="location_yn"
-																	name="location_yn" value="Y"> <label
+																	name="location_yn" value="" onClick="javascript:chkLocation();"> <label
 																	class="checkbox" for="location_yn"></label> <label
 																	for="location_yn">위치기반 서비스 약관 동의(필수)</label> <a
 																	href="javascript:UI.layerPopUp({selId:'#pop-terms-p4'})"
@@ -712,7 +942,7 @@
 												<div class="form agree">
 													<div class="chk-box v4">
 														<input type="checkbox" id="agree_all2" name="agreeType1"
-															class="all-check2" onChange="javascript:allCheck2();"> <label class="checkbox"
+															class="all-check2" onClick="javascript:allCheck2();"> <label class="checkbox"
 															for="agree_all2"></label> <label for="all1">전체
 															동의하기</label>
 													</div>
@@ -720,14 +950,14 @@
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="chk_ds_fl" name="receive_sms"
-																	value="Y"> <label class="checkbox"
+																	value="" onClick="chkDsfl();"> <label class="checkbox"
 																	for="chk_ds_fl"></label> <label for="chk_ds_fl">문자메세지(선택)</label>
 															</div>
 														</li>
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="chk_dm_fl"
-																	name="receive_email" value="Y"> <label
+																	name="receive_email" value="" onClick="chkDmfl();"> <label
 																	class="checkbox" for="chk_dm_fl"></label> <label
 																	for="chk_dm_fl">이메일(선택)</label>
 															</div>
@@ -735,7 +965,7 @@
 														<li>
 															<div class="chk-box v4">
 																<input type="checkbox" id="chk_o_dm_fl"
-																	name="receive_dm" value="Y"> <label
+																	name="receive_dm" value="" onClick="chkODmfl();"> <label
 																	class="checkbox" for="chk_o_dm_fl"></label> <label
 																	for="chk_o_dm_fl">DM 우편(최근 배달주소로 배송)(선택)</label>
 															</div>
