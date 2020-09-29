@@ -20,6 +20,12 @@
 	<!-- 더보기 슬라이드로 내려오는 js -->
 	<script type="text/javascript" src="<c:url value='/resources/js/user/ui.js'/>"></script>
 <script>
+	$(document).ready(function(){
+		$('.btn-close').click(function(){ // 퀵오더 설정방법 pop-layer 숨기기
+			$('.pop-layer').hide();
+		});
+	});
+	
 function expireSession(){
 	  alert("세션이 만료되었습니다");
 	  
@@ -49,6 +55,7 @@ function expireSession(){
 	setTimeout('expireSession()',<%= request.getSession().getMaxInactiveInterval() * 1000 %>);
 </script>
 	<script type="text/javascript">
+		
 		function goEdit(){
 			var chkSession = $('#chkSession').val(); // 세션에 저장된 'msg'값을 읽어옴
 			
@@ -189,14 +196,11 @@ function expireSession(){
 									<input type="hidden" id="totalPrice" value="${totalPrice }" />
 									<p>
 										자주 이용하시는 제품을 더 빨리 주문할 수 있는 다미노피자의 회원전용 서비스입니다.<br> 온라인 회원
-										로그인 후 아래 두가지 방법 중 하나로 퀵 오더를 설정하시고 이용하시기 바랍니다.
+										로그인 후 아래 퀵오더 사용법에 따라 퀵 오더를 설정하시고 이용하시기 바랍니다.
 									</p>
-									<div class="guide-btn">
+									<div class="guide-btn" style="width:35%;">
 										<div class="item">
-											<i class="ico-order"></i> 주문내역에서 선택
-										</div>
-										<div class="item">
-											<i class="ico-quick2"></i> 퀵 오더 페이지에서 설정
+											<i class="ico-quick2"></i> 퀵 오더 사용법 알아보기
 										</div>
 										<a href="javascript:UI.layerPopUp({selId:'#pop-quick-howto'})"
 											class="btn-detail"><i class="ico-sch"></i><span
@@ -309,41 +313,12 @@ function expireSession(){
 							</c:choose>
 							<div class="pop-layer" id="pop-quick-howto">
 								<div class="dim"></div>
-								<div class="pop-wrap">
+								<div class="pop-wrap" style="top:0px; left:20%;">
 									<div class="pop-title-wrap">
 										<div class="pop-title">퀵 오더 설정방법</div>
 									</div>
 									<div class="pop-content">
 										<div class="step-cont">
-											<p class="title-type">주문내역에서 선택</p>
-											<ol>
-												<li>
-													<p class="title-type4">
-														<span class="number">01.</span>나의 정보 > 주문 내역에서 자주 이용하시는
-														주문내역의 상세보기를 클릭하세요.
-													</p>
-													<figure>
-														<img
-															src="https://cdn.dominos.co.kr/domino/pc/images/quick/quick_howto1.png"
-															alt="" />
-													</figure>
-												</li>
-												<li>
-													<p class="title-type4">
-														<span class="number">02.</span>상세내역 페이지 아래의 &lsquo;퀵 오더
-														등록&rsquo;버튼을 누르시면 해당주문의 제품과 배송방법 및 배송지/매장이 저장됩니다. <br>(할인은
-														주문하실 때 마다 자동으로 추천됩니다.)
-													</p>
-													<figure>
-														<img
-															src="https://cdn.dominos.co.kr/domino/pc/images/quick/quick_howto2.png"
-															alt="" />
-													</figure>
-												</li>
-											</ol>
-										</div>
-										<div class="step-cont">
-											<p class="title-type">퀵 오더 페이지에서 설정</p>
 											<ol>
 												<li>
 													<p class="title-type4">
@@ -359,7 +334,7 @@ function expireSession(){
 												<li>
 													<p class="title-type4">
 														<span class="number">02.</span>퀵 오더 설정 페이지에서 원하는 내용으로 퀵
-														오더를 설정합니다. <br>(할인은 주문하실 때 마다 자동으로 추천됩니다.)
+														오더를 설정합니다. <br>
 													</p>
 													<figure>
 														<img
