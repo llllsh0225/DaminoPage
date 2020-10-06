@@ -40,4 +40,10 @@ public class CouponManagementDAOImpl implements CouponManagementDAO {
 		return sqlSessionTemplate.selectOne("CouponDAO.getNextCouponSeq");
 	}
 
+	@Override
+	public void deleteCoupon(int seq) {
+		System.out.println(seq + "번 쿠폰 삭제");
+		sqlSessionTemplate.delete("CouponDAO.deleteCoupon", seq);
+	}
+
 }

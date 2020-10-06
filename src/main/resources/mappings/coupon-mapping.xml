@@ -132,4 +132,10 @@
 			WHERE validity < sysdate
 		]]>
 	</delete>
+	
+	<!-- 개별쿠폰 삭제 (관리자페이지) -->
+	<delete id="deleteCoupon" parameterType="Integer">
+		DELETE FROM coupon
+		WHERE seq = #{seq}
+	</delete>
 </mapper>

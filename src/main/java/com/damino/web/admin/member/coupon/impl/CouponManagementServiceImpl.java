@@ -60,4 +60,10 @@ public class CouponManagementServiceImpl implements CouponManagementService {
 		return couponManagementDAO.getNextCouponSeq();
 	}
 
+
+	@Override
+	public void deleteCoupon(int seq) {
+		couponManagementDAO.deleteCoupon(seq);
+	}
+
 }
