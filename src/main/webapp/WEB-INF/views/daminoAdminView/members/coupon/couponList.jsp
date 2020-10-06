@@ -40,6 +40,30 @@ function deleteExpirations(){
 		}
 	});
 }
+
+// 쿠폰 삭제
+function deleteCoupon(seq){
+	if (confirm("정말로 삭제하시겠습니까?")){
+		 $.ajax({
+				url : 'deleteCoupon.admdo',
+				contentType : "application/json; charset=UTF-8;",
+				type: 'post', 
+				data : JSON.stringify({
+					seq : seq
+				}),
+				success: function(data) {
+					if(data == 'success'){
+						location.reload(true);
+					}
+				},
+				 error: function() {
+					alert('처리도중 오류가 발생했습니다. 다시 시도해주세요.');
+				} 
+			})
+		}else{
+			return;
+		}
+}
 </script>
 </head>
 <body class="sb-nav-fixed">
@@ -234,10 +258,11 @@ function deleteExpirations(){
 											<th style="width:11%;">회원 ID</th>
 											<th style="width:15%;">쿠폰코드</th>
 											<th style="width:22%;">쿠폰명</th>
-											<th style="width:13%;">분류</th>
+											<th style="width:11%;">분류</th>
 											<th>쿠폰등록일</th>
 											<th>유효일자</th>
 											<th style="width:12%">사용가능여부</th>
+											<th style="width:9%">쿠폰삭제</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -245,11 +270,12 @@ function deleteExpirations(){
 										<tr>
 											<td class="center-group">${coupon.userid }</td>
 											<td class="center-group">${coupon.coupon_code }</td>
-											<td><a href="getCouponInfo.admdo?seq=${coupon.seq }">${coupon.coupon_name }</a></td>
+											<td>${coupon.coupon_name }</td>
 											<td class="center-group">${coupon.coupon_type }</td>
 											<td class="center-group"><fmt:formatDate value="${coupon.regdate }" pattern="yyyy-MM-dd" /></td>
 											<td class="center-group"><fmt:formatDate value="${coupon.validity }" pattern="yyyy-MM-dd" /></td>
 											<td class="center-group">${coupon.chkusable }</td>
+											<td class="center-group"><input type="button" class="btn btn-danger" value="삭제" onClick="deleteCoupon(${coupon.seq});"></td>
 										</tr>
 										</c:forEach>
 									</tbody>
