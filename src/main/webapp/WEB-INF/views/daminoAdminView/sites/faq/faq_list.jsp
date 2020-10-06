@@ -27,23 +27,6 @@
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 
-<script>
-
-function faqTypeSearch(){
-	var faq_type = $('#faqTypeKeyword option:selected').val();
-	
-	$.ajax({
-		type : "POST",
-		url : "getFaqTypeList.admdo",
-		dataType : "json",
-		contentType : "application/json; charset=utf-8;",
-		data : JSON.stringify({
-			faq_type : faq_type,
-		})
-	});
-}
-
-</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -194,7 +177,7 @@ function faqTypeSearch(){
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
+								<a class="nav-link" href="qna_list.admdo">FAQ</a> <a
 									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
 									class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
@@ -211,17 +194,17 @@ function faqTypeSearch(){
 				<!-- 메뉴관리 -> 메뉴 등록 페이지 -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <strong>Q&A 페이지 관리</strong>
+						<i class="fas fa-table mr-1"></i> <strong>FAQ 페이지 관리</strong>
 						<!--새로고침 버튼-->
 						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
 							onClick="window.location.reload()"
 							style="margin-left: 15px; cursor: pointer;">
 					</div>
 					<div class="card-body">
-						<form id="faqListForm" name="faqListForm" action="post">
+						<form id="faqListForm" name="faqListForm" action="qna_list.admdo" method="post">
 							<div id="table-reponsive">
 								<div id="qna-insert-btn">
-									<input type="button" class="btn btn-primary" value="Q&A 등록"
+									<input type="button" class="btn btn-primary" value="FAQ 등록"
 										onClick="location.href='qna_insert.admdo'" />
 								</div>
 								<div id="qna-select-btn">
@@ -232,7 +215,7 @@ function faqTypeSearch(){
 										<option value="포장 주문">포장 주문</option>
 										<option value="피자 선물하기">피자 선물하기</option>
 										<option value="홈페이지 관련">홈페이지 관련</option>
-									</select>&nbsp; <input type="button" class="btn btn-delete" onclick="faqTypeSearch();" value="조회" />
+									</select>&nbsp; <input type="submit" class="btn btn-delete" value="조회" />
 								</div>
 								<div class="for-margin-height-div"></div>
 								<div class="for-margin-height-div"></div>
@@ -246,7 +229,7 @@ function faqTypeSearch(){
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="faq" items="${faqTypeList }">
+										<c:forEach var="faq" items="${faqList }">
 										<tr>
 											<td class="center-group">${faq.seq }</td>
 											<td><a href="getFaq.admdo?seq=${faq.seq }">${faq.title }</a></td>
