@@ -18,7 +18,7 @@ public class FaqController {
 		System.out.println("문의사항 추가 페이지 열기");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/sites/questionAndAnswer/qna_insert");
+		mav.setViewName("/sites/faq/faq_insert");
 		
 		return mav;
 	}
@@ -29,7 +29,7 @@ public class FaqController {
 		List<FaqVO> faqList = faqService.getFaqList(vo);
 		
 		mav.addObject("faqList", faqList);
-		mav.setViewName("sites/questionAndAnswer/qna_list");
+		mav.setViewName("sites/faq/faq_list");
 		
 		return mav;
 	}
@@ -41,7 +41,7 @@ public class FaqController {
 		List<FaqVO> faqList = faqService.getFaqList(vo);
 		
 		mav.addObject("faqList", faqList);
-		mav.setViewName("sites/questionAndAnswer/qna_list");
+		mav.setViewName("sites/faq/faq_list");
 		
 		return mav;
 	}
@@ -51,7 +51,7 @@ public class FaqController {
 	public ModelAndView getFaq(FaqVO vo, ModelAndView mav) {
 		FaqVO faq = faqService.getFaq(vo);
 		
-		mav.setViewName("/sites/questionAndAnswer/qna_view");
+		mav.setViewName("/sites/faq/faq_view");
 		mav.addObject("faq", faq);
 		
 		return mav;
