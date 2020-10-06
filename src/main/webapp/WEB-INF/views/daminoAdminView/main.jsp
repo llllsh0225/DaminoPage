@@ -286,7 +286,7 @@
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
+								<a class="nav-link" href="qna_list.admdo">FAQ</a> <a
 									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
 									class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
@@ -405,7 +405,7 @@
 						<!-- 주문내역 -->
 						<div class="col-xl-4">
 							<div class="card mb-4">
-								<div class="card-header bg-dark text-white"><b>최근 Q&A 목록</b></div>
+								<div class="card-header bg-dark text-white"><b>FAQ 목록</b></div>
 								<div class="card-body">
 										<c:forEach var="faq" items="${faqMain }">
 											<ul style="margin-bottom: 0px;">

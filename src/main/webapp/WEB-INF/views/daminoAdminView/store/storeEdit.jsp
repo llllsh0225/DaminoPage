@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/admin/styles.css' />">
 
 <script type="text/javascript"
-	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
+	src="<c:url value='https://cdnjs.clFoudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
 <!-- 다음 주소 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -231,7 +231,7 @@ function execPostCode() {
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
+								<a class="nav-link" href="qna_list.admdo">FAQ</a> <a
 									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
 									class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>

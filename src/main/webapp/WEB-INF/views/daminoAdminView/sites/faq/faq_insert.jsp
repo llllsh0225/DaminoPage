@@ -17,20 +17,6 @@
 
 <script type="text/javascript"
 	src="<c:url value='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js'/>" crossorigin="anonymous"></script>
-<script>
-function faqAction(index){
-	if(index == 1){
-		document.faqViewForm.action = 'updateFaq.admdo';
-	}else if(index == 2){
-		if(confirm("해당 FAQ를 삭제하시겠습니까?") == true){
-			document.faqViewForm.action = 'deleteFaq.admdo';
-		}else{
-			return;
-		}
-	}
-	document.faqViewForm.submit();
-}
-</script>
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -181,7 +167,7 @@ function faqAction(index){
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a
+								<a class="nav-link" href="qna_list.admdo">FAQ</a> <a
 									class="nav-link" href="bannerBoardView.admdo">배너관리</a> <a
 									class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
@@ -198,29 +184,39 @@ function faqAction(index){
 				<!-- 메뉴관리 -> 메뉴 등록 페이지 -->
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table mr-1"></i> <strong>Q&A 상세보기</strong>
+						<i class="fas fa-table mr-1"></i> <strong>FAQ 등록</strong>
+						<!--새로고침 버튼-->
+						<img src="<c:url value='/resources/images/admin/refresh_icon.png' />" width="20"
+							onClick="window.location.reload()"
+							style="margin-left: 15px; cursor: pointer;">
 					</div>
-					
 					<div class="card-body">
-						<form id="faqViewForm" name="faqViewForm" method="post">
-						<input type="hidden" name="seq" id="seq" value="${faq.seq }" />
-					<input type="button" class="btn btn-primary" value="글수정" onclick="faqAction(1)" style="float: right" /> 
-					<input type="button" class="btn-delete" value="글삭제" onclick="faqAction(2)" style="float: right" /> 
-					<input type="button" class="btn-delete" value="전체 목록" onclick="location.href='qna_list.admdo'" style="float: right"/>
+						<form action="insertFaq.admdo" method="post">
 							<div id="table-reponsive">
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<tr>
 										<th>제목</th>
-										<td><input type="text" name="title" size="40" value="${faq.title }"/></td>
+										<td><input type="text" name="title" size="40" /></td>
 									</tr>
 									<tr>
 										<th>질문 분류</th>
-										<td>${faq.faq_type }</td>
+										<td><select name="faq_type" class="form-control-osh-qna-insert">
+												<option>피자 주문하기</option>
+												<option>주문확인</option>
+												<option>포장 주문</option>
+												<option>피자 선물하기</option>
+												<option>홈페이지 관련</option>
+										</select></td>
 									</tr>
 									<tr>
 										<th>내용</th>
-										<td><textarea name="content" cols="80" rows="10">${faq.content }</textarea></td>
+										<td><textarea name="content" cols="80" rows="10"></textarea></td>
+									</tr>
+									<tr>
+										<td colspan="2" class="center-group"><input type="submit"
+											class="btn btn-primary" value="FAQ 등록" /> <input
+											type="button" class="btn btn-delete" value="취소" /></td>
 									</tr>
 								</table>
 							</div>

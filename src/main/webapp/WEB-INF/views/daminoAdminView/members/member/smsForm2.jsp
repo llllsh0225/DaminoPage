@@ -187,7 +187,7 @@ body {
 						<div class="collapse" id="sitePage" aria-labelledby="headingOne"
 							data-parent="#sidenavAccordionPages">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="qna_list.admdo">Q&A</a> <a class="nav-link"
+								<a class="nav-link" href="qna_list.admdo">FAQ</a> <a class="nav-link"
 									href="bannerBoardView.admdo">배너관리</a>
 									<a class="nav-link" href="terms_list.admdo">약관관리</a>
 							</nav>
