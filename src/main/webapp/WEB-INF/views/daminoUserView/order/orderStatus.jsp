@@ -248,7 +248,7 @@ $(document).ready(function() {
 									</c:when>
 									<c:when test="${orderview.status eq '요리중' }">
 										<div class="graph-text">
-											<div><span>접수완료</span></div>
+											<div><span>주문완료</span></div>
 											<div><span>요리중</span></div>
 											<div><span>배달중</span></div>
 											<div><span>배달완료</span></div>
@@ -264,7 +264,7 @@ $(document).ready(function() {
 									</c:when>
 									<c:when test="${orderview.status eq '배달중' }">
 										<div class="graph-text">
-											<div><span>접수완료</span></div>
+											<div><span>주문완료</span></div>
 											<div><span>요리중</span></div>
 											<div><span>배달중</span></div>
 											<div><span>배달완료</span></div>
@@ -280,7 +280,7 @@ $(document).ready(function() {
 									</c:when>
 									<c:when test="${orderview.status eq '배달완료' }">
 										<div class="graph-text">
-											<div><span>접수완료</span></div>
+											<div><span>주문완료</span></div>
 											<div><span>요리중</span></div>
 											<div><span>배달중</span></div>
 											<div><span>배달완료</span></div>
