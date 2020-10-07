@@ -284,8 +284,8 @@ function marketMemDel(seq){
 									<tr>
 										<th>매장 지역</th>
 										<th>매장명</th>
+										<th>이름</th>
 										<th>아이디</th>
-										<th>비밀번호</th>
 										<th>승인여부</th>
 										<th>매장관리자 계정변경</th>
 									</tr>

@@ -205,7 +205,7 @@ function expireSession(){
                             <p class="title-type6">고객만족 센터<em>080-860-3082</em></p>
                         </div>
                         <div class="btn-wrap">
-                            <a href="javascript:doDel('238307');" class="btn-type v5">삭제</a>
+                            <a href="javascript:doDel(${qnaboard.seq });" class="btn-type v5">삭제</a>
                             <a href="javascript:goList();" class="btn-type v4">목록</a>
                             <p>
                         </p></div>
@@ -220,8 +220,7 @@ function expireSession(){
 <script type="text/javascript">
 //목록
 function goList(){
-	location.href = "/DaminoPage/myquestionlist.do?pageNo="+'1';
-	//location.href = "/mypage/myQuestionList?pageNo="+'1';
+	location.href ='myquestionlist.do';
 }
 
 // 삭제
