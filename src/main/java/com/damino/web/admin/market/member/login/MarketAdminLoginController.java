@@ -144,9 +144,12 @@ public class MarketAdminLoginController {
             System.out.println(managerLogin.getStorename());
             session.setAttribute("msg", "managerLogin");
             mav.setViewName("/members/main");
+         }else { // 아이디와 비밀번호는 일치하나 승인대기중인 경우
+        	 mav.setViewName("/members/loginDenied");
          }
       } else {
-         System.out.println("오류");
+    	  mav.addObject("msg", "loginfail");
+    	  mav.setViewName("/members/managerLogin");
       }
 
       return mav;
