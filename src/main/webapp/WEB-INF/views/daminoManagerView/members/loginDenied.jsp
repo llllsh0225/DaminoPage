@@ -17,25 +17,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
 	crossorigin="anonymous"></script>
-<script>
-window.onload = function(){
-	if(${msg eq 'loginfail'}){
-		alert("아이디 또는 비밀번호가 일치하지 않습니다.");
-	}
-}
-
-function inputCheck(){
-	if($('#managerid').val() == ""){
-		alert("아이디를 입력해주세요.");
-		return false;
-	}else if($('#managerpasswd').val() == ""){
-		alert("비밀번호를 입력해주세요.");
-		return false;
-	}
-	
-	return true;
-}
-</script>
 </head>
 <body class="bg-primary">
 	<div id="layoutAuthentication">
@@ -46,31 +27,19 @@ function inputCheck(){
 						<div class="col-lg-5">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
 								<div class="card-header">
-									<h3 class="text-center font-weight-light my-4">Store Manager Login</h3>
+									<h3 class="text-center font-weight-light my-4">Login Denied</h3>
 								</div>
 								<div class="card-body">
-									<form action="managerLoginCheck.smdo" method="post" onsubmit="return inputCheck();">
-										<div class="form-group">
-											<label class="small mb-1" for="inputStoreManagerId">ID</label>
-											<input class="form-control py-4" id="managerid"
-												type="text" placeholder="Enter ID" name="managerid"/>
-										</div>
-										<div class="form-group">
-											<label class="small mb-1" for="inputStoreManagerPassword">Password</label>
-											<input class="form-control py-4"
-												id="managerpasswd" type="password"
-												placeholder="Enter password" name="managerpasswd"/>
-										</div>
-										<div
-											class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-											<a class="small" href="passwordChange.smdo">비밀번호 찾기</a> 
-											<input type="submit" id="loginbtn" class="btn btn-primary" value="로그인" />
-										</div>
-									</form>
+									<!-- 승인 거부된 경우 -->
+									<div style="text-align:center">
+									<br>
+									승인 대기중인 계정입니다.<br></br>
+									본사 승인 후 로그인 가능합니다.<br></br>
+									</div>
 								</div>
 								<div class="card-footer text-center">
 									<div class="small">
-										<a href="managerRegister.smdo">매장관리자 계정 등록</a>
+										<a href="main.smdo">로그인페이지로 이동</a>
 									</div>
 								</div>
 							</div>
