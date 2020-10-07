@@ -44,8 +44,8 @@
 	
 	<!-- 비회원 로그인 시 usermember 테이블에 비회원정보 insert -->
 	<insert id="insertGuestInfo" parameterType="com.damino.web.user.login.UserVO">
-		INSERT INTO usermember (userid, username, phone)
-		VALUES (#{userid}, #{username}, #{phone})
+		INSERT INTO usermember (userid, username, phone, seq)
+		VALUES (#{userid}, #{username}, #{phone}, (select nvl(max(seq), 0)+1 from usermember))
 	</insert>
 	
 	<!-- 아이디 찾기 -->
