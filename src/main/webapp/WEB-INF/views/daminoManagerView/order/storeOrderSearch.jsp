@@ -47,7 +47,7 @@
 </head>
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="main.smdo?store=${storename }">다미노피자 테스트점</a>
+		<a class="navbar-brand" href="main.smdo?store=${storename }">다미노피자 ${storename }</a>
 		<!-- 전체화면 버튼 -->
 		<button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
 			<i class="fas fa-bars"></i>
