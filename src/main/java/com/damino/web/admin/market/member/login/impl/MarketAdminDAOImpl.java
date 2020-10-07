@@ -4,7 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.damino.web.admin.homepage.market.MarketVO;
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.login.MarketAdminDAO;
 import com.damino.web.admin.market.member.login.MarketAdminVO;
 

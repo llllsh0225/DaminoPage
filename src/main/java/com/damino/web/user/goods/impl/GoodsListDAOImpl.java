@@ -6,8 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.damino.web.admin.homepage.menu.PizzaVO;
-import com.damino.web.admin.homepage.menu.SideVO;
+import com.damino.web.admin.menu.PizzaVO;
+import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.goods.GoodsDrinkEtcVO;
 import com.damino.web.user.goods.GoodsListDAO;
 import com.damino.web.user.goods.GoodsPizzaVO;

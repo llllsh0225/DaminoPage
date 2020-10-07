@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.homepage.market.MarketVO;
+import com.damino.web.admin.market.MarketVO;
 import com.damino.web.admin.market.member.regist.MarketAdminMemberVO;
 import com.damino.web.user.board.paging.Paging;
 import com.damino.web.user.coupon.CouponService;
