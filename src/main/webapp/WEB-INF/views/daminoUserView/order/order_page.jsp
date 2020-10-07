@@ -698,6 +698,8 @@ window.onload = function() {
 					totalGoods += pizzaArr[i].p_name;
 				}
 					totalGoods = pizzaArr[i].p_name + ",";
+					
+					alert("totalGoods" + totalGoods);
 			}
 			if (s_length >= 1) {
 			for (var j = 0; j < s_length; j++) {
@@ -706,16 +708,9 @@ window.onload = function() {
 				}
 					totalGoods += sideArr[j].s_name + ",";
 				}
+			alert("totalGoods 2" + totalGoods);
 			}
-			if (e_length >= 1) {
-			for (var j = 0; j < e_length; j++) {
-				if (i == e_length - 1) {
-					totalGoods += etcArr[j].s_name;
-				} 
-					totalGoods += etcArr[j].s_name + ",";
-				
-				}
-			}
+
 		}//END p_length
 		
 		if (s_length >= 1) {

@@ -1037,7 +1037,7 @@ function toppingDelete(index) {
 								${sessionScope.username } 님 &nbsp; <a href="logout.do">로그아웃</a>
 								<a href="mylevel.do">나의정보</a> <a href="my_basket.do"
 									class="btn-cart"> <i class="ico-cart"></i><span
-									class="hidden">장바구니</span><strong class="cart_count cart-count"></strong>
+									class="hidden">장바구니</span>
 								</a>
 							</div>
 						</c:otherwise>
