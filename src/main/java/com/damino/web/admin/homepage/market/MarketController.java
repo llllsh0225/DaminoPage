@@ -2,18 +2,21 @@ package com.damino.web.admin.homepage.market;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.nurigo.java_sdk.Coolsms;
 import net.nurigo.java_sdk.api.Message;
 
 
@@ -44,14 +47,70 @@ public class MarketController {
 	}
 
 	@RequestMapping(value="/storeEdit.admdo", method=RequestMethod.GET)
-	public ModelAndView getMarket(MarketVO vo) {
+	public ModelAndView getMarket(MarketVO vo, HttpServletRequest request, ModelAndView mav, HttpSession session) {
+		
+		String adminid = (String) session.getAttribute("adminid");
 		System.out.println("매장 상세");
-		MarketVO market = marketService.getMarket(vo);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/store/storeEdit");
-		mav.addObject("market", market);
-		return mav;
-	}
+		
+		if (adminid == null) {
+			System.out.println(adminid);
+			mav.setViewName("/member/login"); //수정필요
+			return mav;
+		}
+		else {
+			int seq = Integer.parseInt(request.getParameter("seq"));
+			vo.setSeq(seq);
+			MarketVO market = marketService.getMarket(vo);
+		
+			mav.setViewName("/store/storeEdit");
+			mav.addObject("market", market);
+			return mav;
+		}
+	} 
+	
+	@RequestMapping(value="/changeStoreInfo.admdo", method=RequestMethod.POST)
+	@ResponseBody
+	public String changeStoreInfo(@RequestBody Map<String, Object> param, MarketVO vo, HttpServletRequest request, ModelAndView mav, HttpSession session) {
+		
+		String adminid = (String) session.getAttribute("adminid");
+		System.out.println("매장 상세");
+		
+		int seq = (Integer) param.get("seq");
+		String storename = (String) param.get("storename");
+		String storephone = (String) param.get("storephone");
+		String zipcode = (String) param.get("zipcode");
+		
+		//Object test = param.get("storeaddress");
+		//System.out.println("test : " + test);
+		
+		String storeaddress = (String) param.get("storeaddress");
+		String detailaddress = (String) param.get("detailaddress");
+		String parkingplace = (String) param.get("parkingplace");
+		String parking = (String) param.get("parkinginfo");
+		String opentime = (String) param.get("openTime");
+		String endtime = (String) param.get("endTime");
+		String referinfo = (String) param.get("referinfo");
+		
+		//수정된 정보 ajax로 받고 vo에 셋팅 필요
+		//세팅되면 mapping 파일에 추가하기
+		
+		vo.setSeq(seq);
+		vo.setStorename(storename);
+		vo.setStorephone(storephone);
+		vo.setZipcode(zipcode);
+		vo.setStoreaddress(storeaddress);
+		vo.setDetailaddress(detailaddress);
+		vo.setParkingplace(parkingplace);
+		vo.setParking(parking);
+		vo.setOpentime(opentime);
+		vo.setEndtime(endtime);
+		vo.setReferinfo(referinfo);
+		
+		marketService.updateMarket(vo);
+		
+		return "success";
+		
+	} 
 	
 	@RequestMapping(value="/updateMarket.admdo", method=RequestMethod.POST)
 	public String updateMarket(@ModelAttribute MarketVO vo) {
