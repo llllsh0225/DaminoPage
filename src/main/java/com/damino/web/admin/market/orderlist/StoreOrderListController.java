@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.salesstatus.SalesStatusService;
-import com.damino.web.admin.salesstatus.SalesVO;
+import com.damino.web.admin.homepage.salesstatus.SalesStatusService;
+import com.damino.web.admin.homepage.salesstatus.SalesVO;
 
 @Controller
 @SessionAttributes({"startdate","enddate"})

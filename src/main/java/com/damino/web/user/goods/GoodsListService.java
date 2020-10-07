@@ -2,8 +2,8 @@ package com.damino.web.user.goods;
 
 import java.util.List;
 
-import com.damino.web.admin.menu.PizzaVO;
-import com.damino.web.admin.menu.SideVO;
+import com.damino.web.admin.homepage.menu.PizzaVO;
+import com.damino.web.admin.homepage.menu.SideVO;
 
 public interface GoodsListService {
 	public List<GoodsPizzaVO> getPizzaList(); // 프리미엄 피자 목록 불러오기

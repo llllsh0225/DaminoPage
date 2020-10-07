@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.damino.web.admin.salesstatus.SalesStatusService;
-import com.damino.web.admin.salesstatus.SalesVO;
+import com.damino.web.admin.homepage.salesstatus.SalesStatusService;
+import com.damino.web.admin.homepage.salesstatus.SalesVO;
 
 @Controller
 @SessionAttributes({ "managername", "managerid", "storeregion", "storename" })
