@@ -15,6 +15,7 @@
 	 <update id="updateMarket" parameterType="com.damino.web.admin.market.MarketVO"> 
 			UPDATE daminostoreinfo
 			set storename=#{storename}, storephone=#{storephone}, zipcode=#{zipcode}, storeaddress=#{storeaddress}, detailaddress=#{detailaddress}, referinfo=#{referinfo}, parking=#{parking}, parkingplace=#{parkingplace}, opentime=#{opentime}, endtime=#{endtime}
+			WHERE seq = #{seq}
 	</update> 
 
 	<select id="getMarketList" resultType="com.damino.web.admin.market.MarketVO">

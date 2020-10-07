@@ -21,16 +21,111 @@
 
 
 <script type="text/javascript">
-	function boardSubmit(index){
-		if(index==1){
-			document.form1.action='updateMarket.admdo';
+	function changeStoreInfo(seq){
+		var seq = seq;
+		var storename = $('#storename').val();
+		var storephone = $('#storephone').val();
+		var storeAddress = $('#storeaddress').val();
+		var detailAddress = $('#detailaddress').val();
+		var parkingplace = $('#parkingplace').val();
+		
+		if(detailAddress == ''){
+			detailAddress = 'null';
 		}
-		document.form1.submit();
-	}
+		if(parkingplace == '' || typeof parkingplace == 'undefined'){
+			parkingplace = 'null';
+		}
+		
+		var zipcode = $('#zipcode').val();
+		/* if(typeof zipcode == "undefined"){
+			zipcode = #i		} */
+		
+		//매장주차 가능여부
+		var parkingInfo = $(':radio[name="parking"]:checked').val(); 
+		if(typeof parkingInfo == "undefined"){
+			parkingInfo = 'N';
+		}
+		
+		var openTime = $('#opentime').val();
+		var endTime = $('#endtime').val();
+		var referinfo = $('#referinfo').val(); //특이사항
+		if(referinfo == ''){
+			referinfo = 'null';
+		}
+		//유효성 검사
+		//매장명 여부 확인
+		if($("#storename").val() == ""){
+			alert("매장명을 입력해주세요");
+			//return;
+		 return false;
+		}
+		//전화번호 여부 확인
+		if($("#storephone").val() == ""){
+			alert("전화번호를 입력해주세요");
+			//return;
+		 return false;
+		}
+		//우편번호 확인
+		if($('zipcode').val() == ''){
+			alert("우편번호를 확인해주세요");
+			return false;
+		}
+		//주소 여부 확인
+		if($('storeaddress').val() == "" ){
+			alert("주소를 입력해주세요");
+		 	return false;
+		}
+		//시간 여부 확인
+		if($('opentime').val() == "" || $('endTime').val() == "" ){
+			alert("시간 정보를 입력해주세요");
+		 	return false;
+		}
+		
+		
+	 //변경 정보 컨트롤러로 전송
+		 $.ajax({
+			url : 'changeStoreInfo.admdo',
+			contentType : "application/json; charset=UTF-8;",
+			type : 'post',
+			data : JSON.stringify({
+				seq : seq,
+				storename : storename,
+				storephone : storephone,
+				zipcode : zipcode,
+				storeaddress : storeAddress,
+				detailaddress : detailAddress,
+				parkingplace : parkingplace,
+				parkinginfo : parkingInfo,
+				openTime : openTime,
+				endTime : endTime,
+				referinfo : referinfo
+				
+			}),
+			success : function(data) {
+				if (data == 'success') {
+					location.reload(true);
+					alert("성공");
+				} else {
+					alert('실패');
+					return;
+				}
+			},
+			error : function() {
+				alert('처리도중 오류가 발생했습니다.');
+			}
+
+		})  
+	
+	
+	
+	}//END changeStoreInfo
+		
+		
 
 </script>
 
 <script type="text/javascript">
+
 function execPostCode() {
          new daum.Postcode({
              oncomplete: function(data) {
@@ -257,15 +352,15 @@ function execPostCode() {
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputFirstName">매장명</label> 
-													<input class="form-control py-4" id="inputFirstName"
+													<input class="form-control py-4" id="storename"
 														type="text" placeholder="" name="storename" value="${market.storename }"/>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputLastName">전화번호
-													</label> <input class="form-control py-4" id="inputLastName"
-														type="text" placeholder="" name="storephone" value="${market.storephone }"/>
+													</label> <input class="form-control py-4" 
+														type="text" placeholder="" id="storephone" name="storephone" value="${market.storephone }"/>
 												</div>
 											</div>
 										</div>
@@ -291,10 +386,10 @@ function execPostCode() {
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputConfirmPassword">매장주차</label>
-													<label class="small mb-1"><input type="radio" name="parking" value="X" checked="checked" <c:if test="${market.parking eq 'X'}">checked</c:if>/>주차공간 없음</label> 
+													<div>
+													<label class="small mb-1"><input type="radio" name="parking" value="N" checked="checked" <c:if test="${market.parking eq 'X'}">checked</c:if>/>주차공간 없음</label> 
 													<label class="small mb-1"><input type="radio" name="parking" value="Y" <c:if test="${market.parking eq 'Y'}">checked</c:if>/>매장주차 가능</label> 
-													<input class="form-control py-4" id="inputConfirmPassword"
-														type="text" placeholder="" name="parking" value="${market.parking }"/>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -302,15 +397,15 @@ function execPostCode() {
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputPassword">오픈시간</label>
-                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
-                                                        name="opentime" value="${market.opentime }"/>
+                                                        <input class="form-control py-4"  type="text" placeholder="" 
+                                                        name="opentime" id="opentime" value="${market.opentime }"/>
                                                     </div>
                                                 </div>
 												<div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPassword">마감시간</label>
-                                                        <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
-                                                        name="endtime" value="${market.endtime }"/>
+                                                        <input class="form-control py-4" type="text" placeholder="" 
+                                                        name="endtime" id="endtime" value="${market.endtime }"/>
                                                     </div>
                                                 </div>
 											</div>
@@ -318,7 +413,7 @@ function execPostCode() {
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="inputPassword">특이사항</label>
-                                                      <input class="form-control py-4" id="inputPassword" type="text" placeholder="" 
+                                                      <input class="form-control py-4" id="referinfo" type="text" placeholder="" 
                                                       name="referinfo" value="${market.referinfo }"/>
                                                     </div>
                                                 </div>
@@ -329,7 +424,7 @@ function execPostCode() {
 													 </label>
 												</div>
 											</div>
-                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" role ="button" onclick="boardSubmit(1)">변경정보 저장</a>	
+                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" role ="button" onclick="changeStoreInfo(${market.seq})">변경정보 저장</a>	
 											</div>
 										</form>
 									</div>
