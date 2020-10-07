@@ -2,8 +2,8 @@ package com.damino.web.user.goods;
 
 import java.util.List;
 
-import com.damino.web.admin.homepage.menu.PizzaVO;
-import com.damino.web.admin.homepage.menu.SideVO;
+import com.damino.web.admin.menu.PizzaVO;
+import com.damino.web.admin.menu.SideVO;
 import com.damino.web.user.board.QnaBoardVO;
 import com.damino.web.user.quickorder.QuickOrderGoodsVO;
 

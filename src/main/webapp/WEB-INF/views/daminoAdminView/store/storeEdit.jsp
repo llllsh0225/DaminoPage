@@ -379,8 +379,7 @@ function execPostCode() {
 											<div class="col-md-6">
 												<div class="form-group">
 													<label class="small mb-1" for="inputPassword">주차시설</label>
-													<input class="form-control py-4" id="inputPassword"
-														type="text" placeholder="" name="parkingplace" value="${market.parkingplace }"/>
+													<input class="form-control py-4" id="parkingplace" type="text" placeholder="" name="parkingplace" value="${market.parkingplace }"/>
 												</div>
 											</div>
 											<div class="col-md-6">
