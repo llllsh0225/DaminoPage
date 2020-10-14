@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="com.damino.web.user.main.UserMainController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/main/UserMainController.java" binary="false" 
+    label="userMainController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="326" y="0"/>    
+    <execution id="2">      
+      <position height="913" width="133" x="5" y="99"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="21" width="7" x="68" y="155"/>    
+    </execution>  
+  </object>  
+  <object id="8" language="java" name="com.damino.web.user.login.LoginController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/login/LoginController.java" binary="false" 
+    label="loginController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="207" y="0"/>    
+    <execution id="4">      
+      <position height="77" width="120" x="142" y="120"/>    
+    </execution>  
+  </object>  
+  <object id="10" language="java" name="com.damino.web.user.userlevel.UserLevelController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/userlevel/UserLevelController.java" binary="false" 
+    label="userLevelController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="413" y="0"/>    
+    <execution id="6">      
+      <position height="786" width="139" x="266" y="205"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="com.damino.web.user.coupon.CouponController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/coupon/CouponController.java" binary="false" 
+    label="couponController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="533" y="0"/>    
+    <execution id="12">      
+      <position height="744" width="131" x="409" y="226"/>    
+    </execution>  
+  </object>  
+  <object id="16" language="java" name="com.damino.web.user.goods.GoodsListController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/goods/GoodsListController.java" binary="false" 
+    label="goodsListController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="595" y="0"/>    
+    <execution id="15">      
+      <position height="702" width="136" x="544" y="247"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="639" width="7" x="609" y="289"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="564" width="136" x="544" y="343"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="326" width="7" x="615" y="497"/>    
+    </execution>  
+  </object>  
+  <object id="26" language="java" name="com.damino.web.user.order.OrderController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/order/OrderController.java" binary="false" 
+    label="orderController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="803" y="0"/>    
+    <execution id="22">      
+      <position height="506" width="122" x="684" y="380"/>    
+    </execution>    
+    <execution id="29">      
+      <position height="411" width="7" x="742" y="433"/>    
+    </execution>    
+    <execution id="25">      
+      <position height="267" width="7" x="742" y="535"/>    
+    </execution>    
+    <execution id="32">      
+      <position height="161" width="7" x="742" y="620"/>    
+    </execution>  
+  </object>  
+  <object id="35" language="java" name="com.damino.web.user.quickorder.QuickOrderController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/quickorder/QuickOrderController.java" binary="false" 
+    label="quickOrderController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="916" y="0"/>    
+    <execution id="28">      
+      <position height="464" width="145" x="810" y="401"/>    
+    </execution>  
+  </object>  
+  <object id="37" language="java" name="com.damino.web.user.orderlist.MyOrderListController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/orderlist/MyOrderListController.java" binary="false" 
+    label="myOrderListController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="855" y="0"/>    
+    <execution id="34">      
+      <position height="86" width="149" x="959" y="674"/>    
+    </execution>    
+    <execution id="39">      
+      <position height="21" width="149" x="959" y="718"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getLogin():org.springframework.web.servlet.ModelAndView" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" 
+    operation="getMyLevel(org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpSession):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false" x="80" y="188">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="9" 
+    operation="getMainPage(org.springframework.security.core.Authentication):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false" x="48" y="135">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="11" 
+    operation="getMyCouponList(com.damino.web.user.board.paging.Paging,javax.servlet.http.HttpSession,org.springframework.web.servlet.ModelAndView):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="14" 
+    operation="getPizzaList(org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpSession):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="17" 
+    operation="goView(org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpServletRequest,com.damino.web.user.goods.GoodsPizzaVO,javax.servlet.http.HttpSession):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" 
+    operation="go_InsertBasket(java.util.Map&lt;java.lang.String,java.lang.Object&gt;,javax.servlet.http.HttpServletRequest,com.damino.web.user.goods.UserBasketVO,javax.servlet.http.HttpSession):java.lang.String" 
+    asynchronous="true">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" 
+    operation="getOrderPage(org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpSession):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="24" 
+    operation="orderPage(com.damino.web.user.board.paging.Paging,org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpSession,javax.servlet.http.HttpServletRequest):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>  
+  <message id="27" 
+    operation="openDetailAddr(org.springframework.web.servlet.ModelAndView):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="30" 
+    operation="goView_basket(com.damino.web.user.board.paging.Paging,org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpServletRequest,com.damino.web.user.goods.UserBasketVO,javax.servlet.http.HttpSession):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false" x="438" y="474">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="31" operation="getOrderOrderDone():org.springframework.web.servlet.ModelAndView" asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="33" 
+    operation="getMyOrderList(org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpSession,com.damino.web.user.board.paging.Paging):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false" x="767" y="651">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="36" 
+    operation="insertDeliveryAddress(java.util.Map&lt;java.lang.String,java.lang.Object&gt;,com.damino.web.user.order.DeliveryAddressVO):java.lang.String" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="29"/>  
+  </message>  
+  <message id="38" 
+    operation="getOrderStatusReceive(org.springframework.web.servlet.ModelAndView,com.damino.web.user.orderlist.MyOrderListVO,javax.servlet.http.HttpSession):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="39"/>  
+  </message>
+</sequence-diagram>

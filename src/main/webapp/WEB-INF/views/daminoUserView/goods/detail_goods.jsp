@@ -917,14 +917,14 @@ function minusDrink(idx){
 											<li><a href="goodsDrinkEtcList.do">음료&기타</a></li>
 										</ul>
 									</div>
-									<div class="sch-box">
+									<!-- <div class="sch-box">
 										<span>인기순</span>
 										<div class="sch-slider"></div>
 										<div class="sch-slider-nav"></div>
 										<a href="javascript:;" class="btn-open"> <span
 											class="hidden">열기</span><i></i>
 										</a>
-									</div>
+									</div> -->
 								</div>
 								<script>
 								<!-- 피자 제한 알고리즈 -->

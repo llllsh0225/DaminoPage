@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="com.damino.web.user.userlevel.UserLevelController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/userlevel/UserLevelController.java" binary="false" 
+    label="userLevelController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="18" y="0"/>    
+    <execution id="2">      
+      <position height="352" width="139" x="5" y="101"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="com.damino.web.user.coupon.CouponController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/coupon/CouponController.java" binary="false" 
+    label="couponController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="290" y="0"/>    
+    <execution id="4">      
+      <position height="310" width="131" x="148" y="122"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="241" width="131" x="148" y="170"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="21" width="7" x="213" y="285"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="com.damino.web.user.coupon.CouponService" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/coupon/CouponService.java" binary="false" label="couponService" 
+    type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="364" y="0"/>    
+    <execution id="9">      
+      <position height="199" width="131" x="283" y="191"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="com.damino.web.user.coupon.impl.CouponServiceImpl" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/coupon/impl/CouponServiceImpl.java" binary="false" 
+    label="couponServiceImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="501" y="0"/>    
+    <execution id="13">      
+      <position height="157" width="151" x="418" y="212"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="com.damino.web.user.coupon.CouponDAO" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/coupon/CouponDAO.java" binary="false" label="couponDAO" 
+    type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="586" y="0"/>    
+    <execution id="16">      
+      <position height="115" width="131" x="573" y="233"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="com.damino.web.user.coupon.impl.CouponDAOImpl" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/user/coupon/impl/CouponDAOImpl.java" binary="false" 
+    label="couponDAOImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="851" y="0"/>    
+    <execution id="19">      
+      <position height="73" width="151" x="708" y="254"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getEcouponInputPage():org.springframework.web.servlet.ModelAndView" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="registEcoupon(java.util.Map&lt;java.lang.String,java.lang.Object&gt;):java.lang.String" 
+    asynchronous="true">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="registEcoupon(java.util.Map&lt;java.lang.String,java.lang.String&gt;):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="12" operation="registEcoupon(java.util.Map&lt;java.lang.String,java.lang.String&gt;):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="15" operation="registEcoupon(java.util.Map&lt;java.lang.String,java.lang.String&gt;):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="18" operation="registEcoupon(java.util.Map&lt;java.lang.String,java.lang.String&gt;):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="21" asynchronous="false">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>
+</sequence-diagram>
