@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="com.damino.web.admin.main.AdminMainController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/main/AdminMainController.java" binary="false" 
+    label="adminMainController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="273" y="0"/>    
+    <execution id="2">      
+      <position height="316" width="142" x="5" y="99"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="21" width="7" x="73" y="247"/>    
+    </execution>  
+  </object>  
+  <object id="6" language="java" name="com.damino.web.admin.member.login.AdminMemberLoginController" 
+    project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/AdminMemberLoginController.java" binary="false" 
+    label="adminMemberLoginController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="263" y="0"/>    
+    <execution id="4">      
+      <position height="274" width="193" x="151" y="120"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="63" width="193" x="151" y="226"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="com.damino.web.admin.member.login.AdminMemberLoginService" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/AdminMemberLoginService.java" binary="false" 
+    label="adminMemberLoginService" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="379" y="0"/>    
+    <execution id="8">      
+      <position height="232" width="180" x="348" y="141"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="com.damino.web.admin.member.login.impl.AdminMemberLoginServiceImpl" 
+    project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/impl/AdminMemberLoginServiceImpl.java" 
+    binary="false" label="adminMemberLoginServiceImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="544" y="0"/>    
+    <execution id="13">      
+      <position height="190" width="204" x="532" y="162"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="com.damino.web.admin.member.login.AdminMemberLoginDAO" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/AdminMemberLoginDAO.java" binary="false" 
+    label="adminMemberLoginDAO" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="725" y="0"/>    
+    <execution id="16">      
+      <position height="148" width="164" x="740" y="183"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="com.damino.web.admin.member.login.impl.AdminMemberLoginDAOImpl" 
+    project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/impl/AdminMemberLoginDAOImpl.java" binary="false" 
+    label="adminMemberLoginDAOImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="897" y="0"/>    
+    <execution id="19">      
+      <position height="106" width="186" x="908" y="204"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getAdminLoginPage():org.springframework.web.servlet.ModelAndView" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="7" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="10" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="12" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="15" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="18" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="21" asynchronous="false">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>
+</sequence-diagram>
