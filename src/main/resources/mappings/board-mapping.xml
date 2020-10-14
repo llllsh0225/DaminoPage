@@ -10,6 +10,20 @@
 		ORDER BY seq desc
 	</select>
 	
+	<select id="getNoticeBoardListAdm" resultType="com.damino.web.admin.board.BoardVO">
+		SELECT seq, title, writer, regdate, cnt, flag
+		FROM board
+		WHERE flag = '공지사항'
+		ORDER BY seq DESC
+	</select>
+	
+	<select id="getNewsBoardListAdm" resultType="com.damino.web.admin.board.BoardVO">
+		SELECT seq, title, writer, regdate, cnt, flag
+		FROM board
+		WHERE flag = '보도자료'
+		ORDER BY seq DESC
+	</select>
+	
 	<insert id="insertBoard" parameterType="com.damino.web.admin.board.BoardVO">
 		INSERT INTO board (seq, title, writer, content, flag)
 		VALUES((select nvl(max(seq), 0)+1 from board), #{title}, #{writer}, #{content}, #{flag})

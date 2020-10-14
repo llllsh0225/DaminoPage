@@ -2,6 +2,8 @@ package com.damino.web.admin.board;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,9 +20,22 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping("/boardList.admdo")
-	public ModelAndView getBoardList() {
+	public ModelAndView getBoardList(HttpServletRequest request) {
 		System.out.println("글 목록 ");
-		List<BoardVO> boardList = boardService.getBoardList();
+		String flag = request.getParameter("flag");
+		System.out.println("구분 : " + flag);
+		List<BoardVO> boardList = null;
+		
+		if(flag != null) {
+			if(flag.equals("공지사항")) {
+				boardList = boardService.getNoticeBoardListAdm();
+			}else if(flag.equals("보도자료")) {
+				boardList = boardService.getNewsBoardListAdm();
+			}
+		}else {
+			boardList = boardService.getBoardList();
+		}
+		
 		System.out.println(boardList.toString());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/boardList");

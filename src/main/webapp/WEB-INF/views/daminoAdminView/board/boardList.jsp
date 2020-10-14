@@ -189,9 +189,9 @@
 				<div class="card mb-4">
 					<div class="card-header">
 						<i class="fas fa-table mr-1"></i> <b>게시글 리스트</b><br> 
-						<a href="#">전체</a>&nbsp;
-						<a href="noticeList.do">공지사항</a>&nbsp;
-						<a href="noticeList.do">보도자료</a>
+						<a href="boardList.admdo">전체</a>&nbsp;
+						<a href="boardList.admdo?flag=공지사항">공지사항</a>&nbsp;
+						<a href="boardList.admdo?flag=보도자료">보도자료</a>
 						<!--새로고침 버튼-->
 
 					</div>

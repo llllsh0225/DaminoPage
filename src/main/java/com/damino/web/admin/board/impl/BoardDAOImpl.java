@@ -65,6 +65,18 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSessionTemplate.selectOne("BoardDAO.getAdminNextBoard", seq);
 	}
 
+	@Override
+	public List<BoardVO> getNoticeBoardListAdm() {
+		System.out.println("게시글관리 - '공지사항' 조회");
+		return sqlSessionTemplate.selectList("BoardDAO.getNoticeBoardListAdm");
+	}
+
+	@Override
+	public List<BoardVO> getNewsBoardListAdm() {
+		System.out.println("게시글관리 - '보도자료' 조회");
+		return sqlSessionTemplate.selectList("BoardDAO.getNewsBoardListAdm");
+	}
+
 	
 
 }
