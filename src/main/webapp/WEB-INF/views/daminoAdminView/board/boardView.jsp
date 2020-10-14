@@ -258,16 +258,36 @@
 										</td>
 									</tr>
 									<tr>
-										<td>이전글</td>
-										<td>
-											<a href="#">이전글</a>
-										</td>
+									<c:choose>
+										<c:when test="${prevBoard ne null }">
+											<td>이전글</td>
+											<td>
+												<a href="boardView.admdo?seq=${prevBoard.seq }">${prevBoard.title }</a>
+											</td>
+										</c:when>
+										<c:otherwise>
+											<td>이전글</td>
+											<td>
+												이전글이 없습니다.
+											</td>
+										</c:otherwise>
+									</c:choose>
 									</tr>
 									<tr>
-										<td>다음글</td>
-										<td>
-											<a href="#">다음글</a>
-										</td>
+										<c:choose>
+										<c:when test="${nextBoard ne null }">
+											<td>다음글</td>
+											<td>
+												<a href="boardView.admdo?seq=${nextBoard.seq }">${nextBoard.title }</a>
+											</td>
+										</c:when>
+										<c:otherwise>
+											<td>다음글</td>
+											<td>
+												다음글이 없습니다.
+											</td>
+										</c:otherwise>
+									</c:choose>
 									</tr>
 								</table>
 							</div>

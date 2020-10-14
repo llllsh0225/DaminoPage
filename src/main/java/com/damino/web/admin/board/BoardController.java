@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.damino.web.user.board.NoticeBoardService;
+import com.damino.web.user.board.NoticeBoardVO;
+
 @Controller
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
-
+	
 	@RequestMapping("/boardList.admdo")
 	public ModelAndView getBoardList() {
 		System.out.println("글 목록 ");
@@ -29,9 +32,15 @@ public class BoardController {
 	public ModelAndView getBoard(BoardVO vo) {
 		System.out.println("글 상세");
 		BoardVO board = boardService.getBoard(vo);
+		// 이전글
+		BoardVO prevBoard = boardService.getAdminPrevBoard(board.getSeq());
+		// 다음글
+		BoardVO nextBoard = boardService.getAdminNextBoard(board.getSeq());
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/boardView");
 		mav.addObject("board", board);
+		mav.addObject("prevBoard", prevBoard);
+		mav.addObject("nextBoard", nextBoard);
 		return mav;
 	}
 

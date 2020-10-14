@@ -95,9 +95,9 @@ public class NoticeBoardController {
 		noticeBoardService.increaseCnt(vo, session);// 조회수 증가
 		NoticeBoardVO noticeBoard = noticeBoardService.getNoticeBoard(vo);
 		// 이전글 조회
-		NoticeBoardVO prevBoard = noticeBoardService.getPrevBoard(noticeBoard.getSeq() - 1);
+		NoticeBoardVO prevBoard = noticeBoardService.getPrevBoard(noticeBoard.getSeq());
 		// 다음글 조회
-		NoticeBoardVO nextBoard = noticeBoardService.getNextBoard(noticeBoard.getSeq() + 1);
+		NoticeBoardVO nextBoard = noticeBoardService.getNextBoard(noticeBoard.getSeq());
 		
 		ModelAndView mav = new ModelAndView();
 		if(prevBoard != null) {

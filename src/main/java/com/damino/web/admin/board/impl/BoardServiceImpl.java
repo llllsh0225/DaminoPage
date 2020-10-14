@@ -52,6 +52,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.BoardListMain();
 	}
 
+	@Override
+	public BoardVO getAdminPrevBoard(int seq) {
+		System.out.println("BoardServiceImpl getAdminPrevBoard(int seq)");
+		return boardDAO.getAdminPrevBoard(seq);
+	}
+
+	@Override
+	public BoardVO getAdminNextBoard(int seq) {
+		System.out.println("BoardServiceImpl getAdminNextBoard(int seq)");
+		return boardDAO.getAdminNextBoard(seq);
+	}
+
 
 
 }
