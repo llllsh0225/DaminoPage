@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" generate-combined-fragments="true">  
+  <object id="1" language="java" name="com.damino.web.admin.main.AdminMainController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/main/AdminMainController.java" binary="false" 
+    label="adminMainController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="273" y="0"/>    
+    <execution id="2">      
+      <position height="1098" width="142" x="5" y="99"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="780" width="7" x="73" y="291"/>    
+    </execution>  
+  </object>  
+  <object id="8" language="java" name="com.damino.web.admin.member.login.AdminMemberLoginController" 
+    project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/AdminMemberLoginController.java" binary="false" 
+    label="adminMemberLoginController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="263" y="0"/>    
+    <execution id="4">      
+      <position height="1056" width="193" x="151" y="120"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="21" width="7" x="244" y="160"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="com.damino.web.admin.member.login.AdminMemberLoginService" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/AdminMemberLoginService.java" binary="false" 
+    label="adminMemberLoginService" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="379" y="0"/>    
+    <execution id="12">      
+      <position height="970" width="180" x="348" y="185"/>    
+    </execution>  
+  </object>  
+  <object id="16" language="java" name="com.damino.web.admin.member.login.impl.AdminMemberLoginServiceImpl" 
+    project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/impl/AdminMemberLoginServiceImpl.java" 
+    binary="false" label="adminMemberLoginServiceImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="544" y="0"/>    
+    <execution id="15">      
+      <position height="928" width="204" x="532" y="206"/>    
+    </execution>  
+  </object>  
+  <object id="19" language="java" name="com.damino.web.admin.member.login.AdminMemberLoginDAO" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/AdminMemberLoginDAO.java" binary="false" 
+    label="adminMemberLoginDAO" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="725" y="0"/>    
+    <execution id="18">      
+      <position height="886" width="164" x="740" y="227"/>    
+    </execution>  
+  </object>  
+  <object id="22" language="java" name="com.damino.web.admin.member.login.impl.AdminMemberLoginDAOImpl" 
+    project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/member/login/impl/AdminMemberLoginDAOImpl.java" binary="false" 
+    label="adminMemberLoginDAOImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="897" y="0"/>    
+    <execution id="21">      
+      <position height="844" width="186" x="908" y="248"/>    
+    </execution>  
+  </object>  
+  <object id="24" language="java" name="com.damino.web.admin.salesstatus.SalesStatusController" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/salesstatus/SalesStatusController.java" binary="false" 
+    label="salesStatusController" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1203" y="0"/>    
+    <execution id="7">      
+      <position height="738" width="156" x="1098" y="312"/>    
+    </execution>    
+    <execution id="26">      
+      <position height="666" width="156" x="1098" y="363"/>    
+    </execution>    
+    <execution id="29">      
+      <position height="464" width="7" x="1176" y="460"/>    
+    </execution>    
+    <execution id="32">      
+      <position height="251" width="7" x="1179" y="568"/>    
+    </execution>    
+    <execution id="35">      
+      <position height="21" width="7" x="1182" y="693"/>    
+    </execution>  
+  </object>  
+  <object id="36" language="java" name="com.damino.web.admin.salesstatus.SalesStatusService" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/salesstatus/SalesStatusService.java" binary="false" 
+    label="salesStatusService" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="888" y="0"/>    
+    <execution id="28">      
+      <position height="624" width="156" x="1258" y="384"/>    
+    </execution>    
+    <execution id="31">      
+      <position height="419" width="7" x="1333" y="484"/>    
+    </execution>    
+    <execution id="34">      
+      <position height="204" width="7" x="1336" y="594"/>    
+    </execution>  
+  </object>  
+  <object id="43" language="java" name="com.damino.web.admin.salesstatus.impl.SalesStatusServiceImpl" 
+    project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/salesstatus/impl/SalesStatusServiceImpl.java" binary="false" 
+    label="salesStatusServiceImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1292" y="0"/>    
+    <execution id="38">      
+      <position height="582" width="176" x="1418" y="405"/>    
+    </execution>    
+    <execution id="40">      
+      <position height="377" width="7" x="1503" y="505"/>    
+    </execution>    
+    <execution id="42">      
+      <position height="157" width="7" x="1506" y="620"/>    
+    </execution>  
+  </object>  
+  <object id="50" language="java" name="com.damino.web.admin.salesstatus.SalesStatusDAO" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/salesstatus/SalesStatusDAO.java" binary="false" 
+    label="salesStatusDAO" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="1235" y="0"/>    
+    <execution id="45">      
+      <position height="540" width="156" x="1598" y="426"/>    
+    </execution>    
+    <execution id="47">      
+      <position height="335" width="7" x="1673" y="526"/>    
+    </execution>    
+    <execution id="49">      
+      <position height="108" width="7" x="1676" y="648"/>    
+    </execution>  
+  </object>  
+  <object id="57" language="java" name="com.damino.web.admin.salesstatus.impl.SalesStatusDAOImpl" project="daminoPage" 
+    file="/daminoPage/src/main/java/com/damino/web/admin/salesstatus/impl/SalesStatusDAOImpl.java" binary="false" 
+    label="salesStatusDAOImpl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1745" y="0"/>    
+    <execution id="52">      
+      <position height="498" width="176" x="1758" y="447"/>    
+    </execution>    
+    <execution id="54">      
+      <position height="293" width="7" x="1843" y="547"/>    
+    </execution>    
+    <execution id="56">      
+      <position height="63" width="7" x="1846" y="672"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getAdminLoginPage():org.springframework.web.servlet.ModelAndView" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" 
+    operation="getAdminSalesStatusPage(org.springframework.web.servlet.ModelAndView,com.damino.web.admin.salesstatus.SalesVO,javax.servlet.http.HttpSession):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" 
+    operation="adminLoginCheck(com.damino.web.admin.member.login.AdminMemberLoginVO,org.springframework.web.servlet.ModelAndView,javax.servlet.http.HttpServletRequest):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="14" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="17" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="20" 
+    operation="login(com.damino.web.admin.member.login.AdminMemberLoginVO):com.damino.web.admin.member.login.AdminMemberLoginVO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="21"/>  
+  </message>  
+  <message id="23" asynchronous="false">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="25" 
+    operation="getAdminSearchSales(org.springframework.web.servlet.ModelAndView,com.damino.web.admin.salesstatus.SalesVO):org.springframework.web.servlet.ModelAndView" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="27" operation="getDateSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="30" operation="getSalesSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="31"/>  
+  </message>  
+  <message id="33" operation="getCountSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="37" operation="getDateSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="38"/>  
+  </message>  
+  <message id="39" operation="getSalesSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="41" operation="getCountSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="42"/>  
+  </message>  
+  <message id="44" operation="getDateSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="45"/>  
+  </message>  
+  <message id="46" operation="getSalesSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="40"/>    
+    <end type="TARGET" refId="47"/>  
+  </message>  
+  <message id="48" operation="getCountSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="49"/>  
+  </message>  
+  <message id="51" operation="getDateSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="52"/>  
+  </message>  
+  <message id="53" operation="getSalesSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="54"/>  
+  </message>  
+  <message id="55" operation="getCountSearch(com.damino.web.admin.salesstatus.SalesVO):java.util.List&lt;SalesVO&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="49"/>    
+    <end type="TARGET" refId="56"/>  
+  </message>  
+  <message id="58" asynchronous="false">    
+    <end type="SOURCE" refId="52"/>    
+    <end type="TARGET" refId="29"/>  
+  </message>  
+  <message id="59" asynchronous="false">    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="60" asynchronous="false">    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="35"/>  
+  </message>
+</sequence-diagram>
