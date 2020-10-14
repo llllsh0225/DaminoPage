@@ -411,7 +411,7 @@
 											<ul style="margin-bottom: 0px;">
 												<li>
 													<span><a href="#"><b>[${faq.faq_type}]</b></a></span>
-													<span><a href="qna_view.admdo?seq=${faq.seq }" class="text-muted">&nbsp;${faq.title }</a></span>
+													<span><a href="getFaq.admdo?seq=${faq.seq }" class="text-muted">&nbsp;${faq.title }</a></span>
 												</li>
 											</ul>
 										</c:forEach>
@@ -479,7 +479,7 @@
 								<div
 									class="card-footer d-flex align-items-center justify-content-between">
 									<a class="small text-white stretched-link"
-										href="noticeBoardView.admdo">게시판관리</a>
+										href="qna_list.admdo">사이트관리</a>
 									<div class="small text-white">
 										<i class="fas fa-angle-right"></i>
 									</div>

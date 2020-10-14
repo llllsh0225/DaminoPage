@@ -12,4 +12,7 @@ public interface BoardDAO {
 	public BoardVO getBoard(BoardVO vo);
 	
 	public List<BoardVO> BoardListMain(); //权其捞瘤包府磊 main侩
+	
+	public BoardVO getAdminPrevBoard(int seq);
+	public BoardVO getAdminNextBoard(int seq);
 }

@@ -154,14 +154,26 @@
 	]]>
 	</select>
 	
-	<!-- 이전글 조회 -->
+	<!-- 사용자페이지 공지사항 이전글 조회 -->
 	<select id="getPrevBoard" resultType="com.damino.web.user.board.NoticeBoardVO" parameterType="Integer">
 		SELECT * FROM board
 		WHERE seq = #{seq} - 1
 	</select>
 	
-	<!-- 다음글 조회 -->
+	<!-- 사용자페이지 공지사항 다음글 조회 -->
 	<select id="getNextBoard" resultType="com.damino.web.user.board.NoticeBoardVO" parameterType="Integer">
+		SELECT * FROM board
+		WHERE seq = #{seq} + 1
+	</select>
+	
+	<!-- 관리자페이지 공지사항 이전글 조회 -->
+	<select id="getAdminPrevBoard" resultType="com.damino.web.admin.board.BoardVO" parameterType="Integer">
+		SELECT * FROM board
+		WHERE seq = #{seq} - 1
+	</select>
+	
+	<!-- 사용자페이지 공지사항 다음글 조회 -->
+	<select id="getAdminNextBoard" resultType="com.damino.web.admin.board.BoardVO" parameterType="Integer">
 		SELECT * FROM board
 		WHERE seq = #{seq} + 1
 	</select>
